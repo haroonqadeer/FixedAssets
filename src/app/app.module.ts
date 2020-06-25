@@ -16,9 +16,11 @@ import { NgxPaginationModule } from "ngx-pagination";
 import { InputTextModule } from "primeng/inputtext";
 import { SearchPipe } from "./shared/pipe-filters/pipe-search";
 import { CookieService } from "ngx-cookie-service";
+import { LoginComponent } from './pages/user/login/login.component';
+import { AssetEntryComponent } from './pages/fixAsset/asset-entry/asset-entry.component';
 
 @NgModule({
-  declarations: [AppComponent, SearchPipe],
+  declarations: [AppComponent, SearchPipe, LoginComponent, AssetEntryComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
