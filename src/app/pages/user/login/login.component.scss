@@ -213,17 +213,17 @@ section#formHolder {
 }
 
 .form form input:not([type=submit]) {
-  background: none;
-  outline: none;
-  border: none;
-  display: block;
-  padding: 10px 0;
-  width: 100%;
-  border-bottom: 1px solid #eee;
-  color: #444;
-  font-size: 15px;
+  // background: none;
+  // outline: none;
+  // border: none;
+  // display: block;
+  // padding: 10px 0;
+  // width: 100%;
+  // border-bottom: 1px solid #eee;
+  // color: #444;
+  // font-size: 15px;
   font-family: "Montserrat", sans-serif;
-  z-index: 1;
+  // z-index: 1;
 }
 
 .form form input:not([type=submit]).hasError {

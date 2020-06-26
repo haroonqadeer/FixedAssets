@@ -28,7 +28,7 @@
 
           <form class="login-form" action="#" method="post">
             <h2>Login</h2>
-            <div class="form-group">
+            <!-- <div class="form-group">
               <label for="loginemail">Email Adderss</label>
               <input type="email" name="loginemail" id="loginemail">
             </div>
@@ -36,8 +36,17 @@
             <div class="form-group">
               <label for="loginPassword">Password</label>
               <input type="password" name="loginPassword" id="loginPassword" required>
-            </div>
+            </div> -->
 
+            <mat-form-field class='w-100'>
+              <mat-label>email address</mat-label>
+              <input matInput>
+            </mat-form-field>
+
+            <mat-form-field class='w-100'>
+              <mat-label>passwoard</mat-label>
+              <input matInput>
+            </mat-form-field>
             <!-- <mat-form-field> -->
             <!-- <mat-label>Enter some input</mat-label> -->
             <!-- <input matInput maxlength="10" placeholder="Ex. Nougat"> -->
@@ -45,7 +54,8 @@
             <!-- </mat-form-field> -->
 
             <div class="CTA">
-              <input type="submit" value="Login">
+              <button mat-raised-button color="warn" class='noneOutline mr-5'>Login <span
+                  class='fa fa-angle-double-right'></span></button>
               <a href="#" class="switch">forget password</a>
             </div>
           </form>
@@ -75,7 +85,7 @@
                 <span class="error"></span>
               </div> -->
 
-              <div class="form-group">
+              <!-- <div class="form-group">
                 <label for="password">Password</label>
                 <input type="password" name="password" id="password" class="pass">
                 <span class="error"></span>
@@ -85,10 +95,30 @@
                 <label for="passwordCon">Confirm Password</label>
                 <input type="password" name="passwordCon" id="passwordCon" class="passConfirm">
                 <span class="error"></span>
-              </div>
+              </div> -->
+
+              <mat-form-field class='w-100'>
+                <mat-label>email address</mat-label>
+                <input matInput>
+              </mat-form-field>
+
+              <mat-form-field class='w-100'>
+                <mat-label>old password</mat-label>
+                <input matInput>
+              </mat-form-field>
+
+              <mat-form-field class='w-100'>
+                <mat-label>new password</mat-label>
+                <input matInput>
+              </mat-form-field>
+
+              <mat-form-field class='w-100'>
+                <mat-label>confirm passwoard</mat-label>
+                <input matInput>
+              </mat-form-field>
 
               <div class="CTA">
-                <input type="submit" value="Signup Now" id="submit">
+                <button mat-raised-button color="warn" class='noneOutline mr-5'>Reset Password</button>
                 <a href="#" class="switch">I have an account</a>
               </div>
             </form>

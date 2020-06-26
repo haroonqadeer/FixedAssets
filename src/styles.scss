@@ -2,6 +2,9 @@
 
 /* You can add global styles to this file, and also import other style files */
 /* You can add global styles to this file, and also import other style files */
+/* Styles for tab labels */
+
+
 body {
   background-color: #e6e6e6 !important;
   font-family: "Montserrat", sans-serif;
@@ -23,6 +26,14 @@ body {
   border-bottom: 1px solid #e6e6e6;
 }
 
+.borderBottomDark {
+  border-bottom: 1px solid #666666;
+}
+
+.noneOutline {
+  outline: none !important;
+}
+
 /************** end borders ***************/
 
 html,
@@ -34,3 +45,18 @@ body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
+
+.cursorPointer:hover {
+  cursor: pointer;
+  animation: pulse 2s;
+}
+
+/***********************************************/
+/************** custom Text Colors *************/
+/***********************************************/
+
+.text-red {
+  color: #f95959 !important;
+}
+
+/*************** end text colors ****************/
