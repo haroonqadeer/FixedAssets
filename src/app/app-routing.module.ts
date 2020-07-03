@@ -3,6 +3,7 @@ import { Routes, RouterModule } from "@angular/router";
 
 import { LoginComponent } from "./pages/user/login/login.component";
 import { AssetEntryComponent } from "./pages/fixAsset/asset-entry/asset-entry.component";
+import { DashboardyComponent } from "./pages/fixAsset/dashboardy/dashboardy.component";
 
 const routes: Routes = [
   {
@@ -12,6 +13,10 @@ const routes: Routes = [
   {
     path: "assetEntry",
     component: AssetEntryComponent,
+  },
+  {
+    path: "dashboard",
+    component: DashboardyComponent,
   },
 ];
 

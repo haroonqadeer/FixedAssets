@@ -7,16 +7,28 @@ import { Component, OnInit, ViewEncapsulation } from "@angular/core";
 })
 export class AssetEntryComponent implements OnInit {
   editMode = true;
+  hidden = false;
+  rdbAsset: String;
+  toggleView = "table";
 
   constructor() {}
 
   ngOnInit(): void {}
 
   editLocation() {
-    if (this.editMode == true) {
-      this.editMode = false;
+    this.editMode = !this.editMode;
+    alert(this.rdbAsset);
+  }
+
+  toggleBadgeVisibility() {
+    this.hidden = !this.hidden;
+  }
+
+  toggleViewClick() {
+    if (this.toggleView == "table") {
+      this.toggleView = "form";
     } else {
-      this.editMode = true;
+      this.toggleView = "table";
     }
   }
 }

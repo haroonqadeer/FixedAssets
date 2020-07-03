@@ -18,9 +18,10 @@ import { SearchPipe } from "./shared/pipe-filters/pipe-search";
 import { CookieService } from "ngx-cookie-service";
 import { LoginComponent } from './pages/user/login/login.component';
 import { AssetEntryComponent } from './pages/fixAsset/asset-entry/asset-entry.component';
+import { DashboardyComponent } from './pages/fixAsset/dashboardy/dashboardy.component';
 
 @NgModule({
-  declarations: [AppComponent, SearchPipe, LoginComponent, AssetEntryComponent],
+  declarations: [AppComponent, SearchPipe, LoginComponent, AssetEntryComponent, DashboardyComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
