@@ -22,6 +22,8 @@ import { MatStepperModule } from "@angular/material/stepper";
 import { MatTableModule } from "@angular/material/table";
 import { MatTabsModule } from "@angular/material/tabs";
 import { MatProgressBarModule } from "@angular/material/progress-bar";
+import { MatBadgeModule } from "@angular/material/badge";
+import { MatToolbarModule } from "@angular/material/toolbar";
 
 @NgModule({
   imports: [
@@ -48,6 +50,8 @@ import { MatProgressBarModule } from "@angular/material/progress-bar";
     MatBottomSheetModule,
     MatSlideToggleModule,
     MatProgressBarModule,
+    MatBadgeModule,
+    MatToolbarModule,
   ],
   exports: [
     MatInputModule,
@@ -72,6 +76,8 @@ import { MatProgressBarModule } from "@angular/material/progress-bar";
     MatBottomSheetModule,
     MatSlideToggleModule,
     MatProgressBarModule,
+    MatBadgeModule,
+    MatToolbarModule,
   ],
   declarations: [],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
