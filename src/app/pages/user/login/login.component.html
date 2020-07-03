@@ -25,6 +25,9 @@
 
         <!-- Login Form -->
         <div class="login form-peice ">
+          <mat-progress-bar class="mt-n4 example-margin" *ngIf="showProgress" color="warn" mode="indeterminate"
+            value="10" bufferValue="indeterminate">
+          </mat-progress-bar>
 
           <form class="login-form" action="#" method="post">
             <h2>Login</h2>
@@ -40,21 +43,16 @@
 
             <mat-form-field class='w-100'>
               <mat-label>email address</mat-label>
-              <input matInput>
+              <input matInput name="emailAddress" [(ngModel)]="emailAddress">
             </mat-form-field>
 
             <mat-form-field class='w-100'>
               <mat-label>passwoard</mat-label>
-              <input matInput>
+              <input matInput type="password" name="loginPassword" [(ngModel)]="loginPassword">
             </mat-form-field>
-            <!-- <mat-form-field> -->
-            <!-- <mat-label>Enter some input</mat-label> -->
-            <!-- <input matInput maxlength="10" placeholder="Ex. Nougat"> -->
-            <!-- <mat-hint align="end">{{input.value?.length || 0}}/10</mat-hint> -->
-            <!-- </mat-form-field> -->
 
             <div class="CTA">
-              <button mat-raised-button color="warn" class='noneOutline mr-5'>Login <span
+              <button mat-raised-button color="warn" class='noneOutline mr-5' (click)="login()">Login <span
                   class='fa fa-angle-double-right'></span></button>
               <a href="#" class="switch">forget password</a>
             </div>
@@ -65,6 +63,10 @@
         <!-- Signup Form -->
         <div class="signup form-peice switched">
           <div>
+            <mat-progress-bar class="mt-n4 example-margin" *ngIf="showResetProgress" color="warn" mode="indeterminate"
+              value="10" bufferValue="indeterminate">
+            </mat-progress-bar>
+
             <form class="signup-form" action="#" method="post">
               <h2>Reset Password</h2>
 
@@ -99,26 +101,27 @@
 
               <mat-form-field class='w-100'>
                 <mat-label>email address</mat-label>
-                <input matInput>
+                <input matInput name="resetEmailAddress" [(ngModel)]="resetEmailAddress">
               </mat-form-field>
 
               <mat-form-field class='w-100'>
                 <mat-label>old password</mat-label>
-                <input matInput>
+                <input matInput type="password" name="resetOldPassword" [(ngModel)]="resetOldPassword">
               </mat-form-field>
 
               <mat-form-field class='w-100'>
                 <mat-label>new password</mat-label>
-                <input matInput>
+                <input matInput type="password" name="resetNewPassword" [(ngModel)]="resetNewPassword">
               </mat-form-field>
 
               <mat-form-field class='w-100'>
                 <mat-label>confirm passwoard</mat-label>
-                <input matInput>
+                <input matInput type="password" name="resetConfirmPassword" [(ngModel)]="resetConfirmPassword">
               </mat-form-field>
 
               <div class="CTA">
-                <button mat-raised-button color="warn" class='noneOutline mr-5'>Reset Password</button>
+                <button mat-raised-button color="warn" class='noneOutline mr-5' (click)="resetPassword()">Reset
+                  Password</button>
                 <a href="#" class="switch">I have an account</a>
               </div>
             </form>

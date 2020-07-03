@@ -21,6 +21,7 @@ import { MatSlideToggleModule } from "@angular/material/slide-toggle";
 import { MatStepperModule } from "@angular/material/stepper";
 import { MatTableModule } from "@angular/material/table";
 import { MatTabsModule } from "@angular/material/tabs";
+import { MatProgressBarModule } from "@angular/material/progress-bar";
 
 @NgModule({
   imports: [
@@ -46,6 +47,7 @@ import { MatTabsModule } from "@angular/material/tabs";
     MatRadioModule,
     MatBottomSheetModule,
     MatSlideToggleModule,
+    MatProgressBarModule,
   ],
   exports: [
     MatInputModule,
@@ -69,6 +71,7 @@ import { MatTabsModule } from "@angular/material/tabs";
     MatRadioModule,
     MatBottomSheetModule,
     MatSlideToggleModule,
+    MatProgressBarModule,
   ],
   declarations: [],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
