@@ -277,7 +277,7 @@
             <mat-form-field color='warn' class='w-100'>
               <mat-label>Asset Condition</mat-label>
               <mat-select [(ngModel)]="cmbAssetCond">
-                <mat-option *ngFor=" let item of assetCondList" [value]="item.conditionID">
+                <mat-option *ngFor=" let item of assetCondList" [value]="item.condition">
                   {{ item.condition }}
                 </mat-option>
               </mat-select>

@@ -412,7 +412,7 @@ export class AssetEntryComponent implements OnInit {
         NetBookAmount: this.txtNetBVal, //int
         PurchaseDate: purchaseDate, //string
         IPCRef: this.txtRef, //string
-        AssetCondition: parseInt(this.cmbAssetCond), //int
+        AssetCondition: this.cmbAssetCond, //int
         IsUseable: this.sldUsable, //bool
         IsSurplus: this.sldSurplus, //bool
         IsServiceAble: this.sldServiceable, //bool
