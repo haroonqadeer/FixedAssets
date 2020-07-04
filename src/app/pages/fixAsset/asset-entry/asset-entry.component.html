@@ -8,7 +8,7 @@
       </mat-button-toggle>
       <mat-button-toggle class='noneOutline' (click)="toggleView='table'" value="italic">Table View</mat-button-toggle>
       <mat-button-toggle class='noneOutline' value="italic"><span matBadge="4" [matBadgeHidden]="hidden"
-          (click)="toggleBadgeVisibility()">Print Tags</span></mat-button-toggle>
+          (click)="printDiv()">Print Tags</span></mat-button-toggle>
     </mat-button-toggle-group>
   </div>
 </div>
@@ -317,154 +317,161 @@
     </div>
   </div>
 
-  <!-- Advance Search Modal -->
-  <div class="modal fade" id="advanceSearchModal">
-    <div class="modal-dialog modal-sm">
-      <div class="modal-content">
+  <!-- print tags -->
+  <div id='tagDiv'>
 
-        <!-- Modal Header -->
-        <div class="modal-header">
-          <h4 class="modal-title">Advance Search</h4>
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-        </div>
-
-        <!-- Modal body -->
-        <div class="modal-body">
-          <div class="row">
-            <div class="col-md-12">
-              <mat-form-field class="w-100">
-                <mat-label>Province - Location - Sub Location</mat-label>
-                <mat-select>
-                  <mat-option value="primary">Primary</mat-option>
-                  <mat-option value="accent">Accent</mat-option>
-                  <mat-option value="warn">Warn</mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
-          </div>
-          <!-- next row -->
-          <div class="row">
-            <div class="col-md-12">
-              <mat-form-field class="w-100">
-                <mat-label>Office Type</mat-label>
-                <mat-select>
-                  <mat-option value="primary">Primary</mat-option>
-                  <mat-option value="accent">Accent</mat-option>
-                  <mat-option value="warn">Warn</mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
-          </div>
-          <!-- next row -->
-          <div class="row">
-            <div class="col-md-12">
-              <mat-form-field class="w-100">
-                <mat-label>Wing - Section</mat-label>
-                <mat-select>
-                  <mat-option value="primary">Primary</mat-option>
-                  <mat-option value="accent">Accent</mat-option>
-                  <mat-option value="warn">Warn</mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
-          </div>
-        </div>
-
-        <!-- Modal footer -->
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        </div>
-
-      </div>
-    </div>
   </div>
 
-  <!-- Vehicle Modal -->
-  <div class="modal fade" id="vehicleModal">
-    <div class="modal-dialog modal-sm">
-      <div class="modal-content">
+</div><!-- end container -->
 
-        <!-- Modal Header -->
-        <div class="modal-header">
-          <h4 class="modal-title">Vehicle Entry</h4>
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-        </div>
+<!-- Advance Search Modal -->
+<div class="modal fade" id="advanceSearchModal">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
 
-        <!-- Modal body -->
-        <div class="modal-body">
-          <div class="row">
-            <div class="col-md-12">
-              <mat-form-field color='warn' class='w-100'>
-                <mat-label>Registeration No.</mat-label>
-                <input matInput [(ngModel)]="txtRegNo">
-              </mat-form-field>
-            </div>
-          </div>
-          <!-- next row -->
-          <div class="row">
-            <div class="col-md-12">
-              <mat-form-field color='warn' class='w-100'>
-                <mat-label>Make / Brand</mat-label>
-                <mat-select [(ngModel)]="cmbMake">
-                  <mat-option *ngFor=" let item of vehMakeList" [value]="item.make">
-                    {{ item.make }}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
-          </div>
-          <!-- next row -->
-          <div class="row">
-            <div class="col-md-12">
-              <mat-form-field color='warn' class='w-100'>
-                <mat-label>Model</mat-label>
-                <mat-select [(ngModel)]="cmbModel">
-                  <mat-option *ngFor=" let item of vehModelList" [value]="item.model">
-                    {{ item.model }}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
-          </div>
-          <!-- next row -->
-          <div class="row">
-            <div class="col-md-12">
-              <mat-form-field color='warn' class='w-100'>
-                <mat-label>Type</mat-label>
-                <mat-select [(ngModel)]="cmbType">
-                  <mat-option *ngFor=" let item of vehTypeList" [value]="item.type">
-                    {{ item.type }}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
-          </div>
-          <!-- next row -->
-          <div class="row">
-            <div class="col-md-12">
-              <mat-form-field color='warn' class='w-100'>
-                <mat-label>Engine No.</mat-label>
-                <input matInput [(ngModel)]="txtEngine">
-              </mat-form-field>
-            </div>
-          </div>
-          <!-- next row -->
-          <div class="row">
-            <div class="col-md-12">
-              <mat-form-field color='warn' class='w-100'>
-                <mat-label>Chasis No.</mat-label>
-                <input matInput [(ngModel)]="txtChasis">
-              </mat-form-field>
-            </div>
-          </div>
-        </div>
-
-        <!-- Modal footer -->
-        <div class="modal-footer">
-          <button mat-raised-button color="warn" (click)="saveVehicle()">Save Vehicle</button>
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        </div>
-
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Advance Search</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-12">
+            <mat-form-field class="w-100">
+              <mat-label>Province - Location - Sub Location</mat-label>
+              <mat-select>
+                <mat-option value="primary">Primary</mat-option>
+                <mat-option value="accent">Accent</mat-option>
+                <mat-option value="warn">Warn</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <!-- next row -->
+        <div class="row">
+          <div class="col-md-12">
+            <mat-form-field class="w-100">
+              <mat-label>Office Type</mat-label>
+              <mat-select>
+                <mat-option value="primary">Primary</mat-option>
+                <mat-option value="accent">Accent</mat-option>
+                <mat-option value="warn">Warn</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <!-- next row -->
+        <div class="row">
+          <div class="col-md-12">
+            <mat-form-field class="w-100">
+              <mat-label>Wing - Section</mat-label>
+              <mat-select>
+                <mat-option value="primary">Primary</mat-option>
+                <mat-option value="accent">Accent</mat-option>
+                <mat-option value="warn">Warn</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+
     </div>
   </div>
+</div>
+
+<!-- Vehicle Modal -->
+<div class="modal fade" id="vehicleModal">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Vehicle Entry</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-12">
+            <mat-form-field color='warn' class='w-100'>
+              <mat-label>Registeration No.</mat-label>
+              <input matInput [(ngModel)]="txtRegNo">
+            </mat-form-field>
+          </div>
+        </div>
+        <!-- next row -->
+        <div class="row">
+          <div class="col-md-12">
+            <mat-form-field color='warn' class='w-100'>
+              <mat-label>Make / Brand</mat-label>
+              <mat-select [(ngModel)]="cmbMake">
+                <mat-option *ngFor=" let item of vehMakeList" [value]="item.make">
+                  {{ item.make }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <!-- next row -->
+        <div class="row">
+          <div class="col-md-12">
+            <mat-form-field color='warn' class='w-100'>
+              <mat-label>Model</mat-label>
+              <mat-select [(ngModel)]="cmbModel">
+                <mat-option *ngFor=" let item of vehModelList" [value]="item.model">
+                  {{ item.model }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <!-- next row -->
+        <div class="row">
+          <div class="col-md-12">
+            <mat-form-field color='warn' class='w-100'>
+              <mat-label>Type</mat-label>
+              <mat-select [(ngModel)]="cmbType">
+                <mat-option *ngFor=" let item of vehTypeList" [value]="item.type">
+                  {{ item.type }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <!-- next row -->
+        <div class="row">
+          <div class="col-md-12">
+            <mat-form-field color='warn' class='w-100'>
+              <mat-label>Engine No.</mat-label>
+              <input matInput [(ngModel)]="txtEngine">
+            </mat-form-field>
+          </div>
+        </div>
+        <!-- next row -->
+        <div class="row">
+          <div class="col-md-12">
+            <mat-form-field color='warn' class='w-100'>
+              <mat-label>Chasis No.</mat-label>
+              <input matInput [(ngModel)]="txtChasis">
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button mat-raised-button color="warn" (click)="saveVehicle()">Save Vehicle</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+
+    </div>
+  </div>
+</div>

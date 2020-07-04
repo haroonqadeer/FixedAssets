@@ -10,7 +10,7 @@
         <div class="heading">
           <img src="../../../../assets/images/nha.png" alt="" width=40% height="40%">
           <!-- <h2>national highway authority</h2> -->
-          <p>Fix Asset Module</p>
+          <p>Fixed Asset Register Module</p>
         </div>
 
         <div class="success-msg">
@@ -42,7 +42,7 @@
             </div> -->
 
             <mat-form-field class='w-100'>
-              <mat-label>email address</mat-label>
+              <mat-label>Login Name</mat-label>
               <input matInput name="emailAddress" [(ngModel)]="emailAddress">
             </mat-form-field>
 
@@ -51,24 +51,33 @@
               <input matInput type="password" name="loginPassword" [(ngModel)]="loginPassword">
             </mat-form-field>
 
-            <div class="CTA">
-              <button mat-raised-button color="warn" class='noneOutline mr-5' (click)="login()">Login <span
-                  class='fa fa-angle-double-right'></span></button>
-              <a href="#" class="switch">forget password</a>
+            <div class="row">
+
+              <div class="col-md-6">
+                <button mat-button class='w-100 noneOutline text-primary'>forget password</button>
+              </div>
+              <div class="col-md-6">
+                <button mat-raised-button color="warn" class='noneOutline mr-5 w-100' (click)="login()">Login <span
+                    class='fa fa-angle-double-right'></span></button>
+              </div>
             </div>
           </form>
         </div><!-- End Login Form -->
 
 
         <!-- Signup Form -->
-        <div class="signup form-peice switched">
+        <div class="signup form-peice switched bgLogin" style="background-image: url('../../../../assets/images/road.jpg');-webkit-background-size: cover;
+          -moz-background-size: cover;
+          -o-background-size: cover;
+          background-size: cover;">
+
           <div>
             <mat-progress-bar class="mt-n4 example-margin" *ngIf="showResetProgress" color="warn" mode="indeterminate"
               value="10" bufferValue="indeterminate">
             </mat-progress-bar>
 
             <form class="signup-form" action="#" method="post">
-              <h2>Reset Password</h2>
+              <!-- <h2>Reset Password</h2> -->
 
               <!-- <div class="form-group">
                 <label for="email">Email Adderss</label>
@@ -99,7 +108,7 @@
                 <span class="error"></span>
               </div> -->
 
-              <mat-form-field class='w-100'>
+              <!-- <mat-form-field class='w-100'>
                 <mat-label>email address</mat-label>
                 <input matInput name="resetEmailAddress" [(ngModel)]="resetEmailAddress">
               </mat-form-field>
@@ -123,7 +132,7 @@
                 <button mat-raised-button color="warn" class='noneOutline mr-5' (click)="resetPassword()">Reset
                   Password</button>
                 <a href="#" class="switch">I have an account</a>
-              </div>
+              </div> -->
             </form>
           </div>
 
