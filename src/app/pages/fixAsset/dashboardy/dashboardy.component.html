@@ -80,7 +80,7 @@
 
   <!-- next row -->
   <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-8">
       <mat-form-field class="w-100">
         <mat-label><span class='text-danger fa fa-filter'>&nbsp;</span><span class='text-danger'>All</span> Province -
           Location - Sub Location</mat-label>
@@ -91,7 +91,7 @@
         </mat-select>
       </mat-form-field>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-4">
       <mat-form-field class="w-100">
         <mat-label><span class='text-danger fa fa-filter'>&nbsp;</span><span class='text-danger'>Active</span> Province
           - Location - Sub Location</mat-label>
@@ -109,13 +109,8 @@
       <div [chart]="test_chart" class='h-100 w-100'></div>
     </div>
     <div class="col-md-4 pt-2 ">
-      <div class="row">
-        <div class="col-md-12">
-          <h6>Active Locations</h6>
-        </div>
-      </div>
-      <div class="table-responsive">
-        <table class="table table-striped bg-white">
+      <div class="table-responsive bg-white boxShadow-1">
+        <table class="table table-striped">
           <thead>
             <tr>
               <th>#</th>
@@ -129,7 +124,8 @@
               <td>1</td>
               <td>24-Mar-2020</td>
               <td>157</td>
-              <td><span class='text-primary cursorPointer'>click...</span></td>
+              <td><span class='text-primary cursorPointer' data-toggle="modal"
+                  data-target="#officeTypeTagsModal">click...</span></td>
             </tr>
             <tr>
               <td>2</td>
@@ -149,6 +145,84 @@
     </div>
   </div>
   <br>
+
+  <!-- Asset Register -->
+  <div id='assetRegister'>
+    <div class="row">
+      <div class="col-md-12">
+        <h3>Asset Register</h3>
+      </div>
+    </div>
+  </div>
+  <!-- next row -->
+  <div class="row">
+    <div class="col-md-6">
+      <mat-form-field class="w-100">
+        <mat-label>Sub-Location</mat-label>
+        <mat-select>
+          <mat-option value="primary">Primary</mat-option>
+          <mat-option value="accent">Accent</mat-option>
+          <mat-option value="warn">Warn</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="col-md-6">
+      <mat-form-field class="w-100">
+        <mat-label>Office Type</mat-label>
+        <mat-select>
+          <mat-option value="primary">Primary</mat-option>
+          <mat-option value="accent">Accent</mat-option>
+          <mat-option value="warn">Warn</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+  <!-- next row -->
+
+  <!-- table Asset Register -->
+  <!-- table -->
+  <table class="table table-striped bg-white boxShadow-1">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Province</th>
+        <th>Location</th>
+        <th>Sub-Location</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td>Northern Area</td>
+        <td>Abbottabad</td>
+        <td>GM Office</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>Northern Area</td>
+        <td>Abbottabad</td>
+        <td>GM Office</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>Northern Area</td>
+        <td>Abbottabad</td>
+        <td>GM Office</td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>Northern Area</td>
+        <td>Abbottabad</td>
+        <td>GM Office</td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td>Northern Area</td>
+        <td>Abbottabad</td>
+        <td>GM Office</td>
+      </tr>
+    </tbody>
+  </table>
 </div>
 
 <!-- Locations Modal Window -->
@@ -164,41 +238,56 @@
 
       <!-- Modal body -->
       <div class="modal-body">
-
+        <!-- search bar -->
+        <div class="row">
+          <div class="col-md-12">
+            <mat-form-field class="w-100">
+              <mat-label>search...</mat-label>
+              <mat-icon matPrefix class='fa fa-search'></mat-icon>
+              <input matInput>
+            </mat-form-field>
+          </div>
+        </div>
         <!-- table -->
         <table class="table table-striped">
           <thead>
             <tr>
               <th>#</th>
-              <th>Shart Name</th>
+              <th>Province</th>
               <th>Location</th>
+              <th>Sub-Location</th>
             </tr>
           </thead>
           <tbody>
             <tr>
               <td>1</td>
-              <td>NA-ABT-GM</td>
-              <td>Northern Area - Abbottabad - GM Office</td>
+              <td>Northern Area</td>
+              <td>Abbottabad</td>
+              <td>GM Office</td>
             </tr>
             <tr>
               <td>2</td>
-              <td>NA-ABT-GM</td>
-              <td>Northern Area - Abbottabad - GM Office</td>
+              <td>Northern Area</td>
+              <td>Abbottabad</td>
+              <td>GM Office</td>
             </tr>
             <tr>
               <td>3</td>
-              <td>NA-ABT-GM</td>
-              <td>Northern Area - Abbottabad - GM Office</td>
+              <td>Northern Area</td>
+              <td>Abbottabad</td>
+              <td>GM Office</td>
             </tr>
             <tr>
               <td>4</td>
-              <td>NA-ABT-GM</td>
-              <td>Northern Area - Abbottabad - GM Office</td>
+              <td>Northern Area</td>
+              <td>Abbottabad</td>
+              <td>GM Office</td>
             </tr>
             <tr>
               <td>5</td>
-              <td>NA-ABT-GM</td>
-              <td>Northern Area - Abbottabad - GM Office</td>
+              <td>Northern Area</td>
+              <td>Abbottabad</td>
+              <td>GM Office</td>
             </tr>
           </tbody>
         </table>
@@ -227,39 +316,131 @@
       <!-- Modal body -->
       <div class="modal-body">
 
+        <!-- search bar -->
+        <div class="row">
+          <div class="col-md-12">
+            <mat-form-field class="w-100">
+              <mat-label>search...</mat-label>
+              <mat-icon matPrefix class='fa fa-search'></mat-icon>
+              <input matInput>
+            </mat-form-field>
+          </div>
+        </div>
         <!-- table -->
         <table class="table table-striped">
           <thead>
             <tr>
               <th>#</th>
+              <th>Province</th>
               <th>Location</th>
+              <th>Sub-Location</th>
               <th>No. of Tags</th>
             </tr>
           </thead>
           <tbody>
             <tr>
               <td>1</td>
-              <td>Northern Area - Abbottabad - GM Office</td>
+              <td>Northern Area</td>
+              <td>Abbottabad</td>
+              <td>GM Office</td>
               <td>35</td>
             </tr>
             <tr>
               <td>2</td>
-              <td>Northern Area - Abbottabad - GM Office</td>
+              <td>Northern Area</td>
+              <td>Abbottabad</td>
+              <td>GM Office</td>
               <td>35</td>
             </tr>
             <tr>
               <td>3</td>
-              <td>Northern Area - Abbottabad - GM Office</td>
+              <td>Northern Area</td>
+              <td>Abbottabad</td>
+              <td>GM Office</td>
               <td>35</td>
             </tr>
             <tr>
               <td>4</td>
-              <td>Northern Area - Abbottabad - GM Office</td>
+              <td>Northern Area</td>
+              <td>Abbottabad</td>
+              <td>GM Office</td>
               <td>35</td>
             </tr>
             <tr>
               <td>5</td>
               <td>Northern Area - Abbottabad - GM Office</td>
+              <td>35</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+
+    </div>
+  </div>
+</div><!-- end modal -->
+
+<!-- Total Tags Modal Window -->
+<div class="modal fade" id="officeTypeTagsModal">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Northern Areas - Abbottabad - GM Office</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+
+        <!-- search bar -->
+        <div class="row">
+          <div class="col-md-12">
+            <mat-form-field class="w-100">
+              <mat-label>Search...</mat-label>
+              <mat-icon matPrefix class='fa fa-search'></mat-icon>
+              <input matInput>
+            </mat-form-field>
+          </div>
+        </div>
+        <!-- table -->
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Office Type</th>
+              <th>No. of Tags</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>GM Office</td>
+              <td>35</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>GM Office</td>
+              <td>35</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>GM Office</td>
+              <td>35</td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td>GM Office</td>
+              <td>35</td>
+            </tr>
+            <tr>
+              <td>5</td>
+              <td>GM Office</td>
               <td>35</td>
             </tr>
           </tbody>
