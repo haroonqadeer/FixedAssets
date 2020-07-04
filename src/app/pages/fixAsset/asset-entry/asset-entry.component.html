@@ -3,7 +3,7 @@
     <h5 class='align-self-center'>Asset Entry & Tags</h5>
   </div>
   <div class="col-md-4 text-right">
-    <mat-button-toggle-group name="fontStyle" aria-label="Font Style" class='noneOutline'>
+    <mat-button-toggle-group name="fontStyle" aria-label="Font Style" class='noneOutline' (click)="getAssetDetail()">
       <mat-button-toggle backgroundColor="warn" (click)="toggleView='form'" class='noneOutline' value="bold">Form View
       </mat-button-toggle>
       <mat-button-toggle class='noneOutline' (click)="toggleView='table'" value="italic">Table View</mat-button-toggle>
@@ -20,7 +20,7 @@
     <div class="row pl-3">
       <div class="col-md-10">
         <mat-form-field class="w-100">
-          <mat-label>search asset</mat-label>
+          <mat-label [(ngModel)]="tblSearch">search asset</mat-label>
           <span matPrefix><span class='fa fa-search'></span> &nbsp;</span>
           <input matInput>
         </mat-form-field>
@@ -42,32 +42,19 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-            <td class='inline-block'><span class='fa fa-edit cursorPointer pr-3 text-primary'></span>
-              <span class='fa fa-trash-o cursorPointer text-danger'></span>
+          <tr
+            *ngFor="let item of assetDetailList | search:'subLocationDescription,accountsCatagory,postName':tblSearch let i=index">
+            <th scope="row">{{i + 1}}</th>
+            <td>{{item.subLocationDescription}}</td>
+            <td>{{item.accountsCatagory}}</td>
+            <td>{{item.postName}}</td>
+            <td class='inline-block'><span class='fa fa-edit cursorPointer pr-3 text-primary'
+                (click)="editAsset(item)"></span>
+              <span class='fa fa-trash-o cursorPointer text-danger' (click)="delete(item)"></span>
             </td>
           </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-            <td class='inline-block'><span class='fa fa-edit cursorPointer pr-3 text-primary'></span>
-              <span class='fa fa-trash-o cursorPointer text-danger'></span>
-            </td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td>Larry</td>
-            <td>the Bird</td>
-            <td>@twitter</td>
-            <td class='inline-block'><span class='fa fa-edit cursorPointer pr-3 text-primary'></span>
-              <span class='fa fa-trash-o cursorPointer text-danger'></span>
-            </td>
+          <tr *ngIf="assetDetailList.length==0">
+            <td>No Record Found</td>
           </tr>
         </tbody>
       </table>
@@ -167,7 +154,7 @@
               <mat-label>Custody</mat-label>
               <mat-select [(ngModel)]="cmbCustody">
                 <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchCustody">
-                <mat-option *ngFor=" let item of custodyList |search:'postName':searchCustody" [value]="item.postName">
+                <mat-option *ngFor=" let item of custodyList |search:'postName':searchCustody" [value]="item.postID">
                   {{ item.postName }}
                 </mat-option>
               </mat-select>

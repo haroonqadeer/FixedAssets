@@ -16,6 +16,8 @@ export class AssetEntryComponent implements OnInit {
 
   editMode = true;
   hidden = false;
+
+  assetID = "";
   assetNo = "";
   rdbAsset = "";
   cmbCustody = "";
@@ -35,7 +37,7 @@ export class AssetEntryComponent implements OnInit {
   txtNetBVal = "";
   cmbAssetCond = "";
   txtRemarks = "";
-  dtpPurchaseDt = "";
+  dtpPurchaseDt;
 
   txtRegNo = "";
   cmbMake = "";
@@ -50,6 +52,7 @@ export class AssetEntryComponent implements OnInit {
   sldCondemned = false;
   sldMissing = false;
 
+  tblSearch = "";
   searchLocation = "";
   searchCategory = "";
   searchCustody = "";
@@ -65,6 +68,7 @@ export class AssetEntryComponent implements OnInit {
   projectList = [];
   preTagList = [];
   assetCondList = [];
+  assetDetailList = [];
 
   vehMakeList = [];
   vehModelList = [];
@@ -75,6 +79,8 @@ export class AssetEntryComponent implements OnInit {
   constructor(private toastr: ToastrManager, private http: HttpClient) {}
 
   ngOnInit(): void {
+    this.rdbAsset = "1";
+
     this.getLocation();
     this.getOfficeType();
     this.getWingSection();
@@ -86,11 +92,6 @@ export class AssetEntryComponent implements OnInit {
     this.getVehicleMake();
     this.getVehicleModel();
     this.getVehicleType();
-  }
-
-  editLocation() {
-    this.editMode = !this.editMode;
-    alert(this.rdbAsset);
   }
 
   toggleBadgeVisibility() {
@@ -271,6 +272,60 @@ export class AssetEntryComponent implements OnInit {
         });
     }
   }
+
+  getAssetDetail() {
+    if (this.cmbLocation != "" && this.cmbOfcType != "") {
+      var reqHeader = new HttpHeaders({
+        "Content-Type": "application/json",
+        // Authorization: "Bearer " + Token,
+      });
+
+      this.http
+        .get(
+          this.serverUrl +
+            "getassetdetail?UserId=1&SubLocID=" +
+            this.cmbLocation +
+            "&OfficeTypeID=" +
+            this.cmbOfcType,
+          { headers: reqHeader }
+        )
+        .subscribe((data: any) => {
+          this.assetDetailList = data;
+        });
+    }
+  }
+
+  editAsset(item) {
+    if (item.vehicleID == 0) {
+      this.rdbAsset = "1";
+    } else {
+      this.rdbAsset = "2";
+      this.cmbVehicle = item.vehID;
+    }
+    this.cmbWngSection = item.officeSecID;
+    this.assetNo = item.assetNo;
+    this.assetID = item.assetID;
+    this.cmbCustody = item.postID;
+    this.cmbAssetCat = item.assetCatID;
+    this.txtAssetDesc = item.assetDescription;
+    this.txtAssetLoc = item.assetLocation;
+    this.txtIdentification = item.otherIdentification;
+    this.txtSerialNo = item.serialNo;
+    this.cmbProject = item.projectID;
+    this.txtRef = item.ipcRef;
+    this.dtpPurchaseDt = new Date(item.purchaseDate);
+    this.txtAmount = item.costAmount;
+    this.txtPreTag = item.previousTag;
+    this.txtNetBVal = item.netBookAmount;
+    this.cmbAssetCond = item.assetCondition;
+    this.sldUsable = item.isUseable;
+    this.sldServiceable = item.isServiceAble;
+    this.sldSurplus = item.isSurplus;
+    this.sldCondemned = item.isCondemned;
+    this.sldMissing = item.isMissing;
+    this.txtRemarks = item.remarks;
+  }
+
   public convertDate(myDate) {
     var oldDate = new Date(myDate);
     var d = oldDate.getDate();
@@ -393,42 +448,81 @@ export class AssetEntryComponent implements OnInit {
         }
       }
       var purchaseDate = this.convertDate(this.dtpPurchaseDt);
+      var saveData;
 
-      var saveData = {
-        SubLocID: parseInt(this.cmbLocation), //int
-        OfficeTypeID: parseInt(this.cmbOfcType), //int
-        AssetCatID: parseInt(this.cmbAssetCat), //int
-        AssetNo: parseInt(this.assetNo), //int
-        OfficeSecID: parseInt(this.cmbWngSection), //int
-        PostID: parseInt(this.cmbCustody), //int
-        AssetLocation: this.txtAssetLoc, //string
-        AssetDescription: this.txtAssetDesc, //string
-        otherIdentification: this.txtIdentification, //string
-        SerialNo: this.txtSerialNo, //string
-        VehicleID: parseInt(vehicleID), //int
-        ProjectID: parseInt(this.cmbProject), //int
-        PreviousTag: this.txtPreTag, //string
-        costAmount: this.txtAmount, //float
-        NetBookAmount: this.txtNetBVal, //int
-        PurchaseDate: purchaseDate, //string
-        IPCRef: this.txtRef, //string
-        AssetCondition: this.cmbAssetCond, //int
-        IsUseable: this.sldUsable, //bool
-        IsSurplus: this.sldSurplus, //bool
-        IsServiceAble: this.sldServiceable, //bool
-        IsCondemned: this.sldCondemned, //bool
-        IsMissing: this.sldMissing, //bool
-        Remarks: this.txtRemarks, //string
-        Userid: 1, //int
-        IsDeleted: 0, //bool
-        DeletionDate: purchaseDate, //date
-        DeleteBy: 0, //int
-        IsUpdated: 0, //int
-        UpdatedDate: null, //date
-        Updatedby: 0, //int
-        SpType: "Insert", //string
-        AssetID: 0, //int
-      };
+      if (this.assetID == "") {
+        saveData = {
+          SubLocID: parseInt(this.cmbLocation), //int
+          OfficeTypeID: parseInt(this.cmbOfcType), //int
+          AssetCatID: parseInt(this.cmbAssetCat), //int
+          AssetNo: parseInt(this.assetNo), //int
+          OfficeSecID: parseInt(this.cmbWngSection), //int
+          PostID: parseInt(this.cmbCustody), //int
+          AssetLocation: this.txtAssetLoc, //string
+          AssetDescription: this.txtAssetDesc, //string
+          otherIdentification: this.txtIdentification, //string
+          SerialNo: this.txtSerialNo, //string
+          VehicleID: parseInt(vehicleID), //int
+          ProjectID: parseInt(this.cmbProject), //int
+          PreviousTag: this.txtPreTag, //string
+          costAmount: this.txtAmount, //float
+          NetBookAmount: this.txtNetBVal, //int
+          PurchaseDate: purchaseDate, //string
+          IPCRef: this.txtRef, //string
+          AssetCondition: this.cmbAssetCond, //int
+          IsUseable: this.sldUsable, //bool
+          IsSurplus: this.sldSurplus, //bool
+          IsServiceAble: this.sldServiceable, //bool
+          IsCondemned: this.sldCondemned, //bool
+          IsMissing: this.sldMissing, //bool
+          Remarks: this.txtRemarks, //string
+          Userid: 1, //int
+          IsDeleted: 0, //bool
+          DeletionDate: purchaseDate, //date
+          DeleteBy: 0, //int
+          IsUpdated: 0, //int
+          UpdatedDate: null, //date
+          Updatedby: 0, //int
+          SpType: "Insert", //string
+          AssetID: 0, //int
+        };
+      } else {
+        saveData = {
+          SubLocID: parseInt(this.cmbLocation), //int
+          OfficeTypeID: parseInt(this.cmbOfcType), //int
+          AssetCatID: parseInt(this.cmbAssetCat), //int
+          AssetNo: parseInt(this.assetNo), //int
+          OfficeSecID: parseInt(this.cmbWngSection), //int
+          PostID: parseInt(this.cmbCustody), //int
+          AssetLocation: this.txtAssetLoc, //string
+          AssetDescription: this.txtAssetDesc, //string
+          otherIdentification: this.txtIdentification, //string
+          SerialNo: this.txtSerialNo, //string
+          VehicleID: parseInt(vehicleID), //int
+          ProjectID: parseInt(this.cmbProject), //int
+          PreviousTag: this.txtPreTag, //string
+          costAmount: this.txtAmount, //float
+          NetBookAmount: this.txtNetBVal, //int
+          PurchaseDate: purchaseDate, //string
+          IPCRef: this.txtRef, //string
+          AssetCondition: this.cmbAssetCond, //int
+          IsUseable: this.sldUsable, //bool
+          IsSurplus: this.sldSurplus, //bool
+          IsServiceAble: this.sldServiceable, //bool
+          IsCondemned: this.sldCondemned, //bool
+          IsMissing: this.sldMissing, //bool
+          Remarks: this.txtRemarks, //string
+          Userid: 1, //int
+          IsDeleted: 0, //bool
+          DeletionDate: purchaseDate, //date
+          DeleteBy: 0, //int
+          IsUpdated: 1, //int
+          UpdatedDate: purchaseDate, //date
+          Updatedby: 1, //int
+          SpType: "Update", //string
+          AssetID: this.assetID, //int
+        };
+      }
 
       var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
@@ -437,17 +531,26 @@ export class AssetEntryComponent implements OnInit {
           headers: reqHeader,
         })
         .subscribe((data: any) => {
-          alert(data.msg);
           if (data.msg == "Success") {
-            this.toastr.successToastr(
-              "Record Saved Successfully!",
-              "Success!",
-              {
-                toastTimeout: 2500,
-              }
-            );
+            if (this.assetID == "") {
+              this.toastr.successToastr(
+                "Record Saved Successfully!",
+                "Success!",
+                {
+                  toastTimeout: 2500,
+                }
+              );
+            } else {
+              this.toastr.successToastr(
+                "Record Updated Successfully!",
+                "Success!",
+                {
+                  toastTimeout: 2500,
+                }
+              );
+            }
             this.clear();
-            this.getVehicle();
+            this.getAssetDetail();
             return false;
           } else {
             this.toastr.errorToastr(data.msg, "Error !", {
@@ -531,5 +634,62 @@ export class AssetEntryComponent implements OnInit {
     }
   }
 
-  clear() {}
+  delete(item) {
+    var saveData = {
+      Userid: 1, //int
+      SpType: "Delete", //string
+      AssetID: item.assetID, //int
+    };
+
+    var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
+
+    this.http
+      .post(this.serverUrl + "saveasset", saveData, {
+        headers: reqHeader,
+      })
+      .subscribe((data: any) => {
+        if (data.msg == "Success") {
+          this.toastr.successToastr(
+            "Record Deleted Successfully!",
+            "Success!",
+            {
+              toastTimeout: 2500,
+            }
+          );
+          this.clear();
+          this.getAssetDetail();
+          return false;
+        } else {
+          this.toastr.errorToastr(data.msg, "Error !", {
+            toastTimeout: 5000,
+          });
+          return false;
+        }
+      });
+  }
+
+  clear() {
+    this.assetID = "";
+    this.rdbAsset = "1";
+    this.cmbVehicle = "";
+    this.cmbCustody = "";
+    this.cmbAssetCat = "";
+    this.txtAssetDesc = "";
+    this.txtAssetLoc = "";
+    this.txtIdentification = "";
+    this.txtSerialNo = "";
+    this.cmbProject = "";
+    this.txtRef = "";
+    this.dtpPurchaseDt = "";
+    this.txtAmount = "";
+    this.txtPreTag = "";
+    this.txtNetBVal = "";
+    this.cmbAssetCond = "";
+    this.sldUsable = false;
+    this.sldServiceable = false;
+    this.sldSurplus = false;
+    this.sldCondemned = false;
+    this.sldMissing = false;
+    this.txtRemarks = "";
+  }
 }
