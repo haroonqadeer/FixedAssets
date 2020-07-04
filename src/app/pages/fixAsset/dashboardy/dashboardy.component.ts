@@ -10,10 +10,15 @@ export class DashboardyComponent implements OnInit {
   constructor() {}
 
   test_chart: Chart;
+  locationModalTitle: string;
 
   ngOnInit(): void {
     // Create the chart
     this.testChart();
+  }
+
+  editLocationModalTitle(text) {
+    this.locationModalTitle = text;
   }
 
   testChart() {
