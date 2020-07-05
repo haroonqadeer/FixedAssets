@@ -61,6 +61,7 @@ export class AssetEntryComponent implements OnInit {
   searchProject = "";
   searchVehicle = "";
 
+  tagList = [];
   locList = [];
   ofcTypeList = [];
   wngSectionList = [];
@@ -76,7 +77,7 @@ export class AssetEntryComponent implements OnInit {
   vehModelList = [];
   vehTypeList = [];
 
-  toggleView = "table";
+  toggleView = "form";
 
   Const = [
     {
@@ -205,6 +206,7 @@ export class AssetEntryComponent implements OnInit {
   ngOnInit(): void {
     this.rdbAsset = "1";
 
+    this.getTags();
     this.getLocation();
     this.getOfficeType();
     this.getWingSection();
@@ -228,6 +230,19 @@ export class AssetEntryComponent implements OnInit {
     } else {
       this.toggleView = "table";
     }
+  }
+
+  getTags() {
+    var reqHeader = new HttpHeaders({
+      "Content-Type": "application/json",
+      // Authorization: "Bearer " + Token,
+    });
+
+    this.http
+      .get(this.serverUrl + "gettags?UserId=1", { headers: reqHeader })
+      .subscribe((data: any) => {
+        this.tagList = data;
+      });
   }
 
   getLocation() {

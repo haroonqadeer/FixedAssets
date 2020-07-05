@@ -1,5 +1,10 @@
 import { Component, OnInit } from "@angular/core";
 import { Chart } from "angular-highcharts";
+import {
+  HttpClient,
+  HttpHeaders,
+  HttpErrorResponse,
+} from "@angular/common/http";
 
 @Component({
   selector: "app-dashboardy",
@@ -7,7 +12,24 @@ import { Chart } from "angular-highcharts";
   styleUrls: ["./dashboardy.component.scss"],
 })
 export class DashboardyComponent implements OnInit {
-  constructor() {}
+  serverUrl = "http://95.217.147.105:2007/api/";
+
+  allLocation = "";
+  comLocation = "";
+  remLocation = "";
+  allTags = "";
+
+  searchTag = "";
+  searchLocation = "";
+
+  tempLocList = [];
+  tempTagList = [];
+  allLocDetList = [];
+  compLocDetList = [];
+  remLocDetList = [];
+  tagDetList = [];
+
+  constructor(private http: HttpClient) {}
 
   test_chart: Chart;
   locationModalTitle: string;
@@ -15,10 +37,24 @@ export class DashboardyComponent implements OnInit {
   ngOnInit(): void {
     // Create the chart
     this.testChart();
+    this.getTagsSummary();
+    this.getLocationDetail();
+    this.getCompLocationDetail();
+    this.getRemLocationDetail();
+    this.getTagDetail();
   }
 
   editLocationModalTitle(text) {
     this.locationModalTitle = text;
+    if (text == "Total Locations") {
+      this.tempLocList = this.allLocDetList;
+    } else if (text == "Completed Locations") {
+      this.tempLocList = this.compLocDetList;
+    } else if (text == "Remaining Locations") {
+      this.tempLocList = this.remLocDetList;
+    } else if (text == "Total Tags") {
+      this.tempTagList = this.tagDetList;
+    }
   }
 
   testChart() {
@@ -189,5 +225,73 @@ export class DashboardyComponent implements OnInit {
     });
 
     this.test_chart = chart;
+  }
+
+  getTagsSummary() {
+    var reqHeader = new HttpHeaders({
+      "Content-Type": "application/json",
+      // Authorization: "Bearer " + Token,
+    });
+
+    this.http
+      .get(this.serverUrl + "gettagssummary", { headers: reqHeader })
+      .subscribe((data: any) => {
+        this.allLocation = data[0].allLocations;
+        this.comLocation = data[0].completedLocations;
+        this.remLocation = data[0].incompletelocations;
+        this.allTags = data[0].totaltags;
+      });
+  }
+
+  getLocationDetail() {
+    var reqHeader = new HttpHeaders({
+      "Content-Type": "application/json",
+      // Authorization: "Bearer " + Token,
+    });
+
+    this.http
+      .get(this.serverUrl + "getlocdetail", { headers: reqHeader })
+      .subscribe((data: any) => {
+        this.allLocDetList = data;
+      });
+  }
+
+  getCompLocationDetail() {
+    var reqHeader = new HttpHeaders({
+      "Content-Type": "application/json",
+      // Authorization: "Bearer " + Token,
+    });
+
+    this.http
+      .get(this.serverUrl + "getcomplocdetail", { headers: reqHeader })
+      .subscribe((data: any) => {
+        this.compLocDetList = data;
+      });
+  }
+
+  getRemLocationDetail() {
+    var reqHeader = new HttpHeaders({
+      "Content-Type": "application/json",
+      // Authorization: "Bearer " + Token,
+    });
+
+    this.http
+      .get(this.serverUrl + "getincomplocdetail", { headers: reqHeader })
+      .subscribe((data: any) => {
+        this.remLocDetList = data;
+      });
+  }
+
+  getTagDetail() {
+    var reqHeader = new HttpHeaders({
+      "Content-Type": "application/json",
+      // Authorization: "Bearer " + Token,
+    });
+
+    this.http
+      .get(this.serverUrl + "gettagsdetaildb", { headers: reqHeader })
+      .subscribe((data: any) => {
+        this.tagDetList = data;
+      });
   }
 }
