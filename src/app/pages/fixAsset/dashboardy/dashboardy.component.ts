@@ -6,6 +6,8 @@ import {
   HttpErrorResponse,
 } from "@angular/common/http";
 
+declare var $: any;
+
 @Component({
   selector: "app-dashboardy",
   templateUrl: "./dashboardy.component.html",
@@ -14,13 +16,20 @@ import {
 export class DashboardyComponent implements OnInit {
   serverUrl = "http://95.217.147.105:2007/api/";
 
+  locationName = "";
   allLocation = "";
   comLocation = "";
   remLocation = "";
   allTags = "";
+  cmbChartLocation = "";
+  cmbTblLocation = "";
 
+  searchChartLocation = "";
+  searchTblLocation = "";
   searchTag = "";
   searchLocation = "";
+  searchTagOfc = "";
+  searchTagLoc = "";
 
   tempLocList = [];
   tempTagList = [];
@@ -28,6 +37,9 @@ export class DashboardyComponent implements OnInit {
   compLocDetList = [];
   remLocDetList = [];
   tagDetList = [];
+  tagDetDtWiseList = [];
+  totalTagList = [];
+  locList = [];
 
   constructor(private http: HttpClient) {}
 
@@ -42,6 +54,8 @@ export class DashboardyComponent implements OnInit {
     this.getCompLocationDetail();
     this.getRemLocationDetail();
     this.getTagDetail();
+    this.getTagDateWise();
+    this.getLocation();
   }
 
   editLocationModalTitle(text) {
@@ -225,6 +239,95 @@ export class DashboardyComponent implements OnInit {
     });
 
     this.test_chart = chart;
+  }
+
+  getTagDateWise() {
+    var reqHeader = new HttpHeaders({
+      "Content-Type": "application/json",
+      // Authorization: "Bearer " + Token,
+    });
+
+    this.http
+      .get(this.serverUrl + "getalltagsdetaildatewise", { headers: reqHeader })
+      .subscribe((data: any) => {
+        this.totalTagList = data;
+      });
+  }
+
+  getLocation() {
+    var reqHeader = new HttpHeaders({
+      "Content-Type": "application/json",
+      // Authorization: "Bearer " + Token,
+    });
+
+    this.http
+      .get(this.serverUrl + "getsubloc", { headers: reqHeader })
+      .subscribe((data: any) => {
+        this.locList = data;
+      });
+  }
+
+  public convertDate(myDate) {
+    var oldDate = new Date(myDate);
+    var d = oldDate.getDate();
+    var m = oldDate.getMonth();
+    m += 1; // JavaScript months are 0-11
+    var y = oldDate.getFullYear();
+
+    var convertedDate = y + "-" + m + "-" + d;
+
+    return convertedDate;
+  }
+
+  getTagDetailDateWise(item) {
+    var dt = this.convertDate(item.createdDate);
+    if (this.cmbTblLocation == "") {
+      this.locationName = dt;
+      var reqHeader = new HttpHeaders({
+        "Content-Type": "application/json",
+        // Authorization: "Bearer " + Token,
+      });
+
+      this.http
+        .get(this.serverUrl + "gettagsdetaildatewise?reqDate=" + dt, {
+          headers: reqHeader,
+        })
+        .subscribe((data: any) => {
+          this.tagDetDtWiseList = data;
+          $("#officeTypeTagsDtWiseModal").modal("show");
+        });
+    } else if (this.cmbTblLocation != "") {
+      for (var i = 0; i < this.locList.length; i++) {
+        if (this.locList[i].subLocID == this.cmbTblLocation) {
+          this.locationName =
+            this.locList[i].subLocationDescription +
+            " - " +
+            this.locList[i].mainLocationDescription +
+            " - " +
+            this.locList[i].provinceName;
+          i = this.locList.length + 1;
+        }
+      }
+
+      var reqHeader = new HttpHeaders({
+        "Content-Type": "application/json",
+        // Authorization: "Bearer " + Token,
+      });
+
+      this.http
+        .get(
+          this.serverUrl +
+            "gettagsdetaildatewise?reqDate=" +
+            dt +
+            "&LocationID=" +
+            this.cmbTblLocation,
+          { headers: reqHeader }
+        )
+        .subscribe((data: any) => {
+          this.tagDetDtWiseList = data;
+          $("#officeTypeTagsModal").modal("show");
+        });
+    }
   }
 
   getTagsSummary() {
