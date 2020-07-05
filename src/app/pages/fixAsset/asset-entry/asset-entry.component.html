@@ -34,24 +34,64 @@
       <table class="table table-striped">
         <thead>
           <tr>
-            <th scope="col">Asset #</th>
-            <th scope="col">Location - Subl Location</th>
-            <th scope="col">Asset - Category</th>
-            <th scope="col">Custody</th>
             <th scope="col">Action</th>
+            <th scope="col">Sub-Location</th>
+            <th scope="col">Office Type</th>
+            <th scope="col">Accounts Category</th>
+            <th scope="col">Asset - Category</th>
+            <th scope="col">Description</th>
+            <th scope="col">Post Name</th>
+            <th scope="col">Asset-Location</th>
+            <th scope="col">Project</th>
+            <th scope="col">IPC Ref.</th>
+            <th scope="col">Other Identification</th>
+            <th scope="col">Serial No.</th>
+            <th scope="col">Vehicle ID</th>
+            <th scope="col">Previous Tag</th>
+            <th scope="col">Cost</th>
+            <th scope="col">Purchase Date</th>
+            <th scope="col">Condition</th>
+            <th scope="col">Useable?</th>
+            <th scope="col">Surplus?</th>
+            <th scope="col">Serviceable?</th>
+            <th scope="col">Condemned?</th>
+            <th scope="col">Missing?</th>
+            <th scope="col">Remarks</th>
+            <th scope="col">Create Date</th>
+            <th scope="col">Net Book Value</th>
           </tr>
         </thead>
         <tbody>
           <tr
             *ngFor="let item of assetDetailList | search:'subLocationDescription,accountsCatagory,postName':tblSearch let i=index">
-            <th scope="row">{{i + 1}}</th>
-            <td>{{item.subLocationDescription}}</td>
-            <td>{{item.accountsCatagory}}</td>
-            <td>{{item.postName}}</td>
             <td class='inline-block'><span class='fa fa-edit cursorPointer pr-3 text-primary'
                 (click)="editAsset(item)"></span>
               <span class='fa fa-trash-o cursorPointer text-danger' (click)="delete(item)"></span>
             </td>
+            <td>{{item.subLocationDescription}}</td>
+            <td>{{item.officeTypeDescription}}</td>
+            <td>{{item.accountsCatagory}}</td>
+            <td>{{item.assetCatDescription}}</td>
+            <td>{{item.assetDescription}}</td>
+            <td>{{item.postName}}</td>
+            <td>{{item.assetLocation}}</td>
+            <td>{{item.projectShortName}}</td>
+            <td>{{item.ipcRef}}</td>
+            <td>{{item.otherIdentification}}</td>
+            <td>{{item.serialNo}}</td>
+            <td>{{item.vehID}}</td>
+            <td>{{item.previousTag}}</td>
+            <td>{{item.costAmount}}</td>
+            <td>{{item.purchaseDate}}</td>
+            <td>{{item.assetCondition}}</td>
+            <td>{{item.isUseable}}</td>
+            <td>{{item.isSurplus}}</td>
+            <td>{{item.isServiceAble}}</td>
+            <td>{{item.isCondemned}}</td>
+            <td>{{item.isMissing}}</td>
+            <td>{{item.reamarks}}</td>
+            <td>{{item.createdDate}}</td>
+            <td>{{item.netBookAmount}}</td>
           </tr>
           <tr *ngIf="assetDetailList.length==0">
             <td>No Record Found</td>
@@ -274,7 +314,7 @@
         <!-- next row -->
         <div class="row">
           <div class="col-md-2">
-            <mat-slide-toggle [(ngModel)]="sldUsable">Useable</mat-slide-toggle>
+            <mat-slide-toggle [(ngModel)]="sldUsable" (change)='setCondemned()'>Useable</mat-slide-toggle>
           </div>
           <div class="col-md-3">
             <mat-slide-toggle [(ngModel)]="sldServiceable">Serviceable</mat-slide-toggle>
@@ -283,7 +323,9 @@
             <mat-slide-toggle [(ngModel)]="sldSurplus">Surplus</mat-slide-toggle>
           </div>
           <div class="col-md-3">
-            <mat-slide-toggle [(ngModel)]="sldCondemned">Condemned</mat-slide-toggle>
+            <mat-slide-toggle [(ngModel)]="sldCondemned" [disabled]='sldCondemned'>
+              Condemned
+            </mat-slide-toggle>
           </div>
           <div class="col-md-2">
             <mat-slide-toggle [(ngModel)]="sldMissing">Missing</mat-slide-toggle>
@@ -309,14 +351,48 @@
         </div>
       </div>
       <div class="col-md-3 bg-danger boxShadow-1 pt-3">
-        <mat-card class='text-center mb-2' *ngFor="let item of tagList">{{item.tag}}</mat-card>
+        <mat-card class='text-center mb-2'
+          *ngFor="let item of tagList | paginate: { itemsPerPage: itemPerPage, currentPage: p }">{{item.tag}}</mat-card>
+        <!-- Pagination Starts -->
+        <div class="col-md-12 text-right">
+          <div class="paginationBox">
+            <pagination-controls (pageChange)="p = $event"></pagination-controls>
+          </div>
+          <div class="paginationBox">
+            <mat-form-field class="pagenateList">
+              <mat-select [(ngModel)]="itemPerPage">
+                <mat-option value="1">1</mat-option>
+                <mat-option value="2">2</mat-option>
+                <mat-option value="10">10</mat-option>
+                <mat-option value="15">15</mat-option>
+                <mat-option value="20">20</mat-option>
+                <mat-option value="25">25</mat-option>
+                <mat-option value="30">30</mat-option>
+                <mat-option value="35">35</mat-option>
+                <mat-option value="40">40</mat-option>
+                <mat-option value="45">45</mat-option>
+                <mat-option value="50">50</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="paginationBox">
+            Item per page: &nbsp;&nbsp;
+          </div>
+        </div>
+        <!-- Pagination Ends -->
       </div>
     </div>
   </div>
 
   <!-- print tags -->
-  <div id='tagDiv'>
+  <div id='tagDiv' hidden>
+    <div class="d-flex flex-wrap">
+      <div *ngFor="let item of tagList">
+        <div class="p-5 border border-danger text-center" style="min-width: 345px !important;">{{item.tag}} -
+          {{item.finding}}</div>
+      </div>
 
+    </div>
   </div>
 
 </div><!-- end container -->

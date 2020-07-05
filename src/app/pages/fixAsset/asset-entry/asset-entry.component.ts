@@ -16,6 +16,9 @@ declare var $: any;
 export class AssetEntryComponent implements OnInit {
   serverUrl = "http://95.217.147.105:2007/api/";
 
+  itemPerPage = "10";
+  p = 1;
+
   editMode = true;
   hidden = false;
 
@@ -79,59 +82,59 @@ export class AssetEntryComponent implements OnInit {
 
   toggleView = "form";
 
-  Const = [
+  Emp = [
     {
-      id_nivel: "1",
-      nombre: "A",
-      constelacion: "AA",
+      id: "1",
+      number: "A",
+      finding: "AA",
       descripcion: "AAAAAAAAAAAAAAAAAAAAA",
     },
     {
-      id_nivel: "2",
-      nombre: "B",
-      constelacion: "BB",
+      id: "2",
+      number: "B",
+      finding: "BB",
       descripcion: "BBBBBBBBBBBBBBBBBBBBB",
     },
     {
-      id_nivel: "3",
-      nombre: "C",
-      constelacion: "CC",
+      id: "3",
+      number: "C",
+      finding: "CC",
       descripcion: "CCCCCCCCCCCCCCCCCCCCC",
     },
     {
-      id_nivel: "4",
-      nombre: "D",
-      constelacion: "DD",
+      id: "4",
+      number: "D",
+      finding: "DD",
       descripcion: "DDDDDDDDDDDDDDDDDDDDD",
     },
     {
-      id_nivel: "5",
-      nombre: "E",
-      constelacion: "EE",
+      id: "5",
+      number: "E",
+      finding: "EE",
       descripcion: "EEEEEEEEEEEEEEEEEEEEE",
     },
     {
-      id_nivel: "6",
-      nombre: "F",
-      constelacion: "FF",
+      id: "6",
+      number: "F",
+      finding: "FF",
       descripcion: "FFFFFFFFFFFFFFFFFFFF",
     },
     {
-      id_nivel: "6",
-      nombre: "F",
-      constelacion: "FF",
+      id: "6",
+      number: "F",
+      finding: "FF",
       descripcion: "FFFFFFFFFFFFFFFFFFFF",
     },
     {
-      id_nivel: "6",
-      nombre: "F",
-      constelacion: "FF",
+      id: "6",
+      number: "F",
+      finding: "FF",
       descripcion: "FFFFFFFFFFFFFFFFFFFF",
     },
     {
-      id_nivel: "6",
-      nombre: "F",
-      constelacion: "FF",
+      id: "6",
+      number: "F",
+      finding: "FF",
       descripcion: "FFFFFFFFFFFFFFFFFFFF",
     },
   ];
@@ -811,7 +814,7 @@ export class AssetEntryComponent implements OnInit {
     this.assetID = "";
     this.rdbAsset = "1";
     this.cmbVehicle = "";
-    this.cmbCustody = "";
+    // this.cmbCustody = "";
     this.cmbAssetCat = "";
     this.txtAssetDesc = "";
     this.txtAssetLoc = "";
@@ -830,5 +833,12 @@ export class AssetEntryComponent implements OnInit {
     this.sldCondemned = false;
     this.sldMissing = false;
     this.txtRemarks = "";
+  }
+
+  setCondemned() {
+    debugger;
+    if (this.sldUsable == true) {
+      this.sldCondemned = false;
+    }
   }
 }
