@@ -167,6 +167,9 @@ export class DashboardyComponent implements OnInit {
           },
           title: {
             text: "Asset by Categories",
+            style: {
+              color: "#ddd",
+            },
           },
           xAxis: {
             type: "category",
@@ -545,6 +548,25 @@ export class DashboardyComponent implements OnInit {
     var convertedDate = y + "-" + m + "-" + d;
 
     return convertedDate;
+  }
+  getTblDataLocWise() {
+    var reqHeader = new HttpHeaders({
+      "Content-Type": "application/json",
+      // Authorization: "Bearer " + Token,
+    });
+
+    this.http
+      .get(
+        this.serverUrl +
+          "gettagsdetaillocwise?LocationID=" +
+          this.cmbTblLocation,
+        {
+          headers: reqHeader,
+        }
+      )
+      .subscribe((data: any) => {
+        this.totalTagList = data;
+      });
   }
 
   getTagDetailDateWise(item) {
