@@ -318,8 +318,14 @@
   </div>
 
   <!-- print tags -->
-  <div id='tagDiv'>
+  <div id='tagDiv' hidden>
+    <div class="d-flex flex-wrap">
+      <div *ngFor="let item of Emp">
+        <div class="p-5 border border-danger text-center" style="min-width: 345px !important;">{{item.id}} -
+          {{item.finding}}</div>
+      </div>
 
+    </div>
   </div>
 
 </div><!-- end container -->
