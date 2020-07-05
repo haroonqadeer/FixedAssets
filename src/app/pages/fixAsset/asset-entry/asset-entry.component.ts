@@ -16,6 +16,9 @@ declare var $: any;
 export class AssetEntryComponent implements OnInit {
   serverUrl = "http://95.217.147.105:2007/api/";
 
+  itemPerPage = "10";
+  p = 1;
+
   editMode = true;
   hidden = false;
 
@@ -811,7 +814,7 @@ export class AssetEntryComponent implements OnInit {
     this.assetID = "";
     this.rdbAsset = "1";
     this.cmbVehicle = "";
-    this.cmbCustody = "";
+    // this.cmbCustody = "";
     this.cmbAssetCat = "";
     this.txtAssetDesc = "";
     this.txtAssetLoc = "";
@@ -830,5 +833,12 @@ export class AssetEntryComponent implements OnInit {
     this.sldCondemned = false;
     this.sldMissing = false;
     this.txtRemarks = "";
+  }
+
+  setCondemned() {
+    debugger;
+    if (this.sldUsable == true) {
+      this.sldCondemned = false;
+    }
   }
 }
