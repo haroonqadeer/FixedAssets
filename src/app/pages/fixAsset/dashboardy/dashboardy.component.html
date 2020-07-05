@@ -85,7 +85,7 @@
       <mat-form-field class="w-100">
         <mat-label><span class='text-danger fa fa-filter'>&nbsp;</span><span class='text-danger'>All</span> Province -
           Location - Sub Location</mat-label>
-        <mat-select [(ngModel)]="cmbChartLocation">
+        <mat-select [(ngModel)]="cmbChartLocation" (ngModelChange)="getChartLocationWise()">
           <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchChartLocation">
           <mat-option
             *ngFor=" let item of locList | search: 'subLocationDescription, mainLocationDescription, provinceName':searchChartLocation"
@@ -164,21 +164,30 @@
   <div class="row">
     <div class="col-md-6">
       <mat-form-field class="w-100">
-        <mat-label>Sub-Location</mat-label>
-        <mat-select>
-          <mat-option value="primary">Primary</mat-option>
-          <mat-option value="accent">Accent</mat-option>
-          <mat-option value="warn">Warn</mat-option>
+        <mat-label>Province - Location - Sub Location</mat-label>
+        <mat-select [(ngModel)]="cmbLocation" (ngModelChange)="getAssetDetailLocOfcType()">
+          <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchLocation">
+          <mat-option
+            *ngFor=" let item of locList | search: 'subLocationDescription, mainLocationDescription, provinceName':searchLocation"
+            [value]="item.subLocID">
+            <table class="table">
+              <tr class='d-flex'>
+                <td class="col-4">{{ item.subLocationDescription }}</td>
+                <td class="col-4">{{ item.mainLocationDescription }}</td>
+                <td class="col-4">{{ item.provinceName }}</td>
+              </tr>
+            </table>
+          </mat-option>
         </mat-select>
       </mat-form-field>
     </div>
     <div class="col-md-6">
       <mat-form-field class="w-100">
         <mat-label>Office Type</mat-label>
-        <mat-select>
-          <mat-option value="primary">Primary</mat-option>
-          <mat-option value="accent">Accent</mat-option>
-          <mat-option value="warn">Warn</mat-option>
+        <mat-select [(ngModel)]="cmbOfcType" (ngModelChange)="getAssetDetailLocOfcType()">
+          <mat-option *ngFor=" let item of ofcTypeList" [value]="item.officeTypeID">
+            {{ item.officeTypeDescription }}
+          </mat-option>
         </mat-select>
       </mat-form-field>
     </div>
@@ -190,42 +199,61 @@
   <table class="table table-striped bg-white boxShadow-1">
     <thead>
       <tr>
-        <th>#</th>
-        <th>Province</th>
-        <th>Location</th>
-        <th>Sub-Location</th>
+        <th scope="col">Sub-Location</th>
+        <th scope="col">Office Type</th>
+        <th scope="col">Accounts Category</th>
+        <th scope="col">Asset - Category</th>
+        <th scope="col">Description</th>
+        <th scope="col">Post Name</th>
+        <th scope="col">Asset-Location</th>
+        <th scope="col">Project</th>
+        <th scope="col">IPC Ref.</th>
+        <th scope="col">Other Identification</th>
+        <th scope="col">Serial No.</th>
+        <th scope="col">Vehicle ID</th>
+        <th scope="col">Previous Tag</th>
+        <th scope="col">Cost</th>
+        <th scope="col">Purchase Date</th>
+        <th scope="col">Condition</th>
+        <th scope="col">Useable?</th>
+        <th scope="col">Surplus?</th>
+        <th scope="col">Serviceable?</th>
+        <th scope="col">Condemned?</th>
+        <th scope="col">Missing?</th>
+        <th scope="col">Remarks</th>
+        <th scope="col">Create Date</th>
+        <th scope="col">Net Book Value</th>
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td>1</td>
-        <td>Northern Area</td>
-        <td>Abbottabad</td>
-        <td>GM Office</td>
+      <tr *ngFor="let item of assetDetailList let i=index">
+        <td>{{item.subLocationDescription}}</td>
+        <td>{{item.officeTypeDescription}}</td>
+        <td>{{item.accountsCatagory}}</td>
+        <td>{{item.assetCatDescription}}</td>
+        <td>{{item.assetDescription}}</td>
+        <td>{{item.postName}}</td>
+        <td>{{item.assetLocation}}</td>
+        <td>{{item.projectShortName}}</td>
+        <td>{{item.ipcRef}}</td>
+        <td>{{item.otherIdentification}}</td>
+        <td>{{item.serialNo}}</td>
+        <td>{{item.vehID}}</td>
+        <td>{{item.previousTag}}</td>
+        <td>{{item.costAmount}}</td>
+        <td>{{item.purchaseDate}}</td>
+        <td>{{item.assetCondition}}</td>
+        <td>{{item.isUseable}}</td>
+        <td>{{item.isSurplus}}</td>
+        <td>{{item.isServiceAble}}</td>
+        <td>{{item.isCondemned}}</td>
+        <td>{{item.isMissing}}</td>
+        <td>{{item.reamarks}}</td>
+        <td>{{item.createdDate}}</td>
+        <td>{{item.netBookAmount}}</td>
       </tr>
-      <tr>
-        <td>2</td>
-        <td>Northern Area</td>
-        <td>Abbottabad</td>
-        <td>GM Office</td>
-      </tr>
-      <tr>
-        <td>3</td>
-        <td>Northern Area</td>
-        <td>Abbottabad</td>
-        <td>GM Office</td>
-      </tr>
-      <tr>
-        <td>4</td>
-        <td>Northern Area</td>
-        <td>Abbottabad</td>
-        <td>GM Office</td>
-      </tr>
-      <tr>
-        <td>5</td>
-        <td>Northern Area</td>
-        <td>Abbottabad</td>
-        <td>GM Office</td>
+      <tr *ngIf="assetDetailList.length==0">
+        <td>No Record Found</td>
       </tr>
     </tbody>
   </table>
