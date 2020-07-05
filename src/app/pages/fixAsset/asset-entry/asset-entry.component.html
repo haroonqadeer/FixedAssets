@@ -20,9 +20,9 @@
     <div class="row pl-3">
       <div class="col-md-10">
         <mat-form-field class="w-100">
-          <mat-label [(ngModel)]="tblSearch">search asset</mat-label>
+          <mat-label>search asset</mat-label>
           <span matPrefix><span class='fa fa-search'></span> &nbsp;</span>
-          <input matInput>
+          <input matInput [(ngModel)]="tblSearch">
         </mat-form-field>
       </div>
       <div class="col-md-2 pr-3 align-self-center noneOutline">
@@ -71,13 +71,13 @@
               <mat-select [(ngModel)]="cmbLocation" (ngModelChange)="getAssetNo()">
                 <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchLocation">
                 <mat-option
-                  *ngFor=" let item of locList | search: 'provinceName, mainLocationDescription, subLocationDescription':searchLocation"
+                  *ngFor=" let item of locList | search: 'subLocationDescription, mainLocationDescription, provinceName':searchLocation"
                   [value]="item.subLocID">
                   <table class="table">
                     <tr class='d-flex'>
-                      <td class="col-4">{{ item.provinceName }}</td>
-                      <td class="col-4">{{ item.mainLocationDescription }}</td>
                       <td class="col-4">{{ item.subLocationDescription }}</td>
+                      <td class="col-4">{{ item.mainLocationDescription }}</td>
+                      <td class="col-4">{{ item.provinceName }}</td>
                     </tr>
                   </table>
                 </mat-option>
@@ -309,10 +309,7 @@
         </div>
       </div>
       <div class="col-md-3 bg-danger boxShadow-1 pt-3">
-        <mat-card class='text-center mb-2'>Asset Tag</mat-card>
-        <mat-card class='text-center mb-2'>Asset Tag</mat-card>
-        <mat-card class='text-center mb-2'>Asset Tag</mat-card>
-        <mat-card class='text-center mb-2'>Asset Tag</mat-card>
+        <mat-card class='text-center mb-2' *ngFor="let item of tagList">{{item.tag}}</mat-card>
       </div>
     </div>
   </div>

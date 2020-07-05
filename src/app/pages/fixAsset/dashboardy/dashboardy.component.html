@@ -7,7 +7,7 @@
           <i class="fa fa-list"></i>
         </div>
         <div class="dbox__body">
-          <span class="dbox__count">120</span>
+          <span class="dbox__count">{{allLocation}}</span>
           <span class="dbox__title">Total Locations</span>
         </div>
 
@@ -27,7 +27,7 @@
           <i class="fa fa-check"></i>
         </div>
         <div class="dbox__body">
-          <span class="dbox__count">90</span>
+          <span class="dbox__count">{{comLocation}}</span>
           <span class="dbox__title">Completed Locations</span>
         </div>
 
@@ -46,7 +46,7 @@
           <i class="fa fa-exclamation"></i>
         </div>
         <div class="dbox__body">
-          <span class="dbox__count">30</span>
+          <span class="dbox__count">{{remLocation}}</span>
           <span class="dbox__title">Remaining Locations</span>
         </div>
 
@@ -65,12 +65,13 @@
           <i class="fa fa-tag"></i>
         </div>
         <div class="dbox__body">
-          <span class="dbox__count">1423</span>
+          <span class="dbox__count">{{allTags}}</span>
           <span class="dbox__title">Total Tags</span>
         </div>
 
         <div class="dbox__action">
-          <button class="dbox__action__btn noneOutline" data-toggle="modal" data-target="#totalTagsModal">More
+          <button class="dbox__action__btn noneOutline" data-toggle="modal" data-target="#totalTagsModal"
+            (click)="editLocationModalTitle('Total Tags')">More
             Info</button>
         </div>
       </div>
@@ -244,7 +245,7 @@
             <mat-form-field class="w-100">
               <mat-label>search...</mat-label>
               <mat-icon matPrefix class='fa fa-search'></mat-icon>
-              <input matInput>
+              <input matInput [(ngModel)]="searchLocation">
             </mat-form-field>
           </div>
         </div>
@@ -259,35 +260,13 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>1</td>
-              <td>Northern Area</td>
-              <td>Abbottabad</td>
-              <td>GM Office</td>
-            </tr>
-            <tr>
-              <td>2</td>
-              <td>Northern Area</td>
-              <td>Abbottabad</td>
-              <td>GM Office</td>
-            </tr>
-            <tr>
-              <td>3</td>
-              <td>Northern Area</td>
-              <td>Abbottabad</td>
-              <td>GM Office</td>
-            </tr>
-            <tr>
-              <td>4</td>
-              <td>Northern Area</td>
-              <td>Abbottabad</td>
-              <td>GM Office</td>
-            </tr>
-            <tr>
-              <td>5</td>
-              <td>Northern Area</td>
-              <td>Abbottabad</td>
-              <td>GM Office</td>
+
+            <tr *ngFor="let item of tempLocList
+             | search:'provinceName,mainLocationDescription,subLocationDescription':searchTag let i=index">
+              <td>{{i+1}}</td>
+              <td>{{item.provinceName}}</td>
+              <td>{{item.mainLocationDescription}}</td>
+              <td>{{item.subLocationDescription}}</td>
             </tr>
           </tbody>
         </table>
@@ -322,7 +301,7 @@
             <mat-form-field class="w-100">
               <mat-label>search...</mat-label>
               <mat-icon matPrefix class='fa fa-search'></mat-icon>
-              <input matInput>
+              <input matInput [(ngModel)]="searchTag">
             </mat-form-field>
           </div>
         </div>
@@ -338,38 +317,13 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>1</td>
-              <td>Northern Area</td>
-              <td>Abbottabad</td>
-              <td>GM Office</td>
-              <td>35</td>
-            </tr>
-            <tr>
-              <td>2</td>
-              <td>Northern Area</td>
-              <td>Abbottabad</td>
-              <td>GM Office</td>
-              <td>35</td>
-            </tr>
-            <tr>
-              <td>3</td>
-              <td>Northern Area</td>
-              <td>Abbottabad</td>
-              <td>GM Office</td>
-              <td>35</td>
-            </tr>
-            <tr>
-              <td>4</td>
-              <td>Northern Area</td>
-              <td>Abbottabad</td>
-              <td>GM Office</td>
-              <td>35</td>
-            </tr>
-            <tr>
-              <td>5</td>
-              <td>Northern Area - Abbottabad - GM Office</td>
-              <td>35</td>
+            <tr *ngFor="let item of tempTagList
+             | search:'provinceName,mainLocationDescription,subLocationDescription,tagsCreated':searchTag let i=index">
+              <td>{{i+1}}</td>
+              <td>{{item.provinceName}}</td>
+              <td>{{item.mainLocationDescription}}</td>
+              <td>{{item.subLocationDescription}}</td>
+              <td>{{item.tagsCreated}}</td>
             </tr>
           </tbody>
         </table>
