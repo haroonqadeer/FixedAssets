@@ -64,7 +64,7 @@ export class LoginComponent implements OnInit {
           headers: reqHeader,
         })
         .subscribe((data: any) => {
-          alert(data.msg);
+          // alert(data.msg);
           if (data.msg == "Success") {
             this.toastr.successToastr("Login Successfully!", "Success!", {
               toastTimeout: 2500,
