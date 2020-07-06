@@ -20,20 +20,21 @@ export class AppComponent {
   ) {}
 
   ngOnInit(): void {
-    if (this.cookie.get("token") == "") {
+    if (this.cookie.get("userID") == "") {
       this.router.navigate([""]);
       $("#menuId").hide();
     } else {
       //this.router.navigate(["importsurveyresult"]);
-      //$('#menuId').show();
+      $("#menuId").show();
     }
   }
 
   //logout function
   Logout() {
     this.stopWatching();
-    document.cookie = "un=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-    document.cookie = "ui=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    document.cookie = "userID=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    document.cookie =
+      "userName=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     this.router.navigate([""]);
     $("#menuId").hide();

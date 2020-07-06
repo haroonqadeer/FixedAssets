@@ -38,7 +38,14 @@ export class LoginComponent implements OnInit {
     private cookie: CookieService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if (this.cookie.get("userID") != "") {
+      this.router.navigate(["assetEntry"]);
+      $("#menuId").show();
+    } else {
+      $("#menuId").hide();
+    }
+  }
 
   login() {
     if (this.emailAddress == "") {
@@ -71,14 +78,12 @@ export class LoginComponent implements OnInit {
             });
 
             this.cookie.set("token", data.token);
-            // this.cookie.set("ui", "159");
-            // this.cookie.set("un", "Survey Deck");
+            this.cookie.set("userID", data.userDetail[0].id);
+            this.cookie.set("userName", data.userDetail[0].loginName);
 
-            //this.cookie.set('ui', data.rows[0].userID);
-            //this.cookie.set('un', data.rows[0].userName);
             this.showProgress = false;
             this.router.navigate(["assetEntry"]);
-            // $("#menuId").show();
+            $("#menuId").show();
             // this.app.startWatching();
             // this.app.subscribeIdle();
             return false;
