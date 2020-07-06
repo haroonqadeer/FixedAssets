@@ -19,6 +19,9 @@ export class AssetEntryComponent implements OnInit {
   itemPerPage = "10";
   p = 1;
 
+  tblItemPerPage = "10";
+  tbl = 1;
+
   editMode = true;
   hidden = false;
 
@@ -52,9 +55,13 @@ export class AssetEntryComponent implements OnInit {
   txtChasis = "";
 
   sldUsable = false;
+  disableUsable = false;
   sldServiceable = false;
+  disableServiceable = false;
   sldSurplus = false;
+  disableSurplus = false;
   sldCondemned = false;
+  disableCondemned = false;
   sldMissing = false;
 
   tblSearch = "";
@@ -63,6 +70,7 @@ export class AssetEntryComponent implements OnInit {
   searchCustody = "";
   searchProject = "";
   searchVehicle = "";
+  searchSection = "";
 
   tagList = [];
   locList = [];
@@ -391,6 +399,15 @@ export class AssetEntryComponent implements OnInit {
       });
   }
 
+  getAssetCatDescription(assetCatID) {
+    if (this.cmbAssetCat != "" || this.cmbAssetCat != undefined) {
+      var assetCat = this.AssetCatList.filter(
+        (x) => x.assetCatID == assetCatID
+      );
+      this.txtAssetDesc = assetCat[0].assetCatDescription;
+    }
+  }
+
   getAssetNo() {
     if (
       this.cmbLocation != "" &&
@@ -693,6 +710,7 @@ export class AssetEntryComponent implements OnInit {
             }
             this.clear();
             this.getAssetDetail();
+            this.getTags();
             return false;
           } else {
             this.toastr.errorToastr(data.msg, "Error !", {
@@ -836,9 +854,28 @@ export class AssetEntryComponent implements OnInit {
   }
 
   setCondemned() {
-    debugger;
-    if (this.sldUsable == true) {
+    if (this.sldUsable) {
+      this.disableCondemned = true;
       this.sldCondemned = false;
+    } else if (!this.sldUsable) {
+      this.disableCondemned = false;
+    }
+  }
+  setMissingYes() {
+    if (this.sldMissing) {
+      this.disableUsable = true;
+      this.sldUsable = false;
+      this.disableServiceable = true;
+      this.sldServiceable = false;
+      this.disableSurplus = true;
+      this.sldSurplus = false;
+      this.disableCondemned = true;
+      this.sldCondemned = false;
+    } else if (!this.sldMissing) {
+      this.disableUsable = false;
+      this.disableServiceable = false;
+      this.disableSurplus = false;
+      this.disableCondemned = false;
     }
   }
 }
