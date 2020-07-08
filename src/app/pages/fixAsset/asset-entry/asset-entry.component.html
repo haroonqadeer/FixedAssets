@@ -1,21 +1,31 @@
-<div class="row pl-3  pr-3 borderBottomDark">
-  <div class="col-md-8 align-self-center">
+<div class="row pl-3 m-0 p-0">
+  <div class="col-md-6 align-self-center p-0 m-0">
     <h5 class='align-self-center'>Asset Entry & Tags</h5>
   </div>
-  <div class="col-md-4 text-center">
-    <mat-button-toggle-group name="fontStyle" aria-label="Font Style" class='noneOutline' (click)="getAssetDetail()">
+  <div class="col-md-6 text-right">
+    <nav id='pageNav' class="stroke text-right">
+      <ul>
+        <li><a (click)="toggleView='form'" class='cursorPointer'>Form View</a></li>
+        <li><a (click)="toggleView='table'" class='cursorPointer'>Table View</a></li>
+        <li><a (click)="printDiv()" class='cursorPointer' matBadge="{{tagList.length}}" [matBadgeHidden]="hidden">Print
+            Tags</a></li>
+        <!-- <li><a href="#">More</a></li>
+        <li><a href="#">Nice staff</a></li> -->
+      </ul>
+    </nav>
+    <!-- <mat-button-toggle-group name="fontStyle" aria-label="Font Style" class='noneOutline' (click)="getAssetDetail()">
       <mat-button-toggle backgroundColor="warn" (click)="toggleView='form'" class='noneOutline' value="bold">Form View
       </mat-button-toggle>
       <mat-button-toggle class='noneOutline' (click)="toggleView='table'" value="italic">Table View</mat-button-toggle>
       <mat-button-toggle class='noneOutline' value="italic"><span matBadge="{{tagList.length}}"
           [matBadgeHidden]="hidden" (click)="printDiv()">Print Tags</span></mat-button-toggle>
-    </mat-button-toggle-group>
+    </mat-button-toggle-group> -->
   </div>
 </div>
 
-<div class="container-fluid pt-3">
+<div class="container-fluid pt-3 bg-white">
   <!-- Form View -->
-  <div *ngIf="toggleView == 'table'" class='animated fadeInUp'>
+  <div *ngIf="toggleView == 'table'" class='animate__animated animate__fadeInUp'>
     <!-- search bar -->
     <div class="row pl-3">
       <div class="col-md-10">
@@ -101,7 +111,7 @@
     </div><!-- end table -->
   </div><!-- end Form View -->
   <!-- Asset Tags -->
-  <div *ngIf="toggleView == 'form'" class='animated fadeInUp'>
+  <div *ngIf="toggleView == 'form'" class='animate__animated animate__fadeInUp'>
     <div class="row mb-2">
       <div class="col-md-9">
         <div class="row">

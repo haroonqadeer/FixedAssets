@@ -22,10 +22,11 @@ export class AppComponent {
   ngOnInit(): void {
     if (this.cookie.get("userID") == "") {
       this.router.navigate([""]);
-      $("#menuId").hide();
+      // $("#menuId").hide();
     } else {
       //this.router.navigate(["importsurveyresult"]);
       $("#menuId").show();
+      $(".sidenav").hide();
     }
   }
 
@@ -59,5 +60,28 @@ export class AppComponent {
 
   restart() {
     this.userIdle.resetTimer();
+  }
+
+  openNav() {
+    $(".sidenav").show();
+    // const element = document.querySelector("#mySidenav");
+    // element.classList.add("animate__animated", "animate__bounce");
+    // $("#mySidenav").show("slide", { direction: "left" }, 1000);
+    // document.getElementById("mySidenav").style.width = "250px";
+    // document.getElementById("main").style.marginLeft = "250px";
+  }
+
+  closeNav() {
+    $(".sidenav").hide();
+    // $("#mySidenav").toggle(
+    //   "slide",
+    //   {
+    //     direction: "left",
+    //   },
+    //   1000
+    // );
+    // $("#mySidenav").hide("slide", { direction: "right" }, 1000);
+    // document.getElementById("mySidenav").style.width = "0";
+    // document.getElementById("main").style.marginLeft = "0";
   }
 }
