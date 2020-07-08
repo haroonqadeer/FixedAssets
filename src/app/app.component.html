@@ -142,12 +142,13 @@
 <!-- header -->
 <div class="row" id="menuId">
   <div class="col-md-2">
-    <span style="font-size: 1.5em; color:#000; cursor: pointer;" (click)="openNav()"
-      class="animate__animated animate__bounce">&#9776;
+    <span style="font-size: 1.5em; cursor: pointer;" (click)="openNav()"
+      class="animate__animated animate__bounce txt-color-green">&#9776;
       NHA</span>
   </div>
   <div class="col-md-2 offset-md-8 pt-1 text-right">
-    <button mat-button class='noneOutline' [matMenuTriggerFor]="menu"><span class='fa fa-user'></span>&nbsp;&nbsp;Imran
+    <button mat-button class='noneOutline txt-color-green' [matMenuTriggerFor]="menu"><span
+        class='fa fa-user'></span>&nbsp;&nbsp;Imran
       Ejaz</button>
     <mat-menu #menu="matMenu">
       <button mat-menu-item class='noneOutline'><span class='fa fa-lock'></span>&nbsp;Reset Password</button>

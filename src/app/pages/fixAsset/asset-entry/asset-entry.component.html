@@ -23,7 +23,7 @@
   </div>
 </div>
 
-<div class="container-fluid pt-3 bg-white">
+<div class="container-fluid  bg-white">
   <!-- Form View -->
   <div *ngIf="toggleView == 'table'" class='animate__animated animate__fadeInUp'>
     <!-- search bar -->
@@ -112,7 +112,7 @@
   </div><!-- end Form View -->
   <!-- Asset Tags -->
   <div *ngIf="toggleView == 'form'" class='animate__animated animate__fadeInUp'>
-    <div class="row mb-2">
+    <div class="row">
       <div class="col-md-9">
         <div class="row">
           <div class="col-md-12">
@@ -365,7 +365,7 @@
           </div>
         </div>
       </div>
-      <div class="col-md-3 bg-danger boxShadow-1 pt-3">
+      <div class="col-md-3 bgGreen boxShadow-1 pt-3">
         <mat-card class='text-center mb-2'
           *ngFor="let item of tagList | paginate: { itemsPerPage: itemPerPage, currentPage: p }">{{item.tag}}</mat-card>
         <!-- Pagination Starts -->
