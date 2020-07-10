@@ -234,7 +234,6 @@ export class DashboardyComponent implements OnInit {
   }
 
   testChart() {
-    alert(this.computerList.length);
     var reqHeader = new HttpHeaders({
       "Content-Type": "application/json",
       // Authorization: "Bearer " + Token,
