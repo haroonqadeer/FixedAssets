@@ -148,8 +148,7 @@
   </div>
   <div class="col-md-2 offset-md-8 pt-1 text-right">
     <button mat-button class='noneOutline txt-color-green' [matMenuTriggerFor]="menu"><span
-        class='fa fa-user'></span>&nbsp;&nbsp;Imran
-      Ejaz</button>
+        class='fa fa-user'></span>&nbsp;&nbsp;{{userName}}</button>
     <mat-menu #menu="matMenu">
       <button mat-menu-item class='noneOutline'><span class='fa fa-lock'></span>&nbsp;Reset Password</button>
       <button mat-menu-item class='noneOutline' (click)="Logout()"><span class='fa fa-sign-out'></span>&nbsp;Log

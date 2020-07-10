@@ -5,6 +5,7 @@ import {
   HttpHeaders,
   HttpErrorResponse,
 } from "@angular/common/http";
+import { CookieService } from "ngx-cookie-service";
 
 declare var $: any;
 
@@ -147,7 +148,11 @@ export class AssetEntryComponent implements OnInit {
     },
   ];
 
-  constructor(private toastr: ToastrManager, private http: HttpClient) {}
+  constructor(
+    private toastr: ToastrManager,
+    private http: HttpClient,
+    private cookie: CookieService
+  ) {}
 
   printDiv() {
     var printCss = this.printCSS();
@@ -217,6 +222,7 @@ export class AssetEntryComponent implements OnInit {
   ngOnInit(): void {
     this.rdbAsset = "1";
 
+    this.getAssetDetail();
     this.getTags();
     this.getLocation();
     this.getOfficeType();
@@ -250,9 +256,12 @@ export class AssetEntryComponent implements OnInit {
     });
 
     this.http
-      .get(this.serverUrl + "gettags?UserId=1", { headers: reqHeader })
+      .get(this.serverUrl + "gettags?UserId=" + this.cookie.get("userID"), {
+        headers: reqHeader,
+      })
       .subscribe((data: any) => {
         this.tagList = data;
+        this.tagList.reverse();
       });
   }
 
@@ -433,25 +442,21 @@ export class AssetEntryComponent implements OnInit {
   }
 
   getAssetDetail() {
-    if (this.cmbLocation != "" && this.cmbOfcType != "") {
-      var reqHeader = new HttpHeaders({
-        "Content-Type": "application/json",
-        // Authorization: "Bearer " + Token,
-      });
+    var reqHeader = new HttpHeaders({
+      "Content-Type": "application/json",
+      // Authorization: "Bearer " + Token,
+    });
 
-      this.http
-        .get(
-          this.serverUrl +
-            "getassetdetail?UserId=1&SubLocID=" +
-            this.cmbLocation +
-            "&OfficeTypeID=" +
-            this.cmbOfcType,
-          { headers: reqHeader }
-        )
-        .subscribe((data: any) => {
-          this.assetDetailList = data;
-        });
-    }
+    this.http
+      .get(
+        this.serverUrl +
+          "getuserassetdetail?UserId=" +
+          this.cookie.get("userID"),
+        { headers: reqHeader }
+      )
+      .subscribe((data: any) => {
+        this.assetDetailList = data;
+      });
   }
 
   editAsset(item) {
@@ -522,11 +527,6 @@ export class AssetEntryComponent implements OnInit {
         toastTimeout: 2500,
       });
       return false;
-    } else if (this.cmbCustody == "") {
-      this.toastr.errorToastr("Please Select Custody", "Error", {
-        toastTimeout: 2500,
-      });
-      return false;
     } else if (this.cmbAssetCat == "") {
       this.toastr.errorToastr("Please Select Asset Category", "Error", {
         toastTimeout: 2500,
@@ -582,11 +582,6 @@ export class AssetEntryComponent implements OnInit {
         toastTimeout: 2500,
       });
       return false;
-    } else if (this.cmbAssetCond == "") {
-      this.toastr.errorToastr("Please Select Asset Condition", "Error", {
-        toastTimeout: 2500,
-      });
-      return false;
     } else if (this.txtRemarks == "") {
       this.toastr.errorToastr("Please Enter Remarks", "Error", {
         toastTimeout: 2500,
@@ -605,6 +600,23 @@ export class AssetEntryComponent implements OnInit {
         } else {
           vehicleID = this.cmbVehicle;
         }
+      }
+
+      if (this.sldMissing == false) {
+        if (this.cmbCustody == "") {
+          this.toastr.errorToastr("Please Select Custody", "Error", {
+            toastTimeout: 2500,
+          });
+          return false;
+        } else if (this.cmbAssetCond == "") {
+          this.toastr.errorToastr("Please Select Asset Condition", "Error", {
+            toastTimeout: 2500,
+          });
+          return false;
+        }
+      } else {
+        this.cmbCustody = null;
+        this.cmbAssetCond = null;
       }
       var purchaseDate = this.convertDate(this.dtpPurchaseDt);
       var saveData;
@@ -635,7 +647,7 @@ export class AssetEntryComponent implements OnInit {
           IsCondemned: this.sldCondemned, //bool
           IsMissing: this.sldMissing, //bool
           Remarks: this.txtRemarks, //string
-          Userid: 1, //int
+          Userid: this.cookie.get("userID"), //int
           IsDeleted: 0, //bool
           DeletionDate: purchaseDate, //date
           DeleteBy: 0, //int
@@ -671,7 +683,7 @@ export class AssetEntryComponent implements OnInit {
           IsCondemned: this.sldCondemned, //bool
           IsMissing: this.sldMissing, //bool
           Remarks: this.txtRemarks, //string
-          Userid: 1, //int
+          Userid: this.cookie.get("userID"), //int
           IsDeleted: 0, //bool
           DeletionDate: purchaseDate, //date
           DeleteBy: 0, //int
@@ -762,7 +774,7 @@ export class AssetEntryComponent implements OnInit {
         ChasisNum: this.txtChasis,
         EngineNum: this.txtEngine,
         ID: 0,
-        Userid: 1,
+        Userid: this.cookie.get("userID"),
         SPType: "Insert",
       };
 
@@ -796,7 +808,7 @@ export class AssetEntryComponent implements OnInit {
 
   delete(item) {
     var saveData = {
-      Userid: 1, //int
+      Userid: this.cookie.get("userID"), //int
       SpType: "Delete", //string
       AssetID: item.assetID, //int
     };

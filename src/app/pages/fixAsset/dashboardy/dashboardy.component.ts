@@ -44,6 +44,14 @@ export class DashboardyComponent implements OnInit {
   tagDetDtWiseList = [];
   totalTagList = [];
   locList = [];
+  chartAssetDetailList = [];
+  computerList = [];
+  drawingList = [];
+  electricList = [];
+  furnitureList = [];
+  officeList = [];
+  plantList = [];
+  vehicleList = [];
 
   constructor(private http: HttpClient) {}
 
@@ -52,7 +60,7 @@ export class DashboardyComponent implements OnInit {
 
   ngOnInit(): void {
     // Create the chart
-    this.testChart();
+    // this.testChart();
     this.getTagsSummary();
     this.getLocationDetail();
     this.getCompLocationDetail();
@@ -62,6 +70,7 @@ export class DashboardyComponent implements OnInit {
     this.getLocation();
     this.getAssetDetail();
     this.getOfficeType();
+    this.getChartAssetDetail();
   }
 
   getOfficeType() {
@@ -77,6 +86,77 @@ export class DashboardyComponent implements OnInit {
       });
   }
 
+  getChartAssetDetail() {
+    var reqHeader = new HttpHeaders({
+      "Content-Type": "application/json",
+      // Authorization: "Bearer " + Token,
+    });
+
+    this.http
+      .get(this.serverUrl + "getallassetdetaillocwisedashboard", {
+        headers: reqHeader,
+      })
+      .subscribe((data: any) => {
+        this.chartAssetDetailList = data;
+        for (var i = 0; i < this.chartAssetDetailList.length; i++) {
+          if (
+            this.chartAssetDetailList[i].accountsCatagoryDisplay == "PLANTS"
+          ) {
+            this.plantList.push([
+              this.chartAssetDetailList[i].assetCatDescription,
+              this.chartAssetDetailList[i].tagsCreated,
+            ]);
+          } else if (
+            this.chartAssetDetailList[i].accountsCatagoryDisplay == "COMPUTERS"
+          ) {
+            this.computerList.push([
+              this.chartAssetDetailList[i].assetCatDescription,
+              this.chartAssetDetailList[i].tagsCreated,
+            ]);
+          } else if (
+            this.chartAssetDetailList[i].accountsCatagoryDisplay ==
+            "DRAWINGEQUIPMENT"
+          ) {
+            this.drawingList.push([
+              this.chartAssetDetailList[i].assetCatDescription,
+              this.chartAssetDetailList[i].tagsCreated,
+            ]);
+          } else if (
+            this.chartAssetDetailList[i].accountsCatagoryDisplay ==
+            "ELECTRICITEMS"
+          ) {
+            this.electricList.push([
+              this.chartAssetDetailList[i].assetCatDescription,
+              this.chartAssetDetailList[i].tagsCreated,
+            ]);
+          } else if (
+            this.chartAssetDetailList[i].accountsCatagoryDisplay == "FURNITURES"
+          ) {
+            this.furnitureList.push([
+              this.chartAssetDetailList[i].assetCatDescription,
+              this.chartAssetDetailList[i].tagsCreated,
+            ]);
+          } else if (
+            this.chartAssetDetailList[i].accountsCatagoryDisplay == "VEHICLES"
+          ) {
+            this.vehicleList.push([
+              this.chartAssetDetailList[i].assetCatDescription,
+              this.chartAssetDetailList[i].tagsCreated,
+            ]);
+          } else if (
+            this.chartAssetDetailList[i].accountsCatagoryDisplay ==
+            "OFFICEEQUIPMENTS"
+          ) {
+            this.officeList.push([
+              this.chartAssetDetailList[i].assetCatDescription,
+              this.chartAssetDetailList[i].tagsCreated,
+            ]);
+          }
+        }
+        this.testChart();
+      });
+  }
+
   getAssetDetail() {
     var reqHeader = new HttpHeaders({
       "Content-Type": "application/json",
@@ -87,6 +167,7 @@ export class DashboardyComponent implements OnInit {
       .get(this.serverUrl + "getassetdetail", { headers: reqHeader })
       .subscribe((data: any) => {
         this.assetDetailList = data;
+        this.assetDetailList.reverse();
       });
   }
 
@@ -153,6 +234,7 @@ export class DashboardyComponent implements OnInit {
   }
 
   testChart() {
+    alert(this.computerList.length);
     var reqHeader = new HttpHeaders({
       "Content-Type": "application/json",
       // Authorization: "Bearer " + Token,
@@ -167,9 +249,9 @@ export class DashboardyComponent implements OnInit {
           },
           title: {
             text: "Asset by Categories",
-            style: {
-              color: "#ddd",
-            },
+            // style: {
+            //   color: "#ddd",
+            // },
           },
           xAxis: {
             type: "category",
@@ -182,21 +264,21 @@ export class DashboardyComponent implements OnInit {
           legend: {
             enabled: false,
           },
+
+          tooltip: {
+            headerFormat:
+              '<span style="font-size:11px">{series.name}</span><br>',
+            pointFormat:
+              '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>',
+          },
           plotOptions: {
             series: {
               dataLabels: {
                 enabled: true,
-                format: "{point.y:.1f}%",
+                format: "{y}",
               },
             },
           },
-
-          // tooltip: {
-          //   headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-          //   pointFormat:
-          //     '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>',
-          // },
-
           series: [
             {
               name: data[0].totalTagsCreated,
@@ -204,126 +286,80 @@ export class DashboardyComponent implements OnInit {
                 {
                   name: "Computers",
                   y: data[0].computers,
-                  // drilldown: "Chrome",
+                  drilldown: "Computers",
                 },
                 {
                   name: "Drawing Equipment",
                   y: data[0].drawingequipment,
-                  // drilldown: "Firefox",
+                  drilldown: "Drawing Equipment",
                 },
                 {
                   name: "Electric Items",
                   y: data[0].electricitems,
-                  // drilldown: "Internet Explorer",
+                  drilldown: "Electric Items",
                 },
                 {
                   name: "Furnitures",
                   y: data[0].furnitures,
-                  // drilldown: "Safari",
+                  drilldown: "Furnitures",
                 },
                 {
                   name: "Office Equipements",
                   y: data[0].officeequipments,
-                  // drilldown: "Edge",
+                  drilldown: "Office Equipements",
                 },
                 {
                   name: "Plants",
                   y: data[0].plants,
-                  // drilldown: "Opera",
+                  drilldown: "Plants",
                 },
                 {
                   name: "Vehicles",
                   y: data[0].vehicles,
-                  // drilldown: null,
+                  drilldown: "Vehicles",
                 },
               ],
             },
           ],
-          // drilldown: {
-          //   series: [
-          //     {
-          //       name: "Chrome",
-          //       id: "Chrome",
-          //       data: [
-          //         ["v65.0", 0.1],
-          //         ["v64.0", 1.3],
-          //         ["v63.0", 53.02],
-          //         ["v62.0", 1.4],
-          //         ["v61.0", 0.88],
-          //         ["v60.0", 0.56],
-          //         ["v59.0", 0.45],
-          //         ["v58.0", 0.49],
-          //         ["v57.0", 0.32],
-          //         ["v56.0", 0.29],
-          //         ["v55.0", 0.79],
-          //         ["v54.0", 0.18],
-          //         ["v51.0", 0.13],
-          //         ["v49.0", 2.16],
-          //         ["v48.0", 0.13],
-          //         ["v47.0", 0.11],
-          //         ["v43.0", 0.17],
-          //         ["v29.0", 0.26],
-          //       ],
-          //     },
-          //     {
-          //       name: "Firefox",
-          //       id: "Firefox",
-          //       data: [
-          //         ["v58.0", 1.02],
-          //         ["v57.0", 7.36],
-          //         ["v56.0", 0.35],
-          //         ["v55.0", 0.11],
-          //         ["v54.0", 0.1],
-          //         ["v52.0", 0.95],
-          //         ["v51.0", 0.15],
-          //         ["v50.0", 0.1],
-          //         ["v48.0", 0.31],
-          //         ["v47.0", 0.12],
-          //       ],
-          //     },
-          //     {
-          //       name: "Internet Explorer",
-          //       id: "Internet Explorer",
-          //       data: [
-          //         ["v11.0", 6.2],
-          //         ["v10.0", 0.29],
-          //         ["v9.0", 0.27],
-          //         ["v8.0", 0.47],
-          //       ],
-          //     },
-          //     {
-          //       name: "Safari",
-          //       id: "Safari",
-          //       data: [
-          //         ["v11.0", 3.39],
-          //         ["v10.1", 0.96],
-          //         ["v10.0", 0.36],
-          //         ["v9.1", 0.54],
-          //         ["v9.0", 0.13],
-          //         ["v5.1", 0.2],
-          //       ],
-          //     },
-          //     {
-          //       name: "Edge",
-          //       id: "Edge",
-          //       data: [
-          //         ["v16", 2.6],
-          //         ["v15", 0.92],
-          //         ["v14", 0.4],
-          //         ["v13", 0.1],
-          //       ],
-          //     },
-          //     {
-          //       name: "Opera",
-          //       id: "Opera",
-          //       data: [
-          //         ["v50.0", 0.96],
-          //         ["v49.0", 0.82],
-          //         ["v12.1", 0.14],
-          //       ],
-          //     },
-          //   ],
-          // },
+          drilldown: {
+            series: [
+              {
+                name: "Computers",
+                id: "Computers",
+                data: this.computerList,
+              },
+              {
+                name: "Drawing Equipment",
+                id: "Drawing Equipment",
+                data: this.drawingList,
+              },
+              {
+                name: "Electric Items",
+                id: "Electric Items",
+                data: this.electricList,
+              },
+              {
+                name: "Furnitures",
+                id: "Furnitures",
+                data: this.furnitureList,
+              },
+              {
+                name: "Office Equipements",
+                id: "Office Equipements",
+                data: this.officeList,
+              },
+              {
+                name: "Plants",
+                id: "Plants",
+                data: this.plantList,
+              },
+              {
+                name: "Vehicles",
+                id: "Vehicles",
+                data: this.vehicleList,
+              },
+            ],
+          },
         });
 
         this.test_chart = chart;
@@ -522,6 +558,7 @@ export class DashboardyComponent implements OnInit {
       .get(this.serverUrl + "getalltagsdetaildatewise", { headers: reqHeader })
       .subscribe((data: any) => {
         this.totalTagList = data;
+        this.totalTagList.reverse();
       });
   }
 
@@ -686,5 +723,16 @@ export class DashboardyComponent implements OnInit {
       .subscribe((data: any) => {
         this.tagDetList = data;
       });
+  }
+
+  clear() {
+    this.cmbOfcType = "";
+    this.cmbChartLocation = "";
+    this.cmbTblLocation = "";
+    this.cmbLocation = "";
+
+    this.testChart();
+    this.getTagDateWise();
+    this.getAssetDetail();
   }
 }

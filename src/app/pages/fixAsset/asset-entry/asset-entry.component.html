@@ -45,6 +45,7 @@
         <thead>
           <tr>
             <th scope="col">Action</th>
+            <th scope="col">Tag</th>
             <th scope="col">Sub-Location</th>
             <th scope="col">Office Type</th>
             <th scope="col">Accounts Category</th>
@@ -78,6 +79,7 @@
                 (click)="editAsset(item)"></span>
               <span class='fa fa-trash-o cursorPointer text-danger' (click)="delete(item)"></span>
             </td>
+            <td>{{item.tag}}</td>
             <td>{{item.subLocationDescription}}</td>
             <td>{{item.officeTypeDescription}}</td>
             <td>{{item.accountsCatagory}}</td>
@@ -164,11 +166,21 @@
         <hr>
         <!-- next row -->
         <div class="row ">
-          <div class="col-md-12">
+          <div class="col-md-6">
             <mat-radio-group aria-label="Select an option" [(ngModel)]="rdbAsset">
               <mat-radio-button value="1" class='pr-5'>Other Asset</mat-radio-button>
               <mat-radio-button value="2">Vehicle</mat-radio-button>
             </mat-radio-group>
+          </div>
+          <div class="col-md-6 text-right" *ngIf="assetNo!=''">
+            <div class="row">
+              <div class="col-md-11">
+                <h5 class='align-self-center'>Asset No:</h5>
+              </div>
+              <div class="col-md-1 text-left">
+                <h5 class='align-self-center'>{{assetNo}}</h5>
+              </div>
+            </div>
           </div>
         </div>
         <!-- next row -->
@@ -178,7 +190,7 @@
               <mat-label>Vehicle</mat-label>
               <mat-select [(ngModel)]="cmbVehicle">
                 <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchVehicle">
-                <mat-option *ngFor=" let item of vehicleList |search:'':searchVehicle" [value]="item.id">
+                <mat-option *ngFor=" let item of vehicleList |search:'vehID':searchVehicle" [value]="item.id">
                   <table class="table">
                     <tr class='d-flex'>
                       <td class="col-2">{{ item.vehID }}</td>
