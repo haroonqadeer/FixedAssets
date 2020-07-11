@@ -19,9 +19,13 @@ import { CookieService } from "ngx-cookie-service";
 import { LoginComponent } from './pages/user/login/login.component';
 import { AssetEntryComponent } from './pages/fixAsset/asset-entry/asset-entry.component';
 import { DashboardyComponent } from './pages/fixAsset/dashboardy/dashboardy.component';
+import { NHALocComponent } from './pages/fixasset/configuration/nhaloc/nhaloc.component';
+import { NHASectionComponent } from './pages/fixasset/configuration/nhasection/nhasection.component';
+import { NHAOfficeTypeComponent } from './pages/fixasset/configuration/nhaoffice-type/nhaoffice-type.component';
+import { AssetCategoryComponent } from './pages/fixasset/configuration/asset-category/asset-category.component';
 
 @NgModule({
-  declarations: [AppComponent, SearchPipe, LoginComponent, AssetEntryComponent, DashboardyComponent],
+  declarations: [AppComponent, SearchPipe, LoginComponent, AssetEntryComponent, DashboardyComponent, NHALocComponent, NHASectionComponent, NHAOfficeTypeComponent, AssetCategoryComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

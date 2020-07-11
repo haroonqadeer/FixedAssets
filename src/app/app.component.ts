@@ -63,7 +63,8 @@ export class AppComponent {
   }
 
   openNav() {
-    $(".sidenav").show();
+    // $(".sidenav").show();
+    $(".sidenav").toggle("slide");
     // const element = document.querySelector("#mySidenav");
     // element.classList.add("animate__animated", "animate__bounce");
     // $("#mySidenav").show("slide", { direction: "left" }, 1000);
@@ -72,7 +73,8 @@ export class AppComponent {
   }
 
   closeNav() {
-    $(".sidenav").hide();
+    // $(".sidenav").hide();
+    $(".sidenav").toggle("slide");
     // $("#mySidenav").toggle(
     //   "slide",
     //   {

@@ -45,7 +45,7 @@
           <h3 class="pl-4 pt-2">Menu</h3>
         </div>
         <div class="col-md-6 text-right">
-          <span class='fa fa-close cursorPointer pt-3 pr-2' (click)="closeNav()" style='font-size: 1.5em;'></span>
+          <span class="fa fa-close cursorPointer pt-3 pr-2" (click)="closeNav()" style="font-size: 1.5em;"></span>
           <!-- <button mat-icon-button color="warn" class="noneOutline mt-2 mr-2">
             <mat-icon><span class="fa fa-close"></span></mat-icon>
           </button> -->
@@ -68,18 +68,32 @@
         </a>
       </li>
       <li>
-        <a href="">
-          <i class="fa fa-"></i>
+        <a href="" routerLink="assetEntry">
+          <i class="fa fa-table"></i>
           <strong>Asset Entry & Tags</strong>
           <small>sweet home</small>
         </a>
       </li>
       <li>
         <a href="">
-          <i class="fa fa-globe"></i>
-          <strong>News</strong>
+          <i class="fa fa-cog"></i>
+          <strong>Configuration</strong>
           <small>sweet home</small>
         </a>
+        <ul>
+          <li>
+            <a href="" routerLink="nhaLoc"><i class="fa fa-location-arrow"></i>NHA Locations</a>
+          </li>
+          <li>
+            <a href="" routerLink="nhaSec"><i class="fa fa-building"></i>NHA Section</a>
+          </li>
+          <li>
+            <a href="" routerLink="nhaOfficeType"><i class="fa fa-bank"></i>Office Type</a>
+          </li>
+          <li>
+            <a href="" routerLink="assetCat"><i class="fa fa-list"></i>Asset Category</a>
+          </li>
+        </ul>
       </li>
       <li>
         <a href="">
@@ -141,19 +155,21 @@
 
 <!-- header -->
 <div class="row" id="menuId">
-  <div class="col-md-2 text-center">
+  <div class="col-md-2 pl-4">
     <span style="font-size: 1.5em; cursor: pointer;" (click)="openNav()"
-      class="animate__animated animate__bounce txt-color-green">&#9776;
-      NHA</span>
+      class="animate__animated animate__bounce txt-color-green">&#9776; NHA</span>
   </div>
   <div class="col-md-2 offset-md-8 pt-1 text-right">
-    <button mat-button class='noneOutline txt-color-green' [matMenuTriggerFor]="menu"><span
-        class='fa fa-user'></span>&nbsp;&nbsp;Imran
-      Ejaz</button>
+    <button mat-button class="noneOutline txt-color-green" [matMenuTriggerFor]="menu">
+      <span class="fa fa-user"></span>&nbsp;&nbsp;Imran Ejaz
+    </button>
     <mat-menu #menu="matMenu">
-      <button mat-menu-item class='noneOutline'><span class='fa fa-lock'></span>&nbsp;Reset Password</button>
-      <button mat-menu-item class='noneOutline' (click)="Logout()"><span class='fa fa-sign-out'></span>&nbsp;Log
-        out</button>
+      <button mat-menu-item class="noneOutline">
+        <span class="fa fa-lock"></span>&nbsp;Reset Password
+      </button>
+      <button mat-menu-item class="noneOutline" (click)="Logout()">
+        <span class="fa fa-sign-out"></span>&nbsp;Log out
+      </button>
     </mat-menu>
   </div>
   <!-- <div class="col-md-1">
