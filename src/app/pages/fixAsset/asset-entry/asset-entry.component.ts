@@ -5,6 +5,7 @@ import {
   HttpHeaders,
   HttpErrorResponse,
 } from "@angular/common/http";
+import { CookieService } from "ngx-cookie-service";
 
 declare var $: any;
 
@@ -46,6 +47,9 @@ export class AssetEntryComponent implements OnInit {
   cmbAssetCond = "";
   txtRemarks = "";
   dtpPurchaseDt;
+  cmbSearchOfcType = "";
+  cmbSearchLocation = "";
+  cmbSearchWngSection = "";
 
   txtRegNo = "";
   cmbMake = "";
@@ -53,6 +57,10 @@ export class AssetEntryComponent implements OnInit {
   cmbType = "";
   txtEngine = "";
   txtChasis = "";
+
+  lblAccCategory = "";
+  lblDepRule = "";
+  lblBaseRate = "";
 
   sldUsable = false;
   disableUsable = false;
@@ -71,6 +79,8 @@ export class AssetEntryComponent implements OnInit {
   searchProject = "";
   searchVehicle = "";
   searchSection = "";
+  advSearchSection = "";
+  advSearchLocation = "";
 
   tagList = [];
   locList = [];
@@ -147,7 +157,11 @@ export class AssetEntryComponent implements OnInit {
     },
   ];
 
-  constructor(private toastr: ToastrManager, private http: HttpClient) {}
+  constructor(
+    private toastr: ToastrManager,
+    private http: HttpClient,
+    private cookie: CookieService
+  ) {}
 
   printDiv() {
     var printCss = this.printCSS();
@@ -217,10 +231,10 @@ export class AssetEntryComponent implements OnInit {
   ngOnInit(): void {
     this.rdbAsset = "1";
 
+    this.getAssetDetail();
     this.getTags();
     this.getLocation();
     this.getOfficeType();
-    this.getWingSection();
     this.getVehicle();
     this.getCustody();
     this.getAssetCategory();
@@ -250,9 +264,12 @@ export class AssetEntryComponent implements OnInit {
     });
 
     this.http
-      .get(this.serverUrl + "gettags?UserId=1", { headers: reqHeader })
+      .get(this.serverUrl + "gettags?UserId=" + this.cookie.get("userID"), {
+        headers: reqHeader,
+      })
       .subscribe((data: any) => {
         this.tagList = data;
+        this.tagList.reverse();
       });
   }
 
@@ -282,14 +299,16 @@ export class AssetEntryComponent implements OnInit {
       });
   }
 
-  getWingSection() {
+  getWingSection(obj) {
     var reqHeader = new HttpHeaders({
       "Content-Type": "application/json",
       // Authorization: "Bearer " + Token,
     });
 
     this.http
-      .get(this.serverUrl + "getwingsec", { headers: reqHeader })
+      .get(this.serverUrl + "getwingsec?officeTypeID=" + obj, {
+        headers: reqHeader,
+      })
       .subscribe((data: any) => {
         this.wngSectionList = data;
       });
@@ -405,6 +424,9 @@ export class AssetEntryComponent implements OnInit {
         (x) => x.assetCatID == assetCatID
       );
       this.txtAssetDesc = assetCat[0].assetCatDescription;
+      this.lblAccCategory = assetCat[0].accountsCatagory;
+      this.lblDepRule = assetCat[0].depreciationRule;
+      this.lblBaseRate = assetCat[0].baseRate;
     }
   }
 
@@ -433,25 +455,21 @@ export class AssetEntryComponent implements OnInit {
   }
 
   getAssetDetail() {
-    if (this.cmbLocation != "" && this.cmbOfcType != "") {
-      var reqHeader = new HttpHeaders({
-        "Content-Type": "application/json",
-        // Authorization: "Bearer " + Token,
-      });
+    var reqHeader = new HttpHeaders({
+      "Content-Type": "application/json",
+      // Authorization: "Bearer " + Token,
+    });
 
-      this.http
-        .get(
-          this.serverUrl +
-            "getassetdetail?UserId=1&SubLocID=" +
-            this.cmbLocation +
-            "&OfficeTypeID=" +
-            this.cmbOfcType,
-          { headers: reqHeader }
-        )
-        .subscribe((data: any) => {
-          this.assetDetailList = data;
-        });
-    }
+    this.http
+      .get(
+        this.serverUrl +
+          "getuserassetdetail?UserId=" +
+          this.cookie.get("userID"),
+        { headers: reqHeader }
+      )
+      .subscribe((data: any) => {
+        this.assetDetailList = data;
+      });
   }
 
   editAsset(item) {
@@ -483,6 +501,24 @@ export class AssetEntryComponent implements OnInit {
     this.sldCondemned = item.isCondemned;
     this.sldMissing = item.isMissing;
     this.txtRemarks = item.remarks;
+
+    if (this.sldMissing) {
+      this.disableUsable = true;
+      this.sldUsable = false;
+      this.disableServiceable = true;
+      this.sldServiceable = false;
+      this.disableSurplus = true;
+      this.sldSurplus = false;
+      this.disableCondemned = true;
+      this.sldCondemned = false;
+    } else if (!this.sldMissing) {
+      this.disableUsable = false;
+      this.disableServiceable = false;
+      this.disableSurplus = false;
+      this.disableCondemned = false;
+    }
+
+    this.toggleView = "form";
   }
 
   public convertDate(myDate) {
@@ -519,11 +555,6 @@ export class AssetEntryComponent implements OnInit {
       return false;
     } else if (this.rdbAsset == "") {
       this.toastr.errorToastr("Please Select Asset Type", "Error", {
-        toastTimeout: 2500,
-      });
-      return false;
-    } else if (this.cmbCustody == "") {
-      this.toastr.errorToastr("Please Select Custody", "Error", {
         toastTimeout: 2500,
       });
       return false;
@@ -582,11 +613,6 @@ export class AssetEntryComponent implements OnInit {
         toastTimeout: 2500,
       });
       return false;
-    } else if (this.cmbAssetCond == "") {
-      this.toastr.errorToastr("Please Select Asset Condition", "Error", {
-        toastTimeout: 2500,
-      });
-      return false;
     } else if (this.txtRemarks == "") {
       this.toastr.errorToastr("Please Enter Remarks", "Error", {
         toastTimeout: 2500,
@@ -605,6 +631,23 @@ export class AssetEntryComponent implements OnInit {
         } else {
           vehicleID = this.cmbVehicle;
         }
+      }
+
+      if (this.sldMissing == false) {
+        if (this.cmbCustody == "") {
+          this.toastr.errorToastr("Please Select Custody", "Error", {
+            toastTimeout: 2500,
+          });
+          return false;
+        } else if (this.cmbAssetCond == "") {
+          this.toastr.errorToastr("Please Select Asset Condition", "Error", {
+            toastTimeout: 2500,
+          });
+          return false;
+        }
+      } else {
+        this.cmbCustody = null;
+        this.cmbAssetCond = null;
       }
       var purchaseDate = this.convertDate(this.dtpPurchaseDt);
       var saveData;
@@ -635,7 +678,7 @@ export class AssetEntryComponent implements OnInit {
           IsCondemned: this.sldCondemned, //bool
           IsMissing: this.sldMissing, //bool
           Remarks: this.txtRemarks, //string
-          Userid: 1, //int
+          Userid: this.cookie.get("userID"), //int
           IsDeleted: 0, //bool
           DeletionDate: purchaseDate, //date
           DeleteBy: 0, //int
@@ -671,7 +714,7 @@ export class AssetEntryComponent implements OnInit {
           IsCondemned: this.sldCondemned, //bool
           IsMissing: this.sldMissing, //bool
           Remarks: this.txtRemarks, //string
-          Userid: 1, //int
+          Userid: this.cookie.get("userID"), //int
           IsDeleted: 0, //bool
           DeletionDate: purchaseDate, //date
           DeleteBy: 0, //int
@@ -762,7 +805,7 @@ export class AssetEntryComponent implements OnInit {
         ChasisNum: this.txtChasis,
         EngineNum: this.txtEngine,
         ID: 0,
-        Userid: 1,
+        Userid: this.cookie.get("userID"),
         SPType: "Insert",
       };
 
@@ -796,7 +839,7 @@ export class AssetEntryComponent implements OnInit {
 
   delete(item) {
     var saveData = {
-      Userid: 1, //int
+      Userid: this.cookie.get("userID"), //int
       SpType: "Delete", //string
       AssetID: item.assetID, //int
     };
@@ -861,6 +904,7 @@ export class AssetEntryComponent implements OnInit {
       this.disableCondemned = false;
     }
   }
+
   setMissingYes() {
     if (this.sldMissing) {
       this.disableUsable = true;
@@ -876,6 +920,44 @@ export class AssetEntryComponent implements OnInit {
       this.disableServiceable = false;
       this.disableSurplus = false;
       this.disableCondemned = false;
+    }
+  }
+
+  clearLocation() {
+    this.cmbSearchLocation = "";
+    this.cmbSearchOfcType = "";
+    this.cmbSearchWngSection = "";
+  }
+
+  searchTableData() {
+    if (this.assetDetailList.length == 0) {
+      this.getAssetDetail();
+    } else if (this.assetDetailList.length != 0) {
+      if (this.cmbSearchOfcType == "" && this.cmbSearchWngSection == "") {
+        this.assetDetailList = this.assetDetailList.filter(
+          (x) => x.subLocID == this.cmbSearchLocation
+        );
+      } else if (
+        this.cmbSearchLocation == "" &&
+        this.cmbSearchWngSection == ""
+      ) {
+        this.assetDetailList = this.assetDetailList.filter(
+          (x) => x.officeTypeID == this.cmbSearchOfcType
+        );
+      } else if (this.cmbSearchWngSection == "") {
+        this.assetDetailList = this.assetDetailList.filter(
+          (x) =>
+            x.subLocID == this.cmbSearchLocation &&
+            x.officeTypeID == this.cmbSearchOfcType
+        );
+      } else {
+        this.assetDetailList = this.assetDetailList.filter(
+          (x) =>
+            x.subLocID == this.cmbSearchLocation &&
+            x.officeTypeID == this.cmbSearchOfcType &&
+            x.officeSecID == this.cmbSearchWngSection
+        );
+      }
     }
   }
 }

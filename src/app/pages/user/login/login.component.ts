@@ -81,6 +81,7 @@ export class LoginComponent implements OnInit {
             this.cookie.set("userID", data.userDetail[0].id);
             this.cookie.set("userName", data.userDetail[0].loginName);
 
+            this.app.userName = this.cookie.get("userName");
             this.showProgress = false;
             this.router.navigate(["assetEntry"]);
             $("#menuId").show();

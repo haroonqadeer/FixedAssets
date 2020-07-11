@@ -12,6 +12,7 @@ declare var $: any;
 })
 export class AppComponent {
   title = "FixedAssets";
+  userName = "";
 
   constructor(
     private router: Router,
@@ -25,6 +26,7 @@ export class AppComponent {
       // $("#menuId").hide();
     } else {
       //this.router.navigate(["importsurveyresult"]);
+      this.userName = this.cookie.get("userName");
       $("#menuId").show();
       $(".sidenav").hide();
     }
