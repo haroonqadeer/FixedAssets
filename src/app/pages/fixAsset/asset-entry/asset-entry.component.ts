@@ -22,6 +22,11 @@ export class AssetEntryComponent implements OnInit {
 
   tblItemPerPage = "10";
   tbl = 1;
+  
+  //* variables for orderby pipe
+  order = "info.name";
+  reverse = false;
+  sortedCollection: any[];
 
   editMode = true;
   hidden = false;
@@ -959,5 +964,13 @@ export class AssetEntryComponent implements OnInit {
         );
       }
     }
+  }
+  
+  //*function for sort table data
+  setOrder(value: string) {
+    if (this.order === value) {
+      this.reverse = !this.reverse;
+    }
+    this.order = value;
   }
 }
