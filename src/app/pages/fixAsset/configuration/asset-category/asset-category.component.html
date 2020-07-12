@@ -17,13 +17,21 @@
       <div class="row">
         <div class="col-md-12 pt-2">
           <mat-form-field class='w-100'>
-            <mat-label>Asset Type</mat-label>
+            <mat-label>Account Category</mat-label>
             <mat-select>
               <mat-option value="primary">Primary</mat-option>
               <mat-option value="accent">Accent</mat-option>
               <mat-option value="warn">Warn</mat-option>
             </mat-select>
           </mat-form-field>
+        </div>
+      </div>
+      <div class="row pr-3 pl-3">
+        <div class="col-md-10 text-danger pb-2 border-right border-bottom">
+          Diminishing Balance Method
+        </div>
+        <div class="col-md-2 text-danger pb-2 text-right border-bottom">
+          20%
         </div>
       </div>
       <div class="row">
@@ -44,6 +52,21 @@
       </div>
       <div class="row">
         <div class="col-md-12 pt-2">
+          <div class="custom-file">
+            <input type="file" class="custom-file-input" id="customFile">
+            <label class="custom-file-label" for="customFile">Choose Asset Image</label>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 pt-2 text-center">
+          <div class="text-center">
+            <img src="..." class="rounded" alt="...">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 pt-2">
           <mat-form-field class="w-100">
             <mat-label>Description</mat-label>
             <textarea matInput placeholder=""></textarea>
@@ -58,12 +81,17 @@
           <button mat-button mat-raised-button color="warn" class='noneOutline w-100'>Reset</button>
         </div>
       </div>
+      <br>
     </div>
     <!-- saved locations -->
     <div class="col-md-8 bg-light">
       <div class="row">
-        <div class="col-md-12 pt-4">
-          <h6 class='border-bottom pb-2'>Saved Asset Categories</h6>
+        <div class="col-md-12 pt-2">
+          <mat-form-field class="w-100">
+            <mat-label>search...</mat-label>
+            <mat-icon matPrefix class='fa fa-search'></mat-icon>
+            <input matInput>
+          </mat-form-field>
         </div>
       </div>
       <div class="table-responsive">
@@ -71,13 +99,13 @@
           <thead>
             <tr>
               <th class="col-1">#</th>
-              <th class="col-3">Asset</th>
+              <th class="col-3">Account Category</th>
               <th class="col-2">Short Name</th>
               <th class="col-4">Full Name</th>
               <th class="col-2 text-center">Action</th>
             </tr>
           </thead>
-          <tbody style='height: 350px;'>
+          <tbody style='height: 400px;'>
             <tr>
               <th class="col-1">1</th>
               <td class="col-3">Furniture & Fixture</td>
@@ -85,7 +113,9 @@
               <td class="col-4">Sofa Set</td>
               <td class='col-2 inline-block text-center'><span
                   class='fa fa-edit cursorPointer pr-3 text-primary'></span>
-                <span class='fa fa-trash-o cursorPointer text-danger'></span>
+                <span class='fa fa-trash-o cursorPointer text-danger pr-3'></span>
+                <mat-slide-toggle>
+                </mat-slide-toggle>
               </td>
             </tr>
             <tr>
@@ -95,7 +125,9 @@
               <td class="col-4">Sofa Set</td>
               <td class='col-2 inline-block text-center'><span
                   class='fa fa-edit cursorPointer pr-3 text-primary'></span>
-                <span class='fa fa-trash-o cursorPointer text-danger'></span>
+                <span class='fa fa-trash-o cursorPointer text-danger pr-3'></span>
+                <mat-slide-toggle>
+                </mat-slide-toggle>
               </td>
             </tr>
             <tr>
@@ -105,7 +137,9 @@
               <td class="col-4">Sofa Set</td>
               <td class='col-2 inline-block text-center'><span
                   class='fa fa-edit cursorPointer pr-3 text-primary'></span>
-                <span class='fa fa-trash-o cursorPointer text-danger'></span>
+                <span class='fa fa-trash-o cursorPointer text-danger pr-3'></span>
+                <mat-slide-toggle>
+                </mat-slide-toggle>
               </td>
             </tr>
             <tr>
@@ -115,7 +149,9 @@
               <td class="col-4">Sofa Set</td>
               <td class='col-2 inline-block text-center'><span
                   class='fa fa-edit cursorPointer pr-3 text-primary'></span>
-                <span class='fa fa-trash-o cursorPointer text-danger'></span>
+                <span class='fa fa-trash-o cursorPointer text-danger pr-3'></span>
+                <mat-slide-toggle>
+                </mat-slide-toggle>
               </td>
             </tr>
             <tr>
@@ -125,7 +161,9 @@
               <td class="col-4">Sofa Set</td>
               <td class='col-2 inline-block text-center'><span
                   class='fa fa-edit cursorPointer pr-3 text-primary'></span>
-                <span class='fa fa-trash-o cursorPointer text-danger'></span>
+                <span class='fa fa-trash-o cursorPointer text-danger pr-3'></span>
+                <mat-slide-toggle>
+                </mat-slide-toggle>
               </td>
             </tr>
             <tr>
@@ -135,7 +173,9 @@
               <td class="col-4">Sofa Set</td>
               <td class='col-2 inline-block text-center'><span
                   class='fa fa-edit cursorPointer pr-3 text-primary'></span>
-                <span class='fa fa-trash-o cursorPointer text-danger'></span>
+                <span class='fa fa-trash-o cursorPointer text-danger pr-3'></span>
+                <mat-slide-toggle>
+                </mat-slide-toggle>
               </td>
             </tr>
             <tr>
@@ -145,7 +185,9 @@
               <td class="col-4">Sofa Set</td>
               <td class='col-2 inline-block text-center'><span
                   class='fa fa-edit cursorPointer pr-3 text-primary'></span>
-                <span class='fa fa-trash-o cursorPointer text-danger'></span>
+                <span class='fa fa-trash-o cursorPointer text-danger pr-3'></span>
+                <mat-slide-toggle>
+                </mat-slide-toggle>
               </td>
             </tr>
             <tr>
@@ -155,7 +197,9 @@
               <td class="col-4">Sofa Set</td>
               <td class='col-2 inline-block text-center'><span
                   class='fa fa-edit cursorPointer pr-3 text-primary'></span>
-                <span class='fa fa-trash-o cursorPointer text-danger'></span>
+                <span class='fa fa-trash-o cursorPointer text-danger pr-3'></span>
+                <mat-slide-toggle>
+                </mat-slide-toggle>
               </td>
             </tr>
           </tbody>
