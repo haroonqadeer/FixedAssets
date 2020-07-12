@@ -28,6 +28,11 @@ export class AssetEntryComponent implements OnInit {
   reverse = false;
   sortedCollection: any[];
 
+  //* variables for orderby pipe
+  // order = "info.name";
+  // reverse = false;
+  // sortedCollection: any[];
+
   editMode = true;
   hidden = false;
 

@@ -1,0 +1,190 @@
+<div class="row">
+  <div class="col-md-12 text-center">
+    <h4>NHA Locations</h4>
+  </div>
+</div>
+
+<!-- container -->
+<div class="container-fluid bg-white">
+  <div class="row">
+    <!-- entry form -->
+    <div class="col-md-4 pl-4 pr-4 border-right">
+      <div class="row">
+        <div class="col-md-12 pt-4">
+          <h6 class='border-bottom pb-2'>Add / Edit Locaton</h6>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 pt-2">
+          <mat-form-field class='w-100'>
+            <mat-label>Region</mat-label>
+            <mat-select>
+              <mat-option value="primary">Primary</mat-option>
+              <mat-option value="accent">Accent</mat-option>
+              <mat-option value="warn">Warn</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 pt-2">
+          <mat-form-field class="w-100">
+            <mat-label>Location Short Name</mat-label>
+            <input matInput maxlength="5">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 pt-2">
+          <mat-form-field class="w-100">
+            <mat-label>Location Full Name</mat-label>
+            <input matInput maxlength="50">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-3 pt-2">
+          <button mat-button mat-raised-button color="primary" class='noneOutline w-100'>Save</button>
+        </div>
+        <div class="col-md-3 pt-2">
+          <button mat-button mat-raised-button color="warn" class='noneOutline w-100'>Reset</button>
+        </div>
+      </div>
+    </div>
+    <!-- saved locations -->
+    <div class="col-md-8 bg-light">
+      <div class="row">
+        <div class="col-md-12 pt-2">
+          <mat-form-field class="w-100">
+            <mat-label>search...</mat-label>
+            <mat-icon matPrefix class='fa fa-search'></mat-icon>
+            <input matInput>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="table-responsive">
+        <table class="table table-fixed">
+          <thead>
+            <tr>
+              <th class="col-1">#</th>
+              <th class="col-3">Region Name</th>
+              <th class="col-2">Short Name</th>
+              <th class="col-4">Full Name</th>
+              <th class="col-2 text-center">Action</th>
+            </tr>
+          </thead>
+          <tbody style='height: 350px;'>
+            <tr>
+              <th class="col-1">1</th>
+              <td class="col-3">Punjab</td>
+              <td class="col-2">LHR</td>
+              <td class="col-4">Lahore</td>
+              <td class='col-2 inline-block text-center'><span
+                  class='fa fa-edit cursorPointer pr-3 text-primary'></span>
+                <span class='fa fa-trash-o cursorPointer text-danger pr-3'></span>
+                <mat-slide-toggle>
+                </mat-slide-toggle>
+              </td>
+            </tr>
+            <tr>
+              <th class="col-1">1</th>
+              <td class="col-3">Punjab</td>
+              <td class="col-2">LHR</td>
+              <td class="col-4">Lahore</td>
+              <td class='col-2 inline-block text-center'><span
+                  class='fa fa-edit cursorPointer pr-3 text-primary'></span>
+                <span class='fa fa-trash-o cursorPointer text-danger pr-3'></span>
+                <mat-slide-toggle>
+                </mat-slide-toggle>
+              </td>
+            </tr>
+            <tr>
+              <th class="col-1">1</th>
+              <td class="col-3">Punjab</td>
+              <td class="col-2">LHR</td>
+              <td class="col-4">Lahore</td>
+              <td class='col-2 inline-block text-center'><span
+                  class='fa fa-edit cursorPointer pr-3 text-primary'></span>
+                <span class='fa fa-trash-o cursorPointer text-danger pr-3'></span>
+                <mat-slide-toggle>
+                </mat-slide-toggle>
+              </td>
+            </tr>
+            <tr>
+              <th class="col-1">1</th>
+              <td class="col-3">Punjab</td>
+              <td class="col-2">LHR</td>
+              <td class="col-4">Lahore</td>
+              <td class='col-2 inline-block text-center'><span
+                  class='fa fa-edit cursorPointer pr-3 text-primary'></span>
+                <span class='fa fa-trash-o cursorPointer text-danger pr-3'></span>
+                <mat-slide-toggle>
+                </mat-slide-toggle>
+              </td>
+            </tr>
+            <tr>
+              <th class="col-1">1</th>
+              <td class="col-3">Punjab</td>
+              <td class="col-2">LHR</td>
+              <td class="col-4">Lahore</td>
+              <td class='col-2 inline-block text-center'><span
+                  class='fa fa-edit cursorPointer pr-3 text-primary'></span>
+                <span class='fa fa-trash-o cursorPointer text-danger pr-3'></span>
+                <mat-slide-toggle>
+                </mat-slide-toggle>
+              </td>
+            </tr>
+            <tr>
+              <th class="col-1">1</th>
+              <td class="col-3">Punjab</td>
+              <td class="col-2">LHR</td>
+              <td class="col-4">Lahore</td>
+              <td class='col-2 inline-block text-center'><span
+                  class='fa fa-edit cursorPointer pr-3 text-primary'></span>
+                <span class='fa fa-trash-o cursorPointer text-danger pr-3'></span>
+                <mat-slide-toggle>
+                </mat-slide-toggle>
+              </td>
+            </tr>
+            <tr>
+              <th class="col-1">1</th>
+              <td class="col-3">Punjab</td>
+              <td class="col-2">LHR</td>
+              <td class="col-4">Lahore</td>
+              <td class='col-2 inline-block text-center'><span
+                  class='fa fa-edit cursorPointer pr-3 text-primary'></span>
+                <span class='fa fa-trash-o cursorPointer text-danger pr-3'></span>
+                <mat-slide-toggle>
+                </mat-slide-toggle>
+              </td>
+            </tr>
+            <tr>
+              <th class="col-1">1</th>
+              <td class="col-3">Punjab</td>
+              <td class="col-2">LHR</td>
+              <td class="col-4">Lahore</td>
+              <td class='col-2 inline-block text-center'><span
+                  class='fa fa-edit cursorPointer pr-3 text-primary'></span>
+                <span class='fa fa-trash-o cursorPointer text-danger pr-3'></span>
+                <mat-slide-toggle>
+                </mat-slide-toggle>
+              </td>
+            </tr>
+            <tr>
+              <th class="col-1">1</th>
+              <td class="col-3">Punjab</td>
+              <td class="col-2">LHR</td>
+              <td class="col-4">Lahore</td>
+              <td class='col-2 inline-block text-center'><span
+                  class='fa fa-edit cursorPointer pr-3 text-primary'></span>
+                <span class='fa fa-trash-o cursorPointer text-danger pr-3'></span>
+                <mat-slide-toggle>
+                </mat-slide-toggle>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div><!-- End -->
+    </div>
+  </div>
+</div>

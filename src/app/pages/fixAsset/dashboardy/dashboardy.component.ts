@@ -57,6 +57,7 @@ export class DashboardyComponent implements OnInit {
 
   test_chart: Chart;
   locationModalTitle: string;
+  dailyTags_chart: Chart;
 
   ngOnInit(): void {
     // Create the chart
@@ -365,6 +366,7 @@ export class DashboardyComponent implements OnInit {
       });
   }
 
+  dailyTagsChart() {}
   getChartLocationWise() {
     var reqHeader = new HttpHeaders({
       "Content-Type": "application/json",
