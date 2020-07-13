@@ -1,4 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from "@angular/core";
+import { FormControl } from "@angular/forms";
+import { map, startWith } from "rxjs/operators";
 import { ToastrManager } from "ng6-toastr-notifications";
 import {
   HttpClient,
@@ -6,8 +8,12 @@ import {
   HttpErrorResponse,
 } from "@angular/common/http";
 import { CookieService } from "ngx-cookie-service";
+import Swal from "sweetalert2/dist/sweetalert2.js";
+import { Observable } from "rxjs";
 
 declare var $: any;
+
+const Swal = require("sweetalert2");
 
 @Component({
   selector: "app-asset-entry",
@@ -20,8 +26,8 @@ export class AssetEntryComponent implements OnInit {
   itemPerPage = "10";
   p = 1;
 
-  tblItemPerPage = "10";
-  tbl = 1;
+  mTblItemPerPage = "10";
+  mTblP = 1;
 
   //* variables for orderby pipe
   order = "info.name";
@@ -60,6 +66,7 @@ export class AssetEntryComponent implements OnInit {
   cmbSearchOfcType = "";
   cmbSearchLocation = "";
   cmbSearchWngSection = "";
+  cmbResetField = "";
 
   txtRegNo = "";
   cmbMake = "";
@@ -67,6 +74,7 @@ export class AssetEntryComponent implements OnInit {
   cmbType = "";
   txtEngine = "";
   txtChasis = "";
+  txtTagNo = "1";
 
   lblAccCategory = "";
   lblDepRule = "";
@@ -80,8 +88,13 @@ export class AssetEntryComponent implements OnInit {
   disableSurplus = false;
   sldCondemned = false;
   disableCondemned = false;
+  disableChkCustody = false;
   sldMissing = false;
+  chkTag = false;
+  chkProject = false;
+  chkCustody = false;
 
+  tblSearchTag = "";
   tblSearch = "";
   searchLocation = "";
   searchCategory = "";
@@ -92,6 +105,7 @@ export class AssetEntryComponent implements OnInit {
   advSearchSection = "";
   advSearchLocation = "";
 
+  oldTagList = [];
   tagList = [];
   locList = [];
   ofcTypeList = [];
@@ -110,63 +124,6 @@ export class AssetEntryComponent implements OnInit {
 
   toggleView = "form";
 
-  Emp = [
-    {
-      id: "1",
-      number: "A",
-      finding: "AA",
-      descripcion: "AAAAAAAAAAAAAAAAAAAAA",
-    },
-    {
-      id: "2",
-      number: "B",
-      finding: "BB",
-      descripcion: "BBBBBBBBBBBBBBBBBBBBB",
-    },
-    {
-      id: "3",
-      number: "C",
-      finding: "CC",
-      descripcion: "CCCCCCCCCCCCCCCCCCCCC",
-    },
-    {
-      id: "4",
-      number: "D",
-      finding: "DD",
-      descripcion: "DDDDDDDDDDDDDDDDDDDDD",
-    },
-    {
-      id: "5",
-      number: "E",
-      finding: "EE",
-      descripcion: "EEEEEEEEEEEEEEEEEEEEE",
-    },
-    {
-      id: "6",
-      number: "F",
-      finding: "FF",
-      descripcion: "FFFFFFFFFFFFFFFFFFFF",
-    },
-    {
-      id: "6",
-      number: "F",
-      finding: "FF",
-      descripcion: "FFFFFFFFFFFFFFFFFFFF",
-    },
-    {
-      id: "6",
-      number: "F",
-      finding: "FF",
-      descripcion: "FFFFFFFFFFFFFFFFFFFF",
-    },
-    {
-      id: "6",
-      number: "F",
-      finding: "FF",
-      descripcion: "FFFFFFFFFFFFFFFFFFFF",
-    },
-  ];
-
   constructor(
     private toastr: ToastrManager,
     private http: HttpClient,
@@ -174,6 +131,37 @@ export class AssetEntryComponent implements OnInit {
   ) {}
 
   printDiv() {
+    setTimeout(() => {
+      Swal.fire({
+        title: "Do you want to reset tag list?",
+        text: "",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Yes",
+        cancelButtonText: "No",
+      }).then((result) => {
+        if (result.value) {
+          var saveData = {
+            userId: this.cookie.get("userID"),
+          };
+
+          var reqHeader = new HttpHeaders({
+            "Content-Type": "application/json",
+          });
+
+          this.http
+            .post(this.serverUrl + "resettaglist", saveData, {
+              headers: reqHeader,
+            })
+            .subscribe((data: any) => {
+              this.getTags();
+            });
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+          Swal.fire("Cancelled", "", "error");
+        }
+      });
+    }, 1000);
+
     var printCss = this.printCSS();
 
     var contents = $("#tagDiv").html();
@@ -222,6 +210,33 @@ export class AssetEntryComponent implements OnInit {
     }, 500);
   }
 
+  pushTag(obj, event) {
+    if (this.tagList.length == 0) {
+      this.tagList.push({
+        tempid: obj.tempid,
+        tag: obj.tag,
+      });
+    } else {
+      if (event == "A") {
+        var tags = this.tagList.filter((x) => x.tag == obj.tag);
+        if (tags.length == 0) {
+          this.tagList.push({
+            tempid: obj.tempid,
+            tag: obj.tag,
+          });
+        }
+      } else {
+        var tags = this.tagList.filter((x) => x.tag == obj.tag);
+        if (tags.length != 0) {
+          const index = this.tagList.findIndex((x) => x.tag === obj.tag);
+          if (index > -1) {
+            this.tagList.splice(index, 1);
+          }
+        }
+      }
+    }
+  }
+
   public printCSS() {
     var commonCss =
       ".commonCss{font-family: Arial, Helvetica, sans-serif; text-align: center; }";
@@ -242,6 +257,7 @@ export class AssetEntryComponent implements OnInit {
     this.rdbAsset = "1";
 
     this.getAssetDetail();
+    this.getOldTags();
     this.getTags();
     this.getLocation();
     this.getOfficeType();
@@ -265,6 +281,22 @@ export class AssetEntryComponent implements OnInit {
     } else {
       this.toggleView = "table";
     }
+  }
+
+  getOldTags() {
+    var reqHeader = new HttpHeaders({
+      "Content-Type": "application/json",
+      // Authorization: "Bearer " + Token,
+    });
+
+    this.http
+      .get(this.serverUrl + "getoldtagdata", {
+        headers: reqHeader,
+      })
+      .subscribe((data: any) => {
+        this.oldTagList = data;
+        alert(this.oldTagList.length);
+      });
   }
 
   getTags() {
@@ -697,6 +729,7 @@ export class AssetEntryComponent implements OnInit {
           Updatedby: 0, //int
           SpType: "Insert", //string
           AssetID: 0, //int
+          noOfTags: this.txtTagNo, //int
         };
       } else {
         saveData = {
@@ -733,6 +766,7 @@ export class AssetEntryComponent implements OnInit {
           Updatedby: 1, //int
           SpType: "Update", //string
           AssetID: this.assetID, //int
+          noOfTags: this.txtTagNo, //int
         };
       }
 
@@ -760,6 +794,12 @@ export class AssetEntryComponent implements OnInit {
                   toastTimeout: 2500,
                 }
               );
+            }
+            if (this.chkCustody == false) {
+              this.cmbCustody == "";
+            }
+            if (this.chkProject == false) {
+              this.cmbProject == "";
             }
             this.clear();
             this.getAssetDetail();
@@ -882,6 +922,8 @@ export class AssetEntryComponent implements OnInit {
   }
 
   clear() {
+    this.chkTag = false;
+    this.txtTagNo = "1";
     this.assetID = "";
     this.rdbAsset = "1";
     this.cmbVehicle = "";
@@ -891,7 +933,7 @@ export class AssetEntryComponent implements OnInit {
     this.txtAssetLoc = "";
     this.txtIdentification = "";
     this.txtSerialNo = "";
-    this.cmbProject = "";
+    // this.cmbProject = "";
     this.txtRef = "";
     this.dtpPurchaseDt = "";
     this.txtAmount = "";
@@ -925,11 +967,16 @@ export class AssetEntryComponent implements OnInit {
       this.sldSurplus = false;
       this.disableCondemned = true;
       this.sldCondemned = false;
+
+      this.cmbCustody = null;
+      this.cmbAssetCond = null;
+      this.disableChkCustody = true;
     } else if (!this.sldMissing) {
       this.disableUsable = false;
       this.disableServiceable = false;
       this.disableSurplus = false;
       this.disableCondemned = false;
+      this.disableChkCustody = false;
     }
   }
 

@@ -24,6 +24,7 @@ import { MatTabsModule } from "@angular/material/tabs";
 import { MatProgressBarModule } from "@angular/material/progress-bar";
 import { MatBadgeModule } from "@angular/material/badge";
 import { MatToolbarModule } from "@angular/material/toolbar";
+import { MatAutocompleteModule } from "@angular/material/autocomplete";
 
 @NgModule({
   imports: [
@@ -52,6 +53,7 @@ import { MatToolbarModule } from "@angular/material/toolbar";
     MatProgressBarModule,
     MatBadgeModule,
     MatToolbarModule,
+    MatAutocompleteModule,
   ],
   exports: [
     MatInputModule,
@@ -78,6 +80,7 @@ import { MatToolbarModule } from "@angular/material/toolbar";
     MatProgressBarModule,
     MatBadgeModule,
     MatToolbarModule,
+    MatAutocompleteModule,
   ],
   declarations: [],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
