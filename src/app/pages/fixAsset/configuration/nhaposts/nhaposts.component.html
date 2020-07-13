@@ -5,7 +5,7 @@
 </div>
 
 <!-- container -->
-<div class="container-fluid bg-white">
+<div class="container-fluid boxShadow-1 bg-white">
   <div class="row">
     <!-- entry form -->
     <div class="col-md-4 pl-4 pr-4 border-right">
@@ -54,22 +54,22 @@
           </mat-form-field>
         </div>
       </div>
-      <div class="table-responsive">
-        <table class="table table-fixed">
+      <div class="table-responsive table-wrapper border style-3 mx-auto" style='height: 400px;'>
+        <table class="table table-striped">
           <thead>
             <tr>
-              <th class="col-1">#</th>
-              <th class="col-6">Post Title</th>
-              <th class="col-2">BPS</th>
-              <th class="col-3 text-center">Action</th>
+              <th class="text-center sticky-top" scope="col">#</th>
+              <th class="sticky-top" scope="col">Post Title</th>
+              <th class="sticky-top" scope="col">BPS</th>
+              <th class="sticky-top text-center" scope="col">Action</th>
             </tr>
           </thead>
-          <tbody style='height: 350px;' class='style-3'>
+          <tbody>
             <tr *ngFor="let item of custodyList | search:'postName,bs':tblSearch let i=index">
-              <th class="col-1">{{i+1}}</th>
-              <td class="col-6">{{item.postName}}</td>
-              <td class="col-2">{{item.bs}}</td>
-              <td class='col-3 inline-block text-center'><span class='fa fa-edit cursorPointer pr-3 text-primary'
+              <td class="text-center">{{i+1}}</td>
+              <td>{{item.postName}}</td>
+              <td>{{item.bs}}</td>
+              <td class='inline-block text-center'><span class='fa fa-edit cursorPointer pr-3 text-primary'
                   (click)="edit(item)"></span>
                 <span class='fa fa-trash-o cursorPointer text-danger pr-3' (click)="delete(item)"></span>
                 <mat-slide-toggle>
@@ -81,4 +81,5 @@
       </div><!-- End -->
     </div>
   </div>
+  <br>
 </div>
