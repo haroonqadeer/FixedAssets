@@ -62,20 +62,33 @@ export class NHAOfficeTypeComponent implements OnInit {
       });
       return false;
     } else {
+      var saveData;
       if (this.ofcTypeID == "") {
-        var saveData = {};
+        saveData = {
+          OfficeTypeCode: this.txtOfcShrtName,
+          OfficeType: this.txtOfcFullName,
+          OfficeTypeID: 0,
+          SPType: "INSERT",
+        };
       } else {
-        var saveData = {};
+        saveData = {
+          OfficeTypeCode: this.txtOfcShrtName,
+          OfficeType: this.txtOfcFullName,
+          OfficeTypeID: this.ofcTypeID,
+          SPType: "UPDATE",
+        };
       }
 
       var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
       this.http
-        .post(this.serverUrl + "saveofficetype", saveData, {
+        .post(this.serverUrl + "ofctype", saveData, {
           headers: reqHeader,
         })
         .subscribe((data: any) => {
-          if (data.msg == "Success") {
+          if (data.msg == "SUCCESS") {
+            this.clear();
+            this.getOfficeType();
             if (this.ofcTypeID == "") {
               this.toastr.successToastr(
                 "Record Saved Successfully!",
@@ -93,8 +106,6 @@ export class NHAOfficeTypeComponent implements OnInit {
                 }
               );
             }
-            this.clear();
-            this.getOfficeType();
             return false;
           } else {
             this.toastr.errorToastr(data.msg, "Error !", {
@@ -116,19 +127,19 @@ export class NHAOfficeTypeComponent implements OnInit {
 
   delete(obj) {
     var saveData = {
-      Userid: this.cookie.get("userID"), //int
-      SpType: "Delete", //string
-      AssetID: obj.officeTypeID, //int
+      // Userid: this.cookie.get("userID"), //int
+      SpType: "DELETE", //string
+      OfficeTypeID: obj.officeTypeID, //int
     };
 
     var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
     this.http
-      .post(this.serverUrl + "saveofficetype", saveData, {
+      .post(this.serverUrl + "ofctype", saveData, {
         headers: reqHeader,
       })
       .subscribe((data: any) => {
-        if (data.msg == "Success") {
+        if (data.msg == "SUCCESS") {
           this.toastr.successToastr(
             "Record Deleted Successfully!",
             "Success!",
