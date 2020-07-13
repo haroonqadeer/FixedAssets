@@ -11,14 +11,14 @@
     <div class="col-md-4 pl-4 pr-4 border-right">
       <div class="row">
         <div class="col-md-12 pt-4">
-          <h6 class='border-bottom pb-2'>Add / Edit Post</h6>
+          <h6 class='border-bottom pb-2'>{{heading}} Post</h6>
         </div>
       </div>
       <div class="row">
         <div class="col-md-12 pt-2">
           <mat-form-field class='w-100'>
             <mat-label>BPS</mat-label>
-            <mat-select>
+            <mat-select [(ngModel)]="cmbBS">
               <mat-option value="primary">Primary</mat-option>
               <mat-option value="accent">Accent</mat-option>
               <mat-option value="warn">Warn</mat-option>
@@ -30,16 +30,16 @@
         <div class="col-md-12 pt-2">
           <mat-form-field class="w-100">
             <mat-label>Post Title</mat-label>
-            <input matInput maxlength="5">
+            <input matInput maxlength="5" [(ngModel)]="txtPostName">
           </mat-form-field>
         </div>
       </div>
       <div class="row">
         <div class="col-md-3 pt-2">
-          <button mat-button mat-raised-button color="primary" class='noneOutline w-100'>Save</button>
+          <button mat-button mat-raised-button color="primary" class='noneOutline w-100' (click)="save()">Save</button>
         </div>
         <div class="col-md-3 pt-2">
-          <button mat-button mat-raised-button color="warn" class='noneOutline w-100'>Reset</button>
+          <button mat-button mat-raised-button color="warn" class='noneOutline w-100' (click)="clear()">Reset</button>
         </div>
       </div>
     </div>
@@ -50,7 +50,7 @@
           <mat-form-field class="w-100">
             <mat-label>search...</mat-label>
             <mat-icon matPrefix class='fa fa-search'></mat-icon>
-            <input matInput>
+            <input matInput [(ngModel)]="tblSearch">
           </mat-form-field>
         </div>
       </div>
@@ -64,102 +64,14 @@
               <th class="col-3 text-center">Action</th>
             </tr>
           </thead>
-          <tbody style='height: 350px;'>
-            <tr>
-              <th class="col-1">1</th>
-              <td class="col-6">Deputy Director</td>
-              <td class="col-2">18</td>
-              <td class='col-3 inline-block text-center'><span
-                  class='fa fa-edit cursorPointer pr-3 text-primary'></span>
-                <span class='fa fa-trash-o cursorPointer text-danger pr-3'></span>
-                <mat-slide-toggle>
-                </mat-slide-toggle>
-              </td>
-            </tr>
-            <tr>
-              <th class="col-1">1</th>
-              <td class="col-6">Deputy Director</td>
-              <td class="col-2">18</td>
-              <td class='col-3 inline-block text-center'><span
-                  class='fa fa-edit cursorPointer pr-3 text-primary'></span>
-                <span class='fa fa-trash-o cursorPointer text-danger pr-3'></span>
-                <mat-slide-toggle>
-                </mat-slide-toggle>
-              </td>
-            </tr>
-            <tr>
-              <th class="col-1">1</th>
-              <td class="col-6">Deputy Director</td>
-              <td class="col-2">18</td>
-              <td class='col-3 inline-block text-center'><span
-                  class='fa fa-edit cursorPointer pr-3 text-primary'></span>
-                <span class='fa fa-trash-o cursorPointer text-danger pr-3'></span>
-                <mat-slide-toggle>
-                </mat-slide-toggle>
-              </td>
-            </tr>
-            <tr>
-              <th class="col-1">1</th>
-              <td class="col-6">Deputy Director</td>
-              <td class="col-2">18</td>
-              <td class='col-3 inline-block text-center'><span
-                  class='fa fa-edit cursorPointer pr-3 text-primary'></span>
-                <span class='fa fa-trash-o cursorPointer text-danger pr-3'></span>
-                <mat-slide-toggle>
-                </mat-slide-toggle>
-              </td>
-            </tr>
-            <tr>
-              <th class="col-1">1</th>
-              <td class="col-6">Deputy Director</td>
-              <td class="col-2">18</td>
-              <td class='col-3 inline-block text-center'><span
-                  class='fa fa-edit cursorPointer pr-3 text-primary'></span>
-                <span class='fa fa-trash-o cursorPointer text-danger pr-3'></span>
-                <mat-slide-toggle>
-                </mat-slide-toggle>
-              </td>
-            </tr>
-            <tr>
-              <th class="col-1">1</th>
-              <td class="col-6">Deputy Director</td>
-              <td class="col-2">18</td>
-              <td class='col-3 inline-block text-center'><span
-                  class='fa fa-edit cursorPointer pr-3 text-primary'></span>
-                <span class='fa fa-trash-o cursorPointer text-danger pr-3'></span>
-                <mat-slide-toggle>
-                </mat-slide-toggle>
-              </td>
-            </tr>
-            <tr>
-              <th class="col-1">1</th>
-              <td class="col-6">Deputy Director</td>
-              <td class="col-2">18</td>
-              <td class='col-3 inline-block text-center'><span
-                  class='fa fa-edit cursorPointer pr-3 text-primary'></span>
-                <span class='fa fa-trash-o cursorPointer text-danger pr-3'></span>
-                <mat-slide-toggle>
-                </mat-slide-toggle>
-              </td>
-            </tr>
-            <tr>
-              <th class="col-1">1</th>
-              <td class="col-6">Deputy Director</td>
-              <td class="col-2">18</td>
-              <td class='col-3 inline-block text-center'><span
-                  class='fa fa-edit cursorPointer pr-3 text-primary'></span>
-                <span class='fa fa-trash-o cursorPointer text-danger pr-3'></span>
-                <mat-slide-toggle>
-                </mat-slide-toggle>
-              </td>
-            </tr>
-            <tr>
-              <th class="col-1">1</th>
-              <td class="col-6">Deputy Director</td>
-              <td class="col-2">18</td>
-              <td class='col-3 inline-block text-center'><span
-                  class='fa fa-edit cursorPointer pr-3 text-primary'></span>
-                <span class='fa fa-trash-o cursorPointer text-danger pr-3'></span>
+          <tbody style='height: 350px;' class='style-3'>
+            <tr *ngFor="let item of custodyList | search:'postName,bs':tblSearch let i=index">
+              <th class="col-1">{{i+1}}</th>
+              <td class="col-6">{{item.postName}}</td>
+              <td class="col-2">{{item.bs}}</td>
+              <td class='col-3 inline-block text-center'><span class='fa fa-edit cursorPointer pr-3 text-primary'
+                  (click)="edit(item)"></span>
+                <span class='fa fa-trash-o cursorPointer text-danger pr-3' (click)="delete(item)"></span>
                 <mat-slide-toggle>
                 </mat-slide-toggle>
               </td>

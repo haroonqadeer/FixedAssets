@@ -11,7 +11,7 @@
     <div class="col-md-4 pl-4 pr-4 border-right">
       <div class="row">
         <div class="col-md-12 pt-4">
-          <h6 class='border-bottom pb-2'>Add / Edit Office Type</h6>
+          <h6 class='border-bottom pb-2'>{{heading}} Office Type</h6>
         </div>
       </div>
       <!-- <div class="row">
@@ -30,7 +30,7 @@
         <div class="col-md-12 pt-2">
           <mat-form-field class="w-100">
             <mat-label>Office Type Short Name</mat-label>
-            <input matInput maxlength="50">
+            <input matInput maxlength="50" [(ngModel)]="txtOfcShrtName">
           </mat-form-field>
         </div>
       </div>
@@ -38,16 +38,16 @@
         <div class="col-md-12 pt-2">
           <mat-form-field class="w-100">
             <mat-label>Office Type Full Name</mat-label>
-            <textarea matInput placeholder="some detail of office type"></textarea>
+            <textarea matInput placeholder="some detail of office type" [(ngModel)]="txtOfcFullName"></textarea>
           </mat-form-field>
         </div>
       </div>
       <div class="row">
         <div class="col-md-3 pt-2">
-          <button mat-button mat-raised-button color="primary" class='noneOutline w-100'>Save</button>
+          <button mat-button mat-raised-button color="primary" class='noneOutline w-100' (click)="save()">Save</button>
         </div>
         <div class="col-md-3 pt-2">
-          <button mat-button mat-raised-button color="warn" class='noneOutline w-100'>Reset</button>
+          <button mat-button mat-raised-button color="warn" class='noneOutline w-100' (click)="clear()">Reset</button>
         </div>
       </div>
     </div>
@@ -58,7 +58,7 @@
           <mat-form-field class="w-100">
             <mat-label>search...</mat-label>
             <mat-icon matPrefix class='fa fa-search'></mat-icon>
-            <input matInput>
+            <input matInput [(ngModel)]="tblSearch">
           </mat-form-field>
         </div>
       </div>
@@ -73,90 +73,13 @@
             </tr>
           </thead>
           <tbody style='height: 350px;' class='style-3'>
-            <tr>
-              <th class="col-1">1</th>
-              <td class="col-3">GM Office</td>
-              <td class="col-6">Regional General Manager Office</td>
-              <td class='col-2 inline-block text-center'><span
-                  class='fa fa-edit cursorPointer pr-3 text-primary'></span>
-                <span class='fa fa-trash-o cursorPointer text-danger pr-3'></span>
-                <mat-slide-toggle>
-                </mat-slide-toggle>
-              </td>
-            </tr>
-            <tr>
-              <th class="col-1">1</th>
-              <td class="col-3">GM Office</td>
-              <td class="col-6">Regional General Manager Office</td>
-              <td class='col-2 inline-block text-center'><span
-                  class='fa fa-edit cursorPointer pr-3 text-primary'></span>
-                <span class='fa fa-trash-o cursorPointer text-danger pr-3'></span>
-                <mat-slide-toggle>
-                </mat-slide-toggle>
-              </td>
-            </tr>
-            <tr>
-              <th class="col-1">1</th>
-              <td class="col-3">GM Office</td>
-              <td class="col-6">Regional General Manager Office</td>
-              <td class='col-2 inline-block text-center'><span
-                  class='fa fa-edit cursorPointer pr-3 text-primary'></span>
-                <span class='fa fa-trash-o cursorPointer text-danger pr-3'></span>
-                <mat-slide-toggle>
-                </mat-slide-toggle>
-              </td>
-            </tr>
-            <tr>
-              <th class="col-1">1</th>
-              <td class="col-3">GM Office</td>
-              <td class="col-6">Regional General Manager Office</td>
-              <td class='col-2 inline-block text-center'><span
-                  class='fa fa-edit cursorPointer pr-3 text-primary'></span>
-                <span class='fa fa-trash-o cursorPointer text-danger pr-3'></span>
-                <mat-slide-toggle>
-                </mat-slide-toggle>
-              </td>
-            </tr>
-            <tr>
-              <th class="col-1">1</th>
-              <td class="col-3">GM Office</td>
-              <td class="col-6">Regional General Manager Office</td>
-              <td class='col-2 inline-block text-center'><span
-                  class='fa fa-edit cursorPointer pr-3 text-primary'></span>
-                <span class='fa fa-trash-o cursorPointer text-danger pr-3'></span>
-                <mat-slide-toggle>
-                </mat-slide-toggle>
-              </td>
-            </tr>
-            <tr>
-              <th class="col-1">1</th>
-              <td class="col-3">GM Office</td>
-              <td class="col-6">Regional General Manager Office</td>
-              <td class='col-2 inline-block text-center'><span
-                  class='fa fa-edit cursorPointer pr-3 text-primary'></span>
-                <span class='fa fa-trash-o cursorPointer text-danger pr-3'></span>
-                <mat-slide-toggle>
-                </mat-slide-toggle>
-              </td>
-            </tr>
-            <tr>
-              <th class="col-1">1</th>
-              <td class="col-3">GM Office</td>
-              <td class="col-6">Regional General Manager Office</td>
-              <td class='col-2 inline-block text-center'><span
-                  class='fa fa-edit cursorPointer pr-3 text-primary'></span>
-                <span class='fa fa-trash-o cursorPointer text-danger pr-3'></span>
-                <mat-slide-toggle>
-                </mat-slide-toggle>
-              </td>
-            </tr>
-            <tr>
-              <th class="col-1">1</th>
-              <td class="col-3">GM Office</td>
-              <td class="col-6">Regional General Manager Office</td>
-              <td class='col-2 inline-block text-center'><span
-                  class='fa fa-edit cursorPointer pr-3 text-primary'></span>
-                <span class='fa fa-trash-o cursorPointer text-danger pr-3'></span>
+            <tr *ngFor="let item of ofcTypeList | search:'officeTypeCode,officeTypeDescription':tblSearch let i=index">
+              <th class="col-1">{{i+1}}</th>
+              <td class="col-3">{{item.officeTypeCode}}</td>
+              <td class="col-6">{{item.officeTypeDescription}}</td>
+              <td class='col-2 inline-block text-center'><span class='fa fa-edit cursorPointer pr-3 text-primary'
+                  (click)="edit(item)"></span>
+                <span class='fa fa-trash-o cursorPointer text-danger pr-3' (click)="delete(item)"></span>
                 <mat-slide-toggle>
                 </mat-slide-toggle>
               </td>
