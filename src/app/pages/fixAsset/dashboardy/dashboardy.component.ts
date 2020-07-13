@@ -16,6 +16,9 @@ declare var $: any;
 export class DashboardyComponent implements OnInit {
   serverUrl = "http://95.217.147.105:2007/api/";
 
+  itemPerPage = "10";
+  p = 1;
+
   locationName = "";
   allLocation = "";
   comLocation = "";
