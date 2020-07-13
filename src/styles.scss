@@ -85,13 +85,13 @@ body {
 
 .dbox__count {
   display: block;
-  font-size: 30px;
+  font-size: 35px;
   color: #FFF;
-  font-weight: 300;
+  font-weight: 500;
 }
 
 .dbox__title {
-  font-size: 13px;
+  font-size: 16px;
   color: #FFF;
   color: rgba(255, 255, 255, 0.81);
 }
@@ -294,30 +294,39 @@ body {
 /********************************************************/
 /************** table - fix header scrollable body  *************/
 /********************************************************/
-.table-fixed tbody {
+// .table-fixed tbody {
+//   overflow-y: auto;
+//   width: 100%;
+// }
+
+// .table-fixed thead,
+// .table-fixed tbody,
+// .table-fixed tr,
+// .table-fixed td,
+// .table-fixed th {
+//   display: block;
+// }
+
+// .table-fixed tbody td,
+// .table-fixed tbody th,
+// .table-fixed thead>tr>th {
+//   float: left;
+//   position: relative;
+
+//   &::after {
+//     content: '';
+//     clear: both;
+//     display: block;
+//   }
+// }
+.table-wrapper {
+  width: auto;
   overflow-y: auto;
-  width: 100%;
 }
 
-.table-fixed thead,
-.table-fixed tbody,
-.table-fixed tr,
-.table-fixed td,
-.table-fixed th {
-  display: block;
-}
-
-.table-fixed tbody td,
-.table-fixed tbody th,
-.table-fixed thead>tr>th {
-  float: left;
-  position: relative;
-
-  &::after {
-    content: '';
-    clear: both;
-    display: block;
-  }
+th {
+  background-color: #fff !important;
+  box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.4);
 }
 
 /**********************************************************/

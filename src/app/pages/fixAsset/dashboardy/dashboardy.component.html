@@ -131,30 +131,32 @@
     </div>
   </div>
   <!-- next row -->
-  <div class="row pl-0" style="height:210px">
+  <div class="row pl-0" style="height:200px">
     <div class="col-md-8">
       <div class=" boxShadow-1 bg-white" [chart]="test_chart" class='h-100 w-100'></div>
     </div>
     <div class="col-md-4 pt-2 ">
-      <div class="table-responsive bg-white boxShadow-1">
-        <table class="table table-striped" style="overflow:auto;height:200px">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Date</th>
-              <th>Tags</th>
-              <th>detail</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let item of totalTagList let i=index">
-              <td>{{i+1}}</td>
-              <td>{{item.createdDate | date:'dd-MM-yyyy'}}</td>
-              <td>{{item.tagsCreated}}</td>
-              <td><span class='text-primary cursorPointer' (click)="getTagDetailDateWise(item)">click...</span></td>
-            </tr>
-          </tbody>
-        </table>
+      <div class='style-3 table-wrapper mx-auto mb-2 boxShadow-1' style='height: 200px;'>
+        <div class="table-responsive bg-white">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th class="sticky-top" scope="col">#</th>
+                <th class="sticky-top" scope="col">Date</th>
+                <th class="sticky-top" scope="col">Tags</th>
+                <th class="sticky-top" scope="col">detail</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of totalTagList let i=index">
+                <td>{{i+1}}</td>
+                <td>{{item.createdDate | date:'dd-MM-yyyy'}}</td>
+                <td>{{item.tagsCreated}}</td>
+                <td><span class='text-primary cursorPointer' (click)="getTagDetailDateWise(item)">click...</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>
@@ -165,64 +167,66 @@
   <div class="row">
     <!-- user's tag detail -->
     <div class="col-md-4">
-      <div class="table-responsive">
-        <table class='table table-fixed bg-white boxShadow-1'>
-          <thead>
-            <tr>
-              <th class='col-6'>User Name</th>
-              <th class='text-right col-3'>Tags</th>
-              <th class='col-3'>Details</th>
-            </tr>
-          </thead>
-          <tbody style='height: 200px;' class='style-3'>
-            <tr>
-              <td class='col-6'>Nabeel</td>
-              <td class='col-3 text-right'>88</td>
-              <td class='col-3'><span class='text-primary cursorPointer' data-toggle="modal"
-                  data-target="#userTagDateWise">click...</span></td>
-            </tr>
-            <tr>
-              <td class='col-6'>Nabeel</td>
-              <td class='col-3 text-right'>88</td>
-              <td class='col-3'><span class='text-primary cursorPointer'>click...</span></td>
-            </tr>
-            <tr>
-              <td class='col-6'>Nabeel</td>
-              <td class='col-3 text-right'>88</td>
-              <td class='col-3'><span class='text-primary cursorPointer'>click...</span></td>
-            </tr>
-            <tr>
-              <td class='col-6'>Nabeel</td>
-              <td class='col-3 text-right'>88</td>
-              <td class='col-3'><span class='text-primary cursorPointer'>click...</span></td>
-            </tr>
-            <tr>
-              <td class='col-6'>Nabeel</td>
-              <td class='col-3 text-right'>88</td>
-              <td class='col-3'><span class='text-primary cursorPointer'>click...</span></td>
-            </tr>
-            <tr>
-              <td class='col-6'>Nabeel</td>
-              <td class='col-3 text-right'>88</td>
-              <td class='col-3'><span class='text-primary cursorPointer'>click...</span></td>
-            </tr>
-            <tr>
-              <td class='col-6'>Nabeel</td>
-              <td class='col-3 text-right'>88</td>
-              <td class='col-3'><span class='text-primary cursorPointer'>click...</span></td>
-            </tr>
-            <tr>
-              <td class='col-6'>Nabeel</td>
-              <td class='col-3 text-right'>88</td>
-              <td class='col-3'><span class='text-primary cursorPointer'>click...</span></td>
-            </tr>
-            <tr>
-              <td class='col-6'>Nabeel</td>
-              <td class='col-3 text-right'>88</td>
-              <td class='col-3'><span class='text-primary cursorPointer'>click...</span></td>
-            </tr>
-          </tbody>
-        </table>
+      <div class='style-3 table-wrapper mx-auto mb-2 boxShadow-1' style='height: 200px;'>
+        <div class="table-responsive">
+          <table class='table bg-white'>
+            <thead>
+              <tr>
+                <th class='sticky-top' scope='col'>User Name</th>
+                <th class='text-right sticky-top' scope='col'>Tags</th>
+                <th class='sticky-top' scope='col'>Details</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class='col-6'>Nabeel</td>
+                <td class='col-3 text-right'>88</td>
+                <td class='col-3'><span class='text-primary cursorPointer' data-toggle="modal"
+                    data-target="#userTagDateWise">click...</span></td>
+              </tr>
+              <tr>
+                <td class='col-6'>Nabeel</td>
+                <td class='col-3 text-right'>88</td>
+                <td class='col-3'><span class='text-primary cursorPointer'>click...</span></td>
+              </tr>
+              <tr>
+                <td class='col-6'>Nabeel</td>
+                <td class='col-3 text-right'>88</td>
+                <td class='col-3'><span class='text-primary cursorPointer'>click...</span></td>
+              </tr>
+              <tr>
+                <td class='col-6'>Nabeel</td>
+                <td class='col-3 text-right'>88</td>
+                <td class='col-3'><span class='text-primary cursorPointer'>click...</span></td>
+              </tr>
+              <tr>
+                <td class='col-6'>Nabeel</td>
+                <td class='col-3 text-right'>88</td>
+                <td class='col-3'><span class='text-primary cursorPointer'>click...</span></td>
+              </tr>
+              <tr>
+                <td class='col-6'>Nabeel</td>
+                <td class='col-3 text-right'>88</td>
+                <td class='col-3'><span class='text-primary cursorPointer'>click...</span></td>
+              </tr>
+              <tr>
+                <td class='col-6'>Nabeel</td>
+                <td class='col-3 text-right'>88</td>
+                <td class='col-3'><span class='text-primary cursorPointer'>click...</span></td>
+              </tr>
+              <tr>
+                <td class='col-6'>Nabeel</td>
+                <td class='col-3 text-right'>88</td>
+                <td class='col-3'><span class='text-primary cursorPointer'>click...</span></td>
+              </tr>
+              <tr>
+                <td class='col-6'>Nabeel</td>
+                <td class='col-3 text-right'>88</td>
+                <td class='col-3'><span class='text-primary cursorPointer'>click...</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div><!-- end user tags table -->
 
@@ -328,35 +332,35 @@
 
   <!-- table Asset Register -->
   <!-- table -->
-  <div style="overflow: auto; ;height: 200px !important;">
-    <table class="table table-striped bg-white boxShadow-1">
+  <div class='style-3 table-wrapper mx-auto mb-2 boxShadow-1' style='height: 500px;'>
+    <table class="table table-striped m-0 p-0 bg-white">
       <thead>
         <tr>
-          <th scope="col">Tag</th>
-          <th scope="col">Sub-Location</th>
-          <th scope="col">Office Type</th>
-          <th scope="col">Accounts Category</th>
-          <th scope="col">Asset - Category</th>
-          <th scope="col">Description</th>
-          <th scope="col">Post Name</th>
-          <th scope="col">Asset-Location</th>
-          <th scope="col">Project</th>
-          <th scope="col">IPC Ref.</th>
-          <th scope="col">Other Identification</th>
-          <th scope="col">Serial No.</th>
-          <th scope="col">Vehicle ID</th>
-          <th scope="col">Previous Tag</th>
-          <th scope="col">Cost</th>
-          <th scope="col">Purchase Date</th>
-          <th scope="col">Condition</th>
-          <th scope="col">Useable?</th>
-          <th scope="col">Surplus?</th>
-          <th scope="col">Serviceable?</th>
-          <th scope="col">Condemned?</th>
-          <th scope="col">Missing?</th>
-          <th scope="col">Remarks</th>
-          <th scope="col">Create Date</th>
-          <th scope="col">Net Book Value</th>
+          <th class="sticky-top" scope="col">Tag</th>
+          <th class="sticky-top" scope="col">Sub-Location</th>
+          <th class="sticky-top" scope="col">Office Type</th>
+          <th class="sticky-top" scope="col">Accounts Category</th>
+          <th class="sticky-top" scope="col">Asset - Category</th>
+          <th class="sticky-top" scope="col">Description</th>
+          <th class="sticky-top" scope="col">Post Name</th>
+          <th class="sticky-top" scope="col">Asset-Location</th>
+          <th class="sticky-top" scope="col">Project</th>
+          <th class="sticky-top" scope="col">IPC Ref.</th>
+          <th class="sticky-top" scope="col">Other Identification</th>
+          <th class="sticky-top" scope="col">Serial No.</th>
+          <th class="sticky-top" scope="col">Vehicle ID</th>
+          <th class="sticky-top" scope="col">Previous Tag</th>
+          <th class="sticky-top" scope="col">Cost</th>
+          <th class="sticky-top" scope="col">Purchase Date</th>
+          <th class="sticky-top" scope="col">Condition</th>
+          <th class="sticky-top" scope="col">Useable?</th>
+          <th class="sticky-top" scope="col">Surplus?</th>
+          <th class="sticky-top" scope="col">Serviceable?</th>
+          <th class="sticky-top" scope="col">Condemned?</th>
+          <th class="sticky-top" scope="col">Missing?</th>
+          <th class="sticky-top" scope="col">Remarks</th>
+          <th class="sticky-top" scope="col">Create Date</th>
+          <th class="sticky-top" scope="col">Net Book Value</th>
         </tr>
       </thead>
       <tbody>
