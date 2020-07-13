@@ -9,12 +9,12 @@ import {
 } from "@angular/common/http";
 import { CookieService } from "ngx-cookie-service";
 import Swal from "sweetalert2/dist/sweetalert2.js";
+import { Observable } from "rxjs";
 import "sweetalert2/src/sweetalert2.scss";
-// import { Observable } from "rxjs";
 
 declare var $: any;
 
-const Swal = require("sweetalert2");
+// const Swal = require("sweetalert2");
 
 @Component({
   selector: "app-asset-entry",

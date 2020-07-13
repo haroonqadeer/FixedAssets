@@ -1,10 +1,17 @@
 <div class="container-fluid">
   <div class="row pl-2 m-0 p-0">
     <div class="col-md-6 align-self-center p-0 m-0">
-      <h5 class='align-self-center'>Monitoring Dashboard</h5>
+      <h5 class="align-self-center">Monitoring Dashboard</h5>
     </div>
     <div class="col-md-6 text-right pr-1">
-      <button mat-raised-button class='noneOutline ml-2' color="primary" (click)="clear()">Reset</button>
+      <button
+        mat-raised-button
+        class="noneOutline ml-2"
+        color="primary"
+        (click)="clear()"
+      >
+        Reset
+      </button>
     </div>
   </div>
   <div class="row">
@@ -15,91 +22,128 @@
           <i class="fa fa-list"></i>
         </div>
         <div class="dbox__body">
-          <span class="dbox__count">{{allLocation}}</span>
+          <span class="dbox__count">{{ allLocation }}</span>
           <span class="dbox__title">Total Locations</span>
         </div>
 
         <div class="dbox__action">
-          <button class="dbox__action__btn noneOutline" data-toggle="modal" data-target="#locationModal"
-            (click)="editLocationModalTitle('Total Locations')">More
-            Info</button>
+          <button
+            class="dbox__action__btn noneOutline"
+            data-toggle="modal"
+            data-target="#locationModal"
+            (click)="editLocationModalTitle('Total Locations')"
+          >
+            More Info
+          </button>
         </div>
       </div>
       <!-- end toll plazas box -->
     </div>
     <div class="col-md-3">
-
       <!-- weigh stations -->
       <div class="dbox dbox--color-2 z-depth-3">
         <div class="dbox__icon">
           <i class="fa fa-check"></i>
         </div>
         <div class="dbox__body">
-          <span class="dbox__count">{{comLocation}}</span>
+          <span class="dbox__count">{{ comLocation }}</span>
           <span class="dbox__title">Completed Locations</span>
         </div>
 
         <div class="dbox__action">
-          <button class="dbox__action__btn noneOutline" data-toggle="modal" data-target="#locationModal"
-            (click)="editLocationModalTitle('Completed Locations')">More Info</button>
+          <button
+            class="dbox__action__btn noneOutline"
+            data-toggle="modal"
+            data-target="#locationModal"
+            (click)="editLocationModalTitle('Completed Locations')"
+          >
+            More Info
+          </button>
         </div>
       </div>
       <!-- end weigh stations -->
     </div>
     <div class="col-md-3">
-
       <!-- police fine beats -->
       <div class="dbox dbox--color-3 z-depth-3">
         <div class="dbox__icon">
           <i class="fa fa-exclamation"></i>
         </div>
         <div class="dbox__body">
-          <span class="dbox__count">{{remLocation}}</span>
+          <span class="dbox__count">{{ remLocation }}</span>
           <span class="dbox__title">Remaining Locations</span>
         </div>
 
         <div class="dbox__action">
-          <button class="dbox__action__btn noneOutline" data-toggle="modal" data-target="#locationModal"
-            (click)="editLocationModalTitle('Remaining Locations')">More Info</button>
+          <button
+            class="dbox__action__btn noneOutline"
+            data-toggle="modal"
+            data-target="#locationModal"
+            (click)="editLocationModalTitle('Remaining Locations')"
+          >
+            More Info
+          </button>
         </div>
       </div>
       <!-- end police fine beats -->
     </div>
     <div class="col-md-3">
-
       <!-- police fine beats -->
       <div class="dbox dbox--color-4 z-depth-3">
         <div class="dbox__icon">
           <i class="fa fa-tag"></i>
         </div>
         <div class="dbox__body">
-          <span class="dbox__count">{{allTags}}</span>
+          <span class="dbox__count">{{ allTags }}</span>
           <span class="dbox__title">Total Tags</span>
         </div>
 
         <div class="dbox__action">
-          <button class="dbox__action__btn noneOutline" data-toggle="modal" data-target="#totalTagsModal"
-            (click)="editLocationModalTitle('Total Tags')">More
-            Info</button>
+          <button
+            class="dbox__action__btn noneOutline"
+            data-toggle="modal"
+            data-target="#totalTagsModal"
+            (click)="editLocationModalTitle('Total Tags')"
+          >
+            More Info
+          </button>
         </div>
       </div>
       <!-- end police fine beats -->
     </div>
-  </div><!-- end boxes row -->
+  </div>
+  <!-- end boxes row -->
 
   <!-- next row -->
   <div class="row">
     <div class="col-md-8">
       <mat-form-field class="w-100">
-        <mat-label><span class='text-danger fa fa-filter'>&nbsp;</span><span class='text-danger'>All</span> Province -
-          Location - Sub Location</mat-label>
-        <mat-select [(ngModel)]="cmbChartLocation" (ngModelChange)="getChartLocationWise()">
-          <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchChartLocation">
+        <mat-label
+          ><span class="text-danger fa fa-filter">&nbsp;</span
+          ><span class="text-danger">All</span> Province - Location - Sub
+          Location</mat-label
+        >
+        <mat-select
+          [(ngModel)]="cmbChartLocation"
+          (ngModelChange)="getChartLocationWise()"
+        >
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Search..."
+            [(ngModel)]="searchChartLocation"
+          />
           <mat-option
-            *ngFor=" let item of locList | search: 'subLocationDescription, mainLocationDescription, provinceName':searchChartLocation"
-            [value]="item.subLocID">
+            *ngFor="
+              let item of locList
+                | search
+                  : 'subLocationDescription, mainLocationDescription, provinceName'
+                  : searchChartLocation
+            "
+            [value]="item.subLocID"
+          >
             <table class="table">
-              <tr class='d-flex'>
+              <tr class="d-flex">
                 <td class="col-4">{{ item.subLocationDescription }}</td>
                 <td class="col-4">{{ item.mainLocationDescription }}</td>
                 <td class="col-4">{{ item.provinceName }}</td>
@@ -111,15 +155,32 @@
     </div>
     <div class="col-md-4">
       <mat-form-field class="w-100">
-        <mat-label><span class='text-danger fa fa-filter'>&nbsp;</span><span class='text-danger'>Active</span> Province
-          - Location - Sub Location</mat-label>
-        <mat-select [(ngModel)]="cmbTblLocation" (ngModelChange)="getTblDataLocWise()">
-          <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchTblLocation">
+        <mat-label
+          ><span class="text-danger fa fa-filter">&nbsp;</span
+          ><span class="text-danger">Active</span> Province - Location - Sub
+          Location</mat-label
+        >
+        <mat-select
+          [(ngModel)]="cmbTblLocation"
+          (ngModelChange)="getTblDataLocWise()"
+        >
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Search..."
+            [(ngModel)]="searchTblLocation"
+          />
           <mat-option
-            *ngFor=" let item of locList | search: 'subLocationDescription, mainLocationDescription, provinceName':searchTblLocation"
-            [value]="item.subLocID">
+            *ngFor="
+              let item of locList
+                | search
+                  : 'subLocationDescription, mainLocationDescription, provinceName'
+                  : searchTblLocation
+            "
+            [value]="item.subLocID"
+          >
             <table class="table">
-              <tr class='d-flex'>
+              <tr class="d-flex">
                 <td class="col-4">{{ item.subLocationDescription }}</td>
                 <td class="col-4">{{ item.mainLocationDescription }}</td>
                 <td class="col-4">{{ item.provinceName }}</td>
@@ -131,158 +192,219 @@
     </div>
   </div>
   <!-- next row -->
-  <div class="row pl-0" style="height:210px">
+  <div class="row pl-0" style="max-height: 200px;">
     <div class="col-md-8">
-      <div class=" boxShadow-1 bg-white" [chart]="test_chart" class='h-100 w-100'></div>
+      <div
+        class="boxShadow-1 bg-white"
+        [chart]="test_chart"
+        class="h-100 w-100"
+      ></div>
     </div>
-    <div class="col-md-4 pt-2 ">
-      <div class="table-responsive bg-white boxShadow-1">
-        <table class="table table-striped" style="overflow:auto;height:200px">
+    <div class="col-md-4 pt-2">
+      <div
+        class="style-3 bg-white table-responsive table-wrapper mx-auto mb-2 boxShadow-1"
+        style="height: 200px;"
+      >
+        <table class="table table-striped align-self-start">
           <thead>
             <tr>
-              <th>#</th>
-              <th>Date</th>
-              <th>Tags</th>
-              <th>detail</th>
+              <th class="sticky-top" scope="col">#</th>
+              <th class="sticky-top" scope="col">Date</th>
+              <th class="sticky-top" scope="col">Tags</th>
+              <th class="sticky-top" scope="col">detail</th>
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let item of totalTagList let i=index">
-              <td>{{i+1}}</td>
-              <td>{{item.createdDate | date:'dd-MM-yyyy'}}</td>
-              <td>{{item.tagsCreated}}</td>
-              <td><span class='text-primary cursorPointer' (click)="getTagDetailDateWise(item)">click...</span></td>
+            <tr *ngFor="let item of totalTagList; let i = index">
+              <td>{{ i + 1 }}</td>
+              <td>{{ item.createdDate | date: "dd-MM-yyyy" }}</td>
+              <td>{{ item.tagsCreated }}</td>
+              <td>
+                <span
+                  class="text-primary cursorPointer"
+                  (click)="getTagDetailDateWise(item)"
+                  >click...</span
+                >
+              </td>
             </tr>
           </tbody>
         </table>
       </div>
     </div>
   </div>
-  <br>
-  <br>
-  <br>
+  <br />
+
   <!-- 3 block row -->
   <div class="row">
     <!-- user's tag detail -->
     <div class="col-md-4">
-      <div class="table-responsive">
-        <table class='table table-fixed bg-white boxShadow-1'>
+      <div
+        class="style-3 table-responsive table-wrapper mx-auto boxShadow-1"
+        style="height: 250px;"
+      >
+        <table class="table bg-white">
           <thead>
             <tr>
-              <th class='col-6'>User Name</th>
-              <th class='text-right col-3'>Tags</th>
-              <th class='col-3'>Details</th>
+              <th class="sticky-top" scope="col">User Name</th>
+              <th class="text-right sticky-top" scope="col">Tags</th>
+              <th class="sticky-top" scope="col">Details</th>
             </tr>
           </thead>
-          <tbody style='height: 200px;' class='style-3'>
+          <tbody>
             <tr>
-              <td class='col-6'>Nabeel</td>
-              <td class='col-3 text-right'>88</td>
-              <td class='col-3'><span class='text-primary cursorPointer' data-toggle="modal"
-                  data-target="#userTagDateWise">click...</span></td>
+              <td class="col-6">Nabeel</td>
+              <td class="col-3 text-right">88</td>
+              <td class="col-3">
+                <span
+                  class="text-primary cursorPointer"
+                  data-toggle="modal"
+                  data-target="#userTagDateWise"
+                  >click...</span
+                >
+              </td>
             </tr>
             <tr>
-              <td class='col-6'>Nabeel</td>
-              <td class='col-3 text-right'>88</td>
-              <td class='col-3'><span class='text-primary cursorPointer'>click...</span></td>
+              <td class="col-6">Nabeel</td>
+              <td class="col-3 text-right">88</td>
+              <td class="col-3">
+                <span class="text-primary cursorPointer">click...</span>
+              </td>
             </tr>
             <tr>
-              <td class='col-6'>Nabeel</td>
-              <td class='col-3 text-right'>88</td>
-              <td class='col-3'><span class='text-primary cursorPointer'>click...</span></td>
+              <td class="col-6">Nabeel</td>
+              <td class="col-3 text-right">88</td>
+              <td class="col-3">
+                <span class="text-primary cursorPointer">click...</span>
+              </td>
             </tr>
             <tr>
-              <td class='col-6'>Nabeel</td>
-              <td class='col-3 text-right'>88</td>
-              <td class='col-3'><span class='text-primary cursorPointer'>click...</span></td>
+              <td class="col-6">Nabeel</td>
+              <td class="col-3 text-right">88</td>
+              <td class="col-3">
+                <span class="text-primary cursorPointer">click...</span>
+              </td>
             </tr>
             <tr>
-              <td class='col-6'>Nabeel</td>
-              <td class='col-3 text-right'>88</td>
-              <td class='col-3'><span class='text-primary cursorPointer'>click...</span></td>
+              <td class="col-6">Nabeel</td>
+              <td class="col-3 text-right">88</td>
+              <td class="col-3">
+                <span class="text-primary cursorPointer">click...</span>
+              </td>
             </tr>
             <tr>
-              <td class='col-6'>Nabeel</td>
-              <td class='col-3 text-right'>88</td>
-              <td class='col-3'><span class='text-primary cursorPointer'>click...</span></td>
+              <td class="col-6">Nabeel</td>
+              <td class="col-3 text-right">88</td>
+              <td class="col-3">
+                <span class="text-primary cursorPointer">click...</span>
+              </td>
             </tr>
             <tr>
-              <td class='col-6'>Nabeel</td>
-              <td class='col-3 text-right'>88</td>
-              <td class='col-3'><span class='text-primary cursorPointer'>click...</span></td>
+              <td class="col-6">Nabeel</td>
+              <td class="col-3 text-right">88</td>
+              <td class="col-3">
+                <span class="text-primary cursorPointer">click...</span>
+              </td>
             </tr>
             <tr>
-              <td class='col-6'>Nabeel</td>
-              <td class='col-3 text-right'>88</td>
-              <td class='col-3'><span class='text-primary cursorPointer'>click...</span></td>
+              <td class="col-6">Nabeel</td>
+              <td class="col-3 text-right">88</td>
+              <td class="col-3">
+                <span class="text-primary cursorPointer">click...</span>
+              </td>
             </tr>
             <tr>
-              <td class='col-6'>Nabeel</td>
-              <td class='col-3 text-right'>88</td>
-              <td class='col-3'><span class='text-primary cursorPointer'>click...</span></td>
+              <td class="col-6">Nabeel</td>
+              <td class="col-3 text-right">88</td>
+              <td class="col-3">
+                <span class="text-primary cursorPointer">click...</span>
+              </td>
             </tr>
           </tbody>
         </table>
       </div>
-    </div><!-- end user tags table -->
+    </div>
+    <!-- end user tags table -->
 
     <!-- daily tags graph -->
     <div class="col-md-4">
-      <div class=" boxShadow-1 bg-white" class='mh-100 mw-100'></div>
-    </div><!-- end daily tags graph -->
+      <div class="boxShadow-1 bg-white" class="mh-100 mw-100"></div>
+    </div>
+    <!-- end daily tags graph -->
 
     <!-- section details table  -->
     <div class="col-md-4">
-      <div class="table-responsive">
-        <table class='table table-fixed bg-white boxShadow-1'>
+      <div
+        class="table-responsive table-wrapper bg-white style-3"
+        style="height: 250px;"
+      >
+        <table class="table table-striped">
           <thead>
             <tr>
-              <th class='col-6'>Section</th>
-              <th class='text-right col-3'>Tags</th>
-              <th class='col-3'>Details</th>
+              <th class="sticky-top" scope="col">Section</th>
+              <th class="text-right sticky-top" scope="col">Tags</th>
+              <th class="sticky-top" scope="col">Details</th>
             </tr>
           </thead>
-          <tbody style='height: 200px;' class='style-3'>
+          <tbody>
             <tr>
-              <td class='col-6'>Account Section</td>
-              <td class='col-3 text-right'>6</td>
-              <td class='col-3'><span class='text-primary cursorPointer' data-toggle="modal"
-                  data-target="#sectionTagLocationWiseModal">click...</span></td>
+              <td class="col-6">Account Section</td>
+              <td class="col-3 text-right">6</td>
+              <td class="col-3">
+                <span
+                  class="text-primary cursorPointer"
+                  data-toggle="modal"
+                  data-target="#sectionTagLocationWiseModal"
+                  >click...</span
+                >
+              </td>
             </tr>
             <tr>
-              <td class='col-6'>Account Section</td>
-              <td class='col-3 text-right'>6</td>
-              <td class='col-3'><span class='text-primary cursorPointer'>click...</span></td>
+              <td class="col-6">Account Section</td>
+              <td class="col-3 text-right">6</td>
+              <td class="col-3">
+                <span class="text-primary cursorPointer">click...</span>
+              </td>
             </tr>
             <tr>
-              <td class='col-6'>Account Section</td>
-              <td class='col-3 text-right'>6</td>
-              <td class='col-3'><span class='text-primary cursorPointer'>click...</span></td>
+              <td class="col-6">Account Section</td>
+              <td class="col-3 text-right">6</td>
+              <td class="col-3">
+                <span class="text-primary cursorPointer">click...</span>
+              </td>
             </tr>
             <tr>
-              <td class='col-6'>Account Section</td>
-              <td class='col-3 text-right'>6</td>
-              <td class='col-3'><span class='text-primary cursorPointer'>click...</span></td>
+              <td class="col-6">Account Section</td>
+              <td class="col-3 text-right">6</td>
+              <td class="col-3">
+                <span class="text-primary cursorPointer">click...</span>
+              </td>
             </tr>
             <tr>
-              <td class='col-6'>Account Section</td>
-              <td class='col-3 text-right'>6</td>
-              <td class='col-3'><span class='text-primary cursorPointer'>click...</span></td>
+              <td class="col-6">Account Section</td>
+              <td class="col-3 text-right">6</td>
+              <td class="col-3">
+                <span class="text-primary cursorPointer">click...</span>
+              </td>
             </tr>
             <tr>
-              <td class='col-6'>Account Section</td>
-              <td class='col-3 text-right'>6</td>
-              <td class='col-3'><span class='text-primary cursorPointer'>click...</span></td>
+              <td class="col-6">Account Section</td>
+              <td class="col-3 text-right">6</td>
+              <td class="col-3">
+                <span class="text-primary cursorPointer">click...</span>
+              </td>
             </tr>
             <tr>
-              <td class='col-6'>Account Section</td>
-              <td class='col-3 text-right'>6</td>
-              <td class='col-3'><span class='text-primary cursorPointer'>click...</span></td>
+              <td class="col-6">Account Section</td>
+              <td class="col-3 text-right">6</td>
+              <td class="col-3">
+                <span class="text-primary cursorPointer">click...</span>
+              </td>
             </tr>
           </tbody>
         </table>
       </div>
-    </div><!-- end user tags table -->
+    </div>
+    <!-- end user tags table -->
   </div>
   <!-- Asset Register -->
   <!-- <div id='assetRegister'> -->
@@ -297,13 +419,27 @@
     <div class="col-md-6">
       <mat-form-field class="w-100">
         <mat-label>Province - Location - Sub Location</mat-label>
-        <mat-select [(ngModel)]="cmbLocation" (ngModelChange)="getAssetDetailLocOfcType()">
-          <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchLocation">
+        <mat-select
+          [(ngModel)]="cmbLocation"
+          (ngModelChange)="getAssetDetailLocOfcType()"
+        >
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Search..."
+            [(ngModel)]="searchLocation"
+          />
           <mat-option
-            *ngFor=" let item of locList | search: 'subLocationDescription, mainLocationDescription, provinceName':searchLocation"
-            [value]="item.subLocID">
+            *ngFor="
+              let item of locList
+                | search
+                  : 'subLocationDescription, mainLocationDescription, provinceName'
+                  : searchLocation
+            "
+            [value]="item.subLocID"
+          >
             <table class="table">
-              <tr class='d-flex'>
+              <tr class="d-flex">
                 <td class="col-4">{{ item.subLocationDescription }}</td>
                 <td class="col-4">{{ item.mainLocationDescription }}</td>
                 <td class="col-4">{{ item.provinceName }}</td>
@@ -316,8 +452,14 @@
     <div class="col-md-6">
       <mat-form-field class="w-100">
         <mat-label>Office Type</mat-label>
-        <mat-select [(ngModel)]="cmbOfcType" (ngModelChange)="getAssetDetailLocOfcType()">
-          <mat-option *ngFor=" let item of ofcTypeList" [value]="item.officeTypeID">
+        <mat-select
+          [(ngModel)]="cmbOfcType"
+          (ngModelChange)="getAssetDetailLocOfcType()"
+        >
+          <mat-option
+            *ngFor="let item of ofcTypeList"
+            [value]="item.officeTypeID"
+          >
             {{ item.officeTypeDescription }}
           </mat-option>
         </mat-select>
@@ -328,83 +470,116 @@
 
   <!-- table Asset Register -->
   <!-- table -->
-  <div style="overflow: auto; ;height: 200px !important;">
-    <table class="table table-striped bg-white boxShadow-1">
+  <div class="style-3 table-wrapper mx-auto mb-2 boxShadow-1">
+    <table class="table table-striped m-0 p-0 bg-white">
       <thead>
         <tr>
-          <th scope="col">Tag</th>
-          <th scope="col">Sub-Location</th>
-          <th scope="col">Office Type</th>
-          <th scope="col">Accounts Category</th>
-          <th scope="col">Asset - Category</th>
-          <th scope="col">Description</th>
-          <th scope="col">Post Name</th>
-          <th scope="col">Asset-Location</th>
-          <th scope="col">Project</th>
-          <th scope="col">IPC Ref.</th>
-          <th scope="col">Other Identification</th>
-          <th scope="col">Serial No.</th>
-          <th scope="col">Vehicle ID</th>
-          <th scope="col">Previous Tag</th>
-          <th scope="col">Cost</th>
-          <th scope="col">Purchase Date</th>
-          <th scope="col">Condition</th>
-          <th scope="col">Useable?</th>
-          <th scope="col">Surplus?</th>
-          <th scope="col">Serviceable?</th>
-          <th scope="col">Condemned?</th>
-          <th scope="col">Missing?</th>
-          <th scope="col">Remarks</th>
-          <th scope="col">Create Date</th>
-          <th scope="col">Net Book Value</th>
+          <th class="sticky-top" scope="col">Tag</th>
+          <th class="sticky-top" scope="col">Sub-Location</th>
+          <th class="sticky-top" scope="col">Office Type</th>
+          <th class="sticky-top" scope="col">Accounts Category</th>
+          <th class="sticky-top" scope="col">Asset - Category</th>
+          <th class="sticky-top" scope="col">Description</th>
+          <th class="sticky-top" scope="col">Post Name</th>
+          <th class="sticky-top" scope="col">Asset-Location</th>
+          <th class="sticky-top" scope="col">Project</th>
+          <th class="sticky-top" scope="col">IPC Ref.</th>
+          <th class="sticky-top" scope="col">Other Identification</th>
+          <th class="sticky-top" scope="col">Serial No.</th>
+          <th class="sticky-top" scope="col">Vehicle ID</th>
+          <th class="sticky-top" scope="col">Previous Tag</th>
+          <th class="sticky-top" scope="col">Cost</th>
+          <th class="sticky-top" scope="col">Purchase Date</th>
+          <th class="sticky-top" scope="col">Condition</th>
+          <th class="sticky-top" scope="col">Useable?</th>
+          <th class="sticky-top" scope="col">Surplus?</th>
+          <th class="sticky-top" scope="col">Serviceable?</th>
+          <th class="sticky-top" scope="col">Condemned?</th>
+          <th class="sticky-top" scope="col">Missing?</th>
+          <th class="sticky-top" scope="col">Remarks</th>
+          <th class="sticky-top" scope="col">Create Date</th>
+          <th class="sticky-top" scope="col">Net Book Value</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let item of assetDetailList let i=index">
-          <td>{{item.tag}}</td>
-          <td>{{item.subLocationDescription}}</td>
-          <td>{{item.officeTypeDescription}}</td>
-          <td>{{item.accountsCatagory}}</td>
-          <td>{{item.assetCatDescription}}</td>
-          <td>{{item.assetDescription}}</td>
-          <td>{{item.postName}}</td>
-          <td>{{item.assetLocation}}</td>
-          <td>{{item.projectShortName}}</td>
-          <td>{{item.ipcRef}}</td>
-          <td>{{item.otherIdentification}}</td>
-          <td>{{item.serialNo}}</td>
-          <td>{{item.vehID}}</td>
-          <td>{{item.previousTag}}</td>
-          <td>{{item.costAmount}}</td>
-          <td>{{item.purchaseDate}}</td>
-          <td>{{item.assetCondition}}</td>
-          <td>{{item.isUseable}}</td>
-          <td>{{item.isSurplus}}</td>
-          <td>{{item.isServiceAble}}</td>
-          <td>{{item.isCondemned}}</td>
-          <td>{{item.isMissing}}</td>
-          <td>{{item.reamarks}}</td>
-          <td>{{item.createdDate}}</td>
-          <td>{{item.netBookAmount}}</td>
+        <tr
+          *ngFor="
+            let item of assetDetailList
+              | paginate: { itemsPerPage: itemPerPage, currentPage: p };
+            let i = index
+          "
+        >
+          <td>{{ item.tag }}</td>
+          <td>{{ item.subLocationDescription }}</td>
+          <td>{{ item.officeTypeDescription }}</td>
+          <td>{{ item.accountsCatagory }}</td>
+          <td>{{ item.assetCatDescription }}</td>
+          <td>{{ item.assetDescription }}</td>
+          <td>{{ item.postName }}</td>
+          <td>{{ item.assetLocation }}</td>
+          <td>{{ item.projectShortName }}</td>
+          <td>{{ item.ipcRef }}</td>
+          <td>{{ item.otherIdentification }}</td>
+          <td>{{ item.serialNo }}</td>
+          <td>{{ item.vehID }}</td>
+          <td>{{ item.previousTag }}</td>
+          <td>{{ item.costAmount }}</td>
+          <td>{{ item.purchaseDate }}</td>
+          <td>{{ item.assetCondition }}</td>
+          <td>{{ item.isUseable }}</td>
+          <td>{{ item.isSurplus }}</td>
+          <td>{{ item.isServiceAble }}</td>
+          <td>{{ item.isCondemned }}</td>
+          <td>{{ item.isMissing }}</td>
+          <td>{{ item.reamarks }}</td>
+          <td>{{ item.createdDate }}</td>
+          <td>{{ item.netBookAmount }}</td>
         </tr>
-        <tr *ngIf="assetDetailList.length==0">
+        <tr *ngIf="assetDetailList.length == 0">
           <td>No Record Found</td>
         </tr>
       </tbody>
     </table>
   </div>
-
+  <!-- Pagination Starts -->
+  <div class="col-md-12 text-right">
+    <div class="paginationBox">
+      <pagination-controls (pageChange)="p = $event"></pagination-controls>
+    </div>
+    <div class="paginationBox">
+      <mat-form-field class="pagenateList">
+        <mat-select [(ngModel)]="itemPerPage">
+          <mat-option value="1">1</mat-option>
+          <mat-option value="2">2</mat-option>
+          <mat-option value="10">10</mat-option>
+          <mat-option value="15">15</mat-option>
+          <mat-option value="20">20</mat-option>
+          <mat-option value="25">25</mat-option>
+          <mat-option value="30">30</mat-option>
+          <mat-option value="35">35</mat-option>
+          <mat-option value="40">40</mat-option>
+          <mat-option value="45">45</mat-option>
+          <mat-option value="50">50</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="paginationBox">
+      Item per page: &nbsp;&nbsp;
+    </div>
+  </div>
+  <!-- Pagination Ends -->
 </div>
 
 <!-- Locations Modal Window -->
 <div class="modal fade" id="locationModal">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
-
       <!-- Modal Header -->
       <div class="modal-header">
-        <h4 class="modal-title">{{locationModalTitle}}</h4>
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">{{ locationModalTitle }}</h4>
+        <button type="button" class="close" data-dismiss="modal">
+          &times;
+        </button>
       </div>
 
       <!-- Modal body -->
@@ -414,8 +589,8 @@
           <div class="col-md-12">
             <mat-form-field class="w-100">
               <mat-label>search...</mat-label>
-              <mat-icon matPrefix class='fa fa-search'></mat-icon>
-              <input matInput [(ngModel)]="searchLocation">
+              <mat-icon matPrefix class="fa fa-search"></mat-icon>
+              <input matInput [(ngModel)]="searchLocation" />
             </mat-form-field>
           </div>
         </div>
@@ -430,13 +605,19 @@
             </tr>
           </thead>
           <tbody>
-
-            <tr *ngFor="let item of tempLocList
-             | search:'provinceName,mainLocationDescription,subLocationDescription':searchTag let i=index">
-              <td>{{i+1}}</td>
-              <td>{{item.provinceName}}</td>
-              <td>{{item.mainLocationDescription}}</td>
-              <td>{{item.subLocationDescription}}</td>
+            <tr
+              *ngFor="
+                let item of tempLocList
+                  | search
+                    : 'provinceName,mainLocationDescription,subLocationDescription'
+                    : searchTag;
+                let i = index
+              "
+            >
+              <td>{{ i + 1 }}</td>
+              <td>{{ item.provinceName }}</td>
+              <td>{{ item.mainLocationDescription }}</td>
+              <td>{{ item.subLocationDescription }}</td>
             </tr>
           </tbody>
         </table>
@@ -444,34 +625,36 @@
 
       <!-- Modal footer -->
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+          Close
+        </button>
       </div>
-
     </div>
   </div>
-</div><!-- end modal -->
+</div>
+<!-- end modal -->
 
 <!-- Total Tags Modal Window -->
 <div class="modal fade" id="totalTagsModal">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
-
       <!-- Modal Header -->
       <div class="modal-header">
         <h4 class="modal-title">Total Tags</h4>
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <button type="button" class="close" data-dismiss="modal">
+          &times;
+        </button>
       </div>
 
       <!-- Modal body -->
       <div class="modal-body">
-
         <!-- search bar -->
         <div class="row">
           <div class="col-md-12">
             <mat-form-field class="w-100">
               <mat-label>search...</mat-label>
-              <mat-icon matPrefix class='fa fa-search'></mat-icon>
-              <input matInput [(ngModel)]="searchTag">
+              <mat-icon matPrefix class="fa fa-search"></mat-icon>
+              <input matInput [(ngModel)]="searchTag" />
             </mat-form-field>
           </div>
         </div>
@@ -487,13 +670,20 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let item of tempTagList
-             | search:'provinceName,mainLocationDescription,subLocationDescription,tagsCreated':searchTag let i=index">
-              <td>{{i+1}}</td>
-              <td>{{item.provinceName}}</td>
-              <td>{{item.mainLocationDescription}}</td>
-              <td>{{item.subLocationDescription}}</td>
-              <td>{{item.tagsCreated}}</td>
+            <tr
+              *ngFor="
+                let item of tempTagList
+                  | search
+                    : 'provinceName,mainLocationDescription,subLocationDescription,tagsCreated'
+                    : searchTag;
+                let i = index
+              "
+            >
+              <td>{{ i + 1 }}</td>
+              <td>{{ item.provinceName }}</td>
+              <td>{{ item.mainLocationDescription }}</td>
+              <td>{{ item.subLocationDescription }}</td>
+              <td>{{ item.tagsCreated }}</td>
             </tr>
           </tbody>
         </table>
@@ -501,34 +691,36 @@
 
       <!-- Modal footer -->
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+          Close
+        </button>
       </div>
-
     </div>
   </div>
-</div><!-- end modal -->
+</div>
+<!-- end modal -->
 
 <!-- Total date wise user tags -->
 <div class="modal fade" id="userTagDateWise">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
-
       <!-- Modal Header -->
       <div class="modal-header">
         <h4 class="modal-title"><b>Nabeel</b> date wise tags detail</h4>
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <button type="button" class="close" data-dismiss="modal">
+          &times;
+        </button>
       </div>
 
       <!-- Modal body -->
       <div class="modal-body">
-
         <!-- search bar -->
         <div class="row">
           <div class="col-md-12">
             <mat-form-field class="w-100">
               <mat-label>search...</mat-label>
-              <mat-icon matPrefix class='fa fa-search'></mat-icon>
-              <input matInput [(ngModel)]="searchTag">
+              <mat-icon matPrefix class="fa fa-search"></mat-icon>
+              <input matInput [(ngModel)]="searchTag" />
             </mat-form-field>
           </div>
         </div>
@@ -547,20 +739,26 @@
               <td>1</td>
               <td>17-Jul-2020</td>
               <td>3</td>
-              <td><span class='text-primary cursorPointer' data-toggle="modal"
-                  data-target="#userTagDateWiseLocationWiseModal">click...</span></td>
+              <td>
+                <span
+                  class="text-primary cursorPointer"
+                  data-toggle="modal"
+                  data-target="#userTagDateWiseLocationWiseModal"
+                  >click...</span
+                >
+              </td>
             </tr>
             <tr>
               <td>1</td>
               <td>17-Jul-2020</td>
               <td>3</td>
-              <td><span class='text-primary cursorPointer'>click...</span></td>
+              <td><span class="text-primary cursorPointer">click...</span></td>
             </tr>
             <tr>
               <td>1</td>
               <td>17-Jul-2020</td>
               <td>3</td>
-              <td><span class='text-primary cursorPointer'>click...</span></td>
+              <td><span class="text-primary cursorPointer">click...</span></td>
             </tr>
           </tbody>
         </table>
@@ -568,34 +766,38 @@
 
       <!-- Modal footer -->
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+          Close
+        </button>
       </div>
-
     </div>
   </div>
-</div><!-- end modal -->
+</div>
+<!-- end modal -->
 
 <!-- Total date wise - location wise user tags -->
 <div class="modal fade" id="userTagDateWiseLocationWiseModal">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
-
       <!-- Modal Header -->
       <div class="modal-header">
-        <h4 class="modal-title"><b>Nabeel</b> on <b>17-Jul-2020</b> location wise tags detail</h4>
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">
+          <b>Nabeel</b> on <b>17-Jul-2020</b> location wise tags detail
+        </h4>
+        <button type="button" class="close" data-dismiss="modal">
+          &times;
+        </button>
       </div>
 
       <!-- Modal body -->
       <div class="modal-body">
-
         <!-- search bar -->
         <div class="row">
           <div class="col-md-12">
             <mat-form-field class="w-100">
               <mat-label>search...</mat-label>
-              <mat-icon matPrefix class='fa fa-search'></mat-icon>
-              <input matInput [(ngModel)]="searchTag">
+              <mat-icon matPrefix class="fa fa-search"></mat-icon>
+              <input matInput [(ngModel)]="searchTag" />
             </mat-form-field>
           </div>
         </div>
@@ -614,19 +816,19 @@
               <td>1</td>
               <td>Aimenabad</td>
               <td>3</td>
-              <td><span class='text-primary cursorPointer'>click...</span></td>
+              <td><span class="text-primary cursorPointer">click...</span></td>
             </tr>
             <tr>
               <td>1</td>
               <td>Lahore</td>
               <td>3</td>
-              <td><span class='text-primary cursorPointer'>click...</span></td>
+              <td><span class="text-primary cursorPointer">click...</span></td>
             </tr>
             <tr>
               <td>1</td>
               <td>Quetta</td>
               <td>3</td>
-              <td><span class='text-primary cursorPointer'>click...</span></td>
+              <td><span class="text-primary cursorPointer">click...</span></td>
             </tr>
           </tbody>
         </table>
@@ -634,34 +836,38 @@
 
       <!-- Modal footer -->
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+          Close
+        </button>
       </div>
-
     </div>
   </div>
-</div><!-- end modal -->
+</div>
+<!-- end modal -->
 
 <!-- Total location wise section tags -->
 <div class="modal fade" id="sectionTagLocationWiseModal">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
-
       <!-- Modal Header -->
       <div class="modal-header">
-        <h4 class="modal-title"><b>Account Section</b> location wise tags detail</h4>
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">
+          <b>Account Section</b> location wise tags detail
+        </h4>
+        <button type="button" class="close" data-dismiss="modal">
+          &times;
+        </button>
       </div>
 
       <!-- Modal body -->
       <div class="modal-body">
-
         <!-- search bar -->
         <div class="row">
           <div class="col-md-12">
             <mat-form-field class="w-100">
               <mat-label>search...</mat-label>
-              <mat-icon matPrefix class='fa fa-search'></mat-icon>
-              <input matInput [(ngModel)]="searchTag">
+              <mat-icon matPrefix class="fa fa-search"></mat-icon>
+              <input matInput [(ngModel)]="searchTag" />
             </mat-form-field>
           </div>
         </div>
@@ -679,19 +885,16 @@
               <td>1</td>
               <td>Aimenabad</td>
               <td>3</td>
-
             </tr>
             <tr>
               <td>1</td>
               <td>Lahore</td>
               <td>3</td>
-
             </tr>
             <tr>
               <td>1</td>
               <td>Quetta</td>
               <td>3</td>
-
             </tr>
           </tbody>
         </table>
@@ -699,34 +902,36 @@
 
       <!-- Modal footer -->
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+          Close
+        </button>
       </div>
-
     </div>
   </div>
-</div><!-- end modal -->
+</div>
+<!-- end modal -->
 
 <!-- Total Tags Modal Window -->
 <div class="modal fade" id="officeTypeTagsDtWiseModal">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
-
       <!-- Modal Header -->
       <div class="modal-header">
-        <h4 class="modal-title">{{locationName}}</h4>
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">{{ locationName }}</h4>
+        <button type="button" class="close" data-dismiss="modal">
+          &times;
+        </button>
       </div>
 
       <!-- Modal body -->
       <div class="modal-body">
-
         <!-- search bar -->
         <div class="row">
           <div class="col-md-12">
             <mat-form-field class="w-100">
               <mat-label>Search...</mat-label>
-              <mat-icon matPrefix class='fa fa-search'></mat-icon>
-              <input matInput [(ngModel)]="searchTagLoc">
+              <mat-icon matPrefix class="fa fa-search"></mat-icon>
+              <input matInput [(ngModel)]="searchTagLoc" />
             </mat-form-field>
           </div>
         </div>
@@ -740,10 +945,16 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let item of tagDetDtWiseList |search:'subLocationDescription':searchTagLoc let i=index">
-              <td>{{i+1}}</td>
-              <td>{{item.subLocationDescription}}</td>
-              <td>{{item.tagsCreated}}</td>
+            <tr
+              *ngFor="
+                let item of tagDetDtWiseList
+                  | search: 'subLocationDescription':searchTagLoc;
+                let i = index
+              "
+            >
+              <td>{{ i + 1 }}</td>
+              <td>{{ item.subLocationDescription }}</td>
+              <td>{{ item.tagsCreated }}</td>
             </tr>
           </tbody>
         </table>
@@ -751,34 +962,36 @@
 
       <!-- Modal footer -->
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+          Close
+        </button>
       </div>
-
     </div>
   </div>
-</div><!-- end modal -->
+</div>
+<!-- end modal -->
 
 <!-- Total Tags Modal Window -->
 <div class="modal fade" id="officeTypeTagsModal">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
-
       <!-- Modal Header -->
       <div class="modal-header">
-        <h4 class="modal-title">{{locationName}}</h4>
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">{{ locationName }}</h4>
+        <button type="button" class="close" data-dismiss="modal">
+          &times;
+        </button>
       </div>
 
       <!-- Modal body -->
       <div class="modal-body">
-
         <!-- search bar -->
         <div class="row">
           <div class="col-md-12">
             <mat-form-field class="w-100">
               <mat-label>Search...</mat-label>
-              <mat-icon matPrefix class='fa fa-search'></mat-icon>
-              <input matInput [(ngModel)]="searchTagOfc">
+              <mat-icon matPrefix class="fa fa-search"></mat-icon>
+              <input matInput [(ngModel)]="searchTagOfc" />
             </mat-form-field>
           </div>
         </div>
@@ -792,10 +1005,16 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let item of tagDetDtWiseList |search:'officeTypeDescription':searchTagOfc let i=index">
-              <td>{{i+1}}</td>
-              <td>{{item.officeTypeDescription}}</td>
-              <td>{{item.tagsCreated}}</td>
+            <tr
+              *ngFor="
+                let item of tagDetDtWiseList
+                  | search: 'officeTypeDescription':searchTagOfc;
+                let i = index
+              "
+            >
+              <td>{{ i + 1 }}</td>
+              <td>{{ item.officeTypeDescription }}</td>
+              <td>{{ item.tagsCreated }}</td>
             </tr>
           </tbody>
         </table>
@@ -803,9 +1022,11 @@
 
       <!-- Modal footer -->
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+          Close
+        </button>
       </div>
-
     </div>
   </div>
-</div><!-- end modal -->
+</div>
+<!-- end modal -->
