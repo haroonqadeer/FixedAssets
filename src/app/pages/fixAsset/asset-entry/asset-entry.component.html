@@ -1,9 +1,9 @@
-<div class="row border pl-3 m-0 p-0">
+<div class="row pl-3 m-0 p-0">
   <div class="col-md-6 align-self-center p-0 m-0">
     <h5 class="align-self-center">Asset Entry & Tags</h5>
   </div>
-  <div class="col-md-6 border text-right">
-    <nav id="pageNav" class="stroke border text-right">
+  <div class="col-md-6 text-right">
+    <nav id="pageNav" class="stroke text-right">
       <ul>
         <li>
           <a (click)="toggleView = 'form'" class="cursorPointer">Form View</a>
@@ -18,6 +18,11 @@
             matBadge="{{ tagList.length }}"
             [matBadgeHidden]="hidden"
             >Print Tags</a
+          >
+        </li>
+        <li>
+          <a (click)="printAssetRegister()" class="cursorPointer"
+            >Print Register</a
           >
         </li>
         <!-- <li><a href="#">More</a></li>
@@ -1014,4 +1019,127 @@
       </div>
     </div>
   </div>
+</div>
+
+<!-- asset register print -->
+<div class="table-responsive" id="assetRegister">
+  <div class="row">
+    <div class="col-md-12 text-center p-0">
+      <h3 class="p-0">National Highway Authority</h3>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12 p-0 text-center">
+      <h1 class="p-0">Asset Register</h1>
+    </div>
+  </div>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>
+          Tag
+          <!-- <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
+            <span class="fa fa-angle-double-up" [hidden]="!reverse"></span> -->
+        </th>
+        <th>
+          Location
+          <!-- <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
+            <span class="fa fa-angle-double-up" [hidden]="!reverse"></span></th> -->
+        </th>
+
+        <th>
+          Office Type
+          <!-- <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
+            <span class="fa fa-angle-double-up" [hidden]="!reverse"></span></th> -->
+        </th>
+
+        <th>
+          Accounts Category
+          <!-- <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
+            <span class="fa fa-angle-double-up" [hidden]="!reverse"></span></th> -->
+        </th>
+
+        <th>
+          Asset - Category
+          <!-- <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
+            <span class="fa fa-angle-double-up" [hidden]="!reverse"></span></th> -->
+        </th>
+
+        <th>
+          Post Name
+        </th>
+        <th>
+          Asset-Location
+          <!-- <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
+            <span class="fa fa-angle-double-up" [hidden]="!reverse"></span></th> -->
+        </th>
+
+        <th>
+          Project
+          <!-- <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
+            <span class="fa fa-angle-double-up" [hidden]="!reverse"></span> -->
+        </th>
+        <th>
+          Serial No.
+          <!-- <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
+            <span class="fa fa-angle-double-up" [hidden]="!reverse"></span></th> -->
+        </th>
+        <th>
+          Vehicle ID
+          <!-- <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
+            <span class="fa fa-angle-double-up" [hidden]="!reverse"></span></th> -->
+        </th>
+        <th>
+          Cost
+          <!-- <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
+            <span class="fa fa-angle-double-up" [hidden]="!reverse"></span></th> -->
+        </th>
+        <th>
+          Purchase Date
+          <!-- <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
+            <span class="fa fa-angle-double-up" [hidden]="!reverse"></span> -->
+        </th>
+        <th>
+          Create Date
+          <!-- <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
+            <span class="fa fa-angle-double-up" [hidden]="!reverse"></span></th> -->
+        </th>
+
+        <th>
+          Net Book Value
+          <!-- <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
+            <span class="fa fa-angle-double-up" [hidden]="!reverse"></span></th> -->
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        *ngFor="
+          let item of assetDetailList
+            | search
+              : 'subLocationDescription,accountsCatagory,postName'
+              : tblSearch;
+          let i = index
+        "
+      >
+        <td>{{ item.tag }}</td>
+        <td>{{ item.subLocationDescription }}</td>
+        <td>{{ item.officeTypeDescription }}</td>
+        <td>{{ item.accountsCatagory }}</td>
+        <td>{{ item.assetCatDescription }}</td>
+        <td>{{ item.postName }}</td>
+        <td>{{ item.assetLocation }}</td>
+        <td>{{ item.projectShortName }}</td>
+        <td>{{ item.serialNo }}</td>
+        <td>{{ item.vehID }}</td>
+        <td>{{ item.costAmount | number }}</td>
+        <td>{{ item.purchaseDate | date: "dd-MM-yyyy" }}</td>
+        <td>{{ item.createdDate | date: "dd-MM-yyyy" }}</td>
+        <td>{{ item.netBookAmount | number }}</td>
+      </tr>
+      <tr *ngIf="assetDetailList.length == 0">
+        <td>No Record Found</td>
+      </tr>
+    </tbody>
+  </table>
 </div>
