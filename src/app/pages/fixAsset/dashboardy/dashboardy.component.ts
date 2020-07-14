@@ -19,6 +19,8 @@ export class DashboardyComponent implements OnInit {
   itemPerPage = "10";
   p = 1;
 
+  lblUserName = "";
+  lblDate = "";
   lblTagSection = "";
   locationName = "";
   allLocation = "";
@@ -58,6 +60,9 @@ export class DashboardyComponent implements OnInit {
   vehicleList = [];
   tagSecList = [];
   tagLocWiseList = [];
+  tagNumList = [];
+  tagUserList = [];
+  tagUserDateList = [];
 
   test_chart: Chart;
   locationModalTitle: string;
@@ -879,6 +884,57 @@ export class DashboardyComponent implements OnInit {
     this.getChartAssetDetail();
     this.getTagSecWise();
     this.getTimeSeriesChart();
+    this.getTagNumWise();
+  }
+
+  getTagNumWise() {
+    var reqHeader = new HttpHeaders({
+      "Content-Type": "application/json",
+      // Authorization: "Bearer " + Token,
+    });
+
+    this.http
+      .get(this.serverUrl + "gettagsnumberwise", { headers: reqHeader })
+      .subscribe((data: any) => {
+        this.tagNumList = data;
+      });
+  }
+
+  getTagUserWise(obj) {
+    this.searchTag = "";
+    this.lblUserName = obj.name;
+    var reqHeader = new HttpHeaders({
+      "Content-Type": "application/json",
+      // Authorization: "Bearer " + Token,
+    });
+
+    this.http
+      .get(this.serverUrl + "gettagsuserwise?UserId=" + obj.userId, {
+        headers: reqHeader,
+      })
+      .subscribe((data: any) => {
+        this.tagUserList = data;
+        $("#userTagDateWise").modal("show");
+      });
+  }
+
+  getTagUserDateWise(obj) {
+    this.searchTag = "";
+    this.lblDate = obj.createdDate;
+    var dt = this.convertDate(obj.createdDate);
+    var reqHeader = new HttpHeaders({
+      "Content-Type": "application/json",
+      // Authorization: "Bearer " + Token,
+    });
+
+    this.http
+      .get(this.serverUrl + "gettagsuserdatewise?UserId=0&reqDate=" + dt, {
+        headers: reqHeader,
+      })
+      .subscribe((data: any) => {
+        this.tagUserDateList = data;
+        $("#userTagDateWiseLocationWiseModal").modal("show");
+      });
   }
 
   getOfficeType() {
@@ -1029,6 +1085,7 @@ export class DashboardyComponent implements OnInit {
   }
 
   editLocationModalTitle(text) {
+    this.searchTag = "";
     this.locationModalTitle = text;
     if (text == "Total Locations") {
       this.tempLocList = this.allLocDetList;
@@ -1491,6 +1548,7 @@ export class DashboardyComponent implements OnInit {
   }
 
   getTagLocWise(item) {
+    this.searchTag = "";
     this.lblTagSection = item.officeDescription;
     var reqHeader = new HttpHeaders({
       "Content-Type": "application/json",
@@ -1511,6 +1569,7 @@ export class DashboardyComponent implements OnInit {
   }
 
   getTagDetailDateWise(item) {
+    this.searchTag = "";
     var dt = this.convertDate(item.createdDate);
     if (this.cmbTblLocation == "") {
       this.locationName = dt;

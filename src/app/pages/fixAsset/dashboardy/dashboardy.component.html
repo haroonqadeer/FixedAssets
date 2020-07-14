@@ -180,8 +180,8 @@
   <div class="row">
     <!-- user's tag detail -->
     <div class="col-md-4">
-      <div class="style-3 table-responsive table-wrapper mx-auto boxShadow-1" style="height: 250px;">
-        <table class="table bg-white">
+      <div class="style-3 bg-white table-responsive table-wrapper mx-auto boxShadow-1" style="height: 250px;">
+        <table class="table">
           <thead>
             <tr>
               <th class="sticky-top" scope="col">User Name</th>
@@ -190,68 +190,11 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td class="col-6">Nabeel</td>
-              <td class="col-3 text-right">88</td>
+            <tr *ngFor="let item of tagNumList; let i = index">
+              <td class="col-6">{{ item.name }}</td>
+              <td class="col-3">{{ item.tagsCreated }}</td>
               <td class="col-3">
-                <span class="text-primary cursorPointer" data-toggle="modal"
-                  data-target="#userTagDateWise">click...</span>
-              </td>
-            </tr>
-            <tr>
-              <td class="col-6">Nabeel</td>
-              <td class="col-3 text-right">88</td>
-              <td class="col-3">
-                <span class="text-primary cursorPointer">click...</span>
-              </td>
-            </tr>
-            <tr>
-              <td class="col-6">Nabeel</td>
-              <td class="col-3 text-right">88</td>
-              <td class="col-3">
-                <span class="text-primary cursorPointer">click...</span>
-              </td>
-            </tr>
-            <tr>
-              <td class="col-6">Nabeel</td>
-              <td class="col-3 text-right">88</td>
-              <td class="col-3">
-                <span class="text-primary cursorPointer">click...</span>
-              </td>
-            </tr>
-            <tr>
-              <td class="col-6">Nabeel</td>
-              <td class="col-3 text-right">88</td>
-              <td class="col-3">
-                <span class="text-primary cursorPointer">click...</span>
-              </td>
-            </tr>
-            <tr>
-              <td class="col-6">Nabeel</td>
-              <td class="col-3 text-right">88</td>
-              <td class="col-3">
-                <span class="text-primary cursorPointer">click...</span>
-              </td>
-            </tr>
-            <tr>
-              <td class="col-6">Nabeel</td>
-              <td class="col-3 text-right">88</td>
-              <td class="col-3">
-                <span class="text-primary cursorPointer">click...</span>
-              </td>
-            </tr>
-            <tr>
-              <td class="col-6">Nabeel</td>
-              <td class="col-3 text-right">88</td>
-              <td class="col-3">
-                <span class="text-primary cursorPointer">click...</span>
-              </td>
-            </tr>
-            <tr>
-              <td class="col-6">Nabeel</td>
-              <td class="col-3 text-right">88</td>
-              <td class="col-3">
-                <span class="text-primary cursorPointer">click...</span>
+                <span class="text-primary cursorPointer" (click)="getTagUserWise(item)">click...</span>
               </td>
             </tr>
           </tbody>
@@ -568,7 +511,7 @@
     <div class="modal-content">
       <!-- Modal Header -->
       <div class="modal-header">
-        <h4 class="modal-title"><b>Nabeel</b> date wise tags detail</h4>
+        <h4 class="modal-title"><b>{{lblUserName}}</b> date wise tags detail</h4>
         <button type="button" class="close" data-dismiss="modal">
           &times;
         </button>
@@ -597,26 +540,17 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>1</td>
-              <td>17-Jul-2020</td>
-              <td>3</td>
-              <td>
-                <span class="text-primary cursorPointer" data-toggle="modal"
-                  data-target="#userTagDateWiseLocationWiseModal">click...</span>
-              </td>
-            </tr>
-            <tr>
-              <td>1</td>
-              <td>17-Jul-2020</td>
-              <td>3</td>
-              <td><span class="text-primary cursorPointer">click...</span></td>
-            </tr>
-            <tr>
-              <td>1</td>
-              <td>17-Jul-2020</td>
-              <td>3</td>
-              <td><span class="text-primary cursorPointer">click...</span></td>
+            <tr *ngFor="
+            let item of tagUserList
+              | search
+                : 'createdDate'
+                : searchTag;
+            let i = index
+          ">
+              <td>{{ i + 1 }}</td>
+              <td>{{ item.createdDate | date }}</td>
+              <td>{{ item.tagsCreated }}</td>
+              <td> <span class="text-primary cursorPointer" (click)="getTagUserDateWise(item)">click...</span></td>
             </tr>
           </tbody>
         </table>
@@ -640,7 +574,7 @@
       <!-- Modal Header -->
       <div class="modal-header">
         <h4 class="modal-title">
-          <b>Nabeel</b> on <b>17-Jul-2020</b> location wise tags detail
+          <b>{{lblUserName}}</b> on <b>{{lblDate | date}}</b> location wise tags detail
         </h4>
         <button type="button" class="close" data-dismiss="modal">
           &times;
@@ -666,27 +600,19 @@
               <th>#</th>
               <th>Location</th>
               <th>Tags</th>
-              <th>Detail</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>1</td>
-              <td>Aimenabad</td>
-              <td>3</td>
-              <td><span class="text-primary cursorPointer">click...</span></td>
-            </tr>
-            <tr>
-              <td>1</td>
-              <td>Lahore</td>
-              <td>3</td>
-              <td><span class="text-primary cursorPointer">click...</span></td>
-            </tr>
-            <tr>
-              <td>1</td>
-              <td>Quetta</td>
-              <td>3</td>
-              <td><span class="text-primary cursorPointer">click...</span></td>
+            <tr *ngFor="
+            let item of tagUserDateList
+              | search
+                : 'subLocationDescription'
+                : searchTag;
+            let i = index
+          ">
+              <td>{{ i + 1 }}</td>
+              <td>{{ item.subLocationDescription }}</td>
+              <td>{{ item.tagsCreated }}</td>
             </tr>
           </tbody>
         </table>
