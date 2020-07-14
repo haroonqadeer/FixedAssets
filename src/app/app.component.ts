@@ -2,6 +2,7 @@ import { Component } from "@angular/core";
 import { Router } from "@angular/router";
 import { CookieService } from "ngx-cookie-service";
 import { UserIdleService } from "angular-user-idle";
+import anime from "animejs/lib/anime.es.js";
 
 declare var $: any;
 
@@ -13,6 +14,7 @@ declare var $: any;
 export class AppComponent {
   title = "FixedAssets";
   userName = "";
+  element = document.querySelector(".sidenav");
 
   constructor(
     private router: Router,
@@ -28,6 +30,9 @@ export class AppComponent {
       //this.router.navigate(["importsurveyresult"]);
       this.userName = this.cookie.get("userName");
       $("#menuId").show();
+      // $(".sidenav").hide();
+      $(".sideNav-backdrop").hide();
+      // this.closeNav();
       $(".sidenav").hide();
     }
   }
@@ -67,8 +72,16 @@ export class AppComponent {
   openNav() {
     // $(".sidenav").show();
     $(".sidenav").toggle("slide");
-    // const element = document.querySelector("#mySidenav");
-    // element.classList.add("animate__animated", "animate__bounce");
+    $(".sideNav-backdrop").show();
+
+    // anime({
+    //   targets: ".sidenav",
+    //   translateX: 250,
+    //   rotate: "1turn",
+    //   backgroundColor: "#FFF",
+    //   duration: 800,
+    // });
+
     // $("#mySidenav").show("slide", { direction: "left" }, 1000);
     // document.getElementById("mySidenav").style.width = "250px";
     // document.getElementById("main").style.marginLeft = "250px";
@@ -77,6 +90,7 @@ export class AppComponent {
   closeNav() {
     // $(".sidenav").hide();
     $(".sidenav").toggle("slide");
+    $(".sideNav-backdrop").hide();
     // $("#mySidenav").toggle(
     //   "slide",
     //   {
