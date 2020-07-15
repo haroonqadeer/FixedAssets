@@ -776,7 +776,9 @@
             <tbody>
               <tr *ngFor="
                   let item of oldTagList
-                    | search
+                  | paginate
+                  : { itemsPerPage: tTblItemPerPage, currentPage: tTblP }
+                | search
                       : 'tag,subLocation,officeTitle,custody,description,assetCondition,project'
                       : tblSearchTag;
                   let i = index
@@ -797,6 +799,33 @@
               </tr>
             </tbody>
           </table>
+          <!-- Pagination Starts -->
+          <div class="col-md-12 text-right">
+            <div class="paginationBox">
+              <pagination-controls (pageChange)="tTblP = $event"></pagination-controls>
+            </div>
+            <div class="paginationBox">
+              <mat-form-field class="pagenateList">
+                <mat-select [(ngModel)]="tTblItemPerPage">
+                  <mat-option value="1">1</mat-option>
+                  <mat-option value="2">2</mat-option>
+                  <mat-option value="10">10</mat-option>
+                  <mat-option value="15">15</mat-option>
+                  <mat-option value="20">20</mat-option>
+                  <mat-option value="25">25</mat-option>
+                  <mat-option value="30">30</mat-option>
+                  <mat-option value="35">35</mat-option>
+                  <mat-option value="40">40</mat-option>
+                  <mat-option value="45">45</mat-option>
+                  <mat-option value="50">50</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="paginationBox">
+              Item per page: &nbsp;&nbsp;
+            </div>
+          </div>
+          <!-- Pagination Ends -->
         </div>
         <!-- end table -->
       </div>
