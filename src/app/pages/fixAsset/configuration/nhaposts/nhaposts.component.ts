@@ -19,11 +19,37 @@ export class NHAPostsComponent implements OnInit {
   heading = "Add";
 
   postID = "";
+  txtCmpnyName = "";
   txtPostName = "";
   cmbBS = "";
   tblSearch = "";
 
   custodyList = [];
+  bpsList = [
+    { name: "0" },
+    { name: "1" },
+    { name: "2" },
+    { name: "3" },
+    { name: "4" },
+    { name: "5" },
+    { name: "6" },
+    { name: "7" },
+    { name: "8" },
+    { name: "9" },
+    { name: "10" },
+    { name: "11" },
+    { name: "12" },
+    { name: "13" },
+    { name: "14" },
+    { name: "15" },
+    { name: "16" },
+    { name: "17" },
+    { name: "18" },
+    { name: "19" },
+    { name: "20" },
+    { name: "21" },
+    { name: "22" },
+  ];
 
   constructor(
     private toastr: ToastrManager,
@@ -59,17 +85,37 @@ export class NHAPostsComponent implements OnInit {
         toastTimeout: 2500,
       });
       return false;
+    } else if (this.txtCmpnyName == "") {
+      this.toastr.errorToastr("Please Enter Company Name", "Error", {
+        toastTimeout: 2500,
+      });
+      return false;
     } else {
+      var saveData;
       if (this.postID == "") {
-        var saveData = {};
+        saveData = {
+          PostName: this.txtPostName,
+          BS: this.cmbBS,
+          nameofCompany: this.txtCmpnyName,
+          PostID: 0,
+          UserId: this.cookie.get("userID"),
+          SPType: "INSERT",
+        };
       } else {
-        var saveData = {};
+        saveData = {
+          PostName: this.txtPostName,
+          BS: this.cmbBS,
+          nameofCompany: this.txtCmpnyName,
+          PostID: this.postID,
+          UserId: this.cookie.get("userID"),
+          SPType: "UPDATE",
+        };
       }
 
       var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
       this.http
-        .post(this.serverUrl + "savepost", saveData, {
+        .post(this.serverUrl + "sudpost", saveData, {
           headers: reqHeader,
         })
         .subscribe((data: any) => {
@@ -110,19 +156,20 @@ export class NHAPostsComponent implements OnInit {
     this.postID = obj.postID;
     this.txtPostName = obj.postName;
     this.cmbBS = obj.bs;
+    this.txtCmpnyName = obj.bs;
   }
 
   delete(obj) {
     var saveData = {
-      Userid: this.cookie.get("userID"), //int
-      SpType: "Delete", //string
+      // Userid: this.cookie.get("userID"), //int
+      SpType: "DELETE", //string
       AssetID: obj.postID, //int
     };
 
     var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
     this.http
-      .post(this.serverUrl + "savepost", saveData, {
+      .post(this.serverUrl + "sudpost", saveData, {
         headers: reqHeader,
       })
       .subscribe((data: any) => {
@@ -150,6 +197,7 @@ export class NHAPostsComponent implements OnInit {
     this.heading = "Add";
 
     this.postID = "";
+    this.txtCmpnyName = "";
     this.txtPostName = "";
     this.cmbBS = "";
     this.tblSearch = "";
