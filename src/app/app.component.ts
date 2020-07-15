@@ -2,7 +2,6 @@ import { Component } from "@angular/core";
 import { Router } from "@angular/router";
 import { CookieService } from "ngx-cookie-service";
 import { UserIdleService } from "angular-user-idle";
-import anime from "animejs/lib/anime.es.js";
 
 declare var $: any;
 

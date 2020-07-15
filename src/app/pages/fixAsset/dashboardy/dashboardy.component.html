@@ -1,10 +1,15 @@
 <div class="container-fluid">
   <div class="row pl-2 m-0 p-0">
     <div class="col-md-6 align-self-center p-0 m-0">
-      <h5 class="align-self-center">Monitoring Dashboard</h5>
+      <h1 class="align-self-center">Monitoring Dashboard</h1>
     </div>
     <div class="col-md-6 text-right pr-1">
-      <button mat-raised-button class="noneOutline ml-2" color="primary" (click)="clear()">
+      <button
+        mat-raised-button
+        class="noneOutline ml-2"
+        color="primary"
+        (click)="clear()"
+      >
         Reset
       </button>
     </div>
@@ -22,8 +27,12 @@
         </div>
 
         <div class="dbox__action">
-          <button class="dbox__action__btn noneOutline" data-toggle="modal" data-target="#locationModal"
-            (click)="editLocationModalTitle('Total Locations')">
+          <button
+            class="dbox__action__btn noneOutline"
+            data-toggle="modal"
+            data-target="#locationModal"
+            (click)="editLocationModalTitle('Total Locations')"
+          >
             More Info
           </button>
         </div>
@@ -42,8 +51,12 @@
         </div>
 
         <div class="dbox__action">
-          <button class="dbox__action__btn noneOutline" data-toggle="modal" data-target="#locationModal"
-            (click)="editLocationModalTitle('Completed Locations')">
+          <button
+            class="dbox__action__btn noneOutline"
+            data-toggle="modal"
+            data-target="#locationModal"
+            (click)="editLocationModalTitle('Completed Locations')"
+          >
             More Info
           </button>
         </div>
@@ -62,8 +75,12 @@
         </div>
 
         <div class="dbox__action">
-          <button class="dbox__action__btn noneOutline" data-toggle="modal" data-target="#locationModal"
-            (click)="editLocationModalTitle('Remaining Locations')">
+          <button
+            class="dbox__action__btn noneOutline"
+            data-toggle="modal"
+            data-target="#locationModal"
+            (click)="editLocationModalTitle('Remaining Locations')"
+          >
             More Info
           </button>
         </div>
@@ -82,8 +99,12 @@
         </div>
 
         <div class="dbox__action">
-          <button class="dbox__action__btn noneOutline" data-toggle="modal" data-target="#totalTagsModal"
-            (click)="editLocationModalTitle('Total Tags')">
+          <button
+            class="dbox__action__btn noneOutline"
+            data-toggle="modal"
+            data-target="#totalTagsModal"
+            (click)="editLocationModalTitle('Total Tags')"
+          >
             More Info
           </button>
         </div>
@@ -97,17 +118,30 @@
   <div class="row">
     <div class="col-md-8">
       <mat-form-field class="w-100">
-        <mat-label><span class="text-danger fa fa-filter">&nbsp;</span><span class="text-danger">All</span> Province -
-          Location - Sub
-          Location</mat-label>
-        <mat-select [(ngModel)]="cmbChartLocation" (ngModelChange)="getChartLocationWise()">
-          <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchChartLocation" />
-          <mat-option *ngFor="
+        <mat-label
+          ><span class="text-danger fa fa-filter">&nbsp;</span
+          ><span class="text-danger">All</span> Province - Location - Sub
+          Location</mat-label
+        >
+        <mat-select
+          [(ngModel)]="cmbChartLocation"
+          (ngModelChange)="getChartLocationWise()"
+        >
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Search..."
+            [(ngModel)]="searchChartLocation"
+          />
+          <mat-option
+            *ngFor="
               let item of locList
                 | search
                   : 'subLocationDescription, mainLocationDescription, provinceName'
                   : searchChartLocation
-            " [value]="item.subLocID">
+            "
+            [value]="item.subLocID"
+          >
             <table class="table">
               <tr class="d-flex">
                 <td class="col-4">{{ item.subLocationDescription }}</td>
@@ -121,17 +155,30 @@
     </div>
     <div class="col-md-4">
       <mat-form-field class="w-100">
-        <mat-label><span class="text-danger fa fa-filter">&nbsp;</span><span class="text-danger">Active</span> Province
-          - Location - Sub
-          Location</mat-label>
-        <mat-select [(ngModel)]="cmbTblLocation" (ngModelChange)="getTblDataLocWise()">
-          <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchTblLocation" />
-          <mat-option *ngFor="
+        <mat-label
+          ><span class="text-danger fa fa-filter">&nbsp;</span
+          ><span class="text-danger">Active</span> Province - Location - Sub
+          Location</mat-label
+        >
+        <mat-select
+          [(ngModel)]="cmbTblLocation"
+          (ngModelChange)="getTblDataLocWise()"
+        >
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Search..."
+            [(ngModel)]="searchTblLocation"
+          />
+          <mat-option
+            *ngFor="
               let item of locList
                 | search
                   : 'subLocationDescription, mainLocationDescription, provinceName'
                   : searchTblLocation
-            " [value]="item.subLocID">
+            "
+            [value]="item.subLocID"
+          >
             <table class="table">
               <tr class="d-flex">
                 <td class="col-4">{{ item.subLocationDescription }}</td>
@@ -147,10 +194,17 @@
   <!-- next row -->
   <div class="row pl-0" style="max-height: 200px;">
     <div class="col-md-8">
-      <div class="boxShadow-1 bg-white" [chart]="test_chart" class="h-100 w-100"></div>
+      <div
+        class="boxShadow-1 bg-white"
+        [chart]="test_chart"
+        class="h-100 w-100"
+      ></div>
     </div>
     <div class="col-md-4 pt-2">
-      <div class="style-3 bg-white table-responsive table-wrapper mx-auto mb-2 boxShadow-1" style="height: 200px;">
+      <div
+        class="style-3 bg-white table-responsive table-wrapper mx-auto mb-2 boxShadow-1"
+        style="height: 200px;"
+      >
         <table class="table table-striped align-self-start">
           <thead>
             <tr>
@@ -166,7 +220,11 @@
               <td>{{ item.createdDate | date: "dd-MM-yyyy" }}</td>
               <td>{{ item.tagsCreated }}</td>
               <td>
-                <span class="text-primary cursorPointer" (click)="getTagDetailDateWise(item)">click...</span>
+                <span
+                  class="text-primary cursorPointer"
+                  (click)="getTagDetailDateWise(item)"
+                  >click...</span
+                >
               </td>
             </tr>
           </tbody>
@@ -180,7 +238,10 @@
   <div class="row">
     <!-- user's tag detail -->
     <div class="col-md-4">
-      <div class="style-3 table-responsive table-wrapper mx-auto boxShadow-1" style="height: 250px;">
+      <div
+        class="style-3 table-responsive table-wrapper mx-auto boxShadow-1"
+        style="height: 250px;"
+      >
         <table class="table bg-white">
           <thead>
             <tr>
@@ -194,8 +255,12 @@
               <td class="col-6">Nabeel</td>
               <td class="col-3 text-right">88</td>
               <td class="col-3">
-                <span class="text-primary cursorPointer" data-toggle="modal"
-                  data-target="#userTagDateWise">click...</span>
+                <span
+                  class="text-primary cursorPointer"
+                  data-toggle="modal"
+                  data-target="#userTagDateWise"
+                  >click...</span
+                >
               </td>
             </tr>
             <tr>
@@ -262,13 +327,20 @@
 
     <!-- daily tags graph -->
     <div class="col-md-4">
-      <div class="boxShadow-1 bg-white" [chart]="timeSeries_chart" class="h-100 w-100"></div>
+      <div
+        class="boxShadow-1 bg-white"
+        [chart]="timeSeries_chart"
+        class="h-100 w-100"
+      ></div>
     </div>
     <!-- end daily tags graph -->
 
     <!-- section details table  -->
     <div class="col-md-4">
-      <div class="table-responsive table-wrapper bg-white style-3" style="height: 250px;">
+      <div
+        class="table-responsive table-wrapper bg-white style-3"
+        style="height: 250px;"
+      >
         <table class="table table-striped">
           <thead>
             <tr>
@@ -282,7 +354,11 @@
               <td class="col-6">{{ item.officeDescription }}</td>
               <td class="col-3">{{ item.totalNoofAssets }}</td>
               <td class="col-3">
-                <span class="text-primary cursorPointer" (click)="getTagLocWise(item)">click...</span>
+                <span
+                  class="text-primary cursorPointer"
+                  (click)="getTagLocWise(item)"
+                  >click...</span
+                >
               </td>
             </tr>
           </tbody>
@@ -304,14 +380,25 @@
     <div class="col-md-6">
       <mat-form-field class="w-100">
         <mat-label>Province - Location - Sub Location</mat-label>
-        <mat-select [(ngModel)]="cmbLocation" (ngModelChange)="getAssetDetailLocOfcType()">
-          <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchLocation" />
-          <mat-option *ngFor="
+        <mat-select
+          [(ngModel)]="cmbLocation"
+          (ngModelChange)="getAssetDetailLocOfcType()"
+        >
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Search..."
+            [(ngModel)]="searchLocation"
+          />
+          <mat-option
+            *ngFor="
               let item of locList
                 | search
                   : 'subLocationDescription, mainLocationDescription, provinceName'
                   : searchLocation
-            " [value]="item.subLocID">
+            "
+            [value]="item.subLocID"
+          >
             <table class="table">
               <tr class="d-flex">
                 <td class="col-4">{{ item.subLocationDescription }}</td>
@@ -326,8 +413,14 @@
     <div class="col-md-6">
       <mat-form-field class="w-100">
         <mat-label>Office Type</mat-label>
-        <mat-select [(ngModel)]="cmbOfcType" (ngModelChange)="getAssetDetailLocOfcType()">
-          <mat-option *ngFor="let item of ofcTypeList" [value]="item.officeTypeID">
+        <mat-select
+          [(ngModel)]="cmbOfcType"
+          (ngModelChange)="getAssetDetailLocOfcType()"
+        >
+          <mat-option
+            *ngFor="let item of ofcTypeList"
+            [value]="item.officeTypeID"
+          >
             {{ item.officeTypeDescription }}
           </mat-option>
         </mat-select>
@@ -370,11 +463,13 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="
+        <tr
+          *ngFor="
             let item of assetDetailList
               | paginate: { itemsPerPage: itemPerPage, currentPage: p };
             let i = index
-          ">
+          "
+        >
           <td>{{ item.tag }}</td>
           <td>{{ item.subLocationDescription }}</td>
           <td>{{ item.officeTypeDescription }}</td>
@@ -471,13 +566,15 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="
+            <tr
+              *ngFor="
                 let item of tempLocList
                   | search
                     : 'provinceName,mainLocationDescription,subLocationDescription'
                     : searchTag;
                 let i = index
-              ">
+              "
+            >
               <td>{{ i + 1 }}</td>
               <td>{{ item.provinceName }}</td>
               <td>{{ item.mainLocationDescription }}</td>
@@ -534,13 +631,15 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="
+            <tr
+              *ngFor="
                 let item of tempTagList
                   | search
                     : 'provinceName,mainLocationDescription,subLocationDescription,tagsCreated'
                     : searchTag;
                 let i = index
-              ">
+              "
+            >
               <td>{{ i + 1 }}</td>
               <td>{{ item.provinceName }}</td>
               <td>{{ item.mainLocationDescription }}</td>
@@ -602,8 +701,12 @@
               <td>17-Jul-2020</td>
               <td>3</td>
               <td>
-                <span class="text-primary cursorPointer" data-toggle="modal"
-                  data-target="#userTagDateWiseLocationWiseModal">click...</span>
+                <span
+                  class="text-primary cursorPointer"
+                  data-toggle="modal"
+                  data-target="#userTagDateWiseLocationWiseModal"
+                  >click...</span
+                >
               </td>
             </tr>
             <tr>
@@ -710,7 +813,7 @@
       <!-- Modal Header -->
       <div class="modal-header">
         <h4 class="modal-title">
-          <b>{{lblTagSection}}</b> location wise tags detail
+          <b>{{ lblTagSection }}</b> location wise tags detail
         </h4>
         <button type="button" class="close" data-dismiss="modal">
           &times;
@@ -739,8 +842,14 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let item of tagLocWiseList | search:'subLocationDescription':searchTag; let i = index">
-              <td>{{ i+1 }}</td>
+            <tr
+              *ngFor="
+                let item of tagLocWiseList
+                  | search: 'subLocationDescription':searchTag;
+                let i = index
+              "
+            >
+              <td>{{ i + 1 }}</td>
               <td>{{ item.subLocationDescription }}</td>
               <td>{{ item.totalNoofAssets }}</td>
             </tr>
@@ -793,11 +902,13 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="
+            <tr
+              *ngFor="
                 let item of tagDetDtWiseList
                   | search: 'subLocationDescription':searchTagLoc;
                 let i = index
-              ">
+              "
+            >
               <td>{{ i + 1 }}</td>
               <td>{{ item.subLocationDescription }}</td>
               <td>{{ item.tagsCreated }}</td>
@@ -851,11 +962,13 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="
+            <tr
+              *ngFor="
                 let item of tagDetDtWiseList
                   | search: 'officeTypeDescription':searchTagOfc;
                 let i = index
-              ">
+              "
+            >
               <td>{{ i + 1 }}</td>
               <td>{{ item.officeTypeDescription }}</td>
               <td>{{ item.tagsCreated }}</td>
