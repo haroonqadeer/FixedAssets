@@ -24,6 +24,8 @@ export class AppComponent {
   ngOnInit(): void {
     if (this.cookie.get("userID") == "") {
       this.router.navigate([""]);
+      $(".sideNav-backdrop").hide();
+      $(".sidenav").hide();
       // $("#menuId").hide();
     } else {
       //this.router.navigate(["importsurveyresult"]);

@@ -1,4 +1,6 @@
-<div class="containerLogin">
+<div class="loader" *ngIf="showProgress">Loading...</div>
+
+<div class="containerLogin" *ngIf="!showProgress">
   <section id="formHolder">
 
     <div class="row">
@@ -25,10 +27,6 @@
 
         <!-- Login Form -->
         <div class="login form-peice ">
-          <mat-progress-bar class="mt-n4 example-margin" *ngIf="showProgress" color="warn" mode="indeterminate"
-            value="10" bufferValue="indeterminate">
-          </mat-progress-bar>
-
           <form class="login-form" action="#" method="post">
             <h2>Login</h2>
             <!-- <div class="form-group">
