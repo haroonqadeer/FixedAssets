@@ -258,7 +258,6 @@ export class AssetEntryComponent implements OnInit {
     this.rdbAsset = "1";
 
     this.getAssetDetail();
-    this.getOldTags();
     this.getTags();
     this.getLocation();
     this.getOfficeType();
@@ -270,6 +269,7 @@ export class AssetEntryComponent implements OnInit {
     this.getVehicleMake();
     this.getVehicleModel();
     this.getVehicleType();
+    this.getOldTags();
     $("#assetRegister").hide();
   }
 
@@ -286,6 +286,7 @@ export class AssetEntryComponent implements OnInit {
   }
 
   getOldTags() {
+    alert("ok");
     var reqHeader = new HttpHeaders({
       "Content-Type": "application/json",
       // Authorization: "Bearer " + Token,
@@ -297,7 +298,7 @@ export class AssetEntryComponent implements OnInit {
       })
       .subscribe((data: any) => {
         this.oldTagList = data;
-        // alert(this.oldTagList.length);
+        alert(this.oldTagList.length);
       });
   }
 
