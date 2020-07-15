@@ -523,6 +523,16 @@ export class AssetEntryComponent implements OnInit {
       this.rdbAsset = "2";
       this.cmbVehicle = item.vehID;
     }
+
+    var assetCat = this.AssetCatList.filter(
+      (x) => x.assetCatID == item.assetCatID
+    );
+    this.lblAccCategory = assetCat[0].accountsCatagory;
+    this.lblDepRule = assetCat[0].depreciationRule;
+    this.lblBaseRate = assetCat[0].baseRate;
+
+    this.cmbLocation = item.subLocID;
+    this.cmbOfcType = item.officeTypeID;
     this.cmbWngSection = item.officeSecID;
     this.assetNo = item.assetNo;
     this.assetID = item.assetID;
@@ -929,13 +939,11 @@ export class AssetEntryComponent implements OnInit {
     this.assetID = "";
     this.rdbAsset = "1";
     this.cmbVehicle = "";
-    // this.cmbCustody = "";
     this.cmbAssetCat = "";
     this.txtAssetDesc = "";
     this.txtAssetLoc = "";
     this.txtIdentification = "";
     this.txtSerialNo = "";
-    // this.cmbProject = "";
     this.txtRef = "";
     this.dtpPurchaseDt = "";
     this.txtAmount = "";
