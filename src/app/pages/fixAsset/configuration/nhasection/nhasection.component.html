@@ -11,17 +11,19 @@
     <div class="col-md-4 pl-4 pr-4 border-right">
       <div class="row">
         <div class="col-md-12 pt-4">
-          <h6 class='border-bottom pb-2'>Add / Edit Section</h6>
+          <h6 class='border-bottom pb-2'>{{heading}} Section</h6>
         </div>
       </div>
       <div class="row">
         <div class="col-md-12 pt-2">
           <mat-form-field class='w-100'>
             <mat-label>Office Type</mat-label>
-            <mat-select>
-              <mat-option value="primary">Primary</mat-option>
-              <mat-option value="accent">Accent</mat-option>
-              <mat-option value="warn">Warn</mat-option>
+            <mat-select [(ngModel)]="cmbOfcType">
+              <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchOfcType" />
+              <mat-option *ngFor="
+              let item of ofcTypeList" [value]="item.officeTypeID | search
+              : 'officeTypeDescription'
+              : searchOfcType">{{item.officeTypeDescription}}</mat-option>
             </mat-select>
           </mat-form-field>
         </div>
@@ -30,10 +32,12 @@
         <div class="col-md-12 pt-2">
           <mat-form-field class='w-100'>
             <mat-label>Wing</mat-label>
-            <mat-select>
-              <mat-option value="primary">Primary</mat-option>
-              <mat-option value="accent">Accent</mat-option>
-              <mat-option value="warn">Warn</mat-option>
+            <mat-select [(ngModel)]="cmbWing">
+              <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchWing" />
+              <mat-option *ngFor="
+              let item of wingList" [value]="item.wingID | search
+              : 'wingName'
+              : searchWing">{{item.wingName}}</mat-option>
             </mat-select>
           </mat-form-field>
         </div>
@@ -42,7 +46,7 @@
         <div class="col-md-12 pt-2">
           <mat-form-field class="w-100">
             <mat-label>Section Short Name</mat-label>
-            <input matInput maxlength="5">
+            <input matInput [(ngModel)]="txtSecShrtName">
           </mat-form-field>
         </div>
       </div>
@@ -50,24 +54,16 @@
         <div class="col-md-12 pt-2">
           <mat-form-field class="w-100">
             <mat-label>Section Full Name</mat-label>
-            <input matInput maxlength="50">
-          </mat-form-field>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-12 pt-2">
-          <mat-form-field class="w-100">
-            <mat-label>Description</mat-label>
-            <textarea matInput placeholder=""></textarea>
+            <input matInput [(ngModel)]="txtSecFullName">
           </mat-form-field>
         </div>
       </div>
       <div class="row mb-2">
         <div class="col-md-3 pt-0">
-          <button mat-button mat-raised-button color="primary" class='noneOutline w-100'>Save</button>
+          <button mat-button mat-raised-button color="primary" class='noneOutline w-100' (click)="save()">Save</button>
         </div>
         <div class="col-md-3 pt-0">
-          <button mat-button mat-raised-button color="warn" class='noneOutline w-100'>Reset</button>
+          <button mat-button mat-raised-button color="warn" class='noneOutline w-100' (click)="clear()">Reset</button>
         </div>
       </div>
     </div>
@@ -78,7 +74,7 @@
           <mat-form-field class="w-100">
             <mat-label>search...</mat-label>
             <mat-icon matPrefix class='fa fa-search'></mat-icon>
-            <input matInput>
+            <input matInput [(ngModel)]="tblSearch">
           </mat-form-field>
         </div>
       </div>
@@ -93,92 +89,14 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td class="text-center">1</td>
-              <td>DD Maintenance</td>
-              <td>Administration - Confidential Section</td>
-              <td class='inline-block text-center'><span class='fa fa-edit cursorPointer pr-3 text-primary'></span>
-                <span class='fa fa-trash-o cursorPointer text-danger pr-3'></span>
-                <mat-slide-toggle>
-                </mat-slide-toggle>
-              </td>
-            </tr>
-            <tr>
-              <td class="text-center">1</td>
-              <td>DD Maintenance</td>
-              <td>Administration - Confidential Section</td>
-              <td class='inline-block text-center'><span class='fa fa-edit cursorPointer pr-3 text-primary'></span>
-                <span class='fa fa-trash-o cursorPointer text-danger pr-3'></span>
-                <mat-slide-toggle>
-                </mat-slide-toggle>
-              </td>
-            </tr>
-            <tr>
-              <td class="text-center">1</td>
-              <td>DD Maintenance</td>
-              <td>Administration - Confidential Section</td>
-              <td class='inline-block text-center'><span class='fa fa-edit cursorPointer pr-3 text-primary'></span>
-                <span class='fa fa-trash-o cursorPointer text-danger pr-3'></span>
-                <mat-slide-toggle>
-                </mat-slide-toggle>
-              </td>
-            </tr>
-            <tr>
-              <td class="text-center">1</td>
-              <td>DD Maintenance</td>
-              <td>Administration - Confidential Section</td>
-              <td class='inline-block text-center'><span class='fa fa-edit cursorPointer pr-3 text-primary'></span>
-                <span class='fa fa-trash-o cursorPointer text-danger pr-3'></span>
-                <mat-slide-toggle>
-                </mat-slide-toggle>
-              </td>
-            </tr>
-            <tr>
-              <td class="text-center">1</td>
-              <td>DD Maintenance</td>
-              <td>Administration - Confidential Section</td>
-              <td class='inline-block text-center'><span class='fa fa-edit cursorPointer pr-3 text-primary'></span>
-                <span class='fa fa-trash-o cursorPointer text-danger pr-3'></span>
-                <mat-slide-toggle>
-                </mat-slide-toggle>
-              </td>
-            </tr>
-            <tr>
-              <td class="text-center">1</td>
-              <td>DD Maintenance</td>
-              <td>Administration - Confidential Section</td>
-              <td class='inline-block text-center'><span class='fa fa-edit cursorPointer pr-3 text-primary'></span>
-                <span class='fa fa-trash-o cursorPointer text-danger pr-3'></span>
-                <mat-slide-toggle>
-                </mat-slide-toggle>
-              </td>
-            </tr>
-            <tr>
-              <td class="text-center">1</td>
-              <td>DD Maintenance</td>
-              <td>Administration - Confidential Section</td>
-              <td class='inline-block text-center'><span class='fa fa-edit cursorPointer pr-3 text-primary'></span>
-                <span class='fa fa-trash-o cursorPointer text-danger pr-3'></span>
-                <mat-slide-toggle>
-                </mat-slide-toggle>
-              </td>
-            </tr>
-            <tr>
-              <td class="text-center">1</td>
-              <td>DD Maintenance</td>
-              <td>Administration - Confidential Section</td>
-              <td class='inline-block text-center'><span class='fa fa-edit cursorPointer pr-3 text-primary'></span>
-                <span class='fa fa-trash-o cursorPointer text-danger pr-3'></span>
-                <mat-slide-toggle>
-                </mat-slide-toggle>
-              </td>
-            </tr>
-            <tr>
-              <td class="text-center">1</td>
-              <td>DD Maintenance</td>
-              <td>Administration - Confidential Section</td>
-              <td class='inline-block text-center'><span class='fa fa-edit cursorPointer pr-3 text-primary'></span>
-                <span class='fa fa-trash-o cursorPointer text-danger pr-3'></span>
+            <tr
+              *ngFor="let item of wngSectionList | search:'officeTypeDescription,wingName,officeDescription':tblSearch let i=index">
+              <td class="text-center">{{i+1}}</td>
+              <td>{{item.officeTypeDescription}}</td>
+              <td>{{item.wingName}} - {{item.officeDescription}}</td>
+              <td class='inline-block text-center'><span class='fa fa-edit cursorPointer pr-3 text-primary'
+                  (click)="edit(item)"></span>
+                <span class='fa fa-trash-o cursorPointer text-danger pr-3' (click)="delete(item)"></span>
                 <mat-slide-toggle>
                 </mat-slide-toggle>
               </td>

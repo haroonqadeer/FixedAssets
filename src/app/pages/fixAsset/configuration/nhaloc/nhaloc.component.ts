@@ -49,11 +49,133 @@ export class NHALocComponent implements OnInit {
       });
   }
 
-  save() {}
+  save() {
+    if (this.cmbRegion == "") {
+      this.toastr.errorToastr("Please Select Region", "Error", {
+        toastTimeout: 2500,
+      });
+      return false;
+    } else if (this.txtLocShrtName == "") {
+      this.toastr.errorToastr("Please Enter Location Short Name", "Error", {
+        toastTimeout: 2500,
+      });
+      return false;
+    } else if (this.txtLocFullName == "") {
+      this.toastr.errorToastr("Please Enter Location Full Name", "Error", {
+        toastTimeout: 2500,
+      });
+      return false;
+    } else {
+      var saveData;
+      if (this.subLocID == "") {
+        saveData = {
+          MainLocID: this.cmbRegion,
+          SubLocation: this.txtLocFullName,
+          subLocationCode: this.txtLocShrtName,
+          SubLocationID: 0,
+          UserId: this.cookie.get("userID"),
+          SPType: "INSERT",
+        };
+      } else {
+        saveData = {
+          MainLocID: this.cmbRegion,
+          SubLocation: this.txtLocFullName,
+          subLocationCode: this.txtLocShrtName,
+          SubLocationID: this.subLocID,
+          UserId: this.cookie.get("userID"),
+          SPType: "UPDATE",
+        };
+      }
 
-  clear() {}
+      var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
-  edit(obj) {}
+      this.http
+        .post(this.serverUrl + "sublocation", saveData, {
+          headers: reqHeader,
+        })
+        .subscribe((data: any) => {
+          if (data.msg == "SUCCESS") {
+            if (this.subLocID == "") {
+              this.toastr.successToastr(
+                "Record Saved Successfully!",
+                "Success!",
+                {
+                  toastTimeout: 2500,
+                }
+              );
+            } else {
+              this.toastr.successToastr(
+                "Record Updated Successfully!",
+                "Success!",
+                {
+                  toastTimeout: 2500,
+                }
+              );
+            }
+            this.clear();
+            this.getLocation();
+            return false;
+          } else {
+            this.toastr.errorToastr(data.msg, "Error !", {
+              toastTimeout: 5000,
+            });
+            return false;
+          }
+        });
+    }
+  }
 
-  delete(obj) {}
+  edit(obj) {
+    this.heading = "Edit";
+    this.subLocID = obj.subLocID;
+    this.txtLocShrtName = obj.subLocationCode;
+    this.txtLocFullName = obj.subLocationDescription;
+    this.cmbRegion = obj.mainLocID;
+  }
+
+  delete(obj) {
+    var saveData = {
+      // Userid: this.cookie.get("userID"), //int
+      SpType: "DELETE", //string
+      SubLocationID: obj.subLocID,
+      userID: this.cookie.get("userID"), //int
+    };
+
+    var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
+
+    this.http
+      .post(this.serverUrl + "sublocation", saveData, {
+        headers: reqHeader,
+      })
+      .subscribe((data: any) => {
+        if (data.msg == "SUCCESS") {
+          this.toastr.successToastr(
+            "Record Deleted Successfully!",
+            "Success!",
+            {
+              toastTimeout: 2500,
+            }
+          );
+          this.clear();
+          this.getLocation();
+          return false;
+        } else {
+          this.toastr.errorToastr(data.msg, "Error !", {
+            toastTimeout: 5000,
+          });
+          return false;
+        }
+      });
+  }
+
+  clear() {
+    this.heading = "Add";
+    this.subLocID = "";
+    this.txtLocShrtName = "";
+    this.txtLocFullName = "";
+    this.cmbRegion = "";
+
+    this.searchLocation = "";
+    this.tblSearch = "";
+  }
 }

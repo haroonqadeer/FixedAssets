@@ -47,10 +47,10 @@
       </div>
       <div class="row">
         <div class="col-md-3 pt-2">
-          <button mat-button mat-raised-button color="primary" class='noneOutline w-100'>Save</button>
+          <button mat-button mat-raised-button color="primary" class='noneOutline w-100' (click)="save()">Save</button>
         </div>
         <div class="col-md-3 pt-2">
-          <button mat-button mat-raised-button color="warn" class='noneOutline w-100'>Reset</button>
+          <button mat-button mat-raised-button color="warn" class='noneOutline w-100' (click)="clear()">Reset</button>
         </div>
       </div>
     </div>
@@ -86,17 +86,6 @@
               <td class='inline-block text-center'><span class='fa fa-edit cursorPointer pr-3 text-primary'
                   (click)="edit(item)"></span>
                 <span class='fa fa-trash-o cursorPointer text-danger pr-3' (click)="delete(item)"></span>
-                <mat-slide-toggle>
-                </mat-slide-toggle>
-              </td>
-            </tr>
-            <tr>
-              <td class="text-center">1</td>
-              <td>Punjab</td>
-              <td>LHR</td>
-              <td>Lahore</td>
-              <td class='inline-block text-center'><span class='fa fa-edit cursorPointer pr-3 text-primary'></span>
-                <span class='fa fa-trash-o cursorPointer text-danger pr-3'></span>
                 <mat-slide-toggle>
                 </mat-slide-toggle>
               </td>

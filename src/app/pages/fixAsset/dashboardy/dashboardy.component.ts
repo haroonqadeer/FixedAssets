@@ -1233,60 +1233,88 @@ export class DashboardyComponent implements OnInit {
   getTimeSeriesChart() {
     let chart = new Chart({
       chart: {
-        zoomType: "x",
+        type: "area",
       },
+      // accessibility: {
+      //     description: 'Image description: An area chart compares the nuclear stockpiles of the USA and the USSR/Russia between 1945 and 2017. The number of nuclear weapons is plotted on the Y-axis and the years on the X-axis. The chart is interactive, and the year-on-year stockpile levels can be traced for each country. The US has a stockpile of 6 nuclear weapons at the dawn of the nuclear age in 1945. This number has gradually increased to 369 by 1950 when the USSR enters the arms race with 6 weapons. At this point, the US starts to rapidly build its stockpile culminating in 32,040 warheads by 1966 compared to the USSR’s 7,089. From this peak in 1966, the US stockpile gradually decreases as the USSR’s stockpile expands. By 1978 the USSR has closed the nuclear gap at 25,393. The USSR stockpile continues to grow until it reaches a peak of 45,000 in 1986 compared to the US arsenal of 24,401. From 1986, the nuclear stockpiles of both countries start to fall. By 2000, the numbers have fallen to 10,577 and 21,000 for the US and Russia, respectively. The decreases continue until 2017 at which point the US holds 4,018 weapons compared to Russia’s 4,500.'
+      // },
       title: {
-        text: "USD to EUR exchange rate over time",
-      },
-      subtitle: {
-        text:
-          document.ontouchstart === undefined
-            ? "Click and drag in the plot area to zoom in"
-            : "Pinch the chart to zoom in",
+        text: "Last Month Tags Data",
       },
       xAxis: {
-        type: "datetime",
+        allowDecimals: false,
+        labels: {
+          formatter: function () {
+            return this.value; // clean, unformatted number for year
+          },
+        },
+        // accessibility: {
+        //     rangeDescription: 'Range: 1940 to 2017.'
+        // }
       },
       yAxis: {
         title: {
-          text: "Exchange rate",
+          text: "Total Tags",
         },
-      },
-      legend: {
-        enabled: false,
+        labels: {
+          formatter: function () {
+            return this.value;
+          },
+        },
       },
       plotOptions: {
         area: {
-          fillColor: {
-            linearGradient: {
-              x1: 0,
-              y1: 0,
-              x2: 0,
-              y2: 1,
-            },
-            stops: [
-              [0, "#dddddd"],
-              [1, "#d0e4f8"],
-            ],
-          },
+          pointStart: 1,
           marker: {
+            enabled: false,
+            symbol: "circle",
             radius: 2,
-          },
-          lineWidth: 1,
-          states: {
-            hover: {
-              lineWidth: 1,
+            states: {
+              hover: {
+                enabled: true,
+              },
             },
           },
-          threshold: null,
         },
       },
-
       series: [
         {
-          type: "area",
-          name: "USD to EUR",
-          data: [],
+          name: "Tags",
+          data: [
+            null,
+            null,
+            5,
+            25,
+            50,
+            120,
+            150,
+            200,
+            426,
+            660,
+            869,
+            1060,
+            1605,
+            2471,
+            3322,
+            4238,
+            5221,
+            6129,
+            7089,
+            8339,
+            9399,
+            10538,
+            11643,
+            13092,
+            14478,
+            15915,
+            17385,
+            5500,
+            4512,
+            4502,
+            4502,
+            4500,
+            4500,
+          ],
         },
       ],
     });
