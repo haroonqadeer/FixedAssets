@@ -10,7 +10,7 @@ import {
 import { CookieService } from "ngx-cookie-service";
 import Swal from "sweetalert2/dist/sweetalert2.js";
 import { Observable } from "rxjs";
-import "sweetalert2/src/sweetalert2.scss";
+// import "sweetalert2/src/sweetalert2.scss";
 
 declare var $: any;
 
@@ -24,6 +24,7 @@ declare var $: any;
 export class AssetEntryComponent implements OnInit {
   serverUrl = "http://95.217.147.105:2007/api/";
 
+  loadingBar = true;
   //pagination variables for tag list
   itemPerPage = "10";
   p = 1;
@@ -291,8 +292,12 @@ export class AssetEntryComponent implements OnInit {
     }
   }
 
+  getPrevTag(item) {
+    this.txtPreTag = item.tag;
+    $("#tagModal").modal("hide");
+  }
+
   getOldTags() {
-    alert("ok");
     var reqHeader = new HttpHeaders({
       "Content-Type": "application/json",
       // Authorization: "Bearer " + Token,
@@ -304,7 +309,6 @@ export class AssetEntryComponent implements OnInit {
       })
       .subscribe((data: any) => {
         this.oldTagList = data;
-        alert(this.oldTagList.length);
       });
   }
 
@@ -414,6 +418,7 @@ export class AssetEntryComponent implements OnInit {
       .get(this.serverUrl + "getprojects", { headers: reqHeader })
       .subscribe((data: any) => {
         this.projectList = data;
+        this.loadingBar = false;
       });
   }
 
@@ -710,6 +715,9 @@ export class AssetEntryComponent implements OnInit {
         this.cmbCustody = null;
         this.cmbAssetCond = null;
       }
+
+      this.loadingBar = true;
+
       var purchaseDate = this.convertDate(this.dtpPurchaseDt);
       var saveData;
 
@@ -823,11 +831,13 @@ export class AssetEntryComponent implements OnInit {
             this.clear();
             this.getAssetDetail();
             this.getTags();
+            this.loadingBar = false;
             return false;
           } else {
             this.toastr.errorToastr(data.msg, "Error !", {
               toastTimeout: 5000,
             });
+            this.loadingBar = false;
             return false;
           }
         });
@@ -866,6 +876,7 @@ export class AssetEntryComponent implements OnInit {
       });
       return false;
     } else {
+      this.loadingBar = true;
       var saveData = {
         VehID: this.txtRegNo,
         Make: this.cmbMake,
@@ -895,11 +906,13 @@ export class AssetEntryComponent implements OnInit {
             );
             this.clear();
             this.getVehicle();
+            this.loadingBar = false;
             return false;
           } else {
             this.toastr.errorToastr(data.msg, "Error !", {
               toastTimeout: 5000,
             });
+            this.loadingBar = false;
             return false;
           }
         });
@@ -907,6 +920,7 @@ export class AssetEntryComponent implements OnInit {
   }
 
   delete(item) {
+    this.loadingBar = true;
     var saveData = {
       Userid: this.cookie.get("userID"), //int
       SpType: "Delete", //string
@@ -930,11 +944,13 @@ export class AssetEntryComponent implements OnInit {
           );
           this.clear();
           this.getAssetDetail();
+          this.loadingBar = false;
           return false;
         } else {
           this.toastr.errorToastr(data.msg, "Error !", {
             toastTimeout: 5000,
           });
+          this.loadingBar = false;
           return false;
         }
       });

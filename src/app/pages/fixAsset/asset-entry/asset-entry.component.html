@@ -31,8 +31,9 @@
     </mat-button-toggle-group> -->
   </div>
 </div>
+<div class="loader" *ngIf="loadingBar">Loading...</div>
 
-<div class="container-fluid bg-white">
+<div class="container-fluid bg-white" *ngIf="!loadingBar">
   <!-- Form View -->
   <div *ngIf="toggleView == 'table'" class="animate__animated animate__fadeInUp">
     <!-- search bar -->
@@ -784,7 +785,7 @@
                   let i = index
                 ">
                 <td class="inline-block">
-                  <span class="fa fa-edit cursorPointer pr-3 text-primary"></span>
+                  <span class="fa fa-plus-circle cursorPointer pr-3 text-primary" (click)="getPrevTag(item)"></span>
                 </td>
                 <td>{{ item.tag }}</td>
                 <td>{{ item.subLocation }}</td>

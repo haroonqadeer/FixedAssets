@@ -16,6 +16,7 @@ export class NHALocComponent implements OnInit {
   serverUrl = "http://95.217.147.105:2007/api/";
   heading = "Add";
 
+  loadingBar = true;
   subLocID = "";
   txtLocShrtName = "";
   txtLocFullName = "";
@@ -46,6 +47,7 @@ export class NHALocComponent implements OnInit {
       .get(this.serverUrl + "getsubloc", { headers: reqHeader })
       .subscribe((data: any) => {
         this.locList = data;
+        this.loadingBar = false;
       });
   }
 
@@ -66,6 +68,7 @@ export class NHALocComponent implements OnInit {
       });
       return false;
     } else {
+      this.loadingBar = true;
       var saveData;
       if (this.subLocID == "") {
         saveData = {
@@ -114,11 +117,13 @@ export class NHALocComponent implements OnInit {
             }
             this.clear();
             this.getLocation();
+            this.loadingBar = false;
             return false;
           } else {
             this.toastr.errorToastr(data.msg, "Error !", {
               toastTimeout: 5000,
             });
+            this.loadingBar = false;
             return false;
           }
         });
@@ -134,6 +139,7 @@ export class NHALocComponent implements OnInit {
   }
 
   delete(obj) {
+    this.loadingBar = true;
     var saveData = {
       // Userid: this.cookie.get("userID"), //int
       SpType: "DELETE", //string
@@ -158,11 +164,13 @@ export class NHALocComponent implements OnInit {
           );
           this.clear();
           this.getLocation();
+          this.loadingBar = false;
           return false;
         } else {
           this.toastr.errorToastr(data.msg, "Error !", {
             toastTimeout: 5000,
           });
+          this.loadingBar = false;
           return false;
         }
       });

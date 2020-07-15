@@ -3,25 +3,28 @@
     <h1>Asset Categories</h1>
   </div>
 </div>
+<div class="loader" *ngIf="loadingBar">Loading...</div>
 
 <!-- container -->
-<div class="container-fluid bg-white">
+<div class="container-fluid boxShadow-1 bg-white" *ngIf="!loadingBar">
   <div class="row">
     <!-- entry form -->
     <div class="col-md-4 pl-4 pr-4 border-right">
       <div class="row">
         <div class="col-md-12 pt-4">
-          <h6 class='border-bottom pb-2'>Add / Edit Asset Category</h6>
+          <h6 class='border-bottom pb-2'>{{heading}} Asset Category</h6>
         </div>
       </div>
       <div class="row">
         <div class="col-md-12 pt-2">
           <mat-form-field class='w-100'>
             <mat-label>Account Category</mat-label>
-            <mat-select>
-              <mat-option value="primary">Primary</mat-option>
-              <mat-option value="accent">Accent</mat-option>
-              <mat-option value="warn">Warn</mat-option>
+            <mat-select [(ngModel)]="cmbAccCat">
+              <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchAccCat" />
+              <mat-option *ngFor="
+              let item of accCatList" [value]="item.accountsCatID | search
+              : 'accountsCatagory'
+              : searchAccCat">{{item.accountsCatagory}}</mat-option>
             </mat-select>
           </mat-form-field>
         </div>
@@ -38,7 +41,7 @@
         <div class="col-md-12 pt-2">
           <mat-form-field class="w-100">
             <mat-label>Category Short Name</mat-label>
-            <input matInput maxlength="5">
+            <input matInput [(ngModel)]="txtCatShrtName">
           </mat-form-field>
         </div>
       </div>
@@ -46,7 +49,7 @@
         <div class="col-md-12 pt-2">
           <mat-form-field class="w-100">
             <mat-label>Category Full Name</mat-label>
-            <input matInput maxlength="50">
+            <input matInput [(ngModel)]="txtCatFullName">
           </mat-form-field>
         </div>
       </div>
@@ -65,20 +68,20 @@
           </div>
         </div>
       </div>
-      <div class="row">
+      <!-- <div class="row">
         <div class="col-md-12 pt-2">
           <mat-form-field class="w-100">
             <mat-label>Description</mat-label>
             <textarea matInput placeholder=""></textarea>
           </mat-form-field>
         </div>
-      </div>
+      </div> -->
       <div class="row">
         <div class="col-md-3 pt-2">
-          <button mat-button mat-raised-button color="primary" class='noneOutline w-100'>Save</button>
+          <button mat-button mat-raised-button color="primary" class='noneOutline w-100' (click)="save()">Save</button>
         </div>
         <div class="col-md-3 pt-2">
-          <button mat-button mat-raised-button color="warn" class='noneOutline w-100'>Reset</button>
+          <button mat-button mat-raised-button color="warn" class='noneOutline w-100' (click)="clear()">Reset</button>
         </div>
       </div>
       <br>
@@ -90,7 +93,7 @@
           <mat-form-field class="w-100">
             <mat-label>search...</mat-label>
             <mat-icon matPrefix class='fa fa-search'></mat-icon>
-            <input matInput>
+            <input matInput [(ngModel)]="tblSearch">
           </mat-form-field>
         </div>
       </div>
@@ -106,83 +109,20 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>1</td>
-              <td>Furniture & Fixture</td>
-              <td>SFS</td>
-              <td>Sofa Set</td>
-              <td class='inline-block text-center'><span class='fa fa-edit cursorPointer pr-3 text-primary'></span>
-                <span class='fa fa-trash-o cursorPointer text-danger pr-3'></span>
+            <tr
+              *ngFor="let item of assetCatList | search:'accountsCatagory,assetCatCode,assetCatDescription':tblSearch let i=index">
+              <td class="text-center">{{i+1}}</td>
+              <td>{{item.accountsCatagory}}</td>
+              <td>{{item.assetCatCode}}</td>
+              <td>{{item.assetCatDescription}}</td>
+              <td class='inline-block text-center'><span class='fa fa-edit cursorPointer pr-3 text-primary'
+                  (click)="edit(item)"></span>
+                <span class='fa fa-trash-o cursorPointer text-danger pr-3' (click)="delete(item)"></span>
                 <mat-slide-toggle>
                 </mat-slide-toggle>
               </td>
             </tr>
-            <tr>
-              <td>1</td>
-              <td>Furniture & Fixture</td>
-              <td>SFS</td>
-              <td>Sofa Set</td>
-              <td class='inline-block text-center'><span class='fa fa-edit cursorPointer pr-3 text-primary'></span>
-                <span class='fa fa-trash-o cursorPointer text-danger pr-3'></span>
-                <mat-slide-toggle>
-                </mat-slide-toggle>
-              </td>
-            </tr>
-            <tr>
-              <td>1</td>
-              <td>Furniture & Fixture</td>
-              <td>SFS</td>
-              <td>Sofa Set</td>
-              <td class='inline-block text-center'><span class='fa fa-edit cursorPointer pr-3 text-primary'></span>
-                <span class='fa fa-trash-o cursorPointer text-danger pr-3'></span>
-                <mat-slide-toggle>
-                </mat-slide-toggle>
-              </td>
-            </tr>
-            <tr>
-              <td>1</td>
-              <td>Furniture & Fixture</td>
-              <td>SFS</td>
-              <td>Sofa Set</td>
-              <td class='inline-block text-center'><span class='fa fa-edit cursorPointer pr-3 text-primary'></span>
-                <span class='fa fa-trash-o cursorPointer text-danger pr-3'></span>
-                <mat-slide-toggle>
-                </mat-slide-toggle>
-              </td>
-            </tr>
-            <tr>
-              <td>1</td>
-              <td>Furniture & Fixture</td>
-              <td>SFS</td>
-              <td>Sofa Set</td>
-              <td class='inline-block text-center'><span class='fa fa-edit cursorPointer pr-3 text-primary'></span>
-                <span class='fa fa-trash-o cursorPointer text-danger pr-3'></span>
-                <mat-slide-toggle>
-                </mat-slide-toggle>
-              </td>
-            </tr>
-            <tr>
-              <td>1</td>
-              <td>Furniture & Fixture</td>
-              <td>SFS</td>
-              <td>Sofa Set</td>
-              <td class='inline-block text-center'><span class='fa fa-edit cursorPointer pr-3 text-primary'></span>
-                <span class='fa fa-trash-o cursorPointer text-danger pr-3'></span>
-                <mat-slide-toggle>
-                </mat-slide-toggle>
-              </td>
-            </tr>
-            <tr>
-              <td>1</td>
-              <td>Furniture & Fixture</td>
-              <td>SFS</td>
-              <td>Sofa Set</td>
-              <td class='inline-block text-center'><span class='fa fa-edit cursorPointer pr-3 text-primary'></span>
-                <span class='fa fa-trash-o cursorPointer text-danger pr-3'></span>
-                <mat-slide-toggle>
-                </mat-slide-toggle>
-              </td>
-            </tr>
+
           </tbody>
         </table>
       </div><!-- End -->

@@ -19,6 +19,7 @@ export class NHAOfficeTypeComponent implements OnInit {
 
   heading = "Add";
 
+  loadingBar = true;
   ofcTypeID = "";
   txtOfcShrtName = "";
   txtOfcFullName = "";
@@ -47,6 +48,7 @@ export class NHAOfficeTypeComponent implements OnInit {
       .get(this.serverUrl + "getofctype", { headers: reqHeader })
       .subscribe((data: any) => {
         this.ofcTypeList = data;
+        this.loadingBar = false;
       });
   }
 
@@ -62,6 +64,7 @@ export class NHAOfficeTypeComponent implements OnInit {
       });
       return false;
     } else {
+      this.loadingBar = true;
       var saveData;
       if (this.ofcTypeID == "") {
         saveData = {
@@ -89,6 +92,7 @@ export class NHAOfficeTypeComponent implements OnInit {
           if (data.msg == "SUCCESS") {
             this.clear();
             this.getOfficeType();
+            this.loadingBar = false;
             if (this.ofcTypeID == "") {
               this.toastr.successToastr(
                 "Record Saved Successfully!",
@@ -111,6 +115,7 @@ export class NHAOfficeTypeComponent implements OnInit {
             this.toastr.errorToastr(data.msg, "Error !", {
               toastTimeout: 5000,
             });
+            this.loadingBar = false;
             return false;
           }
         });
@@ -126,6 +131,7 @@ export class NHAOfficeTypeComponent implements OnInit {
   }
 
   delete(obj) {
+    this.loadingBar = true;
     var saveData = {
       // Userid: this.cookie.get("userID"), //int
       SpType: "DELETE", //string
@@ -149,11 +155,13 @@ export class NHAOfficeTypeComponent implements OnInit {
           );
           this.clear();
           this.getOfficeType();
+          this.loadingBar = false;
           return false;
         } else {
           this.toastr.errorToastr(data.msg, "Error !", {
             toastTimeout: 5000,
           });
+          this.loadingBar = false;
           return false;
         }
       });

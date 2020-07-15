@@ -18,6 +18,7 @@ export class NHAPostsComponent implements OnInit {
   serverUrl = "http://95.217.147.105:2007/api/";
   heading = "Add";
 
+  loadingBar = true;
   postID = "";
   txtCmpnyName = "";
   txtPostName = "";
@@ -71,6 +72,7 @@ export class NHAPostsComponent implements OnInit {
       .get(this.serverUrl + "getposts", { headers: reqHeader })
       .subscribe((data: any) => {
         this.custodyList = data;
+        this.loadingBar = false;
       });
   }
 
@@ -91,6 +93,7 @@ export class NHAPostsComponent implements OnInit {
       });
       return false;
     } else {
+      this.loadingBar = true;
       var saveData;
       if (this.postID == "") {
         saveData = {
@@ -139,11 +142,13 @@ export class NHAPostsComponent implements OnInit {
             }
             this.clear();
             this.getCustody();
+            this.loadingBar = false;
             return false;
           } else {
             this.toastr.errorToastr(data.msg, "Error !", {
               toastTimeout: 5000,
             });
+            this.loadingBar = false;
             return false;
           }
         });
@@ -160,6 +165,7 @@ export class NHAPostsComponent implements OnInit {
   }
 
   delete(obj) {
+    this.loadingBar = true;
     var saveData = {
       // Userid: this.cookie.get("userID"), //int
       SpType: "DELETE", //string
@@ -183,11 +189,13 @@ export class NHAPostsComponent implements OnInit {
           );
           this.clear();
           this.getCustody();
+          this.loadingBar = false;
           return false;
         } else {
           this.toastr.errorToastr(data.msg, "Error !", {
             toastTimeout: 5000,
           });
+          this.loadingBar = false;
           return false;
         }
       });

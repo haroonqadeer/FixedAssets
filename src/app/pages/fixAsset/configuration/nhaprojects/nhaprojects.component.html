@@ -4,24 +4,28 @@
   </div>
 </div>
 
+<div class="loader" *ngIf="loadingBar">Loading...</div>
+
 <!-- container -->
-<div class="container-fluid boxShadow-1 bg-white">
+<div class="container-fluid boxShadow-1 bg-white" *ngIf="!loadingBar">
   <div class="row">
     <!-- entry form -->
     <div class="col-md-4 pl-4 pr-4 border-right">
       <div class="row">
         <div class="col-md-12 pt-4">
-          <h6 class='border-bottom pb-2'>Add / Edit Project</h6>
+          <h6 class='border-bottom pb-2'>{{heading}} Project</h6>
         </div>
       </div>
       <div class="row">
         <div class="col-md-12 pt-2">
           <mat-form-field class='w-100'>
             <mat-label>Office Section</mat-label>
-            <mat-select>
-              <mat-option value="primary">Primary</mat-option>
-              <mat-option value="accent">Accent</mat-option>
-              <mat-option value="warn">Warn</mat-option>
+            <mat-select [(ngModel)]="cmbOfcSec">
+              <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchOfcSec" />
+              <mat-option *ngFor="
+              let item of ofcSecList" [value]="item.officeSecID | search
+              : 'officeDescription'
+              : searchOfcSec">{{item.officeDescription}}</mat-option>
             </mat-select>
           </mat-form-field>
         </div>
@@ -30,7 +34,7 @@
         <div class="col-md-12 pt-2">
           <mat-form-field class="w-100">
             <mat-label>Account Section</mat-label>
-            <input matInput maxlength="50">
+            <input matInput [(ngModel)]="txtAccSection">
           </mat-form-field>
         </div>
       </div>
@@ -38,10 +42,12 @@
         <div class="col-md-12 pt-2">
           <mat-form-field class='w-100'>
             <mat-label>Account Code - Title</mat-label>
-            <mat-select>
-              <mat-option value="primary">Primary</mat-option>
-              <mat-option value="accent">Accent</mat-option>
-              <mat-option value="warn">Warn</mat-option>
+            <mat-select [(ngModel)]="cmbAccTitle">
+              <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchAccount" />
+              <mat-option *ngFor="
+              let item of accountList" [value]="item.officeTypeID | search
+              : 'officeTypeDescription'
+              : searchAccount">{{item.officeTypeDescription}}</mat-option>
             </mat-select>
           </mat-form-field>
         </div>
@@ -50,7 +56,7 @@
         <div class="col-md-12 pt-2">
           <mat-form-field class="w-100">
             <mat-label>Project Short Name</mat-label>
-            <input matInput maxlength="50">
+            <input matInput [(ngModel)]="txtProShrtName">
           </mat-form-field>
         </div>
       </div>
@@ -58,16 +64,16 @@
         <div class="col-md-12 pt-2">
           <mat-form-field class="w-100">
             <mat-label>Project Full Name</mat-label>
-            <textarea matInput placeholder="some detail of office type"></textarea>
+            <textarea matInput placeholder="some detail of office type" [(ngModel)]="txtProFullName"></textarea>
           </mat-form-field>
         </div>
       </div>
       <div class="row">
         <div class="col-md-3 pt-2">
-          <button mat-button mat-raised-button color="primary" class='noneOutline w-100'>Save</button>
+          <button mat-button mat-raised-button color="primary" class='noneOutline w-100' (click)="save()">Save</button>
         </div>
         <div class="col-md-3 pt-2">
-          <button mat-button mat-raised-button color="warn" class='noneOutline w-100'>Reset</button>
+          <button mat-button mat-raised-button color="warn" class='noneOutline w-100' (click)="clear()">Reset</button>
         </div>
       </div>
       <br>
@@ -79,7 +85,7 @@
           <mat-form-field class="w-100">
             <mat-label>search...</mat-label>
             <mat-icon matPrefix class='fa fa-search'></mat-icon>
-            <input matInput>
+            <input matInput [(ngModel)]="tblSearch">
           </mat-form-field>
         </div>
       </div>
@@ -94,92 +100,13 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td class="text-center">1</td>
-              <td>GWD-RTD</td>
-              <td>Gawadar Ratodero Project</td>
-              <td class='inline-block text-center'><span class='fa fa-edit cursorPointer pr-3 text-primary'></span>
-                <span class='fa fa-trash-o cursorPointer text-danger pr-3'></span>
-                <mat-slide-toggle>
-                </mat-slide-toggle>
-              </td>
-            </tr>
-            <tr>
-              <td class="text-center">1</td>
-              <td>GWD-RTD</td>
-              <td>Gawadar Ratodero Project</td>
-              <td class='inline-block text-center'><span class='fa fa-edit cursorPointer pr-3 text-primary'></span>
-                <span class='fa fa-trash-o cursorPointer text-danger pr-3'></span>
-                <mat-slide-toggle>
-                </mat-slide-toggle>
-              </td>
-            </tr>
-            <tr>
-              <td class="text-center">1</td>
-              <td>GWD-RTD</td>
-              <td>Gawadar Ratodero Project</td>
-              <td class='inline-block text-center'><span class='fa fa-edit cursorPointer pr-3 text-primary'></span>
-                <span class='fa fa-trash-o cursorPointer text-danger pr-3'></span>
-                <mat-slide-toggle>
-                </mat-slide-toggle>
-              </td>
-            </tr>
-            <tr>
-              <td class="text-center">1</td>
-              <td>GWD-RTD</td>
-              <td>Gawadar Ratodero Project</td>
-              <td class='inline-block text-center'><span class='fa fa-edit cursorPointer pr-3 text-primary'></span>
-                <span class='fa fa-trash-o cursorPointer text-danger pr-3'></span>
-                <mat-slide-toggle>
-                </mat-slide-toggle>
-              </td>
-            </tr>
-            <tr>
-              <td class="text-center">1</td>
-              <td>GWD-RTD</td>
-              <td>Gawadar Ratodero Project</td>
-              <td class='inline-block text-center'><span class='fa fa-edit cursorPointer pr-3 text-primary'></span>
-                <span class='fa fa-trash-o cursorPointer text-danger pr-3'></span>
-                <mat-slide-toggle>
-                </mat-slide-toggle>
-              </td>
-            </tr>
-            <tr>
-              <td class="text-center">1</td>
-              <td>GWD-RTD</td>
-              <td>Gawadar Ratodero Project</td>
-              <td class='inline-block text-center'><span class='fa fa-edit cursorPointer pr-3 text-primary'></span>
-                <span class='fa fa-trash-o cursorPointer text-danger pr-3'></span>
-                <mat-slide-toggle>
-                </mat-slide-toggle>
-              </td>
-            </tr>
-            <tr>
-              <td class="text-center">1</td>
-              <td>GWD-RTD</td>
-              <td>Gawadar Ratodero Project</td>
-              <td class='inline-block text-center'><span class='fa fa-edit cursorPointer pr-3 text-primary'></span>
-                <span class='fa fa-trash-o cursorPointer text-danger pr-3'></span>
-                <mat-slide-toggle>
-                </mat-slide-toggle>
-              </td>
-            </tr>
-            <tr>
-              <td class="text-center">1</td>
-              <td>GWD-RTD</td>
-              <td>Gawadar Ratodero Project</td>
-              <td class='inline-block text-center'><span class='fa fa-edit cursorPointer pr-3 text-primary'></span>
-                <span class='fa fa-trash-o cursorPointer text-danger pr-3'></span>
-                <mat-slide-toggle>
-                </mat-slide-toggle>
-              </td>
-            </tr>
-            <tr>
-              <td class="text-center">1</td>
-              <td>GWD-RTD</td>
-              <td>Gawadar Ratodero Project</td>
-              <td class='inline-block text-center'><span class='fa fa-edit cursorPointer pr-3 text-primary'></span>
-                <span class='fa fa-trash-o cursorPointer text-danger pr-3'></span>
+            <tr *ngFor="let item of projectList | search:'projectShortName,projectName':tblSearch let i=index">
+              <td class="text-center">{{i+1}}</td>
+              <td>{{item.projectShortName}}</td>
+              <td>{{item.projectName}}</td>
+              <td class='inline-block text-center'><span class='fa fa-edit cursorPointer pr-3 text-primary'
+                  (click)="edit(item)"></span>
+                <span class='fa fa-trash-o cursorPointer text-danger pr-3' (click)="delete(item)"></span>
                 <mat-slide-toggle>
                 </mat-slide-toggle>
               </td>
