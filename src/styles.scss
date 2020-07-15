@@ -1,4 +1,5 @@
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import "./assets/fonts/fonts.scss";
 
 /* You can add global styles to this file, and also import other style files */
 /* You can add global styles to this file, and also import other style files */
@@ -18,6 +19,13 @@ body {
 
 .divScrollable {
   overflow-y: auto !important;
+}
+
+h1 {
+  font-family: 'Montserrat';
+  color: #191919;
+  // border-bottom: 1px solid #191919;
+  // background-image: linear-gradient(to right, #191919, #4c4c4c);
 }
 
 /*****************************************/
@@ -463,14 +471,13 @@ th {
 }
 
 .sideNav-backdrop {
-
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
   background: rgba(0, 0, 0, 0.5);
-  content: '';
+  content: "";
   width: 100%;
   height: 100%;
   z-index: 9999 !important;

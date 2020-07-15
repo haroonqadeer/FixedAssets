@@ -1,7 +1,7 @@
 <div class="container-fluid">
   <div class="row pl-2 m-0 p-0">
     <div class="col-md-6 align-self-center p-0 m-0">
-      <h5 class="align-self-center">Monitoring Dashboard</h5>
+      <h1 class="align-self-center">Monitoring Dashboard</h1>
     </div>
     <div class="col-md-6 text-right pr-1">
       <button mat-raised-button class="noneOutline ml-2" color="primary" (click)="clear()">
@@ -180,8 +180,8 @@
   <div class="row">
     <!-- user's tag detail -->
     <div class="col-md-4">
-      <div class="style-3 bg-white table-responsive table-wrapper mx-auto boxShadow-1" style="height: 250px;">
-        <table class="table">
+      <div class="style-3 table-responsive table-wrapper mx-auto boxShadow-1" style="height: 250px;">
+        <table class="table bg-white">
           <thead>
             <tr>
               <th class="sticky-top" scope="col">User Name</th>
@@ -636,7 +636,7 @@
       <!-- Modal Header -->
       <div class="modal-header">
         <h4 class="modal-title">
-          <b>{{lblTagSection}}</b> location wise tags detail
+          <b>{{ lblTagSection }}</b> location wise tags detail
         </h4>
         <button type="button" class="close" data-dismiss="modal">
           &times;
@@ -665,8 +665,12 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let item of tagLocWiseList | search:'subLocationDescription':searchTag; let i = index">
-              <td>{{ i+1 }}</td>
+            <tr *ngFor="
+                let item of tagLocWiseList
+                  | search: 'subLocationDescription':searchTag;
+                let i = index
+              ">
+              <td>{{ i + 1 }}</td>
               <td>{{ item.subLocationDescription }}</td>
               <td>{{ item.totalNoofAssets }}</td>
             </tr>
