@@ -16,6 +16,7 @@ declare var $: any;
 export class DashboardyComponent implements OnInit {
   serverUrl = "http://95.217.147.105:2007/api/";
 
+  loadingBar = true;
   itemPerPage = "10";
   p = 1;
 
@@ -888,6 +889,7 @@ export class DashboardyComponent implements OnInit {
   }
 
   getTagNumWise() {
+    this.loadingBar = true;
     var reqHeader = new HttpHeaders({
       "Content-Type": "application/json",
       // Authorization: "Bearer " + Token,
@@ -897,6 +899,7 @@ export class DashboardyComponent implements OnInit {
       .get(this.serverUrl + "gettagsnumberwise", { headers: reqHeader })
       .subscribe((data: any) => {
         this.tagNumList = data;
+        this.loadingBar = false;
       });
   }
 
@@ -938,6 +941,8 @@ export class DashboardyComponent implements OnInit {
   }
 
   getOfficeType() {
+    this.loadingBar = false;
+
     var reqHeader = new HttpHeaders({
       "Content-Type": "application/json",
       // Authorization: "Bearer " + Token,
@@ -947,6 +952,7 @@ export class DashboardyComponent implements OnInit {
       .get(this.serverUrl + "getofctype", { headers: reqHeader })
       .subscribe((data: any) => {
         this.ofcTypeList = data;
+        this.loadingBar = true;
       });
   }
 
