@@ -1,0 +1,185 @@
+<div class="row">
+  <div class="col-md-12 text-center">
+    <h1>Asset Project IPC</h1>
+  </div>
+</div>
+<!-- <div class="loader" *ngIf="loadingBar">Loading...</div> -->
+
+<!-- container -->
+<div class="container-fluid boxShadow-1 bg-white">
+  <div class="row">
+    <!-- entry form -->
+    <div class="col-md-4 pl-4 pr-4 border-right">
+      <div class="row">
+        <div class="col-md-12 pt-4">
+          <h2 class='border-bottom pb-2'>Add / Edit Project IPC</h2>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 pt-2">
+          <mat-form-field class='w-100'>
+            <mat-label>Select Project</mat-label>
+            <mat-select>
+              <mat-option value="option">Option</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <!-- next row -->
+      <div class="row">
+        <div class="col-md-12 pt-2">
+          <mat-form-field class="w-100">
+            <mat-label>Package No.</mat-label>
+            <input matInput placeholder="in roman e.g I, II, III, IV">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 pt-2">
+          <mat-form-field class="w-100">
+            <mat-label>IPC No.</mat-label>
+            <input matInput type='number'>
+          </mat-form-field>
+        </div>
+      </div>
+      <!-- next row -->
+      <div class="row">
+        <div class="col-md-12 pt-2">
+          <mat-form-field class="w-100">
+            <mat-label>Description</mat-label>
+            <textarea matInput placeholder=""></textarea>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 pt-2">
+          <div class="custom-file">
+            <input type="file" class="custom-file-input" id="customFile">
+            <label class="custom-file-label" for="customFile">Choose IPC Scan Copy</label>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 pt-2 text-center">
+          <div class="text-center">
+            <img src="..." class="rounded" alt="...">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-3 pt-2">
+          <button mat-button mat-raised-button color="primary" class='noneOutline w-100'>Save</button>
+        </div>
+        <div class="col-md-3 pt-2">
+          <button mat-button mat-raised-button color="warn" class='noneOutline w-100'>Reset</button>
+        </div>
+      </div>
+      <br>
+    </div>
+    <!-- saved locations -->
+    <div class="col-md-8 bg-light">
+      <div class="row">
+        <div class="col-md-12 pt-2">
+          <mat-form-field class="w-100">
+            <mat-label>search...</mat-label>
+            <mat-icon matPrefix class='fa fa-search'></mat-icon>
+            <input matInput>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="table-responsive border table-wrapper mx-auto mb-2 style-3" style='height: 450px;'>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th class="sticky-top" scope='col'>#</th>
+              <th class="sticky-top" scope='col'>Project Short Name</th>
+              <th class="sticky-top" scope='col'>Package No.</th>
+              <th class="sticky-top" scope='col'>IPC No.</th>
+              <th class="sticky-top text-center" scope='col'>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="text-center">1</td>
+              <td>KHR-TKM</td>
+              <td>Package - I</td>
+              <td>IPC No. 01</td>
+              <td class='inline-block text-center'><span class='fa fa-edit cursorPointer pr-3 text-primary'></span>
+                <span class='fa fa-trash-o cursorPointer text-danger pr-3'></span>
+                <mat-slide-toggle>
+                </mat-slide-toggle>
+              </td>
+            </tr>
+            <tr>
+              <td class="text-center">1</td>
+              <td>KHR-TKM</td>
+              <td>Package - I</td>
+              <td>IPC No. 01</td>
+              <td class='inline-block text-center'><span class='fa fa-edit cursorPointer pr-3 text-primary'></span>
+                <span class='fa fa-trash-o cursorPointer text-danger pr-3'></span>
+                <mat-slide-toggle>
+                </mat-slide-toggle>
+              </td>
+            </tr>
+            <tr>
+              <td class="text-center">1</td>
+              <td>KHR-TKM</td>
+              <td>Package - I</td>
+              <td>IPC No. 01</td>
+              <td class='inline-block text-center'><span class='fa fa-edit cursorPointer pr-3 text-primary'></span>
+                <span class='fa fa-trash-o cursorPointer text-danger pr-3'></span>
+                <mat-slide-toggle>
+                </mat-slide-toggle>
+              </td>
+            </tr>
+            <tr>
+              <td class="text-center">1</td>
+              <td>KHR-TKM</td>
+              <td>Package - I</td>
+              <td>IPC No. 01</td>
+              <td class='inline-block text-center'><span class='fa fa-edit cursorPointer pr-3 text-primary'></span>
+                <span class='fa fa-trash-o cursorPointer text-danger pr-3'></span>
+                <mat-slide-toggle>
+                </mat-slide-toggle>
+              </td>
+            </tr>
+            <tr>
+              <td class="text-center">1</td>
+              <td>KHR-TKM</td>
+              <td>Package - I</td>
+              <td>IPC No. 01</td>
+              <td class='inline-block text-center'><span class='fa fa-edit cursorPointer pr-3 text-primary'></span>
+                <span class='fa fa-trash-o cursorPointer text-danger pr-3'></span>
+                <mat-slide-toggle>
+                </mat-slide-toggle>
+              </td>
+            </tr>
+            <tr>
+              <td class="text-center">1</td>
+              <td>KHR-TKM</td>
+              <td>Package - I</td>
+              <td>IPC No. 01</td>
+              <td class='inline-block text-center'><span class='fa fa-edit cursorPointer pr-3 text-primary'></span>
+                <span class='fa fa-trash-o cursorPointer text-danger pr-3'></span>
+                <mat-slide-toggle>
+                </mat-slide-toggle>
+              </td>
+            </tr>
+            <tr>
+              <td class="text-center">1</td>
+              <td>KHR-TKM</td>
+              <td>Package - I</td>
+              <td>IPC No. 01</td>
+              <td class='inline-block text-center'><span class='fa fa-edit cursorPointer pr-3 text-primary'></span>
+                <span class='fa fa-trash-o cursorPointer text-danger pr-3'></span>
+                <mat-slide-toggle>
+                </mat-slide-toggle>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div><!-- End -->
+    </div>
+  </div>
+</div>

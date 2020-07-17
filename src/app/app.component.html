@@ -62,7 +62,7 @@
         </a>
       </li>
       <li>
-        <a routerLink="dashboard" (click)="closeNav()">
+        <a routerLinkActive='active' routerLink="dashboard" (click)="closeNav()">
           <!--class="active"-->
           <i class="fa fa-dashboard"></i>
           <strong>Dashboard</strong>
@@ -70,7 +70,7 @@
         </a>
       </li>
       <li>
-        <a href="" routerLink="assetEntry" (click)="closeNav()">
+        <a routerLinkActive='active' href="" routerLink="assetEntry" (click)="closeNav()">
           <i class="fa fa-table"></i>
           <strong>Asset Entry & Tags</strong>
           <small>sweet home</small>
@@ -84,22 +84,32 @@
         </a>
         <ul>
           <li>
-            <a href="" routerLink="nhaLoc" (click)="closeNav()"><i class="fa fa-location-arrow"></i>NHA Locations</a>
+            <a href="" routerLinkActive='active' routerLink="nhaLoc" (click)="closeNav()"><i
+                class="fa fa-location-arrow"></i>NHA Locations</a>
           </li>
           <li>
-            <a href="" routerLink="nhaSec" (click)="closeNav()"><i class="fa fa-building"></i>NHA Section</a>
+            <a href="" routerLinkActive='active' routerLink="nhaSec" (click)="closeNav()"><i
+                class="fa fa-building"></i>NHA Section</a>
           </li>
           <li>
-            <a href="" routerLink="nhaOfficeType" (click)="closeNav()"><i class="fa fa-bank"></i>Office Type</a>
+            <a href="" routerLinkActive='active' routerLink="nhaOfficeType" (click)="closeNav()"><i
+                class="fa fa-bank"></i>Office Type</a>
           </li>
           <li>
-            <a href="" routerLink="assetCat" (click)="closeNav()"><i class="fa fa-list"></i>Asset Category</a>
+            <a href="" routerLinkActive='active' routerLink="assetCat" (click)="closeNav()"><i
+                class="fa fa-list"></i>Asset Category</a>
           </li>
           <li>
-            <a href="" routerLink="nhaPost" (click)="closeNav()"><i class="fa fa-users"></i>NHA Posts</a>
+            <a href="" routerLinkActive='active' routerLink="nhaPost" (click)="closeNav()"><i
+                class="fa fa-users"></i>NHA Posts</a>
           </li>
           <li>
-            <a href="" routerLink="nhaProject" (click)="closeNav()"><i class="fa fa-road"></i>NHA Project</a>
+            <a href="" routerLinkActive='active' routerLink="nhaProject" (click)="closeNav()"><i
+                class="fa fa-road"></i>NHA Project</a>
+          </li>
+          <li>
+            <a href="" routerLinkActive='active' routerLink="nhaProjectIPC" (click)="closeNav()"><i
+                class="fa fa-file"></i>NHA Project IPCs</a>
           </li>
         </ul>
       </li>

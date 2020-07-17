@@ -25,6 +25,7 @@ import { NHAOfficeTypeComponent } from "./pages/fixasset/configuration/nhaoffice
 import { AssetCategoryComponent } from "./pages/fixasset/configuration/asset-category/asset-category.component";
 import { NHAPostsComponent } from "./pages/fixasset/configuration/nhaposts/nhaposts.component";
 import { NHAProjectsComponent } from "./pages/fixasset/configuration/nhaprojects/nhaprojects.component";
+import { NHAProjectIPCComponent } from './pages/fixasset/configuration/nhaproject-ipc/nhaproject-ipc.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { NHAProjectsComponent } from "./pages/fixasset/configuration/nhaprojects
     AssetCategoryComponent,
     NHAPostsComponent,
     NHAProjectsComponent,
+    NHAProjectIPCComponent,
   ],
   imports: [
     BrowserModule,

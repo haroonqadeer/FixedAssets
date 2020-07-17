@@ -10,6 +10,7 @@ import { NHAOfficeTypeComponent } from "./pages/fixasset/configuration/nhaoffice
 import { AssetCategoryComponent } from "./pages/fixasset/configuration/asset-category/asset-category.component";
 import { NHAPostsComponent } from "./pages/fixasset/configuration/nhaposts/nhaposts.component";
 import { NHAProjectsComponent } from "./pages/fixasset/configuration/nhaprojects/nhaprojects.component";
+import { NHAProjectIPCComponent } from "./pages/fixasset/configuration/nhaproject-ipc/nhaproject-ipc.component";
 
 const routes: Routes = [
   {
@@ -47,6 +48,10 @@ const routes: Routes = [
   {
     path: "nhaProject",
     component: NHAProjectsComponent,
+  },
+  {
+    path: "nhaProjectIPC",
+    component: NHAProjectIPCComponent,
   },
 ];
 
