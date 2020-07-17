@@ -102,9 +102,11 @@
           <thead>
             <tr>
               <th class="sticky-top" scope='col'>#</th>
-              <th class="sticky-top" scope='col'>Account Category</th>
-              <th class="sticky-top" scope='col'>Short Name</th>
               <th class="sticky-top" scope='col'>Full Name</th>
+              <th class="sticky-top" scope='col'>Short Name</th>
+              <th class="sticky-top" scope='col'>Account Category</th>
+              <th class="sticky-top" scope='col'>Depreciation Rule</th>
+              <th class="sticky-top" scope='col'>Base Rate</th>
               <th class="sticky-top text-center" scope='col'>Action</th>
             </tr>
           </thead>
@@ -112,9 +114,11 @@
             <tr
               *ngFor="let item of assetCatList | search:'accountsCatagory,assetCatCode,assetCatDescription':tblSearch let i=index">
               <td class="text-center">{{i+1}}</td>
-              <td>{{item.accountsCatagory}}</td>
-              <td>{{item.assetCatCode}}</td>
               <td>{{item.assetCatDescription}}</td>
+              <td>{{item.assetCatCode}}</td>
+              <td>{{item.accountsCatagory}}</td>
+              <td>{{item.depreciationRule}}</td>
+              <td>{{item.baseRate}}</td>
               <td class='inline-block text-center'><span class='fa fa-edit cursorPointer pr-3 text-primary'
                   (click)="edit(item)"></span>
                 <span class='fa fa-trash-o cursorPointer text-danger pr-3' (click)="delete(item)"></span>

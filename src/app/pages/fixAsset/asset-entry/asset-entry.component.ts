@@ -125,6 +125,7 @@ export class AssetEntryComponent implements OnInit {
   preTagList = [];
   assetCondList = [];
   assetDetailList = [];
+  tempDetailList = [];
 
   vehMakeList = [];
   vehModelList = [];
@@ -525,6 +526,9 @@ export class AssetEntryComponent implements OnInit {
       )
       .subscribe((data: any) => {
         this.assetDetailList = data;
+        this.tempDetailList = data;
+        this.assetDetailList.reverse();
+        this.tempDetailList.reverse();
       });
   }
 
@@ -1017,6 +1021,8 @@ export class AssetEntryComponent implements OnInit {
     this.cmbSearchLocation = "";
     this.cmbSearchOfcType = "";
     this.cmbSearchWngSection = "";
+
+    this.assetDetailList = this.tempDetailList;
   }
 
   searchTableData() {

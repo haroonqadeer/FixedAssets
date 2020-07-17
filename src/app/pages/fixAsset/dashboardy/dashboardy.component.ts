@@ -917,6 +917,7 @@ export class DashboardyComponent implements OnInit {
       })
       .subscribe((data: any) => {
         this.tagUserList = data;
+        this.tagUserList.reverse();
         $("#userTagDateWise").modal("show");
       });
   }
@@ -1139,7 +1140,7 @@ export class DashboardyComponent implements OnInit {
             headerFormat:
               '<span style="font-size:11px">{series.name}</span><br>',
             pointFormat:
-              '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>',
+              '<span style="color:{point.color}">{point.name}</span>: <b>{point.y}</b> of total<br/>',
           },
           plotOptions: {
             series: {
@@ -1578,6 +1579,7 @@ export class DashboardyComponent implements OnInit {
       )
       .subscribe((data: any) => {
         this.totalTagList = data;
+        this.totalTagList.reverse();
       });
   }
 
