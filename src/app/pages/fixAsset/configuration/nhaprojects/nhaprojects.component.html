@@ -21,7 +21,9 @@
           <mat-form-field class='w-100'>
             <mat-label>Office Section</mat-label>
             <mat-select [(ngModel)]="cmbOfcSec">
-              <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchOfcSec" />
+              <!-- <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchOfcSec" /> -->
+              <ngx-mat-select-search [(ngModel)]="searchOfcSec" [placeholderLabel]="'Search...'"
+                [noEntriesFoundLabel]="'Not found'" name="search"></ngx-mat-select-search>
               <mat-option *ngFor="
               let item of ofcSecList" [value]="item.officeSecID | search
               : 'officeDescription'

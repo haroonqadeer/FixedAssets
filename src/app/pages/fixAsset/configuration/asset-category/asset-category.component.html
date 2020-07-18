@@ -20,7 +20,9 @@
           <mat-form-field class='w-100'>
             <mat-label>Account Category</mat-label>
             <mat-select [(ngModel)]="cmbAccCat">
-              <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchAccCat" />
+              <!-- <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchAccCat" /> -->
+              <ngx-mat-select-search [(ngModel)]="searchAccCat" [placeholderLabel]="'Search...'"
+                [noEntriesFoundLabel]="'Not found'" name="search"></ngx-mat-select-search>
               <mat-option *ngFor="
               let item of accCatList" [value]="item.accountsCatID | search
               : 'accountsCatagory'

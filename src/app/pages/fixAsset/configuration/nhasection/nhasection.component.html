@@ -20,7 +20,9 @@
           <mat-form-field class='w-100'>
             <mat-label>Office Type</mat-label>
             <mat-select [(ngModel)]="cmbOfcType">
-              <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchOfcType" />
+              <!-- <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchOfcType" /> -->
+              <ngx-mat-select-search [(ngModel)]="searchOfcType" [placeholderLabel]="'Search...'"
+                [noEntriesFoundLabel]="'Not found'" name="search"></ngx-mat-select-search>
               <mat-option *ngFor="
               let item of ofcTypeList" [value]="item.officeTypeID | search
               : 'officeTypeDescription'
@@ -34,7 +36,9 @@
           <mat-form-field class='w-100'>
             <mat-label>Wing</mat-label>
             <mat-select [(ngModel)]="cmbWing">
-              <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchWing" />
+              <!-- <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchWing" /> -->
+              <ngx-mat-select-search [(ngModel)]="searchWing" [placeholderLabel]="'Search...'"
+                [noEntriesFoundLabel]="'Not found'" name="search"></ngx-mat-select-search>
               <mat-option *ngFor="
               let item of wingList" [value]="item.wingID | search
               : 'wingName'

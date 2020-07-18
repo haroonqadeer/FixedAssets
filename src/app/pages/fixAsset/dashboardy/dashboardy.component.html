@@ -110,7 +110,9 @@
           Location - Sub
           Location</mat-label>
         <mat-select [(ngModel)]="cmbChartLocation" (ngModelChange)="getChartLocationWise()">
-          <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchChartLocation" />
+          <!-- <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchChartLocation" /> -->
+          <ngx-mat-select-search [(ngModel)]="searchChartLocation" [placeholderLabel]="'Search...'"
+            [noEntriesFoundLabel]="'Not found'" name="search"></ngx-mat-select-search>
           <mat-option *ngFor="
               let item of locList
                 | search
@@ -134,7 +136,9 @@
           - Location - Sub
           Location</mat-label>
         <mat-select [(ngModel)]="cmbTblLocation" (ngModelChange)="getTblDataLocWise()">
-          <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchTblLocation" />
+          <!-- <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchTblLocation" /> -->
+          <ngx-mat-select-search [(ngModel)]="searchTblLocation" [placeholderLabel]="'Search...'"
+            [noEntriesFoundLabel]="'Not found'" name="search"></ngx-mat-select-search>
           <mat-option *ngFor="
               let item of locList
                 | search
@@ -257,7 +261,9 @@
       <mat-form-field class="w-100">
         <mat-label>Province - Location - Sub Location</mat-label>
         <mat-select [(ngModel)]="cmbLocation" (ngModelChange)="getAssetDetailLocOfcType()">
-          <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchLocation" />
+          <!-- <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchLocation" /> -->
+          <ngx-mat-select-search [(ngModel)]="searchLocation" [placeholderLabel]="'Search...'"
+            [noEntriesFoundLabel]="'Not found'" name="search"></ngx-mat-select-search>
           <mat-option *ngFor="
               let item of locList
                 | search
