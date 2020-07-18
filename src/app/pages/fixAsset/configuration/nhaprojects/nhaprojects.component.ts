@@ -20,7 +20,6 @@ export class NHAProjectsComponent implements OnInit {
 
   loadingBar = true;
   projectID = "";
-  txtAccSection = "";
   txtProShrtName = "";
   txtProFullName = "";
   cmbOfcSec = "";
@@ -74,11 +73,6 @@ export class NHAProjectsComponent implements OnInit {
   save() {
     if (this.cmbOfcSec == "") {
       this.toastr.errorToastr("Please Select Office Section", "Error", {
-        toastTimeout: 2500,
-      });
-      return false;
-    } else if (this.txtAccSection == "") {
-      this.toastr.errorToastr("Please Enter Account Section", "Error", {
         toastTimeout: 2500,
       });
       return false;
@@ -214,7 +208,6 @@ export class NHAProjectsComponent implements OnInit {
     this.heading = "Add";
 
     this.projectID = "";
-    this.txtAccSection = "";
     this.txtProShrtName = "";
     this.txtProFullName = "";
     this.cmbOfcSec = "";
