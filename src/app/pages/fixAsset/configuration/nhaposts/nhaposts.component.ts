@@ -169,7 +169,7 @@ export class NHAPostsComponent implements OnInit {
     var saveData = {
       // Userid: this.cookie.get("userID"), //int
       SpType: "DELETE", //string
-      AssetID: obj.postID, //int
+      PostID: obj.postID, //int
     };
 
     var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });

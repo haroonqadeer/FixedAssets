@@ -22,7 +22,7 @@
             <mat-select [(ngModel)]="cmbRegion">
               <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchLocation" />
               <mat-option *ngFor="
-              let item of locList" [value]="item.mainLocID | search
+              let item of mainLocList" [value]="item.mainLocID | search
               : 'mainLocationDescription'
               : searchLocation
         ">{{item.mainLocationDescription}}</mat-option>
