@@ -13,8 +13,8 @@ import { CookieService } from "ngx-cookie-service";
   styleUrls: ["./nhaprojects.component.scss"],
 })
 export class NHAProjectsComponent implements OnInit {
-  // serverUrl = "http://95.217.147.105:2007/api/";
-  serverUrl = "http://localhost:5090/api/";
+  serverUrl = "http://95.217.147.105:2007/api/";
+  // serverUrl = "http://localhost:5090/api/";
 
   heading = "Add";
 
