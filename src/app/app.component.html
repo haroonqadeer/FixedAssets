@@ -46,7 +46,11 @@
           <h3 class="pl-4 pt-2">Menu</h3>
         </div>
         <div class="col-md-6 text-right">
-          <span class="fa fa-close cursorPointer pt-3 pr-2" (click)="closeNav()" style="font-size: 1.5em;"></span>
+          <span
+            class="fa fa-close cursorPointer pt-3 pr-2"
+            (click)="closeNav()"
+            style="font-size: 1.5em;"
+          ></span>
           <!-- <button mat-icon-button color="warn" class="noneOutline mt-2 mr-2">
             <mat-icon><span class="fa fa-close"></span></mat-icon>
           </button> -->
@@ -62,7 +66,11 @@
         </a>
       </li>
       <li>
-        <a routerLinkActive='active' routerLink="dashboard" (click)="closeNav()">
+        <a
+          routerLinkActive="active"
+          routerLink="dashboard"
+          (click)="closeNav()"
+        >
           <!--class="active"-->
           <i class="fa fa-dashboard"></i>
           <strong>Dashboard</strong>
@@ -70,7 +78,12 @@
         </a>
       </li>
       <li>
-        <a routerLinkActive='active' href="" routerLink="assetEntry" (click)="closeNav()">
+        <a
+          routerLinkActive="active"
+          href=""
+          routerLink="assetEntry"
+          (click)="closeNav()"
+        >
           <i class="fa fa-table"></i>
           <strong>Asset Entry & Tags</strong>
           <small>sweet home</small>
@@ -84,32 +97,67 @@
         </a>
         <ul>
           <li>
-            <a href="" routerLinkActive='active' routerLink="nhaLoc" (click)="closeNav()"><i
-                class="fa fa-location-arrow"></i>NHA Locations</a>
+            <a
+              href=""
+              routerLinkActive="active"
+              routerLink="nhaLoc"
+              (click)="closeNav()"
+              ><i class="fa fa-location-arrow"></i>NHA Locations</a
+            >
           </li>
           <li>
-            <a href="" routerLinkActive='active' routerLink="nhaSec" (click)="closeNav()"><i
-                class="fa fa-building"></i>NHA Section</a>
+            <a
+              href=""
+              routerLinkActive="active"
+              routerLink="nhaSec"
+              (click)="closeNav()"
+              ><i class="fa fa-building"></i>NHA Section</a
+            >
           </li>
           <li>
-            <a href="" routerLinkActive='active' routerLink="nhaOfficeType" (click)="closeNav()"><i
-                class="fa fa-bank"></i>Office Type</a>
+            <a
+              href=""
+              routerLinkActive="active"
+              routerLink="nhaOfficeType"
+              (click)="closeNav()"
+              ><i class="fa fa-bank"></i>Office Type</a
+            >
           </li>
           <li>
-            <a href="" routerLinkActive='active' routerLink="assetCat" (click)="closeNav()"><i
-                class="fa fa-list"></i>Asset Category</a>
+            <a
+              href=""
+              routerLinkActive="active"
+              routerLink="assetCat"
+              (click)="closeNav()"
+              ><i class="fa fa-list"></i>Asset Category</a
+            >
           </li>
           <li>
-            <a href="" routerLinkActive='active' routerLink="nhaPost" (click)="closeNav()"><i
-                class="fa fa-users"></i>NHA Posts</a>
+            <a
+              href=""
+              routerLinkActive="active"
+              routerLink="nhaPost"
+              (click)="closeNav()"
+              ><i class="fa fa-users"></i>NHA Posts</a
+            >
           </li>
           <li>
-            <a href="" routerLinkActive='active' routerLink="nhaProject" (click)="closeNav()"><i
-                class="fa fa-road"></i>NHA Project</a>
+            <a
+              href=""
+              routerLinkActive="active"
+              routerLink="nhaProject"
+              (click)="closeNav()"
+              ><i class="fa fa-road"></i>NHA Project</a
+            >
           </li>
           <li>
-            <a href="" routerLinkActive='active' routerLink="nhaProjectIPC" (click)="closeNav()"><i
-                class="fa fa-file"></i>NHA Project IPCs</a>
+            <a
+              href=""
+              routerLinkActive="active"
+              routerLink="nhaProjectIPC"
+              (click)="closeNav()"
+              ><i class="fa fa-file"></i>NHA Project IPCs</a
+            >
           </li>
         </ul>
       </li>
@@ -174,17 +222,33 @@
 <!-- header -->
 <div class="row" id="menuId">
   <div class="col-md-2 pl-4">
-    <span style="font-size: 1.5em; cursor: pointer;" (click)="openNav()"
-      class="animate__animated animate__bounce txt-color-green">&#9776; NHA</span>
+    <span
+      style="font-size: 1.5em; cursor: pointer;"
+      (click)="openNav()"
+      class="animate__animated animate__bounce txt-color-green"
+      >&#9776; NHA</span
+    >
   </div>
   <div class="col-md-2 offset-md-8 pt-1 text-right">
-    <button mat-button class="noneOutline txt-color-green" [matMenuTriggerFor]="menu">
+    <button
+      mat-button
+      class="noneOutline txt-color-green"
+      [matMenuTriggerFor]="menu"
+    >
       <!-- <span class="fa fa-user"></span>&nbsp;&nbsp;{{ userName }} -->
       <span class="fa fa-user"></span>&nbsp;&nbsp;Nabeel
     </button>
     <mat-menu #menu="matMenu">
       <button mat-menu-item class="noneOutline">
         <span class="fa fa-lock"></span>&nbsp;Reset Password
+      </button>
+      <button
+        mat-menu-item
+        class="noneOutline"
+        data-toggle="modal"
+        data-target="#compLocationModal"
+      >
+        <span class="fa fa-check"></span>&nbsp;Complete Location
       </button>
       <button mat-menu-item class="noneOutline" (click)="Logout()">
         <span class="fa fa-sign-out"></span>&nbsp;Log out
@@ -196,4 +260,80 @@
   </div> -->
 </div>
 <div id="menuId" class="animate__animated animate__bounce"></div>
+
+<!-- complete location modal windows -->
+<!-- The Modal -->
+<div class="modal fade" id="compLocationModal">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h3 class="modal-title">Complete Location</h3>
+        <button type="button" class="close" data-dismiss="modal">
+          &times;
+        </button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-12">
+            <mat-radio-group aria-label="Select an option">
+              <mat-radio-button value="1">Done</mat-radio-button>
+              <mat-radio-button value="2">Un-Done</mat-radio-button>
+            </mat-radio-group>
+          </div>
+        </div>
+        <!-- next row -->
+        <div class="row">
+          <div class="col-md-12">
+            <mat-form-field class="w-100">
+              <mat-label>Select Location</mat-label>
+              <mat-select>
+                <mat-option value="option">Option</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <!-- next row -->
+        <div class="row">
+          <div class="col-md-12">
+            <mat-form-field class="w-100">
+              <mat-label>Description</mat-label>
+              <textarea matInput></textarea>
+            </mat-form-field>
+          </div>
+        </div>
+        <!-- next Row -->
+        <div class="row">
+          <div class="col-md-12">
+            <mat-form-field class="w-100">
+              <mat-label fcsa-number>Enter PIN</mat-label>
+              <input matInput maxlength="4" />
+            </mat-form-field>
+          </div>
+        </div>
+        <!-- next Row -->
+        <div class="row">
+          <div class="col-md-12">
+            <button mat-raised-button color="warn">
+              <span class="fa fa-check"></span>Done
+            </button>
+            <button mat-button class="pull-right" color="primary">
+              generate PIN
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <router-outlet></router-outlet>

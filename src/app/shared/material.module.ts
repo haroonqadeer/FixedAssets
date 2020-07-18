@@ -25,6 +25,7 @@ import { MatProgressBarModule } from "@angular/material/progress-bar";
 import { MatBadgeModule } from "@angular/material/badge";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatAutocompleteModule } from "@angular/material/autocomplete";
+import { NgxMatSelectSearchModule } from "ngx-mat-select-search";
 
 @NgModule({
   imports: [
@@ -54,6 +55,7 @@ import { MatAutocompleteModule } from "@angular/material/autocomplete";
     MatBadgeModule,
     MatToolbarModule,
     MatAutocompleteModule,
+    NgxMatSelectSearchModule,
   ],
   exports: [
     MatInputModule,
@@ -81,6 +83,7 @@ import { MatAutocompleteModule } from "@angular/material/autocomplete";
     MatBadgeModule,
     MatToolbarModule,
     MatAutocompleteModule,
+    NgxMatSelectSearchModule,
   ],
   declarations: [],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

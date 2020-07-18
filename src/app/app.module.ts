@@ -6,6 +6,21 @@ import { PNPrimeModule } from "./shared/pnprime/pnprime.module";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { ChartModule } from "angular-highcharts";
 import { UserIdleModule } from "angular-user-idle";
+import {
+  CurrencyMaskConfig,
+  CurrencyMaskModule,
+  CURRENCY_MASK_CONFIG,
+} from "ng2-currency-mask";
+
+export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
+  align: "right",
+  allowNegative: true,
+  decimal: ".",
+  precision: 0,
+  prefix: "",
+  suffix: "",
+  thousands: ",",
+};
 
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
@@ -25,7 +40,7 @@ import { NHAOfficeTypeComponent } from "./pages/fixasset/configuration/nhaoffice
 import { AssetCategoryComponent } from "./pages/fixasset/configuration/asset-category/asset-category.component";
 import { NHAPostsComponent } from "./pages/fixasset/configuration/nhaposts/nhaposts.component";
 import { NHAProjectsComponent } from "./pages/fixasset/configuration/nhaprojects/nhaprojects.component";
-import { NHAProjectIPCComponent } from './pages/fixasset/configuration/nhaproject-ipc/nhaproject-ipc.component';
+import { NHAProjectIPCComponent } from "./pages/fixasset/configuration/nhaproject-ipc/nhaproject-ipc.component";
 
 @NgModule({
   declarations: [
@@ -56,12 +71,16 @@ import { NHAProjectIPCComponent } from './pages/fixasset/configuration/nhaprojec
     OrderModule,
     NgxPaginationModule,
     InputTextModule,
+    CurrencyMaskModule,
     // Optionally you can set time for `idle`, `timeout` and `ping` in seconds.
     // Default values: `idle` is 60 (1 minutes), `timeout` is 30 (0.5 minutes)
     // and `ping` is 15 0.25 minutes).
     UserIdleModule.forRoot({ idle: 300, timeout: 300, ping: 15 }),
   ],
-  providers: [CookieService],
+  providers: [
+    CookieService,
+    { provide: CURRENCY_MASK_CONFIG, useValue: CustomCurrencyMaskConfig },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
