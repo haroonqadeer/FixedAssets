@@ -14,7 +14,8 @@ declare var $: any;
   styleUrls: ["./dashboardy.component.scss"],
 })
 export class DashboardyComponent implements OnInit {
-  serverUrl = "http://95.217.147.105:2007/api/";
+  // serverUrl = "http://95.217.147.105:2007/api/";
+  serverUrl = "http://localhost:5090/api/";
 
   loadingBar = true;
   itemPerPage = "10";
@@ -64,6 +65,8 @@ export class DashboardyComponent implements OnInit {
   tagNumList = [];
   tagUserList = [];
   tagUserDateList = [];
+  daysList = [];
+  monthlyTagsList = [];
 
   test_chart: Chart;
   locationModalTitle: string;
@@ -1238,94 +1241,108 @@ export class DashboardyComponent implements OnInit {
   }
 
   getTimeSeriesChart() {
-    let chart = new Chart({
-      chart: {
-        type: "area",
-      },
-      // accessibility: {
-      //     description: 'Image description: An area chart compares the nuclear stockpiles of the USA and the USSR/Russia between 1945 and 2017. The number of nuclear weapons is plotted on the Y-axis and the years on the X-axis. The chart is interactive, and the year-on-year stockpile levels can be traced for each country. The US has a stockpile of 6 nuclear weapons at the dawn of the nuclear age in 1945. This number has gradually increased to 369 by 1950 when the USSR enters the arms race with 6 weapons. At this point, the US starts to rapidly build its stockpile culminating in 32,040 warheads by 1966 compared to the USSR’s 7,089. From this peak in 1966, the US stockpile gradually decreases as the USSR’s stockpile expands. By 1978 the USSR has closed the nuclear gap at 25,393. The USSR stockpile continues to grow until it reaches a peak of 45,000 in 1986 compared to the US arsenal of 24,401. From 1986, the nuclear stockpiles of both countries start to fall. By 2000, the numbers have fallen to 10,577 and 21,000 for the US and Russia, respectively. The decreases continue until 2017 at which point the US holds 4,018 weapons compared to Russia’s 4,500.'
-      // },
-      title: {
-        text: "Last Month Tags Data",
-      },
-      xAxis: {
-        allowDecimals: false,
-        labels: {
-          formatter: function () {
-            return this.value; // clean, unformatted number for year
+    var reqHeader = new HttpHeaders({
+      "Content-Type": "application/json",
+      // Authorization: "Bearer " + Token,
+    });
+
+    this.http
+      .get(this.serverUrl + "getmonthlytottags?month=7&year=2020", {
+        headers: reqHeader,
+      })
+      .subscribe((data: any) => {
+        for (var i = 0; i < data.length; i++) {
+          this.daysList.push(data[i].day1);
+          this.monthlyTagsList.push(data[i].tagsCreated);
+        }
+
+        let chart = new Chart({
+          chart: {
+            type: "area",
           },
-        },
-        // accessibility: {
-        //     rangeDescription: 'Range: 1940 to 2017.'
-        // }
-      },
-      yAxis: {
-        title: {
-          text: "Total Tags",
-        },
-        labels: {
-          formatter: function () {
-            return this.value;
+          title: {
+            text: "Last Month Tags Data",
           },
-        },
-      },
-      plotOptions: {
-        area: {
-          pointStart: 1,
-          marker: {
-            enabled: false,
-            symbol: "circle",
-            radius: 2,
-            states: {
-              hover: {
-                enabled: true,
+          xAxis: {
+            // allowDecimals: true,
+            categories: this.daysList,
+            // min: this.daysList[0],
+            // max: this.daysList[this.daysList.length],
+            labels: {
+              formatter: function () {
+                return this.value; // clean, unformatted number for year
               },
             },
           },
-        },
-      },
-      series: [
-        {
-          name: "Tags",
-          data: [
-            null,
-            null,
-            5,
-            25,
-            50,
-            120,
-            150,
-            200,
-            426,
-            660,
-            869,
-            1060,
-            1605,
-            2471,
-            3322,
-            4238,
-            5221,
-            6129,
-            7089,
-            8339,
-            9399,
-            10538,
-            11643,
-            13092,
-            14478,
-            15915,
-            17385,
-            5500,
-            4512,
-            4502,
-            4502,
-            4500,
-            4500,
+          yAxis: {
+            title: {
+              text: "Total Tags",
+            },
+            labels: {
+              formatter: function () {
+                return this.value;
+              },
+            },
+          },
+          plotOptions: {
+            area: {
+              pointStart: 1,
+              marker: {
+                enabled: false,
+                symbol: "circle",
+                radius: 2,
+                states: {
+                  hover: {
+                    enabled: true,
+                  },
+                },
+              },
+            },
+          },
+          series: [
+            {
+              name: "Tags",
+              data: this.monthlyTagsList,
+              // data: [
+              //   null,
+              //   null,
+              //   5,
+              //   25,
+              //   50,
+              //   120,
+              //   150,
+              //   200,
+              //   426,
+              //   660,
+              //   869,
+              //   1060,
+              //   1605,
+              //   2471,
+              //   3322,
+              //   4238,
+              //   5221,
+              //   6129,
+              //   7089,
+              //   8339,
+              //   9399,
+              //   10538,
+              //   11643,
+              //   13092,
+              //   14478,
+              //   15915,
+              //   17385,
+              //   5500,
+              //   4512,
+              //   4502,
+              //   4502,
+              //   4500,
+              //   4500,
+              // ],
+            },
           ],
-        },
-      ],
-    });
-    this.timeSeries_chart = chart;
+        });
+        this.timeSeries_chart = chart;
+      });
   }
 
   getChartLocationWise() {
@@ -1366,7 +1383,7 @@ export class DashboardyComponent implements OnInit {
             series: {
               dataLabels: {
                 enabled: true,
-                format: "{point.y:.1f}%",
+                format: "{y}",
               },
             },
           },
@@ -1562,6 +1579,7 @@ export class DashboardyComponent implements OnInit {
 
     return convertedDate;
   }
+
   getTblDataLocWise() {
     var reqHeader = new HttpHeaders({
       "Content-Type": "application/json",

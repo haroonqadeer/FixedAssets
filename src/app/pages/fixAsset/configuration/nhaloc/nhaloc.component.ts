@@ -13,7 +13,8 @@ import { CookieService } from "ngx-cookie-service";
   styleUrls: ["./nhaloc.component.scss"],
 })
 export class NHALocComponent implements OnInit {
-  serverUrl = "http://95.217.147.105:2007/api/";
+  // serverUrl = "http://95.217.147.105:2007/api/";
+  serverUrl = "http://localhost:5090/api/";
   heading = "Add";
 
   loadingBar = true;
@@ -26,6 +27,7 @@ export class NHALocComponent implements OnInit {
   tblSearch = "";
 
   locList = [];
+  mainLocList = [];
 
   constructor(
     private toastr: ToastrManager,
@@ -35,6 +37,21 @@ export class NHALocComponent implements OnInit {
 
   ngOnInit(): void {
     this.getLocation();
+    this.getMainLocation();
+  }
+
+  getMainLocation() {
+    var reqHeader = new HttpHeaders({
+      "Content-Type": "application/json",
+      // Authorization: "Bearer " + Token,
+    });
+
+    this.http
+      .get(this.serverUrl + "getmainLoc", { headers: reqHeader })
+      .subscribe((data: any) => {
+        this.mainLocList = data;
+        this.loadingBar = false;
+      });
   }
 
   getLocation() {

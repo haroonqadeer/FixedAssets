@@ -32,23 +32,9 @@
       </div>
       <div class="row">
         <div class="col-md-12 pt-2">
-          <mat-form-field class="w-100">
-            <mat-label>Account Section</mat-label>
-            <input matInput [(ngModel)]="txtAccSection">
-          </mat-form-field>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-12 pt-2">
           <mat-form-field class='w-100'>
             <mat-label>Account Code - Title</mat-label>
-            <mat-select [(ngModel)]="cmbAccTitle">
-              <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchAccount" />
-              <mat-option *ngFor="
-              let item of accountList" [value]="item.officeTypeID | search
-              : 'officeTypeDescription'
-              : searchAccount">{{item.officeTypeDescription}}</mat-option>
-            </mat-select>
+            <input matInput [(ngModel)]="txtAccTitle">
           </mat-form-field>
         </div>
       </div>
@@ -96,6 +82,8 @@
               <th class="sticky-top text-center" scope="col">#</th>
               <th class="sticky-top" scope="col">Short Name</th>
               <th class="sticky-top" scope="col">Full Name</th>
+              <th class="sticky-top" scope="col">Account Code</th>
+              <th class="sticky-top" scope="col">Office Description</th>
               <th class="sticky-top text-center" scope="col">Action</th>
             </tr>
           </thead>
@@ -104,6 +92,8 @@
               <td class="text-center">{{i+1}}</td>
               <td>{{item.projectShortName}}</td>
               <td>{{item.projectName}}</td>
+              <td>{{item.accountCode}}</td>
+              <td>{{item.officeDescription}}</td>
               <td class='inline-block text-center'><span class='fa fa-edit cursorPointer pr-3 text-primary'
                   (click)="edit(item)"></span>
                 <span class='fa fa-trash-o cursorPointer text-danger pr-3' (click)="delete(item)"></span>

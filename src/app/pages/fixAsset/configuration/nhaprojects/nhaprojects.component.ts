@@ -13,7 +13,8 @@ import { CookieService } from "ngx-cookie-service";
   styleUrls: ["./nhaprojects.component.scss"],
 })
 export class NHAProjectsComponent implements OnInit {
-  serverUrl = "http://95.217.147.105:2007/api/";
+  // serverUrl = "http://95.217.147.105:2007/api/";
+  serverUrl = "http://localhost:5090/api/";
 
   heading = "Add";
 
@@ -23,15 +24,13 @@ export class NHAProjectsComponent implements OnInit {
   txtProShrtName = "";
   txtProFullName = "";
   cmbOfcSec = "";
-  cmbAccTitle = "";
+  txtAccTitle = "";
 
   searchOfcSec = "";
-  searchAccount = "";
   tblSearch = "";
 
   projectList = [];
   ofcSecList = [];
-  accountList = [];
 
   constructor(
     private toastr: ToastrManager,
@@ -42,7 +41,6 @@ export class NHAProjectsComponent implements OnInit {
   ngOnInit(): void {
     this.getProject();
     this.getOfcSection();
-    this.getAccCode();
   }
 
   getOfcSection() {
@@ -55,20 +53,6 @@ export class NHAProjectsComponent implements OnInit {
       .get(this.serverUrl + "getwingsec", { headers: reqHeader })
       .subscribe((data: any) => {
         this.ofcSecList = data;
-        // this.loadingBar = false;
-      });
-  }
-
-  getAccCode() {
-    var reqHeader = new HttpHeaders({
-      "Content-Type": "application/json",
-      // Authorization: "Bearer " + Token,
-    });
-
-    this.http
-      .get(this.serverUrl + "getprojects", { headers: reqHeader })
-      .subscribe((data: any) => {
-        this.accountList = data;
         // this.loadingBar = false;
       });
   }
@@ -98,7 +82,7 @@ export class NHAProjectsComponent implements OnInit {
         toastTimeout: 2500,
       });
       return false;
-    } else if (this.cmbAccTitle == "") {
+    } else if (this.txtAccTitle == "") {
       this.toastr.errorToastr("Please Select Account Code-Title", "Error", {
         toastTimeout: 2500,
       });
@@ -121,7 +105,7 @@ export class NHAProjectsComponent implements OnInit {
           ProjectShortName: this.txtProShrtName,
           projectName: this.txtProFullName,
           OfficeSecID: this.cmbOfcSec,
-          AccountCode: this.cmbAccTitle,
+          AccountCode: this.txtAccTitle,
           ProjectID: 0,
           UserId: this.cookie.get("userID"),
           SPType: "INSERT",
@@ -131,7 +115,7 @@ export class NHAProjectsComponent implements OnInit {
           ProjectShortName: this.txtProShrtName,
           projectName: this.txtProFullName,
           OfficeSecID: this.cmbOfcSec,
-          AccountCode: this.cmbAccTitle,
+          AccountCode: this.txtAccTitle,
           ProjectID: this.projectID,
           UserId: this.cookie.get("userID"),
           SPType: "UPDATE",
@@ -186,7 +170,7 @@ export class NHAProjectsComponent implements OnInit {
     this.txtProShrtName = obj.projectShortName;
     this.txtProFullName = obj.projectName;
     this.cmbOfcSec = obj.officeSecID;
-    this.cmbAccTitle = obj.accountCode;
+    this.txtAccTitle = obj.accountCode;
   }
 
   delete(obj) {
@@ -204,7 +188,7 @@ export class NHAProjectsComponent implements OnInit {
         headers: reqHeader,
       })
       .subscribe((data: any) => {
-        if (data.msg == "SUCCESS") {
+        if (data.msg == "Success") {
           this.toastr.successToastr(
             "Record Deleted Successfully!",
             "Success!",
@@ -234,10 +218,9 @@ export class NHAProjectsComponent implements OnInit {
     this.txtProShrtName = "";
     this.txtProFullName = "";
     this.cmbOfcSec = "";
-    this.cmbAccTitle = "";
+    this.txtAccTitle = "";
 
     this.searchOfcSec = "";
-    this.searchAccount = "";
     this.tblSearch = "";
   }
 }
