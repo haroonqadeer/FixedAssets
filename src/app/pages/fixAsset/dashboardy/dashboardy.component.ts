@@ -14,8 +14,8 @@ declare var $: any;
   styleUrls: ["./dashboardy.component.scss"],
 })
 export class DashboardyComponent implements OnInit {
-  // serverUrl = "http://95.217.147.105:2007/api/";
-  serverUrl = "http://localhost:5090/api/";
+  serverUrl = "http://95.217.147.105:2007/api/";
+  // serverUrl = "http://localhost:5090/api/";
 
   loadingBar = true;
   itemPerPage = "10";
@@ -887,7 +887,7 @@ export class DashboardyComponent implements OnInit {
     this.getOfficeType();
     this.getChartAssetDetail();
     this.getTagSecWise();
-    this.getTimeSeriesChart();
+    // this.getTimeSeriesChart();
     this.getTagNumWise();
   }
 
