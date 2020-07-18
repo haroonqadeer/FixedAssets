@@ -7,6 +7,8 @@ import {
 } from "@angular/common/http";
 import { CookieService } from "ngx-cookie-service";
 
+declare var $: any;
+
 @Component({
   selector: "app-asset-category",
   templateUrl: "./asset-category.component.html",
@@ -14,6 +16,13 @@ import { CookieService } from "ngx-cookie-service";
 })
 export class AssetCategoryComponent implements OnInit {
   serverUrl = "http://95.217.147.105:2007/api/";
+
+  imgPath = "D:/Flutter App/FixedAssets/src/assets/assetCatImg";
+  imageUrl: string = "../../../../../assets/assetCatImg/dropHereImg.png";
+  image;
+  imgFile;
+  progress;
+  selectedFile: File = null;
 
   heading = "Add";
 
@@ -38,6 +47,44 @@ export class AssetCategoryComponent implements OnInit {
   ngOnInit(): void {
     this.getAssetCategory();
     this.getAccountCategory();
+  }
+
+  onFileSelected(event) {
+    this.selectedFile = <File>event.target.files[0];
+    let reader = new FileReader();
+
+    reader.onloadend = (e: any) => {
+      this.image = reader.result;
+
+      var splitImg = this.image.split(",")[1];
+      this.image = splitImg;
+      this.imageUrl = e.target.result;
+    };
+
+    reader.readAsDataURL(this.selectedFile);
+  }
+
+  zoomImage() {
+    // Get the modal
+    var modal = document.getElementById("myModal");
+
+    // Get the image and insert it inside the modal - use its "alt" text as a caption
+    var img = document.getElementById("myImg");
+    var modalImg = document.getElementById("img01");
+    var captionText = document.getElementById("caption");
+
+    if (this.imageUrl == "../../../../../assets/assetCatImg/dropHereImg.png") {
+      alert(this.imageUrl);
+    } else {
+      modal.style.display = "block";
+      (<HTMLImageElement>document.querySelector("#img01")).src = this.imageUrl;
+    }
+  }
+
+  closeModal() {
+    var modal = document.getElementById("myModal");
+
+    modal.style.display = "none";
   }
 
   getAssetCategory() {
@@ -68,6 +115,10 @@ export class AssetCategoryComponent implements OnInit {
   }
 
   save() {
+    alert(this.image);
+    alert(this.imageUrl);
+    alert(this.imgPath);
+    return;
     if (this.cmbAccCat == "") {
       this.toastr.errorToastr("Please Select Account Category", "Error", {
         toastTimeout: 2500,

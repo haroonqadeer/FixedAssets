@@ -56,7 +56,7 @@
       <div class="row">
         <div class="col-md-12 pt-2">
           <div class="custom-file">
-            <input type="file" class="custom-file-input" id="customFile">
+            <input type="file" class="custom-file-input" [(ngModel)]="imgFile" (change)="onFileSelected($event)">
             <label class="custom-file-label" for="customFile">Choose Asset Image</label>
           </div>
         </div>
@@ -64,7 +64,7 @@
       <div class="row">
         <div class="col-md-12 pt-2 text-center">
           <div class="text-center">
-            <img src="..." class="rounded" alt="...">
+            <img [src]="imageUrl" class="rounded" width="115" height="115" id="myImg" (click)="zoomImage()">
           </div>
         </div>
       </div>
@@ -133,3 +133,16 @@
     </div>
   </div>
 </div>
+
+<!-- Start modal window for bigger image -->
+<div id="myModal" class="modal">
+
+  <!-- The Close Button -->
+  <span class="close" (click)="closeModal()">&times;</span>
+
+  <!-- Modal Content (The Image) -->
+  <img class="modal-content" id="img01">
+
+  <!-- Modal Caption (Image Text) -->
+</div>
+<!-- End modal window for bigger image -->

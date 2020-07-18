@@ -4,7 +4,15 @@
     <div class="col-md-6 align-self-center p-0 m-0">
       <h1 class="align-self-center">Monitoring Dashboard</h1>
     </div>
-    <div class="col-md-6 text-right pr-1">
+    <div class="offset-md-2 col-md-3 text-right">
+      <mat-form-field color="warn" class="w-100">
+        <mat-label>Date</mat-label>
+        <input matInput [matDatepicker]="picker" [(ngModel)]="dtpDate" (dateChange)="changeChart()" />
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <div class="col-md-1 text-right pr-1 mt-3">
       <button mat-raised-button class="noneOutline ml-2" color="primary" (click)="clear()">
         Reset
       </button>
