@@ -181,11 +181,11 @@
         <tbody>
           <tr *ngFor="
               let item of assetDetailList
-                | paginate
-                  : { itemsPerPage: mTblItemPerPage, currentPage: mTblP }
-                | search
+              | search
                   : 'subLocationDescription,accountsCatagory,postName'
-                  : tblSearch;
+                  : tblSearch
+                | paginate
+                  : { itemsPerPage: mTblItemPerPage, currentPage: mTblP };
               let i = index
             ">
             <td class="inline-block">
@@ -777,11 +777,11 @@
             <tbody>
               <tr *ngFor="
                   let item of oldTagList
-                  | paginate
-                  : { itemsPerPage: tTblItemPerPage, currentPage: tTblP }
-                | search
+                  | search
                       : 'tag,subLocation,officeTitle,custody,description,assetCondition,project'
-                      : tblSearchTag;
+                      : tblSearchTag
+                  | paginate
+                  : { itemsPerPage: tTblItemPerPage, currentPage: tTblP };
                   let i = index
                 ">
                 <td class="inline-block">
