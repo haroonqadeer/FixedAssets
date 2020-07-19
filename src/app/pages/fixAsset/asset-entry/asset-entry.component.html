@@ -12,18 +12,11 @@
           <a (click)="toggleView = 'table'" class="cursorPointer">Table View</a>
         </li>
         <li>
-          <a
-            (click)="printDiv()"
-            class="cursorPointer"
-            matBadge="{{ tagList.length }}"
-            [matBadgeHidden]="hidden"
-            >Print Tags</a
-          >
+          <a (click)="printDiv()" class="cursorPointer" matBadge="{{ tagList.length }}" [matBadgeHidden]="hidden">Print
+            Tags</a>
         </li>
         <li>
-          <a (click)="printAssetRegister()" class="cursorPointer"
-            >Print Register</a
-          >
+          <a (click)="printAssetRegister()" class="cursorPointer">Print Register</a>
         </li>
         <!-- <li><a href="#">More</a></li>
         <li><a href="#">Nice staff</a></li> -->
@@ -42,10 +35,7 @@
 
 <div class="container-fluid bg-white" *ngIf="!loadingBar">
   <!-- Form View -->
-  <div
-    *ngIf="toggleView == 'table'"
-    class="animate__animated animate__fadeInUp"
-  >
+  <div *ngIf="toggleView == 'table'" class="animate__animated animate__fadeInUp">
     <!-- search bar -->
     <div class="row pl-3">
       <div class="col-md-10">
@@ -56,13 +46,7 @@
         </mat-form-field>
       </div>
       <div class="col-md-2 pr-3 align-self-center noneOutline">
-        <button
-          mat-button
-          color="warn"
-          data-toggle="modal"
-          data-target="#advanceSearchModal"
-          (click)="clearLocation()"
-        >
+        <button mat-button color="warn" data-toggle="modal" data-target="#advanceSearchModal" (click)="clearLocation()">
           Advance Search
         </button>
       </div>
@@ -73,165 +57,99 @@
         <thead>
           <tr>
             <th scope="col">Action</th>
-            <th
-              scope="col"
-              [class.active]="order === 'tag'"
-              (click)="setOrder('tag')"
-            >
+            <th scope="col" [class.active]="order === 'tag'" (click)="setOrder('tag')">
               Tag
               <!-- <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
               <span class="fa fa-angle-double-up" [hidden]="!reverse"></span> -->
             </th>
-            <th
-              scope="col"
-              [class.active]="order === 'subLocationDescription'"
-              (click)="setOrder('subLocationDescription')"
-            >
+            <th scope="col" [class.active]="order === 'subLocationDescription'"
+              (click)="setOrder('subLocationDescription')">
               Sub-Location
               <!-- <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
               <span class="fa fa-angle-double-up" [hidden]="!reverse"></span></th> -->
             </th>
 
-            <th
-              scope="col"
-              [class.active]="order === 'officeTypeDescription'"
-              (click)="setOrder('officeTypeDescription')"
-            >
+            <th scope="col" [class.active]="order === 'officeTypeDescription'"
+              (click)="setOrder('officeTypeDescription')">
               Office Type
               <!-- <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
               <span class="fa fa-angle-double-up" [hidden]="!reverse"></span></th> -->
             </th>
 
-            <th
-              scope="col"
-              [class.active]="order === 'accountsCatagory'"
-              (click)="setOrder('accountsCatagory')"
-            >
+            <th scope="col" [class.active]="order === 'accountsCatagory'" (click)="setOrder('accountsCatagory')">
               Accounts Category
               <!-- <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
               <span class="fa fa-angle-double-up" [hidden]="!reverse"></span></th> -->
             </th>
 
-            <th
-              scope="col"
-              [class.active]="order === 'assetCatDescription'"
-              (click)="setOrder('assetCatDescription')"
-            >
+            <th scope="col" [class.active]="order === 'assetCatDescription'" (click)="setOrder('assetCatDescription')">
               Asset - Category
               <!-- <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
               <span class="fa fa-angle-double-up" [hidden]="!reverse"></span></th> -->
             </th>
 
-            <th
-              scope="col"
-              [class.active]="order === 'assetDescription'"
-              (click)="setOrder('assetDescription')"
-            >
+            <th scope="col" [class.active]="order === 'assetDescription'" (click)="setOrder('assetDescription')">
               Description
               <!-- <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
               <span class="fa fa-angle-double-up" [hidden]="!reverse"></span></th> -->
             </th>
 
-            <th
-              scope="col"
-              [class.active]="order === 'postName'"
-              (click)="setOrder('postName')"
-            >
+            <th scope="col" [class.active]="order === 'postName'" (click)="setOrder('postName')">
               Post Name
             </th>
-            <th
-              scope="col"
-              [class.active]="order === 'assetLocation'"
-              (click)="setOrder('assetLocation')"
-            >
+            <th scope="col" [class.active]="order === 'assetLocation'" (click)="setOrder('assetLocation')">
               Asset-Location
               <!-- <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
               <span class="fa fa-angle-double-up" [hidden]="!reverse"></span></th> -->
             </th>
 
-            <th
-              scope="col"
-              [class.active]="order === 'projectShortName'"
-              (click)="setOrder('projectShortName')"
-            >
+            <th scope="col" [class.active]="order === 'projectShortName'" (click)="setOrder('projectShortName')">
               Project
               <!-- <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
               <span class="fa fa-angle-double-up" [hidden]="!reverse"></span> -->
             </th>
-            <th
-              scope="col"
-              [class.active]="order === 'ipcRef'"
-              (click)="setOrder('ipcRef')"
-            >
+            <th scope="col" [class.active]="order === 'ipcRef'" (click)="setOrder('ipcRef')">
               IPC Ref.
               <!-- <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
               <span class="fa fa-angle-double-up" [hidden]="!reverse"></span></th> -->
             </th>
 
-            <th
-              scope="col"
-              [class.active]="order === 'otherIdentification'"
-              (click)="setOrder('otherIdentification')"
-            >
+            <th scope="col" [class.active]="order === 'otherIdentification'" (click)="setOrder('otherIdentification')">
               Other Identification
               <!-- <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
               <span class="fa fa-angle-double-up" [hidden]="!reverse"></span></th> -->
             </th>
 
-            <th
-              scope="col"
-              [class.active]="order === 'serialNo'"
-              (click)="setOrder('serialNo')"
-            >
+            <th scope="col" [class.active]="order === 'serialNo'" (click)="setOrder('serialNo')">
               Serial No.
               <!-- <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
               <span class="fa fa-angle-double-up" [hidden]="!reverse"></span></th> -->
             </th>
 
-            <th
-              scope="col"
-              [class.active]="order === 'vehID'"
-              (click)="setOrder('vehID')"
-            >
+            <th scope="col" [class.active]="order === 'vehID'" (click)="setOrder('vehID')">
               Vehicle ID
               <!-- <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
               <span class="fa fa-angle-double-up" [hidden]="!reverse"></span></th> -->
             </th>
 
-            <th
-              scope="col"
-              [class.active]="order === 'previousTag'"
-              (click)="setOrder('previousTag')"
-            >
+            <th scope="col" [class.active]="order === 'previousTag'" (click)="setOrder('previousTag')">
               Previous Tag
               <!-- <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
               <span class="fa fa-angle-double-up" [hidden]="!reverse"></span></th> -->
             </th>
 
-            <th
-              scope="col"
-              [class.active]="order === 'costAmount'"
-              (click)="setOrder('costAmount')"
-            >
+            <th scope="col" [class.active]="order === 'costAmount'" (click)="setOrder('costAmount')">
               Cost
               <!-- <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
               <span class="fa fa-angle-double-up" [hidden]="!reverse"></span></th> -->
             </th>
 
-            <th
-              scope="col"
-              [class.active]="order === 'purchaseDate'"
-              (click)="setOrder('purchaseDate')"
-            >
+            <th scope="col" [class.active]="order === 'purchaseDate'" (click)="setOrder('purchaseDate')">
               Purchase Date
               <!-- <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
               <span class="fa fa-angle-double-up" [hidden]="!reverse"></span> -->
             </th>
-            <th
-              scope="col"
-              [class.active]="order === 'assetCondition'"
-              (click)="setOrder('assetCondition')"
-            >
+            <th scope="col" [class.active]="order === 'assetCondition'" (click)="setOrder('assetCondition')">
               Condition
               <!-- <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
               <span class="fa fa-angle-double-up" [hidden]="!reverse"></span> -->
@@ -241,31 +159,19 @@
             <th scope="col">Serviceable?</th>
             <th scope="col">Condemned?</th>
             <th scope="col">Missing?</th>
-            <th
-              scope="col"
-              [class.active]="order === 'remarks'"
-              (click)="setOrder('remarks')"
-            >
+            <th scope="col" [class.active]="order === 'remarks'" (click)="setOrder('remarks')">
               Remarks
               <!-- <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
               <span class="fa fa-angle-double-up" [hidden]="!reverse"></span></th> -->
             </th>
 
-            <th
-              scope="col"
-              [class.active]="order === 'createdDate'"
-              (click)="setOrder('createdDate')"
-            >
+            <th scope="col" [class.active]="order === 'createdDate'" (click)="setOrder('createdDate')">
               Create Date
               <!-- <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
               <span class="fa fa-angle-double-up" [hidden]="!reverse"></span></th> -->
             </th>
 
-            <th
-              scope="col"
-              [class.active]="order === 'netBookAmount'"
-              (click)="setOrder('netBookAmount')"
-            >
+            <th scope="col" [class.active]="order === 'netBookAmount'" (click)="setOrder('netBookAmount')">
               Net Book Value
               <!-- <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
               <span class="fa fa-angle-double-up" [hidden]="!reverse"></span></th> -->
@@ -273,8 +179,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr
-            *ngFor="
+          <tr *ngFor="
               let item of assetDetailList
                 | search
                   : 'subLocationDescription,accountsCatagory,postName'
@@ -282,23 +187,12 @@
                 | paginate
                   : { itemsPerPage: mTblItemPerPage, currentPage: mTblP };
               let i = index
-            "
-          >
+            ">
             <td class="inline-block">
-              <span
-                class="fa fa-edit cursorPointer pr-3 text-primary"
-                (click)="editAsset(item)"
-              ></span>
-              <span
-                class="fa fa-trash-o cursorPointer text-danger"
-                (click)="delete(item)"
-              ></span>
-              <mat-checkbox
-                class="example-margin"
-                color="primary"
-                [(ngModel)]="item.checkbox"
-                (change)="pushTag(item, item.checkbox ? 'A' : 'B')"
-              ></mat-checkbox>
+              <span class="fa fa-edit cursorPointer pr-3 text-primary" (click)="editAsset(item)"></span>
+              <span class="fa fa-trash-o cursorPointer text-danger" (click)="delete(item)"></span>
+              <mat-checkbox class="example-margin" color="primary" [(ngModel)]="item.checkbox"
+                (change)="pushTag(item, item.checkbox ? 'A' : 'B')"></mat-checkbox>
             </td>
             <td>{{ item.tag }}</td>
             <td>{{ item.subLocationDescription }}</td>
@@ -334,9 +228,7 @@
       <!-- Pagination Starts -->
       <div class="col-md-12 text-right">
         <div class="paginationBox">
-          <pagination-controls
-            (pageChange)="mTblP = $event"
-          ></pagination-controls>
+          <pagination-controls (pageChange)="mTblP = $event"></pagination-controls>
         </div>
         <div class="paginationBox">
           <mat-form-field class="pagenateList">
@@ -372,10 +264,7 @@
           <div class="col-md-12">
             <mat-form-field class="w-100">
               <mat-label>Province - Location - Sub Location</mat-label>
-              <mat-select
-                [(ngModel)]="cmbLocation"
-                (ngModelChange)="getAssetNo()"
-              >
+              <mat-select [(ngModel)]="cmbLocation" (ngModelChange)="getAssetNo()">
                 <!-- <input
                   type="text"
                   class="form-control"
@@ -383,23 +272,16 @@
                   [(ngModel)]="searchLocation"
                 /> -->
                 <mat-option>
-                  <ngx-mat-select-search
-                    [(ngModel)]="searchLocation"
-                    [placeholderLabel]="'Search...'"
-                    [noEntriesFoundLabel]="'Not found'"
-                    name="search"
-                  ></ngx-mat-select-search>
+                  <ngx-mat-select-search [(ngModel)]="searchLocation" [placeholderLabel]="'Search...'"
+                    [noEntriesFoundLabel]="'Not found'" name="search"></ngx-mat-select-search>
                 </mat-option>
 
-                <mat-option
-                  *ngFor="
+                <mat-option *ngFor="
                     let item of locList
                       | search
                         : 'subLocationDescription, mainLocationDescription, provinceName'
                         : searchLocation
-                  "
-                  [value]="item.subLocID"
-                >
+                  " [value]="item.subLocID">
                   <table class="table">
                     <tr class="d-flex">
                       <td class="col-4">{{ item.subLocationDescription }}</td>
@@ -417,14 +299,8 @@
           <div class="col-md-6">
             <mat-form-field class="w-100">
               <mat-label>Office Type</mat-label>
-              <mat-select
-                [(ngModel)]="cmbOfcType"
-                (ngModelChange)="getAssetNo(); getWingSection(cmbOfcType)"
-              >
-                <mat-option
-                  *ngFor="let item of ofcTypeList"
-                  [value]="item.officeTypeID"
-                >
+              <mat-select [(ngModel)]="cmbOfcType" (ngModelChange)="getAssetNo(); getWingSection(cmbOfcType)">
+                <mat-option *ngFor="let item of ofcTypeList" [value]="item.officeTypeID">
                   {{ item.officeTypeDescription }}
                 </mat-option>
               </mat-select>
@@ -436,21 +312,14 @@
               <mat-select [(ngModel)]="cmbWngSection">
                 <!-- <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchSection" /> -->
                 <mat-option>
-                  <ngx-mat-select-search
-                    [(ngModel)]="searchSection"
-                    [placeholderLabel]="'Search...'"
-                    [noEntriesFoundLabel]="'Not found'"
-                    name="search"
-                  ></ngx-mat-select-search>
+                  <ngx-mat-select-search [(ngModel)]="searchSection" [placeholderLabel]="'Search...'"
+                    [noEntriesFoundLabel]="'Not found'" name="search"></ngx-mat-select-search>
                 </mat-option>
 
-                <mat-option
-                  *ngFor="
+                <mat-option *ngFor="
                     let item of wngSectionList
                       | search: 'officeDescription':searchSection
-                  "
-                  [value]="item.officeSecID"
-                >
+                  " [value]="item.officeSecID">
                   {{ item.officeDescription }}
                 </mat-option>
               </mat-select>
@@ -460,34 +329,33 @@
         <hr />
         <!-- next row -->
         <div class="row">
-          <div class="col-md-4">
-            <mat-radio-group
-              aria-label="Select an option"
-              [(ngModel)]="rdbAsset"
-            >
-              <mat-radio-button value="1" class="pr-5"
-                >Other Asset</mat-radio-button
-              >
+          <div class="col-md-12">
+            <mat-radio-group aria-label="Select an option" [(ngModel)]="rdbAsset">
+              <mat-radio-button value="1" class="pr-5">Other Asset</mat-radio-button>
               <mat-radio-button value="2">Vehicle</mat-radio-button>
             </mat-radio-group>
           </div>
-          <div class="col-md-4 text-right" *ngIf="lblAccCategory != ''">
+        </div>
+
+        <!-- next row -->
+        <div class="row">
+          <div class="col-md-6" *ngIf="lblAccCategory != ''">
             <div class="row">
               <div class="col-md-10">
-                <h5 class="align-self-center">Base Rate:</h5>
+                <label class="align-self-center">Base Rate:</label>
               </div>
               <div class="col-md-2 text-left">
-                <h5 class="align-self-center">{{ lblBaseRate }}</h5>
+                <label class="align-self-center text-primary font-weight-bold border-bottom">{{ lblBaseRate }}</label>
               </div>
             </div>
           </div>
-          <div class="col-md-4 text-right" *ngIf="assetNo != ''">
+          <div class="col-md-6 text-right" *ngIf="assetNo != ''">
             <div class="row">
               <div class="col-md-9">
-                <h5 class="align-self-center">Asset No:</h5>
+                <label class="align-self-center">Asset No:</label>
               </div>
               <div class="col-md-3 text-left">
-                <h5 class="align-self-center">{{ assetNo }}</h5>
+                <label class="align-self-center text-primary font-weight-bold border-bottom">{{ assetNo }}</label>
               </div>
             </div>
           </div>
@@ -498,20 +366,21 @@
           <div class="col-md-7">
             <div class="row">
               <div class="col-md-5">
-                <h5 class="align-self-center">Account Category:</h5>
+                <label class="align-self-center">Account Category:</label>
               </div>
               <div class="col-md-7 text-left">
-                <h5 class="align-self-center">{{ lblAccCategory }}</h5>
+                <label
+                  class="align-self-center text-primary font-weight-bold border-bottom">{{ lblAccCategory }}</label>
               </div>
             </div>
           </div>
           <div class="col-md-5 text-right">
             <div class="row">
               <div class="col-md-7">
-                <h5 class="align-self-center">Depreciation Rule:</h5>
+                <label class="align-self-center">Depreciation Rule:</label>
               </div>
               <div class="col-md-5 text-left">
-                <h5 class="align-self-center">{{ lblDepRule }}</h5>
+                <label class="align-self-center text-primary font-weight-bold border-bottom">{{ lblDepRule }}</label>
               </div>
             </div>
           </div>
@@ -522,18 +391,10 @@
             <mat-form-field color="warn" class="w-100">
               <mat-label>Vehicle</mat-label>
               <mat-select [(ngModel)]="cmbVehicle">
-                <input
-                  type="text"
-                  class="form-control"
-                  placeholder="Search..."
-                  [(ngModel)]="searchVehicle"
-                />
-                <mat-option
-                  *ngFor="
+                <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchVehicle" />
+                <mat-option *ngFor="
                     let item of vehicleList | search: 'vehID':searchVehicle
-                  "
-                  [value]="item.id"
-                >
+                  " [value]="item.id">
                   <table class="table">
                     <tr class="d-flex">
                       <td class="col-2">{{ item.vehID }}</td>
@@ -548,14 +409,8 @@
             </mat-form-field>
           </div>
           <div class="col-md-1">
-            <button
-              mat-mini-fab
-              color="primary"
-              aria-label=""
-              class="noneOutline fa fa-plus"
-              data-toggle="modal"
-              data-target="#vehicleModal"
-            ></button>
+            <button mat-mini-fab color="primary" aria-label="" class="noneOutline fa fa-plus" data-toggle="modal"
+              data-target="#vehicleModal"></button>
           </div>
         </div>
 
@@ -572,20 +427,13 @@
                   [(ngModel)]="searchCustody"
                 /> -->
                 <mat-option>
-                  <ngx-mat-select-search
-                    [(ngModel)]="searchCustody"
-                    [placeholderLabel]="'Search...'"
-                    [noEntriesFoundLabel]="'Not found'"
-                    name="search"
-                  ></ngx-mat-select-search>
+                  <ngx-mat-select-search [(ngModel)]="searchCustody" [placeholderLabel]="'Search...'"
+                    [noEntriesFoundLabel]="'Not found'" name="search"></ngx-mat-select-search>
                 </mat-option>
 
-                <mat-option
-                  *ngFor="
+                <mat-option *ngFor="
                     let item of custodyList | search: 'postName':searchCustody
-                  "
-                  [value]="item.postID"
-                >
+                  " [value]="item.postID">
                   {{ item.postName }}
                 </mat-option>
               </mat-select>
@@ -594,12 +442,9 @@
           <div class="col-md-6">
             <mat-form-field color="warn" class="w-100">
               <mat-label>Asset - Category</mat-label>
-              <mat-select
-                [(ngModel)]="cmbAssetCat"
-                (ngModelChange)="
+              <mat-select [(ngModel)]="cmbAssetCat" (ngModelChange)="
                   getAssetNo(); getAssetCatDescription(cmbAssetCat)
-                "
-              >
+                ">
                 <!-- <input
                   type="text"
                   class="form-control"
@@ -607,21 +452,14 @@
                   [(ngModel)]="searchCategory"
                 /> -->
                 <mat-option>
-                  <ngx-mat-select-search
-                    [(ngModel)]="searchCategory"
-                    [placeholderLabel]="'Search...'"
-                    [noEntriesFoundLabel]="'Not found'"
-                    name="search"
-                  ></ngx-mat-select-search>
+                  <ngx-mat-select-search [(ngModel)]="searchCategory" [placeholderLabel]="'Search...'"
+                    [noEntriesFoundLabel]="'Not found'" name="search"></ngx-mat-select-search>
                 </mat-option>
 
-                <mat-option
-                  *ngFor="
+                <mat-option *ngFor="
                     let item of AssetCatList
                       | search: 'assetCatDescription':searchCategory
-                  "
-                  [value]="item.assetCatID"
-                >
+                  " [value]="item.assetCatID">
                   {{ item.assetCatDescription }}
                 </mat-option>
               </mat-select>
@@ -674,21 +512,14 @@
                   [(ngModel)]="searchProject"
                 /> -->
                 <mat-option>
-                  <ngx-mat-select-search
-                    [(ngModel)]="searchProject"
-                    [placeholderLabel]="'Search...'"
-                    [noEntriesFoundLabel]="'Not found'"
-                    name="search"
-                  ></ngx-mat-select-search>
+                  <ngx-mat-select-search [(ngModel)]="searchProject" [placeholderLabel]="'Search...'"
+                    [noEntriesFoundLabel]="'Not found'" name="search"></ngx-mat-select-search>
                 </mat-option>
 
-                <mat-option
-                  *ngFor="
+                <mat-option *ngFor="
                     let item of projectList
                       | search: 'projectName':searchProject
-                  "
-                  [value]="item.projectID"
-                >
+                  " [value]="item.projectID">
                   {{ item.projectName }}
                 </mat-option>
               </mat-select>
@@ -707,15 +538,8 @@
           <div class="col-md-4">
             <mat-form-field color="warn" class="w-100">
               <mat-label>Purchase Date</mat-label>
-              <input
-                matInput
-                [matDatepicker]="picker"
-                [(ngModel)]="dtpPurchaseDt"
-              />
-              <mat-datepicker-toggle
-                matSuffix
-                [for]="picker"
-              ></mat-datepicker-toggle>
+              <input matInput [matDatepicker]="picker" [(ngModel)]="dtpPurchaseDt" />
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
               <mat-datepicker #picker></mat-datepicker>
             </mat-form-field>
           </div>
@@ -736,13 +560,7 @@
             </mat-form-field>
           </div>
           <div class="col-md-1 text-left mt-2 ml-n3">
-            <button
-              mat-raised-button
-              class="noneOutline"
-              color="primary"
-              data-toggle="modal"
-              data-target="#tagModal"
-            >
+            <button mat-raised-button class="noneOutline" color="primary" data-toggle="modal" data-target="#tagModal">
               <span matPrefix><span class="fa fa-search"></span></span>
             </button>
           </div>
@@ -756,10 +574,7 @@
             <mat-form-field color="warn" class="w-100">
               <mat-label>Asset Condition</mat-label>
               <mat-select [(ngModel)]="cmbAssetCond">
-                <mat-option
-                  *ngFor="let item of assetCondList"
-                  [value]="item.condition"
-                >
+                <mat-option *ngFor="let item of assetCondList" [value]="item.condition">
                   {{ item.condition }}
                 </mat-option>
               </mat-select>
@@ -769,44 +584,45 @@
         <!-- next row -->
         <div class="row">
           <div class="col-md-2">
-            <mat-slide-toggle
-              [(ngModel)]="sldUsable"
-              [disabled]="disableUsable"
-              (change)="setCondemned()"
-              >Useable
+            <mat-slide-toggle [(ngModel)]="sldUsable" [disabled]="disableUsable" (change)="setCondemned()">Useable
             </mat-slide-toggle>
           </div>
           <div class="col-md-3">
-            <mat-slide-toggle
-              [(ngModel)]="sldServiceable"
-              [disabled]="disableServiceable"
-              >Serviceable
+            <mat-slide-toggle [(ngModel)]="sldServiceable" [disabled]="disableServiceable">Serviceable
             </mat-slide-toggle>
           </div>
           <div class="col-md-2">
-            <mat-slide-toggle
-              [(ngModel)]="sldSurplus"
-              [disabled]="disableSurplus"
-              >Surplus</mat-slide-toggle
-            >
+            <mat-slide-toggle [(ngModel)]="sldSurplus" [disabled]="disableSurplus">Surplus</mat-slide-toggle>
           </div>
           <div class="col-md-3">
-            <mat-slide-toggle
-              [(ngModel)]="sldCondemned"
-              [disabled]="disableCondemned"
-            >
+            <mat-slide-toggle [(ngModel)]="sldCondemned" [disabled]="disableCondemned">
               Condemned
             </mat-slide-toggle>
           </div>
           <div class="col-md-2">
-            <mat-slide-toggle
-              [(ngModel)]="sldMissing"
-              (change)="setMissingYes()"
-              >Missing</mat-slide-toggle
-            >
+            <mat-slide-toggle [(ngModel)]="sldMissing" (change)="setMissingYes()">Missing</mat-slide-toggle>
           </div>
         </div>
-
+        <br>
+        <!-- next row -->
+        <div class="row">
+          <div class="col-md-2">
+            <mat-slide-toggle [(ngModel)]="sldTransfered" (change)="setTransfer()">Transfered</mat-slide-toggle>
+          </div>
+          <div *ngIf="sldTransfered" class="col-md-2">
+            Post Title :
+          </div>
+          <div class="col-md-3 border-bottom text-danger" *ngIf="sldTransfered">
+            <b>Deputy Director (AP)</b>
+          </div>
+          <div class="col-md-2" *ngIf="sldTransfered">
+            Company Name :
+          </div>
+          <div class="col-md-3 border-bottom text-danger" *ngIf="sldTransfered">
+            <b>National Highway Authority</b>
+            <span class='fa fa-edit cursorPointer text-primary pull-right' (click)='openTransferModal()'></span>
+          </div>
+        </div>
         <!-- next row -->
         <div class="row">
           <div class="col-md-12">
@@ -827,28 +643,16 @@
         <!-- next row -->
         <div class="row">
           <div class="col-md-2 mt-2">
-            <mat-checkbox
-              class="example-margin"
-              color="primary"
-              [(ngModel)]="chkCustody"
-              [disabled]="disableChkCustody"
-              >Custody
+            <mat-checkbox class="example-margin" color="primary" [(ngModel)]="chkCustody"
+              [disabled]="disableChkCustody">Custody
             </mat-checkbox>
           </div>
           <div class="col-md-2 mt-2">
-            <mat-checkbox
-              class="example-margin"
-              color="primary"
-              [(ngModel)]="chkProject"
-              >Project
+            <mat-checkbox class="example-margin" color="primary" [(ngModel)]="chkProject">Project
             </mat-checkbox>
           </div>
           <div class="col-md-2 mt-2">
-            <mat-checkbox
-              class="example-margin"
-              color="primary"
-              [(ngModel)]="chkTag"
-              >Same Tags
+            <mat-checkbox class="example-margin" color="primary" [(ngModel)]="chkTag">Same Tags
             </mat-checkbox>
           </div>
           <div class="col-md-6" *ngIf="chkTag == true">
@@ -861,40 +665,24 @@
         <!-- next row -->
         <div class="row">
           <div class="col-md-12">
-            <button
-              mat-raised-button
-              class="noneOutline"
-              color="warn"
-              (click)="save()"
-            >
+            <button mat-raised-button class="noneOutline" color="warn" (click)="save()">
               Save Asset
             </button>
-            <button
-              mat-raised-button
-              class="noneOutline ml-2"
-              color="primary"
-              (click)="clear()"
-            >
+            <button mat-raised-button class="noneOutline ml-2" color="primary" (click)="clear()">
               Reset
             </button>
           </div>
         </div>
       </div>
       <div class="col-md-3 bgGreen boxShadow-1 pt-3">
-        <mat-card
-          class="text-center mb-2"
-          *ngFor="
+        <mat-card class="text-center mb-2" *ngFor="
             let item of tagList
               | paginate: { itemsPerPage: itemPerPage, currentPage: p }
-          "
-          >{{ item.tag }}</mat-card
-        >
+          ">{{ item.tag }}</mat-card>
         <!-- Pagination Starts -->
         <div class="col-md-12 text-right">
           <div class="paginationBox">
-            <pagination-controls
-              (pageChange)="p = $event"
-            ></pagination-controls>
+            <pagination-controls (pageChange)="p = $event"></pagination-controls>
           </div>
           <div class="paginationBox">
             <mat-form-field class="pagenateList">
@@ -926,10 +714,7 @@
   <div id="tagDiv" hidden>
     <div class="d-flex flex-wrap">
       <div *ngFor="let item of tagList">
-        <div
-          class="p-5 border border-danger text-center"
-          style="min-width: 345px !important;"
-        >
+        <div class="p-5 border border-danger text-center" style="min-width: 345px !important;">
           {{ item.tag }} - {{ item.finding }}
         </div>
       </div>
@@ -956,10 +741,7 @@
           <div class="col-md-12">
             <mat-form-field class="w-100">
               <mat-label>Province - Location - Sub Location</mat-label>
-              <mat-select
-                [(ngModel)]="cmbSearchLocation"
-                (ngModelChange)="searchTableData()"
-              >
+              <mat-select [(ngModel)]="cmbSearchLocation" (ngModelChange)="searchTableData()">
                 <!-- <input
                   type="text"
                   class="form-control"
@@ -967,23 +749,16 @@
                   [(ngModel)]="advSearchLocation"
                 /> -->
                 <mat-option>
-                  <ngx-mat-select-search
-                    [(ngModel)]="advSearchLocation"
-                    [placeholderLabel]="'Search...'"
-                    [noEntriesFoundLabel]="'Not found'"
-                    name="search"
-                  ></ngx-mat-select-search>
+                  <ngx-mat-select-search [(ngModel)]="advSearchLocation" [placeholderLabel]="'Search...'"
+                    [noEntriesFoundLabel]="'Not found'" name="search"></ngx-mat-select-search>
                 </mat-option>
 
-                <mat-option
-                  *ngFor="
+                <mat-option *ngFor="
                     let item of locList
                       | search
                         : 'subLocationDescription, mainLocationDescription, provinceName'
                         : advSearchLocation
-                  "
-                  [value]="item.subLocID"
-                >
+                  " [value]="item.subLocID">
                   <table class="table">
                     <tr class="d-flex">
                       <td class="col-4">{{ item.subLocationDescription }}</td>
@@ -1001,16 +776,10 @@
           <div class="col-md-12">
             <mat-form-field class="w-100">
               <mat-label>Office Type</mat-label>
-              <mat-select
-                [(ngModel)]="cmbSearchOfcType"
-                (ngModelChange)="
+              <mat-select [(ngModel)]="cmbSearchOfcType" (ngModelChange)="
                   getWingSection(cmbSearchOfcType); searchTableData()
-                "
-              >
-                <mat-option
-                  *ngFor="let item of ofcTypeList"
-                  [value]="item.officeTypeID"
-                >
+                ">
+                <mat-option *ngFor="let item of ofcTypeList" [value]="item.officeTypeID">
                   {{ item.officeTypeDescription }}
                 </mat-option>
               </mat-select>
@@ -1022,10 +791,7 @@
           <div class="col-md-12">
             <mat-form-field class="w-100">
               <mat-label>Wing - Section</mat-label>
-              <mat-select
-                [(ngModel)]="cmbSearchWngSection"
-                (ngModelChange)="searchTableData()"
-              >
+              <mat-select [(ngModel)]="cmbSearchWngSection" (ngModelChange)="searchTableData()">
                 <!-- <input
                   type="text"
                   class="form-control"
@@ -1033,21 +799,14 @@
                   [(ngModel)]="advSearchSection"
                 /> -->
                 <mat-option>
-                  <ngx-mat-select-search
-                  [(ngModel)]="advSearchSection"
-                  [placeholderLabel]="'Search...'"
-                  [noEntriesFoundLabel]="'Not found'"
-                  name="search"
-                ></ngx-mat-select-search>
+                  <ngx-mat-select-search [(ngModel)]="advSearchSection" [placeholderLabel]="'Search...'"
+                    [noEntriesFoundLabel]="'Not found'" name="search"></ngx-mat-select-search>
                 </mat-option>
-                
-                <mat-option
-                  *ngFor="
+
+                <mat-option *ngFor="
                     let item of wngSectionList
                       | search: 'officeDescription':advSearchSection
-                  "
-                  [value]="item.officeSecID"
-                >
+                  " [value]="item.officeSecID">
                   {{ item.officeDescription }}
                 </mat-option>
               </mat-select>
@@ -1105,8 +864,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr
-                *ngFor="
+              <tr *ngFor="
                   let item of oldTagList
                     | search
                       : 'tag,subLocation,officeTitle,custody,description,assetCondition,project'
@@ -1114,13 +872,9 @@
                     | paginate
                       : { itemsPerPage: tTblItemPerPage, currentPage: tTblP };
                   let i = index
-                "
-              >
+                ">
                 <td class="inline-block">
-                  <span
-                    class="fa fa-plus-circle cursorPointer pr-3 text-primary"
-                    (click)="getPrevTag(item)"
-                  ></span>
+                  <span class="fa fa-plus-circle cursorPointer pr-3 text-primary" (click)="getPrevTag(item)"></span>
                 </td>
                 <td>{{ item.tag }}</td>
                 <td>{{ item.subLocation }}</td>
@@ -1138,9 +892,7 @@
           <!-- Pagination Starts -->
           <div class="col-md-12 text-right">
             <div class="paginationBox">
-              <pagination-controls
-                (pageChange)="tTblP = $event"
-              ></pagination-controls>
+              <pagination-controls (pageChange)="tTblP = $event"></pagination-controls>
             </div>
             <div class="paginationBox">
               <mat-form-field class="pagenateList">
@@ -1206,10 +958,7 @@
             <mat-form-field color="warn" class="w-100">
               <mat-label>Make / Brand</mat-label>
               <mat-select [(ngModel)]="cmbMake">
-                <mat-option
-                  *ngFor="let item of vehMakeList"
-                  [value]="item.make"
-                >
+                <mat-option *ngFor="let item of vehMakeList" [value]="item.make">
                   {{ item.make }}
                 </mat-option>
               </mat-select>
@@ -1222,10 +971,7 @@
             <mat-form-field color="warn" class="w-100">
               <mat-label>Model</mat-label>
               <mat-select [(ngModel)]="cmbModel">
-                <mat-option
-                  *ngFor="let item of vehModelList"
-                  [value]="item.model"
-                >
+                <mat-option *ngFor="let item of vehModelList" [value]="item.model">
                   {{ item.model }}
                 </mat-option>
               </mat-select>
@@ -1238,10 +984,7 @@
             <mat-form-field color="warn" class="w-100">
               <mat-label>Type</mat-label>
               <mat-select [(ngModel)]="cmbType">
-                <mat-option
-                  *ngFor="let item of vehTypeList"
-                  [value]="item.type"
-                >
+                <mat-option *ngFor="let item of vehTypeList" [value]="item.type">
                   {{ item.type }}
                 </mat-option>
               </mat-select>
@@ -1373,15 +1116,13 @@
       </tr>
     </thead>
     <tbody>
-      <tr
-        *ngFor="
+      <tr *ngFor="
           let item of assetDetailList
             | search
               : 'subLocationDescription,accountsCatagory,postName'
               : tblSearch;
           let i = index
-        "
-      >
+        ">
         <td>{{ item.tag }}</td>
         <td>{{ item.subLocationDescription }}</td>
         <td>{{ item.officeTypeDescription }}</td>
@@ -1403,3 +1144,115 @@
     </tbody>
   </table>
 </div>
+
+<!-- transfers Modal Windw -->
+<!-- The Modal -->
+<div class="modal fade" id="assetTransferModal">
+  <div class=" modal-dialog modal-lg">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Asset Transfer</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-12">
+            <mat-radio-group aria-label="Transfer Type">
+              <mat-radio-button value="1">Internal Transfer</mat-radio-button>&nbsp;&nbsp;
+
+              <mat-radio-button value="2">External Transfer</mat-radio-button>
+            </mat-radio-group>
+          </div>
+        </div>
+        <!-- next row -->
+        <div class="row">
+          <div class="col-md-12">
+            <mat-form-field class='w-100'>
+              <mat-label>Project Title</mat-label>
+              <mat-select>
+                <mat-option value="option">Option</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <!-- next row -->
+        <div class="row">
+          <div class="col-md-6">
+            <mat-form-field class='w-100'>
+              <mat-label>Tranfered By: Post Title</mat-label>
+              <mat-select>
+                <mat-option value="option">Option</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-md-6">
+            Company Name: <b>National Highway AUthority</b>
+          </div>
+        </div>
+        <!-- next row -->
+        <div class="row">
+          <div class="col-md-6">
+            <mat-form-field class='w-100'>
+              <mat-label>Tranfered To: Post Title</mat-label>
+              <mat-select>
+                <mat-option value="option">Option</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-md-6">
+            Company Name : <b>National Highway Authority</b>
+          </div>
+        </div>
+        <!-- next row -->
+        <div class="row">
+          <div class="col-md-12">
+            <mat-form-field class='w-100'>
+              <mat-label>Transfer Date</mat-label>
+              <input matInput [matDatepicker]="picker">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+          </div>
+        </div>
+        <!-- next row -->
+        <div class="row">
+          <div class="col-md-12">
+            <mat-form-field class='w-100'>
+              <mat-label>Description/ Remarks</mat-label>
+              <textarea matInput></textarea>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12 pt-2">
+            <div class="custom-file">
+              <input type="file" class="custom-file-input">
+              <label class="custom-file-label" for="customFile">Choose Handing Taking File</label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12 pt-2 text-center">
+            <div class="text-center">
+              <img [src]="" class="rounded" width="115" height="115" id="myImg">
+            </div>
+          </div>
+        </div>
+        <!-- next row -->
+        <div class="row">
+          <div class="col-md-12">
+            <button mat-raised-button color="warn">Save Transfers Detail</button>
+          </div>
+        </div>
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+
+      </div>
+    </div>
+  </div>

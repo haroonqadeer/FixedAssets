@@ -98,6 +98,7 @@ export class AssetEntryComponent implements OnInit {
   disableCondemned = false;
   disableChkCustody = false;
   sldMissing = false;
+  sldTransfered = false;
   chkTag = false;
   chkProject = false;
   chkCustody = false;
@@ -994,6 +995,18 @@ export class AssetEntryComponent implements OnInit {
     }
   }
 
+  setTransfer() {
+    if (this.sldTransfered) {
+      $("#assetTransferModal").modal("show");
+    } else {
+      $("#assetTransferModal").modal("hide");
+    }
+  }
+
+  openTransferModal() {
+    debugger;
+    $("#assetTransferModal").modal("show");
+  }
   setMissingYes() {
     if (this.sldMissing) {
       this.disableUsable = true;
