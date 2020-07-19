@@ -3,24 +3,29 @@
     <h1>Asset Project IPC</h1>
   </div>
 </div>
-<!-- <div class="loader" *ngIf="loadingBar">Loading...</div> -->
+<div class="loader" *ngIf="loadingBar">Loading...</div>
 
 <!-- container -->
-<div class="container-fluid boxShadow-1 bg-white">
+<div class="container-fluid boxShadow-1 bg-white" *ngIf="!loadingBar">
   <div class="row">
     <!-- entry form -->
     <div class="col-md-4 pl-4 pr-4 border-right">
       <div class="row">
         <div class="col-md-12 pt-4">
-          <h2 class='border-bottom pb-2'>Add / Edit Project IPC</h2>
+          <h2 class='border-bottom pb-2'>{{heading}} Project IPC</h2>
         </div>
       </div>
       <div class="row">
         <div class="col-md-12 pt-2">
           <mat-form-field class='w-100'>
             <mat-label>Select Project</mat-label>
-            <mat-select>
-              <mat-option value="option">Option</mat-option>
+            <mat-select [(ngModel)]="cmbProject">
+              <ngx-mat-select-search [(ngModel)]="searchProject" [placeholderLabel]="'Search...'"
+                [noEntriesFoundLabel]="'Not found'" name="search"></ngx-mat-select-search>
+              <mat-option *ngFor="
+              let item of projectList" [value]="item.projectID | search
+              : 'projectName'
+              : searchProject">{{item.projectName}}</mat-option>
             </mat-select>
           </mat-form-field>
         </div>
@@ -31,7 +36,7 @@
         <div class="col-md-12 pt-2">
           <mat-form-field class="w-100">
             <mat-label>Package No.</mat-label>
-            <input matInput placeholder="in roman e.g I, II, III, IV">
+            <input matInput placeholder="in roman e.g I, II, III, IV" [(ngModel)]="txtPkgNo">
           </mat-form-field>
         </div>
       </div>
@@ -39,7 +44,7 @@
         <div class="col-md-12 pt-2">
           <mat-form-field class="w-100">
             <mat-label>IPC No.</mat-label>
-            <input matInput type='number'>
+            <input matInput type='number' [(ngModel)]="txtIPCNo">
           </mat-form-field>
         </div>
       </div>
@@ -48,14 +53,14 @@
         <div class="col-md-12 pt-2">
           <mat-form-field class="w-100">
             <mat-label>Description</mat-label>
-            <textarea matInput placeholder=""></textarea>
+            <textarea matInput placeholder="" [(ngModel)]="txtIpcDesc"></textarea>
           </mat-form-field>
         </div>
       </div>
       <div class="row">
         <div class="col-md-12 pt-2">
           <div class="custom-file">
-            <input type="file" class="custom-file-input" id="customFile">
+            <input type="file" class="custom-file-input" [(ngModel)]="imgFile" (change)="onFileSelected($event)">
             <label class="custom-file-label" for="customFile">Choose IPC Scan Copy</label>
           </div>
         </div>
@@ -63,16 +68,16 @@
       <div class="row">
         <div class="col-md-12 pt-2 text-center">
           <div class="text-center">
-            <img src="..." class="rounded" alt="...">
+            <img [src]="imageUrl" class="rounded" width="80" height="80" id="myImg">
           </div>
         </div>
       </div>
       <div class="row">
         <div class="col-md-3 pt-2">
-          <button mat-button mat-raised-button color="primary" class='noneOutline w-100'>Save</button>
+          <button mat-button mat-raised-button color="primary" class='noneOutline w-100' (click)="save()">Save</button>
         </div>
         <div class="col-md-3 pt-2">
-          <button mat-button mat-raised-button color="warn" class='noneOutline w-100'>Reset</button>
+          <button mat-button mat-raised-button color="warn" class='noneOutline w-100' (click)="clear()">Reset</button>
         </div>
       </div>
       <br>
@@ -83,7 +88,7 @@
         <div class="col-md-12 pt-2">
           <mat-form-field class="w-100">
             <mat-label>search...</mat-label>
-            <mat-icon matPrefix class='fa fa-search'></mat-icon>
+            <mat-icon matPrefix class='fa fa-search' [(ngModel)]="tblSearch"></mat-icon>
             <input matInput>
           </mat-form-field>
         </div>

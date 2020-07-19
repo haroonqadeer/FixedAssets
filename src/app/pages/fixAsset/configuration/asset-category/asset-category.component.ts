@@ -22,7 +22,6 @@ export class AssetCategoryComponent implements OnInit {
   imageUrl: string = "../../../../../assets/assetCatImg/dropHereImg.png";
   image;
   imgFile;
-  progress;
   selectedFile: File = null;
 
   heading = "Add";
@@ -51,18 +50,32 @@ export class AssetCategoryComponent implements OnInit {
   }
 
   onFileSelected(event) {
-    this.selectedFile = <File>event.target.files[0];
-    let reader = new FileReader();
+    if (
+      event.target.files[0].type == "image/png" ||
+      event.target.files[0].type == "image/jpeg"
+    ) {
+      this.selectedFile = <File>event.target.files[0];
+      let reader = new FileReader();
 
-    reader.onloadend = (e: any) => {
-      this.image = reader.result;
+      reader.onloadend = (e: any) => {
+        this.image = reader.result;
 
-      var splitImg = this.image.split(",")[1];
-      this.image = splitImg;
-      this.imageUrl = e.target.result;
-    };
+        var splitImg = this.image.split(",")[1];
+        this.image = splitImg;
+        this.imageUrl = e.target.result;
+      };
 
-    reader.readAsDataURL(this.selectedFile);
+      reader.readAsDataURL(this.selectedFile);
+    } else {
+      this.toastr.errorToastr("Please Select JPEG / PNG Image", "Error", {
+        toastTimeout: 2500,
+      });
+
+      this.image = undefined;
+      this.imgFile = undefined;
+      this.selectedFile = null;
+      this.imageUrl = "../../../../../assets/assetCatImg/dropHereImg.png";
+    }
   }
 
   zoomImage() {
@@ -75,7 +88,9 @@ export class AssetCategoryComponent implements OnInit {
     var captionText = document.getElementById("caption");
 
     if (this.imageUrl == "../../../../../assets/assetCatImg/dropHereImg.png") {
-      alert(this.imageUrl);
+      this.toastr.errorToastr("Please Select Image", "Error", {
+        toastTimeout: 2500,
+      });
     } else {
       modal.style.display = "block";
       (<HTMLImageElement>document.querySelector("#img01")).src = this.imageUrl;
@@ -109,7 +124,7 @@ export class AssetCategoryComponent implements OnInit {
     });
 
     this.http
-      .get(this.serverUrl + "getassetcat", { headers: reqHeader })
+      .get(this.serverUrl + "getaccountcat", { headers: reqHeader })
       .subscribe((data: any) => {
         this.accCatList = data;
       });
@@ -207,7 +222,6 @@ export class AssetCategoryComponent implements OnInit {
     this.txtCatShrtName = obj.assetCatCode;
     this.txtCatFullName = obj.assetCatDescription;
     this.cmbAccCat = obj.accountsCatID;
-    alert(obj.edoc);
     if (obj.edoc != null) {
       // http://ambit-erp.southeastasia.cloudapp.azure.com:9000/assets/images/Marker2.png
       // this.imageUrl = "obj.edoc";
@@ -265,5 +279,9 @@ export class AssetCategoryComponent implements OnInit {
 
     this.searchAccCat = "";
     this.tblSearch = "";
+    this.image = undefined;
+    this.imgFile = undefined;
+    this.selectedFile = null;
+    this.imageUrl = "../../../../../assets/assetCatImg/dropHereImg.png";
   }
 }

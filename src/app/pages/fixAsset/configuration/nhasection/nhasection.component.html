@@ -89,6 +89,7 @@
             <tr>
               <th class="text-center sticky-top" scope="col">#</th>
               <th class="sticky-top" scope="col">Wing - Section</th>
+              <th class="sticky-top" scope="col">Short Name</th>
               <th class="sticky-top" scope="col">Office Type</th>
               <th class="sticky-top text-center" scope="col">Action</th>
             </tr>
@@ -98,6 +99,7 @@
               *ngFor="let item of wngSectionList | search:'officeTypeDescription,wingName,officeDescription':tblSearch let i=index">
               <td class="text-center">{{i+1}}</td>
               <td>{{item.wingName}} - {{item.officeDescription}}</td>
+              <td>{{item.officeCode}}</td>
               <td>{{item.officeTypeDescription}}</td>
               <td class='inline-block text-center'><span class='fa fa-edit cursorPointer pr-3 text-primary'
                   (click)="edit(item)"></span>
