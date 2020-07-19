@@ -38,6 +38,17 @@ export class AppComponent {
     }
   }
 
+  // QR Scanner
+  qrResultString: string;
+
+  clearResult(): void {
+    this.qrResultString = null;
+  }
+
+  onCodeResult(resultString: string) {
+    this.qrResultString = resultString;
+  }
+
   //logout function
   Logout() {
     this.stopWatching();

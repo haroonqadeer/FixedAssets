@@ -6,6 +6,7 @@ import { PNPrimeModule } from "./shared/pnprime/pnprime.module";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { ChartModule } from "angular-highcharts";
 import { UserIdleModule } from "angular-user-idle";
+import { ZXingScannerModule } from "@zxing/ngx-scanner";
 import {
   CurrencyMaskConfig,
   CurrencyMaskModule,
@@ -72,6 +73,7 @@ import { NHAProjectIPCComponent } from "./pages/fixasset/configuration/nhaprojec
     NgxPaginationModule,
     InputTextModule,
     CurrencyMaskModule,
+    ZXingScannerModule,
     // Optionally you can set time for `idle`, `timeout` and `ping` in seconds.
     // Default values: `idle` is 60 (1 minutes), `timeout` is 30 (0.5 minutes)
     // and `ping` is 15 0.25 minutes).

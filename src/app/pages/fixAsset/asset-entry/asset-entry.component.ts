@@ -22,7 +22,7 @@ declare var $: any;
   styleUrls: ["./asset-entry.component.scss"],
 })
 export class AssetEntryComponent implements OnInit {
-  serverUrl = "http://95.217.147.105:2007/api/";
+  serverUrl = "http://95.217.206.195:2007/api/";
 
   loadingBar = true;
   //pagination variables for tag list
