@@ -1003,6 +1003,10 @@ export class AssetEntryComponent implements OnInit {
     }
   }
 
+  openTransferModal() {
+    debugger;
+    $("#assetTransferModal").modal("show");
+  }
   setMissingYes() {
     if (this.sldMissing) {
       this.disableUsable = true;
