@@ -14,7 +14,7 @@ declare var $: any;
   styleUrls: ["./dashboardy.component.scss"],
 })
 export class DashboardyComponent implements OnInit {
-  serverUrl = "http://95.217.147.105:2007/api/";
+  serverUrl = "http://95.217.206.195:2007/api/";
   // serverUrl = "http://localhost:5090/api/";
 
   loadingBar = true;

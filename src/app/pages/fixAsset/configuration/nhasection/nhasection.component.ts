@@ -13,7 +13,7 @@ import { CookieService } from "ngx-cookie-service";
   styleUrls: ["./nhasection.component.scss"],
 })
 export class NHASectionComponent implements OnInit {
-  serverUrl = "http://95.217.147.105:2007/api/";
+  serverUrl = "http://95.217.206.195:2007/api/";
   // serverUrl = "http://localhost:5090/api/";
 
   heading = "Add";

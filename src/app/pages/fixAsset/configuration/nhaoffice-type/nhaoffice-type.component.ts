@@ -15,7 +15,7 @@ declare var $: any;
   styleUrls: ["./nhaoffice-type.component.scss"],
 })
 export class NHAOfficeTypeComponent implements OnInit {
-  serverUrl = "http://95.217.147.105:2007/api/";
+  serverUrl = "http://95.217.206.195:2007/api/";
 
   heading = "Add";
 

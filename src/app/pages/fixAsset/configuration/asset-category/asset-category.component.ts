@@ -15,9 +15,10 @@ declare var $: any;
   styleUrls: ["./asset-category.component.scss"],
 })
 export class AssetCategoryComponent implements OnInit {
-  serverUrl = "http://95.217.147.105:2007/api/";
+  serverUrl = "http://95.217.206.195:2007/api/";
 
-  imgPath = "D:/Flutter App/FixedAssets/src/assets/assetCatImg";
+  // imgPath = "D:/Flutter App/FixedAssets/src/assets/assetCatImg";
+  imgPath = "C:/inetpub/wwwroot/2008_FAR_Proj/assets/assetCatImg";
   imageUrl: string = "../../../../../assets/assetCatImg/dropHereImg.png";
   image;
   imgFile;
@@ -115,10 +116,6 @@ export class AssetCategoryComponent implements OnInit {
   }
 
   save() {
-    alert(this.image);
-    alert(this.imageUrl);
-    alert(this.imgPath);
-    return;
     if (this.cmbAccCat == "") {
       this.toastr.errorToastr("Please Select Account Category", "Error", {
         toastTimeout: 2500,
@@ -139,23 +136,27 @@ export class AssetCategoryComponent implements OnInit {
       var saveData;
       if (this.assetCatID == "") {
         saveData = {
-          AccountsCatID: parseInt(this.cmbAccCat),
-          AssetCatCode: this.txtCatShrtName,
-          AssetCatDescription: this.txtCatFullName,
-          Edoc: "",
-          AssetCatID: 0,
-          UserId: this.cookie.get("userID"),
-          SPType: "INSERT",
+          accountsCatID: parseInt(this.cmbAccCat),
+          assetCatCode: this.txtCatShrtName,
+          assetCatDescription: this.txtCatFullName,
+          edoc: this.imgPath,
+          EDocExtension: "jpg",
+          imgFile: this.image,
+          assetCatID: 0,
+          userId: this.cookie.get("userID"),
+          spType: "INSERT",
         };
       } else {
         saveData = {
-          AccountsCatID: parseInt(this.cmbAccCat),
-          AssetCatCode: this.txtCatShrtName,
-          AssetCatDescription: this.txtCatFullName,
-          Edoc: "",
-          AssetCatID: this.assetCatID,
-          UserId: this.cookie.get("userID"),
-          SPType: "UPDATE",
+          accountsCatID: parseInt(this.cmbAccCat),
+          assetCatCode: this.txtCatShrtName,
+          assetCatDescription: this.txtCatFullName,
+          edoc: this.imgPath,
+          EDocExtension: "jpg",
+          imgFile: this.image,
+          assetCatID: this.assetCatID,
+          userId: this.cookie.get("userID"),
+          spType: "UPDATE",
         };
       }
 
@@ -166,7 +167,7 @@ export class AssetCategoryComponent implements OnInit {
           headers: reqHeader,
         })
         .subscribe((data: any) => {
-          if (data.msg == "SUCCESS") {
+          if (data.msg == "Success") {
             if (this.assetCatID == "") {
               this.toastr.successToastr(
                 "Record Saved Successfully!",
@@ -206,6 +207,15 @@ export class AssetCategoryComponent implements OnInit {
     this.txtCatShrtName = obj.assetCatCode;
     this.txtCatFullName = obj.assetCatDescription;
     this.cmbAccCat = obj.accountsCatID;
+    alert(obj.edoc);
+    if (obj.edoc != null) {
+      // http://ambit-erp.southeastasia.cloudapp.azure.com:9000/assets/images/Marker2.png
+      // this.imageUrl = "obj.edoc";
+      this.imageUrl =
+        "http://95.217.206.195:2008/assets/assetCatImg/" +
+        obj.assetCatID +
+        ".jpg";
+    }
   }
 
   delete(obj) {
@@ -223,7 +233,7 @@ export class AssetCategoryComponent implements OnInit {
         headers: reqHeader,
       })
       .subscribe((data: any) => {
-        if (data.msg == "SUCCESS") {
+        if (data.msg == "Success") {
           this.toastr.successToastr(
             "Record Deleted Successfully!",
             "Success!",
