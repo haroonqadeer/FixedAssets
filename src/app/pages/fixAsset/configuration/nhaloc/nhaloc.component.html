@@ -89,9 +89,9 @@
           <thead>
             <tr>
               <th class="sticky-top text-center" scope="col">#</th>
-              <th class="sticky-top" scope="col">Region Name</th>
-              <th class="sticky-top" scope="col">Short Name</th>
               <th class="sticky-top" scope="col">Full Name</th>
+              <th class="sticky-top" scope="col">Short Name</th>
+              <th class="sticky-top" scope="col">Region Name</th>
               <th class="sticky-top" scope="col">Office Type</th>
               <th class="sticky-top text-center" scope='col'>Action</th>
             </tr>
@@ -100,9 +100,9 @@
             <tr
               *ngFor="let item of locList | search:'mainLocationDescription,subLocationCode,subLocationDescription,officeTypeDescription':tblSearch let i=index">
               <td class="text-center">{{i+1}}</td>
-              <td>{{item.mainLocationDescription}}</td>
-              <td>{{item.subLocationCode}}</td>
               <td>{{item.subLocationDescription}}</td>
+              <td>{{item.subLocationCode}}</td>
+              <td>{{item.mainLocationDescription}}</td>
               <td>{{item.officeTypeDescription}}</td>
               <td class='inline-block text-center'><span class='fa fa-edit cursorPointer pr-3 text-primary'
                   (click)="edit(item)"></span>
