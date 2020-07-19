@@ -105,79 +105,14 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td class="text-center">1</td>
-              <td>KHR-TKM</td>
-              <td>Package - I</td>
-              <td>IPC No. 01</td>
-              <td class='inline-block text-center'><span class='fa fa-edit cursorPointer pr-3 text-primary'></span>
-                <span class='fa fa-trash-o cursorPointer text-danger pr-3'></span>
-                <mat-slide-toggle>
-                </mat-slide-toggle>
-              </td>
-            </tr>
-            <tr>
-              <td class="text-center">1</td>
-              <td>KHR-TKM</td>
-              <td>Package - I</td>
-              <td>IPC No. 01</td>
-              <td class='inline-block text-center'><span class='fa fa-edit cursorPointer pr-3 text-primary'></span>
-                <span class='fa fa-trash-o cursorPointer text-danger pr-3'></span>
-                <mat-slide-toggle>
-                </mat-slide-toggle>
-              </td>
-            </tr>
-            <tr>
-              <td class="text-center">1</td>
-              <td>KHR-TKM</td>
-              <td>Package - I</td>
-              <td>IPC No. 01</td>
-              <td class='inline-block text-center'><span class='fa fa-edit cursorPointer pr-3 text-primary'></span>
-                <span class='fa fa-trash-o cursorPointer text-danger pr-3'></span>
-                <mat-slide-toggle>
-                </mat-slide-toggle>
-              </td>
-            </tr>
-            <tr>
-              <td class="text-center">1</td>
-              <td>KHR-TKM</td>
-              <td>Package - I</td>
-              <td>IPC No. 01</td>
-              <td class='inline-block text-center'><span class='fa fa-edit cursorPointer pr-3 text-primary'></span>
-                <span class='fa fa-trash-o cursorPointer text-danger pr-3'></span>
-                <mat-slide-toggle>
-                </mat-slide-toggle>
-              </td>
-            </tr>
-            <tr>
-              <td class="text-center">1</td>
-              <td>KHR-TKM</td>
-              <td>Package - I</td>
-              <td>IPC No. 01</td>
-              <td class='inline-block text-center'><span class='fa fa-edit cursorPointer pr-3 text-primary'></span>
-                <span class='fa fa-trash-o cursorPointer text-danger pr-3'></span>
-                <mat-slide-toggle>
-                </mat-slide-toggle>
-              </td>
-            </tr>
-            <tr>
-              <td class="text-center">1</td>
-              <td>KHR-TKM</td>
-              <td>Package - I</td>
-              <td>IPC No. 01</td>
-              <td class='inline-block text-center'><span class='fa fa-edit cursorPointer pr-3 text-primary'></span>
-                <span class='fa fa-trash-o cursorPointer text-danger pr-3'></span>
-                <mat-slide-toggle>
-                </mat-slide-toggle>
-              </td>
-            </tr>
-            <tr>
-              <td class="text-center">1</td>
-              <td>KHR-TKM</td>
-              <td>Package - I</td>
-              <td>IPC No. 01</td>
-              <td class='inline-block text-center'><span class='fa fa-edit cursorPointer pr-3 text-primary'></span>
-                <span class='fa fa-trash-o cursorPointer text-danger pr-3'></span>
+            <tr *ngFor="let item of ipcList | search:'projectShortName,projectPackage,ipcNo':tblSearch let i=index">
+              <td class="text-center">{{i+1}}</td>
+              <td>{{item.projectShortName}}</td>
+              <td>{{item.projectPackage}}</td>
+              <td>{{item.ipcNo}}</td>
+              <td class='inline-block text-center'><span class='fa fa-edit cursorPointer pr-3 text-primary'
+                  (click)="edit(item)"></span>
+                <span class='fa fa-trash-o cursorPointer text-danger pr-3' (click)="delete(item)"></span>
                 <mat-slide-toggle>
                 </mat-slide-toggle>
               </td>

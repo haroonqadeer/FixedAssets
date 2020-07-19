@@ -50,7 +50,19 @@ export class NHAProjectIPCComponent implements OnInit {
     this.getProjects();
   }
 
-  getIPC() {}
+  getIPC() {
+    var reqHeader = new HttpHeaders({
+      "Content-Type": "application/json",
+      // Authorization: "Bearer " + Token,
+    });
+
+    this.http
+      .get(this.serverUrl + "getipc", { headers: reqHeader })
+      .subscribe((data: any) => {
+        this.ipcList = data;
+        this.loadingBar = false;
+      });
+  }
 
   getProjects() {
     var reqHeader = new HttpHeaders({
@@ -119,25 +131,27 @@ export class NHAProjectIPCComponent implements OnInit {
       var saveData;
       if (this.ipcID == "") {
         saveData = {
-          // accountsCatID: parseInt(this.cmbAccCat),
-          // assetCatCode: this.txtCatShrtName,
-          // assetCatDescription: this.txtCatFullName,
-          // edoc: this.imgPath,
-          // EDocExtension: "pdf",
-          // imgFile: this.image,
-          // assetCatID: 0,
+          ProjectID: parseInt(this.cmbProject),
+          ProjectPackage: this.txtPkgNo,
+          IPCNo: this.txtIPCNo,
+          IPCRefDescription: this.txtIpcDesc,
+          EDoc: this.imgPath,
+          EDocExtension: "pdf",
+          imgFile: this.image,
+          IPCRefID: 0,
           userId: this.cookie.get("userID"),
           spType: "INSERT",
         };
       } else {
         saveData = {
-          // accountsCatID: parseInt(this.cmbAccCat),
-          // assetCatCode: this.txtCatShrtName,
-          // assetCatDescription: this.txtCatFullName,
-          // edoc: this.imgPath,
-          // EDocExtension: "pdf",
-          // imgFile: this.image,
-          // assetCatID: this.assetCatID,
+          ProjectID: parseInt(this.cmbProject),
+          ProjectPackage: this.txtPkgNo,
+          IPCNo: this.txtIPCNo,
+          IPCRefDescription: this.txtIpcDesc,
+          EDoc: this.imgPath,
+          EDocExtension: "pdf",
+          imgFile: this.image,
+          IPCRefID: this.ipcID,
           userId: this.cookie.get("userID"),
           spType: "UPDATE",
         };
@@ -183,14 +197,22 @@ export class NHAProjectIPCComponent implements OnInit {
     }
   }
 
-  edit(obj) {}
+  edit(obj) {
+    this.heading = "Edit";
+
+    this.ipcID = obj.ipcRefID;
+    this.cmbProject = obj.projectID;
+    this.txtPkgNo = obj.projectPackage;
+    this.txtIPCNo = obj.ipcNo;
+    this.txtIpcDesc = obj.ipcRefDescription;
+  }
 
   delete(obj) {
     this.loadingBar = true;
     var saveData = {
       Userid: this.cookie.get("userID"), //int
       SpType: "DELETE", //string
-      AssetCatID: obj.assetCatID,
+      IPCRefID: this.ipcID,
     };
 
     var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
