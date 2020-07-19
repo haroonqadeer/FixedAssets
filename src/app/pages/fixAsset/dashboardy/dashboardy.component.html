@@ -426,13 +426,14 @@
               <th>Province</th>
               <th>Location</th>
               <th>Sub-Location</th>
+              <th>Office Type</th>
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="
                 let item of tempLocList
                   | search
-                    : 'provinceName,mainLocationDescription,subLocationDescription'
+                    : 'provinceName,mainLocationDescription,subLocationDescription,officeTypeDescription'
                     : searchTag;
                 let i = index
               ">
@@ -440,6 +441,7 @@
               <td>{{ item.provinceName }}</td>
               <td>{{ item.mainLocationDescription }}</td>
               <td>{{ item.subLocationDescription }}</td>
+              <td>{{ item.officeTypeDescription }}</td>
             </tr>
           </tbody>
         </table>

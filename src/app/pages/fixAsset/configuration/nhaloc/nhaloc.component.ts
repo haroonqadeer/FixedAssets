@@ -22,11 +22,14 @@ export class NHALocComponent implements OnInit {
   txtLocShrtName = "";
   txtLocFullName = "";
   cmbRegion = "";
+  cmbOfcType = 0;
 
+  searchOfcType = "";
   searchLocation = "";
   tblSearch = "";
 
   locList = [];
+  ofcTypeList = [];
   mainLocList = [];
 
   constructor(
@@ -38,6 +41,20 @@ export class NHALocComponent implements OnInit {
   ngOnInit(): void {
     this.getLocation();
     this.getMainLocation();
+    this.getOfficeType();
+  }
+
+  getOfficeType() {
+    var reqHeader = new HttpHeaders({
+      "Content-Type": "application/json",
+      // Authorization: "Bearer " + Token,
+    });
+
+    this.http
+      .get(this.serverUrl + "getofctype", { headers: reqHeader })
+      .subscribe((data: any) => {
+        this.ofcTypeList = data;
+      });
   }
 
   getMainLocation() {
@@ -74,6 +91,11 @@ export class NHALocComponent implements OnInit {
         toastTimeout: 2500,
       });
       return false;
+    } else if (this.cmbOfcType == 0) {
+      this.toastr.errorToastr("Please Select Office Type", "Error", {
+        toastTimeout: 2500,
+      });
+      return false;
     } else if (this.txtLocShrtName == "") {
       this.toastr.errorToastr("Please Enter Location Short Name", "Error", {
         toastTimeout: 2500,
@@ -92,6 +114,7 @@ export class NHALocComponent implements OnInit {
           MainLocID: this.cmbRegion,
           SubLocation: this.txtLocFullName,
           subLocationCode: this.txtLocShrtName,
+          OfficeTypeID: this.cmbOfcType,
           SubLocationID: 0,
           UserId: this.cookie.get("userID"),
           SPType: "INSERT",
@@ -101,6 +124,7 @@ export class NHALocComponent implements OnInit {
           MainLocID: this.cmbRegion,
           SubLocation: this.txtLocFullName,
           subLocationCode: this.txtLocShrtName,
+          OfficeTypeID: this.cmbOfcType,
           SubLocationID: this.subLocID,
           UserId: this.cookie.get("userID"),
           SPType: "UPDATE",
@@ -153,6 +177,7 @@ export class NHALocComponent implements OnInit {
     this.txtLocShrtName = obj.subLocationCode;
     this.txtLocFullName = obj.subLocationDescription;
     this.cmbRegion = obj.mainLocID;
+    this.cmbOfcType = obj.officeTypeID;
   }
 
   delete(obj) {
@@ -199,6 +224,7 @@ export class NHALocComponent implements OnInit {
     this.txtLocShrtName = "";
     this.txtLocFullName = "";
     this.cmbRegion = "";
+    this.cmbOfcType = 0;
 
     this.searchLocation = "";
     this.tblSearch = "";

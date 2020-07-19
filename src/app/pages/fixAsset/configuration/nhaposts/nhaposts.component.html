@@ -69,18 +69,20 @@
               <th class="text-center sticky-top" scope="col">#</th>
               <th class="sticky-top" scope="col">Post Title</th>
               <th class="sticky-top" scope="col">BPS</th>
+              <th class="sticky-top" scope="col">Company Name</th>
               <th class="sticky-top text-center" scope="col">Action</th>
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let item of custodyList | search:'postName,bs':tblSearch let i=index">
+            <tr *ngFor="let item of custodyList | search:'postName,bs,companyName':tblSearch let i=index">
               <td class="text-center">{{i+1}}</td>
               <td>{{item.postName}}</td>
               <td>{{item.bs}}</td>
+              <td>{{item.companyName}}</td>
               <td class='inline-block text-center'><span class='fa fa-edit cursorPointer pr-3 text-primary'
                   (click)="edit(item)"></span>
                 <span class='fa fa-trash-o cursorPointer text-danger pr-3' (click)="delete(item)"></span>
-                <mat-slide-toggle>
+                <mat-slide-toggle [(ngModel)]="item.isActivated" (change)="active(item)">
                 </mat-slide-toggle>
               </td>
             </tr>

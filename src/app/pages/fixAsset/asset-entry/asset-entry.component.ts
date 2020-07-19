@@ -64,7 +64,7 @@ export class AssetEntryComponent implements OnInit {
   txtIdentification = "";
   txtSerialNo = "";
   cmbProject = "";
-  txtRef = "";
+  cmbRef = "";
   txtAmount = "";
   txtPreTag = "";
   txtNetBVal = "";
@@ -101,6 +101,7 @@ export class AssetEntryComponent implements OnInit {
   sldTransfered = false;
   chkTag = false;
   chkProject = false;
+  chkassetLoc = false;
   chkCustody = false;
 
   tblSearchTag = "";
@@ -109,6 +110,7 @@ export class AssetEntryComponent implements OnInit {
   searchCategory = "";
   searchCustody = "";
   searchProject = "";
+  searchRef = "";
   searchVehicle = "";
   searchSection = "";
   advSearchSection = "";
@@ -123,6 +125,7 @@ export class AssetEntryComponent implements OnInit {
   custodyList = [];
   AssetCatList = [];
   projectList = [];
+  refList = [];
   preTagList = [];
   assetCondList = [];
   assetDetailList = [];
@@ -327,6 +330,23 @@ export class AssetEntryComponent implements OnInit {
       .subscribe((data: any) => {
         this.tagList = data;
         this.tagList.reverse();
+      });
+  }
+
+  getIPC() {
+    this.loadingBar = true;
+    var reqHeader = new HttpHeaders({
+      "Content-Type": "application/json",
+      // Authorization: "Bearer " + Token,
+    });
+
+    this.http
+      .get(this.serverUrl + "getipc?ProjectId=" + this.cmbProject, {
+        headers: reqHeader,
+      })
+      .subscribe((data: any) => {
+        this.refList = data;
+        this.loadingBar = false;
       });
   }
 
@@ -560,7 +580,7 @@ export class AssetEntryComponent implements OnInit {
     this.txtIdentification = item.otherIdentification;
     this.txtSerialNo = item.serialNo;
     this.cmbProject = item.projectID;
-    this.txtRef = item.ipcRef;
+    this.cmbRef = item.ipcRef;
     this.dtpPurchaseDt = new Date(item.purchaseDate);
     this.txtAmount = item.costAmount;
     this.txtPreTag = item.previousTag;
@@ -644,48 +664,15 @@ export class AssetEntryComponent implements OnInit {
         toastTimeout: 2500,
       });
       return false;
-    } else if (this.txtIdentification == "") {
-      this.toastr.errorToastr("Please Enter OtherIdenification", "Error", {
-        toastTimeout: 2500,
-      });
-      return false;
-    } else if (this.txtSerialNo == "") {
-      this.toastr.errorToastr("Please Enter Serial Number", "Error", {
-        toastTimeout: 2500,
-      });
-      return false;
-    } else if (this.cmbProject == "") {
-      this.toastr.errorToastr("Please Select Project", "Error", {
-        toastTimeout: 2500,
-      });
-      return false;
-    } else if (this.txtRef == "") {
-      this.toastr.errorToastr("Please Enter IPC Reference", "Error", {
-        toastTimeout: 2500,
-      });
-      return false;
-    } else if (this.dtpPurchaseDt == "") {
-      this.toastr.errorToastr("Please Select Purchase Date", "Error", {
-        toastTimeout: 2500,
-      });
-      return false;
-    } else if (this.txtAmount == "") {
-      this.toastr.errorToastr("Please Enter Amount", "Error", {
-        toastTimeout: 2500,
-      });
-      return false;
-    } else if (this.txtPreTag == "") {
-      this.toastr.errorToastr("Please Enter Previous Tag", "Error", {
-        toastTimeout: 2500,
-      });
-      return false;
-    } else if (this.txtNetBVal == "") {
-      this.toastr.errorToastr("Please Enter Net Book Value", "Error", {
-        toastTimeout: 2500,
-      });
-      return false;
-    } else if (this.txtRemarks == "") {
-      this.toastr.errorToastr("Please Enter Remarks", "Error", {
+    } else if (
+      this.sldUsable == false &&
+      this.sldServiceable == false &&
+      this.sldSurplus == false &&
+      this.sldCondemned == false &&
+      this.sldMissing == false &&
+      this.sldTransfered == false
+    ) {
+      this.toastr.errorToastr("Please Select Asset Group", "Error", {
         toastTimeout: 2500,
       });
       return false;
@@ -744,7 +731,7 @@ export class AssetEntryComponent implements OnInit {
           costAmount: this.txtAmount, //float
           NetBookAmount: this.txtNetBVal, //int
           PurchaseDate: purchaseDate, //string
-          IPCRef: this.txtRef, //string
+          IPCRef: this.cmbRef, //string
           AssetCondition: this.cmbAssetCond, //int
           IsUseable: this.sldUsable, //bool
           IsSurplus: this.sldSurplus, //bool
@@ -781,7 +768,7 @@ export class AssetEntryComponent implements OnInit {
           costAmount: this.txtAmount, //float
           NetBookAmount: this.txtNetBVal, //int
           PurchaseDate: purchaseDate, //string
-          IPCRef: this.txtRef, //string
+          IPCRef: this.cmbRef, //string
           AssetCondition: this.cmbAssetCond, //int
           IsUseable: this.sldUsable, //bool
           IsSurplus: this.sldSurplus, //bool
@@ -832,6 +819,10 @@ export class AssetEntryComponent implements OnInit {
             }
             if (this.chkProject == false) {
               this.cmbProject == "";
+            }
+
+            if (this.chkassetLoc == false) {
+              this.txtAssetLoc == "";
             }
             this.clear();
             this.getAssetDetail();
@@ -969,10 +960,9 @@ export class AssetEntryComponent implements OnInit {
     this.cmbVehicle = "";
     this.cmbAssetCat = "";
     this.txtAssetDesc = "";
-    this.txtAssetLoc = "";
     this.txtIdentification = "";
     this.txtSerialNo = "";
-    this.txtRef = "";
+    this.cmbRef = "";
     this.dtpPurchaseDt = "";
     this.txtAmount = "";
     this.txtPreTag = "";

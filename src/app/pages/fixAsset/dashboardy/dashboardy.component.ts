@@ -445,6 +445,9 @@ export class DashboardyComponent implements OnInit {
   }
 
   changeChart() {
+    this.daysList = [];
+    this.monthlyTagsList = [];
+
     var oldDate = new Date(this.dtpDate);
     var m = oldDate.getMonth();
     m += 1; // JavaScript months are 0-11

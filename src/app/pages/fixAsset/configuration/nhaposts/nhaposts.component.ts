@@ -87,11 +87,6 @@ export class NHAPostsComponent implements OnInit {
         toastTimeout: 2500,
       });
       return false;
-    } else if (this.txtCmpnyName == "") {
-      this.toastr.errorToastr("Please Enter Company Name", "Error", {
-        toastTimeout: 2500,
-      });
-      return false;
     } else {
       this.loadingBar = true;
       var saveData;
@@ -167,7 +162,7 @@ export class NHAPostsComponent implements OnInit {
   delete(obj) {
     this.loadingBar = true;
     var saveData = {
-      // Userid: this.cookie.get("userID"), //int
+      Userid: this.cookie.get("userID"), //int
       SpType: "DELETE", //string
       PostID: obj.postID, //int
     };
@@ -182,6 +177,51 @@ export class NHAPostsComponent implements OnInit {
         if (data.msg == "Success") {
           this.toastr.successToastr(
             "Record Deleted Successfully!",
+            "Success!",
+            {
+              toastTimeout: 2500,
+            }
+          );
+          this.clear();
+          this.getCustody();
+          this.loadingBar = false;
+          return false;
+        } else {
+          this.toastr.errorToastr(data.msg, "Error !", {
+            toastTimeout: 5000,
+          });
+          this.loadingBar = false;
+          return false;
+        }
+      });
+  }
+
+  active(obj) {
+    var type = "";
+    if (obj.isActivated == false) {
+      type = "DEACTIVATE";
+    } else {
+      type = "ACTIVATE";
+    }
+
+    this.loadingBar = true;
+
+    var saveData = {
+      Userid: this.cookie.get("userID"), //int
+      SpType: type, //string
+      PostID: obj.postID, //int
+    };
+
+    var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
+
+    this.http
+      .post(this.serverUrl + "sudpost", saveData, {
+        headers: reqHeader,
+      })
+      .subscribe((data: any) => {
+        if (data.msg == "Success") {
+          this.toastr.successToastr(
+            "Record " + type + " Successfully!",
             "Success!",
             {
               toastTimeout: 2500,

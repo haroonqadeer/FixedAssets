@@ -269,6 +269,51 @@ export class AssetCategoryComponent implements OnInit {
       });
   }
 
+  active(obj) {
+    var type = "";
+    if (obj.isActivated == false) {
+      type = "DEACTIVATE";
+    } else {
+      type = "ACTIVATE";
+    }
+
+    this.loadingBar = true;
+
+    var saveData = {
+      Userid: this.cookie.get("userID"), //int
+      SpType: type, //string
+      AssetCatID: obj.assetCatID,
+    };
+
+    var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
+
+    this.http
+      .post(this.serverUrl + "sudassetcatagory", saveData, {
+        headers: reqHeader,
+      })
+      .subscribe((data: any) => {
+        if (data.msg == "Success") {
+          this.toastr.successToastr(
+            "Record " + type + " Successfully!",
+            "Success!",
+            {
+              toastTimeout: 2500,
+            }
+          );
+          this.clear();
+          this.getAssetCategory();
+          this.loadingBar = false;
+          return false;
+        } else {
+          this.toastr.errorToastr(data.msg, "Error !", {
+            toastTimeout: 5000,
+          });
+          this.loadingBar = false;
+          return false;
+        }
+      });
+  }
+
   clear() {
     this.heading = "Add";
 

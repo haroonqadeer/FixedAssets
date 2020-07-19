@@ -30,14 +30,17 @@ export class NHAProjectIPCComponent implements OnInit {
 
   ipcID = "";
   cmbProject = "";
+  cmbAssetCat = "";
   txtPkgNo = "";
   txtIPCNo = "";
   txtIpcDesc = "";
   searchProject = "";
+  searchCategory = "";
   tblSearch = "";
 
   projectList = [];
   ipcList = [];
+  AssetCatList = [];
 
   constructor(
     private toastr: ToastrManager,
@@ -105,6 +108,10 @@ export class NHAProjectIPCComponent implements OnInit {
     }
   }
 
+  getIPCDetail(obj) {
+    $("#ipcDetailModal").modal("show");
+  }
+
   save() {
     if (this.cmbProject == "") {
       this.toastr.errorToastr("Please Select Project", "Error", {
@@ -160,11 +167,11 @@ export class NHAProjectIPCComponent implements OnInit {
       var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
       this.http
-        .post(this.serverUrl + "sudassetcatagory", saveData, {
+        .post(this.serverUrl + "sudipcref", saveData, {
           headers: reqHeader,
         })
         .subscribe((data: any) => {
-          if (data.msg == "Success") {
+          if (data.msg == "SUCCESS") {
             if (this.ipcID == "") {
               this.toastr.successToastr(
                 "Record Saved Successfully!",
@@ -205,6 +212,14 @@ export class NHAProjectIPCComponent implements OnInit {
     this.txtPkgNo = obj.projectPackage;
     this.txtIPCNo = obj.ipcNo;
     this.txtIpcDesc = obj.ipcRefDescription;
+
+    if (obj.edoc != null) {
+      this.imageUrl = "../../../../../assets/IPCRefImg/PDF_file_icon.svg";
+      // this.imageUrl =
+      //   "http://95.217.206.195:2008/assets/assetCatImg/" +
+      //   obj.ipcRefID +
+      //   ".pdf";
+    }
   }
 
   delete(obj) {
@@ -212,17 +227,17 @@ export class NHAProjectIPCComponent implements OnInit {
     var saveData = {
       Userid: this.cookie.get("userID"), //int
       SpType: "DELETE", //string
-      IPCRefID: this.ipcID,
+      IPCRefID: obj.ipcRefID,
     };
 
     var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
     this.http
-      .post(this.serverUrl + "sudassetcatagory", saveData, {
+      .post(this.serverUrl + "sudipcref", saveData, {
         headers: reqHeader,
       })
       .subscribe((data: any) => {
-        if (data.msg == "Success") {
+        if (data.msg == "SUCCESS") {
           this.toastr.successToastr(
             "Record Deleted Successfully!",
             "Success!",
@@ -245,6 +260,14 @@ export class NHAProjectIPCComponent implements OnInit {
   }
 
   clear() {
+    this.ipcID = "";
+    this.cmbProject = "";
+    this.txtPkgNo = "";
+    this.txtIPCNo = "";
+    this.txtIpcDesc = "";
+    this.searchProject = "";
+    this.tblSearch = "";
+
     this.image = undefined;
     this.imgFile = undefined;
     this.selectedFile = null;
