@@ -6,6 +6,7 @@ import {
   HttpErrorResponse,
 } from "@angular/common/http";
 import { CookieService } from "ngx-cookie-service";
+import Swal from "sweetalert2/dist/sweetalert2.js";
 
 declare var $: any;
 
@@ -233,40 +234,55 @@ export class AssetCategoryComponent implements OnInit {
   }
 
   delete(obj) {
-    this.loadingBar = true;
-    var saveData = {
-      Userid: this.cookie.get("userID"), //int
-      SpType: "DELETE", //string
-      AssetCatID: obj.assetCatID,
-    };
+    setTimeout(() => {
+      Swal.fire({
+        title: "Do you want to delete?",
+        text: "",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Yes",
+        cancelButtonText: "No",
+      }).then((result) => {
+        if (result.value) {
+          this.loadingBar = true;
+          var saveData = {
+            Userid: this.cookie.get("userID"), //int
+            SpType: "DELETE", //string
+            AssetCatID: obj.assetCatID,
+          };
 
-    var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
-
-    this.http
-      .post(this.serverUrl + "sudassetcatagory", saveData, {
-        headers: reqHeader,
-      })
-      .subscribe((data: any) => {
-        if (data.msg == "Success") {
-          this.toastr.successToastr(
-            "Record Deleted Successfully!",
-            "Success!",
-            {
-              toastTimeout: 2500,
-            }
-          );
-          this.clear();
-          this.getAssetCategory();
-          this.loadingBar = false;
-          return false;
-        } else {
-          this.toastr.errorToastr(data.msg, "Error !", {
-            toastTimeout: 5000,
+          var reqHeader = new HttpHeaders({
+            "Content-Type": "application/json",
           });
-          this.loadingBar = false;
-          return false;
+
+          this.http
+            .post(this.serverUrl + "sudassetcatagory", saveData, {
+              headers: reqHeader,
+            })
+            .subscribe((data: any) => {
+              if (data.msg == "Success") {
+                this.toastr.successToastr(
+                  "Record Deleted Successfully!",
+                  "Success!",
+                  {
+                    toastTimeout: 2500,
+                  }
+                );
+                this.clear();
+                this.getAssetCategory();
+                this.loadingBar = false;
+                return false;
+              } else {
+                this.toastr.errorToastr(data.msg, "Error !", {
+                  toastTimeout: 5000,
+                });
+                this.loadingBar = false;
+                return false;
+              }
+            });
         }
       });
+    }, 1000);
   }
 
   active(obj) {

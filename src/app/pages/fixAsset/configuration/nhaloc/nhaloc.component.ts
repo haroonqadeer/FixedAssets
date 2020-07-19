@@ -6,6 +6,7 @@ import {
   HttpErrorResponse,
 } from "@angular/common/http";
 import { CookieService } from "ngx-cookie-service";
+import Swal from "sweetalert2/dist/sweetalert2.js";
 
 @Component({
   selector: "app-nhaloc",
@@ -181,12 +182,72 @@ export class NHALocComponent implements OnInit {
   }
 
   delete(obj) {
+    setTimeout(() => {
+      Swal.fire({
+        title: "Do you want to delete?",
+        text: "",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Yes",
+        cancelButtonText: "No",
+      }).then((result) => {
+        if (result.value) {
+          this.loadingBar = true;
+          var saveData = {
+            // Userid: this.cookie.get("userID"), //int
+            SpType: "DELETE", //string
+            SubLocationID: obj.subLocID,
+            userID: this.cookie.get("userID"), //int
+          };
+
+          var reqHeader = new HttpHeaders({
+            "Content-Type": "application/json",
+          });
+
+          this.http
+            .post(this.serverUrl + "sublocation", saveData, {
+              headers: reqHeader,
+            })
+            .subscribe((data: any) => {
+              if (data.msg == "SUCCESS") {
+                this.toastr.successToastr(
+                  "Record Deleted Successfully!",
+                  "Success!",
+                  {
+                    toastTimeout: 2500,
+                  }
+                );
+                this.clear();
+                this.getLocation();
+                this.loadingBar = false;
+                return false;
+              } else {
+                this.toastr.errorToastr(data.msg, "Error !", {
+                  toastTimeout: 5000,
+                });
+                this.loadingBar = false;
+                return false;
+              }
+            });
+        }
+      });
+    }, 1000);
+  }
+
+  active(obj) {
+    var type = "";
+    if (obj.isActivated == false) {
+      type = "DEACTIVATE";
+    } else {
+      type = "ACTIVATE";
+    }
+
     this.loadingBar = true;
+
     var saveData = {
-      // Userid: this.cookie.get("userID"), //int
-      SpType: "DELETE", //string
+      Userid: this.cookie.get("userID"), //int
+      SpType: type, //string
       SubLocationID: obj.subLocID,
-      userID: this.cookie.get("userID"), //int
     };
 
     var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
@@ -196,9 +257,9 @@ export class NHALocComponent implements OnInit {
         headers: reqHeader,
       })
       .subscribe((data: any) => {
-        if (data.msg == "SUCCESS") {
+        if (data.msg == "Success") {
           this.toastr.successToastr(
-            "Record Deleted Successfully!",
+            "Record " + type + " Successfully!",
             "Success!",
             {
               toastTimeout: 2500,

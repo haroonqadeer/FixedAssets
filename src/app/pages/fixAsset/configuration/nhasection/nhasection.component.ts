@@ -6,6 +6,7 @@ import {
   HttpErrorResponse,
 } from "@angular/common/http";
 import { CookieService } from "ngx-cookie-service";
+import Swal from "sweetalert2/dist/sweetalert2.js";
 
 @Component({
   selector: "app-nhasection",
@@ -186,10 +187,70 @@ export class NHASectionComponent implements OnInit {
   }
 
   delete(obj) {
+    setTimeout(() => {
+      Swal.fire({
+        title: "Do you want to delete?",
+        text: "",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Yes",
+        cancelButtonText: "No",
+      }).then((result) => {
+        if (result.value) {
+          this.loadingBar = true;
+          var saveData = {
+            Userid: this.cookie.get("userID"), //int
+            SpType: "DELETE", //string
+            OfficeSecID: obj.officeSecID, //int
+          };
+
+          var reqHeader = new HttpHeaders({
+            "Content-Type": "application/json",
+          });
+
+          this.http
+            .post(this.serverUrl + "ofcsection", saveData, {
+              headers: reqHeader,
+            })
+            .subscribe((data: any) => {
+              if (data.msg == "SUCCESS") {
+                this.toastr.successToastr(
+                  "Record Deleted Successfully!",
+                  "Success!",
+                  {
+                    toastTimeout: 2500,
+                  }
+                );
+                this.clear();
+                this.getSection();
+                this.loadingBar = false;
+                return false;
+              } else {
+                this.toastr.errorToastr(data.msg, "Error !", {
+                  toastTimeout: 5000,
+                });
+                this.loadingBar = false;
+                return false;
+              }
+            });
+        }
+      });
+    }, 1000);
+  }
+
+  active(obj) {
+    var type = "";
+    if (obj.isActivated == false) {
+      type = "DEACTIVATE";
+    } else {
+      type = "ACTIVATE";
+    }
+
     this.loadingBar = true;
+
     var saveData = {
       Userid: this.cookie.get("userID"), //int
-      SpType: "DELETE", //string
+      SpType: type, //string
       OfficeSecID: obj.officeSecID, //int
     };
 
@@ -202,7 +263,7 @@ export class NHASectionComponent implements OnInit {
       .subscribe((data: any) => {
         if (data.msg == "SUCCESS") {
           this.toastr.successToastr(
-            "Record Deleted Successfully!",
+            "Record " + type + " Successfully!",
             "Success!",
             {
               toastTimeout: 2500,

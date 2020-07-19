@@ -916,40 +916,55 @@ export class AssetEntryComponent implements OnInit {
   }
 
   delete(item) {
-    this.loadingBar = true;
-    var saveData = {
-      Userid: this.cookie.get("userID"), //int
-      SpType: "Delete", //string
-      AssetID: item.assetID, //int
-    };
+    setTimeout(() => {
+      Swal.fire({
+        title: "Do you want to delete?",
+        text: "",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Yes",
+        cancelButtonText: "No",
+      }).then((result) => {
+        if (result.value) {
+          this.loadingBar = true;
+          var saveData = {
+            Userid: this.cookie.get("userID"), //int
+            SpType: "Delete", //string
+            AssetID: item.assetID, //int
+          };
 
-    var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
-
-    this.http
-      .post(this.serverUrl + "saveasset", saveData, {
-        headers: reqHeader,
-      })
-      .subscribe((data: any) => {
-        if (data.msg == "Success") {
-          this.toastr.successToastr(
-            "Record Deleted Successfully!",
-            "Success!",
-            {
-              toastTimeout: 2500,
-            }
-          );
-          this.clear();
-          this.getAssetDetail();
-          this.loadingBar = false;
-          return false;
-        } else {
-          this.toastr.errorToastr(data.msg, "Error !", {
-            toastTimeout: 5000,
+          var reqHeader = new HttpHeaders({
+            "Content-Type": "application/json",
           });
-          this.loadingBar = false;
-          return false;
+
+          this.http
+            .post(this.serverUrl + "saveasset", saveData, {
+              headers: reqHeader,
+            })
+            .subscribe((data: any) => {
+              if (data.msg == "Success") {
+                this.toastr.successToastr(
+                  "Record Deleted Successfully!",
+                  "Success!",
+                  {
+                    toastTimeout: 2500,
+                  }
+                );
+                this.clear();
+                this.getAssetDetail();
+                this.loadingBar = false;
+                return false;
+              } else {
+                this.toastr.errorToastr(data.msg, "Error !", {
+                  toastTimeout: 5000,
+                });
+                this.loadingBar = false;
+                return false;
+              }
+            });
         }
       });
+    }, 1000);
   }
 
   clear() {
