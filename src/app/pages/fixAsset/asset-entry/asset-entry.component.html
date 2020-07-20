@@ -279,12 +279,13 @@
                 <mat-option *ngFor="
                     let item of locList
                       | search
-                        : 'subLocationDescription, mainLocationDescription, provinceName'
+                        : 'subLocationDescription, mainLocationDescription, officeTypeDescription, provinceName'
                         : searchLocation
                   " [value]="item.subLocID">
                   <table class="table">
                     <tr class="d-flex">
                       <td class="col-4">{{ item.subLocationDescription }}</td>
+                      <td class="col-4">{{ item.officeTypeDescription }}</td>
                       <td class="col-4">{{ item.mainLocationDescription }}</td>
                       <td class="col-4">{{ item.provinceName }}</td>
                     </tr>
