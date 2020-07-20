@@ -30,6 +30,7 @@ export class NHASectionComponent implements OnInit {
   searchWing = "";
   tblSearch = "";
 
+  tempList = [];
   wngSectionList = [];
   ofcTypeList = [];
   wingList = [];
@@ -86,8 +87,15 @@ export class NHASectionComponent implements OnInit {
       })
       .subscribe((data: any) => {
         this.wngSectionList = data;
+        this.tempList = data;
         this.loadingBar = false;
       });
+  }
+
+  filterTable(ofcType) {
+    this.wngSectionList = this.wngSectionList.filter(
+      (x) => x.officeTypeID == ofcType
+    );
   }
 
   save() {
@@ -295,5 +303,6 @@ export class NHASectionComponent implements OnInit {
     this.searchOfcType = "";
     this.searchWing = "";
     this.tblSearch = "";
+    this.wngSectionList = this.tempList;
   }
 }

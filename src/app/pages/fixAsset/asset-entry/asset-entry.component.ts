@@ -46,9 +46,17 @@ export class AssetEntryComponent implements OnInit {
   // order = "info.name";
   // reverse = false;
   // sortedCollection: any[];
+  imgPath = "C:/inetpub/wwwroot/2008_FAR_Proj/assets/assetEntryImg";
+  imageUrl: string = "../../../../../assets/assetEntryImg/dropHereImg.png";
+  image;
+  imgFile;
+  selectedFile: File = null;
 
   editMode = true;
   hidden = false;
+  disableOfcType = true;
+  disableProject = false;
+  disableCustody = false;
 
   assetID = "";
   assetNo = "";
@@ -71,11 +79,16 @@ export class AssetEntryComponent implements OnInit {
   cmbAssetCond = "";
   txtRemarks = "";
   dtpPurchaseDt;
+  dtpTransferDt;
   cmbSearchOfcType = "";
   cmbSearchLocation = "";
   cmbSearchWngSection = "";
   cmbResetField = "";
+  cmbTransferProject = "";
+  cmbTransToPost = "";
+  cmbTransByPost = "";
 
+  rdbTransType = "";
   txtRegNo = "";
   cmbMake = "";
   cmbModel = "";
@@ -83,10 +96,15 @@ export class AssetEntryComponent implements OnInit {
   txtEngine = "";
   txtChasis = "";
   txtTagNo = "1";
+  txtTransDesc = "";
 
   lblAccCategory = "";
   lblDepRule = "";
   lblBaseRate = "";
+  lblTransferID = "";
+  lblTransToComp = "";
+  lblTransByComp = "";
+  lblTransToPost = "";
 
   sldUsable = false;
   disableUsable = false;
@@ -115,6 +133,9 @@ export class AssetEntryComponent implements OnInit {
   searchSection = "";
   advSearchSection = "";
   advSearchLocation = "";
+  searchTransProject = "";
+  searchPostTo = "";
+  searchPostBy = "";
 
   oldTagList = [];
   tagList = [];
@@ -123,8 +144,11 @@ export class AssetEntryComponent implements OnInit {
   wngSectionList = [];
   vehicleList = [];
   custodyList = [];
+  transferByList = [];
+  transferToList = [];
   AssetCatList = [];
   projectList = [];
+  transferProjectList = [];
   refList = [];
   preTagList = [];
   assetCondList = [];
@@ -272,7 +296,7 @@ export class AssetEntryComponent implements OnInit {
 
   ngOnInit(): void {
     this.rdbAsset = "1";
-
+    this.disableOfcType = true;
     this.getAssetDetail();
     this.getTags();
     this.getLocation();
@@ -364,8 +388,15 @@ export class AssetEntryComponent implements OnInit {
     this.http
       .get(this.serverUrl + "getsubloc", { headers: reqHeader })
       .subscribe((data: any) => {
-        this.locList = data;
+        this.locList = data.filter((x) => x.isActivated == 1);
       });
+  }
+
+  showOfficeType() {
+    var ofcType = this.locList.filter((x) => x.subLocID == this.cmbLocation);
+    this.cmbOfcType = ofcType[0].officeTypeID;
+
+    this.getWingSection(this.cmbOfcType);
   }
 
   getOfficeType() {
@@ -392,7 +423,7 @@ export class AssetEntryComponent implements OnInit {
         headers: reqHeader,
       })
       .subscribe((data: any) => {
-        this.wngSectionList = data;
+        this.wngSectionList = data.filter((x) => x.isActivated == 1);
       });
   }
 
@@ -418,7 +449,9 @@ export class AssetEntryComponent implements OnInit {
     this.http
       .get(this.serverUrl + "getposts", { headers: reqHeader })
       .subscribe((data: any) => {
-        this.custodyList = data;
+        this.custodyList = data.filter((x) => x.isActivated == 1);
+        this.transferByList = data.filter((x) => x.isActivated == 1);
+        this.transferToList = data.filter((x) => x.isActivated == 1);
       });
   }
 
@@ -431,7 +464,7 @@ export class AssetEntryComponent implements OnInit {
     this.http
       .get(this.serverUrl + "getassetcat", { headers: reqHeader })
       .subscribe((data: any) => {
-        this.AssetCatList = data;
+        this.AssetCatList = data.filter((x) => x.isActivated == 1);
       });
   }
 
@@ -445,6 +478,9 @@ export class AssetEntryComponent implements OnInit {
       .get(this.serverUrl + "getprojects", { headers: reqHeader })
       .subscribe((data: any) => {
         this.projectList = data;
+        this.transferProjectList = data;
+        // this.projectList = data.filter((x) => x.isActivated == 1);
+        // this.transferProjectList = data.filter((x) => x.isActivated == 1);
         this.loadingBar = false;
       });
   }
@@ -1005,12 +1041,37 @@ export class AssetEntryComponent implements OnInit {
     }
   }
 
+  setProject() {
+    this.cmbProject = this.cmbTransferProject;
+    this.disableProject = true;
+    this.getIPC();
+  }
+
   setTransfer() {
     if (this.sldTransfered) {
       $("#assetTransferModal").modal("show");
     } else {
+      this.disableProject = false;
+      this.disableCustody = false;
       $("#assetTransferModal").modal("hide");
     }
+  }
+
+  getTransByPost() {
+    var postByCom = this.transferByList.filter(
+      (x) => x.postID == this.cmbTransByPost
+    );
+    this.lblTransByComp = postByCom[0].companyName;
+  }
+
+  getTransToPost() {
+    var postToCom = this.transferToList.filter(
+      (x) => x.postID == this.cmbTransToPost
+    );
+    this.lblTransToComp = postToCom[0].companyName;
+    this.lblTransToPost = postToCom[0].postName;
+    this.cmbCustody = this.cmbTransToPost;
+    this.disableCustody = true;
   }
 
   openTransferModal() {
@@ -1133,5 +1194,177 @@ export class AssetEntryComponent implements OnInit {
       window.frames["frame1"].print();
       frame1.remove();
     }, 500);
+  }
+
+  saveTransfer() {
+    if (this.rdbTransType == "") {
+      this.toastr.errorToastr("Please Select Transfer Type", "Error", {
+        toastTimeout: 2500,
+      });
+      return false;
+    } else if (this.cmbTransByPost == "") {
+      this.toastr.errorToastr(
+        "Please Select Transferred By Post Title",
+        "Error",
+        {
+          toastTimeout: 2500,
+        }
+      );
+      return false;
+    } else if (this.cmbTransToPost == "") {
+      this.toastr.errorToastr(
+        "Please Select Transferred To Post Title",
+        "Error",
+        {
+          toastTimeout: 2500,
+        }
+      );
+      return false;
+    } else if (this.dtpTransferDt == "") {
+      this.toastr.errorToastr("Please Select Transfer Date", "Error", {
+        toastTimeout: 2500,
+      });
+      return false;
+    } else if (this.txtTransDesc == "") {
+      this.toastr.errorToastr("Please Enter Transfer Description", "Error", {
+        toastTimeout: 2500,
+      });
+      return false;
+    } else if (this.image == null) {
+      this.toastr.errorToastr("Please Select Image", "Error", {
+        toastTimeout: 2500,
+      });
+      return false;
+    } else {
+      this.loadingBar = true;
+
+      var transferDate = this.convertDate(this.dtpTransferDt);
+      var saveData;
+
+      if (this.lblTransferID == "") {
+        saveData = {
+          TPostID: parseInt(this.cmbTransToPost), //int
+          RPostID: parseInt(this.cmbTransByPost), //int
+          DateofTransfer: transferDate, //int
+          TransferType: this.rdbTransType, //int
+          TransferDescription: this.txtTransDesc, //int
+          EDoc: this.imgPath,
+          EDocExtension: "jpg",
+          Userid: this.cookie.get("userID"), //int
+          TransferID: 0, //int
+          ProjectID: parseInt(this.cmbTransferProject), //int
+          SpType: "INSERT", //string
+          imgFile: this.image,
+        };
+      } else {
+        saveData = {
+          TPostID: parseInt(this.cmbTransToPost), //int
+          RPostID: parseInt(this.cmbTransByPost), //int
+          DateofTransfer: transferDate, //int
+          TransferType: this.rdbTransType, //int
+          TransferDescription: this.txtTransDesc, //int
+          EDoc: this.imgPath,
+          EDocExtension: "jpg",
+          Userid: this.cookie.get("userID"), //int
+          TransferID: this.lblTransferID, //int
+          ProjectID: parseInt(this.cmbTransferProject), //int
+          SpType: "UPDATE", //string
+          imgFile: this.image,
+        };
+      }
+
+      var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
+
+      this.http
+        .post(this.serverUrl + "sudassettransfer", saveData, {
+          headers: reqHeader,
+        })
+        .subscribe((data: any) => {
+          if (data.msg == "SUCCESS") {
+            if (this.lblTransferID == "") {
+              this.toastr.successToastr(
+                "Record Saved Successfully!",
+                "Success!",
+                {
+                  toastTimeout: 2500,
+                }
+              );
+            } else {
+              this.toastr.successToastr(
+                "Record Updated Successfully!",
+                "Success!",
+                {
+                  toastTimeout: 2500,
+                }
+              );
+            }
+            // this.lblTransferID=data.ID;
+            this.loadingBar = false;
+            return false;
+          } else {
+            this.toastr.errorToastr(data.msg, "Error !", {
+              toastTimeout: 5000,
+            });
+            this.loadingBar = false;
+            return false;
+          }
+        });
+    }
+  }
+
+  onFileSelected(event) {
+    if (
+      event.target.files[0].type == "image/png" ||
+      event.target.files[0].type == "image/jpeg"
+    ) {
+      this.selectedFile = <File>event.target.files[0];
+      let reader = new FileReader();
+
+      reader.onloadend = (e: any) => {
+        this.image = reader.result;
+
+        var splitImg = this.image.split(",")[1];
+        this.image = splitImg;
+        this.imageUrl = e.target.result;
+      };
+
+      reader.readAsDataURL(this.selectedFile);
+    } else {
+      this.toastr.errorToastr("Please Select JPEG / PNG Image", "Error", {
+        toastTimeout: 2500,
+      });
+
+      this.image = undefined;
+      this.imgFile = undefined;
+      this.selectedFile = null;
+      this.imageUrl = "../../../../../assets/assetCatImg/dropHereImg.png";
+    }
+  }
+
+  zoomImage() {
+    // Get the modal
+    var modal = document.getElementById("myModal");
+
+    // Get the image and insert it inside the modal - use its "alt" text as a caption
+    var img = document.getElementById("myImg");
+    var modalImg = document.getElementById("img01");
+    var captionText = document.getElementById("caption");
+
+    if (
+      this.imageUrl == "../../../../../assets/assetEntryImg/dropHereImg.png"
+    ) {
+      this.toastr.errorToastr("Please Select Image", "Error", {
+        toastTimeout: 2500,
+      });
+    } else {
+      modal.style.display = "block";
+      (<HTMLImageElement>document.querySelector("#img01")).src = this.imageUrl;
+    }
+  }
+
+  closeModal() {
+    var modal = document.getElementById("myModal");
+
+    modal.style.display = "none";
   }
 }

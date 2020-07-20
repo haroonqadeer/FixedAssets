@@ -264,13 +264,7 @@
           <div class="col-md-12">
             <mat-form-field class="w-100">
               <mat-label>Province - Location - Sub Location</mat-label>
-              <mat-select [(ngModel)]="cmbLocation" (ngModelChange)="getAssetNo()">
-                <!-- <input
-                  type="text"
-                  class="form-control"
-                  placeholder="Search..."
-                  [(ngModel)]="searchLocation"
-                /> -->
+              <mat-select [(ngModel)]="cmbLocation" (ngModelChange)="getAssetNo();showOfficeType();">
                 <mat-option>
                   <ngx-mat-select-search [(ngModel)]="searchLocation" [placeholderLabel]="'Search...'"
                     [noEntriesFoundLabel]="'Not found'" name="search"></ngx-mat-select-search>
@@ -284,10 +278,10 @@
                   " [value]="item.subLocID">
                   <table class="table">
                     <tr class="d-flex">
-                      <td class="col-4">{{ item.subLocationDescription }}</td>
-                      <td class="col-4">{{ item.officeTypeDescription }}</td>
-                      <td class="col-4">{{ item.mainLocationDescription }}</td>
-                      <td class="col-4">{{ item.provinceName }}</td>
+                      <td class="col-3">{{ item.subLocationDescription }}</td>
+                      <td class="col-3">{{ item.officeTypeDescription }}</td>
+                      <td class="col-3">{{ item.mainLocationDescription }}</td>
+                      <td class="col-3">{{ item.provinceName }}</td>
                     </tr>
                   </table>
                 </mat-option>
@@ -300,7 +294,8 @@
           <div class="col-md-6">
             <mat-form-field class="w-100">
               <mat-label>Office Type</mat-label>
-              <mat-select [(ngModel)]="cmbOfcType" (ngModelChange)="getAssetNo(); getWingSection(cmbOfcType)">
+              <mat-select [(ngModel)]="cmbOfcType" (ngModelChange)="getAssetNo(); getWingSection(cmbOfcType)"
+                [disabled]="disableOfcType">
                 <mat-option *ngFor="let item of ofcTypeList" [value]="item.officeTypeID">
                   {{ item.officeTypeDescription }}
                 </mat-option>
@@ -420,7 +415,7 @@
           <div class="col-md-6">
             <mat-form-field color="warn" class="w-100">
               <mat-label>Custody</mat-label>
-              <mat-select [(ngModel)]="cmbCustody">
+              <mat-select [(ngModel)]="cmbCustody" [disabled]="disableCustody">
                 <!-- <input
                   type="text"
                   class="form-control"
@@ -446,17 +441,10 @@
               <mat-select [(ngModel)]="cmbAssetCat" (ngModelChange)="
                   getAssetNo(); getAssetCatDescription(cmbAssetCat)
                 ">
-                <!-- <input
-                  type="text"
-                  class="form-control"
-                  placeholder="Search..."
-                  [(ngModel)]="searchCategory"
-                /> -->
                 <mat-option>
                   <ngx-mat-select-search [(ngModel)]="searchCategory" [placeholderLabel]="'Search...'"
                     [noEntriesFoundLabel]="'Not found'" name="search"></ngx-mat-select-search>
                 </mat-option>
-
                 <mat-option *ngFor="
                     let item of AssetCatList
                       | search: 'assetCatDescription':searchCategory
@@ -505,7 +493,7 @@
           <div class="col-md-12">
             <mat-form-field color="warn" class="w-100">
               <mat-label>Select Project</mat-label>
-              <mat-select [(ngModel)]="cmbProject" (ngModelChange)="getIPC()">
+              <mat-select [(ngModel)]="cmbProject" (ngModelChange)="getIPC()" [disabled]="disableProject">
                 <!-- <input
                   type="text"
                   class="form-control"
@@ -623,13 +611,13 @@
             Post Title :
           </div>
           <div class="col-md-3 border-bottom text-danger" *ngIf="sldTransfered">
-            <b>Deputy Director (AP)</b>
+            <b>{{lblTransToPost}}</b>
           </div>
           <div class="col-md-2" *ngIf="sldTransfered">
             Company Name :
           </div>
           <div class="col-md-3 border-bottom text-danger" *ngIf="sldTransfered">
-            <b>National Highway Authority</b>
+            <b>{{lblTransToComp}}</b>
             <span class="fa fa-edit cursorPointer text-primary pull-right" (click)="openTransferModal()"></span>
           </div>
         </div>
@@ -1201,10 +1189,9 @@
       <div class="modal-body">
         <div class="row">
           <div class="col-md-12">
-            <mat-radio-group aria-label="Transfer Type">
-              <mat-radio-button value="1">Internal Transfer</mat-radio-button>&nbsp;&nbsp;
-
-              <mat-radio-button value="2">External Transfer</mat-radio-button>
+            <mat-radio-group aria-label="Transfer Type" [(ngModel)]="rdbTransType">
+              <mat-radio-button value="Internal">Internal Transfer</mat-radio-button>&nbsp;&nbsp;
+              <mat-radio-button value="External">External Transfer</mat-radio-button>
             </mat-radio-group>
           </div>
         </div>
@@ -1213,8 +1200,17 @@
           <div class="col-md-12">
             <mat-form-field class="w-100">
               <mat-label>Project Title</mat-label>
-              <mat-select>
-                <mat-option value="option">Option</mat-option>
+              <mat-select [(ngModel)]="cmbTransferProject" (ngModelChange)="setProject();">
+                <mat-option>
+                  <ngx-mat-select-search [(ngModel)]="searchTransProject" [placeholderLabel]="'Search...'"
+                    [noEntriesFoundLabel]="'Not found'" name="search"></ngx-mat-select-search>
+                </mat-option>
+                <mat-option *ngFor="
+                    let item of transferProjectList
+                      | search: 'projectName':searchTransProject
+                  " [value]="item.projectID">
+                  {{ item.projectName }}
+                </mat-option>
               </mat-select>
             </mat-form-field>
           </div>
@@ -1224,13 +1220,22 @@
           <div class="col-md-6">
             <mat-form-field class="w-100">
               <mat-label>Tranfered By: Post Title</mat-label>
-              <mat-select>
-                <mat-option value="option">Option</mat-option>
+              <mat-select [(ngModel)]="cmbTransByPost" (ngModelChange)="getTransByPost();">
+                <mat-option>
+                  <ngx-mat-select-search [(ngModel)]="searchPostBy" [placeholderLabel]="'Search...'"
+                    [noEntriesFoundLabel]="'Not found'" name="search"></ngx-mat-select-search>
+                </mat-option>
+
+                <mat-option *ngFor="
+                    let item of transferByList | search: 'postName':searchPostBy
+                  " [value]="item.postID">
+                  {{ item.postName }}
+                </mat-option>
               </mat-select>
             </mat-form-field>
           </div>
           <div class="col-md-6">
-            Company Name: <b>National Highway AUthority</b>
+            Company Name: <b>{{lblTransByComp}}</b>
           </div>
         </div>
         <!-- next row -->
@@ -1238,13 +1243,22 @@
           <div class="col-md-6">
             <mat-form-field class="w-100">
               <mat-label>Tranfered To: Post Title</mat-label>
-              <mat-select>
-                <mat-option value="option">Option</mat-option>
+              <mat-select [(ngModel)]="cmbTransToPost" (ngModelChange)="getTransToPost();">
+                <mat-option>
+                  <ngx-mat-select-search [(ngModel)]="searchPostTo" [placeholderLabel]="'Search...'"
+                    [noEntriesFoundLabel]="'Not found'" name="search"></ngx-mat-select-search>
+                </mat-option>
+
+                <mat-option *ngFor="
+                    let item of transferToList | search: 'postName':searchPostTo
+                  " [value]="item.postID">
+                  {{ item.postName }}
+                </mat-option>
               </mat-select>
             </mat-form-field>
           </div>
           <div class="col-md-6">
-            Company Name : <b>National Highway Authority</b>
+            Company Name : <b>{{lblTransToComp}}</b>
           </div>
         </div>
         <!-- next row -->
@@ -1252,7 +1266,7 @@
           <div class="col-md-12">
             <mat-form-field class="w-100">
               <mat-label>Transfer Date</mat-label>
-              <input matInput [matDatepicker]="picker" />
+              <input matInput [matDatepicker]="picker" [(ngModel)]="dtpTransferDt" />
               <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
               <mat-datepicker #picker></mat-datepicker>
             </mat-form-field>
@@ -1263,14 +1277,14 @@
           <div class="col-md-12">
             <mat-form-field class="w-100">
               <mat-label>Description/ Remarks</mat-label>
-              <textarea matInput></textarea>
+              <textarea matInput [(ngModel)]="txtTransDesc"></textarea>
             </mat-form-field>
           </div>
         </div>
         <div class="row">
           <div class="col-md-12 pt-2">
             <div class="custom-file">
-              <input type="file" class="custom-file-input" />
+              <input type="file" class="custom-file-input" [(ngModel)]="imgFile" (change)="onFileSelected($event)" />
               <label class="custom-file-label" for="customFile">Choose Handing Taking File</label>
             </div>
           </div>
@@ -1278,14 +1292,14 @@
         <div class="row">
           <div class="col-md-12 pt-2 text-center">
             <div class="text-center">
-              <img [src]="" class="rounded" width="115" height="115" id="myImg" />
+              <img [src]="imageUrl" class="rounded" width="115" height="115" id="myImg" (click)="zoomImage()" />
             </div>
           </div>
         </div>
         <!-- next row -->
         <div class="row">
           <div class="col-md-12">
-            <button mat-raised-button color="warn">
+            <button mat-raised-button color="warn" (click)="saveTransfer()">
               Save Transfers Detail
             </button>
           </div>
@@ -1300,3 +1314,16 @@
     </div>
   </div>
 </div>
+
+<!-- Start modal window for bigger image -->
+<div id="myModal" class="modal">
+
+  <!-- The Close Button -->
+  <span class="close" (click)="closeModal()">&times;</span>
+
+  <!-- Modal Content (The Image) -->
+  <img class="modal-content" id="img01">
+
+  <!-- Modal Caption (Image Text) -->
+</div>
+<!-- End modal window for bigger image -->
