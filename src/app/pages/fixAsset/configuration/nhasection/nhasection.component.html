@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-md-12 text-center">
-    <h4>NHA Sections</h4>
+    <h1>NHA Sections</h1>
   </div>
 </div>
 <div class="loader" *ngIf="loadingBar">Loading...</div>
@@ -9,13 +9,13 @@
 <div class="container-fluid boxShadow-1 bg-white" *ngIf="!loadingBar">
   <div class="row">
     <!-- entry form -->
-    <div class="col-md-4 pl-4 pr-4 border-right">
-      <div class="row">
+    <div class="col-md-4 pl-3 pr-0 border-right">
+      <div class="row  bgGrey">
         <div class="col-md-12 pt-4">
-          <h6 class='border-bottom pb-2'>{{heading}} Section</h6>
+          <h3 class='text-white pb-2'>{{heading}} Section</h3>
         </div>
       </div>
-      <div class="row">
+      <div class="row pr-4 pl-1">
         <div class="col-md-12 pt-2">
           <mat-form-field class='w-100'>
             <mat-label>Office Type</mat-label>
@@ -31,7 +31,7 @@
           </mat-form-field>
         </div>
       </div>
-      <div class="row">
+      <div class="row pr-4 pl-1">
         <div class="col-md-12 pt-2">
           <mat-form-field class='w-100'>
             <mat-label>Wing</mat-label>
@@ -47,7 +47,7 @@
           </mat-form-field>
         </div>
       </div>
-      <div class="row">
+      <div class="row pr-4 pl-1">
         <div class="col-md-12 pt-2">
           <mat-form-field class="w-100">
             <mat-label>Section Short Name</mat-label>
@@ -55,7 +55,7 @@
           </mat-form-field>
         </div>
       </div>
-      <div class="row">
+      <div class="row pr-4 pl-1">
         <div class="col-md-12 pt-2">
           <mat-form-field class="w-100">
             <mat-label>Section Full Name</mat-label>
@@ -63,11 +63,17 @@
           </mat-form-field>
         </div>
       </div>
-      <div class="row mb-2">
-        <div class="col-md-3 pt-0">
-          <button mat-button mat-raised-button color="primary" class='noneOutline w-100' (click)="save()">Save</button>
+      <div class="row mb-2 pr-4 pl-1">
+        <div class="col-md-4 pt-0">
+          <!-- <button mat-button mat-raised-button color="primary" class='noneOutline w-100' (click)="save()">Save</button> -->
+          <div class="flip" (click)="save()">
+            <a href="">
+              <div class="front">Save</div>
+              <div class="back">Save</div>
+            </a>
+          </div>
         </div>
-        <div class="col-md-3 pt-0">
+        <div class="col-md-4 pt-0">
           <button mat-button mat-raised-button color="warn" class='noneOutline w-100' (click)="clear()">Reset</button>
         </div>
       </div>
