@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-md-12 text-center">
-    <h4>NHA Locations</h4>
+    <h1>NHA Locations</h1>
   </div>
 </div>
 <div class="loader" *ngIf="loadingBar">Loading...</div>
@@ -9,13 +9,13 @@
 <div class="container-fluid bg-white" *ngIf="!loadingBar">
   <div class="row">
     <!-- entry form -->
-    <div class="col-md-4 pl-4 pr-4 border-right">
-      <div class="row">
+    <div class="col-md-4 pl-3 pr-0 border-right">
+      <div class="row bgGrey">
         <div class="col-md-12 pt-4">
-          <h6 class='border-bottom pb-2'>{{heading}} Locaton</h6>
+          <h3 class='pb-2 text-white'>{{heading}} Location</h3>
         </div>
       </div>
-      <div class="row">
+      <div class="row pr-4 pl-1">
         <div class="col-md-12 pt-2">
           <mat-form-field class='w-100'>
             <mat-label>Region</mat-label>
@@ -32,7 +32,7 @@
           </mat-form-field>
         </div>
       </div>
-      <div class="row">
+      <div class="row pr-4 pl-1">
         <div class="col-md-12 pt-2">
           <mat-form-field class='w-100'>
             <mat-label>Office Type</mat-label>
@@ -48,7 +48,7 @@
           </mat-form-field>
         </div>
       </div>
-      <div class="row">
+      <div class="row pr-4 pl-1">
         <div class="col-md-12 pt-2">
           <mat-form-field class="w-100">
             <mat-label>Location Short Name</mat-label>
@@ -56,7 +56,7 @@
           </mat-form-field>
         </div>
       </div>
-      <div class="row">
+      <div class="row pr-4 pl-1">
         <div class="col-md-12 pt-2">
           <mat-form-field class="w-100">
             <mat-label>Location Full Name</mat-label>
@@ -64,7 +64,7 @@
           </mat-form-field>
         </div>
       </div>
-      <div class="row">
+      <div class="row pr-4 pl-1">
         <div class="col-md-3 pt-2">
           <button mat-button mat-raised-button color="primary" class='noneOutline w-100' (click)="save()">Save</button>
         </div>
