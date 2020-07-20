@@ -537,8 +537,7 @@
                     [noEntriesFoundLabel]="'Not found'" name="search"></ngx-mat-select-search>
                 </mat-option>
                 <mat-option *ngFor="
-                    let item of refList
-                      | search: 'ipcRefDescription':searchRef
+                    let item of refList | search: 'ipcRefDescription':searchRef
                   " [value]="item.ipcRefID">
                   {{ item.ipcRefDescription }}
                 </mat-option>
@@ -613,7 +612,7 @@
             <mat-slide-toggle [(ngModel)]="sldMissing" (change)="setMissingYes()">Missing</mat-slide-toggle>
           </div>
         </div>
-        <br>
+        <br />
         <!-- next row -->
         <div class="row">
           <div class="col-md-2">
@@ -630,7 +629,7 @@
           </div>
           <div class="col-md-3 border-bottom text-danger" *ngIf="sldTransfered">
             <b>National Highway Authority</b>
-            <span class='fa fa-edit cursorPointer text-primary pull-right' (click)='openTransferModal()'></span>
+            <span class="fa fa-edit cursorPointer text-primary pull-right" (click)="openTransferModal()"></span>
           </div>
         </div>
         <!-- next row -->
@@ -728,8 +727,33 @@
   <div id="tagDiv" hidden>
     <div class="d-flex flex-wrap">
       <div *ngFor="let item of tagList">
-        <div class="p-5 border border-danger text-center" style="min-width: 345px !important;">
-          {{ item.tag }} - {{ item.finding }}
+        <div class="p-5 text-center" style="min-width: 520px !important;">
+          <div class="row">
+            <div class="col-md-2">
+              <qr-code [value]="'129'" [size]="75"></qr-code>
+              <!-- {{item.tempid}} -->
+            </div>
+            <div class="col-md-10">
+              <div class="row">
+                <div class="col-md-12">
+                  National Highway Authority
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12 font-weight-bold pt-2 pb-2">
+                  {{ item.tag }}
+                  <!-- {{ item.tag }} - {{ item.finding }} -->
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  Room No. 12 - AD Accounts
+                  <!-- {{ item.assetLocation }} -->
+                  <!-- {{ item.custody }} -->
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -1162,13 +1186,14 @@
 <!-- transfers Modal Windw -->
 <!-- The Modal -->
 <div class="modal fade" id="assetTransferModal">
-  <div class=" modal-dialog modal-lg">
+  <div class="modal-dialog modal-lg">
     <div class="modal-content">
-
       <!-- Modal Header -->
       <div class="modal-header">
         <h4 class="modal-title">Asset Transfer</h4>
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <button type="button" class="close" data-dismiss="modal">
+          &times;
+        </button>
       </div>
 
       <!-- Modal body -->
@@ -1185,7 +1210,7 @@
         <!-- next row -->
         <div class="row">
           <div class="col-md-12">
-            <mat-form-field class='w-100'>
+            <mat-form-field class="w-100">
               <mat-label>Project Title</mat-label>
               <mat-select>
                 <mat-option value="option">Option</mat-option>
@@ -1196,7 +1221,7 @@
         <!-- next row -->
         <div class="row">
           <div class="col-md-6">
-            <mat-form-field class='w-100'>
+            <mat-form-field class="w-100">
               <mat-label>Tranfered By: Post Title</mat-label>
               <mat-select>
                 <mat-option value="option">Option</mat-option>
@@ -1210,7 +1235,7 @@
         <!-- next row -->
         <div class="row">
           <div class="col-md-6">
-            <mat-form-field class='w-100'>
+            <mat-form-field class="w-100">
               <mat-label>Tranfered To: Post Title</mat-label>
               <mat-select>
                 <mat-option value="option">Option</mat-option>
@@ -1224,9 +1249,9 @@
         <!-- next row -->
         <div class="row">
           <div class="col-md-12">
-            <mat-form-field class='w-100'>
+            <mat-form-field class="w-100">
               <mat-label>Transfer Date</mat-label>
-              <input matInput [matDatepicker]="picker">
+              <input matInput [matDatepicker]="picker" />
               <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
               <mat-datepicker #picker></mat-datepicker>
             </mat-form-field>
@@ -1235,7 +1260,7 @@
         <!-- next row -->
         <div class="row">
           <div class="col-md-12">
-            <mat-form-field class='w-100'>
+            <mat-form-field class="w-100">
               <mat-label>Description/ Remarks</mat-label>
               <textarea matInput></textarea>
             </mat-form-field>
@@ -1244,7 +1269,7 @@
         <div class="row">
           <div class="col-md-12 pt-2">
             <div class="custom-file">
-              <input type="file" class="custom-file-input">
+              <input type="file" class="custom-file-input" />
               <label class="custom-file-label" for="customFile">Choose Handing Taking File</label>
             </div>
           </div>
@@ -1252,21 +1277,25 @@
         <div class="row">
           <div class="col-md-12 pt-2 text-center">
             <div class="text-center">
-              <img [src]="" class="rounded" width="115" height="115" id="myImg">
+              <img [src]="" class="rounded" width="115" height="115" id="myImg" />
             </div>
           </div>
         </div>
         <!-- next row -->
         <div class="row">
           <div class="col-md-12">
-            <button mat-raised-button color="warn">Save Transfers Detail</button>
+            <button mat-raised-button color="warn">
+              Save Transfers Detail
+            </button>
           </div>
         </div>
         <!-- Modal footer -->
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">
+            Close
+          </button>
         </div>
-
       </div>
     </div>
   </div>
+</div>

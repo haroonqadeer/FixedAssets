@@ -144,36 +144,36 @@ export class AssetEntryComponent implements OnInit {
   ) {}
 
   printDiv() {
-    setTimeout(() => {
-      Swal.fire({
-        title: "Do you want to reset tag list?",
-        text: "",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonText: "Yes",
-        cancelButtonText: "No",
-      }).then((result) => {
-        if (result.value) {
-          var saveData = {
-            userId: this.cookie.get("userID"),
-          };
+    // setTimeout(() => {
+    //   Swal.fire({
+    //     title: "Do you want to reset tag list?",
+    //     text: "",
+    //     icon: "warning",
+    //     showCancelButton: true,
+    //     confirmButtonText: "Yes",
+    //     cancelButtonText: "No",
+    //   }).then((result) => {
+    //     if (result.value) {
+    //       var saveData = {
+    //         userId: this.cookie.get("userID"),
+    //       };
 
-          var reqHeader = new HttpHeaders({
-            "Content-Type": "application/json",
-          });
+    //       var reqHeader = new HttpHeaders({
+    //         "Content-Type": "application/json",
+    //       });
 
-          this.http
-            .post(this.serverUrl + "resettaglist", saveData, {
-              headers: reqHeader,
-            })
-            .subscribe((data: any) => {
-              this.getTags();
-            });
-        } else if (result.dismiss === Swal.DismissReason.cancel) {
-          Swal.fire("Cancelled", "", "error");
-        }
-      });
-    }, 1000);
+    //       this.http
+    //         .post(this.serverUrl + "resettaglist", saveData, {
+    //           headers: reqHeader,
+    //         })
+    //         .subscribe((data: any) => {
+    //           this.getTags();
+    //         });
+    //     } else if (result.dismiss === Swal.DismissReason.cancel) {
+    //       Swal.fire("Cancelled", "", "error");
+    //     }
+    //   });
+    // }, 1000);
 
     var printCss = this.printCSS();
 
@@ -228,6 +228,8 @@ export class AssetEntryComponent implements OnInit {
       this.tagList.push({
         tempid: obj.tempid,
         tag: obj.tag,
+        assetLocation: obj.assetLocation,
+        custody: obj.custody,
       });
     } else {
       if (event == "A") {
@@ -236,6 +238,8 @@ export class AssetEntryComponent implements OnInit {
           this.tagList.push({
             tempid: obj.tempid,
             tag: obj.tag,
+            assetLocation: obj.assetLocation,
+            custody: obj.custody,
           });
         }
       } else {
@@ -318,6 +322,7 @@ export class AssetEntryComponent implements OnInit {
   }
 
   getTags() {
+    debugger;
     var reqHeader = new HttpHeaders({
       "Content-Type": "application/json",
       // Authorization: "Bearer " + Token,
