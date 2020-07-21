@@ -257,7 +257,7 @@ export class NHALocComponent implements OnInit {
         headers: reqHeader,
       })
       .subscribe((data: any) => {
-        if (data.msg == "Success") {
+        if (data.msg == "SUCCESS") {
           this.toastr.successToastr(
             "Record " + type + " Successfully!",
             "Success!",

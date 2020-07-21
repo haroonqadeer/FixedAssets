@@ -490,6 +490,7 @@
               <th>Province</th>
               <th>Location</th>
               <th>Sub-Location</th>
+              <th>Office Type</th>
               <th>No. of Tags</th>
             </tr>
           </thead>
@@ -497,7 +498,7 @@
             <tr *ngFor="
                 let item of tempTagList
                   | search
-                    : 'provinceName,mainLocationDescription,subLocationDescription,tagsCreated'
+                    : 'provinceName,mainLocationDescription,subLocationDescription,officeTypeDescription,tagsCreated'
                     : searchTag;
                 let i = index
               ">
@@ -505,6 +506,7 @@
               <td>{{ item.provinceName }}</td>
               <td>{{ item.mainLocationDescription }}</td>
               <td>{{ item.subLocationDescription }}</td>
+              <td>{{ item.officeTypeDescription }}</td>
               <td>{{ item.tagsCreated }}</td>
             </tr>
           </tbody>
@@ -616,6 +618,7 @@
             <tr>
               <th>#</th>
               <th>Location</th>
+              <th>Office Type</th>
               <th>Tags</th>
             </tr>
           </thead>
@@ -623,12 +626,13 @@
             <tr *ngFor="
             let item of tagUserDateList
               | search
-                : 'subLocationDescription'
+                : 'subLocationDescription,officeTypeDescription'
                 : searchTag;
             let i = index
           ">
               <td>{{ i + 1 }}</td>
               <td>{{ item.subLocationDescription }}</td>
+              <td>{{ item.officeTypeDescription }}</td>
               <td>{{ item.tagsCreated }}</td>
             </tr>
           </tbody>

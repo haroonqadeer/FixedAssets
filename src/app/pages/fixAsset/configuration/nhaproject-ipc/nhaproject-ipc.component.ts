@@ -28,19 +28,26 @@ export class NHAProjectIPCComponent implements OnInit {
   heading = "Add";
 
   loadingBar = true;
+  modalLoadingBar = false;
 
   ipcID = "";
+  ipcDetailID = "";
   cmbProject = "";
   cmbAssetCat = "";
   txtPkgNo = "";
   txtIPCNo = "";
   txtIpcDesc = "";
+  txtQty = "";
+  txtDesc = "";
+  lblAccCategory = "";
   searchProject = "";
   searchCategory = "";
   tblSearch = "";
+  tblSearchDetail = "";
 
   projectList = [];
   ipcList = [];
+  ipcDetailList = [];
   AssetCatList = [];
 
   constructor(
@@ -52,6 +59,7 @@ export class NHAProjectIPCComponent implements OnInit {
   ngOnInit(): void {
     this.getIPC();
     this.getProjects();
+    this.getAssetCategory();
   }
 
   getIPC() {
@@ -68,6 +76,19 @@ export class NHAProjectIPCComponent implements OnInit {
       });
   }
 
+  getAssetCategory() {
+    var reqHeader = new HttpHeaders({
+      "Content-Type": "application/json",
+      // Authorization: "Bearer " + Token,
+    });
+
+    this.http
+      .get(this.serverUrl + "getassetcat", { headers: reqHeader })
+      .subscribe((data: any) => {
+        this.AssetCatList = data;
+      });
+  }
+
   getProjects() {
     var reqHeader = new HttpHeaders({
       "Content-Type": "application/json",
@@ -80,6 +101,18 @@ export class NHAProjectIPCComponent implements OnInit {
         this.projectList = data;
         this.loadingBar = false;
       });
+  }
+
+  getAssetCatDescription(assetCatID) {
+    if (this.cmbAssetCat != "" || this.cmbAssetCat != undefined) {
+      var assetCat = this.AssetCatList.filter(
+        (x) => x.assetCatID == assetCatID
+      );
+      // this.txtAssetDesc = assetCat[0].assetCatDescription;
+      this.lblAccCategory = assetCat[0].accountsCatagory;
+      // this.lblDepRule = assetCat[0].depreciationRule;
+      // this.lblBaseRate = assetCat[0].baseRate;
+    }
   }
 
   onFileSelected(event) {
@@ -110,7 +143,24 @@ export class NHAProjectIPCComponent implements OnInit {
   }
 
   getIPCDetail(obj) {
-    $("#ipcDetailModal").modal("show");
+    this.ipcID = obj;
+
+    this.loadingBar = true;
+
+    var reqHeader = new HttpHeaders({
+      "Content-Type": "application/json",
+      // Authorization: "Bearer " + Token,
+    });
+
+    this.http
+      .get(this.serverUrl + "getipcdetail?IPCRefID=" + this.ipcID, {
+        headers: reqHeader,
+      })
+      .subscribe((data: any) => {
+        this.ipcDetailList = data;
+        this.loadingBar = false;
+        $("#ipcDetailModal").modal("show");
+      });
   }
 
   save() {
@@ -275,51 +325,6 @@ export class NHAProjectIPCComponent implements OnInit {
     }, 1000);
   }
 
-  active(obj) {
-    var type = "";
-    if (obj.isActivated == false) {
-      type = "DEACTIVATE";
-    } else {
-      type = "ACTIVATE";
-    }
-
-    this.loadingBar = true;
-
-    var saveData = {
-      Userid: this.cookie.get("userID"), //int
-      SpType: type, //string
-      IPCRefID: obj.ipcRefID,
-    };
-
-    var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
-
-    this.http
-      .post(this.serverUrl + "sudipcref", saveData, {
-        headers: reqHeader,
-      })
-      .subscribe((data: any) => {
-        if (data.msg == "SUCCESS") {
-          this.toastr.successToastr(
-            "Record " + type + " Successfully!",
-            "Success!",
-            {
-              toastTimeout: 2500,
-            }
-          );
-          this.clear();
-          this.getIPC();
-          this.loadingBar = false;
-          return false;
-        } else {
-          this.toastr.errorToastr(data.msg, "Error !", {
-            toastTimeout: 5000,
-          });
-          this.loadingBar = false;
-          return false;
-        }
-      });
-  }
-
   clear() {
     this.ipcID = "";
     this.cmbProject = "";
@@ -333,5 +338,161 @@ export class NHAProjectIPCComponent implements OnInit {
     this.imgFile = undefined;
     this.selectedFile = null;
     this.imageUrl = "../../../../../assets/assetCatImg/dropHereImg.png";
+  }
+
+  saveDetail() {
+    if (this.cmbAssetCat == "") {
+      this.toastr.errorToastr("Please Select Asset Cateogry", "Error", {
+        toastTimeout: 2500,
+      });
+      return false;
+    } else if (this.txtQty == "") {
+      this.toastr.errorToastr("Please Enter Quantity", "Error", {
+        toastTimeout: 2500,
+      });
+      return false;
+    } else if (this.txtDesc == "") {
+      this.toastr.errorToastr("Please Enter Description", "Error", {
+        toastTimeout: 2500,
+      });
+      return false;
+    } else {
+      this.modalLoadingBar = true;
+      var saveData;
+      if (this.ipcDetailID == "") {
+        saveData = {
+          IPCRefID: this.ipcID,
+          AssetCatID: parseInt(this.cmbAssetCat),
+          Qty: this.txtQty,
+          Description: this.txtDesc,
+          IPCRefDescription: this.txtIpcDesc,
+          IPCRefDetailID: 0,
+          userId: this.cookie.get("userID"),
+          spType: "INSERT",
+        };
+      } else {
+        saveData = {
+          IPCRefID: this.ipcID,
+          AssetCatID: parseInt(this.cmbAssetCat),
+          Qty: this.txtQty,
+          Description: this.txtDesc,
+          IPCRefDescription: this.txtIpcDesc,
+          IPCRefDetailID: this.ipcDetailID,
+          userId: this.cookie.get("userID"),
+          spType: "UPDATE",
+        };
+      }
+
+      var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
+
+      this.http
+        .post(this.serverUrl + "sudipcrefdetail", saveData, {
+          headers: reqHeader,
+        })
+        .subscribe((data: any) => {
+          if (data.msg == "SUCCESS") {
+            if (this.ipcDetailID == "") {
+              this.toastr.successToastr(
+                "Record Saved Successfully!",
+                "Success!",
+                {
+                  toastTimeout: 2500,
+                }
+              );
+            } else {
+              this.toastr.successToastr(
+                "Record Updated Successfully!",
+                "Success!",
+                {
+                  toastTimeout: 2500,
+                }
+              );
+            }
+            this.clear();
+            this.getIPCDetail(this.ipcID);
+            this.modalLoadingBar = false;
+            return false;
+          } else {
+            this.toastr.errorToastr(data.msg, "Error !", {
+              toastTimeout: 5000,
+            });
+            this.modalLoadingBar = false;
+            return false;
+          }
+        });
+    }
+  }
+
+  editDetail(obj) {
+    this.cmbAssetCat = obj.assetCatID;
+    this.ipcID = obj.ipcRefID;
+    this.txtQty = obj.qty;
+    this.txtDesc = obj.description;
+    this.ipcDetailID = obj.ipcRefDetailID;
+
+    var accCat = this.AssetCatList.filter(
+      (x) => x.assetCatID == obj.assetCatID
+    );
+    this.lblAccCategory = accCat[0].accountsCatagory;
+  }
+
+  deleteDetail(obj) {
+    setTimeout(() => {
+      Swal.fire({
+        title: "Do you want to delete?",
+        text: "",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Yes",
+        cancelButtonText: "No",
+      }).then((result) => {
+        if (result.value) {
+          this.modalLoadingBar = true;
+          var saveData = {
+            Userid: this.cookie.get("userID"), //int
+            SpType: "DELETE", //string
+            IPCRefDetailID: obj.ipcRefDetailID,
+          };
+
+          var reqHeader = new HttpHeaders({
+            "Content-Type": "application/json",
+          });
+
+          this.http
+            .post(this.serverUrl + "sudipcrefdetail", saveData, {
+              headers: reqHeader,
+            })
+            .subscribe((data: any) => {
+              if (data.msg == "SUCCESS") {
+                this.toastr.successToastr(
+                  "Record Deleted Successfully!",
+                  "Success!",
+                  {
+                    toastTimeout: 2500,
+                  }
+                );
+                this.clear();
+                this.getIPCDetail(obj.ipcRefID);
+                this.modalLoadingBar = false;
+                return false;
+              } else {
+                this.toastr.errorToastr(data.msg, "Error !", {
+                  toastTimeout: 5000,
+                });
+                this.modalLoadingBar = false;
+                return false;
+              }
+            });
+        }
+      });
+    }, 1000);
+  }
+
+  clearDetail() {
+    this.cmbAssetCat = "";
+    this.lblAccCategory = "";
+    this.txtQty = "";
+    this.txtDesc = "";
+    this.tblSearchDetail = "";
   }
 }

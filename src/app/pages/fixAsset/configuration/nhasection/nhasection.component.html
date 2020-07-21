@@ -19,7 +19,7 @@
         <div class="col-md-12 pt-2">
           <mat-form-field class='w-100'>
             <mat-label>Office Type</mat-label>
-            <mat-select [(ngModel)]="cmbOfcType">
+            <mat-select [(ngModel)]="cmbOfcType" (ngModelChange)="filterTable(cmbOfcType)">
               <!-- <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchOfcType" /> -->
               <ngx-mat-select-search [(ngModel)]="searchOfcType" [placeholderLabel]="'Search...'"
                 [noEntriesFoundLabel]="'Not found'" name="search"></ngx-mat-select-search>

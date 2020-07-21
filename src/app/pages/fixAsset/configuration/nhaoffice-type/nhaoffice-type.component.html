@@ -81,8 +81,6 @@
               <td class='inline-block text-center'><span class='fa fa-edit cursorPointer pr-3 text-primary'
                   (click)="edit(item)"></span>
                 <span class='fa fa-trash-o cursorPointer text-danger pr-3' (click)="delete(item)"></span>
-                <mat-slide-toggle [(ngModel)]="item.isActivated" (change)="active(item)">
-                </mat-slide-toggle>
               </td>
             </tr>
           </tbody>
