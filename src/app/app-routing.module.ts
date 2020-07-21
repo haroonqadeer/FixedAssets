@@ -11,6 +11,7 @@ import { AssetCategoryComponent } from "./pages/fixasset/configuration/asset-cat
 import { NHAPostsComponent } from "./pages/fixasset/configuration/nhaposts/nhaposts.component";
 import { NHAProjectsComponent } from "./pages/fixasset/configuration/nhaprojects/nhaprojects.component";
 import { NHAProjectIPCComponent } from "./pages/fixasset/configuration/nhaproject-ipc/nhaproject-ipc.component";
+import { NHAFreeholdLandComponent } from "./pages/fixAsset/nhafreehold-land/nhafreehold-land.component";
 
 const routes: Routes = [
   {
@@ -52,6 +53,10 @@ const routes: Routes = [
   {
     path: "nhaProjectIPC",
     component: NHAProjectIPCComponent,
+  },
+  {
+    path: "freeholdLand",
+    component: NHAFreeholdLandComponent,
   },
 ];
 
