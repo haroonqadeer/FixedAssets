@@ -93,6 +93,7 @@ export class NHASectionComponent implements OnInit {
   }
 
   filterTable(ofcType) {
+    this.wngSectionList = this.tempList;
     this.wngSectionList = this.wngSectionList.filter(
       (x) => x.officeTypeID == ofcType
     );
