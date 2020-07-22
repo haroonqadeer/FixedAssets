@@ -1,7 +1,11 @@
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 
+// user module pages
 import { LoginComponent } from "./pages/user/login/login.component";
+import { UserRegisterationComponent } from "./pages/user/adminPanel/user-registeration/user-registeration.component";
+
+// fix asset pages
 import { AssetEntryComponent } from "./pages/fixAsset/asset-entry/asset-entry.component";
 import { DashboardyComponent } from "./pages/fixAsset/dashboardy/dashboardy.component";
 import { NHALocComponent } from "./pages/fixasset/configuration/nhaloc/nhaloc.component";
@@ -18,6 +22,12 @@ const routes: Routes = [
     path: "",
     component: LoginComponent,
   },
+  {
+    path: "userRegisteration",
+    component: UserRegisterationComponent,
+  },
+
+  // fix asset pages
   {
     path: "assetEntry",
     component: AssetEntryComponent,
