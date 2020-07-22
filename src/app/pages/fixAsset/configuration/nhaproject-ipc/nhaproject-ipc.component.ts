@@ -145,7 +145,7 @@ export class NHAProjectIPCComponent implements OnInit {
       this.image = undefined;
       this.imgFile = undefined;
       this.selectedFile = null;
-      this.imageUrl = "../../../../../assets/assetCatImg/dropHereImg.png";
+      this.imageUrl = "";
     }
   }
 
@@ -153,7 +153,7 @@ export class NHAProjectIPCComponent implements OnInit {
     // Get the modal
     var modal = document.getElementById("myModal");
 
-    if (this.imageUrl == "../../../../../assets/assetCatImg/dropHereImg.png") {
+    if (this.imageUrl == "") {
       this.toastr.errorToastr("Please Select PDF", "Error", {
         toastTimeout: 2500,
       });
@@ -201,7 +201,7 @@ export class NHAProjectIPCComponent implements OnInit {
         toastTimeout: 2500,
       });
       return false;
-    } else if (this.txtIPCNo == "") {
+    } else if (this.txtIPCNo == "0" || this.txtIPCNo == "") {
       this.toastr.errorToastr("Please Enter IPC No", "Error", {
         toastTimeout: 2500,
       });
@@ -282,6 +282,10 @@ export class NHAProjectIPCComponent implements OnInit {
     }
   }
 
+  openPDFFile() {
+    window.open(this.imageUrl);
+  }
+
   edit(obj) {
     this.heading = "Edit";
 
@@ -292,11 +296,9 @@ export class NHAProjectIPCComponent implements OnInit {
     this.txtIpcDesc = obj.ipcRefDescription;
 
     if (obj.edoc != null) {
-      this.imageUrl = "../../../../../assets/IPCRefImg/PDF_file_icon.svg";
-      // this.imageUrl =
-      //   "http://95.217.206.195:2008/assets/assetCatImg/" +
-      //   obj.ipcRefID +
-      //   ".pdf";
+      //this.imageUrl = "../../../../../assets/IPCRefImg/PDF_file_icon.svg";
+      this.imageUrl =
+        "http://95.217.206.195:2008/assets/IPCRefImg/" + obj.ipcRefID + ".pdf";
     }
   }
 
@@ -364,7 +366,7 @@ export class NHAProjectIPCComponent implements OnInit {
     this.image = undefined;
     this.imgFile = undefined;
     this.selectedFile = null;
-    this.imageUrl = "../../../../../assets/assetCatImg/dropHereImg.png";
+    this.imageUrl = "";
   }
 
   saveDetail() {
