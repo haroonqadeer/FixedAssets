@@ -25,9 +25,9 @@
               <ngx-mat-select-search [(ngModel)]="searchOfcSec" [placeholderLabel]="'Search...'"
                 [noEntriesFoundLabel]="'Not found'" name="search"></ngx-mat-select-search>
               <mat-option *ngFor="
-              let item of ofcSecList" [value]="item.officeSecID | search
+              let item of ofcSecList  | search
               : 'officeDescription'
-              : searchOfcSec">{{item.officeDescription}}</mat-option>
+              : searchOfcSec" [value]="item.officeSecID">{{item.officeDescription}}</mat-option>
             </mat-select>
           </mat-form-field>
         </div>

@@ -23,9 +23,9 @@
               <ngx-mat-select-search [(ngModel)]="searchProject" [placeholderLabel]="'Search...'"
                 [noEntriesFoundLabel]="'Not found'" name="search"></ngx-mat-select-search>
               <mat-option *ngFor="
-              let item of projectList" [value]="item.projectID | search
+              let item of projectList | search
               : 'projectName'
-              : searchProject">{{item.projectName}}</mat-option>
+              : searchProject" [value]="item.projectID">{{item.projectName}}</mat-option>
             </mat-select>
           </mat-form-field>
         </div>
@@ -44,7 +44,8 @@
         <div class="col-md-12 pt-2">
           <mat-form-field class="w-100">
             <mat-label>IPC No.</mat-label>
-            <input matInput type='number' [(ngModel)]="txtIPCNo" (keypress)="validateFields(txtIPCNo)">
+            <input matInput type='text' currencyMask maxlength="2" [(ngModel)]="txtIPCNo"
+              (keypress)="validateFields(txtIPCNo)">
           </mat-form-field>
         </div>
       </div>
@@ -69,7 +70,9 @@
         <div class="col-md-12 pt-2 text-center">
           <div class="text-center">
             <!-- <img [src]="imageUrl" class="rounded" width="80" height="80" id="myImg" (click)="zoomImage()"> -->
-            <a href="showPdf" targe="_blank">Test</a>
+            <button class='noneOutline' mat-button *ngIf="imageUrl!=''" (click)='openPDFFile()' color="primary">Open
+              uploaded File</button>
+            <!-- <a href="" (click) = 'openPDFFile()'>{{imageUrl}}</a> -->
           </div>
         </div>
       </div>
@@ -89,8 +92,8 @@
         <div class="col-md-12 pt-2">
           <mat-form-field class="w-100">
             <mat-label>search...</mat-label>
-            <mat-icon matPrefix class='fa fa-search' [(ngModel)]="tblSearch"></mat-icon>
-            <input matInput>
+            <mat-icon matPrefix class='fa fa-search'></mat-icon>
+            <input matInput [(ngModel)]="tblSearch">
           </mat-form-field>
         </div>
       </div>
