@@ -157,7 +157,7 @@ export class NHAPostsComponent implements OnInit {
     this.postID = obj.postID;
     this.txtPostName = obj.postName;
     this.cmbBS = obj.bs;
-    this.txtCmpnyName = obj.bs;
+    this.txtCmpnyName = obj.companyName;
   }
 
   delete(obj) {

@@ -19,15 +19,13 @@
         <div class="col-md-12 pt-2">
           <mat-form-field color="warn" class="w-100">
             <mat-label>Asset - Category</mat-label>
-            <mat-select [(ngModel)]="cmbAccCategory">
+            <mat-select [(ngModel)]="cmbAccCategory" (ngModelChange)="filterTable(cmbAccCategory)">
               <mat-option>
                 <ngx-mat-select-search [(ngModel)]="searchAccCat" [placeholderLabel]="'Search...'"
                   [noEntriesFoundLabel]="'Not found'" name="search"></ngx-mat-select-search>
               </mat-option>
               <mat-option *ngFor="
-                  let item of accCatList
-                    | search: 'accountsCatagory':searchAccCat
-                " [value]="item.accountsCatID">
+                  let item of accCatList | search: 'accountsCatagory':searchAccCat" [value]="item.accountsCatID">
                 {{ item.accountsCatagory }}
               </mat-option>
             </mat-select>
