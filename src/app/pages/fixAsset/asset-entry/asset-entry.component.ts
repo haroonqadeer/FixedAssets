@@ -168,6 +168,7 @@ export class AssetEntryComponent implements OnInit {
   assetDetailList = [];
   tempDetailList = [];
   transferList = [];
+  tempTransList = [];
   transDetailList = [];
 
   vehMakeList = [];
@@ -373,7 +374,15 @@ export class AssetEntryComponent implements OnInit {
       })
       .subscribe((data: any) => {
         this.transferList = data;
+        this.tempTransList = data;
       });
+  }
+
+  filterTansTable(tranProject) {
+    this.transferList = this.tempTransList;
+    this.transferList = this.transferList.filter(
+      (x) => x.projectID == tranProject
+    );
   }
 
   getTags() {
@@ -394,7 +403,7 @@ export class AssetEntryComponent implements OnInit {
   }
 
   getIPC() {
-    this.loadingBar = true;
+    // this.loadingBar = true;
     var reqHeader = new HttpHeaders({
       "Content-Type": "application/json",
       // Authorization: "Bearer " + Token,
@@ -406,7 +415,7 @@ export class AssetEntryComponent implements OnInit {
       })
       .subscribe((data: any) => {
         this.refList = data;
-        this.loadingBar = false;
+        // this.loadingBar = false;
       });
   }
 
@@ -1171,7 +1180,7 @@ export class AssetEntryComponent implements OnInit {
   }
 
   setProject() {
-    this.cmbProject = this.cmbTransferProject;
+    this.cmbTransferProject = this.cmbProject;
     this.disableProject = true;
     this.getIPC();
   }
@@ -1512,7 +1521,7 @@ export class AssetEntryComponent implements OnInit {
     this.lblTransToComp = transTo[0].companyName;
     this.lblTransByComp = transBy[0].companyName;
 
-    this.cmbProject = this.cmbTransferProject;
+    // this.cmbTransferProject = this.cmbProject;
     this.disableProject = true;
     this.cmbCustody = this.cmbTransToPost;
     this.disableCustody = true;
