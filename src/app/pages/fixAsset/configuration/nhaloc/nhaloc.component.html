@@ -24,10 +24,10 @@
               <ngx-mat-select-search [(ngModel)]="searchLocation" [placeholderLabel]="'Search...'"
                 [noEntriesFoundLabel]="'Not found'" name="search"></ngx-mat-select-search>
               <mat-option *ngFor="
-              let item of mainLocList" [value]="item.mainLocID | search
+              let item of mainLocList  | search
               : 'mainLocationDescription'
               : searchLocation
-        ">{{item.mainLocationDescription}}</mat-option>
+        " [value]="item.mainLocID">{{item.mainLocationDescription}}</mat-option>
             </mat-select>
           </mat-form-field>
         </div>
@@ -41,9 +41,9 @@
               <ngx-mat-select-search [(ngModel)]="searchOfcType" [placeholderLabel]="'Search...'"
                 [noEntriesFoundLabel]="'Not found'" name="search"></ngx-mat-select-search>
               <mat-option *ngFor="
-              let item of ofcTypeList" [value]="item.officeTypeID | search
+              let item of ofcTypeList | search
               : 'officeTypeDescription'
-              : searchOfcType">{{item.officeTypeDescription}}</mat-option>
+              : searchOfcType" [value]="item.officeTypeID ">{{item.officeTypeDescription}}</mat-option>
             </mat-select>
           </mat-form-field>
         </div>
