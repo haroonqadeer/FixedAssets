@@ -116,6 +116,10 @@ export class NHAProjectIPCComponent implements OnInit {
     }
   }
 
+  validateFields(event) {
+    escape(event);
+  }
+
   onFileSelected(event) {
     if (event.target.files[0].type == "application/pdf") {
       this.selectedFile = <File>event.target.files[0];

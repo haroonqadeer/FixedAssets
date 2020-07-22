@@ -44,7 +44,7 @@
         <div class="col-md-12 pt-2">
           <mat-form-field class="w-100">
             <mat-label>IPC No.</mat-label>
-            <input matInput type='number' [(ngModel)]="txtIPCNo">
+            <input matInput type='number' [(ngModel)]="txtIPCNo" (keypress)="validateFields(txtIPCNo)">
           </mat-form-field>
         </div>
       </div>
