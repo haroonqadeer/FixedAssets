@@ -44,7 +44,7 @@
         <div class="col-md-12 pt-2">
           <mat-form-field class="w-100">
             <mat-label>IPC No.</mat-label>
-            <input matInput type='number' [(ngModel)]="txtIPCNo">
+            <input matInput type='number' [(ngModel)]="txtIPCNo" (keypress)="validateFields(txtIPCNo)">
           </mat-form-field>
         </div>
       </div>
@@ -68,7 +68,8 @@
       <div class="row pr-4 pl-1">
         <div class="col-md-12 pt-2 text-center">
           <div class="text-center">
-            <img [src]="imageUrl" class="rounded" width="80" height="80" id="myImg">
+            <!-- <img [src]="imageUrl" class="rounded" width="80" height="80" id="myImg" (click)="zoomImage()"> -->
+            <a href="showPdf" targe="_blank">Test</a>
           </div>
         </div>
       </div>
@@ -101,15 +102,18 @@
               <th class="sticky-top" scope='col'>Project Short Name</th>
               <th class="sticky-top" scope='col'>Package No.</th>
               <th class="sticky-top" scope='col'>IPC No.</th>
+              <th class="sticky-top" scope='col'>IPC Description</th>
               <th class="sticky-top text-center" scope='col'>Action</th>
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let item of ipcList | search:'projectShortName,projectPackage,ipcNo':tblSearch let i=index">
+            <tr
+              *ngFor="let item of ipcList | search:'projectShortName,projectPackage,ipcNo,ipcRefDescription':tblSearch let i=index">
               <td class="text-center">{{i+1}}</td>
               <td>{{item.projectShortName}}</td>
               <td>{{item.projectPackage}}</td>
               <td>{{item.ipcNo}}</td>
+              <td>{{item.ipcRefDescription}}</td>
               <td class='inline-block text-center'>
                 <span class='fa fa-info-circle cursorPointer pr-3' (click)="getIPCDetail(item.ipcRefID)"></span>
                 <span class='fa fa-edit cursorPointer pr-3 text-primary' (click)="edit(item)"></span>
@@ -248,3 +252,16 @@
     </div>
   </div>
 </div>
+
+<!-- Start modal window for bigger image -->
+<div id="myModal" class="modal">
+
+  <!-- The Close Button -->
+  <span class="close" (click)="closeModal()">&times;</span>
+
+  <!-- Modal Content (The Image) -->
+  <a class="modal-content" id="img01"></a>
+
+  <!-- Modal Caption (Image Text) -->
+</div>
+<!-- End modal window for bigger image -->

@@ -419,7 +419,8 @@ export class AssetEntryComponent implements OnInit {
     this.http
       .get(this.serverUrl + "getsubloc", { headers: reqHeader })
       .subscribe((data: any) => {
-        this.locList = data.filter((x) => x.isActivated == 1);
+        // this.locList = data.filter((x) => x.isActivated == 1);
+        this.locList = data;
       });
   }
 
@@ -454,7 +455,8 @@ export class AssetEntryComponent implements OnInit {
         headers: reqHeader,
       })
       .subscribe((data: any) => {
-        this.wngSectionList = data.filter((x) => x.isActivated == 1);
+        // this.wngSectionList = data.filter((x) => x.isActivated == 1);
+        this.wngSectionList = data;
       });
   }
 
@@ -480,9 +482,12 @@ export class AssetEntryComponent implements OnInit {
     this.http
       .get(this.serverUrl + "getposts", { headers: reqHeader })
       .subscribe((data: any) => {
-        this.custodyList = data.filter((x) => x.isActivated == 1);
-        this.transferByList = data.filter((x) => x.isActivated == 1);
-        this.transferToList = data.filter((x) => x.isActivated == 1);
+        // this.custodyList = data.filter((x) => x.isActivated == 1);
+        this.custodyList = data;
+        // this.transferByList = data.filter((x) => x.isActivated == 1);
+        this.transferByList = data;
+        // this.transferToList = data.filter((x) => x.isActivated == 1);
+        this.transferToList = data;
       });
   }
 
@@ -495,7 +500,8 @@ export class AssetEntryComponent implements OnInit {
     this.http
       .get(this.serverUrl + "getassetcat", { headers: reqHeader })
       .subscribe((data: any) => {
-        this.AssetCatList = data.filter((x) => x.isActivated == 1);
+        // this.AssetCatList = data.filter((x) => x.isActivated == 1);
+        this.AssetCatList = data;
       });
   }
 
@@ -674,7 +680,7 @@ export class AssetEntryComponent implements OnInit {
     }
 
     this.lblTransferID = item.transferID;
-    this.sldTransfered = item.isTransfer;
+    this.sldTransfered = item.isTransfered;
 
     if (this.sldMissing) {
       this.disableUsable = true;
@@ -861,12 +867,49 @@ export class AssetEntryComponent implements OnInit {
           TransferID: parseInt(this.lblTransferID), // int
         };
       } else {
+        var imgAsset;
+        if (this.imageAsset == undefined) {
+          alert("ok");
+          imgAsset = null;
+        } else {
+          imgAsset = this.imageAsset;
+        }
+
+        alert("AssetNo: " + parseInt(this.assetNo)); //int
+        alert("Custody: " + parseInt(this.cmbCustody)); //int
+        alert("Location: " + this.txtAssetLoc); //string
+        alert("Description: " + this.txtAssetDesc); //string
+        alert("Identification: " + this.txtIdentification); //string
+        alert("SerialNo: " + this.txtSerialNo); //string
+        alert("Vehicle: " + parseInt(vehicleID)); //int
+        alert("Project: " + parseInt(this.cmbProject)); //int
+        alert("Tag: " + this.txtPreTag); //string
+        alert("Amount: " + this.txtAmount); //float
+        alert("Net Val: " + this.txtNetBVal); //int
+        alert("Date: " + purchaseDate); //string
+        alert("Ref: " + this.cmbRef); //string
+        alert("Condition: " + this.cmbAssetCond); //int
+        alert("Usable: " + this.sldUsable); //bool
+        alert("Surplus: " + this.sldSurplus); //bool
+        alert("Service: " + this.sldServiceable); //bool
+        alert("Condemned: " + this.sldCondemned); //bool
+        alert("Missing: " + this.sldMissing); //bool
+        alert("Transfer: " + this.sldTransfered); //bool
+        alert("Remarks: " + this.txtRemarks); //string
+        alert("UserID: " + this.cookie.get("userID")); //int
+        alert("AssetID: " + this.assetID); //int
+        alert("Tag No: " + this.txtTagNo); //int
+        alert("Path: " + this.imgAssetPath);
+        alert("jpg");
+        alert("Image: " + imgAsset);
+        alert("Transfer ID: " + parseInt(this.lblTransferID)); // int
+
         saveData = {
-          SubLocID: parseInt(this.cmbLocation), //int
-          OfficeTypeID: parseInt(this.cmbOfcType), //int
-          AssetCatID: parseInt(this.cmbAssetCat), //int
+          // SubLocID: parseInt(this.cmbLocation), //int
+          // OfficeTypeID: parseInt(this.cmbOfcType), //int
+          // AssetCatID: parseInt(this.cmbAssetCat), //int
           AssetNo: parseInt(this.assetNo), //int
-          OfficeSecID: parseInt(this.cmbWngSection), //int
+          // OfficeSecID: parseInt(this.cmbWngSection), //int
           PostID: parseInt(this.cmbCustody), //int
           AssetLocation: this.txtAssetLoc, //string
           AssetDescription: this.txtAssetDesc, //string
@@ -899,7 +942,7 @@ export class AssetEntryComponent implements OnInit {
           Qty: this.txtTagNo, //int
           EDoc: this.imgAssetPath,
           EDocExtension: "jpg",
-          imgFile: this.imageAsset,
+          imgFile: imgAsset,
           TransferID: parseInt(this.lblTransferID), // int
         };
       }

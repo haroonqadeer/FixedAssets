@@ -124,7 +124,7 @@ export class NHAProjectsComponent implements OnInit {
           headers: reqHeader,
         })
         .subscribe((data: any) => {
-          if (data.msg == "SUCCESS") {
+          if (data.msg == "Success") {
             if (this.projectID == "") {
               this.toastr.successToastr(
                 "Record Saved Successfully!",
@@ -183,7 +183,7 @@ export class NHAProjectsComponent implements OnInit {
           var saveData = {
             Userid: this.cookie.get("userID"), //int
             SpType: "DELETE", //string
-            OfficeSecID: obj.projectID, //int
+            ProjectID: obj.projectID, //int
           };
 
           var reqHeader = new HttpHeaders({

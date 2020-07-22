@@ -17,16 +17,19 @@
       </div>
       <div class="row pr-4 pl-1">
         <div class="col-md-12 pt-2">
-          <mat-form-field class='w-100'>
-            <mat-label>Account Category</mat-label>
-            <mat-select [(ngModel)]="cmbAccCat">
-              <!-- <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchAccCat" /> -->
-              <ngx-mat-select-search [(ngModel)]="searchAccCat" [placeholderLabel]="'Search...'"
-                [noEntriesFoundLabel]="'Not found'" name="search"></ngx-mat-select-search>
+          <mat-form-field color="warn" class="w-100">
+            <mat-label>Asset - Category</mat-label>
+            <mat-select [(ngModel)]="cmbAccCategory">
+              <mat-option>
+                <ngx-mat-select-search [(ngModel)]="searchAccCat" [placeholderLabel]="'Search...'"
+                  [noEntriesFoundLabel]="'Not found'" name="search"></ngx-mat-select-search>
+              </mat-option>
               <mat-option *ngFor="
-              let item of accCatList" [value]="item.accountsCatID | search
-              : 'accountsCatagory'
-              : searchAccCat">{{item.accountsCatagory}}</mat-option>
+                  let item of accCatList
+                    | search: 'accountsCatagory':searchAccCat
+                " [value]="item.accountsCatID">
+                {{ item.accountsCatagory }}
+              </mat-option>
             </mat-select>
           </mat-form-field>
         </div>

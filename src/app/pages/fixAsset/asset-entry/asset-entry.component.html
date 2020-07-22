@@ -290,7 +290,7 @@
                       | search
                         : 'subLocationDescription, mainLocationDescription, officeTypeDescription, provinceName'
                         : searchLocation
-                  " [value]="item.subLocID">
+                  " [value]="item.subLocID" [disabled]="item.isActivated==0">
                   <table class="table">
                     <tr class="d-flex">
                       <td class="col-3">{{ item.subLocationDescription }}</td>
@@ -354,7 +354,7 @@
                 <mat-option *ngFor="
                     let item of wngSectionList
                       | search: 'officeDescription':searchSection
-                  " [value]="item.officeSecID">
+                  " [value]="item.officeSecID" [disabled]="item.isActivated==0">
                   {{ item.officeDescription }}
                 </mat-option>
               </mat-select>
@@ -478,7 +478,7 @@
 
                 <mat-option *ngFor="
                     let item of custodyList | search: 'postName':searchCustody
-                  " [value]="item.postID">
+                  " [value]="item.postID" [disabled]="item.isActivated==0">
                   {{ item.postName }}
                 </mat-option>
               </mat-select>
@@ -497,7 +497,7 @@
                 <mat-option *ngFor="
                     let item of AssetCatList
                       | search: 'assetCatDescription':searchCategory
-                  " [value]="item.assetCatID">
+                  " [value]="item.assetCatID" [disabled]="item.isActivated==0">
                   {{ item.assetCatDescription }}
                 </mat-option>
               </mat-select>
@@ -865,7 +865,7 @@
                       | search
                         : 'subLocationDescription, mainLocationDescription, provinceName'
                         : advSearchLocation
-                  " [value]="item.subLocID">
+                  " [value]="item.subLocID" [disabled]="item.isActivated==0">
                   <table class="table">
                     <tr class="d-flex">
                       <td class="col-4">{{ item.subLocationDescription }}</td>
@@ -913,7 +913,7 @@
                 <mat-option *ngFor="
                     let item of wngSectionList
                       | search: 'officeDescription':advSearchSection
-                  " [value]="item.officeSecID">
+                  " [value]="item.officeSecID" [disabled]="item.isActivated==0">
                   {{ item.officeDescription }}
                 </mat-option>
               </mat-select>
@@ -1308,7 +1308,7 @@
 
                 <mat-option *ngFor="
                     let item of transferByList | search: 'postName':searchPostBy
-                  " [value]="item.postID">
+                  " [value]="item.postID" [disabled]="item.isActivated==0">
                   {{ item.postName }}
                 </mat-option>
               </mat-select>
@@ -1331,7 +1331,7 @@
 
                 <mat-option *ngFor="
                     let item of transferToList | search: 'postName':searchPostTo
-                  " [value]="item.postID">
+                  " [value]="item.postID" [disabled]="item.isActivated==0">
                   {{ item.postName }}
                 </mat-option>
               </mat-select>

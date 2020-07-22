@@ -31,7 +31,7 @@ export class AssetCategoryComponent implements OnInit {
   assetCatID = "";
   txtCatShrtName = "";
   txtCatFullName = "";
-  cmbAccCat = "";
+  cmbAccCategory = "";
 
   searchAccCat = "";
   tblSearch = "";
@@ -132,7 +132,7 @@ export class AssetCategoryComponent implements OnInit {
   }
 
   save() {
-    if (this.cmbAccCat == "") {
+    if (this.cmbAccCategory == "") {
       this.toastr.errorToastr("Please Select Account Category", "Error", {
         toastTimeout: 2500,
       });
@@ -152,7 +152,7 @@ export class AssetCategoryComponent implements OnInit {
       var saveData;
       if (this.assetCatID == "") {
         saveData = {
-          accountsCatID: parseInt(this.cmbAccCat),
+          accountsCatID: parseInt(this.cmbAccCategory),
           assetCatCode: this.txtCatShrtName,
           assetCatDescription: this.txtCatFullName,
           edoc: this.imgPath,
@@ -164,7 +164,7 @@ export class AssetCategoryComponent implements OnInit {
         };
       } else {
         saveData = {
-          accountsCatID: parseInt(this.cmbAccCat),
+          accountsCatID: parseInt(this.cmbAccCategory),
           assetCatCode: this.txtCatShrtName,
           assetCatDescription: this.txtCatFullName,
           edoc: this.imgPath,
@@ -222,7 +222,7 @@ export class AssetCategoryComponent implements OnInit {
     this.assetCatID = obj.assetCatID;
     this.txtCatShrtName = obj.assetCatCode;
     this.txtCatFullName = obj.assetCatDescription;
-    this.cmbAccCat = obj.accountsCatID;
+    this.cmbAccCategory = obj.accountsCatID;
     if (obj.edoc != null) {
       // http://ambit-erp.southeastasia.cloudapp.azure.com:9000/assets/images/Marker2.png
       // this.imageUrl = "obj.edoc";
@@ -336,7 +336,7 @@ export class AssetCategoryComponent implements OnInit {
     this.assetCatID = "";
     this.txtCatShrtName = "";
     this.txtCatFullName = "";
-    this.cmbAccCat = "";
+    this.cmbAccCategory = "";
 
     this.searchAccCat = "";
     this.tblSearch = "";
