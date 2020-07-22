@@ -37,6 +37,7 @@ export class AssetCategoryComponent implements OnInit {
   tblSearch = "";
 
   assetCatList = [];
+  tempList = [];
   accCatList = [];
 
   constructor(
@@ -114,8 +115,16 @@ export class AssetCategoryComponent implements OnInit {
       .get(this.serverUrl + "getassetcat", { headers: reqHeader })
       .subscribe((data: any) => {
         this.assetCatList = data;
+        this.tempList = data;
         this.loadingBar = false;
       });
+  }
+
+  filterTable(accCat) {
+    this.assetCatList = this.tempList;
+    this.assetCatList = this.assetCatList.filter(
+      (x) => x.accountsCatID == accCat
+    );
   }
 
   getAccountCategory() {
@@ -125,7 +134,8 @@ export class AssetCategoryComponent implements OnInit {
     });
 
     this.http
-      .get(this.serverUrl + "getaccountcat", { headers: reqHeader })
+      // .get(this.serverUrl + "getaccountcat", { headers: reqHeader })
+      .get("http://localhost:5090/api/getaccountcat", { headers: reqHeader })
       .subscribe((data: any) => {
         this.accCatList = data;
       });
@@ -163,6 +173,15 @@ export class AssetCategoryComponent implements OnInit {
           spType: "INSERT",
         };
       } else {
+        alert("Account Category: " + parseInt(this.cmbAccCategory));
+        alert("Category Short Name: " + this.txtCatShrtName);
+        alert("Category Full Name: " + this.txtCatFullName);
+        alert("path: " + this.imgPath);
+        alert("jpg");
+        alert("image: " + this.image);
+        alert("Account Category ID: " + this.assetCatID);
+        alert("User ID: " + this.cookie.get("userID"));
+
         saveData = {
           accountsCatID: parseInt(this.cmbAccCategory),
           assetCatCode: this.txtCatShrtName,
@@ -179,7 +198,8 @@ export class AssetCategoryComponent implements OnInit {
       var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
       this.http
-        .post(this.serverUrl + "sudassetcatagory", saveData, {
+        // .post(this.serverUrl + "sudassetcatagory", saveData, {
+        .post("http://locahost:5090/api/sudassetcatagory", saveData, {
           headers: reqHeader,
         })
         .subscribe((data: any) => {
@@ -231,6 +251,7 @@ export class AssetCategoryComponent implements OnInit {
         obj.assetCatID +
         ".jpg";
     }
+    this.image = null;
   }
 
   delete(obj) {
@@ -333,6 +354,7 @@ export class AssetCategoryComponent implements OnInit {
   clear() {
     this.heading = "Add";
 
+    this.accCatList = this.tempList;
     this.assetCatID = "";
     this.txtCatShrtName = "";
     this.txtCatFullName = "";
