@@ -21,6 +21,12 @@ body {
   // min-height: 100% !important;
 }
 
+.footer {
+  bottom: 0;
+  left: 0;
+  /*optional*/
+}
+
 .divScrollable {
   overflow-y: auto !important;
 }
