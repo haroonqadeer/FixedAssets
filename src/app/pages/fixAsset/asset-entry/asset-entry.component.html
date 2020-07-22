@@ -542,7 +542,8 @@
           <div class="col-md-12">
             <mat-form-field color="warn" class="w-100">
               <mat-label>Select Project</mat-label>
-              <mat-select [(ngModel)]="cmbProject" (ngModelChange)="getIPC()" [disabled]="disableProject">
+              <mat-select [(ngModel)]="cmbProject"
+                (ngModelChange)="getIPC();setProject();filterTansTable(cmbTransferProject);">
                 <!-- <input
                   type="text"
                   class="form-control"
@@ -661,16 +662,16 @@
           <div class="col-md-2">
             <mat-slide-toggle [(ngModel)]="sldTransfered" (change)="setTransfer()">Transfered</mat-slide-toggle>
           </div>
-          <div *ngIf="sldTransfered" class="col-md-2">
+          <div *ngIf="lblTransferID!=''" class="col-md-2">
             Post Title :
           </div>
-          <div class="col-md-3 border-bottom text-danger" *ngIf="sldTransfered">
+          <div class="col-md-3 border-bottom text-danger" *ngIf="lblTransferID!=''">
             <b>{{lblTransToPost}}</b>
           </div>
-          <div class="col-md-2" *ngIf="sldTransfered">
+          <div class="col-md-2" *ngIf="lblTransferID!=''">
             Company Name :
           </div>
-          <div class="col-md-3 border-bottom text-danger" *ngIf="sldTransfered">
+          <div class="col-md-3 border-bottom text-danger" *ngIf="lblTransferID!=''">
             <b>{{lblTransToComp}}</b>
             <span class="fa fa-edit cursorPointer text-primary pull-right" (click)="openTransferModal()"></span>
           </div>
@@ -1280,7 +1281,8 @@
           <div class="col-md-12">
             <mat-form-field class="w-100">
               <mat-label>Project Title</mat-label>
-              <mat-select [(ngModel)]="cmbTransferProject" (ngModelChange)="setProject();">
+              <mat-select [(ngModel)]="cmbTransferProject" (ngModelChange)="filterTansTable(cmbTransferProject)"
+                [disabled]="disableProject">
                 <mat-option>
                   <ngx-mat-select-search [(ngModel)]="searchTransProject" [placeholderLabel]="'Search...'"
                     [noEntriesFoundLabel]="'Not found'" name="search"></ngx-mat-select-search>

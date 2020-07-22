@@ -17,6 +17,7 @@ declare var $: any;
 })
 export class AssetCategoryComponent implements OnInit {
   serverUrl = "http://95.217.206.195:2007/api/";
+  // serverUrl = "http://localhost:5090/api/";
 
   // imgPath = "D:/Flutter App/FixedAssets/src/assets/assetCatImg";
   imgPath = "C:/inetpub/wwwroot/2008_FAR_Proj/assets/assetCatImg";
@@ -32,6 +33,9 @@ export class AssetCategoryComponent implements OnInit {
   txtCatShrtName = "";
   txtCatFullName = "";
   cmbAccCategory = "";
+
+  lblDepRule = "";
+  lblBaseRate = "";
 
   searchAccCat = "";
   tblSearch = "";
@@ -77,6 +81,14 @@ export class AssetCategoryComponent implements OnInit {
       this.imgFile = undefined;
       this.selectedFile = null;
       this.imageUrl = "../../../../../assets/assetCatImg/dropHereImg.png";
+    }
+  }
+
+  getAccCatDescription(accCatID) {
+    if (this.cmbAccCategory != "" || this.cmbAccCategory != undefined) {
+      var assetCat = this.accCatList.filter((x) => x.accountsCatID == accCatID);
+      this.lblDepRule = assetCat[0].depreciationRule;
+      this.lblBaseRate = assetCat[0].baseRate;
     }
   }
 
@@ -134,8 +146,8 @@ export class AssetCategoryComponent implements OnInit {
     });
 
     this.http
-      // .get(this.serverUrl + "getaccountcat", { headers: reqHeader })
-      .get("http://localhost:5090/api/getaccountcat", { headers: reqHeader })
+      .get(this.serverUrl + "getaccountcat", { headers: reqHeader })
+      // .get("getaccountcat", { headers: reqHeader })
       .subscribe((data: any) => {
         this.accCatList = data;
       });
@@ -198,8 +210,7 @@ export class AssetCategoryComponent implements OnInit {
       var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
       this.http
-        // .post(this.serverUrl + "sudassetcatagory", saveData, {
-        .post("http://locahost:5090/api/sudassetcatagory", saveData, {
+        .post(this.serverUrl + "sudassetcatagory", saveData, {
           headers: reqHeader,
         })
         .subscribe((data: any) => {
@@ -243,6 +254,9 @@ export class AssetCategoryComponent implements OnInit {
     this.txtCatShrtName = obj.assetCatCode;
     this.txtCatFullName = obj.assetCatDescription;
     this.cmbAccCategory = obj.accountsCatID;
+
+    this.lblDepRule = obj.depreciationRule;
+    this.lblBaseRate = obj.baseRate;
     if (obj.edoc != null) {
       // http://ambit-erp.southeastasia.cloudapp.azure.com:9000/assets/images/Marker2.png
       // this.imageUrl = "obj.edoc";
@@ -359,6 +373,9 @@ export class AssetCategoryComponent implements OnInit {
     this.txtCatShrtName = "";
     this.txtCatFullName = "";
     this.cmbAccCategory = "";
+
+    this.lblDepRule = "";
+    this.lblBaseRate = "";
 
     this.searchAccCat = "";
     this.tblSearch = "";
