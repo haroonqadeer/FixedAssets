@@ -21,6 +21,7 @@ export class NHAProjectIPCComponent implements OnInit {
   // imgPath = "D:/Flutter App/FixedAssets/src/assets/assetCatImg";
   imgPath = "C:/inetpub/wwwroot/2008_FAR_Proj/assets/IPCRefImg";
   imageUrl: string = "../../../../../assets/IPCRefImg/dropHereImg.png";
+  showPdf = "";
   image;
   imgFile;
   selectedFile: File = null;
@@ -127,6 +128,8 @@ export class NHAProjectIPCComponent implements OnInit {
         var splitImg = this.image.split(",")[1];
         this.image = splitImg;
         this.imageUrl = "../../../../../assets/IPCRefImg/PDF_file_icon.svg";
+        this.showPdf = e.target.result;
+        alert(this.selectedFile);
       };
 
       reader.readAsDataURL(this.selectedFile);
@@ -140,6 +143,26 @@ export class NHAProjectIPCComponent implements OnInit {
       this.selectedFile = null;
       this.imageUrl = "../../../../../assets/assetCatImg/dropHereImg.png";
     }
+  }
+
+  zoomImage() {
+    // Get the modal
+    var modal = document.getElementById("myModal");
+
+    if (this.imageUrl == "../../../../../assets/assetCatImg/dropHereImg.png") {
+      this.toastr.errorToastr("Please Select PDF", "Error", {
+        toastTimeout: 2500,
+      });
+    } else {
+      modal.style.display = "block";
+      (<HTMLImageElement>document.querySelector("#img01")).src = this.showPdf;
+    }
+  }
+
+  closeModal() {
+    var modal = document.getElementById("myModal");
+
+    modal.style.display = "none";
   }
 
   getIPCDetail(obj) {
