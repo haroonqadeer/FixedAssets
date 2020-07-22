@@ -199,7 +199,7 @@ export class AssetCategoryComponent implements OnInit {
 
       this.http
         // .post(this.serverUrl + "sudassetcatagory", saveData, {
-        .post("http://locahost:5090/api/sudassetcatagory", saveData, {
+        .post("http://localhost:5090/api/sudassetcatagory", saveData, {
           headers: reqHeader,
         })
         .subscribe((data: any) => {
