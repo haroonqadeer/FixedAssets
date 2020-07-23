@@ -13,30 +13,30 @@
     <div class="col-md-4 pl-3 pr-0 border-right">
       <div class="row bgGrey">
         <div class="col-md-12 pt-4">
-          <h3 class='text-white pb-2'>{{heading}} Project</h3>
+          <h3 class="text-white pb-2">{{ heading }} Project</h3>
         </div>
       </div>
       <div class="row pr-4 pl-1">
         <div class="col-md-12 pt-2">
-          <mat-form-field class='w-100'>
+          <mat-form-field class="w-100">
             <mat-label>Office Section</mat-label>
             <mat-select [(ngModel)]="cmbOfcSec">
               <!-- <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchOfcSec" /> -->
               <ngx-mat-select-search [(ngModel)]="searchOfcSec" [placeholderLabel]="'Search...'"
                 [noEntriesFoundLabel]="'Not found'" name="search"></ngx-mat-select-search>
               <mat-option *ngFor="
-              let item of ofcSecList  | search
-              : 'officeDescription'
-              : searchOfcSec" [value]="item.officeSecID">{{item.officeDescription}}</mat-option>
+                  let item of ofcSecList
+                    | search: 'officeDescription':searchOfcSec
+                " [value]="item.officeSecID">{{ item.officeDescription }}</mat-option>
             </mat-select>
           </mat-form-field>
         </div>
       </div>
       <div class="row pr-4 pl-1">
         <div class="col-md-12 pt-2">
-          <mat-form-field class='w-100'>
+          <mat-form-field class="w-100">
             <mat-label>Account Code - Title</mat-label>
-            <input matInput [(ngModel)]="txtAccTitle">
+            <input matInput [(ngModel)]="txtAccTitle" />
           </mat-form-field>
         </div>
       </div>
@@ -44,7 +44,7 @@
         <div class="col-md-12 pt-2">
           <mat-form-field class="w-100">
             <mat-label>Project Short Name</mat-label>
-            <input matInput [(ngModel)]="txtProShrtName">
+            <input matInput [(ngModel)]="txtProShrtName" />
           </mat-form-field>
         </div>
       </div>
@@ -56,7 +56,16 @@
           </mat-form-field>
         </div>
       </div>
-      <div class="row pr-4 pl-1">
+      <!-- next row -->
+      <div class="footer w-100">
+        <div class="row border-top bgGrey pt-2 pb-2 pl-3">
+          <div class="col-md-12 inline-block">
+            <a class="btn-flip mr-3" data-back="Save" data-front="Save" (click)="save()"></a>
+            <a class="btn-flip" data-back="Reset" data-front="Reset" (click)="clear()"></a>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="row pr-4 pl-1">
         <div class="col-md-3 pt-2">
           <button mat-button mat-raised-button color="primary" class='noneOutline w-100' (click)="save()">Save</button>
         </div>
@@ -64,7 +73,7 @@
           <button mat-button mat-raised-button color="warn" class='noneOutline w-100' (click)="clear()">Reset</button>
         </div>
       </div>
-      <br>
+      <br> -->
     </div>
     <!-- saved locations -->
     <div class="col-md-8 bg-light">
@@ -72,12 +81,12 @@
         <div class="col-md-12 pt-2">
           <mat-form-field class="w-100">
             <mat-label>search...</mat-label>
-            <mat-icon matPrefix class='fa fa-search'></mat-icon>
-            <input matInput [(ngModel)]="tblSearch">
+            <mat-icon matPrefix class="fa fa-search"></mat-icon>
+            <input matInput [(ngModel)]="tblSearch" />
           </mat-form-field>
         </div>
       </div>
-      <div class="table-responsive table-wrapper style-3 border mx-auto" style='height: 400px;'>
+      <div class="table-responsive table-wrapper mb-2 style-3 border mx-auto" style="height: 560px;">
         <table class="table table-striped">
           <thead>
             <tr>
@@ -90,22 +99,27 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let item of projectList | search:'projectShortName,projectName':tblSearch let i=index">
-              <td class="text-center">{{i+1}}</td>
-              <td>{{item.projectShortName}}</td>
-              <td>{{item.projectName}}</td>
-              <td>{{item.accountCode}}</td>
-              <td>{{item.officeDescription}}</td>
-              <td class='inline-block text-center'><span class='fa fa-edit cursorPointer pr-3 text-primary'
-                  (click)="edit(item)"></span>
-                <span class='fa fa-trash-o cursorPointer text-danger pr-3' (click)="delete(item)"></span>
+            <tr *ngFor="
+                let item of projectList
+                  | search: 'projectShortName,projectName':tblSearch;
+                let i = index
+              ">
+              <td class="text-center">{{ i + 1 }}</td>
+              <td>{{ item.projectShortName }}</td>
+              <td>{{ item.projectName }}</td>
+              <td>{{ item.accountCode }}</td>
+              <td>{{ item.officeDescription }}</td>
+              <td class="inline-block text-center">
+                <span class="fa fa-edit cursorPointer pr-3 text-primary" (click)="edit(item)"></span>
+                <span class="fa fa-trash-o cursorPointer text-danger pr-3" (click)="delete(item)"></span>
                 <mat-slide-toggle [(ngModel)]="item.isActivated" (change)="active(item)">
                 </mat-slide-toggle>
               </td>
             </tr>
           </tbody>
         </table>
-      </div><!-- End -->
+      </div>
+      <!-- End -->
     </div>
   </div>
 </div>

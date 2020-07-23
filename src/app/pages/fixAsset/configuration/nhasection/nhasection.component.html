@@ -7,7 +7,7 @@
 
 <!-- container -->
 <div class="container-fluid boxShadow-1 bg-white" *ngIf="!loadingBar">
-  <div class="row">
+  <div class="row border-danger">
     <!-- entry form -->
     <div class="col-md-4 pl-3 pr-0 border-right">
       <div class="row  bgGrey">
@@ -68,8 +68,8 @@
         </div>
       </div>
       <!-- next row -->
-      <div class="footer">
-        <div class="row border-top bgGrey pt-3 pb-3 pl-1">
+      <div class="footer w-100">
+        <div class="row border-top bgGrey pt-2 pb-2 pl-3">
           <div class="col-md-12 inline-block">
             <a class="btn-flip mr-3" data-back="Save" data-front="Save" (click)="save()"></a>
             <a class="btn-flip" data-back="Reset" data-front="Reset" (click)="clear()"></a>
@@ -102,7 +102,7 @@
           </mat-form-field>
         </div>
       </div>
-      <div class="table-responsive table-wrapper mx-auto border style-3" style='height: 400px;'>
+      <div class="table-responsive mb-2 table-wrapper mx-auto border style-3" style='height: 560px;'>
         <table class="table table-fixed">
           <thead>
             <tr>

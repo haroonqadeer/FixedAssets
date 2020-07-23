@@ -56,6 +56,7 @@
           </mat-form-field>
         </div>
       </div>
+      <!-- next row -->
       <div class="row pr-4 pl-1">
         <div class="col-md-12 pt-2">
           <mat-form-field class="w-100">
@@ -64,14 +65,23 @@
           </mat-form-field>
         </div>
       </div>
-      <div class="row pr-4 pl-1">
+      <!-- next row -->
+      <div class="footer w-100">
+        <div class="row border-top bgGrey pt-2 pb-2 pl-3">
+          <div class="col-md-12 inline-block">
+            <a class="btn-flip mr-3" data-back="Save" data-front="Save" (click)="save()"></a>
+            <a class="btn-flip" data-back="Reset" data-front="Reset" (click)="clear()"></a>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="row pr-4 pl-1">
         <div class="col-md-3 pt-2">
           <button mat-button mat-raised-button color="primary" class='noneOutline w-100' (click)="save()">Save</button>
         </div>
         <div class="col-md-3 pt-2">
           <button mat-button mat-raised-button color="warn" class='noneOutline w-100' (click)="clear()">Reset</button>
         </div>
-      </div>
+      </div> -->
     </div>
     <!-- saved locations -->
     <div class="col-md-8 bg-light">
@@ -84,7 +94,7 @@
           </mat-form-field>
         </div>
       </div>
-      <div class="table-responsive border table-wrapper mb-2 style-3 bg-white mx-auto" style='height: 400px;'>
+      <div class="table-responsive border table-wrapper mb-2 style-3 bg-white mx-auto" style='height: 560px;'>
         <table class="table table-striped">
           <thead>
             <tr>

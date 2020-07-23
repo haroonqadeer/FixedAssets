@@ -18,10 +18,12 @@ body {
 }
 
 .container-fluid {
-  // min-height: 100% !important;
+  min-height: 85vh !important;
+  border-bottom: 3px solid #f6d855;
 }
 
-.footer {
+.container-fluid .footer {
+  position: absolute;
   bottom: 0;
   left: 0;
   /*optional*/
