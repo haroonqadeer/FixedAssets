@@ -461,9 +461,9 @@
                 </mat-option>
 
                 <mat-option *ngFor="
-                    let item of custodyList | search: 'postName':searchCustody
+                    let item of custodyList | search: 'postName,companyName':searchCustody
                   " [value]="item.postID" [disabled]="item.isActivated == 0">
-                  {{ item.postName }}
+                  {{ item.postName }} - {{item.companyName}}
                 </mat-option>
               </mat-select>
             </mat-form-field>
@@ -1336,9 +1336,9 @@
                 </mat-option>
 
                 <mat-option *ngFor="
-                    let item of transferByList | search: 'postName':searchPostBy
+                    let item of transferByList | search: 'postName,companyName':searchPostBy
                   " [value]="item.postID" [disabled]="item.isActivated == 0">
-                  {{ item.postName }}
+                  {{ item.postName }} - {{item.companyName}}
                 </mat-option>
               </mat-select>
             </mat-form-field>
@@ -1359,9 +1359,9 @@
                 </mat-option>
 
                 <mat-option *ngFor="
-                    let item of transferToList | search: 'postName':searchPostTo
+                    let item of transferToList | search: 'postName,companyName':searchPostTo
                   " [value]="item.postID" [disabled]="item.isActivated == 0">
-                  {{ item.postName }}
+                  {{ item.postName }} - {{item.companyName}}
                 </mat-option>
               </mat-select>
             </mat-form-field>
