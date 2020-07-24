@@ -19,7 +19,7 @@
         <div class="col-md-12 pt-2">
           <mat-form-field class='w-100'>
             <mat-label>Select Project</mat-label>
-            <mat-select [(ngModel)]="cmbProject">
+            <mat-select [(ngModel)]="cmbProject" (ngModelChange)="filterTable(cmbProject)" [disabled]="disableProject">
               <ngx-mat-select-search [(ngModel)]="searchProject" [placeholderLabel]="'Search...'"
                 [noEntriesFoundLabel]="'Not found'" name="search"></ngx-mat-select-search>
               <mat-option *ngFor="
@@ -70,10 +70,13 @@
         <div class="col-md-12 pt-2 text-center">
           <div class="text-center">
             <!-- <img [src]="imageUrl" class="rounded" width="80" height="80" id="myImg" (click)="zoomImage()"> -->
-            <button class='noneOutline' mat-button *ngIf="imageUrl!=''" (click)='openPDFFile()' color="primary">Open
+            <button class='noneOutline' mat-button
+              *ngIf="imageUrl!='../../../../../assets/IPCRefImg/dropHereImg.png' && lblFileName==''"
+              (click)='openPDFFile()' color="primary">Open
               uploaded File</button>
-            <button class='noneOutline' mat-button *ngIf="imageUrl!=''" (click)='openPDFFile()' color="primary">Open
-              uploaded File</button>
+            <button class='noneOutline' mat-button
+              *ngIf="imageUrl!='../../../../../assets/IPCRefImg/dropHereImg.png' && lblFileName!=''"
+              color="primary">{{lblFileName}}</button>
             <!-- <a href="" (click) = 'openPDFFile()'>{{imageUrl}}</a> -->
           </div>
         </div>
@@ -147,7 +150,7 @@
     <div class="modal-content">
       <!-- Modal Header -->
       <div class="modal-header">
-        <h3 class="modal-title">IPC Detail</h3>
+        <h3 class="modal-title">{{lblProjectName}} Detail</h3>
         <button type="button" class="close" data-dismiss="modal" (click)="clear()">
           &times;
         </button>

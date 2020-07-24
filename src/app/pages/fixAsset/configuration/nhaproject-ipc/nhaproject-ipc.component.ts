@@ -31,6 +31,7 @@ export class NHAProjectIPCComponent implements OnInit {
 
   loadingBar = true;
   modalLoadingBar = false;
+  disableProject = false;
 
   ipcID = "";
   ipcDetailID = "";
@@ -41,6 +42,7 @@ export class NHAProjectIPCComponent implements OnInit {
   txtIpcDesc = "";
   txtQty = "";
   txtDesc = "";
+  lblProjectName = "";
   lblAccCategory = "";
   searchProject = "";
   searchCategory = "";
@@ -49,6 +51,8 @@ export class NHAProjectIPCComponent implements OnInit {
 
   projectList = [];
   ipcList = [];
+  tempList = [];
+
   ipcDetailList = [];
   AssetCatList = [];
 
@@ -74,8 +78,14 @@ export class NHAProjectIPCComponent implements OnInit {
       .get(this.serverUrl + "getipc", { headers: reqHeader })
       .subscribe((data: any) => {
         this.ipcList = data;
+        this.tempList = data;
         this.loadingBar = false;
       });
+  }
+
+  filterTable(project) {
+    this.ipcList = this.tempList;
+    this.ipcList = this.ipcList.filter((x) => x.projectID == project);
   }
 
   getAssetCategory() {
@@ -171,9 +181,14 @@ export class NHAProjectIPCComponent implements OnInit {
   }
 
   getIPCDetail(obj) {
+    this.clearDetail();
     this.ipcID = obj;
+    this.disableProject = true;
+    var projectName = this.ipcList.filter((x) => x.ipcRefID == obj);
 
-    this.loadingBar = true;
+    this.lblProjectName = projectName[0].projectShortName;
+
+    // this.loadingBar = true;
 
     var reqHeader = new HttpHeaders({
       "Content-Type": "application/json",
@@ -186,7 +201,7 @@ export class NHAProjectIPCComponent implements OnInit {
       })
       .subscribe((data: any) => {
         this.ipcDetailList = data;
-        this.loadingBar = false;
+        // this.loadingBar = false;
         $("#ipcDetailModal").modal("show");
       });
   }
@@ -288,6 +303,7 @@ export class NHAProjectIPCComponent implements OnInit {
   }
 
   edit(obj) {
+    this.lblProjectName = "";
     this.heading = "Edit";
 
     this.ipcID = obj.ipcRefID;
@@ -356,6 +372,9 @@ export class NHAProjectIPCComponent implements OnInit {
   }
 
   clear() {
+    this.disableProject = false;
+    this.ipcList = this.tempList;
+    this.lblProjectName = "";
     this.ipcID = "";
     this.cmbProject = "";
     this.txtPkgNo = "";
@@ -367,7 +386,7 @@ export class NHAProjectIPCComponent implements OnInit {
     this.image = undefined;
     this.imgFile = undefined;
     this.selectedFile = null;
-    this.imageUrl = "";
+    this.imageUrl = "../../../../../assets/IPCRefImg/dropHereImg.png";
   }
 
   saveDetail() {
@@ -438,8 +457,8 @@ export class NHAProjectIPCComponent implements OnInit {
                 }
               );
             }
-            this.clear();
             this.getIPCDetail(this.ipcID);
+            this.clearDetail();
             this.modalLoadingBar = false;
             return false;
           } else {
