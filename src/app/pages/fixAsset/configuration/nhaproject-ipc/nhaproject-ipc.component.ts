@@ -22,6 +22,7 @@ export class NHAProjectIPCComponent implements OnInit {
   imgPath = "C:/inetpub/wwwroot/2008_FAR_Proj/assets/IPCRefImg";
   imageUrl: string = "../../../../../assets/IPCRefImg/dropHereImg.png";
   showPdf = "";
+  lblFileName = "";
   image;
   imgFile;
   selectedFile: File = null;
@@ -133,7 +134,7 @@ export class NHAProjectIPCComponent implements OnInit {
         this.image = splitImg;
         this.imageUrl = "../../../../../assets/IPCRefImg/PDF_file_icon.svg";
         this.showPdf = e.target.result;
-        alert(this.selectedFile);
+        this.lblFileName = this.selectedFile.name;
       };
 
       reader.readAsDataURL(this.selectedFile);

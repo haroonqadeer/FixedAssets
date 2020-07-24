@@ -72,6 +72,8 @@
             <!-- <img [src]="imageUrl" class="rounded" width="80" height="80" id="myImg" (click)="zoomImage()"> -->
             <button class='noneOutline' mat-button *ngIf="imageUrl!=''" (click)='openPDFFile()' color="primary">Open
               uploaded File</button>
+            <button class='noneOutline' mat-button *ngIf="imageUrl!=''" (click)='openPDFFile()' color="primary">Open
+              uploaded File</button>
             <!-- <a href="" (click) = 'openPDFFile()'>{{imageUrl}}</a> -->
           </div>
         </div>
@@ -219,8 +221,8 @@
             <div class="col-md-12 pt-2">
               <mat-form-field class="w-100">
                 <mat-label>search...</mat-label>
-                <mat-icon matPrefix class='fa fa-search' [(ngModel)]="tblSearchDetail"></mat-icon>
-                <input matInput>
+                <mat-icon matPrefix class='fa fa-search'></mat-icon>
+                <input matInput [(ngModel)]="tblSearchDetail">
               </mat-form-field>
             </div>
           </div>

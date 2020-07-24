@@ -344,7 +344,7 @@ export class AssetCategoryComponent implements OnInit {
       type = "ACTIVATE";
     }
 
-    this.loadingBar = true;
+    // this.loadingBar = true;
 
     var saveData = {
       Userid: this.cookie.get("userID"), //int
@@ -367,15 +367,15 @@ export class AssetCategoryComponent implements OnInit {
               toastTimeout: 2500,
             }
           );
-          this.clear();
+          // this.clear();
           this.getAssetCategory();
-          this.loadingBar = false;
+          // this.loadingBar = false;
           return false;
         } else {
           this.toastr.errorToastr(data.msg, "Error !", {
             toastTimeout: 5000,
           });
-          this.loadingBar = false;
+          // this.loadingBar = false;
           return false;
         }
       });

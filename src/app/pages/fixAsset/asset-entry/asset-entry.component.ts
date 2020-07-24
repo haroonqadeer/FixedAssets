@@ -854,6 +854,12 @@ export class AssetEntryComponent implements OnInit {
         projectID = null;
       } else {
         projectID = parseInt(this.cmbProject);
+        if (this.cmbRef == "" || this.cmbRef == null) {
+          this.toastr.errorToastr("Please Select IPC Reference", "Error", {
+            toastTimeout: 2500,
+          });
+          return false;
+        }
       }
       if (this.lblTransferID == "") {
         transferID = null;
