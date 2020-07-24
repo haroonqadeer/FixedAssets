@@ -303,7 +303,7 @@ export class NHAProjectIPCComponent implements OnInit {
   }
 
   edit(obj) {
-    this.lblProjectName = "";
+    this.lblFileName = "";
     this.heading = "Edit";
 
     this.ipcID = obj.ipcRefID;
@@ -312,8 +312,12 @@ export class NHAProjectIPCComponent implements OnInit {
     this.txtIPCNo = obj.ipcNo;
     this.txtIpcDesc = obj.ipcRefDescription;
 
-    if (obj.edoc != null) {
-      //this.imageUrl = "../../../../../assets/IPCRefImg/PDF_file_icon.svg";
+    if (
+      obj.edoc ==
+      "C:/inetpub/wwwroot/2008_FAR_Proj/assets/IPCRefImg/" +
+        obj.ipcRefID +
+        ".pdf"
+    ) {
       this.imageUrl =
         "http://95.217.206.195:2008/assets/IPCRefImg/" + obj.ipcRefID + ".pdf";
     }
@@ -375,6 +379,7 @@ export class NHAProjectIPCComponent implements OnInit {
     this.disableProject = false;
     this.ipcList = this.tempList;
     this.lblProjectName = "";
+    this.lblFileName = "";
     this.ipcID = "";
     this.cmbProject = "";
     this.txtPkgNo = "";
