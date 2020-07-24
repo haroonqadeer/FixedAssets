@@ -977,8 +977,8 @@ export class AssetEntryComponent implements OnInit {
       var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
       this.http
-        // .post(this.serverUrl + "saveasset", saveData, {
-        .post("http://localhost:5090/api/saveasset", saveData, {
+        .post(this.serverUrl + "saveasset", saveData, {
+          // .post("http://localhost:5090/api/saveasset", saveData, {
           headers: reqHeader,
         })
         .subscribe((data: any) => {
@@ -1493,8 +1493,8 @@ export class AssetEntryComponent implements OnInit {
       var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
       this.http
-        // .post(this.serverUrl + "sudassettransfer", saveData, {
-        .post("http://localhost:5090/api/sudassettransfer", saveData, {
+        .post(this.serverUrl + "sudassettransfer", saveData, {
+          // .post("http://localhost:5090/api/sudassettransfer", saveData, {
           headers: reqHeader,
         })
         .subscribe((data: any) => {
