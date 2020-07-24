@@ -172,12 +172,28 @@ export class AssetCategoryComponent implements OnInit {
     } else {
       this.loadingBar = true;
       var saveData;
+      var path;
+      if (this.image == undefined) {
+        path = null;
+      } else {
+        path = this.imgPath;
+      }
+
       if (this.assetCatID == "") {
+        // alert("Account Category: " + parseInt(this.cmbAccCategory));
+        // alert("Category Short Name: " + this.txtCatShrtName);
+        // alert("Category Full Name: " + this.txtCatFullName);
+        // alert("path: " + path);
+        // alert("jpg");
+        // alert("image: " + this.image);
+        // // alert("Account Category ID: " + this.assetCatID);
+        // alert("User ID: " + this.cookie.get("userID"));
+
         saveData = {
           accountsCatID: parseInt(this.cmbAccCategory),
           assetCatCode: this.txtCatShrtName,
           assetCatDescription: this.txtCatFullName,
-          edoc: this.imgPath,
+          edoc: path,
           EDocExtension: "jpg",
           imgFile: this.image,
           assetCatID: 0,
@@ -185,20 +201,20 @@ export class AssetCategoryComponent implements OnInit {
           spType: "INSERT",
         };
       } else {
-        alert("Account Category: " + parseInt(this.cmbAccCategory));
-        alert("Category Short Name: " + this.txtCatShrtName);
-        alert("Category Full Name: " + this.txtCatFullName);
-        alert("path: " + this.imgPath);
-        alert("jpg");
-        alert("image: " + this.image);
-        alert("Account Category ID: " + this.assetCatID);
-        alert("User ID: " + this.cookie.get("userID"));
+        // alert("Account Category: " + parseInt(this.cmbAccCategory));
+        // alert("Category Short Name: " + this.txtCatShrtName);
+        // alert("Category Full Name: " + this.txtCatFullName);
+        // alert("path: " + this.imgPath);
+        // alert("jpg");
+        // alert("image: " + this.image);
+        // alert("Account Category ID: " + this.assetCatID);
+        // alert("User ID: " + this.cookie.get("userID"));
 
         saveData = {
           accountsCatID: parseInt(this.cmbAccCategory),
           assetCatCode: this.txtCatShrtName,
           assetCatDescription: this.txtCatFullName,
-          edoc: this.imgPath,
+          edoc: path,
           EDocExtension: "jpg",
           imgFile: this.image,
           assetCatID: this.assetCatID,
@@ -368,7 +384,7 @@ export class AssetCategoryComponent implements OnInit {
   clear() {
     this.heading = "Add";
 
-    this.accCatList = this.tempList;
+    this.assetCatList = this.tempList;
     this.assetCatID = "";
     this.txtCatShrtName = "";
     this.txtCatFullName = "";

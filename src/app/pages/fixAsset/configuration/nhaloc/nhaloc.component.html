@@ -19,7 +19,7 @@
         <div class="col-md-12 pt-2">
           <mat-form-field class='w-100'>
             <mat-label>Region</mat-label>
-            <mat-select [(ngModel)]="cmbRegion">
+            <mat-select [(ngModel)]="cmbRegion" (ngModelChange)="filterTable(cmbRegion)">
               <!-- <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchLocation" /> -->
               <ngx-mat-select-search [(ngModel)]="searchLocation" [placeholderLabel]="'Search...'"
                 [noEntriesFoundLabel]="'Not found'" name="search"></ngx-mat-select-search>

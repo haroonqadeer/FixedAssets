@@ -219,6 +219,7 @@ export class NHASectionComponent implements OnInit {
 
           this.http
             .post(this.serverUrl + "ofcsection", saveData, {
+              // .post("http://localhost:5090/api/ofcsection", saveData, {
               headers: reqHeader,
             })
             .subscribe((data: any) => {
@@ -267,6 +268,7 @@ export class NHASectionComponent implements OnInit {
 
     this.http
       .post(this.serverUrl + "ofcsection", saveData, {
+        // .post("http://localhost:5090/api/ofcsection", saveData, {
         headers: reqHeader,
       })
       .subscribe((data: any) => {
@@ -293,6 +295,20 @@ export class NHASectionComponent implements OnInit {
   }
 
   clear() {
+    this.heading = "Add";
+
+    this.secID = "";
+    this.txtSecShrtName = "";
+    this.txtSecFullName = "";
+    this.cmbWing = "";
+
+    this.searchOfcType = "";
+    this.searchWing = "";
+    this.tblSearch = "";
+    this.wngSectionList = this.tempList;
+  }
+
+  clearAll() {
     this.heading = "Add";
 
     this.secID = "";

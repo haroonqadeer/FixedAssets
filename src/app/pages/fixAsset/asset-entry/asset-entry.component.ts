@@ -860,7 +860,7 @@ export class AssetEntryComponent implements OnInit {
       } else {
         transferID = parseInt(this.lblTransferID);
       }
-      if (this.dtpPurchaseDt == undefined) {
+      if (this.dtpPurchaseDt == undefined || this.dtpPurchaseDt == "") {
         purchaseDate = null;
       } else {
         purchaseDate = this.convertDate(this.dtpPurchaseDt);
@@ -882,6 +882,41 @@ export class AssetEntryComponent implements OnInit {
       }
 
       if (this.assetID == "") {
+        // alert(parseInt(this.cmbLocation)); //int
+        // alert(parseInt(this.cmbOfcType)); //int
+        // alert(parseInt(this.cmbAssetCat)); //int
+        // alert(parseInt(this.assetNo)); //int
+        // alert(parseInt(this.cmbWngSection)); //int
+        // alert(parseInt(this.cmbCustody)); //int
+        // alert(this.txtAssetLoc); //string
+        // alert(this.txtAssetDesc); //string
+        // alert(this.txtIdentification); //string
+        // alert(this.txtSerialNo); //string
+        // alert(vehicleID); //int
+        // alert(projectID); //int
+        // alert(this.txtPreTag); //string
+        // alert(this.txtAmount); //float
+        // alert(this.txtNetBVal); //int
+        // alert(purchaseDate); //string
+        // alert(ipcRef); //string
+        // alert(this.cmbAssetCond); //int
+        // alert(this.sldUsable); //bool
+        // alert(this.sldSurplus); //bool
+        // alert(this.sldServiceable); //bool
+        // alert(this.sldCondemned); //bool
+        // alert(this.sldMissing); //bool
+        // alert(this.sldTransfered); //bool
+        // alert(this.txtRemarks); //string
+        // alert(this.cookie.get("userID")); //int
+        // alert(purchaseDate); //date
+        // alert("Insert"); //string
+        // alert(0); //int
+        // alert(parseInt(this.txtTagNo)); //int
+        // alert(this.imgAssetPath);
+        // alert("jpg");
+        // alert(this.imageAsset);
+        // alert(transferID); // int
+
         saveData = {
           SubLocID: parseInt(this.cmbLocation), //int
           OfficeTypeID: parseInt(this.cmbOfcType), //int
@@ -1157,6 +1192,14 @@ export class AssetEntryComponent implements OnInit {
   }
 
   clear() {
+    this.clearTransfer();
+    this.lblTransToComp = "";
+    this.lblTransByComp = "";
+    this.lblTransByPost = "";
+    this.lblTransferID = "";
+
+    this.disableCustody = false;
+
     this.disableFields = false;
     this.disableCustody = false;
     this.chkTag = false;
@@ -1189,6 +1232,81 @@ export class AssetEntryComponent implements OnInit {
     this.sldCondemned = false;
     this.sldMissing = false;
     this.sldTransfered = false;
+    this.disableOfcType = false;
+    this.disableServiceable = false;
+    this.disableSurplus = false;
+    this.disableUsable = false;
+    this.disableCondemned = false;
+    this.disableChkCustody = false;
+    this.txtRemarks = "";
+    this.lblAccCategory = "";
+    this.assetNo = "";
+    this.lblTransferID = "";
+    this.imageAsset = undefined;
+    this.imgFileAsset = undefined;
+    this.selectedAssetFile = null;
+    this.imageAssetUrl = "../../../../../assets/assetEntryImg/dropHereImg.png";
+  }
+
+  clearAll() {
+    this.clearTransfer();
+    this.lblTransToComp = "";
+    this.lblTransByComp = "";
+    this.lblTransByPost = "";
+    this.lblTransferID = "";
+
+    this.disableCustody = false;
+
+    this.disableFields = false;
+    this.disableCustody = false;
+    this.chkTag = false;
+    this.lblLocID = "";
+    this.lblOfcTypeID = "";
+    this.lblAssetCatID = "";
+    this.lblSectionID = "";
+
+    if (this.chkProject == false) {
+      this.cmbProject = "";
+    }
+    if (this.chkassetLoc == false) {
+      this.txtAssetLoc = "";
+    }
+    if (this.chkCustody == false) {
+      this.cmbCustody = "";
+    }
+    this.cmbWngSection = "";
+    this.cmbOfcType = "";
+    this.cmbLocation = "";
+    this.txtTagNo = "1";
+    this.lblAssetCategory = "";
+    this.lblLocation = "";
+    this.lblOfficeType = "";
+    this.lblSection = "";
+    this.assetID = "";
+    this.rdbAsset = "1";
+    this.cmbVehicle = "";
+    this.cmbAssetCat = "";
+    this.txtAssetDesc = "";
+    this.txtIdentification = "";
+    this.txtSerialNo = "";
+    this.cmbRef = "";
+    this.dtpPurchaseDt = "";
+    this.txtAmount = "";
+    this.txtPreTag = "";
+    this.txtNetBVal = "";
+    this.cmbAssetCond = "";
+    this.sldUsable = false;
+    this.sldServiceable = false;
+    this.sldSurplus = false;
+    this.sldCondemned = false;
+    this.sldMissing = false;
+    this.sldTransfered = false;
+    this.disableOfcType = false;
+    this.disableServiceable = false;
+    this.disableSurplus = false;
+    this.disableUsable = false;
+    this.disableCondemned = false;
+    this.disableChkCustody = false;
     this.txtRemarks = "";
     this.lblAccCategory = "";
     this.assetNo = "";
@@ -1261,8 +1379,8 @@ export class AssetEntryComponent implements OnInit {
 
       this.rdbTransType = trans[0].transferType;
       this.cmbTransferProject = trans[0].projectID;
-      this.cmbTransByPost = trans[0].rPostID;
-      this.cmbTransToPost = trans[0].tPostID;
+      this.cmbTransByPost = trans[0].tPostID;
+      this.cmbTransToPost = trans[0].rPostID;
       this.dtpTransferDt = new Date(trans[0].dateofTransfer);
       this.txtTransDesc = trans[0].transferDescription;
       if (trans[0].eDoc != null) {
@@ -1475,8 +1593,8 @@ export class AssetEntryComponent implements OnInit {
         };
       } else {
         saveData = {
-          TPostID: parseInt(this.cmbTransToPost), //int
-          RPostID: parseInt(this.cmbTransByPost), //int
+          TPostID: parseInt(this.cmbTransByPost), //int
+          RPostID: parseInt(this.cmbTransToPost), //int
           DateofTransfer: transferDate, //int
           TransferType: this.rdbTransType, //int
           TransferDescription: this.txtTransDesc, //int

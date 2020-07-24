@@ -30,6 +30,7 @@ export class NHALocComponent implements OnInit {
   tblSearch = "";
 
   locList = [];
+  tempList = [];
   ofcTypeList = [];
   mainLocList = [];
 
@@ -82,8 +83,14 @@ export class NHALocComponent implements OnInit {
       .get(this.serverUrl + "getsubloc", { headers: reqHeader })
       .subscribe((data: any) => {
         this.locList = data;
+        this.tempList = data;
         this.loadingBar = false;
       });
+  }
+
+  filterTable(loc) {
+    this.locList = this.tempList;
+    this.locList = this.locList.filter((x) => x.mainLocID == loc);
   }
 
   save() {
@@ -289,5 +296,7 @@ export class NHALocComponent implements OnInit {
 
     this.searchLocation = "";
     this.tblSearch = "";
+
+    this.locList = this.tempList;
   }
 }
