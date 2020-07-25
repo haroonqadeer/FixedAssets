@@ -185,7 +185,7 @@
                   : 'tag,subLocationDescription,officeTypeDescription,accountsCatagory,assetCatDescription,assetCatDescription,assetDescription,assetLocation,postName,projectShortName,ipcRef,otherIdentification,serialNo,vehID,previousTag'
                   : tblSearch
                 | paginate
-                  : { itemsPerPage: mTblItemPerPage, currentPage: mTblP };
+                  : { itemsPerPage: mainTableItemPerPage, currentPage: mainTableP };
               let i = index
             ">
             <td class="inline-block">
@@ -228,11 +228,11 @@
       <!-- Pagination Starts -->
       <div class="col-md-12 text-right">
         <div class="paginationBox">
-          <pagination-controls (pageChange)="mTblP = $event"></pagination-controls>
+          <pagination-controls (pageChange)="mainTableP = $event"></pagination-controls>
         </div>
         <div class="paginationBox">
           <mat-form-field class="pagenateList">
-            <mat-select [(ngModel)]="mTblItemPerPage">
+            <mat-select [(ngModel)]="mainTableItemPerPage">
               <mat-option value="1">1</mat-option>
               <mat-option value="2">2</mat-option>
               <mat-option value="10">10</mat-option>
@@ -248,7 +248,7 @@
           </mat-form-field>
         </div>
         <div class="paginationBox">
-          Item per page: &nbsp;&nbsp;
+          Item per page: {{mainTableItemPerPage}}
         </div>
       </div>
       <!-- Pagination Ends -->
@@ -756,16 +756,16 @@
       <div class="col-md-3 bgGrey boxShadow-1 pt-3">
         <mat-card class="text-center mb-2" *ngFor="
             let item of tagList
-              | paginate: { itemsPerPage: itemPerPage, currentPage: p }
+              | paginate: { itemsPerPage: tagItemPerPage, currentPage: tagP }
           ">{{ item.tag }}</mat-card>
         <!-- Pagination Starts -->
         <div class="col-md-12 text-right">
           <div class="paginationBox">
-            <pagination-controls (pageChange)="p = $event"></pagination-controls>
+            <pagination-controls (pageChange)="tagP = $event"></pagination-controls>
           </div>
           <div class="paginationBox">
             <mat-form-field class="pagenateList" appearance="fill">
-              <mat-select [(ngModel)]="itemPerPage">
+              <mat-select [(ngModel)]="tagItemPerPage">
                 <mat-option value="1">1</mat-option>
                 <mat-option value="2">2</mat-option>
                 <mat-option value="10">10</mat-option>
@@ -781,7 +781,7 @@
             </mat-form-field>
           </div>
           <div class="paginationBox text-white">
-            Item per page: &nbsp;&nbsp;
+            Item per page: {{tagItemPerPage}}
           </div>
         </div>
         <!-- Pagination Ends -->
@@ -974,7 +974,7 @@
                       : 'tag,subLocation,officeTitle,custody,description,assetCondition,project'
                       : tblSearchTag
                     | paginate
-                      : { itemsPerPage: tTblItemPerPage, currentPage: tTblP };
+                      : { itemsPerPage: preTagItemPerPage, currentPage: preTagP };
                   let i = index
                 ">
                 <td class="inline-block">
@@ -996,11 +996,11 @@
           <!-- Pagination Starts -->
           <div class="col-md-12 text-right">
             <div class="paginationBox">
-              <pagination-controls (pageChange)="tTblP = $event"></pagination-controls>
+              <pagination-controls (pageChange)="preTagP = $event"></pagination-controls>
             </div>
             <div class="paginationBox">
               <mat-form-field class="pagenateList">
-                <mat-select [(ngModel)]="tTblItemPerPage">
+                <mat-select [(ngModel)]="preTagItemPerPage">
                   <mat-option value="1">1</mat-option>
                   <mat-option value="2">2</mat-option>
                   <mat-option value="10">10</mat-option>
@@ -1016,7 +1016,7 @@
               </mat-form-field>
             </div>
             <div class="paginationBox">
-              Item per page: &nbsp;&nbsp;
+              Item per page: {{preTagItemPerPage}}
             </div>
           </div>
           <!-- Pagination Ends -->

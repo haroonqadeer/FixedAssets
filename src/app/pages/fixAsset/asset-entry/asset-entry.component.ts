@@ -26,16 +26,16 @@ export class AssetEntryComponent implements OnInit {
 
   loadingBar = true;
   //pagination variables for tag list
-  itemPerPage = "10";
-  p = 1;
+  tagItemPerPage = "10";
+  tagP = 1;
 
   //pagination variables for main table (asset detail list)
-  mTblItemPerPage = "10";
-  mTblP = 1;
+  mainTableItemPerPage = "10";
+  mainTableP = 1;
 
   //pagination variables for previous tag modal window table (old tag list)
-  tTblItemPerPage = "10";
-  tTblP = 1;
+  preTagItemPerPage = "10";
+  preTagP = 1;
 
   //* variables for orderby pipe
   order = "info.name";
