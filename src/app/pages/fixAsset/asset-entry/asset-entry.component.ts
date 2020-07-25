@@ -64,6 +64,7 @@ export class AssetEntryComponent implements OnInit {
   disableOfcType = true;
   disableProject = true;
   disableCustody = false;
+  disableTag = false;
 
   assetID = "";
   assetNo = "";
@@ -667,6 +668,7 @@ export class AssetEntryComponent implements OnInit {
       this.cmbVehicle = item.vehicleID;
     }
     this.disableFields = true;
+    this.disableTag = true;
 
     this.lblAssetCatID = item.assetCatID;
     this.lblLocID = item.subLocID;
@@ -694,7 +696,11 @@ export class AssetEntryComponent implements OnInit {
     this.txtSerialNo = item.serialNo;
     this.cmbProject = item.projectID;
     this.cmbRef = item.ipcRef;
-    this.dtpPurchaseDt = new Date(item.purchaseDate);
+
+    if (item.purchaseDate != null) {
+      this.dtpPurchaseDt = new Date(item.purchaseDate);
+    }
+
     this.txtAmount = item.costAmount;
     this.txtPreTag = item.previousTag;
     this.txtNetBVal = item.netBookAmount;
@@ -843,8 +849,6 @@ export class AssetEntryComponent implements OnInit {
         this.lblTransferID = "0";
       }
 
-      this.loadingBar = true;
-
       var purchaseDate;
       var saveData;
       var ipcRef;
@@ -861,6 +865,9 @@ export class AssetEntryComponent implements OnInit {
           return false;
         }
       }
+
+      this.loadingBar = true;
+
       if (this.lblTransferID == "") {
         transferID = null;
       } else {
@@ -1204,6 +1211,7 @@ export class AssetEntryComponent implements OnInit {
     this.lblTransByPost = "";
     this.lblTransferID = "";
 
+    this.disableTag = false;
     this.disableCustody = false;
 
     this.disableFields = false;
@@ -1261,6 +1269,7 @@ export class AssetEntryComponent implements OnInit {
     this.lblTransByPost = "";
     this.lblTransferID = "";
 
+    this.disableTag = false;
     this.disableCustody = false;
 
     this.disableFields = false;

@@ -220,7 +220,7 @@ export class NHAPostsComponent implements OnInit {
       type = "ACTIVATE";
     }
 
-    this.loadingBar = true;
+    // this.loadingBar = true;
 
     var saveData = {
       Userid: this.cookie.get("userID"), //int
@@ -245,7 +245,7 @@ export class NHAPostsComponent implements OnInit {
           );
           this.clear();
           this.getCustody();
-          this.loadingBar = false;
+          // this.loadingBar = false;
           return false;
         } else {
           this.toastr.errorToastr(data.msg, "Error !", {

@@ -82,8 +82,17 @@ export class NHALocComponent implements OnInit {
     this.http
       .get(this.serverUrl + "getsubloc", { headers: reqHeader })
       .subscribe((data: any) => {
-        this.locList = data;
         this.tempList = data;
+        alert(this.cmbRegion);
+        if (this.cmbRegion != "") {
+          alert("if");
+          this.locList = this.locList.filter(
+            (x) => x.mainLocID == this.cmbRegion
+          );
+        } else {
+          alert("else");
+          this.locList = data;
+        }
         this.loadingBar = false;
       });
   }
@@ -249,7 +258,7 @@ export class NHALocComponent implements OnInit {
       type = "ACTIVATE";
     }
 
-    this.loadingBar = true;
+    // this.loadingBar = true;
 
     var saveData = {
       Userid: this.cookie.get("userID"), //int
@@ -274,7 +283,7 @@ export class NHALocComponent implements OnInit {
           );
           this.clear();
           this.getLocation();
-          this.loadingBar = false;
+          // this.loadingBar = false;
           return false;
         } else {
           this.toastr.errorToastr(data.msg, "Error !", {
@@ -287,6 +296,17 @@ export class NHALocComponent implements OnInit {
   }
 
   clear() {
+    this.heading = "Add";
+    this.subLocID = "";
+    this.txtLocShrtName = "";
+    this.txtLocFullName = "";
+    this.cmbOfcType = 0;
+
+    this.searchLocation = "";
+    this.tblSearch = "";
+  }
+
+  clearAll() {
     this.heading = "Add";
     this.subLocID = "";
     this.txtLocShrtName = "";

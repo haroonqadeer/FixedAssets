@@ -86,8 +86,14 @@ export class NHASectionComponent implements OnInit {
         headers: reqHeader,
       })
       .subscribe((data: any) => {
-        this.wngSectionList = data;
         this.tempList = data;
+        if (this.cmbOfcType == 0) {
+          this.wngSectionList = data;
+        } else {
+          this.wngSectionList = this.wngSectionList.filter(
+            (x) => x.officeTypeID == this.cmbOfcType
+          );
+        }
         this.loadingBar = false;
       });
   }

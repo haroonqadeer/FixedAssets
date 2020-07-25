@@ -126,8 +126,14 @@ export class AssetCategoryComponent implements OnInit {
     this.http
       .get(this.serverUrl + "getassetcat", { headers: reqHeader })
       .subscribe((data: any) => {
-        this.assetCatList = data;
         this.tempList = data;
+        if (this.cmbAccCategory != "") {
+          this.assetCatList = this.assetCatList
+            .filter((x) => x.accountsCatID == this.cmbAccCategory)
+            .reverse();
+        } else {
+          this.assetCatList = data;
+        }
         this.loadingBar = false;
       });
   }
@@ -382,6 +388,24 @@ export class AssetCategoryComponent implements OnInit {
   }
 
   clear() {
+    this.heading = "Add";
+
+    this.assetCatID = "";
+    this.txtCatShrtName = "";
+    this.txtCatFullName = "";
+
+    this.lblDepRule = "";
+    this.lblBaseRate = "";
+
+    this.searchAccCat = "";
+    this.tblSearch = "";
+    this.image = undefined;
+    this.imgFile = undefined;
+    this.selectedFile = null;
+    this.imageUrl = "../../../../../assets/assetCatImg/dropHereImg.png";
+  }
+
+  clearAll() {
     this.heading = "Add";
 
     this.assetCatList = this.tempList;

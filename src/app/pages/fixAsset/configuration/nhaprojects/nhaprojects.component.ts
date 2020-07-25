@@ -30,6 +30,7 @@ export class NHAProjectsComponent implements OnInit {
   tblSearch = "";
 
   projectList = [];
+  tempList = [];
   ofcSecList = [];
 
   constructor(
@@ -66,9 +67,25 @@ export class NHAProjectsComponent implements OnInit {
     this.http
       .get(this.serverUrl + "getprojects", { headers: reqHeader })
       .subscribe((data: any) => {
-        this.projectList = data;
+        this.tempList = data;
+
+        if (this.cmbOfcSec != "") {
+          this.projectList = this.projectList
+            .filter((x) => x.officeSecID == this.cmbOfcSec)
+            .reverse();
+        } else {
+          this.projectList = data;
+        }
         this.loadingBar = false;
       });
+  }
+
+  filterTable(cmbOfcSec) {
+    this.projectList = this.tempList;
+
+    this.projectList = this.projectList
+      .filter((x) => x.officeSecID == cmbOfcSec)
+      .reverse();
   }
 
   save() {
@@ -228,8 +245,6 @@ export class NHAProjectsComponent implements OnInit {
       type = "ACTIVATE";
     }
 
-    this.loadingBar = true;
-
     var saveData = {
       Userid: this.cookie.get("userID"), //int
       SpType: type, //string
@@ -253,7 +268,6 @@ export class NHAProjectsComponent implements OnInit {
           );
           this.clear();
           this.getProject();
-          this.loadingBar = false;
           return false;
         } else {
           this.toastr.errorToastr(data.msg, "Error !", {
@@ -271,10 +285,24 @@ export class NHAProjectsComponent implements OnInit {
     this.projectID = "";
     this.txtProShrtName = "";
     this.txtProFullName = "";
+    this.txtAccTitle = "";
+
+    this.searchOfcSec = "";
+    this.tblSearch = "";
+  }
+
+  clearAll() {
+    this.heading = "Add";
+
+    this.projectID = "";
+    this.txtProShrtName = "";
+    this.txtProFullName = "";
     this.cmbOfcSec = "";
     this.txtAccTitle = "";
 
     this.searchOfcSec = "";
     this.tblSearch = "";
+
+    this.projectList = this.tempList;
   }
 }

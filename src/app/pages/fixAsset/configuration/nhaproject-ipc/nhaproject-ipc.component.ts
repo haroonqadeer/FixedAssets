@@ -54,6 +54,7 @@ export class NHAProjectIPCComponent implements OnInit {
   tempList = [];
 
   ipcDetailList = [];
+  tempDetailList = [];
   AssetCatList = [];
 
   constructor(
@@ -77,8 +78,14 @@ export class NHAProjectIPCComponent implements OnInit {
     this.http
       .get(this.serverUrl + "getipc", { headers: reqHeader })
       .subscribe((data: any) => {
-        this.ipcList = data;
         this.tempList = data;
+        if (this.cmbProject != "") {
+          this.ipcList = data
+            .filter((x) => x.projectID == this.cmbProject)
+            .reverse();
+        } else {
+          this.ipcList = data;
+        }
         this.loadingBar = false;
       });
   }
@@ -116,14 +123,16 @@ export class NHAProjectIPCComponent implements OnInit {
   }
 
   getAssetCatDescription(assetCatID) {
+    this.ipcDetailList = this.tempDetailList;
     if (this.cmbAssetCat != "" || this.cmbAssetCat != undefined) {
       var assetCat = this.AssetCatList.filter(
         (x) => x.assetCatID == assetCatID
       );
-      // this.txtAssetDesc = assetCat[0].assetCatDescription;
       this.lblAccCategory = assetCat[0].accountsCatagory;
-      // this.lblDepRule = assetCat[0].depreciationRule;
-      // this.lblBaseRate = assetCat[0].baseRate;
+
+      this.ipcDetailList = this.ipcDetailList.filter(
+        (x) => x.assetCatID == assetCatID
+      );
     }
   }
 
@@ -188,8 +197,6 @@ export class NHAProjectIPCComponent implements OnInit {
 
     this.lblProjectName = projectName[0].projectShortName;
 
-    // this.loadingBar = true;
-
     var reqHeader = new HttpHeaders({
       "Content-Type": "application/json",
       // Authorization: "Bearer " + Token,
@@ -201,7 +208,7 @@ export class NHAProjectIPCComponent implements OnInit {
       })
       .subscribe((data: any) => {
         this.ipcDetailList = data;
-        // this.loadingBar = false;
+        this.tempDetailList = data;
         $("#ipcDetailModal").modal("show");
       });
   }
@@ -261,7 +268,8 @@ export class NHAProjectIPCComponent implements OnInit {
       var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
       this.http
-        .post(this.serverUrl + "sudipcref", saveData, {
+        // .post(this.serverUrl + "sudipcref", saveData, {
+        .post("http://localhost:5090/api/sudipcref", saveData, {
           headers: reqHeader,
         })
         .subscribe((data: any) => {
@@ -376,6 +384,23 @@ export class NHAProjectIPCComponent implements OnInit {
   }
 
   clear() {
+    this.disableProject = false;
+    this.lblProjectName = "";
+    this.lblFileName = "";
+    this.ipcID = "";
+    this.txtPkgNo = "";
+    this.txtIPCNo = "";
+    this.txtIpcDesc = "";
+    this.searchProject = "";
+    this.tblSearch = "";
+
+    this.image = undefined;
+    this.imgFile = undefined;
+    this.selectedFile = null;
+    this.imageUrl = "../../../../../assets/IPCRefImg/dropHereImg.png";
+  }
+
+  clearAll() {
     this.disableProject = false;
     this.ipcList = this.tempList;
     this.lblProjectName = "";
@@ -525,7 +550,7 @@ export class NHAProjectIPCComponent implements OnInit {
                     toastTimeout: 2500,
                   }
                 );
-                this.clear();
+                this.clearDetail();
                 this.getIPCDetail(obj.ipcRefID);
                 this.modalLoadingBar = false;
                 return false;
@@ -548,5 +573,6 @@ export class NHAProjectIPCComponent implements OnInit {
     this.txtQty = "";
     this.txtDesc = "";
     this.tblSearchDetail = "";
+    this.ipcDetailList = this.tempDetailList;
   }
 }
