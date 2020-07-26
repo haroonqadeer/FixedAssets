@@ -381,7 +381,7 @@ export class AssetEntryComponent implements OnInit {
         headers: reqHeader,
       })
       .subscribe((data: any) => {
-        this.transferList = data;
+        this.transferList = data.filter((x) => x.projectID == null);
         this.tempTransList = data;
       });
   }
@@ -457,6 +457,15 @@ export class AssetEntryComponent implements OnInit {
     this.cmbOfcType = ofcType[0].officeTypeID;
 
     this.getWingSection(this.cmbOfcType);
+  }
+
+  showSearchOfficeType() {
+    var ofcType = this.locList.filter(
+      (x) => x.subLocID == this.cmbSearchLocation
+    );
+    this.cmbSearchOfcType = ofcType[0].officeTypeID;
+
+    this.getWingSection(this.cmbSearchOfcType);
   }
 
   getOfficeType() {
@@ -661,6 +670,11 @@ export class AssetEntryComponent implements OnInit {
   }
 
   editAsset(item) {
+    this.imageAsset = undefined;
+    this.imgFileAsset = undefined;
+    this.selectedAssetFile = null;
+    this.imageAssetUrl = "../../../../../assets/assetEntryImg/dropHereImg.png";
+
     if (item.vehicleID == 0) {
       this.rdbAsset = "1";
     } else {
@@ -968,7 +982,7 @@ export class AssetEntryComponent implements OnInit {
           Qty: parseInt(this.txtTagNo), //int
           EDoc: this.imgAssetPath,
           EDocExtension: "jpg",
-          imgFile: this.imageAsset,
+          imgFile: imgAsset,
           TransferID: transferID, // int
         };
       } else {
