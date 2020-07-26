@@ -907,6 +907,12 @@ export class AssetEntryComponent implements OnInit {
       if (this.cmbProject == "") {
         this.cmbProject = "0";
       }
+      var imgAsset;
+      if (this.imageAsset == undefined) {
+        imgAsset = null;
+      } else {
+        imgAsset = this.imageAsset;
+      }
 
       if (this.assetID == "") {
         // alert(parseInt(this.cmbLocation)); //int
@@ -941,7 +947,7 @@ export class AssetEntryComponent implements OnInit {
         // alert(parseInt(this.txtTagNo)); //int
         // alert(this.imgAssetPath);
         // alert("jpg");
-        // alert(this.imageAsset);
+        // alert(imgAsset);
         // alert(transferID); // int
 
         saveData = {
@@ -986,12 +992,12 @@ export class AssetEntryComponent implements OnInit {
           TransferID: transferID, // int
         };
       } else {
-        var imgAsset;
-        if (this.imageAsset == undefined) {
-          imgAsset = null;
-        } else {
-          imgAsset = this.imageAsset;
-        }
+        // var imgAsset;
+        // if (this.imageAsset == undefined) {
+        //   imgAsset = null;
+        // } else {
+        //   imgAsset = this.imageAsset;
+        // }
 
         saveData = {
           SubLocID: parseInt(this.lblLocID), //int

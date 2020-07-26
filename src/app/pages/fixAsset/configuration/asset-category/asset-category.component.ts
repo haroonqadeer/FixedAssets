@@ -128,9 +128,9 @@ export class AssetCategoryComponent implements OnInit {
       .subscribe((data: any) => {
         this.tempList = data;
         if (this.cmbAccCategory != "") {
-          this.assetCatList = this.assetCatList
-            .filter((x) => x.accountsCatID == this.cmbAccCategory)
-            .reverse();
+          this.assetCatList = this.assetCatList.filter(
+            (x) => x.accountsCatID == this.cmbAccCategory
+          );
         } else {
           this.assetCatList = data;
         }
@@ -270,6 +270,11 @@ export class AssetCategoryComponent implements OnInit {
   }
 
   edit(obj) {
+    this.image = undefined;
+    this.imgFile = undefined;
+    this.selectedFile = null;
+    this.imageUrl = "../../../../../assets/assetCatImg/dropHereImg.png";
+
     this.heading = "Edit";
 
     this.assetCatID = obj.assetCatID;

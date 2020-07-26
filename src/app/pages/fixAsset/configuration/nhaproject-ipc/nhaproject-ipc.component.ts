@@ -54,7 +54,7 @@ export class NHAProjectIPCComponent implements OnInit {
   tempList = [];
 
   ipcDetailList = [];
-  tempDetailList = [];
+  // tempDetailList = [];
   AssetCatList = [];
 
   constructor(
@@ -123,16 +123,16 @@ export class NHAProjectIPCComponent implements OnInit {
   }
 
   getAssetCatDescription(assetCatID) {
-    this.ipcDetailList = this.tempDetailList;
+    // this.ipcDetailList = this.tempDetailList;
     if (this.cmbAssetCat != "" || this.cmbAssetCat != undefined) {
       var assetCat = this.AssetCatList.filter(
         (x) => x.assetCatID == assetCatID
       );
       this.lblAccCategory = assetCat[0].accountsCatagory;
 
-      this.ipcDetailList = this.ipcDetailList.filter(
-        (x) => x.assetCatID == assetCatID
-      );
+      // this.ipcDetailList = this.ipcDetailList.filter(
+      //   (x) => x.assetCatID == assetCatID
+      // );
     }
   }
 
@@ -208,7 +208,7 @@ export class NHAProjectIPCComponent implements OnInit {
       })
       .subscribe((data: any) => {
         this.ipcDetailList = data;
-        this.tempDetailList = data;
+        // this.tempDetailList = data;
         $("#ipcDetailModal").modal("show");
       });
   }
@@ -268,8 +268,8 @@ export class NHAProjectIPCComponent implements OnInit {
       var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
       this.http
-        // .post(this.serverUrl + "sudipcref", saveData, {
-        .post("http://localhost:5090/api/sudipcref", saveData, {
+        .post(this.serverUrl + "sudipcref", saveData, {
+          // .post("http://localhost:5090/api/sudipcref", saveData, {
           headers: reqHeader,
         })
         .subscribe((data: any) => {
@@ -573,6 +573,6 @@ export class NHAProjectIPCComponent implements OnInit {
     this.txtQty = "";
     this.txtDesc = "";
     this.tblSearchDetail = "";
-    this.ipcDetailList = this.tempDetailList;
+    // this.ipcDetailList = this.tempDetailList;
   }
 }

@@ -185,7 +185,7 @@
                   : 'tag,subLocationDescription,officeTypeDescription,accountsCatagory,assetCatDescription,assetCatDescription,assetDescription,assetLocation,postName,projectShortName,ipcRef,otherIdentification,serialNo,vehID,previousTag'
                   : tblSearch
                 | paginate
-                  : { itemsPerPage: mainTableItemPerPage, currentPage: mainTableP };
+                  : { id:'mainTableP', itemsPerPage: mainTableItemPerPage, currentPage: mainTableP };
               let i = index
             ">
             <td class="inline-block">
@@ -228,7 +228,7 @@
       <!-- Pagination Starts -->
       <div class="col-md-12 text-right">
         <div class="paginationBox">
-          <pagination-controls (pageChange)="mainTableP = $event"></pagination-controls>
+          <pagination-controls id="mainTableP" (pageChange)="mainTableP = $event"></pagination-controls>
         </div>
         <div class="paginationBox">
           <mat-form-field class="pagenateList">
@@ -756,12 +756,12 @@
       <div class="col-md-3 bgGrey boxShadow-1 pt-3">
         <mat-card class="text-center mb-2" *ngFor="
             let item of tagList
-              | paginate: { itemsPerPage: tagItemPerPage, currentPage: tagP }
+              | paginate: { id:'tagP', itemsPerPage: tagItemPerPage, currentPage: tagP }
           ">{{ item.tag }}</mat-card>
         <!-- Pagination Starts -->
         <div class="col-md-12 text-right">
           <div class="paginationBox">
-            <pagination-controls (pageChange)="tagP = $event"></pagination-controls>
+            <pagination-controls id="tagP" (pageChange)="tagP = $event"></pagination-controls>
           </div>
           <div class="paginationBox">
             <mat-form-field class="pagenateList" appearance="fill">
@@ -813,9 +813,8 @@
               </div>
               <div class="row">
                 <div class="col-md-12">
-                  Room No. 12 - AD Accounts
-                  <!-- {{ item.assetLocation }} -->
-                  <!-- {{ item.custody }} -->
+                  <!-- Room No. 12 - AD Accounts -->
+                  {{ item.assetLocation }} - {{ item.custody }}
                 </div>
               </div>
             </div>
@@ -969,7 +968,7 @@
                       : 'tag,subLocation,officeTitle,custody,description,assetCondition,project'
                       : tblSearchTag
                     | paginate
-                      : { itemsPerPage: preTagItemPerPage, currentPage: preTagP };
+                      : { id:'preTagP', itemsPerPage: preTagItemPerPage, currentPage: preTagP };
                   let i = index
                 ">
                 <td class="inline-block">
@@ -991,7 +990,7 @@
           <!-- Pagination Starts -->
           <div class="col-md-12 text-right">
             <div class="paginationBox">
-              <pagination-controls (pageChange)="preTagP = $event"></pagination-controls>
+              <pagination-controls id="preTagP" (pageChange)="preTagP = $event"></pagination-controls>
             </div>
             <div class="paginationBox">
               <mat-form-field class="pagenateList">
@@ -1232,17 +1231,17 @@
           <!-- <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
             <span class="fa fa-angle-double-up" [hidden]="!reverse"></span> -->
         </th>
-        <th>
-          Create Date
-          <!-- <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
+        <!-- <th>
+          Create Date -->
+        <!-- <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
             <span class="fa fa-angle-double-up" [hidden]="!reverse"></span></th> -->
-        </th>
+        <!-- </th> -->
 
-        <th>
-          Net Book Value
-          <!-- <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
+        <!-- <th>
+          Net Book Value -->
+        <!-- <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
             <span class="fa fa-angle-double-up" [hidden]="!reverse"></span></th> -->
-        </th>
+        <!-- </th> -->
       </tr>
     </thead>
     <tbody>
@@ -1265,8 +1264,8 @@
         <td>{{ item.vehID }}</td>
         <td>{{ item.costAmount | number }}</td>
         <td>{{ item.purchaseDate | date: "dd-MM-yyyy" }}</td>
-        <td>{{ item.createdDate | date: "dd-MM-yyyy" }}</td>
-        <td>{{ item.netBookAmount | number }}</td>
+        <!-- <td>{{ item.createdDate | date: "dd-MM-yyyy" }}</td>
+        <td>{{ item.netBookAmount | number }}</td> -->
       </tr>
       <tr *ngIf="assetDetailList.length == 0">
         <td>No Record Found</td>
