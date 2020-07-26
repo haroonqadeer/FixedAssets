@@ -77,47 +77,17 @@
         </a>
       </li>
       <li>
-        <a href="">
-          <i class="fa fa-cog"></i>
-          <strong>Configuration</strong>
-          <small>sweet home</small>
-        </a>
-        <ul>
-          <li>
-            <a href="" routerLinkActive="active" routerLink="nhaLoc" (click)="closeNav()"><i
-                class="fa fa-location-arrow"></i>NHA Locations</a>
-          </li>
-          <li>
-            <a href="" routerLinkActive="active" routerLink="nhaSec" (click)="closeNav()"><i
-                class="fa fa-building"></i>NHA Section</a>
-          </li>
-          <li>
-            <a href="" routerLinkActive="active" routerLink="nhaOfficeType" (click)="closeNav()"><i
-                class="fa fa-bank"></i>Office Type</a>
-          </li>
-          <li>
-            <a href="" routerLinkActive="active" routerLink="assetCat" (click)="closeNav()"><i
-                class="fa fa-list"></i>Asset Category</a>
-          </li>
-          <li>
-            <a href="" routerLinkActive="active" routerLink="nhaPost" (click)="closeNav()"><i
-                class="fa fa-users"></i>NHA Posts</a>
-          </li>
-          <li>
-            <a href="" routerLinkActive="active" routerLink="nhaProject" (click)="closeNav()"><i
-                class="fa fa-road"></i>NHA Project</a>
-          </li>
-          <li>
-            <a href="" routerLinkActive="active" routerLink="nhaProjectIPC" (click)="closeNav()"><i
-                class="fa fa-file"></i>NHA Project IPCs</a>
-          </li>
-        </ul>
-      </li>
-      <li>
         <a href="" routerLink='freeholdLand' routerLinkActive="active" (click)="closeNav()">
           <i class="fa fa-picture-o"></i>
           <strong>Free Hold Land</strong>
           <small>Land in NHA possation</small>
+        </a>
+      </li>
+      <li>
+        <a href="" routerLink='nhaRoads' (click)='closeNav()' routerLinkActive='active'>
+          <i class="fa fa-road"></i>
+          <strong>Roads on Land</strong>
+          <small>Highways & Mortorways</small>
         </a>
       </li>
       <li>
@@ -163,10 +133,40 @@
       </li>
       <li>
         <a href="">
-          <i class="fa fa-envelope-o"></i>
-          <strong>Contacts</strong>
-          <small>drop a line</small>
+          <i class="fa fa-cog"></i>
+          <strong>Configuration</strong>
+          <small>sweet home</small>
         </a>
+        <ul>
+          <li>
+            <a href="" routerLinkActive="active" routerLink="nhaLoc" (click)="closeNav()"><i
+                class="fa fa-location-arrow"></i>NHA Locations</a>
+          </li>
+          <li>
+            <a href="" routerLinkActive="active" routerLink="nhaSec" (click)="closeNav()"><i
+                class="fa fa-building"></i>NHA Section</a>
+          </li>
+          <li>
+            <a href="" routerLinkActive="active" routerLink="nhaOfficeType" (click)="closeNav()"><i
+                class="fa fa-bank"></i>Office Type</a>
+          </li>
+          <li>
+            <a href="" routerLinkActive="active" routerLink="assetCat" (click)="closeNav()"><i
+                class="fa fa-list"></i>Asset Category</a>
+          </li>
+          <li>
+            <a href="" routerLinkActive="active" routerLink="nhaPost" (click)="closeNav()"><i
+                class="fa fa-users"></i>NHA Posts</a>
+          </li>
+          <li>
+            <a href="" routerLinkActive="active" routerLink="nhaProject" (click)="closeNav()"><i
+                class="fa fa-road"></i>NHA Project</a>
+          </li>
+          <li>
+            <a href="" routerLinkActive="active" routerLink="nhaProjectIPC" (click)="closeNav()"><i
+                class="fa fa-file"></i>NHA Project IPCs</a>
+          </li>
+        </ul>
       </li>
     </ul>
   </nav>
