@@ -83,14 +83,14 @@ export class NHALocComponent implements OnInit {
       .get(this.serverUrl + "getsubloc", { headers: reqHeader })
       .subscribe((data: any) => {
         this.tempList = data;
-        alert(this.cmbRegion);
+        // alert(this.cmbRegion);
         if (this.cmbRegion != "") {
-          alert("if");
+          // alert("if");
           this.locList = this.locList.filter(
             (x) => x.mainLocID == this.cmbRegion
           );
         } else {
-          alert("else");
+          // alert("else");
           this.locList = data;
         }
         this.loadingBar = false;
