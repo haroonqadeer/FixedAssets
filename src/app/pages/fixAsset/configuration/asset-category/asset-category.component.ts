@@ -270,6 +270,11 @@ export class AssetCategoryComponent implements OnInit {
   }
 
   edit(obj) {
+    this.image = undefined;
+    this.imgFile = undefined;
+    this.selectedFile = null;
+    this.imageUrl = "../../../../../assets/assetCatImg/dropHereImg.png";
+
     this.heading = "Edit";
 
     this.assetCatID = obj.assetCatID;

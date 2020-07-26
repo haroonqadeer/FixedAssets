@@ -947,7 +947,7 @@ export class AssetEntryComponent implements OnInit {
         // alert(parseInt(this.txtTagNo)); //int
         // alert(this.imgAssetPath);
         // alert("jpg");
-        // alert(this.imageAsset);
+        // alert(imgAsset);
         // alert(transferID); // int
 
         saveData = {
