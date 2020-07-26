@@ -124,7 +124,7 @@ export class DashboardyComponent implements OnInit {
       })
       .subscribe((data: any) => {
         this.tagUserList = data;
-        this.tagUserList.reverse();
+        this.tagUserList;
         $("#userTagDateWise").modal("show");
       });
   }
@@ -245,7 +245,7 @@ export class DashboardyComponent implements OnInit {
       .get(this.serverUrl + "getassetdetail", { headers: reqHeader })
       .subscribe((data: any) => {
         this.assetDetailList = data;
-        this.assetDetailList.reverse();
+        this.assetDetailList;
       });
   }
 
@@ -803,7 +803,7 @@ export class DashboardyComponent implements OnInit {
       .get(this.serverUrl + "getalltagsdetaildatewise", { headers: reqHeader })
       .subscribe((data: any) => {
         this.totalTagList = data;
-        this.totalTagList.reverse();
+        this.totalTagList;
       });
   }
 
@@ -849,7 +849,7 @@ export class DashboardyComponent implements OnInit {
       )
       .subscribe((data: any) => {
         this.totalTagList = data;
-        this.totalTagList.reverse();
+        this.totalTagList;
       });
   }
 
