@@ -1,3 +1,8 @@
+<div class="loader" *ngIf="loadingBar">Loading...</div>
+
+<!-- container -->
+<div class="container-fluid boxShadow-1 bg-white" *ngIf="!loadingBar">
+
 <div class="row">
   <div class="col-md-12 text-center">
     <h1>User Registeration</h1>
@@ -18,7 +23,7 @@
         <div class="col-md-12 pt-2">
           <mat-form-field class='w-100'>
             <mat-label>Email Address as User ID</mat-label>
-            <input matInput>
+            <input matInput [(ngModel)]="txtEmail">
           </mat-form-field>
         </div>
       </div>
@@ -27,7 +32,7 @@
         <div class="col-md-12 pt-2">
           <mat-form-field class='w-100'>
             <mat-label>Full Name</mat-label>
-            <input matInput>
+            <input matInput [(ngModel)]="txtName">
           </mat-form-field>
         </div>
       </div>
@@ -36,7 +41,7 @@
         <div class="col-md-12 pt-2">
           <mat-form-field class='w-100'>
             <mat-label>Father / Husbend Name</mat-label>
-            <input matInput>
+            <input matInput [(ngModel)]="txtFName">
           </mat-form-field>
         </div>
       </div>
@@ -45,7 +50,7 @@
         <div class="col-md-12 pt-2">
           <mat-form-field class='w-100'>
             <mat-label>CNIC Number</mat-label>
-            <input matInput>
+            <input matInput [(ngModel)]="txtCnic">
           </mat-form-field>
         </div>
       </div>
@@ -54,14 +59,17 @@
         <div class="col-md-12 pt-2">
           <mat-form-field class='w-100'>
             <mat-label>Post Title</mat-label>
-            <mat-select>
-              <mat-option value="option">Option</mat-option>
+            <mat-select [(ngModel)]="ddlPost">
+              <mat-option>
+                <ngx-mat-select-search [(ngModel)]="txtSearchPost" [placeholderLabel]="'Search...'" [noEntriesFoundLabel]="'Not found'" name="search"></ngx-mat-select-search>
+              </mat-option>
+              <mat-option *ngFor="let item of postsList | search: 'postName':txtSearchPost" value="{{item.postID}}">{{item.postName}}</mat-option>
             </mat-select>
           </mat-form-field>
         </div>
       </div>
       <!-- next row -->
-      <div class="row pr-4 pl-1">
+      <!-- <div class="row pr-4 pl-1">
         <div class="col-md-12 pt-2">
           <mat-form-field class='w-100'>
             <mat-label>Locations</mat-label>
@@ -76,16 +84,17 @@
             </mat-select>
           </mat-form-field>
         </div>
-      </div>
+      </div> -->
       <!-- next row -->
       <div class="row pr-4 pl-1">
         <div class="col-md-12 pt-2">
           <mat-form-field class='w-100'>
             <mat-label>User Role</mat-label>
-            <mat-select>
-              <mat-option value="option">Entry</mat-option>
-              <mat-option value="option">Admin</mat-option>
-              <mat-option value="option">Super Admin</mat-option>
+            <mat-select [(ngModel)]="ddlUserRole">
+              <mat-option>
+                <ngx-mat-select-search [(ngModel)]="txtSearchRole" [placeholderLabel]="'Search...'" [noEntriesFoundLabel]="'Not found'" name="search"></ngx-mat-select-search>
+              </mat-option>
+              <mat-option *ngFor="let item of userRoleList | search: 'roleDisplayName':txtSearchRole" value="{{item.roleID}}">{{item.roleDisplayName}}</mat-option>
             </mat-select>
           </mat-form-field>
         </div>
@@ -96,17 +105,17 @@
           <b class='text-primary'>PIN Allowed</b>
         </div>
         <div class="col-md-8 pt-2">
-          <mat-radio-group aria-label="Select an option">
+          <mat-radio-group aria-label="Select an option" [(ngModel)]="rdbPin">
             <mat-radio-button value="1" class='pr-2'>Yes</mat-radio-button>
-            <mat-radio-button value="2">No</mat-radio-button>
+            <mat-radio-button value="0">No</mat-radio-button>
           </mat-radio-group>
         </div>
       </div>
       <!-- next row -->
       <div class="row border-top bgGrey pt-3 pb-3 pl-1">
         <div class="col-md-12 inline-block">
-          <a class="btn-flip mr-3" data-back="Save" data-front="Save"></a>
-          <a class="btn-flip" data-back="Reset" data-front="Reset"></a>
+          <a class="btn-flip mr-3" data-back="Save" data-front="Save" (click)="save()"></a>
+          <a class="btn-flip" data-back="Reset" data-front="Reset" (click)="clear()"></a>
         </div>
       </div>
     </div>
@@ -117,13 +126,14 @@
           <mat-form-field class="w-100">
             <mat-label>search...</mat-label>
             <mat-icon matPrefix class='fa fa-search'></mat-icon>
-            <input matInput>
+            <input matInput [(ngModel)]="txtSearchUser">
           </mat-form-field>
         </div>
       </div>
       <div class="table-responsive table-wrapper mx-auto border style-3" style='height: 400px;'>
         <table class="table table-fixed">
           <thead>
+
             <tr>
               <th class="text-center sticky-top" scope="col">#</th>
               <th class="sticky-top" scope="col">Email Address</th>
@@ -136,55 +146,44 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td class='text-center'>1</td>
-              <td>haroon.qadeer@hotmail.com</td>
-              <td>Haroon Qadeer</td>
-              <td>IT Analyst</td>
-              <td>Super Admin</td>
-              <td data-toggle="modal" data-target='#locationModal'><span
-                  class='text-primary cursorPointer text-center'>detail...</span></td>
-              <td class='text-center'><span class='fa fa-check text-success'></span></td>
-              <td class='inline-block text-center'><span class='fa fa-edit cursorPointer pr-3 text-primary'></span>
-                <span class='fa fa-trash-o cursorPointer text-danger pr-3'></span>
+
+            <tr *ngFor="let item of usersList | search: 'email,name,postName,roleDiscription':txtSearchUser; let i=index">
+              <td class='text-center'>{{ i + 1 }}</td>
+              <td>{{item.email}}</td>
+              <td>{{item.name}}</td>
+              <td>{{item.postName}}</td>
+              <td>{{item.roleDiscription}}</td>
+              <td data-toggle="modal" data-target='#locationModal'><span class='text-primary cursorPointer text-center' (click)="getUserLocations(item.id)">detail...</span></td>
+
+              <td class='text-center' *ngIf="item.isPincode == true">
+                <span class='fa fa-check text-success'></span>
+              </td>
+
+              <td class='text-center' *ngIf="item.isPincode == false">
+                <span class='fa fa-close text-danger'></span>
+              </td>
+
+              <td class='inline-block text-center'>
+                <span class='fa fa-edit cursorPointer pr-3 text-primary' (click)="editUser(item)"></span>
+                <span class='fa fa-trash-o cursorPointer text-danger pr-3' (click)="deleteUser(item)"></span>
                 <mat-slide-toggle>
                 </mat-slide-toggle>
               </td>
             </tr>
-            <tr>
-              <td class='text-center'>2</td>
-              <td>imrannha@gmail.com</td>
-              <td>Imran Ejaz</td>
-              <td>IT Analyst</td>
-              <td>Entry</td>
-              <td><span class='text-primary cursorPointer text-center'>detail...</span></td>
-              <td class='text-center'><span class='fa fa-close text-danger'></span></td>
-              <td class='inline-block text-center'><span class='fa fa-edit cursorPointer pr-3 text-primary'></span>
-                <span class='fa fa-trash-o cursorPointer text-danger pr-3'></span>
-                <mat-slide-toggle>
-                </mat-slide-toggle>
-              </td>
-            </tr>
-            <tr>
-              <td class='text-center'>3</td>
-              <td>jamil1978@hotmail.com</td>
-              <td>Shahzada Jamil</td>
-              <td>Financial Analyst</td>
-              <td>Admin</td>
-              <td><span class='text-primary cursorPointer text-center'>detail...</span></td>
-              <td class='text-center'><span class='fa fa-check text-success'></span></td>
-              <td class='inline-block text-center'><span class='fa fa-edit cursorPointer pr-3 text-primary'></span>
-                <span class='fa fa-trash-o cursorPointer text-danger pr-3'></span>
-                <mat-slide-toggle>
-                </mat-slide-toggle>
-              </td>
-            </tr>
+
           </tbody>
         </table>
       </div><!-- End -->
     </div>
   </div>
 </div>
+
+
+
+
+
+
+
 
 <!-- Location Modal -->
 <div class="modal animate__animated animate__bounceIn" id="locationModal">
@@ -213,13 +212,16 @@
               <div class="col-md-10">
                 <mat-form-field class='w-100'>
                   <mat-label>Location</mat-label>
-                  <mat-select>
-                    <mat-option value="option">Option</mat-option>
+                  <mat-select [(ngModel)]="ddlLocations">
+                    <mat-option>
+                      <ngx-mat-select-search [(ngModel)]="txtSearchLoc" [placeholderLabel]="'Search...'" [noEntriesFoundLabel]="'Not found'" name="search"></ngx-mat-select-search>
+                    </mat-option>
+                    <mat-option *ngFor="let item of locationsList | search: 'subLocationDescription':txtSearchLoc" value="{{item.subLocID}}">{{item.subLocationDescription}}</mat-option>
                   </mat-select>
                 </mat-form-field>
               </div>
               <div class="col-md-2">
-                <a class="btn-flip" data-back="Save" data-front="Save"></a>
+                <a class="btn-flip" data-back="Save" data-front="Save" (click)="saveLocation()"></a>
               </div>
             </div>
             <!-- table -->
@@ -231,27 +233,10 @@
                   <th>Action</th>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td class='text-center'>1</td>
-                    <td>GM office Lahore</td>
+                  <tr *ngFor="let item of userLocationsList; let i=index;">
+                    <td class='text-center'>{{i + 1}}</td>
+                    <td>{{item.subLocationDescription}}</td>
                     <td class="inline-block">
-                      <span class="fa fa-edit cursorPointer pr-3 text-primary"></span>
-                      <span class="fa fa-trash-o cursorPointer text-danger"></span>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class='text-center'>2</td>
-                    <td>GM office Lahore</td>
-                    <td class="inline-block">
-                      <span class="fa fa-edit cursorPointer pr-3 text-primary"></span>
-                      <span class="fa fa-trash-o cursorPointer text-danger"></span>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class='text-center'>3</td>
-                    <td>GM office Lahore</td>
-                    <td class="inline-block">
-                      <span class="fa fa-edit cursorPointer pr-3 text-primary"></span>
                       <span class="fa fa-trash-o cursorPointer text-danger"></span>
                     </td>
                   </tr>
