@@ -833,7 +833,7 @@
     <div class="modal-content">
       <!-- Modal Header -->
       <div class="modal-header">
-        <h3>class="modal-title">Advance Search</h3>
+        <h3>Advance Search</h3>
         <button type="button" class="close" data-dismiss="modal">
           &times;
         </button>
@@ -845,13 +845,7 @@
           <div class="col-md-12">
             <mat-form-field class="w-100">
               <mat-label>Province - Location - Sub Location</mat-label>
-              <mat-select [(ngModel)]="cmbSearchLocation" (ngModelChange)="searchTableData()">
-                <!-- <input
-                  type="text"
-                  class="form-control"
-                  placeholder="Search..."
-                  [(ngModel)]="advSearchLocation"
-                /> -->
+              <mat-select [(ngModel)]="cmbSearchLocation" (ngModelChange)="searchTableData();showSearchOfficeType()">
                 <mat-option>
                   <ngx-mat-select-search [(ngModel)]="advSearchLocation" [placeholderLabel]="'Search...'"
                     [noEntriesFoundLabel]="'Not found'" name="search"></ngx-mat-select-search>
@@ -860,14 +854,15 @@
                 <mat-option *ngFor="
                     let item of locList
                       | search
-                        : 'subLocationDescription, mainLocationDescription, provinceName'
+                        : 'subLocationDescription,officeTypeDescription, mainLocationDescription, provinceName'
                         : advSearchLocation
                   " [value]="item.subLocID" [disabled]="item.isActivated == 0">
                   <table class="table">
                     <tr class="d-flex">
-                      <td class="col-4">{{ item.subLocationDescription }}</td>
-                      <td class="col-4">{{ item.mainLocationDescription }}</td>
-                      <td class="col-4">{{ item.provinceName }}</td>
+                      <td class="col-3">{{ item.subLocationDescription }}</td>
+                      <td class="col-3">{{ item.officeTypeDescription }}</td>
+                      <td class="col-3">{{ item.mainLocationDescription }}</td>
+                      <td class="col-3">{{ item.provinceName }}</td>
                     </tr>
                   </table>
                 </mat-option>
@@ -882,7 +877,7 @@
               <mat-label>Office Type</mat-label>
               <mat-select [(ngModel)]="cmbSearchOfcType" (ngModelChange)="
                   getWingSection(cmbSearchOfcType); searchTableData()
-                ">
+                " [disabled]="disableOfcType">
                 <mat-option *ngFor="let item of ofcTypeList" [value]="item.officeTypeID">
                   {{ item.officeTypeDescription }}
                 </mat-option>
