@@ -128,9 +128,9 @@ export class AssetCategoryComponent implements OnInit {
       .subscribe((data: any) => {
         this.tempList = data;
         if (this.cmbAccCategory != "") {
-          this.assetCatList = this.assetCatList
-            .filter((x) => x.accountsCatID == this.cmbAccCategory)
-            .reverse();
+          this.assetCatList = this.assetCatList.filter(
+            (x) => x.accountsCatID == this.cmbAccCategory
+          );
         } else {
           this.assetCatList = data;
         }
