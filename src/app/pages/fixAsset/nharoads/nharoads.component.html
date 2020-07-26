@@ -1,0 +1,916 @@
+<div class="row pl-3 m-0 p-0">
+  <div class="col-md-6 align-self-center p-0 m-0">
+    <h1 class="align-self-center">NHA Roads on Land</h1>
+  </div>
+  <div class="col-md-6 text-right">
+    <nav id="pageNav" class="stroke pull-right">
+      <ul>
+        <li>
+          <a (click)="toggleView = 'form'" class="cursorPointer">Form View</a>
+        </li>
+        <li>
+          <a (click)="toggleView = 'table'" class="cursorPointer">Table View</a>
+        </li>
+        <li>
+          <a class="cursorPointer" data-toggle="modal" data-target="#costAdditionhModal">Addition</a>
+        </li>
+        <li>
+          <a class="cursorPointer" data-toggle='modal' data-target="#revaluedCostModal">Re-Valuation</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</div>
+
+<!-- container -->
+<div class="conatiner-fluid bg-white">
+  <!-- Table View -->
+  <div *ngIf="toggleView == 'table'" class="animate_animated animate_fadeInUp">
+    <!-- search bar -->
+    <div class="row pl-3">
+      <div class="col-md-10">
+        <mat-form-field class="w-100">
+          <mat-label>search asset</mat-label>
+          <span matPrefix><span class="fa fa-search"></span> &nbsp;</span>
+          <input matInput />
+        </mat-form-field>
+      </div>
+      <div class="col-md-2 pr-3 align-self-center noneOutline">
+        <button mat-button color="warn" data-toggle="modal" data-target="#advanceSearchModal">
+          Advance Search
+        </button>
+      </div>
+    </div>
+
+    <!-- table -->
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <th>Action</th>
+          <th>Trial</th>
+          <th>Project</th>
+          <th>Road</th>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="inline-block">
+              <span class="fa fa-edit cursorPointer pr-3 text-primary"></span>
+              <span class="fa fa-trash-o cursorPointer text-danger"></span>
+            </td>
+            <td>
+              KHR-TKM
+            </td>
+            <td>Karachi - Torkham Project</td>
+            <td>N-5</td>
+          </tr>
+          <tr>
+            <td class="inline-block">
+              <span class="fa fa-edit cursorPointer pr-3 text-primary"></span>
+              <span class="fa fa-trash-o cursorPointer text-danger"></span>
+            </td>
+            <td>
+              KHR-TKM
+            </td>
+            <td>Karachi - Torkham Project</td>
+            <td>N-5</td>
+          </tr>
+          <tr>
+            <td class="inline-block">
+              <span class="fa fa-edit cursorPointer pr-3 text-primary"></span>
+              <span class="fa fa-trash-o cursorPointer text-danger"></span>
+            </td>
+            <td>
+              KHR-TKM
+            </td>
+            <td>Karachi - Torkham Project</td>
+            <td>N-5</td>
+          </tr>
+          <tr>
+            <td class="inline-block">
+              <span class="fa fa-edit cursorPointer pr-3 text-primary"></span>
+              <span class="fa fa-trash-o cursorPointer text-danger"></span>
+            </td>
+            <td>
+              KHR-TKM
+            </td>
+            <td>Karachi - Torkham Project</td>
+            <td>N-5</td>
+          </tr>
+          <tr>
+            <td class="inline-block">
+              <span class="fa fa-edit cursorPointer pr-3 text-primary"></span>
+              <span class="fa fa-trash-o cursorPointer text-danger"></span>
+            </td>
+            <td>
+              KHR-TKM
+            </td>
+            <td>Karachi - Torkham Project</td>
+            <td>N-5</td>
+          </tr>
+          <tr>
+            <td class="inline-block">
+              <span class="fa fa-edit cursorPointer pr-3 text-primary"></span>
+              <span class="fa fa-trash-o cursorPointer text-danger"></span>
+            </td>
+            <td>
+              KHR-TKM
+            </td>
+            <td>Karachi - Torkham Project</td>
+            <td>N-5</td>
+          </tr>
+          <tr>
+            <td class="inline-block">
+              <span class="fa fa-edit cursorPointer pr-3 text-primary"></span>
+              <span class="fa fa-trash-o cursorPointer text-danger"></span>
+            </td>
+            <td>
+              KHR-TKM
+            </td>
+            <td>Karachi - Torkham Project</td>
+            <td>N-5</td>
+          </tr>
+          <tr>
+            <td class="inline-block">
+              <span class="fa fa-edit cursorPointer pr-3 text-primary"></span>
+              <span class="fa fa-trash-o cursorPointer text-danger"></span>
+            </td>
+            <td>
+              KHR-TKM
+            </td>
+            <td>Karachi - Torkham Project</td>
+            <td>N-5</td>
+          </tr>
+        </tbody>
+      </table>
+    </div><!-- end table -->
+  </div><!-- end table view -->
+
+  <!-- form view -->
+  <div *ngIf="toggleView == 'form'" class="animate_animated animate_fadeInUp">
+
+    <div class="row">
+      <div class="col-md-6 border-right pl-3 pr-0">
+        <div class="row mt-2 pl-4 pr-4">
+          <div class="col-md-12">
+            <mat-form-field class='w-100'>
+              <mat-label>Account Section</mat-label>
+              <mat-select>
+                <mat-option value="option">Option</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <!-- next row -->
+        <div class="row pl-4 pr-4">
+          <div class="col-md-12">
+            <mat-form-field class='w-100'>
+              <mat-label>Trial Balance</mat-label>
+              <mat-select>
+                <mat-option value="option">Option</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <!-- next row -->
+        <div class="row pl-4 pr-4">
+          <div class="col-md-12">
+            <mat-form-field class='w-100'>
+              <mat-label>Account Code - Project Name</mat-label>
+              <mat-select>
+                <mat-option value="option">Option</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <!-- next row -->
+        <div class="row pl-4 pr-4">
+          <div class="col-md-12">
+            <mat-form-field class='w-100'>
+              <mat-label>Project Package</mat-label>
+              <mat-select>
+                <mat-option value="option">Option</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <!-- next row -->
+        <div class="row pl-4 pr-4">
+          <div class="col-md-12">
+            <mat-form-field class='w-100'>
+              <mat-label>Road</mat-label>
+              <mat-select>
+                <mat-option value="option">Option</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <!-- next row -->
+        <div class="row pl-4 pr-4">
+          <div class="col-md-12">
+            <mat-form-field class='w-100'>
+              <mat-label>Date of Nationalization</mat-label>
+              <input matInput [matDatepicker]="picker">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+          </div>
+        </div>
+        <!-- next row -->
+        <div class="row pl-4 pr-4">
+          <div class="col-md-12">
+            <mat-form-field class='w-100'>
+              <mat-label>Road Length</mat-label>
+              <input matInput>
+            </mat-form-field>
+          </div>
+        </div>
+        <!-- next row -->
+        <div class="row pl-4 pr-4">
+          <div class="col-md-6">
+            <mat-form-field class='w-100'>
+              <mat-label>Construction From</mat-label>
+              <input matInput [matDatepicker]="picker">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+          </div>
+          <div class="col-md-6">
+            <mat-form-field class='w-100'>
+              <mat-label>Construction To</mat-label>
+              <input matInput [matDatepicker]="picker">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+          </div>
+        </div>
+        <!-- next row -->
+        <div class="row pl-4 pr-4">
+          <div class="col-md-6">
+            <mat-form-field class='w-100'>
+              <mat-label>Construction Cost</mat-label>
+              <input matInput>
+            </mat-form-field>
+          </div>
+          <div class="col-md-6">
+            <mat-form-field class='w-100'>
+              <mat-label>Land Cost</mat-label>
+              <input matInput>
+            </mat-form-field>
+          </div>
+        </div>
+        <!-- next row -->
+        <div class="row pl-4 pr-4">
+          <div class="col-md-4 align-self-center font-weight-bold">
+            Land Transfered to NHA
+          </div>
+          <div class="col-md-4">
+            <mat-form-field class='w-100'>
+              <mat-label>Measurement Unit</mat-label>
+              <mat-select>
+                <mat-option value="option">Kanals - Marlas</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-md-2">
+            <mat-form-field class='w-100'>
+              <mat-label>Kanals</mat-label>
+              <input matInput>
+            </mat-form-field>
+          </div>
+          <div class="col-md-2">
+            <mat-form-field class='w-100'>
+              <mat-label>Marlas</mat-label>
+              <input matInput>
+            </mat-form-field>
+          </div>
+        </div>
+        <!-- next row -->
+        <div class="row pl-4 pr-4">
+          <div class="col-md-12">
+            <mat-form-field class='w-100'>
+              <mat-label>Remarks</mat-label>
+              <textarea matInput></textarea>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <!-- next row -->
+        <div class="row border-top bgGrey pt-3 pb-3 pl-4 pr-4">
+          <div class="col-md-12 inline-block">
+            <a class="btn-flip mr-3" data-back="Save" data-front="Save"></a>
+            <a class="btn-flip" data-back="Reset" data-front="Reset"></a>
+          </div>
+        </div>
+      </div><!-- end of first 6 columns -->
+
+      <!-- next 6 columns -->
+      <div class="col-md-6 bg-light pt-2 pl-4 pr-4">
+        <!-- accordian -->
+        <mat-accordion class="example-headers-align">
+          <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
+            <mat-expansion-panel-header class='border-bottom bg-light'>
+              <div class="row w-100">
+                <div class="col-md-6">
+                  <h5>Land Cost Addition</h5>
+                </div>
+                <div class="col-md-5 text-right text-primary">
+                  Total Rs. 15,102,201,100
+                </div>
+                <div class="col-md-1 text-right">
+                  <mat-icon><span *ngIf="step==0" class='fa fa-compress'></span>
+                    <span *ngIf="step!=0" class='fa fa-expand'></span></mat-icon>
+                </div>
+              </div>
+              <!-- <mat-panel-title>
+                  <h5>Land Cost Addition</h5>
+                </mat-panel-title>
+                <mat-panel-description class='text-primary'>
+                  Total Rs. 15,102,201,100
+                </mat-panel-description>
+                <mat-icon><span *ngIf="step==0" class='fa fa-compress'></span>
+                  <span *ngIf="step!=0" class='fa fa-expand'></span>
+                </mat-icon> -->
+            </mat-expansion-panel-header>
+
+            <!-- opening panel -->
+            <div class="row mt-2">
+              <div class="col-md-12">
+                <h6 class='text-danger'>Opening Balances</h6>
+              </div>
+            </div>
+
+            <!-- table -->
+            <div class="table-responsive">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th class='text-center'>#</th>
+                    <th class='text-right'>Amount</th>
+                    <th>As on</th>
+                    <th class='text-center'>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class='text-center'>1</td>
+                    <td>10,000</td>
+                    <td class='text-right'>15-Jul-2018</td>
+                    <td class='inline-block text-center'><span
+                        class='fa fa-edit cursorPointer pr-3 text-primary'></span>
+                      <span class='fa fa-trash-o cursorPointer text-danger pr-3'></span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class='text-center'>2</td>
+                    <td><input type="text" class="form-control" currencyMask></td>
+                    <td>
+                      <input type="date" class="form-control">
+                    </td>
+                    <td class='inline-block text-center'><span
+                        class='fa fa-save cursorPointer pr-3 text-primary'></span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Yearly Addition panel -->
+            <div class="row mt-2">
+              <div class="col-md-12">
+                <h6>Annual Addition</h6>
+              </div>
+            </div>
+            <!-- table -->
+            <div class="table-responsive">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th class='text-center'>#</th>
+                    <th class='text-right'>Amount</th>
+                    <th>As on</th>
+                    <th class='text-center'>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class='text-center'>1</td>
+                    <td class='text-right'>10,000</td>
+                    <td>15-Jul-2018</td>
+                    <td class='inline-block text-center'><span
+                        class='fa fa-edit cursorPointer pr-3 text-primary'></span>
+                      <span class='fa fa-trash-o cursorPointer text-danger pr-3'></span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class='text-center'>2</td>
+                    <td><input type="text" class="form-control" currencyMask></td>
+                    <td>
+                      <input type="date" class="form-control">
+                    </td>
+                    <td class='inline-block text-center'>
+                      <button mat-icon-button color="primary" class='noneOutline'>
+                        <mat-icon class='fa fa-save'></mat-icon>
+                      </button>
+                      <!-- <span
+                          class='fa fa-save cursorPointer pr-3 text-primary'></span> -->
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <mat-action-row>
+              <button mat-button color="primary" (click)="nextStep()">Next</button>
+            </mat-action-row>
+          </mat-expansion-panel>
+
+          <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" hideToggle>
+            <mat-expansion-panel-header class='border-bottom bg-light'>
+              <div class="row w-100">
+                <div class="col-md-6">
+                  <h5>Land Cost Re-Valuation</h5>
+                </div>
+                <div class="col-md-5 text-right text-primary">
+                  Total Rs. 18,250,680,100
+                </div>
+                <div class="col-md-1 text-right">
+                  <mat-icon><span *ngIf="step==1" class='fa fa-compress'></span>
+                    <span *ngIf="step!=1" class='fa fa-expand'></span></mat-icon>
+                </div>
+              </div>
+              <!-- <mat-panel-title>
+                  <h5>Land Cost Re-Valuation</h5>
+                </mat-panel-title>
+                <mat-panel-description class='text-primary'>
+                  Rs. 18,250,680,100
+                </mat-panel-description>
+                <span *ngIf="step==1" class='fa fa-compress'></span>
+                <span *ngIf="step!=1" class='fa fa-expand'></span> -->
+            </mat-expansion-panel-header>
+
+            <!-- opening panel -->
+            <div class="row mt-2">
+              <div class="col-md-12">
+                <h6 class='text-danger'>Opening Balances</h6>
+              </div>
+            </div>
+
+            <!-- table -->
+            <div class="table-responsive">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th class='text-center'>#</th>
+                    <th>Amount</th>
+                    <th class='text-right'>Surplus</th>
+                    <th class='text-right'>As on</th>
+                    <th class='text-center'>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class='text-center'>1</td>
+                    <td class='text-right'>10,000</td>
+                    <td class='text-right'>20,000</td>
+                    <td>15-Jul-2018</td>
+                    <td class='inline-block text-center'><span
+                        class='fa fa-edit cursorPointer pr-3 text-primary'></span>
+                      <span class='fa fa-trash-o cursorPointer text-danger pr-3'></span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class='text-center'>2</td>
+                    <td><input type="text" class="form-control" currencyMask></td>
+                    <td>
+                      <input type="text" class="form-control" currencyMask>
+                    </td>
+                    <td>
+                      <input type="date" class="form-control">
+                    </td>
+                    <td class='inline-block text-center'><span
+                        class='fa fa-save cursorPointer pr-3 text-primary'></span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Yearly Addition panel -->
+            <div class="row mt-2">
+              <div class="col-md-12">
+                <h6>Re-Valuation</h6>
+              </div>
+            </div>
+            <!-- table -->
+            <div class="table-responsive">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th class='text-center'>#</th>
+                    <th class='text-right'>Amount</th>
+                    <th class='text-right'>Surplus</th>
+                    <th>As on</th>
+                    <th class='text-center'>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class='text-center'>1</td>
+                    <td class='text-right'>10,000</td>
+                    <td class='text-right'>30,000</td>
+                    <td>15-Jul-2018</td>
+                    <td class='inline-block text-center'><span
+                        class='fa fa-edit cursorPointer pr-3 text-primary'></span>
+                      <span class='fa fa-trash-o cursorPointer text-danger pr-3'></span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class='text-center'>2</td>
+                    <td><input type="text" class="form-control" currencyMask></td>
+                    <td><input type="text" class="form-control" currencyMask></td>
+                    <td>
+                      <input type="date" class="form-control">
+                    </td>
+                    <td class='inline-block text-center'>
+                      <button mat-icon-button color="primary" class='noneOutline'>
+                        <mat-icon class='fa fa-save'></mat-icon>
+                      </button>
+                      <!-- <span
+                          class='fa fa-save cursorPointer pr-3 text-primary'></span> -->
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <mat-action-row>
+              <button mat-button color="warn" (click)="prevStep()">Previous</button>
+              <button mat-button color="primary" (click)="nextStep()">Next</button>
+            </mat-action-row>
+          </mat-expansion-panel>
+
+          <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" hideToggle>
+            <mat-expansion-panel-header class='border-bottom bg-light'>
+              <div class="row w-100">
+                <div class="col-md-6">
+                  <h5>Awards</h5>
+                </div>
+                <div class="col-md-5 text-right text-primary">
+                  Total Rs. 56,250,241
+                </div>
+                <div class="col-md-1 text-right">
+                  <mat-icon><span *ngIf="step==2" class='fa fa-compress'></span>
+                    <span *ngIf="step!=2" class='fa fa-expand'></span></mat-icon>
+                </div>
+              </div>
+              <!-- <mat-panel-title>
+                  <h5>Awards</h5>
+                </mat-panel-title>
+                <mat-panel-description class='text-primary'>
+                  Rs. 56,250,241
+                </mat-panel-description>
+                <mat-icon><span *ngIf="step==2" class='fa fa-compress'></span>
+                  <span *ngIf="step!=2" class='fa fa-expand'></span></mat-icon> -->
+            </mat-expansion-panel-header>
+
+            <mat-form-field>
+              <mat-label>Date</mat-label>
+              <input matInput [matDatepicker]="picker" (focus)="picker.open()" readonly>
+            </mat-form-field>
+            <mat-datepicker #picker></mat-datepicker>
+
+            <mat-action-row>
+              <button mat-button color="warn" (click)="prevStep()">Previous</button>
+              <button mat-button color="primary" (click)="nextStep()">Next</button>
+            </mat-action-row>
+          </mat-expansion-panel>
+          <mat-expansion-panel [expanded]="step === 3" (opened)="setStep(2)" hideToggle>
+            <mat-expansion-panel-header class='border-bottom bg-light'>
+              <div class="row w-100">
+                <div class="col-md-6">
+                  <h5>Mutations</h5>
+                </div>
+                <div class="col-md-5 text-right text-primary">
+                  Total Rs. 56,250,241
+                </div>
+                <div class="col-md-1 text-right">
+                  <mat-icon><span *ngIf="step==3" class='fa fa-compress'></span>
+                    <span *ngIf="step!=3" class='fa fa-expand'></span></mat-icon>
+                </div>
+              </div>
+              <!-- <mat-panel-title>
+                  
+                </mat-panel-title>
+                <mat-panel-description class='text-primary'>
+                  Rs. 56,250,241
+                </mat-panel-description>
+                <mat-icon><span *ngIf="step==3" class='fa fa-compress'></span>
+                  <span *ngIf="step!=3" class='fa fa-expand'></span></mat-icon> -->
+            </mat-expansion-panel-header>
+
+            <mat-form-field>
+              <mat-label>Date</mat-label>
+              <input matInput [matDatepicker]="picker" (focus)="picker.open()" readonly>
+            </mat-form-field>
+            <mat-datepicker #picker></mat-datepicker>
+
+            <mat-action-row>
+              <button mat-button color="warn" (click)="prevStep()">Previous</button>
+              <button mat-button color="primary" (click)="nextStep()">End</button>
+            </mat-action-row>
+          </mat-expansion-panel>
+
+        </mat-accordion><!-- end accordian -->
+
+      </div>
+    </div>
+    <div class="footer">
+
+    </div>
+  </div><!-- end form view -->
+</div><!-- end container -->
+
+
+
+<!-- Advance Search Modal -->
+<div class="modal animate__animated animate__bounceIn" id="advanceSearchModal">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h3 class="modal-title">Advance Search</h3>
+        <button type="button" class="close" data-dismiss="modal">
+          &times;
+        </button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-12">
+            <mat-form-field class='w-100'>
+              <mat-label>Province - Region - Location</mat-label>
+              <mat-select>
+                <mat-option value="option">Option</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <!-- next row -->
+        <div class="row">
+          <div class="col-md-12">
+            <mat-form-field class='w-100'>
+              <mat-label>Office Type</mat-label>
+              <mat-select>
+                <mat-option value="option">Option</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <!-- next row -->
+        <div class="row">
+          <div class="col-md-12">
+            <mat-form-field class='w-100'>
+              <mat-label>Wing - Section</mat-label>
+              <mat-select>
+                <mat-option value="option">Option</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Additoinal Cost Modal -->
+<div class="modal animate__animated animate__bounceIn" id="costAdditionhModal">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h3 class="modal-title">Road Cost Addition</h3>
+        <button type="button" class="close" data-dismiss="modal">
+          &times;
+        </button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <!-- opening panel -->
+        <div class="row mt-2">
+          <div class="col-md-12">
+            <h6 class='text-danger'>Opening Balances</h6>
+          </div>
+        </div>
+
+        <!-- table -->
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th class='text-center'>#</th>
+                <th class='text-right'>Amount</th>
+                <th>As on</th>
+                <th class='text-center'>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class='text-center'>1</td>
+                <td>10,000</td>
+                <td class='text-right'>15-Jul-2018</td>
+                <td class='inline-block text-center'><span class='fa fa-edit cursorPointer pr-3 text-primary'></span>
+                  <span class='fa fa-trash-o cursorPointer text-danger pr-3'></span>
+                </td>
+              </tr>
+              <tr>
+                <td class='text-center'>2</td>
+                <td><input type="text" class="form-control" currencyMask></td>
+                <td>
+                  <input type="date" class="form-control">
+                </td>
+                <td class='inline-block text-center'><span class='fa fa-save cursorPointer pr-3 text-primary'></span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Yearly Addition panel -->
+        <div class="row mt-2">
+          <div class="col-md-12">
+            <h6>Annual Addition</h6>
+          </div>
+        </div>
+        <!-- table -->
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th class='text-center'>#</th>
+                <th class='text-right'>Amount</th>
+                <th>As on</th>
+                <th class='text-center'>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class='text-center'>1</td>
+                <td class='text-right'>10,000</td>
+                <td>15-Jul-2018</td>
+                <td class='inline-block text-center'><span class='fa fa-edit cursorPointer pr-3 text-primary'></span>
+                  <span class='fa fa-trash-o cursorPointer text-danger pr-3'></span>
+                </td>
+              </tr>
+              <tr>
+                <td class='text-center'>2</td>
+                <td><input type="text" class="form-control" currencyMask></td>
+                <td>
+                  <input type="date" class="form-control">
+                </td>
+                <td class='inline-block text-center'>
+                  <button mat-icon-button color="primary" class='noneOutline'>
+                    <mat-icon class='fa fa-save'></mat-icon>
+                  </button>
+                  <!-- <span
+                      class='fa fa-save cursorPointer pr-3 text-primary'></span> -->
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Re-Valued Cost Modal -->
+<div class="modal animate__animated animate__bounceIn" id="revaluedCostModal">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h3 class="modal-title">Land Cost Re-Valuation</h3>
+        <button type="button" class="close" data-dismiss="modal">
+          &times;
+        </button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <!-- opening panel -->
+        <div class="row mt-2">
+          <div class="col-md-12">
+            <h6 class='text-danger'>Opening Balances</h6>
+          </div>
+        </div>
+
+        <!-- table -->
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th class='text-center'>#</th>
+                <th>Amount</th>
+                <th class='text-right'>Surplus</th>
+                <th class='text-right'>As on</th>
+                <th class='text-center'>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class='text-center'>2</td>
+                <td><input placeholder="Amount" type="text" class="form-control" currencyMask></td>
+                <td>
+                  <input placeholder="Date" type="text" class="form-control" currencyMask>
+                </td>
+                <td>
+                  <input type="date" class="form-control">
+                </td>
+                <td class='inline-block text-center'><span class='fa fa-save cursorPointer pr-3 text-primary'></span>
+                </td>
+              </tr>
+              <tr>
+                <td class='text-center'>1</td>
+                <td class='text-right'>10,000</td>
+                <td class='text-right'>20,000</td>
+                <td>15-Jul-2018</td>
+                <td class='inline-block text-center'><span class='fa fa-edit cursorPointer pr-3 text-primary'></span>
+                  <span class='fa fa-trash-o cursorPointer text-danger pr-3'></span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Yearly Addition panel -->
+        <div class="row mt-2">
+          <div class="col-md-12">
+            <h6>Re-Valuation</h6>
+          </div>
+        </div>
+        <!-- table -->
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th class='text-center'>#</th>
+                <th class='text-right'>Amount</th>
+                <th class='text-right'>Surplus</th>
+                <th>As on</th>
+                <th class='text-center'>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class='text-center'>2</td>
+                <td><input type="text" class="form-control" currencyMask></td>
+                <td><input type="text" class="form-control" currencyMask></td>
+                <td>
+                  <input type="date" class="form-control">
+                </td>
+                <td class='inline-block text-center'>
+                  <button mat-icon-button color="primary" class='noneOutline'>
+                    <mat-icon class='fa fa-save'></mat-icon>
+                  </button>
+                  <!-- <span
+                      class='fa fa-save cursorPointer pr-3 text-primary'></span> -->
+                </td>
+              </tr>
+              <tr>
+                <td class='text-center'>1</td>
+                <td class='text-right'>10,000</td>
+                <td class='text-right'>30,000</td>
+                <td>15-Jul-2018</td>
+                <td class='inline-block text-center'><span class='fa fa-edit cursorPointer pr-3 text-primary'></span>
+                  <span class='fa fa-trash-o cursorPointer text-danger pr-3'></span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

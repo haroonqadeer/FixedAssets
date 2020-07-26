@@ -45,6 +45,7 @@ import { NHAProjectsComponent } from "./pages/fixasset/configuration/nhaprojects
 import { NHAProjectIPCComponent } from "./pages/fixasset/configuration/nhaproject-ipc/nhaproject-ipc.component";
 import { NHAFreeholdLandComponent } from './pages/fixAsset/nhafreehold-land/nhafreehold-land.component';
 import { UserRegisterationComponent } from './pages/user/adminPanel/user-registeration/user-registeration.component';
+import { NHARoadsComponent } from './pages/fixasset/nharoads/nharoads.component';
 
 @NgModule({
   declarations: [
@@ -62,6 +63,7 @@ import { UserRegisterationComponent } from './pages/user/adminPanel/user-registe
     NHAProjectIPCComponent,
     NHAFreeholdLandComponent,
     UserRegisterationComponent,
+    NHARoadsComponent,
   ],
   imports: [
     BrowserModule,
