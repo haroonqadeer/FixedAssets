@@ -42,11 +42,6 @@ export class AssetEntryComponent implements OnInit {
   reverse = false;
   sortedCollection: any[];
 
-  //* variables for orderby pipe
-  // order = "info.name";
-  // reverse = false;
-  // sortedCollection: any[];
-
   imgTransPath = "C:/inetpub/wwwroot/2008_FAR_Proj/assets/transferImg";
   imageTransUrl: string = "../../../../../assets/assetEntryImg/dropHereImg.png";
   imageTrans;
