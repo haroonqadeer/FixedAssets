@@ -32,6 +32,7 @@ import { OrderModule } from "ngx-order-pipe";
 import { NgxPaginationModule } from "ngx-pagination";
 import { InputTextModule } from "primeng/inputtext";
 import { SearchPipe } from "./shared/pipe-filters/pipe-search";
+import { SortPipe } from "./shared/pipe-filters/pipe-sort";
 import { CookieService } from "ngx-cookie-service";
 import { LoginComponent } from "./pages/user/login/login.component";
 import { AssetEntryComponent } from "./pages/fixAsset/asset-entry/asset-entry.component";
@@ -43,14 +44,15 @@ import { AssetCategoryComponent } from "./pages/fixasset/configuration/asset-cat
 import { NHAPostsComponent } from "./pages/fixasset/configuration/nhaposts/nhaposts.component";
 import { NHAProjectsComponent } from "./pages/fixasset/configuration/nhaprojects/nhaprojects.component";
 import { NHAProjectIPCComponent } from "./pages/fixasset/configuration/nhaproject-ipc/nhaproject-ipc.component";
-import { NHAFreeholdLandComponent } from './pages/fixAsset/nhafreehold-land/nhafreehold-land.component';
-import { UserRegisterationComponent } from './pages/user/adminPanel/user-registeration/user-registeration.component';
-import { NHARoadsComponent } from './pages/fixasset/nharoads/nharoads.component';
+import { NHAFreeholdLandComponent } from "./pages/fixAsset/nhafreehold-land/nhafreehold-land.component";
+import { UserRegisterationComponent } from "./pages/user/adminPanel/user-registeration/user-registeration.component";
+import { NHARoadsComponent } from "./pages/fixasset/nharoads/nharoads.component";
 
 @NgModule({
   declarations: [
     AppComponent,
     SearchPipe,
+    SortPipe,
     LoginComponent,
     AssetEntryComponent,
     DashboardyComponent,
