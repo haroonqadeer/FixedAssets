@@ -1209,6 +1209,12 @@ export class AssetEntryComponent implements OnInit {
                 );
                 this.clear();
                 this.getAssetDetail();
+
+                const index = this.tagList.findIndex((x) => x.tag === item.tag);
+                if (index > -1) {
+                  this.tagList.splice(index, 1);
+                }
+
                 this.loadingBar = false;
                 return false;
               } else {
@@ -1370,6 +1376,7 @@ export class AssetEntryComponent implements OnInit {
   setTransfer() {
     if (this.sldTransfered) {
       $("#assetTransferModal").modal("show");
+      setTimeout(() => this.removeTransfer(), 10);
     } else {
       this.clearTransfer();
       this.lblTransToComp = "";
@@ -1382,6 +1389,12 @@ export class AssetEntryComponent implements OnInit {
       // this.cmbProject = "";
       this.cmbCustody = "";
       $("#assetTransferModal").modal("hide");
+    }
+  }
+
+  removeTransfer() {
+    if (this.lblTransferID == "") {
+      this.sldTransfered = false;
     }
   }
 
@@ -1691,6 +1704,7 @@ export class AssetEntryComponent implements OnInit {
   }
 
   editTransfer(obj) {
+    this.sldTransfered = true;
     this.lblTransferID = obj.transferID;
     this.rdbTransType = obj.transferType;
     this.cmbTransferProject = obj.projectID;

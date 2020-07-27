@@ -284,7 +284,10 @@ export class AssetCategoryComponent implements OnInit {
 
     this.lblDepRule = obj.depreciationRule;
     this.lblBaseRate = obj.baseRate;
-    if (obj.edoc != null) {
+    if (
+      obj.edoc != "C:/inetpub/wwwroot/2008_FAR_Proj/assets/assetCatImg" ||
+      obj.edoc != null
+    ) {
       // http://ambit-erp.southeastasia.cloudapp.azure.com:9000/assets/images/Marker2.png
       // this.imageUrl = "obj.edoc";
       this.imageUrl =
