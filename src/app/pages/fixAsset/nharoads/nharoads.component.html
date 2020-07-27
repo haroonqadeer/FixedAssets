@@ -11,19 +11,19 @@
         <li>
           <a (click)="toggleView = 'table'" class="cursorPointer">Table View</a>
         </li>
-        <li>
+        <!-- <li>
           <a class="cursorPointer" data-toggle="modal" data-target="#costAdditionhModal">Addition</a>
         </li>
         <li>
           <a class="cursorPointer" data-toggle='modal' data-target="#revaluedCostModal">Re-Valuation</a>
-        </li>
+        </li> -->
       </ul>
     </nav>
   </div>
 </div>
 
 <!-- container -->
-<div class="conatiner-fluid bg-white">
+<div class="container-fluid bg-white">
   <!-- Table View -->
   <div *ngIf="toggleView == 'table'" class="animate_animated animate_fadeInUp">
     <!-- search bar -->
@@ -306,31 +306,39 @@
       <!-- next 6 columns -->
       <div class="col-md-6 bg-light pt-2 pl-4 pr-4">
         <div class="row mt-3">
+          <div class="col-md-12 border-bottom">
+            <h5>Cost Additions</h5>
+          </div>
+        </div>
+        <!-- next row -->
+        <div class="row mt-3">
           <div class="offset-md-1 col-md-5 mb-4">
-            <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card border-left-primary shadow h-100 py-2" data-toggle="modal"
+              data-target="#additionOpeningModal">
               <div class="card-body">
                 <div class="row no-gutters align-items-center">
                   <div class="col mr-2">
-                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Earnings (Monthly)</div>
-                    <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
+                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Opening</div>
+                    <div class="h5 mb-0 font-weight-bold text-gray-800">Rs. 400,000</div>
                   </div>
                   <div class="col-auto">
-                    <i class="fa fa-calendar fa-2x text-gray-300"></i>
+                    <i class="fa fa-circle-o-notch fa-2x text-grey"></i>
                   </div>
                 </div>
               </div>
             </div>
           </div>
           <div class="col-md-5 mb-4">
-            <div class="card border-left-success shadow h-100 py-2">
+            <div class="card border-left-success shadow h-100 py-2" data-toggle="modal"
+              data-target="#additionsAdditionModal">
               <div class="card-body">
                 <div class="row no-gutters align-items-center">
                   <div class="col mr-2">
-                    <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Earnings (Annual)</div>
-                    <div class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
+                    <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Additions</div>
+                    <div class="h5 mb-0 font-weight-bold text-gray-800">Rs. 215,000</div>
                   </div>
                   <div class="col-auto">
-                    <i class="fa fa-dollar fa-2x text-gray-300"></i>
+                    <i class="fa fa-plus-circle fa-2x text-grey"></i>
                   </div>
                 </div>
               </div>
@@ -339,41 +347,105 @@
         </div>
         <!-- next row -->
         <div class="row mt-3">
+          <div class="col-md-12 border-bottom">
+            <h5>Depriciation</h5>
+          </div>
+        </div>
+        <!-- next row -->
+        <div class="row mt-3">
           <div class="offset-md-1 col-md-5 mb-4">
-            <div class="card border-left-info shadow h-100 py-2">
+            <div class="card border-left-info shadow h-100 py-2" data-toggle="modal"
+              data-target="#depriciationsOpeningModal">
               <div class="card-body">
                 <div class="row no-gutters align-items-center">
                   <div class="col mr-2">
-                    <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Tasks</div>
-                    <div class="row no-gutters align-items-center">
-                      <div class="col-auto">
-                        <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div>
-                      </div>
-                      <div class="col">
-                        <div class="progress progress-sm mr-2">
-                          <div class="progress-bar bg-info" role="progressbar" style="width: 50%" aria-valuenow="50"
-                            aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-                      </div>
-                    </div>
+                    <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Opening</div>
+                    <div class="h5 mb-0 font-weight-bold text-gray-800">Rs. 265,650</div>
                   </div>
                   <div class="col-auto">
-                    <i class="fa fa-clipboard-list fa-2x text-gray-300"></i>
+                    <i class="fa fa-circle-o-notch fa-2x text-grey"></i>
                   </div>
                 </div>
               </div>
             </div>
           </div>
           <div class="col-md-5 mb-4">
-            <div class="card border-left-warning shadow h-100 py-2">
+            <div class="card border-left-warning shadow h-100 py-2" data-toggle="modal"
+              data-target="#depriciationsDepriciationModal">
               <div class="card-body">
                 <div class="row no-gutters align-items-center">
                   <div class="col mr-2">
-                    <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Pending Requests</div>
-                    <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+                    <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Depriciation</div>
+                    <div class="h5 mb-0 font-weight-bold text-gray-800">Rs. 650,251</div>
                   </div>
                   <div class="col-auto">
-                    <i class="fa fa-comments fa-2x text-gray-300"></i>
+                    <i class="fa fa-level-down fa-2x text-grey"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- next row -->
+        <div class="row mt-3">
+          <div class="col-md-12 border-bottom">
+            <h5>Re-Valuation</h5>
+          </div>
+        </div>
+        <!-- next row -->
+        <div class="row mt-3">
+          <div class="offset-md-1 col-md-5 mb-4">
+            <div class="card border-left-warning shadow h-100 py-2" data-toggle="modal"
+              data-target="#revaluationsOpeningModal">
+              <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                  <div class="col mr-2">
+                    <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Opening</div>
+                    <div class="h5 mb-0 font-weight-bold text-gray-800">Rs. 650,251</div>
+                  </div>
+                  <div class="col-auto">
+                    <i class="fa fa-circle-o-notch fa-2x text-grey"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-5 mb-4">
+            <div class="card border-left-info shadow h-100 py-2" data-toggle="modal"
+              data-target="#revaluationRevaluationsModal">
+              <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                  <div class="col mr-2">
+                    <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Re-Valuations</div>
+                    <div class="h5 mb-0 font-weight-bold text-gray-800">Rs. 265,650</div>
+                  </div>
+                  <div class="col-auto">
+                    <i class="fa fa-chain fa-2x text-grey"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- next row -->
+        <div class="row mt-3">
+          <div class="col-md-12 border-bottom">
+            <h5>Accounting Transactions</h5>
+          </div>
+        </div>
+        <!-- next row -->
+        <div class="row mt-3">
+          <div class="offset-md-1 col-md-5 mb-4">
+            <div class="card border-left-success shadow h-100 py-2" data-toggle="modal"
+              data-target="#transactionsModal">
+              <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                  <div class="col mr-2">
+                    <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Transactions</div>
+                    <div class="h5 mb-0 font-weight-bold text-gray-800">97</div>
+                  </div>
+                  <div class="col-auto">
+                    <i class="fa fa-stack fa-2x text-grey"></i>
                   </div>
                 </div>
               </div>
@@ -448,13 +520,13 @@
   </div>
 </div>
 
-<!-- Additoinal Cost Modal -->
-<div class="modal animate__animated animate__bounceIn" id="costAdditionhModal">
+<!-- Additoinal Cost - Opening Modal -->
+<div class="modal animate__animated animate__bounceIn" id="additionOpeningModal">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <!-- Modal Header -->
       <div class="modal-header">
-        <h3 class="modal-title">Road Cost Addition</h3>
+        <h3 class="modal-title">Cost Additions - Opening Balances</h3>
         <button type="button" class="close" data-dismiss="modal">
           &times;
         </button>
@@ -462,12 +534,6 @@
 
       <!-- Modal body -->
       <div class="modal-body">
-        <!-- opening panel -->
-        <div class="row mt-2">
-          <div class="col-md-12">
-            <h6 class='text-danger'>Opening Balances</h6>
-          </div>
-        </div>
 
         <!-- table -->
         <div class="table-responsive">
@@ -476,46 +542,7 @@
               <tr>
                 <th class='text-center'>#</th>
                 <th class='text-right'>Amount</th>
-                <th>As on</th>
-                <th class='text-center'>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td class='text-center'>1</td>
-                <td>10,000</td>
-                <td class='text-right'>15-Jul-2018</td>
-                <td class='inline-block text-center'><span class='fa fa-edit cursorPointer pr-3 text-primary'></span>
-                  <span class='fa fa-trash-o cursorPointer text-danger pr-3'></span>
-                </td>
-              </tr>
-              <tr>
-                <td class='text-center'>2</td>
-                <td><input type="text" class="form-control" currencyMask></td>
-                <td>
-                  <input type="date" class="form-control">
-                </td>
-                <td class='inline-block text-center'><span class='fa fa-save cursorPointer pr-3 text-primary'></span>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <!-- Yearly Addition panel -->
-        <div class="row mt-2">
-          <div class="col-md-12">
-            <h6>Annual Addition</h6>
-          </div>
-        </div>
-        <!-- table -->
-        <div class="table-responsive">
-          <table class="table table-striped">
-            <thead>
-              <tr>
-                <th class='text-center'>#</th>
-                <th class='text-right'>Amount</th>
-                <th>As on</th>
+                <th class='text-center'>As on</th>
                 <th class='text-center'>Actions</th>
               </tr>
             </thead>
@@ -523,23 +550,18 @@
               <tr>
                 <td class='text-center'>1</td>
                 <td class='text-right'>10,000</td>
-                <td>15-Jul-2018</td>
+                <td class='text-center'>15-Jul-2018</td>
                 <td class='inline-block text-center'><span class='fa fa-edit cursorPointer pr-3 text-primary'></span>
                   <span class='fa fa-trash-o cursorPointer text-danger pr-3'></span>
                 </td>
               </tr>
               <tr>
                 <td class='text-center'>2</td>
-                <td><input type="text" class="form-control" currencyMask></td>
+                <td><input type="text" class="form-control text-right" currencyMask></td>
                 <td>
-                  <input type="date" class="form-control">
+                  <input type="date" class="form-control text-right">
                 </td>
-                <td class='inline-block text-center'>
-                  <button mat-icon-button color="primary" class='noneOutline'>
-                    <mat-icon class='fa fa-save'></mat-icon>
-                  </button>
-                  <!-- <span
-                      class='fa fa-save cursorPointer pr-3 text-primary'></span> -->
+                <td class='inline-block text-center'><span class='fa fa-save cursorPointer pr-3 text-primary'></span>
                 </td>
               </tr>
             </tbody>
@@ -557,13 +579,13 @@
   </div>
 </div>
 
-<!-- Re-Valued Cost Modal -->
-<div class="modal animate__animated animate__bounceIn" id="revaluedCostModal">
+<!-- Additoinal Cost - Additions Modal -->
+<div class="modal animate__animated animate__bounceIn" id="additionsAdditionModal">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <!-- Modal Header -->
       <div class="modal-header">
-        <h3 class="modal-title">Land Cost Re-Valuation</h3>
+        <h3 class="modal-title">Cost Additions - Additions</h3>
         <button type="button" class="close" data-dismiss="modal">
           &times;
         </button>
@@ -571,43 +593,36 @@
 
       <!-- Modal body -->
       <div class="modal-body">
-        <!-- opening panel -->
-        <div class="row mt-2">
-          <div class="col-md-12">
-            <h6 class='text-danger'>Opening Balances</h6>
-          </div>
-        </div>
-
         <!-- table -->
         <div class="table-responsive">
           <table class="table table-striped">
             <thead>
               <tr>
                 <th class='text-center'>#</th>
-                <th>Amount</th>
-                <th class='text-right'>Surplus</th>
-                <th class='text-right'>As on</th>
+                <th class='text-right'>Amount</th>
+                <th class='text-center'>As on</th>
                 <th class='text-center'>Actions</th>
               </tr>
             </thead>
             <tbody>
               <tr>
                 <td class='text-center'>2</td>
-                <td><input placeholder="Amount" type="text" class="form-control" currencyMask></td>
+                <td><input type="text" class="form-control text-right" currencyMask></td>
                 <td>
-                  <input placeholder="Date" type="text" class="form-control" currencyMask>
+                  <input type="date" class="form-control text-right">
                 </td>
-                <td>
-                  <input type="date" class="form-control">
-                </td>
-                <td class='inline-block text-center'><span class='fa fa-save cursorPointer pr-3 text-primary'></span>
+                <td class='inline-block text-center'>
+                  <button mat-icon-button color="primary" class='noneOutline'>
+                    <mat-icon class='fa fa-save'></mat-icon>
+                  </button>
+                  <!-- <span
+                      class='fa fa-save cursorPointer pr-3 text-primary'></span> -->
                 </td>
               </tr>
               <tr>
                 <td class='text-center'>1</td>
                 <td class='text-right'>10,000</td>
-                <td class='text-right'>20,000</td>
-                <td>15-Jul-2018</td>
+                <td class='text-center'>15-Jul-2018</td>
                 <td class='inline-block text-center'><span class='fa fa-edit cursorPointer pr-3 text-primary'></span>
                   <span class='fa fa-trash-o cursorPointer text-danger pr-3'></span>
                 </td>
@@ -615,13 +630,32 @@
             </tbody>
           </table>
         </div>
+      </div>
 
-        <!-- Yearly Addition panel -->
-        <div class="row mt-2">
-          <div class="col-md-12">
-            <h6>Re-Valuation</h6>
-          </div>
-        </div>
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Re-Valued Cost - Opening Modal -->
+<div class="modal animate__animated animate__bounceIn" id="revaluationsOpeningModal">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h3 class="modal-title">Re-Valuation Cost - Opening Balances</h3>
+        <button type="button" class="close" data-dismiss="modal">
+          &times;
+        </button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
         <!-- table -->
         <div class="table-responsive">
           <table class="table table-striped">
@@ -630,17 +664,80 @@
                 <th class='text-center'>#</th>
                 <th class='text-right'>Amount</th>
                 <th class='text-right'>Surplus</th>
-                <th>As on</th>
+                <th class='text-center'>As on</th>
                 <th class='text-center'>Actions</th>
               </tr>
             </thead>
             <tbody>
               <tr>
                 <td class='text-center'>2</td>
-                <td><input type="text" class="form-control" currencyMask></td>
-                <td><input type="text" class="form-control" currencyMask></td>
+                <td><input placeholder="Amount" type="text" class="form-control text-right" currencyMask></td>
                 <td>
-                  <input type="date" class="form-control">
+                  <input placeholder="Date" type="text" class="form-control text-right" currencyMask>
+                </td>
+                <td>
+                  <input type="date" class="form-control text-right">
+                </td>
+                <td class='inline-block text-center'><span class='fa fa-save cursorPointer pr-3 text-primary'></span>
+                </td>
+              </tr>
+              <tr>
+                <td class='text-center'>1</td>
+                <td class='text-right'>10,000</td>
+                <td class='text-right'>20,000</td>
+                <td class='text-center'>15-Jul-2018</td>
+                <td class='inline-block text-center'><span class='fa fa-edit cursorPointer pr-3 text-primary'></span>
+                  <span class='fa fa-trash-o cursorPointer text-danger pr-3'></span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Re-Valued Cost - Revaluations Modal -->
+<div class="modal animate__animated animate__bounceIn" id="revaluationRevaluationsModal">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h3 class="modal-title">Re-Valuation Cost - Revaluatoins</h3>
+        <button type="button" class="close" data-dismiss="modal">
+          &times;
+        </button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <!-- table -->
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th class='text-center'>#</th>
+                <th class='text-right'>Amount</th>
+                <th class='text-right'>Surplus</th>
+                <th class='text-center'>As on</th>
+                <th class='text-center'>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class='text-center'>2</td>
+                <td><input type="text" class="form-control text-right" currencyMask></td>
+                <td><input type="text" class="form-control text-right" currencyMask></td>
+                <td>
+                  <input type="date" class="form-control text-right">
                 </td>
                 <td class='inline-block text-center'>
                   <button mat-icon-button color="primary" class='noneOutline'>
@@ -654,10 +751,191 @@
                 <td class='text-center'>1</td>
                 <td class='text-right'>10,000</td>
                 <td class='text-right'>30,000</td>
-                <td>15-Jul-2018</td>
+                <td class='text-center'>15-Jul-2018</td>
+                <td class='inline-block text-center'><span class='fa fa-edit cursorPointer pr-3 text-primary'></span>
+                  <span class='fa fa-trash cursorPointer text-danger pr-3'></span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Depriciations - Opening Modal -->
+<div class="modal animate__animated animate__bounceIn" id="depriciationsOpeningModal">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h3 class="modal-title">Depriciation - Opening Balances</h3>
+        <button type="button" class="close" data-dismiss="modal">
+          &times;
+        </button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+
+        <!-- table -->
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th class='text-center'>#</th>
+                <th class='text-right'>Amount</th>
+                <th class='text-center'>As on</th>
+                <th class='text-center'>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class='text-center'>1</td>
+                <td class='text-right'>10,000</td>
+                <td class='text-center'>15-Jul-2018</td>
                 <td class='inline-block text-center'><span class='fa fa-edit cursorPointer pr-3 text-primary'></span>
                   <span class='fa fa-trash-o cursorPointer text-danger pr-3'></span>
                 </td>
+              </tr>
+              <tr>
+                <td class='text-center'>2</td>
+                <td><input type="text" class="form-control text-right" currencyMask></td>
+                <td>
+                  <input type="date" class="form-control text-right">
+                </td>
+                <td class='inline-block text-center'><span class='fa fa-save cursorPointer pr-3 text-primary'></span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Depriciations - Depriciation Modal -->
+<div class="modal animate__animated animate__bounceIn" id="depriciationsDepriciationModal">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h3 class="modal-title">Deprciation - Annual Depriciation</h3>
+        <button type="button" class="close" data-dismiss="modal">
+          &times;
+        </button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <!-- table -->
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th class='text-center'>#</th>
+                <th class='text-right'>Amount</th>
+                <th class='text-center'>As on</th>
+                <th class='text-center'>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class='text-center'>2</td>
+                <td><input type="text" class="form-control text-right" currencyMask></td>
+                <td>
+                  <input type="date" class="form-control text-right">
+                </td>
+                <td class='inline-block text-center'>
+                  <button mat-icon-button color="primary" class='noneOutline'>
+                    <mat-icon class='fa fa-save'></mat-icon>
+                  </button>
+                  <!-- <span
+                      class='fa fa-save cursorPointer pr-3 text-primary'></span> -->
+                </td>
+              </tr>
+              <tr>
+                <td class='text-center'>1</td>
+                <td class='text-right'>10,000</td>
+                <td class='text-center'>15-Jul-2018</td>
+                <td class='inline-block text-center'><span class='fa fa-edit cursorPointer pr-3 text-primary'></span>
+                  <span class='fa fa-trash-o cursorPointer text-danger pr-3'></span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Transactions Modal -->
+<div class="modal animate__animated animate__bounceIn" id="transactionsModal">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h3 class="modal-title">Transactions Detail</h3>
+        <button type="button" class="close" data-dismiss="modal">
+          &times;
+        </button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <!-- table -->
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th class='text-center'>Date</th>
+                <th>Account Code</th>
+                <th>Account Title</th>
+                <th class='text-right'>Debit</th>
+                <th class='text-right'>Credit</th>
+                <th class='text-center'>Type</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class='text-center'>17-Jul-2020</td>
+                <td>05.38.00</td>
+                <td>Gawadar Ratodero Project</td>
+                <td class='text-right'>10,000</td>
+                <td class='text-right'>0</td>
+                <td class="text-center">Addition</td>
+              </tr>
+              <tr>
+                <td class='text-center'>17-Jul-2020</td>
+                <td>20.01.00</td>
+                <td>Advance to LAC - Gawadar Ratodero Project</td>
+                <td class='text-right'>0</td>
+                <td class='text-right'>10,000</td>
+                <td class="text-center">Addition</td>
               </tr>
             </tbody>
           </table>

@@ -1,11 +1,15 @@
 body {
   font-family: "Montserrat", sans-serif;
   background: #f7edd5;
+  width: 100%;
+  height: 100%;
 }
 
 .containerLogin {
+  height: 100%;
   max-width: 900px;
   margin: auto;
+  position: float;
 }
 
 .bgLogin {
