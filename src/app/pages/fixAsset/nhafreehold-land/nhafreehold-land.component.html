@@ -11,19 +11,19 @@
         <li>
           <a (click)="toggleView = 'table'" class="cursorPointer">Table View</a>
         </li>
-        <li>
+        <!-- <li>
           <a class="cursorPointer" data-toggle="modal" data-target="#costAdditionhModal">Addition</a>
         </li>
         <li>
           <a class="cursorPointer" data-toggle='modal' data-target="#revaluedCostModal">Re-Valuation</a>
-        </li>
+        </li> -->
       </ul>
     </nav>
   </div>
 </div>
 
 <!-- container -->
-<div class="conatiner-fluid bg-white">
+<div class="container-fluid bg-white">
   <!-- Table View -->
   <div *ngIf="toggleView == 'table'" class="animate_animated animate_fadeInUp">
     <!-- search bar -->
@@ -293,326 +293,157 @@
 
       <!-- next 6 columns -->
       <div class="col-md-6 bg-light pt-2 pl-4 pr-4">
-        <!-- accordian -->
-        <mat-accordion class="example-headers-align">
-          <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
-            <mat-expansion-panel-header class='border-bottom bg-light'>
-              <div class="row w-100">
-                <div class="col-md-6">
-                  <h5>Land Cost Addition</h5>
-                </div>
-                <div class="col-md-5 text-right text-primary">
-                  Total Rs. 15,102,201,100
-                </div>
-                <div class="col-md-1 text-right">
-                  <mat-icon><span *ngIf="step==0" class='fa fa-compress'></span>
-                    <span *ngIf="step!=0" class='fa fa-expand'></span></mat-icon>
+        <div>
+          <div class="row mt-3">
+            <div class="col-md-12 border-bottom">
+              <h5>Cost Additions</h5>
+            </div>
+          </div>
+          <!-- next row -->
+          <div class="row mt-3">
+            <div class="offset-md-1 col-md-5 mb-4">
+              <div class="card border-left-primary shadow h-100 py-2" data-toggle="modal"
+                data-target="#additionOpeningModal">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Opening</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">Rs. 400,000</div>
+                    </div>
+                    <div class="col-auto">
+                      <i class="fa fa-circle-o-notch fa-2x text-grey"></i>
+                    </div>
+                  </div>
                 </div>
               </div>
-              <!-- <mat-panel-title>
-                <h5>Land Cost Addition</h5>
-              </mat-panel-title>
-              <mat-panel-description class='text-primary'>
-                Total Rs. 15,102,201,100
-              </mat-panel-description>
-              <mat-icon><span *ngIf="step==0" class='fa fa-compress'></span>
-                <span *ngIf="step!=0" class='fa fa-expand'></span>
-              </mat-icon> -->
-            </mat-expansion-panel-header>
-
-            <!-- opening panel -->
-            <div class="row mt-2">
-              <div class="col-md-12">
-                <h6 class='text-danger'>Opening Balances</h6>
+            </div>
+            <div class="col-md-5 mb-4">
+              <div class="card border-left-success shadow h-100 py-2" data-toggle="modal"
+                data-target="#additionsAdditionModal">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Additions</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">Rs. 215,000</div>
+                    </div>
+                    <div class="col-auto">
+                      <i class="fa fa-plus-circle fa-2x text-grey"></i>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
+          </div>
 
-            <!-- table -->
-            <div class="table-responsive">
-              <table class="table table-striped">
-                <thead>
-                  <tr>
-                    <th class='text-center'>#</th>
-                    <th class='text-right'>Amount</th>
-                    <th>As on</th>
-                    <th class='text-center'>Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td class='text-center'>1</td>
-                    <td>10,000</td>
-                    <td class='text-right'>15-Jul-2018</td>
-                    <td class='inline-block text-center'><span
-                        class='fa fa-edit cursorPointer pr-3 text-primary'></span>
-                      <span class='fa fa-trash-o cursorPointer text-danger pr-3'></span>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class='text-center'>2</td>
-                    <td><input type="text" class="form-control" currencyMask></td>
-                    <td>
-                      <input type="date" class="form-control">
-                    </td>
-                    <td class='inline-block text-center'><span
-                        class='fa fa-save cursorPointer pr-3 text-primary'></span>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+          <!-- next row -->
+          <div class="row mt-3">
+            <div class="col-md-12 border-bottom">
+              <h5>Re-Valuation</h5>
             </div>
-
-            <!-- Yearly Addition panel -->
-            <div class="row mt-2">
-              <div class="col-md-12">
-                <h6>Annual Addition</h6>
+          </div>
+          <!-- next row -->
+          <div class="row mt-3">
+            <div class="offset-md-1 col-md-5 mb-4">
+              <div class="card border-left-warning shadow h-100 py-2" data-toggle="modal"
+                data-target="#revaluationsOpeningModal">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Opening</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">Rs. 650,251</div>
+                    </div>
+                    <div class="col-auto">
+                      <i class="fa fa-circle-o-notch fa-2x text-grey"></i>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-            <!-- table -->
-            <div class="table-responsive">
-              <table class="table table-striped">
-                <thead>
-                  <tr>
-                    <th class='text-center'>#</th>
-                    <th class='text-right'>Amount</th>
-                    <th>As on</th>
-                    <th class='text-center'>Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td class='text-center'>1</td>
-                    <td class='text-right'>10,000</td>
-                    <td>15-Jul-2018</td>
-                    <td class='inline-block text-center'><span
-                        class='fa fa-edit cursorPointer pr-3 text-primary'></span>
-                      <span class='fa fa-trash-o cursorPointer text-danger pr-3'></span>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class='text-center'>2</td>
-                    <td><input type="text" class="form-control" currencyMask></td>
-                    <td>
-                      <input type="date" class="form-control">
-                    </td>
-                    <td class='inline-block text-center'>
-                      <button mat-icon-button color="primary" class='noneOutline'>
-                        <mat-icon class='fa fa-save'></mat-icon>
-                      </button>
-                      <!-- <span
-                        class='fa fa-save cursorPointer pr-3 text-primary'></span> -->
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <mat-action-row>
-              <button mat-button color="primary" (click)="nextStep()">Next</button>
-            </mat-action-row>
-          </mat-expansion-panel>
-
-          <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" hideToggle>
-            <mat-expansion-panel-header class='border-bottom bg-light'>
-              <div class="row w-100">
-                <div class="col-md-6">
-                  <h5>Land Cost Re-Valuation</h5>
-                </div>
-                <div class="col-md-5 text-right text-primary">
-                  Total Rs. 18,250,680,100
-                </div>
-                <div class="col-md-1 text-right">
-                  <mat-icon><span *ngIf="step==1" class='fa fa-compress'></span>
-                    <span *ngIf="step!=1" class='fa fa-expand'></span></mat-icon>
+            <div class="col-md-5 mb-4">
+              <div class="card border-left-info shadow h-100 py-2" data-toggle="modal"
+                data-target="#revaluationRevaluationsModal">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Re-Valuations</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">Rs. 265,650</div>
+                    </div>
+                    <div class="col-auto">
+                      <i class="fa fa-chain fa-2x text-grey"></i>
+                    </div>
+                  </div>
                 </div>
               </div>
-              <!-- <mat-panel-title>
-                <h5>Land Cost Re-Valuation</h5>
-              </mat-panel-title>
-              <mat-panel-description class='text-primary'>
-                Rs. 18,250,680,100
-              </mat-panel-description>
-              <span *ngIf="step==1" class='fa fa-compress'></span>
-              <span *ngIf="step!=1" class='fa fa-expand'></span> -->
-            </mat-expansion-panel-header>
+            </div>
+          </div>
 
-            <!-- opening panel -->
-            <div class="row mt-2">
-              <div class="col-md-12">
-                <h6 class='text-danger'>Opening Balances</h6>
+          <!-- next row -->
+          <div class="row mt-3">
+            <div class="col-md-12 border-bottom">
+              <h5>Awards & Mutations</h5>
+            </div>
+          </div>
+          <!-- next row -->
+          <div class="row mt-3">
+            <div class="offset-md-1 col-md-5 mb-4">
+              <div class="card border-left-info shadow h-100 py-2" data-toggle="modal" data-target="#awardsModal">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Awards</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">Rs. 265,650</div>
+                    </div>
+                    <div class="col-auto">
+                      <i class="fa fa-certificate fa-2x text-grey"></i>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-
-            <!-- table -->
-            <div class="table-responsive">
-              <table class="table table-striped">
-                <thead>
-                  <tr>
-                    <th class='text-center'>#</th>
-                    <th>Amount</th>
-                    <th class='text-right'>Surplus</th>
-                    <th class='text-right'>As on</th>
-                    <th class='text-center'>Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td class='text-center'>1</td>
-                    <td class='text-right'>10,000</td>
-                    <td class='text-right'>20,000</td>
-                    <td>15-Jul-2018</td>
-                    <td class='inline-block text-center'><span
-                        class='fa fa-edit cursorPointer pr-3 text-primary'></span>
-                      <span class='fa fa-trash-o cursorPointer text-danger pr-3'></span>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class='text-center'>2</td>
-                    <td><input type="text" class="form-control" currencyMask></td>
-                    <td>
-                      <input type="text" class="form-control" currencyMask>
-                    </td>
-                    <td>
-                      <input type="date" class="form-control">
-                    </td>
-                    <td class='inline-block text-center'><span
-                        class='fa fa-save cursorPointer pr-3 text-primary'></span>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-
-            <!-- Yearly Addition panel -->
-            <div class="row mt-2">
-              <div class="col-md-12">
-                <h6>Re-Valuation</h6>
-              </div>
-            </div>
-            <!-- table -->
-            <div class="table-responsive">
-              <table class="table table-striped">
-                <thead>
-                  <tr>
-                    <th class='text-center'>#</th>
-                    <th class='text-right'>Amount</th>
-                    <th class='text-right'>Surplus</th>
-                    <th>As on</th>
-                    <th class='text-center'>Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td class='text-center'>1</td>
-                    <td class='text-right'>10,000</td>
-                    <td class='text-right'>30,000</td>
-                    <td>15-Jul-2018</td>
-                    <td class='inline-block text-center'><span
-                        class='fa fa-edit cursorPointer pr-3 text-primary'></span>
-                      <span class='fa fa-trash-o cursorPointer text-danger pr-3'></span>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class='text-center'>2</td>
-                    <td><input type="text" class="form-control" currencyMask></td>
-                    <td><input type="text" class="form-control" currencyMask></td>
-                    <td>
-                      <input type="date" class="form-control">
-                    </td>
-                    <td class='inline-block text-center'>
-                      <button mat-icon-button color="primary" class='noneOutline'>
-                        <mat-icon class='fa fa-save'></mat-icon>
-                      </button>
-                      <!-- <span
-                        class='fa fa-save cursorPointer pr-3 text-primary'></span> -->
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-
-            <mat-action-row>
-              <button mat-button color="warn" (click)="prevStep()">Previous</button>
-              <button mat-button color="primary" (click)="nextStep()">Next</button>
-            </mat-action-row>
-          </mat-expansion-panel>
-
-          <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" hideToggle>
-            <mat-expansion-panel-header class='border-bottom bg-light'>
-              <div class="row w-100">
-                <div class="col-md-6">
-                  <h5>Awards</h5>
-                </div>
-                <div class="col-md-5 text-right text-primary">
-                  Total Rs. 56,250,241
-                </div>
-                <div class="col-md-1 text-right">
-                  <mat-icon><span *ngIf="step==2" class='fa fa-compress'></span>
-                    <span *ngIf="step!=2" class='fa fa-expand'></span></mat-icon>
+            <div class="col-md-5 mb-4">
+              <div class="card border-left-warning shadow h-100 py-2" data-toggle="modal" data-target="#mutationsModal">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Mutations</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">Rs. 650,251</div>
+                    </div>
+                    <div class="col-auto">
+                      <i class="fa fa-handshake-o fa-2x text-grey"></i>
+                    </div>
+                  </div>
                 </div>
               </div>
-              <!-- <mat-panel-title>
-                <h5>Awards</h5>
-              </mat-panel-title>
-              <mat-panel-description class='text-primary'>
-                Rs. 56,250,241
-              </mat-panel-description>
-              <mat-icon><span *ngIf="step==2" class='fa fa-compress'></span>
-                <span *ngIf="step!=2" class='fa fa-expand'></span></mat-icon> -->
-            </mat-expansion-panel-header>
+            </div>
+          </div>
 
-            <mat-form-field>
-              <mat-label>Date</mat-label>
-              <input matInput [matDatepicker]="picker" (focus)="picker.open()" readonly>
-            </mat-form-field>
-            <mat-datepicker #picker></mat-datepicker>
-
-            <mat-action-row>
-              <button mat-button color="warn" (click)="prevStep()">Previous</button>
-              <button mat-button color="primary" (click)="nextStep()">Next</button>
-            </mat-action-row>
-          </mat-expansion-panel>
-          <mat-expansion-panel [expanded]="step === 3" (opened)="setStep(2)" hideToggle>
-            <mat-expansion-panel-header class='border-bottom bg-light'>
-              <div class="row w-100">
-                <div class="col-md-6">
-                  <h5>Mutations</h5>
-                </div>
-                <div class="col-md-5 text-right text-primary">
-                  Total Rs. 56,250,241
-                </div>
-                <div class="col-md-1 text-right">
-                  <mat-icon><span *ngIf="step==3" class='fa fa-compress'></span>
-                    <span *ngIf="step!=3" class='fa fa-expand'></span></mat-icon>
+          <!-- next row -->
+          <div class="row mt-3">
+            <div class="col-md-12 border-bottom">
+              <h5>Accounting Transactions</h5>
+            </div>
+          </div>
+          <!-- next row -->
+          <div class="row mt-3">
+            <div class="offset-md-1 col-md-5 mb-4">
+              <div class="card border-left-success shadow h-100 py-2" data-toggle="modal"
+                data-target="#transactionsModal">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Transactions</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">97</div>
+                    </div>
+                    <div class="col-auto">
+                      <i class="fa fa-stack fa-2x text-grey"></i>
+                    </div>
+                  </div>
                 </div>
               </div>
-              <!-- <mat-panel-title>
-                
-              </mat-panel-title>
-              <mat-panel-description class='text-primary'>
-                Rs. 56,250,241
-              </mat-panel-description>
-              <mat-icon><span *ngIf="step==3" class='fa fa-compress'></span>
-                <span *ngIf="step!=3" class='fa fa-expand'></span></mat-icon> -->
-            </mat-expansion-panel-header>
-
-            <mat-form-field>
-              <mat-label>Date</mat-label>
-              <input matInput [matDatepicker]="picker" (focus)="picker.open()" readonly>
-            </mat-form-field>
-            <mat-datepicker #picker></mat-datepicker>
-
-            <mat-action-row>
-              <button mat-button color="warn" (click)="prevStep()">Previous</button>
-              <button mat-button color="primary" (click)="nextStep()">End</button>
-            </mat-action-row>
-          </mat-expansion-panel>
-
-        </mat-accordion><!-- end accordian -->
-
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="footer">
-
     </div>
   </div><!-- end form view -->
 </div><!-- end container -->
@@ -677,13 +508,13 @@
   </div>
 </div>
 
-<!-- Additoinal Cost Modal -->
-<div class="modal animate__animated animate__bounceIn" id="costAdditionhModal">
+<!-- Additoinal Cost - Opening Modal -->
+<div class="modal animate__animated animate__bounceIn" id="additionOpeningModal">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <!-- Modal Header -->
       <div class="modal-header">
-        <h3 class="modal-title">Land Cost Addition</h3>
+        <h3 class="modal-title">Cost Additions - Opening Balances</h3>
         <button type="button" class="close" data-dismiss="modal">
           &times;
         </button>
@@ -691,77 +522,38 @@
 
       <!-- Modal body -->
       <div class="modal-body">
-        <!-- opening cost -->
-        <div class="row bg-light">
-          <div class="col-md-12 pl-4 pr-4 pb-2">
-            <div class="row">
-              <div class="col-md-12 border-bottom">
-                <h4>Opening Cost</h4>
-              </div>
-            </div>
-            <!-- next row -->
-            <div class="row">
-              <div class="col-md-12">
-                <mat-form-field class='w-100'>
-                  <mat-label>Opening Cost Amount</mat-label>
-                  <input currencyMask matInput>
-                </mat-form-field>
-              </div>
-            </div>
-            <!-- next row -->
-            <div class="row">
-              <div class="col-md-12">
-                <mat-form-field class='w-100'>
-                  <mat-label>Opening Cost as on</mat-label>
-                  <input matInput [matDatepicker]="picker">
-                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                  <mat-datepicker #picker></mat-datepicker>
-                </mat-form-field>
-              </div>
-            </div>
-            <!-- next row -->
-            <div class="row">
-              <div class="col-md-12">
-                <a class="btn-flip" data-back="Save Opening Cost" data-front="Save Opening Cost"></a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- Revalued Cost -->
-        <div class="row border-top">
-          <div class="col-md-12 pt-2 pl-4 pr-4">
-            <div class="row">
-              <div class="col-md-12">
-                <h4>Yearly Cost</h4>
-              </div>
-            </div>
-            <!-- next row -->
-            <div class="row">
-              <div class="col-md-12">
-                <mat-form-field class='w-100'>
-                  <mat-label>Yearly Cost</mat-label>
-                  <input currencyMask matInput>
-                </mat-form-field>
-              </div>
-            </div>
-            <!-- next row -->
-            <div class="row">
-              <div class="col-md-12">
-                <mat-form-field class='w-100'>
-                  <mat-label>Additoin Year</mat-label>
-                  <input matInput [matDatepicker]="picker">
-                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                  <mat-datepicker #picker></mat-datepicker>
-                </mat-form-field>
-              </div>
-            </div>
-            <!-- next row -->
-            <div class="row">
-              <div class="col-md-12">
-                <a class="btn-flip" data-back="Save Yearly Cost" data-front="Save Yearly Cost"></a>
-              </div>
-            </div>
-          </div>
+
+        <!-- table -->
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th class='text-center'>#</th>
+                <th class='text-right'>Amount</th>
+                <th class='text-center'>As on</th>
+                <th class='text-center'>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class='text-center'>1</td>
+                <td class='text-right'>10,000</td>
+                <td class='text-center'>15-Jul-2018</td>
+                <td class='inline-block text-center'><span class='fa fa-edit cursorPointer pr-3 text-primary'></span>
+                  <span class='fa fa-trash-o cursorPointer text-danger pr-3'></span>
+                </td>
+              </tr>
+              <tr>
+                <td class='text-center'>2</td>
+                <td><input type="text" class="form-control text-right" currencyMask></td>
+                <td>
+                  <input type="date" class="form-control text-right">
+                </td>
+                <td class='inline-block text-center'><span class='fa fa-save cursorPointer pr-3 text-primary'></span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
 
@@ -775,13 +567,13 @@
   </div>
 </div>
 
-<!-- Re-Valued Cost Modal -->
-<div class="modal animate__animated animate__bounceIn" id="revaluedCostModal">
+<!-- Additoinal Cost - Additions Modal -->
+<div class="modal animate__animated animate__bounceIn" id="additionsAdditionModal">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <!-- Modal Header -->
       <div class="modal-header">
-        <h3 class="modal-title">Land Cost Re-Valuation</h3>
+        <h3 class="modal-title">Cost Additions - Additions</h3>
         <button type="button" class="close" data-dismiss="modal">
           &times;
         </button>
@@ -789,95 +581,284 @@
 
       <!-- Modal body -->
       <div class="modal-body">
-        <!-- opening cost -->
-        <div class="row bg-light">
-          <div class="col-md-12 pl-4 pr-4 pb-2">
-            <div class="row">
-              <div class="col-md-12 border-bottom">
-                <h4>Opening Re-Valuation</h4>
-              </div>
-            </div>
-            <!-- next row -->
-            <div class="row">
-              <div class="col-md-12">
-                <mat-form-field class='w-100'>
-                  <mat-label>Opening Amount</mat-label>
-                  <input currencyMask matInput>
-                </mat-form-field>
-              </div>
-            </div>
-            <!-- next row -->
-            <div class="row">
-              <div class="col-md-12">
-                <mat-form-field class='w-100'>
-                  <mat-label>Opening Amount as on</mat-label>
-                  <input matInput [matDatepicker]="picker">
-                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                  <mat-datepicker #picker></mat-datepicker>
-                </mat-form-field>
-              </div>
-            </div>
-            <!-- next row -->
-            <div class="row">
-              <div class="col-md-12">
-                <mat-form-field class='w-100'>
-                  <mat-label>Opening Surplus Amount</mat-label>
-                  <input currencyMask matInput>
-                </mat-form-field>
-              </div>
-            </div>
-            <!-- next row -->
-            <div class="row">
-              <div class="col-md-12">
-                <a class="btn-flip" data-back="Save Re-Valuation Opening" data-front="Save Re-Valuation Opening"></a>
-              </div>
-            </div>
-          </div>
+        <!-- table -->
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th class='text-center'>#</th>
+                <th class='text-right'>Amount</th>
+                <th class='text-center'>As on</th>
+                <th class='text-center'>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class='text-center'>2</td>
+                <td><input type="text" class="form-control text-right" currencyMask></td>
+                <td>
+                  <input type="date" class="form-control text-right">
+                </td>
+                <td class='inline-block text-center'>
+                  <button mat-icon-button color="primary" class='noneOutline'>
+                    <mat-icon class='fa fa-save'></mat-icon>
+                  </button>
+                  <!-- <span
+                      class='fa fa-save cursorPointer pr-3 text-primary'></span> -->
+                </td>
+              </tr>
+              <tr>
+                <td class='text-center'>1</td>
+                <td class='text-right'>10,000</td>
+                <td class='text-center'>15-Jul-2018</td>
+                <td class='inline-block text-center'><span class='fa fa-edit cursorPointer pr-3 text-primary'></span>
+                  <span class='fa fa-trash-o cursorPointer text-danger pr-3'></span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-        <!-- Revalued Cost -->
-        <div class="row border-top">
-          <div class="col-md-12 pt-2 pl-4 pr-4">
-            <div class="row">
-              <div class="col-md-12">
-                <h4>Re-Valuation Amount</h4>
-              </div>
-            </div>
-            <!-- next row -->
-            <div class="row">
-              <div class="col-md-12">
-                <mat-form-field class='w-100'>
-                  <mat-label>Amount</mat-label>
-                  <input currencyMask matInput>
-                </mat-form-field>
-              </div>
-            </div>
-            <!-- next row -->
-            <div class="row">
-              <div class="col-md-12">
-                <mat-form-field class='w-100'>
-                  <mat-label>Year</mat-label>
-                  <input matInput [matDatepicker]="picker">
-                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                  <mat-datepicker #picker></mat-datepicker>
-                </mat-form-field>
-              </div>
-            </div>
-            <!-- next row -->
-            <div class="row">
-              <div class="col-md-12">
-                <mat-form-field class='w-100'>
-                  <mat-label>Surplus Amount</mat-label>
-                  <input currencyMask matInput>
-                </mat-form-field>
-              </div>
-            </div>
-            <!-- next row -->
-            <div class="row">
-              <div class="col-md-12">
-                <a class="btn-flip" data-back="Save Re-Valuation Amount" data-front="Save Re-Valuation Amount"></a>
-              </div>
-            </div>
-          </div>
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Re-Valued Cost - Opening Modal -->
+<div class="modal animate__animated animate__bounceIn" id="revaluationsOpeningModal">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h3 class="modal-title">Re-Valuation Cost - Opening Balances</h3>
+        <button type="button" class="close" data-dismiss="modal">
+          &times;
+        </button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <!-- table -->
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th class='text-center'>#</th>
+                <th class='text-right'>Amount</th>
+                <th class='text-right'>Surplus</th>
+                <th class='text-center'>As on</th>
+                <th class='text-center'>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class='text-center'>2</td>
+                <td><input placeholder="Amount" type="text" class="form-control text-right" currencyMask></td>
+                <td>
+                  <input placeholder="Date" type="text" class="form-control text-right" currencyMask>
+                </td>
+                <td>
+                  <input type="date" class="form-control text-right">
+                </td>
+                <td class='inline-block text-center'><span class='fa fa-save cursorPointer pr-3 text-primary'></span>
+                </td>
+              </tr>
+              <tr>
+                <td class='text-center'>1</td>
+                <td class='text-right'>10,000</td>
+                <td class='text-right'>20,000</td>
+                <td class='text-center'>15-Jul-2018</td>
+                <td class='inline-block text-center'><span class='fa fa-edit cursorPointer pr-3 text-primary'></span>
+                  <span class='fa fa-trash-o cursorPointer text-danger pr-3'></span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Re-Valued Cost - Revaluations Modal -->
+<div class="modal animate__animated animate__bounceIn" id="revaluationRevaluationsModal">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h3 class="modal-title">Re-Valuation Cost - Revaluatoins</h3>
+        <button type="button" class="close" data-dismiss="modal">
+          &times;
+        </button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <!-- table -->
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th class='text-center'>#</th>
+                <th class='text-right'>Amount</th>
+                <th class='text-right'>Surplus</th>
+                <th class='text-center'>As on</th>
+                <th class='text-center'>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class='text-center'>2</td>
+                <td><input type="text" class="form-control text-right" currencyMask></td>
+                <td><input type="text" class="form-control text-right" currencyMask></td>
+                <td>
+                  <input type="date" class="form-control text-right">
+                </td>
+                <td class='inline-block text-center'>
+                  <button mat-icon-button color="primary" class='noneOutline'>
+                    <mat-icon class='fa fa-save'></mat-icon>
+                  </button>
+                  <!-- <span
+                      class='fa fa-save cursorPointer pr-3 text-primary'></span> -->
+                </td>
+              </tr>
+              <tr>
+                <td class='text-center'>1</td>
+                <td class='text-right'>10,000</td>
+                <td class='text-right'>30,000</td>
+                <td class='text-center'>15-Jul-2018</td>
+                <td class='inline-block text-center'><span class='fa fa-edit cursorPointer pr-3 text-primary'></span>
+                  <span class='fa fa-trash cursorPointer text-danger pr-3'></span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Awards Modal -->
+<div class="modal animate__animated animate__bounceIn" id="awardsModal">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h3 class="modal-title">Awards</h3>
+        <button type="button" class="close" data-dismiss="modal">
+          &times;
+        </button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Mutations Modal -->
+<div class="modal animate__animated animate__bounceIn" id="mutationsModal">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h3 class="modal-title">Mutations</h3>
+        <button type="button" class="close" data-dismiss="modal">
+          &times;
+        </button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Transactions Modal -->
+<div class="modal animate__animated animate__bounceIn" id="transactionsModal">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h3 class="modal-title">Transactions Detail</h3>
+        <button type="button" class="close" data-dismiss="modal">
+          &times;
+        </button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <!-- table -->
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th class='text-center'>Date</th>
+                <th>Account Code</th>
+                <th>Account Title</th>
+                <th class='text-right'>Debit</th>
+                <th class='text-right'>Credit</th>
+                <th class='text-center'>Type</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class='text-center'>17-Jul-2020</td>
+                <td>05.38.00</td>
+                <td>Gawadar Ratodero Project</td>
+                <td class='text-right'>10,000</td>
+                <td class='text-right'>0</td>
+                <td class="text-center">Addition</td>
+              </tr>
+              <tr>
+                <td class='text-center'>17-Jul-2020</td>
+                <td>20.01.00</td>
+                <td>Advance to LAC - Gawadar Ratodero Project</td>
+                <td class='text-right'>0</td>
+                <td class='text-right'>10,000</td>
+                <td class="text-center">Addition</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
 

@@ -357,6 +357,14 @@ h6 {
   padding: 1.25rem;
 }
 
+.card:hover {
+  animation: jello;
+  /* referring directly to the animation's @keyframe declaration */
+  animation-duration: 1s;
+  /* don't forget to set a duration! */
+  cursor: pointer;
+}
+
 /************** end borders ***************/
 
 html,
@@ -384,6 +392,10 @@ body {
 
 .text-size-large {
   font-size: 1.5 !important;
+}
+
+.text-grey {
+  color: lightgrey;
 }
 
 /*************** end text colors ****************/

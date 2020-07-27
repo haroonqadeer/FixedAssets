@@ -1,5 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 
+declare var $: any;
+
 @Component({
   selector: "app-nharoads",
   templateUrl: "./nharoads.component.html",
@@ -8,24 +10,7 @@ import { Component, OnInit } from "@angular/core";
 export class NHARoadsComponent implements OnInit {
   toggleView = "form";
 
-  //accordian variable
-  step = 0;
-
   constructor() {}
 
   ngOnInit(): void {}
-
-  // accordian setting
-  setStep(index: number) {
-    this.step = index;
-  }
-
-  nextStep() {
-    this.step++;
-  }
-
-  prevStep() {
-    this.step--;
-  }
-  //accordian settings end
 }
