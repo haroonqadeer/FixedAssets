@@ -78,7 +78,7 @@ export class NHAProjectIPCComponent implements OnInit {
     this.http
       .get(this.serverUrl + "getipc", { headers: reqHeader })
       .subscribe((data: any) => {
-        this.tempList = data;
+        this.tempList = data.reverse();
         if (this.cmbProject != "") {
           this.ipcList = data
             .filter((x) => x.projectID == this.cmbProject)
@@ -207,7 +207,7 @@ export class NHAProjectIPCComponent implements OnInit {
         headers: reqHeader,
       })
       .subscribe((data: any) => {
-        this.ipcDetailList = data;
+        this.ipcDetailList = data.reverse();
         // this.tempDetailList = data;
         $("#ipcDetailModal").modal("show");
       });
@@ -311,6 +311,11 @@ export class NHAProjectIPCComponent implements OnInit {
   }
 
   edit(obj) {
+    this.image = undefined;
+    this.imgFile = undefined;
+    this.selectedFile = null;
+    this.imageUrl = "../../../../../assets/IPCRefImg/dropHereImg.png";
+
     this.lblFileName = "";
     this.heading = "Edit";
 
@@ -355,6 +360,7 @@ export class NHAProjectIPCComponent implements OnInit {
 
           this.http
             .post(this.serverUrl + "sudipcref", saveData, {
+              // .post("http://localhost:5090/api/sudipcref", saveData, {
               headers: reqHeader,
             })
             .subscribe((data: any) => {
