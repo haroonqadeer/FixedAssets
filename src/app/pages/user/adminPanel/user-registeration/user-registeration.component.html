@@ -216,7 +216,17 @@
                     <mat-option>
                       <ngx-mat-select-search [(ngModel)]="txtSearchLoc" [placeholderLabel]="'Search...'" [noEntriesFoundLabel]="'Not found'" name="search"></ngx-mat-select-search>
                     </mat-option>
-                    <mat-option *ngFor="let item of locationsList | search: 'subLocationDescription':txtSearchLoc" value="{{item.subLocID}}">{{item.subLocationDescription}}</mat-option>
+               <!-- <mat-option *ngFor="let item of locationsList | search: 'subLocationDescription':txtSearchLoc" value="{{item.subLocID}}">{{item.subLocationDescription}}</mat-option>
+              --> <mat-option *ngFor="let item of locationsList | search: 'subLocationDescription':txtSearchLoc" value="{{item.subLocID}}" [disabled]="item.isActivated == 0">
+                <table class="table">
+                  <tr class="d-flex">
+                    <td class="col-3">{{ item.subLocationDescription }}</td>
+                    <td class="col-3">{{ item.officeTypeDescription }}</td>
+                    <td class="col-3">{{ item.mainLocationDescription }}</td>
+                    
+                  </tr>
+                </table> 
+              </mat-option>      
                   </mat-select>
                 </mat-form-field>
               </div>
