@@ -230,12 +230,14 @@
                 <thead>
                   <th class='text-center'>#</th>
                   <th>Location</th>
+                  <th>Office Type</th>
                   <th>Action</th>
                 </thead>
                 <tbody>
                   <tr *ngFor="let item of userLocationsList; let i=index;">
                     <td class='text-center'>{{i + 1}}</td>
                     <td>{{item.subLocationDescription}}</td>
+                    <td>{{item.OfficeTypeDescription}}</td>
                     <td class="inline-block">
                       <span class="fa fa-trash-o cursorPointer text-danger"></span>
                     </td>
