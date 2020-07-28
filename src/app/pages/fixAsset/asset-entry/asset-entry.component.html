@@ -1386,7 +1386,15 @@
             </mat-form-field>
           </div>
         </div>
+        <!-- image row -->
         <div class="row">
+          <div class="col-md-12 pt-2">
+            <img *ngFor='let url of urls' [src]="url" height="200"> <br />
+
+            <input type='file' (change)="onSelectFile($event)" multiple>
+          </div>
+        </div>
+        <!-- <div class="row">
           <div class="col-md-12 pt-2">
             <div class="custom-file">
               <input type="file" class="custom-file-input" [(ngModel)]="imgFileTrans"
@@ -1402,7 +1410,7 @@
                 (click)="zoomTransImage()" />
             </div>
           </div>
-        </div>
+        </div> -->
         <!-- next row -->
         <div class="row">
           <div class="col-md-4">
