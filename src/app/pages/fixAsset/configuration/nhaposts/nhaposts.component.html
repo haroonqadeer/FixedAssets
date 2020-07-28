@@ -89,7 +89,8 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let item of custodyList | search:'postName,bs,companyName':tblSearch let i=index">
+            <tr
+              *ngFor="let item of custodyList | sort: 'postID : desc' | search:'postName,bs,companyName':tblSearch let i=index">
               <td class="text-center">{{i+1}}</td>
               <td>{{item.postName}}</td>
               <td>{{item.bs}}</td>

@@ -440,7 +440,11 @@ export class AssetEntryComponent implements OnInit {
     });
 
     this.http
-      .get(this.serverUrl + "getsubloc", { headers: reqHeader })
+      // .get(this.serverUrl + "getsubloc", { headers: reqHeader })
+      .get(
+        this.serverUrl + "getuserLocation?userId=" + this.cookie.get("userID"),
+        { headers: reqHeader }
+      )
       .subscribe((data: any) => {
         // this.locList = data.filter((x) => x.isActivated == 1);
         this.locList = data;

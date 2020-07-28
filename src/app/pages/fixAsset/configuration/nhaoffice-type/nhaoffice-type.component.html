@@ -84,7 +84,8 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let item of ofcTypeList | search:'officeTypeCode,officeTypeDescription':tblSearch let i=index">
+            <tr
+              *ngFor="let item of ofcTypeList | sort: 'officeTypeID : desc' | search:'officeTypeCode,officeTypeDescription':tblSearch let i=index">
               <td class="text-center">{{i+1}}</td>
               <td>{{item.officeTypeCode}}</td>
               <td>{{item.officeTypeDescription}}</td>

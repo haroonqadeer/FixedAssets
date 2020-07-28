@@ -80,9 +80,7 @@ export class NHAProjectIPCComponent implements OnInit {
       .subscribe((data: any) => {
         this.tempList = data.reverse();
         if (this.cmbProject != "") {
-          this.ipcList = data
-            .filter((x) => x.projectID == this.cmbProject)
-            .reverse();
+          this.ipcList = data.filter((x) => x.projectID == this.cmbProject);
         } else {
           this.ipcList = data;
         }

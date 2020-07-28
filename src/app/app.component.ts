@@ -17,7 +17,6 @@ declare var $: any;
   styleUrls: ["./app.component.scss"],
 })
 export class AppComponent {
-
   serverUrl = "http://95.217.206.195:2007/api/";
 
   title = "FixedAssets";
@@ -26,9 +25,9 @@ export class AppComponent {
   _cuName;
   element = document.querySelector(".sidenav");
 
-  txtOldPw = '';
-  txtNewPw = '';
-  txtConfirmPw = '';
+  txtOldPw = "";
+  txtNewPw = "";
+  txtConfirmPw = "";
 
   constructor(
     private router: Router,
@@ -39,14 +38,12 @@ export class AppComponent {
   ) {}
 
   ngOnInit(): void {
-
     if (this.cookie.get("userID") == "") {
       this.router.navigate([""]);
       $(".sideNav-backdrop").hide();
       $(".sidenav").hide();
       // $("#menuId").hide();
     } else {
-
       this._cuId = this.cookie.get("userID");
       this._cuName = this.cookie.get("userName");
 
@@ -137,47 +134,56 @@ export class AppComponent {
     // document.getElementById("main").style.marginLeft = "0";
   }
 
-    resetPw(){
-
-    if(this.txtOldPw == undefined || this.txtOldPw == ''){
-      this.toastr.errorToastr("Please Enter Old Password", "Error", {toastTimeout: 2500,});
+  resetPw() {
+    if (this.txtOldPw == undefined || this.txtOldPw == "") {
+      this.toastr.errorToastr("Please Enter Old Password", "Error", {
+        toastTimeout: 2500,
+      });
       return false;
-    }else if (this.txtNewPw == undefined || this.txtNewPw == ''){
-      this.toastr.errorToastr("Please Enter New Password", "Error", {toastTimeout: 2500,});
+    } else if (this.txtNewPw == undefined || this.txtNewPw == "") {
+      this.toastr.errorToastr("Please Enter New Password", "Error", {
+        toastTimeout: 2500,
+      });
       return false;
-    }else if(this.txtConfirmPw == undefined || this.txtConfirmPw == ''){
-      this.toastr.errorToastr("Please Enter Confirm Password", "Error", {toastTimeout: 2500,});
+    } else if (this.txtConfirmPw == undefined || this.txtConfirmPw == "") {
+      this.toastr.errorToastr("Please Enter Confirm Password", "Error", {
+        toastTimeout: 2500,
+      });
       return false;
-    }else if (this.txtNewPw != this.txtConfirmPw){
-      this.toastr.errorToastr("Password Doesn't Match", "Error", {toastTimeout: 2500,});
+    } else if (this.txtNewPw != this.txtConfirmPw) {
+      this.toastr.errorToastr("Password Doesn't Match", "Error", {
+        toastTimeout: 2500,
+      });
       return false;
-    }
-    else {
-
+    } else {
       var saveData = {
         UserName: this._cuName,
-        OldPassword: this.txtOldPw,
+        OldHashPassword: this.txtOldPw,
         HashPassword: this.txtNewPw,
         UpdatedBY: this._cuId,
-        SpType: "Password"
+        SpType: "PASSWORD",
       };
-  
+
       var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
-      this.http.post(this.serverUrl + "resetpw", saveData, {headers: reqHeader,}).subscribe((data: any) => {
+      this.http
+        .post(this.serverUrl + "changepw", saveData, { headers: reqHeader })
+        .subscribe((data: any) => {
           if (data.msg == "Success") {
-            this.toastr.successToastr("Password Changed Successfully!", "Success!",{toastTimeout: 2500,});
-            this.txtOldPw = '';
-            this.txtNewPw = '';
-            this.txtConfirmPw = '';
-            $('#closeResetNav').click();
+            this.toastr.successToastr(
+              "Password Changed Successfully!",
+              "Success!",
+              { toastTimeout: 2500 }
+            );
+            this.txtOldPw = "";
+            this.txtNewPw = "";
+            this.txtConfirmPw = "";
+            $("#closeResetNav").click();
             return false;
-          }else {
-            this.toastr.errorToastr(data.msg, "Error!",{toastTimeout: 2500,});
+          } else {
+            this.toastr.errorToastr(data.msg, "Error!", { toastTimeout: 2500 });
           }
-
-      });
-
+        });
     }
   }
 }

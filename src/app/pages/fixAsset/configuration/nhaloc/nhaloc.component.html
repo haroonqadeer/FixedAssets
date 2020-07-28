@@ -108,7 +108,7 @@
           </thead>
           <tbody>
             <tr
-              *ngFor="let item of locList | search:'mainLocationDescription,subLocationCode,subLocationDescription,officeTypeDescription':tblSearch let i=index">
+              *ngFor="let item of locList | sort: 'subLocID : desc' | search:'mainLocationDescription,subLocationCode,subLocationDescription,officeTypeDescription':tblSearch let i=index">
               <td class="text-center">{{i+1}}</td>
               <td>{{item.subLocationDescription}}</td>
               <td>{{item.subLocationCode}}</td>

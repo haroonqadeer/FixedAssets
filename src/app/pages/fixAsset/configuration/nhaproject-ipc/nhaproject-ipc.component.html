@@ -243,7 +243,7 @@
               </thead>
               <tbody>
                 <tr
-                  *ngFor="let item of ipcDetailList | search:'projectShortName,assetCatDescription,qty,description':tblSearchDetail let i=index">
+                  *ngFor="let item of ipcDetailList | sort: 'ipcRefDetailID : desc' | search:'projectShortName,assetCatDescription,qty,description':tblSearchDetail let i=index">
                   <td class="text-center">{{i+1}}</td>
                   <td>{{item.projectShortName}}</td>
                   <td>{{item.assetCatDescription}}</td>
