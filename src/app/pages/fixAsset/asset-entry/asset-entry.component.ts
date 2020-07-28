@@ -61,6 +61,7 @@ export class AssetEntryComponent implements OnInit {
   disableCustody = false;
   disableTag = false;
 
+  txtPin = "";
   assetID = "";
   assetNo = "";
   rdbAsset = "";
@@ -2020,5 +2021,54 @@ export class AssetEntryComponent implements OnInit {
     var modal = document.getElementById("myModal");
 
     modal.style.display = "none";
+  }
+
+  genPin(obj, param) {
+    alert(param);
+    $("#genPinModal").modal("show");
+  }
+
+  resetPin() {
+    if (this.txtPin == "") {
+      this.toastr.errorToastr("Please Enter Pin", "Error", {
+        toastTimeout: 2500,
+      });
+      return false;
+    } else if (this.txtPin.length != 4) {
+      this.toastr.errorToastr("Please Enter Correct Pin", "Error", {
+        toastTimeout: 2500,
+      });
+      return false;
+    } else {
+      var saveData = {
+        UserName: this.cookie.get("userName"),
+        HashPassword: this.txtPin,
+        UpdatedBY: this.cookie.get("userId"),
+        SpType: "PINCODE",
+      };
+
+      var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
+
+      this.http
+        .post(this.serverUrl + "resetPw", saveData, { headers: reqHeader })
+        .subscribe((data: any) => {
+          if (data.msg == "Success") {
+            this.toastr.successToastr("Pin Changed Successfully!", "Success!", {
+              toastTimeout: 2500,
+            });
+            return false;
+          } else {
+            this.toastr.errorToastr(data.msg, "Error!", { toastTimeout: 2500 });
+          }
+        });
+    }
+  }
+
+  onKeyPress(event) {
+    if ((event.keyCode > 47 && event.keyCode < 58) || event.keyCode == 8) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }

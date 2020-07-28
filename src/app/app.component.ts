@@ -38,6 +38,7 @@ export class AppComponent {
   ) {}
 
   ngOnInit(): void {
+    // alert(this.cookie.get("userID"));
     if (this.cookie.get("userID") == "") {
       this.router.navigate([""]);
       $(".sideNav-backdrop").hide();
