@@ -46,7 +46,8 @@
 
             <mat-form-field class='w-100'>
               <mat-label>passwoard</mat-label>
-              <input matInput type="password" name="loginPassword" [(ngModel)]="loginPassword">
+              <input matInput type="password" name="loginPassword" (keypress)="getKeyPressed($event)"
+                [(ngModel)]="loginPassword">
             </mat-form-field>
 
             <div class="row">

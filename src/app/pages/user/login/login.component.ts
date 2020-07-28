@@ -47,6 +47,13 @@ export class LoginComponent implements OnInit {
     }
   }
 
+  /*** Capture Enter key ***/
+  getKeyPressed(e) {
+    if (e.keyCode == 13) {
+      this.login();
+    }
+  }
+
   login() {
     if (this.emailAddress == "") {
       this.toastr.errorToastr("Please Enter Email", "Error", {

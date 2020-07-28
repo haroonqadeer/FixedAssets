@@ -33,6 +33,7 @@ export class NHAProjectIPCComponent implements OnInit {
   modalLoadingBar = false;
   disableProject = false;
 
+  txtPin = "";
   ipcID = "";
   ipcDetailID = "";
   cmbProject = "";
@@ -56,6 +57,9 @@ export class NHAProjectIPCComponent implements OnInit {
   ipcDetailList = [];
   // tempDetailList = [];
   AssetCatList = [];
+
+  objList = [];
+  paramType = "";
 
   constructor(
     private toastr: ToastrManager,
@@ -578,5 +582,109 @@ export class NHAProjectIPCComponent implements OnInit {
     this.txtDesc = "";
     this.tblSearchDetail = "";
     // this.ipcDetailList = this.tempDetailList;
+  }
+
+  genPin(obj, param) {
+    this.txtPin = "";
+    this.objList = [];
+    this.paramType = "";
+    this.objList = obj;
+    this.paramType = param;
+
+    if (param == "active") {
+      alert(obj.isActivated);
+      // setTimeout(this.sld)
+    }
+    $("#genPinModal").modal("show");
+  }
+
+  resetPin() {
+    if (this.txtPin == "") {
+      this.toastr.errorToastr("Please Enter Pin", "Error", {
+        toastTimeout: 2500,
+      });
+      return false;
+    } else if (this.txtPin.length != 4) {
+      this.toastr.errorToastr("Please Enter Correct Pin", "Error", {
+        toastTimeout: 2500,
+      });
+      return false;
+    } else {
+      var saveData = {
+        UserName: this.cookie.get("userName"),
+        HashPassword: this.txtPin,
+        UpdatedBY: this.cookie.get("userID"),
+        SpType: "PINCODE",
+      };
+
+      var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
+
+      this.http
+        .post(this.serverUrl + "resetPw", saveData, { headers: reqHeader })
+        .subscribe((data: any) => {
+          if (data.msg == "Success") {
+            this.toastr.successToastr("Pin Changed Successfully!", "Success!", {
+              toastTimeout: 2500,
+            });
+            return false;
+          } else {
+            this.toastr.errorToastr(data.msg, "Error!", { toastTimeout: 2500 });
+          }
+        });
+    }
+  }
+
+  allowUpdation() {
+    // alert(this.objList);
+    // alert(this.paramType);
+
+    if (this.txtPin == "") {
+      this.toastr.errorToastr("Please Enter Pin", "Error", {
+        toastTimeout: 2500,
+      });
+      return false;
+    } else if (this.txtPin.length != 4) {
+      this.toastr.errorToastr("Please Enter Correct Pin", "Error", {
+        toastTimeout: 2500,
+      });
+      return false;
+    } else {
+      var saveData = {
+        UserName: this.cookie.get("userName"),
+        Pincode: this.txtPin,
+      };
+
+      var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
+
+      this.http
+        .post(this.serverUrl + "pincode", saveData, { headers: reqHeader })
+        .subscribe((data: any) => {
+          if (data.msg == "Success") {
+            $("#genPinModal").modal("hide");
+            if (this.paramType == "edit") {
+              this.edit(this.objList);
+            } else if (this.paramType == "delete") {
+              this.delete(this.objList);
+            } else if (this.paramType == "editDetail") {
+              this.editDetail(this.objList);
+            } else if (this.paramType == "deleteDetail") {
+              this.deleteDetail(this.objList);
+            }
+            this.paramType = "";
+            this.objList = [];
+            return false;
+          } else {
+            this.toastr.errorToastr(data.msg, "Error!", { toastTimeout: 2500 });
+          }
+        });
+    }
+  }
+
+  onKeyPress(event) {
+    if ((event.keyCode > 47 && event.keyCode < 58) || event.keyCode == 8) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }

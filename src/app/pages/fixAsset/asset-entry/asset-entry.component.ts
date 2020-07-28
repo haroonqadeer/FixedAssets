@@ -68,8 +68,11 @@ export class AssetEntryComponent implements OnInit {
   cmbCustody = "";
   cmbVehicle = "";
   cmbWngSection = "";
+  cmbTransWngSection = "";
   cmbOfcType = "";
+  cmbTransOfcType = "";
   cmbLocation = "";
+  cmbTransLocation = "";
   cmbAssetCat = "";
   txtAssetDesc = "";
   txtAssetLoc = "";
@@ -139,6 +142,7 @@ export class AssetEntryComponent implements OnInit {
   tblSearchTrans = "";
   tblSearch = "";
   searchLocation = "";
+  searchTransLocation = "";
   searchMake = "";
   searchModel = "";
   searchType = "";
@@ -148,6 +152,7 @@ export class AssetEntryComponent implements OnInit {
   searchRef = "";
   searchVehicle = "";
   searchSection = "";
+  searchTransSection = "";
   advSearchSection = "";
   advSearchLocation = "";
   searchTransProject = "";
@@ -157,8 +162,11 @@ export class AssetEntryComponent implements OnInit {
   oldTagList = [];
   tagList = [];
   locList = [];
+  locTransList = [];
   ofcTypeList = [];
+  ofcTypeTransList = [];
   wngSectionList = [];
+  wngSectTransList = [];
   vehicleList = [];
   custodyList = [];
   transferByList = [];
@@ -178,6 +186,9 @@ export class AssetEntryComponent implements OnInit {
   vehMakeList = [];
   vehModelList = [];
   vehTypeList = [];
+
+  objList = [];
+  paramType = "";
 
   toggleView = "form";
 
@@ -470,6 +481,7 @@ export class AssetEntryComponent implements OnInit {
       .subscribe((data: any) => {
         // this.locList = data.filter((x) => x.isActivated == 1);
         this.locList = data;
+        this.locTransList = data;
       });
   }
 
@@ -478,6 +490,15 @@ export class AssetEntryComponent implements OnInit {
     this.cmbOfcType = ofcType[0].officeTypeID;
 
     this.getWingSection(this.cmbOfcType);
+  }
+
+  showTransOfcType() {
+    var ofcType = this.locTransList.filter(
+      (x) => x.subLocID == this.cmbTransLocation
+    );
+    this.cmbTransOfcType = ofcType[0].officeTypeID;
+
+    this.getTransWingSection(this.cmbTransOfcType);
   }
 
   showSearchOfficeType() {
@@ -499,6 +520,7 @@ export class AssetEntryComponent implements OnInit {
       .get(this.serverUrl + "getofctype", { headers: reqHeader })
       .subscribe((data: any) => {
         this.ofcTypeList = data;
+        this.ofcTypeTransList = data;
       });
   }
 
@@ -516,6 +538,23 @@ export class AssetEntryComponent implements OnInit {
       .subscribe((data: any) => {
         // this.wngSectionList = data.filter((x) => x.isActivated == 1);
         this.wngSectionList = data;
+      });
+  }
+
+  getTransWingSection(obj) {
+    this.cmbTransWngSection = "";
+    var reqHeader = new HttpHeaders({
+      "Content-Type": "application/json",
+      // Authorization: "Bearer " + Token,
+    });
+
+    this.http
+      .get(this.serverUrl + "getwingsec?officeTypeID=" + obj, {
+        headers: reqHeader,
+      })
+      .subscribe((data: any) => {
+        // this.wngSectionList = data.filter((x) => x.isActivated == 1);
+        this.wngSectTransList = data;
       });
   }
 
@@ -1596,6 +1635,25 @@ export class AssetEntryComponent implements OnInit {
         toastTimeout: 2500,
       });
       return false;
+    } else if (this.cmbTransLocation == "") {
+      this.toastr.errorToastr(
+        "Please Select Transfer Province Location & Sub Location",
+        "Error",
+        {
+          toastTimeout: 2500,
+        }
+      );
+      return false;
+    } else if (this.cmbTransOfcType == "") {
+      this.toastr.errorToastr("Please Select Transfer Office Type", "Error", {
+        toastTimeout: 2500,
+      });
+      return false;
+    } else if (this.cmbTransWngSection == "") {
+      this.toastr.errorToastr("Please Select Transfer Wing Section", "Error", {
+        toastTimeout: 2500,
+      });
+      return false;
     } else if (this.cmbTransByPost == "") {
       this.toastr.errorToastr(
         "Please Select Transferred By Post Title",
@@ -1647,6 +1705,9 @@ export class AssetEntryComponent implements OnInit {
 
       if (this.lblTransferID == "") {
         saveData = {
+          SubLocID: parseInt(this.cmbTransLocation), //int
+          OfficeTypeID: parseInt(this.cmbTransOfcType), //int
+          OfficeSecID: parseInt(this.cmbTransWngSection), //int
           TPostID: parseInt(this.cmbTransByPost), //int
           RPostID: parseInt(this.cmbTransToPost), //int
           DateofTransfer: transferDate, //int
@@ -1662,6 +1723,9 @@ export class AssetEntryComponent implements OnInit {
         };
       } else {
         saveData = {
+          SubLocID: parseInt(this.cmbTransLocation), //int
+          OfficeTypeID: parseInt(this.cmbTransOfcType), //int
+          OfficeSecID: parseInt(this.cmbTransWngSection), //int
           TPostID: parseInt(this.cmbTransByPost), //int
           RPostID: parseInt(this.cmbTransToPost), //int
           DateofTransfer: transferDate, //int
@@ -1892,6 +1956,9 @@ export class AssetEntryComponent implements OnInit {
 
   clearTransfer() {
     this.rdbTransType = "";
+    this.cmbTransLocation = "";
+    this.cmbTransOfcType = "";
+    this.cmbTransWngSection = "";
     this.cmbTransferProject = "";
     this.cmbTransByPost = "";
     this.cmbTransToPost = "";
@@ -1907,6 +1974,9 @@ export class AssetEntryComponent implements OnInit {
   clearTransferDetail() {
     this.rdbTransType = "";
     this.cmbTransferProject = "";
+    this.cmbTransLocation = "";
+    this.cmbTransOfcType = "";
+    this.cmbTransWngSection = "";
     this.lblTransferID = "";
     this.cmbTransByPost = "";
     this.cmbTransToPost = "";
@@ -2045,7 +2115,12 @@ export class AssetEntryComponent implements OnInit {
   }
 
   genPin(obj, param) {
-    alert(param);
+    this.txtPin = "";
+    this.objList = [];
+    this.paramType = "";
+    this.objList = obj;
+    this.paramType = param;
+
     $("#genPinModal").modal("show");
   }
 
@@ -2064,7 +2139,7 @@ export class AssetEntryComponent implements OnInit {
       var saveData = {
         UserName: this.cookie.get("userName"),
         HashPassword: this.txtPin,
-        UpdatedBY: this.cookie.get("userId"),
+        UpdatedBY: this.cookie.get("userID"),
         SpType: "PINCODE",
       };
 
@@ -2077,6 +2152,54 @@ export class AssetEntryComponent implements OnInit {
             this.toastr.successToastr("Pin Changed Successfully!", "Success!", {
               toastTimeout: 2500,
             });
+            return false;
+          } else {
+            this.toastr.errorToastr(data.msg, "Error!", { toastTimeout: 2500 });
+          }
+        });
+    }
+  }
+
+  allowUpdation() {
+    // alert(this.objList);
+    // alert(this.paramType);
+
+    if (this.txtPin == "") {
+      this.toastr.errorToastr("Please Enter Pin", "Error", {
+        toastTimeout: 2500,
+      });
+      return false;
+    } else if (this.txtPin.length != 4) {
+      this.toastr.errorToastr("Please Enter Correct Pin", "Error", {
+        toastTimeout: 2500,
+      });
+      return false;
+    } else {
+      var saveData = {
+        UserName: this.cookie.get("userName"),
+        Pincode: this.txtPin,
+      };
+
+      var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
+
+      this.http
+        .post(this.serverUrl + "pincode", saveData, { headers: reqHeader })
+        .subscribe((data: any) => {
+          if (data.msg == "Success") {
+            $("#genPinModal").modal("hide");
+            if (this.paramType == "editAsset") {
+              this.editAsset(this.objList);
+            } else if (this.paramType == "deleteAsset") {
+              this.delete(this.objList);
+            } else if (this.paramType == "editTransfer") {
+              this.editTransfer(this.objList);
+            } else if (this.paramType == "deleteTransfer") {
+              this.deleteTransfer(this.objList);
+            } else if (this.paramType == "deleteTransferDetail") {
+              this.deleteTransferDetail(this.objList);
+            }
+            this.paramType = "";
+            this.objList = [];
             return false;
           } else {
             this.toastr.errorToastr(data.msg, "Error!", { toastTimeout: 2500 });
