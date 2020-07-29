@@ -758,6 +758,7 @@ export class AssetEntryComponent implements OnInit {
   }
 
   editAsset(item) {
+    this.getIPC();
     this.imageAsset = undefined;
     this.imgFileAsset = undefined;
     this.selectedAssetFile = null;
