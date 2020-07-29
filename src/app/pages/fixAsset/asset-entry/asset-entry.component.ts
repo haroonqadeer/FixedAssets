@@ -758,7 +758,6 @@ export class AssetEntryComponent implements OnInit {
   }
 
   editAsset(item) {
-    this.getIPC();
     this.imageAsset = undefined;
     this.imgFileAsset = undefined;
     this.selectedAssetFile = null;
@@ -809,6 +808,8 @@ export class AssetEntryComponent implements OnInit {
     this.txtSerialNo = item.serialNo;
     this.cmbProject = item.projectID;
     this.cmbRef = item.ipcRef;
+
+    this.getIPC();
 
     if (item.purchaseDate != null) {
       this.dtpPurchaseDt = new Date(item.purchaseDate);
@@ -1031,14 +1032,14 @@ export class AssetEntryComponent implements OnInit {
       var imgPath, imgPath2, imgPath3;
       if (this.imageAsset == undefined) {
         imgAsset = null;
-        imgPath = "";
+        imgPath = null;
       } else {
         imgAsset = this.imageAsset;
         imgPath = this.imgAssetPath;
       }
       if (this.imageAsset2 == undefined) {
         imgAsset2 = null;
-        imgPath2 = "";
+        imgPath2 = null;
       } else {
         imgAsset2 = this.imageAsset2;
         imgPath2 = this.imgAssetPath2;
@@ -1046,7 +1047,7 @@ export class AssetEntryComponent implements OnInit {
 
       if (this.imageAsset3 == undefined) {
         imgAsset3 = null;
-        imgPath3 = "";
+        imgPath3 = null;
       } else {
         imgAsset3 = this.imageAsset3;
         imgPath3 = this.imgAssetPath3;
