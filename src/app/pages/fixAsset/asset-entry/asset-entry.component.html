@@ -677,7 +677,7 @@
           </div>
         </div>
         <!-- next row -->
-        <div class="row">
+        <!-- <div class="row">
           <div class="col-md-12">
             <mat-form-field class="w-100">
               <mat-label>Transfer Date</mat-label>
@@ -686,33 +686,59 @@
               <mat-datepicker #picker></mat-datepicker>
             </mat-form-field>
           </div>
-        </div>
+        </div> -->
         <!-- image row -->
-        <div class="row">
+        <!-- <div class="row">
           <div class="col-md-12 pt-2">
             <img *ngFor='let url of urls' [src]="url" height="200"> <br />
 
             <input type='file' (change)="onSelectFile($event)" multiple>
           </div>
-        </div>
+        </div> -->
         <!-- next row -->
-        <!-- <div class="row pr-4 pl-1">
-          <div class="col-md-12 pt-2">
+        <div class="row pr-4 pl-1">
+          <div class="col-md-4 pt-2">
             <div class="custom-file">
               <input type="file" class="custom-file-input" [(ngModel)]="imgFileAsset"
                 (change)="onAssetFileSelected($event)" />
-              <label class="custom-file-label" for="customFile">Choose Asset Image</label>
+              <label class="custom-file-label" for="customFile">Choose 1st Asset Image</label>
+            </div>
+          </div>
+          <div class="col-md-4 pt-2">
+            <div class="custom-file">
+              <input type="file" class="custom-file-input" [(ngModel)]="imgFileAsset2"
+                (change)="onAssetFileSelected2($event)" />
+              <label class="custom-file-label" for="customFile">Choose 2nd Asset Image</label>
+            </div>
+          </div>
+          <div class="col-md-4 pt-2">
+            <div class="custom-file">
+              <input type="file" class="custom-file-input" [(ngModel)]="imgFileAsset"
+                (change)="onAssetFileSelected3($event)" />
+              <label class="custom-file-label" for="customFile">Choose 3rd Asset Image</label>
             </div>
           </div>
         </div>
         <div class="row pr-4 pl-1">
-          <div class="col-md-12 pt-2 text-center">
+          <div class="col-md-4 pt-2 text-center">
             <div class="text-center">
               <img [src]="imageAssetUrl" class="rounded" width="115" height="115" id="myImg"
                 (click)="zoomAssetImage()" />
             </div>
           </div>
-        </div> -->
+          <div class="col-md-4 pt-2 text-center">
+            <div class="text-center">
+              <img [src]="imageAssetUrl2" class="rounded" width="115" height="115" id="myImg"
+                (click)="zoomAssetImage2()" />
+            </div>
+          </div>
+          <div class="col-md-4 pt-2 text-center">
+            <div class="text-center">
+              <img [src]="imageAssetUrl3" class="rounded" width="115" height="115" id="myImg"
+                (click)="zoomAssetImage3()" />
+            </div>
+          </div>
+        </div>
 
         <!-- next row -->
         <div class="row pt-2">
@@ -1463,7 +1489,20 @@
             </mat-form-field>
           </div>
         </div>
-        <!-- <div class="row">
+
+        <!-- next row -->
+        <div class="row">
+          <div class="col-md-12">
+            <mat-form-field class="w-100">
+              <mat-label>Transfer Date</mat-label>
+              <input matInput [matDatepicker]="picker" [(ngModel)]="dtpTransferDt" />
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
           <div class="col-md-12 pt-2">
             <div class="custom-file">
               <input type="file" class="custom-file-input" [(ngModel)]="imgFileTrans"
@@ -1479,7 +1518,7 @@
                 (click)="zoomTransImage()" />
             </div>
           </div>
-        </div> -->
+        </div>
         <!-- next row -->
         <div class="row">
           <div class="col-md-4">
@@ -1634,11 +1673,11 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-md-4">
+          <!-- <div class="col-md-4">
             <button mat-raised-button color="warn" (click)="resetPin()">
               Generate Pin
             </button>
-          </div>
+          </div> -->
           <div class="col-md-4">
             <button mat-raised-button color="primary" (click)="allowUpdation()">
               OK

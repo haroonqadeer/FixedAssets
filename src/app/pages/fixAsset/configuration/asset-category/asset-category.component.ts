@@ -48,6 +48,7 @@ export class AssetCategoryComponent implements OnInit {
 
   objList = [];
   paramType = "";
+  index = 0;
 
   constructor(
     private toastr: ToastrManager,
@@ -357,9 +358,11 @@ export class AssetCategoryComponent implements OnInit {
 
   active(obj) {
     var type = "";
-    if (obj.isActivated == false) {
+    if (obj.isActivated == true) {
+      setTimeout(() => (this.assetCatList[this.index].isActivated = false), 10);
       type = "DEACTIVATE";
     } else {
+      setTimeout(() => (this.assetCatList[this.index].isActivated = true), 10);
       type = "ACTIVATE";
     }
 
@@ -438,16 +441,28 @@ export class AssetCategoryComponent implements OnInit {
     this.imageUrl = "../../../../../assets/assetCatImg/dropHereImg.png";
   }
 
-  genPin(obj, param) {
+  genPin(obj, param, i) {
     this.txtPin = "";
     this.objList = [];
     this.paramType = "";
     this.objList = obj;
     this.paramType = param;
+    this.index = i;
 
     if (param == "active") {
-      alert(obj.isActivated);
+      // alert(this.objList[0].isActivated);
       // setTimeout(this.sld)
+      if (obj.isActivated == false) {
+        setTimeout(
+          () => (this.assetCatList[this.index].isActivated = true),
+          500
+        );
+      } else {
+        setTimeout(
+          () => (this.assetCatList[this.index].isActivated = false),
+          500
+        );
+      }
     }
     $("#genPinModal").modal("show");
   }

@@ -40,6 +40,7 @@ export class NHALocComponent implements OnInit {
 
   objList = [];
   paramType = "";
+  index = 0;
 
   constructor(
     private toastr: ToastrManager,
@@ -259,9 +260,11 @@ export class NHALocComponent implements OnInit {
 
   active(obj) {
     var type = "";
-    if (obj.isActivated == false) {
+    if (obj.isActivated == true) {
+      setTimeout(() => (this.locList[this.index].isActivated = false), 10);
       type = "DEACTIVATE";
     } else {
+      setTimeout(() => (this.locList[this.index].isActivated = true), 10);
       type = "ACTIVATE";
     }
 
@@ -327,16 +330,22 @@ export class NHALocComponent implements OnInit {
     this.locList = this.tempList;
   }
 
-  genPin(obj, param) {
+  genPin(obj, param, i) {
     this.txtPin = "";
     this.objList = [];
     this.paramType = "";
     this.objList = obj;
     this.paramType = param;
+    this.index = i;
 
     if (param == "active") {
-      alert(obj.isActivated);
+      // alert(obj.isActivated);
       // setTimeout(this.sld)
+      if (obj.isActivated == false) {
+        setTimeout(() => (this.locList[this.index].isActivated = true), 500);
+      } else {
+        setTimeout(() => (this.locList[this.index].isActivated = false), 500);
+      }
     }
     $("#genPinModal").modal("show");
   }
