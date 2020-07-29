@@ -433,7 +433,7 @@ export class AssetEntryComponent implements OnInit {
   }
 
   getTags() {
-    debugger;
+    //debugger;
     var reqHeader = new HttpHeaders({
       "Content-Type": "application/json",
       // Authorization: "Bearer " + Token,

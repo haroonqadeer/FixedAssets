@@ -126,6 +126,8 @@ export class UserRegisterationComponent implements OnInit {
   }
 
   getUsers() {
+
+    this.loadingBar = true;
     var reqHeader = new HttpHeaders({
       "Content-Type": "application/json",
       // Authorization: "Bearer " + Token,
@@ -374,6 +376,7 @@ export class UserRegisterationComponent implements OnInit {
   }
 
   active(obj) {
+
     var type = "";
     if (obj.isActivated == false) {
       type = "DEACTIVATE";
@@ -382,26 +385,28 @@ export class UserRegisterationComponent implements OnInit {
     }
 
     // this.loadingBar = true;
+    // alert(obj.loginName);
+    // return false;
 
     var SaveData = {
+      LoginName: obj.loginName,
       LoginID: this.cookie.get("userID"),
       SPType: type,
     };
 
+    this.loadingBar = true;
     var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
-    this.http
-      .post(this.serverUrl + "reguser", SaveData, { headers: reqHeader })
-      .subscribe((data: any) => {
-        if (data.msg == "Success") {
-          this.toastr.successToastr(
-            "Record Deleted Successfully!",
-            "Success!",
-            { toastTimeout: 2500 }
-          );
+    this.http.post(this.serverUrl + "reguser", SaveData, { headers: reqHeader }).subscribe((data: any) => {
+        if (data.msg == "Success" && type == 'DEACTIVATE') {
+          this.toastr.successToastr("User Deactivated Successfully!","Success!",{ toastTimeout: 2500 });
           this.clear();
           this.getUsers();
-          this.loadingBar = false;
+          return false;
+        }else if (data.msg == "Success" && type == 'ACTIVATE') {
+          this.toastr.successToastr("User Activated Successfully!","Success!",{ toastTimeout: 2500 });
+          this.clear();
+          this.getUsers();
           return false;
         } else {
           this.toastr.errorToastr(data.msg, "Error !", { toastTimeout: 5000 });
@@ -410,4 +415,5 @@ export class UserRegisterationComponent implements OnInit {
         }
       });
   }
+
 }

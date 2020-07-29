@@ -19,6 +19,7 @@ declare var $: any;
 })
 export class LoginComponent implements OnInit {
   serverUrl = "http://95.217.206.195:2006/";
+  //serverUrl = "http://localhost:9010/";
 
   showProgress = false;
   showResetProgress = false;
@@ -87,6 +88,7 @@ export class LoginComponent implements OnInit {
             this.cookie.set("token", data.token);
             this.cookie.set("userID", data.userDetail[0].id);
             this.cookie.set("userName", data.userDetail[0].loginName);
+            this.cookie.set("pinstatus", data.userDetail[0].pinStatus);
 
             this.app.userName = this.cookie.get("userName");
 

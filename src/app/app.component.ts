@@ -73,8 +73,7 @@ export class AppComponent {
   Logout() {
     this.stopWatching();
     document.cookie = "userID=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-    document.cookie =
-      "userName=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    document.cookie = "userName=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     this.router.navigate([""]);
     $("#menuId").hide();
