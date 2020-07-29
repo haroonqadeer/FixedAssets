@@ -104,6 +104,7 @@ export class AssetEntryComponent implements OnInit {
   txtChasis = "";
   txtTagNo = "1";
   txtTransDesc = "";
+  vehID = "";
 
   lblAssetCatID = "";
   lblLocID = "";
@@ -202,7 +203,6 @@ export class AssetEntryComponent implements OnInit {
   // name = "Angular 4";
   urls = [];
   onSelectFile(event) {
-    alert("hello");
     if (event.target.files && event.target.files[0]) {
       var filesAmount = event.target.files.length;
       for (let i = 0; i < filesAmount; i++) {
@@ -216,40 +216,39 @@ export class AssetEntryComponent implements OnInit {
         reader.readAsDataURL(event.target.files[i]);
       }
     }
-    alert(this.urls.length);
   }
 
   printDiv() {
-    // setTimeout(() => {
-    //   Swal.fire({
-    //     title: "Do you want to reset tag list?",
-    //     text: "",
-    //     icon: "warning",
-    //     showCancelButton: true,
-    //     confirmButtonText: "Yes",
-    //     cancelButtonText: "No",
-    //   }).then((result) => {
-    //     if (result.value) {
-    //       var saveData = {
-    //         userId: this.cookie.get("userID"),
-    //       };
+    setTimeout(() => {
+      Swal.fire({
+        title: "Do you want to reset tag list?",
+        text: "",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Yes",
+        cancelButtonText: "No",
+      }).then((result) => {
+        if (result.value) {
+          var saveData = {
+            userId: this.cookie.get("userID"),
+          };
 
-    //       var reqHeader = new HttpHeaders({
-    //         "Content-Type": "application/json",
-    //       });
+          var reqHeader = new HttpHeaders({
+            "Content-Type": "application/json",
+          });
 
-    //       this.http
-    //         .post(this.serverUrl + "resettaglist", saveData, {
-    //           headers: reqHeader,
-    //         })
-    //         .subscribe((data: any) => {
-    //           this.getTags();
-    //         });
-    //     } else if (result.dismiss === Swal.DismissReason.cancel) {
-    //       Swal.fire("Cancelled", "", "error");
-    //     }
-    //   });
-    // }, 1000);
+          this.http
+            .post(this.serverUrl + "resettaglist", saveData, {
+              headers: reqHeader,
+            })
+            .subscribe((data: any) => {
+              this.getTags();
+            });
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+          Swal.fire("Cancelled", "", "error");
+        }
+      });
+    }, 1000);
 
     var printCss = this.printCSS();
 
@@ -2218,5 +2217,18 @@ export class AssetEntryComponent implements OnInit {
     } else {
       return false;
     }
+  }
+
+  // Edit Vehicle
+  editVehicle(item) {
+    $("#vehicleModal").modal("show");
+    this.vehID = item.id;
+    this.txtRegNo = item.vehID;
+    this.cmbMake = item.make;
+    this.cmbModel = item.model;
+    this.cmbType = item.type;
+    this.txtEngine = item.engineNum;
+    this.txtChasis = item.chasisNum;
+    this.cmbVehicle = "";
   }
 }
