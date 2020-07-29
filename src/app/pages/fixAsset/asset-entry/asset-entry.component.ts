@@ -827,7 +827,7 @@ export class AssetEntryComponent implements OnInit {
       item.eDoc != null ||
       item.eDoc != "C:/inetpub/wwwroot/2008_FAR_Proj/assets/assetEntryImg"
     ) {
-      this.imageAssetUrl2 =
+      this.imageAssetUrl =
         "http://95.217.206.195:2008/assets/assetEntryImg/" +
         item.assetID +
         "_1.jpg";
@@ -836,7 +836,7 @@ export class AssetEntryComponent implements OnInit {
       item.eDoc2 != null ||
       item.eDoc2 != "C:/inetpub/wwwroot/2008_FAR_Proj/assets/assetEntryImg"
     ) {
-      this.imageAssetUrl3 =
+      this.imageAssetUrl2 =
         "http://95.217.206.195:2008/assets/assetEntryImg/" +
         item.assetID +
         "_2.jpg";
@@ -845,7 +845,7 @@ export class AssetEntryComponent implements OnInit {
       item.eDoc3 != null ||
       item.eDoc3 != "C:/inetpub/wwwroot/2008_FAR_Proj/assets/assetEntryImg"
     ) {
-      this.imageAssetUrl =
+      this.imageAssetUrl3 =
         "http://95.217.206.195:2008/assets/assetEntryImg/" +
         item.assetID +
         "_3.jpg";
@@ -1027,21 +1027,28 @@ export class AssetEntryComponent implements OnInit {
         this.cmbProject = "0";
       }
       var imgAsset, imgAsset2, imgAsset3;
+      var imgPath, imgPath2, imgPath3;
       if (this.imageAsset == undefined) {
         imgAsset = null;
+        imgPath = "";
       } else {
         imgAsset = this.imageAsset;
+        imgPath = this.imgAssetPath;
       }
       if (this.imageAsset2 == undefined) {
         imgAsset2 = null;
+        imgPath2 = "";
       } else {
         imgAsset2 = this.imageAsset2;
+        imgPath2 = this.imgAssetPath2;
       }
 
       if (this.imageAsset3 == undefined) {
         imgAsset3 = null;
+        imgPath3 = "";
       } else {
         imgAsset3 = this.imageAsset3;
+        imgPath3 = this.imgAssetPath3;
       }
 
       if (this.assetID == "") {
@@ -1116,9 +1123,9 @@ export class AssetEntryComponent implements OnInit {
           SpType: "Insert", //string
           AssetID: 0, //int
           Qty: parseInt(this.txtTagNo), //int
-          EDoc: this.imgAssetPath,
-          EDoc2: this.imgAssetPath2,
-          EDoc3: this.imgAssetPath3,
+          EDoc: imgPath,
+          EDoc2: imgPath2,
+          EDoc3: imgPath3,
           EDocExtension: "jpg",
           imgFile: imgAsset,
           imgFile2: imgAsset2,
@@ -1169,9 +1176,9 @@ export class AssetEntryComponent implements OnInit {
           SpType: "Update", //string
           AssetID: this.assetID, //int
           Qty: this.txtTagNo, //int
-          EDoc: this.imgAssetPath,
-          EDoc2: this.imgAssetPath2,
-          EDoc3: this.imgAssetPath3,
+          EDoc: imgPath,
+          EDoc2: imgPath2,
+          EDoc3: imgPath3,
           EDocExtension: "jpg",
           imgFile: imgAsset,
           imgFile2: imgAsset2,
