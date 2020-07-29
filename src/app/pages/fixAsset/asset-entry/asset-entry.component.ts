@@ -1131,7 +1131,7 @@ export class AssetEntryComponent implements OnInit {
           EDocExtension: "jpg",
           imgFile: imgAsset,
           imgFile2: imgAsset2,
-          imgFile3: imgAsset2,
+          imgFile3: imgAsset3,
           TransferID: transferID, // int
         };
       } else {
@@ -1184,7 +1184,7 @@ export class AssetEntryComponent implements OnInit {
           EDocExtension: "jpg",
           imgFile: imgAsset,
           imgFile2: imgAsset2,
-          imgFile3: imgAsset2,
+          imgFile3: imgAsset3,
           TransferID: transferID, // int
         };
       }
