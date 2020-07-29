@@ -41,8 +41,8 @@ export class AppComponent {
     // alert(this.cookie.get("userID"));
     if (this.cookie.get("userID") == "") {
       this.router.navigate([""]);
-      $(".sideNav-backdrop").hide();
-      $(".sidenav").hide();
+      // $(".sideNav-backdrop").hide();
+      // $(".sidenav").hide();
       // $("#menuId").hide();
     } else {
       this._cuId = this.cookie.get("userID");
@@ -54,7 +54,7 @@ export class AppComponent {
       // $(".sidenav").hide();
       $(".sideNav-backdrop").hide();
       // this.closeNav();
-      $(".sidenav").hide();
+      // $(".sidenav").hide();
     }
   }
 
@@ -73,7 +73,8 @@ export class AppComponent {
   Logout() {
     this.stopWatching();
     document.cookie = "userID=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-    document.cookie = "userName=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    document.cookie =
+      "userName=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     document.cookie = "pinStatus=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     this.router.navigate([""]);
@@ -99,40 +100,6 @@ export class AppComponent {
 
   restart() {
     this.userIdle.resetTimer();
-  }
-
-  openNav() {
-    // $(".sidenav").show();
-    $(".sidenav").toggle("slide");
-    $(".sideNav-backdrop").show();
-
-    // anime({
-    //   targets: ".sidenav",
-    //   translateX: 250,
-    //   rotate: "1turn",
-    //   backgroundColor: "#FFF",
-    //   duration: 800,
-    // });
-
-    // $("#mySidenav").show("slide", { direction: "left" }, 1000);
-    // document.getElementById("mySidenav").style.width = "250px";
-    // document.getElementById("main").style.marginLeft = "250px";
-  }
-
-  closeNav() {
-    // $(".sidenav").hide();
-    $(".sidenav").toggle("slide");
-    $(".sideNav-backdrop").hide();
-    // $("#mySidenav").toggle(
-    //   "slide",
-    //   {
-    //     direction: "left",
-    //   },
-    //   1000
-    // );
-    // $("#mySidenav").hide("slide", { direction: "right" }, 1000);
-    // document.getElementById("mySidenav").style.width = "0";
-    // document.getElementById("main").style.marginLeft = "0";
   }
 
   resetPw() {
@@ -186,5 +153,17 @@ export class AppComponent {
           }
         });
     }
+  }
+
+  /* Set the width of the side navigation to 250px and the left margin of the page content to 250px */
+  openNav() {
+    document.getElementById("mySidenav").style.width = "250px";
+    document.getElementById("main").style.marginLeft = "250px";
+  }
+
+  /* Set the width of the side navigation to 0 and the left margin of the page content to 0 */
+  closeNav() {
+    document.getElementById("mySidenav").style.width = "0";
+    document.getElementById("main").style.marginLeft = "0";
   }
 }

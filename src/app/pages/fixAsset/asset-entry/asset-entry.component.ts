@@ -104,6 +104,7 @@ export class AssetEntryComponent implements OnInit {
   txtChasis = "";
   txtTagNo = "1";
   txtTransDesc = "";
+  vehID = "";
 
   lblAssetCatID = "";
   lblLocID = "";
@@ -202,7 +203,6 @@ export class AssetEntryComponent implements OnInit {
   // name = "Angular 4";
   urls = [];
   onSelectFile(event) {
-    alert("hello");
     if (event.target.files && event.target.files[0]) {
       var filesAmount = event.target.files.length;
       for (let i = 0; i < filesAmount; i++) {
@@ -216,40 +216,39 @@ export class AssetEntryComponent implements OnInit {
         reader.readAsDataURL(event.target.files[i]);
       }
     }
-    alert(this.urls.length);
   }
 
   printDiv() {
-    // setTimeout(() => {
-    //   Swal.fire({
-    //     title: "Do you want to reset tag list?",
-    //     text: "",
-    //     icon: "warning",
-    //     showCancelButton: true,
-    //     confirmButtonText: "Yes",
-    //     cancelButtonText: "No",
-    //   }).then((result) => {
-    //     if (result.value) {
-    //       var saveData = {
-    //         userId: this.cookie.get("userID"),
-    //       };
+    setTimeout(() => {
+      Swal.fire({
+        title: "Do you want to reset tag list?",
+        text: "",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Yes",
+        cancelButtonText: "No",
+      }).then((result) => {
+        if (result.value) {
+          var saveData = {
+            userId: this.cookie.get("userID"),
+          };
 
-    //       var reqHeader = new HttpHeaders({
-    //         "Content-Type": "application/json",
-    //       });
+          var reqHeader = new HttpHeaders({
+            "Content-Type": "application/json",
+          });
 
-    //       this.http
-    //         .post(this.serverUrl + "resettaglist", saveData, {
-    //           headers: reqHeader,
-    //         })
-    //         .subscribe((data: any) => {
-    //           this.getTags();
-    //         });
-    //     } else if (result.dismiss === Swal.DismissReason.cancel) {
-    //       Swal.fire("Cancelled", "", "error");
-    //     }
-    //   });
-    // }, 1000);
+          this.http
+            .post(this.serverUrl + "resettaglist", saveData, {
+              headers: reqHeader,
+            })
+            .subscribe((data: any) => {
+              this.getTags();
+            });
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+          Swal.fire("Cancelled", "", "error");
+        }
+      });
+    }, 1000);
 
     var printCss = this.printCSS();
 
@@ -1705,9 +1704,9 @@ export class AssetEntryComponent implements OnInit {
 
       if (this.lblTransferID == "") {
         saveData = {
-          SubLocID: parseInt(this.cmbTransLocation), //int
-          OfficeTypeID: parseInt(this.cmbTransOfcType), //int
-          OfficeSecID: parseInt(this.cmbTransWngSection), //int
+          rSubLocID: parseInt(this.cmbTransLocation), //int
+          officeTypeID: parseInt(this.cmbTransOfcType), //int
+          rOfficeSecID: parseInt(this.cmbTransWngSection), //int
           TPostID: parseInt(this.cmbTransByPost), //int
           RPostID: parseInt(this.cmbTransToPost), //int
           DateofTransfer: transferDate, //int
@@ -1723,9 +1722,9 @@ export class AssetEntryComponent implements OnInit {
         };
       } else {
         saveData = {
-          SubLocID: parseInt(this.cmbTransLocation), //int
-          OfficeTypeID: parseInt(this.cmbTransOfcType), //int
-          OfficeSecID: parseInt(this.cmbTransWngSection), //int
+          rSubLocID: parseInt(this.cmbTransLocation), //int
+          officeTypeID: parseInt(this.cmbTransOfcType), //int
+          rOfficeSecID: parseInt(this.cmbTransWngSection), //int
           TPostID: parseInt(this.cmbTransByPost), //int
           RPostID: parseInt(this.cmbTransToPost), //int
           DateofTransfer: transferDate, //int
@@ -1793,6 +1792,10 @@ export class AssetEntryComponent implements OnInit {
     this.lblTransferID = obj.transferID;
     this.rdbTransType = obj.transferType;
     this.cmbTransferProject = obj.projectID;
+    this.cmbTransLocation = obj.rSubLocID;
+    this.cmbTransOfcType = obj.officeTypeID;
+    this.getTransWingSection(obj.officeTypeID);
+    this.cmbTransWngSection = obj.rOfficeSecID;
     this.cmbTransByPost = obj.tPostID;
     this.cmbTransToPost = obj.rPostID;
     this.dtpTransferDt = new Date(obj.dateofTransfer);
@@ -2214,5 +2217,18 @@ export class AssetEntryComponent implements OnInit {
     } else {
       return false;
     }
+  }
+
+  // Edit Vehicle
+  editVehicle(item) {
+    $("#vehicleModal").modal("show");
+    this.vehID = item.id;
+    this.txtRegNo = item.vehID;
+    this.cmbMake = item.make;
+    this.cmbModel = item.model;
+    this.cmbType = item.type;
+    this.txtEngine = item.engineNum;
+    this.txtChasis = item.chasisNum;
+    this.cmbVehicle = "";
   }
 }
