@@ -33,6 +33,7 @@ import { NgxPaginationModule } from "ngx-pagination";
 import { InputTextModule } from "primeng/inputtext";
 import { SearchPipe } from "./shared/pipe-filters/pipe-search";
 import { SortPipe } from "./shared/pipe-filters/pipe-sort";
+import { LimitPipe } from "./shared/pipe-filters/pipe-limit";
 import { CookieService } from "ngx-cookie-service";
 import { LoginComponent } from "./pages/user/login/login.component";
 import { AssetEntryComponent } from "./pages/fixAsset/asset-entry/asset-entry.component";
@@ -53,6 +54,7 @@ import { NHARoadsComponent } from "./pages/fixasset/nharoads/nharoads.component"
     AppComponent,
     SearchPipe,
     SortPipe,
+    LimitPipe,
     LoginComponent,
     AssetEntryComponent,
     DashboardyComponent,

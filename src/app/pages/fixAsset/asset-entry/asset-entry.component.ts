@@ -1705,9 +1705,9 @@ export class AssetEntryComponent implements OnInit {
 
       if (this.lblTransferID == "") {
         saveData = {
-          SubLocID: parseInt(this.cmbTransLocation), //int
-          OfficeTypeID: parseInt(this.cmbTransOfcType), //int
-          OfficeSecID: parseInt(this.cmbTransWngSection), //int
+          rSubLocID: parseInt(this.cmbTransLocation), //int
+          officeTypeID: parseInt(this.cmbTransOfcType), //int
+          rOfficeSecID: parseInt(this.cmbTransWngSection), //int
           TPostID: parseInt(this.cmbTransByPost), //int
           RPostID: parseInt(this.cmbTransToPost), //int
           DateofTransfer: transferDate, //int
@@ -1723,9 +1723,9 @@ export class AssetEntryComponent implements OnInit {
         };
       } else {
         saveData = {
-          SubLocID: parseInt(this.cmbTransLocation), //int
-          OfficeTypeID: parseInt(this.cmbTransOfcType), //int
-          OfficeSecID: parseInt(this.cmbTransWngSection), //int
+          rSubLocID: parseInt(this.cmbTransLocation), //int
+          officeTypeID: parseInt(this.cmbTransOfcType), //int
+          rOfficeSecID: parseInt(this.cmbTransWngSection), //int
           TPostID: parseInt(this.cmbTransByPost), //int
           RPostID: parseInt(this.cmbTransToPost), //int
           DateofTransfer: transferDate, //int
@@ -1793,6 +1793,10 @@ export class AssetEntryComponent implements OnInit {
     this.lblTransferID = obj.transferID;
     this.rdbTransType = obj.transferType;
     this.cmbTransferProject = obj.projectID;
+    this.cmbTransLocation = obj.rSubLocID;
+    this.cmbTransOfcType = obj.officeTypeID;
+    this.getTransWingSection(obj.officeTypeID);
+    this.cmbTransWngSection = obj.rOfficeSecID;
     this.cmbTransByPost = obj.tPostID;
     this.cmbTransToPost = obj.rPostID;
     this.dtpTransferDt = new Date(obj.dateofTransfer);
