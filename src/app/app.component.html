@@ -1,210 +1,122 @@
-<!-- navbar -->
-<!-- <nav class="navbar navbar-expand-md navbar-dark bg-dark" id="menuId">
-  <a class="navbar-brand" href="#">NHA</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
-    aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarNavDropdown">
-    <ul class="navbar-nav">
-      <li class="nav-item">
-        <a class="nav-link" routerLink='dashboard'>Dashboard</a>
-      </li>
-      <li class="nav-item active">
-        <a class="nav-link" routerLink='assetEntry'>Asset Entry <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link">Features</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Pricing</a>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
-          aria-haspopup="true" aria-expanded="false">
-          Dropdown link
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <a class="dropdown-item" href="#">Something else here</a>
-        </div>
-      </li>
-      <li class="nav-item text-right">
-        <a class="nav-link" (click)="Logout()">Logout</a>
-      </li>
-    </ul>
+<!-- side nav -->
+<div id="mySidenav" class="sidenav bgGrey style-3">
+  <div class="row">
+    <a href="javascript:void(0)" class="closebtn" (click)="closeNav()">&times;</a>
   </div>
-</nav> -->
-<!-- end navbar -->
-<div class="sideNav-backdrop" (click)="closeNav()"></div>
-<div class="sidenav boxShadow-1">
-  <nav>
-    <header class="pb-3">
-      <div class="row">
-        <div class="col-md-6">
-          <h3 class="pl-4 pt-2">Menu</h3>
-        </div>
-        <div class="col-md-6 text-right">
-          <span class="fa fa-close cursorPointer pt-3 pr-2" (click)="closeNav()" style="font-size: 1.5em;"></span>
-          <!-- <button mat-icon-button color="warn" class="noneOutline mt-2 mr-2">
-            <mat-icon><span class="fa fa-close"></span></mat-icon>
-          </button> -->
-        </div>
-      </div>
-    </header>
-    <ul class="mcd-menu">
-      <li>
-        <a href="">
-          <i class="fa fa-home"></i>
-          <strong>Home</strong>
-          <small>sweet home</small>
-        </a>
-      </li>
-      <li>
-        <a routerLinkActive="active" routerLink="dashboard" (click)="closeNav()">
-          <!--class="active"-->
-          <i class="fa fa-dashboard"></i>
-          <strong>Dashboard</strong>
-          <small>sweet home</small>
-        </a>
-      </li>
-      <li>
-        <a routerLinkActive="active" href="" routerLink="assetEntry" (click)="closeNav()">
-          <i class="fa fa-table"></i>
-          <strong>Asset Entry & Tags</strong>
-          <small>sweet home</small>
-        </a>
-      </li>
-      <li>
-        <a href="" routerLink='freeholdLand' routerLinkActive="active" (click)="closeNav()">
-          <i class="fa fa-picture-o"></i>
-          <strong>Free Hold Land</strong>
-          <small>Land in NHA possation</small>
-        </a>
-      </li>
-      <li>
-        <a href="" routerLink='nhaRoads' routerLinkActive="active" (click)="closeNav()">
-          <i class="fa fa-road"></i>
-          <strong>Roads on Land</strong>
-          <small>Highways & Motorways</small>
-        </a>
-      </li>
-      <li>
-        <a href="">
-          <i class="fa fa-diamond"></i>
-          <strong>Admin Panel</strong>
-          <small>user configuration</small>
-        </a>
-        <ul>
-          <li>
-            <a href="" routerLink='userRegisteration' routerLinkActive="active" (click)="closeNav()"><i
-                class="fa fa-user-plus"></i>User Registeration</a>
-          </li>
-          <!-- <li>
-            <a href="#"><i class="fa fa-group"></i>Our Team</a>
-            <ul>
-              <li>
-                <a href="#"><i class="fa fa-female"></i>Leyla Sparks</a>
-              </li>
-              <li>
-                <a href="#"><i class="fa fa-male"></i>Gleb Ismailov</a>
-                <ul>
-                  <li>
-                    <a href="#"><i class="fa fa-leaf"></i>About</a>
-                  </li>
-                  <li>
-                    <a href="#"><i class="fa fa-tasks"></i>Skills</a>
-                  </li>
-                </ul>
-              </li>
-              <li>
-                <a href="#"><i class="fa fa-female"></i>Viktoria Gibbers</a>
-              </li>
-            </ul>
-          </li> -->
-          <li>
-            <a href="#"><i class="fa fa-trophy"></i>Rewards</a>
-          </li>
-          <li>
-            <a href="#"><i class="fa fa-certificate"></i>Certificates</a>
-          </li>
-        </ul>
-      </li>
-      <li>
-        <a href="">
-          <i class="fa fa-cog"></i>
-          <strong>Configuration</strong>
-          <small>sweet home</small>
-        </a>
-        <ul>
-          <li>
-            <a href="" routerLinkActive="active" routerLink="nhaLoc" (click)="closeNav()"><i
-                class="fa fa-location-arrow"></i>NHA Locations</a>
-          </li>
-          <li>
-            <a href="" routerLinkActive="active" routerLink="nhaSec" (click)="closeNav()"><i
-                class="fa fa-building"></i>NHA Section</a>
-          </li>
-          <li>
-            <a href="" routerLinkActive="active" routerLink="nhaOfficeType" (click)="closeNav()"><i
-                class="fa fa-bank"></i>Office Type</a>
-          </li>
-          <li>
-            <a href="" routerLinkActive="active" routerLink="assetCat" (click)="closeNav()"><i
-                class="fa fa-list"></i>Asset Category</a>
-          </li>
-          <li>
-            <a href="" routerLinkActive="active" routerLink="nhaPost" (click)="closeNav()"><i
-                class="fa fa-users"></i>NHA Posts</a>
-          </li>
-          <li>
-            <a href="" routerLinkActive="active" routerLink="nhaProject" (click)="closeNav()"><i
-                class="fa fa-road"></i>NHA Project</a>
-          </li>
-          <li>
-            <a href="" routerLinkActive="active" routerLink="nhaProjectIPC" (click)="closeNav()"><i
-                class="fa fa-file"></i>NHA Project IPCs</a>
-          </li>
-        </ul>
-      </li>
-    </ul>
-  </nav>
-</div>
+  <div class="row">
+    <div class="col-md-12 text-center">
+      <img src="../assets/images/nha.png" width="30%" alt="">
+    </div>
+  </div>
+  <div class="borderBottomDark"></div>
+  <ul>
+    <li>
+      <a href="" routerLinkActive="active" routerLink="dashboard" (click)="closeNav()"><i class="fa fa-dashboard"></i>
+        <span class='pl-3'>Dashboard</span></a>
+
+    </li>
+    <li>
+      <a href="" routerLinkActive="active" routerLink="assetEntry" (click)="closeNav()"><i class="fa fa-table"></i>
+        <span class='pl-3'>Asset Entry & Tags</span></a>
+
+    </li>
+    <li>
+      <a href="" routerLinkActive="active" routerLink='freeholdLand' (click)="closeNav()"><i
+          class="fa fa-picture-o"></i>
+        <span class='pl-3'>Freehold Land</span></a>
+
+    </li>
+    <li>
+      <a href="" routerLinkActive="active" routerLink='nhaRoads' (click)="closeNav()"><i class="fa fa-road"></i>
+        <span class='pl-3'>Roads on Land</span></a>
+
+    </li>
+    <li>
+      <a href=""><i class="fa fa-diamond"></i> <span class="pl-3">Admin Panel</span>
+        <span class='fa fa-chevron-right pull-right'></span>
+      </a>
+      <ul class="nav-flyout">
+        <li>
+          <a href="" href="" routerLink='userRegisteration' routerLinkActive="active" (click)="closeNav()"><i
+              class="fa fa-user-plus"></i>User Registeration</a>
+        </li>
+        <li>
+          <a href=""><i class="ion-ios-cog-outline txt-black"></i>end here</a>
+        </li>
+      </ul>
+    </li>
+    <li>
+      <a href=""><i class="fa fa-cog"></i> <span class="pl-3">Configurations</span>
+        <span class="fa fa-chevron-right pull-right"></span></a>
+      <ul class="nav-flyout">
+        <li>
+          <a href="" routerLinkActive="active" routerLink="nhaLoc" (click)="closeNav()"><i
+              class="fa fa-location-arrow"></i>NHA Locations</a>
+        </li>
+        <li>
+          <a href="" routerLinkActive="active" routerLink="nhaSec" (click)="closeNav()"><i
+              class="fa fa-building"></i>NHA Section</a>
+        </li>
+        <li>
+          <a href="" routerLinkActive="active" routerLink="nhaOfficeType" (click)="closeNav()"><i
+              class="fa fa-bank"></i>Office Type</a>
+        </li>
+        <li>
+          <a href="" routerLinkActive="active" routerLink="assetCat" (click)="closeNav()"><i
+              class="fa fa-list"></i>Asset Category</a>
+        </li>
+        <li>
+          <a href="" routerLinkActive="active" routerLink="nhaPost" (click)="closeNav()"><i class="fa fa-users"></i>NHA
+            Posts</a>
+        </li>
+        <li>
+          <a href="" routerLinkActive="active" routerLink="nhaProject" (click)="closeNav()"><i
+              class="fa fa-road"></i>NHA Project</a>
+        </li>
+        <li>
+          <a href="" routerLinkActive="active" routerLink="nhaProjectIPC" (click)="closeNav()"><i
+              class="fa fa-file"></i>NHA Project IPCs</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div> <!-- end side nav -->
 
 <!-- header -->
-<div class="row" id="menuId">
-  <div class="col-md-2 pl-4">
-    <span style="font-size: 1.5em; cursor: pointer;font-family: 'Montserrat';" (click)="openNav()"
-      class="animate__animated animate__bounce">&#9776; NHA</span>
+<div id='main'>
+  <div class="row">
+    <div class="col-md-2 pl-4">
+      <span style="font-size: 1.5em; cursor: pointer;font-family: 'Montserrat';" (click)="openNav()"
+        class="animate__animated animate__bounce">&#9776; NHA</span>
+    </div>
+    <div class="col-md-2 offset-md-8 pt-1 text-right">
+      <button mat-button class="noneOutline" style="font-family: 'Montserrat'; font-size: 1.0em !important;"
+        [matMenuTriggerFor]="menu">
+        <!-- <span class="fa fa-user"></span>&nbsp;&nbsp;{{ userName }} -->
+        <span class="fa fa-user"></span>&nbsp;&nbsp;Nabeel
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item class="noneOutline" data-toggle="modal" data-target="#resetPasswordModal">
+          <span class="fa fa-lock"></span>&nbsp;Reset Password
+        </button>
+        <button mat-menu-item class="noneOutline" data-toggle="modal" data-target="#compLocationModal">
+          <span class="fa fa-check"></span>&nbsp;Complete Location
+        </button>
+        <button mat-menu-item class="noneOutline" data-toggle="modal" data-target="#qrScannerModal">
+          <span class="fa fa-qrcode"></span>&nbsp;QR Scanner
+        </button>
+        <button mat-menu-item class="noneOutline" (click)="Logout()">
+          <span class="fa fa-sign-out"></span>&nbsp;Log out
+        </button>
+      </mat-menu>
+    </div>
+    <!-- <div class="col-md-1">
+      <button mat-mini-fab color="warn" class="p-0 m-0 noneOutline fa fa-sign-out" (click)="Logout()"></button>
+    </div> -->
   </div>
-  <div class="col-md-2 offset-md-8 pt-1 text-right">
-    <button mat-button class="noneOutline" style="font-family: 'Montserrat'; font-size: 1.0em !important;"
-      [matMenuTriggerFor]="menu">
-      <!-- <span class="fa fa-user"></span>&nbsp;&nbsp;{{ userName }} -->
-      <span class="fa fa-user"></span>&nbsp;&nbsp;Nabeel
-    </button>
-    <mat-menu #menu="matMenu">
-      <button mat-menu-item class="noneOutline" data-toggle="modal" data-target="#resetPasswordModal">
-        <span class="fa fa-lock"></span>&nbsp;Reset Password
-      </button>
-      <button mat-menu-item class="noneOutline" data-toggle="modal" data-target="#compLocationModal">
-        <span class="fa fa-check"></span>&nbsp;Complete Location
-      </button>
-      <button mat-menu-item class="noneOutline" data-toggle="modal" data-target="#qrScannerModal">
-        <span class="fa fa-qrcode"></span>&nbsp;QR Scanner
-      </button>
-      <button mat-menu-item class="noneOutline" (click)="Logout()">
-        <span class="fa fa-sign-out"></span>&nbsp;Log out
-      </button>
-    </mat-menu>
-  </div>
-  <!-- <div class="col-md-1">
-    <button mat-mini-fab color="warn" class="p-0 m-0 noneOutline fa fa-sign-out" (click)="Logout()"></button>
-  </div> -->
+  <div id="menuId" class="animate__animated animate__bounce"></div>
+  <router-outlet></router-outlet>
 </div>
-<div id="menuId" class="animate__animated animate__bounce"></div>
-<router-outlet></router-outlet>
 
 <!-- complete location modal windows -->
 <!-- The Modal -->

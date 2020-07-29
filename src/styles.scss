@@ -69,26 +69,18 @@ h6 {
 .dbox {
   position: relative;
   background: rgb(255, 86, 65);
-  background: -moz-linear-gradient(
-    top,
-    rgba(255, 86, 65, 1) 0%,
-    rgba(253, 50, 97, 1) 100%
-  );
-  background: -webkit-linear-gradient(
-    top,
-    rgba(255, 86, 65, 1) 0%,
-    rgba(253, 50, 97, 1) 100%
-  );
-  background: linear-gradient(
-    to bottom,
-    rgba(255, 86, 65, 1) 0%,
-    rgba(253, 50, 97, 1) 100%
-  );
+  background: -moz-linear-gradient(top,
+      rgba(255, 86, 65, 1) 0%,
+      rgba(253, 50, 97, 1) 100%);
+  background: -webkit-linear-gradient(top,
+      rgba(255, 86, 65, 1) 0%,
+      rgba(253, 50, 97, 1) 100%);
+  background: linear-gradient(to bottom,
+      rgba(255, 86, 65, 1) 0%,
+      rgba(253, 50, 97, 1) 100%);
   //filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#ff5641', endColorstr='#fd3261', GradientType=0);
-  filter: unquote(
-    $string:
-      "progid: DXImageTransform.Microsoft.gradient( startColorstr='#ff5641', endColorstr='#fd3261', GradientType=0)"
-  );
+  filter: unquote($string: "progid: DXImageTransform.Microsoft.gradient( startColorstr='#ff5641', endColorstr='#fd3261', GradientType=0)"
+    );
   border-radius: 4px;
   text-align: center;
   margin: 60px 0 50px;
@@ -126,7 +118,7 @@ h6 {
   z-index: -1;
 }
 
-.dbox__icon > i {
+.dbox__icon>i {
   background: #ff5444;
   border-radius: 50%;
   line-height: 40px;
@@ -174,26 +166,18 @@ h6 {
 
 .dbox--color-2 {
   background: rgb(252, 190, 27);
-  background: -moz-linear-gradient(
-    top,
-    rgba(252, 190, 27, 1) 1%,
-    rgba(248, 86, 72, 1) 99%
-  );
-  background: -webkit-linear-gradient(
-    top,
-    rgba(252, 190, 27, 1) 1%,
-    rgba(248, 86, 72, 1) 99%
-  );
-  background: linear-gradient(
-    to bottom,
-    rgba(252, 190, 27, 1) 1%,
-    rgba(248, 86, 72, 1) 99%
-  );
+  background: -moz-linear-gradient(top,
+      rgba(252, 190, 27, 1) 1%,
+      rgba(248, 86, 72, 1) 99%);
+  background: -webkit-linear-gradient(top,
+      rgba(252, 190, 27, 1) 1%,
+      rgba(248, 86, 72, 1) 99%);
+  background: linear-gradient(to bottom,
+      rgba(252, 190, 27, 1) 1%,
+      rgba(248, 86, 72, 1) 99%);
   //filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#fcbe1b', endColorstr='#f85648', GradientType=0);
-  filter: unquote(
-    $string:
-      "progid: DXImageTransform.Microsoft.gradient( startColorstr='#fcbe1b', endColorstr='#f85648', GradientType=0)"
-  );
+  filter: unquote($string: "progid: DXImageTransform.Microsoft.gradient( startColorstr='#fcbe1b', endColorstr='#f85648', GradientType=0)"
+    );
 }
 
 .dbox--color-2 .dbox__icon:after {
@@ -206,32 +190,24 @@ h6 {
   background: rgba(254, 224, 54, 0.64);
 }
 
-.dbox--color-2 .dbox__icon > i {
+.dbox--color-2 .dbox__icon>i {
   background: #fb9f28;
 }
 
 .dbox--color-3 {
   background: rgb(183, 71, 247);
-  background: -moz-linear-gradient(
-    top,
-    rgba(183, 71, 247, 1) 0%,
-    rgba(108, 83, 220, 1) 100%
-  );
-  background: -webkit-linear-gradient(
-    top,
-    rgba(183, 71, 247, 1) 0%,
-    rgba(108, 83, 220, 1) 100%
-  );
-  background: linear-gradient(
-    to bottom,
-    rgba(183, 71, 247, 1) 0%,
-    rgba(108, 83, 220, 1) 100%
-  );
+  background: -moz-linear-gradient(top,
+      rgba(183, 71, 247, 1) 0%,
+      rgba(108, 83, 220, 1) 100%);
+  background: -webkit-linear-gradient(top,
+      rgba(183, 71, 247, 1) 0%,
+      rgba(108, 83, 220, 1) 100%);
+  background: linear-gradient(to bottom,
+      rgba(183, 71, 247, 1) 0%,
+      rgba(108, 83, 220, 1) 100%);
   //filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b747f7', endColorstr='#6c53dc',GradientType=0 );
-  filter: unquote(
-    $string:
-      "progid:DXImageTransform.Microsoft.gradient( startColorstr='#b747f7', endColorstr='#6c53dc',GradientType=0 )"
-  );
+  filter: unquote($string: "progid:DXImageTransform.Microsoft.gradient( startColorstr='#b747f7', endColorstr='#6c53dc',GradientType=0 )"
+    );
 }
 
 .dbox--color-3 .dbox__icon:after {
@@ -244,32 +220,24 @@ h6 {
   background: rgba(226, 132, 255, 0.66);
 }
 
-.dbox--color-3 .dbox__icon > i {
+.dbox--color-3 .dbox__icon>i {
   background: #8150e4;
 }
 
 .dbox--color-4 {
   background: rgb(183, 71, 247);
-  background: -moz-linear-gradient(
-    top,
-    rgba(136, 136, 136, 1) 0%,
-    rgba(24, 24, 24, 1) 100%
-  );
-  background: -webkit-linear-gradient(
-    top,
-    rgba(136, 136, 136, 1) 0%,
-    rgba(24, 24, 24, 1) 100%
-  );
-  background: linear-gradient(
-    to bottom,
-    rgba(136, 136, 136, 1) 0%,
-    rgba(24, 24, 24, 1) 100%
-  );
+  background: -moz-linear-gradient(top,
+      rgba(136, 136, 136, 1) 0%,
+      rgba(24, 24, 24, 1) 100%);
+  background: -webkit-linear-gradient(top,
+      rgba(136, 136, 136, 1) 0%,
+      rgba(24, 24, 24, 1) 100%);
+  background: linear-gradient(to bottom,
+      rgba(136, 136, 136, 1) 0%,
+      rgba(24, 24, 24, 1) 100%);
   //filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b747f7', endColorstr='#6c53dc',GradientType=0 );
-  filter: unquote(
-    $string:
-      "progid:DXImageTransform.Microsoft.gradient( startColorstr='#b747f7', endColorstr='#6c53dc',GradientType=0 )"
-  );
+  filter: unquote($string: "progid:DXImageTransform.Microsoft.gradient( startColorstr='#b747f7', endColorstr='#6c53dc',GradientType=0 )"
+    );
 }
 
 .dbox--color-4 .dbox__icon:after {
@@ -282,7 +250,7 @@ h6 {
   background: rgba(190, 190, 190, 0.66);
 }
 
-.dbox--color-4 .dbox__icon > i {
+.dbox--color-4 .dbox__icon>i {
   background: #222;
 }
 
@@ -304,7 +272,7 @@ h6 {
 }
 
 .borderBottomDark {
-  border-bottom: 1px solid #666666;
+  border-bottom: 1px solid #e6e7e7;
 }
 
 .noneOutline {
@@ -458,6 +426,10 @@ body {
 
 .txt-color-green {
   color: #768b32 !important;
+}
+
+.txt-black {
+  color: black !important;
 }
 
 /*************** end text colors ****************/
@@ -798,3 +770,150 @@ $color-loader: #ce4233;
 }
 
 /******************* end *************************/
+
+/* The side navigation menu */
+.sidenav {
+  height: 100%;
+  /* 100% Full-height */
+  width: 0;
+  /* 0 width - change this with JavaScript */
+  position: fixed;
+  /* Stay in place */
+  z-index: 1;
+  /* Stay on top */
+  top: 0;
+  left: 0;
+  background-color: #111;
+  /* Black*/
+  overflow-x: hidden;
+  /* Disable horizontal scroll */
+  padding-top: 60px;
+  /* Place content 60px from the top */
+  transition: 0.5s;
+  /* 0.5 second transition effect to slide in the sidenav */
+}
+
+/* The navigation menu links */
+.sidenav a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
+/* When you mouse over the navigation links, change their color */
+.sidenav a:hover {
+  color: #f1f1f1;
+}
+
+/* Position and style the close button (top right corner) */
+.sidenav .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+/* Style page content - use this if you want to push the page content to the right when you open the side navigation */
+#main {
+  transition: margin-left .5s;
+  padding: 20px;
+}
+
+/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+@media screen and (max-height: 450px) {
+  .sidenav {
+    padding-top: 15px;
+  }
+
+  .sidenav a {
+    font-size: 18px;
+  }
+}
+
+.sidenav ul {
+  list-style: none;
+  display: block;
+  padding: 0;
+  margin: 0;
+}
+
+.sidenav ul li {
+  margin-left: 0;
+  padding-left: 0;
+  display: inline-block;
+  width: 100%;
+  /* -------------
+  sidenav: icons
+  ----------------*/
+}
+
+.sidenav ul li a {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 1.0em;
+  text-decoration: none;
+  padding: 1.05em 1em;
+  position: relative;
+  display: block;
+}
+
+.sidenav ul li a:hover {
+  background-color: rgba(0, 0, 0, 0.9);
+  -webkit-transition: all 0.6s ease;
+  -moz-transition: all 0.6s ease;
+  transition: all 0.6s ease;
+}
+
+.sidenav ul li i {
+  font-size: 1.8em;
+  padding-right: 0.5em;
+  width: 9em;
+  display: inline;
+  vertical-align: middle;
+}
+
+.sidenav>ul>li>a:after {
+  // content: '\f125';
+  // font-family: ionicons;
+  // font-size: 0.5em;
+  // width: 10px;
+  // color: #fff;
+  // position: absolute;
+  // right: 0.75em;
+  // top: 45%;
+}
+
+.sidenav .nav-flyout {
+  position: absolute;
+  background-color: #080D11;
+  z-index: 9;
+  left: 2.5em;
+  top: 0;
+  height: 100vh;
+  -webkit-transform: translateX(100%);
+  -moz-transform: translateX(100%);
+  -ms-transform: translateX(100%);
+  -o-transform: translateX(100%);
+  transform: translateX(100%);
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+
+.sidenav .nav-flyout a:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.sidenav ul>li:hover .nav-flyout {
+  -webkit-transform: translateX(0);
+  -moz-transform: translateX(0);
+  -ms-transform: translateX(0);
+  -o-transform: translateX(0);
+  transform: translateX(0);
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
