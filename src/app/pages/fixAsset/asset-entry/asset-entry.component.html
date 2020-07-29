@@ -1368,6 +1368,29 @@
           </div>
         </div>
 
+        <!-- next row -->
+        <div class="row">
+          <div class="col-md-6">
+            <mat-form-field class="w-100">
+              <mat-label>Tranfered By: Post Title</mat-label>
+              <mat-select [(ngModel)]="cmbTransByPost" (ngModelChange)="getTransByPost()">
+                <mat-option>
+                  <ngx-mat-select-search [(ngModel)]="searchPostBy" [placeholderLabel]="'Search...'"
+                    [noEntriesFoundLabel]="'Not found'" name="search"></ngx-mat-select-search>
+                </mat-option>
+
+                <mat-option *ngFor="
+                    let item of transferByList | search: 'postName,companyName':searchPostBy
+                  " [value]="item.postID" [disabled]="item.isActivated == 0">
+                  {{ item.postName }} - {{item.companyName}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-md-6">
+            Company Name: <b>{{ lblTransByComp }}</b>
+          </div>
+        </div>
         <!--next row-->
         <div class="row pt-2">
           <div class="col-md-12">
@@ -1434,29 +1457,6 @@
           </div>
         </div>
 
-        <!-- next row -->
-        <div class="row">
-          <div class="col-md-6">
-            <mat-form-field class="w-100">
-              <mat-label>Tranfered By: Post Title</mat-label>
-              <mat-select [(ngModel)]="cmbTransByPost" (ngModelChange)="getTransByPost()">
-                <mat-option>
-                  <ngx-mat-select-search [(ngModel)]="searchPostBy" [placeholderLabel]="'Search...'"
-                    [noEntriesFoundLabel]="'Not found'" name="search"></ngx-mat-select-search>
-                </mat-option>
-
-                <mat-option *ngFor="
-                    let item of transferByList | search: 'postName,companyName':searchPostBy
-                  " [value]="item.postID" [disabled]="item.isActivated == 0">
-                  {{ item.postName }} - {{item.companyName}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-          <div class="col-md-6">
-            Company Name: <b>{{ lblTransByComp }}</b>
-          </div>
-        </div>
         <!-- next row -->
         <div class="row">
           <div class="col-md-6">

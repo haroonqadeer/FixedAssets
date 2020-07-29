@@ -366,6 +366,7 @@ export class AssetEntryComponent implements OnInit {
     this.getAssetDetail();
     this.getTags();
     this.getLocation();
+    this.getTransLocation();
     this.getOfficeType();
     this.getVehicle();
     this.getCustody();
@@ -480,6 +481,20 @@ export class AssetEntryComponent implements OnInit {
       });
   }
 
+  getTransLocation() {
+    var reqHeader = new HttpHeaders({
+      "Content-Type": "application/json",
+      // Authorization: "Bearer " + Token,
+    });
+
+    this.http
+      // .get(this.serverUrl + "getsubloc", { headers: reqHeader })
+      .get(this.serverUrl + "getsubLoc", { headers: reqHeader })
+      .subscribe((data: any) => {
+        this.locTransList = data;
+      });
+  }
+
   getLocation() {
     var reqHeader = new HttpHeaders({
       "Content-Type": "application/json",
@@ -495,7 +510,6 @@ export class AssetEntryComponent implements OnInit {
       .subscribe((data: any) => {
         // this.locList = data.filter((x) => x.isActivated == 1);
         this.locList = data;
-        this.locTransList = data;
       });
   }
 
