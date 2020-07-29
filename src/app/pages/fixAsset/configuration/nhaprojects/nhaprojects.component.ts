@@ -317,29 +317,35 @@ export class NHAProjectsComponent implements OnInit {
   }
 
   genPin(obj, param, i) {
-    this.txtPin = "";
-    this.objList = [];
-    this.paramType = "";
-    this.objList = obj;
-    this.paramType = param;
-    this.index = i;
+    if (this.cookie.get("pinstatus") == "true") {
+      this.txtPin = "";
+      this.objList = [];
+      this.paramType = "";
+      this.objList = obj;
+      this.paramType = param;
+      this.index = i;
 
-    if (param == "active") {
-      // alert(obj.isActivated);
-      // setTimeout(this.sld)
-      if (obj.isActivated == false) {
-        setTimeout(
-          () => (this.projectList[this.index].isActivated = true),
-          500
-        );
-      } else {
-        setTimeout(
-          () => (this.projectList[this.index].isActivated = false),
-          500
-        );
+      if (param == "active") {
+        // alert(obj.isActivated);
+        // setTimeout(this.sld)
+        if (obj.isActivated == false) {
+          setTimeout(() => (this.projectList[i].isActivated = true), 10);
+        } else {
+          setTimeout(() => (this.projectList[i].isActivated = false), 10);
+        }
       }
+      $("#genPinModal").modal("show");
+    } else {
+      if (obj.isActivated == false) {
+        setTimeout(() => (this.projectList[i].isActivated = true), 10);
+      } else {
+        setTimeout(() => (this.projectList[i].isActivated = false), 10);
+      }
+      this.toastr.errorToastr("PIN Code is not allowed", "Error", {
+        toastTimeout: 2500,
+      });
+      return false;
     }
-    $("#genPinModal").modal("show");
   }
 
   resetPin() {

@@ -1169,8 +1169,8 @@ export class AssetEntryComponent implements OnInit {
       var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
       this.http
-        // .post(this.serverUrl + "saveasset", saveData, {
-        .post("http://localhost:5090/api/saveasset", saveData, {
+        .post(this.serverUrl + "saveasset", saveData, {
+          // .post("http://localhost:5090/api/saveasset", saveData, {
           headers: reqHeader,
         })
         .subscribe((data: any) => {
@@ -2309,13 +2309,21 @@ export class AssetEntryComponent implements OnInit {
   }
 
   genPin(obj, param) {
-    this.txtPin = "";
-    this.objList = [];
-    this.paramType = "";
-    this.objList = obj;
-    this.paramType = param;
+    // alert(this.cookie.get("pinstatus"));
+    if (this.cookie.get("pinstatus") == "true") {
+      this.txtPin = "";
+      this.objList = [];
+      this.paramType = "";
+      this.objList = obj;
+      this.paramType = param;
 
-    $("#genPinModal").modal("show");
+      $("#genPinModal").modal("show");
+    } else {
+      this.toastr.errorToastr("PIN Code is not allowed", "Error", {
+        toastTimeout: 2500,
+      });
+      return false;
+    }
   }
 
   resetPin() {
