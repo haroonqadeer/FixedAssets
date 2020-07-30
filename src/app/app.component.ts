@@ -83,6 +83,10 @@ export class AppComponent {
     document.cookie =
       "pinStatus=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     this.router.navigate([""]);
+
+    // this._cuId = "";
+    // this._cuName = "";
+
     $("#menuId").hide();
   }
 
@@ -178,9 +182,9 @@ export class AppComponent {
       return false;
     } else {
       var saveData = {
-        UserName: this._cuName,
+        UserName: this.cookie.get("userName"),
         HashPassword: this.txtPin,
-        UpdatedBY: this._cuId,
+        UpdatedBY: this.cookie.get("userID"),
         SpType: "PINCODE",
       };
 
