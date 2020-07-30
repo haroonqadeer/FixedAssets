@@ -761,12 +761,12 @@ export class AssetEntryComponent implements OnInit {
         for (var i = 0; i < this.tagList.length; i++) {
           for (var j = 0; j < this.assetDetailList.length; j++) {
             if (this.tagList[i].tag == this.assetDetailList[j].tag) {
-              this.assetDetailList[i].checkbox = true;
+              this.assetDetailList[j].checkbox = true;
             }
           }
           for (var j = 0; j < this.tempDetailList.length; j++) {
             if (this.tagList[i].tag == this.tempDetailList[j].tag) {
-              this.tempDetailList[i].checkbox = true;
+              this.tempDetailList[j].checkbox = true;
             }
           }
         }
