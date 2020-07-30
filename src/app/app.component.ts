@@ -30,8 +30,8 @@ export class AppComponent {
   txtNewPw = "";
   txtConfirmPw = "";
 
-  txtPin = '';
-  txtConfirmPin = '';
+  txtPin = "";
+  txtConfirmPin = "";
 
   constructor(
     private router: Router,
@@ -80,7 +80,8 @@ export class AppComponent {
     document.cookie =
       "userName=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-    document.cookie = "pinStatus=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    document.cookie =
+      "pinStatus=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     this.router.navigate([""]);
     $("#menuId").hide();
   }
@@ -159,8 +160,7 @@ export class AppComponent {
     }
   }
 
-
-  genPin(){
+  genPin() {
     if (this.txtPin == undefined || this.txtPin == "") {
       this.toastr.errorToastr("Please Enter Pin", "Error", {
         toastTimeout: 2500,
@@ -177,7 +177,6 @@ export class AppComponent {
       });
       return false;
     } else {
-
       var saveData = {
         UserName: this._cuName,
         HashPassword: this.txtPin,
@@ -191,16 +190,23 @@ export class AppComponent {
         .post(this.serverUrl + "resetpw", saveData, { headers: reqHeader })
         .subscribe((data: any) => {
           if (data.msg == "Success") {
-            this.toastr.successToastr("Pin Generated Successfully!","Success!",{ toastTimeout: 2500 });
-            this.txtPin = "";
-            this.txtConfirmPin = "";
-            //$("#closeResetNav").click();
+            this.toastr.successToastr(
+              "Pin Generated Successfully!",
+              "Success!",
+              { toastTimeout: 2500 }
+            );
+            this.clearPin(); //$("#closeResetNav").click();
             return false;
           } else {
             this.toastr.errorToastr(data.msg, "Error!", { toastTimeout: 2500 });
           }
         });
     }
+  }
+
+  clearPin() {
+    this.txtPin = "";
+    this.txtConfirmPin = "";
   }
 
   /* Set the width of the side navigation to 250px and the left margin of the page content to 250px */
