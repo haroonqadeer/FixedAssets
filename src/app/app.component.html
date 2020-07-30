@@ -84,7 +84,7 @@
 
 <!-- header -->
 <div id='main'>
-  <div class="row">
+  <div class="row" id="menuId">
     <div class="col-md-2 pl-4">
       <span style="font-size: 1.5em; cursor: pointer;font-family: 'Montserrat';" (click)="openNav()"
         class="animate__animated animate__bounce">&#9776; NHA</span>
@@ -117,7 +117,7 @@
       <button mat-mini-fab color="warn" class="p-0 m-0 noneOutline fa fa-sign-out" (click)="Logout()"></button>
     </div> -->
   </div>
-  <div id="menuId" class="animate__animated animate__bounce"></div>
+  <!-- <div id="menuId" class="animate__animated animate__bounce"></div> -->
   <router-outlet></router-outlet>
 </div>
 
