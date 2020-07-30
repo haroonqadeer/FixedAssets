@@ -258,7 +258,7 @@
                       <td>{{item.subLocationDescription}}</td>
                       <td>{{item.officeTypeDescription}}</td>
                       <td class="inline-block">
-                        <span class="fa fa-trash-o cursorPointer text-danger"></span>
+                        <span class="fa fa-trash-o cursorPointer text-danger" (click)="deleteLocation(item)"></span>
                       </td>
                     </tr>
                   </tbody>

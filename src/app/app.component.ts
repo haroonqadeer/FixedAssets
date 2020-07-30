@@ -18,6 +18,7 @@ declare var $: any;
 })
 export class AppComponent {
   serverUrl = "http://95.217.206.195:2007/api/";
+  //serverUrl = "http://localhost:12345/api/";
 
   title = "FixedAssets";
   userName = "";
@@ -28,6 +29,9 @@ export class AppComponent {
   txtOldPw = "";
   txtNewPw = "";
   txtConfirmPw = "";
+
+  txtPin = '';
+  txtConfirmPin = '';
 
   constructor(
     private router: Router,
@@ -147,6 +151,50 @@ export class AppComponent {
             this.txtNewPw = "";
             this.txtConfirmPw = "";
             $("#closeResetNav").click();
+            return false;
+          } else {
+            this.toastr.errorToastr(data.msg, "Error!", { toastTimeout: 2500 });
+          }
+        });
+    }
+  }
+
+
+  genPin(){
+    if (this.txtPin == undefined || this.txtPin == "") {
+      this.toastr.errorToastr("Please Enter Pin", "Error", {
+        toastTimeout: 2500,
+      });
+      return false;
+    } else if (this.txtConfirmPin == undefined || this.txtConfirmPin == "") {
+      this.toastr.errorToastr("Please Enter Confirm Pin", "Error", {
+        toastTimeout: 2500,
+      });
+      return false;
+    } else if (this.txtPin != this.txtConfirmPin) {
+      this.toastr.errorToastr("Pin Doesn't Match", "Error", {
+        toastTimeout: 2500,
+      });
+      return false;
+    } else {
+
+      var saveData = {
+        UserName: this._cuName,
+        HashPassword: this.txtPin,
+        UpdatedBY: this._cuId,
+        SpType: "PINCODE",
+      };
+
+      var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
+
+      this.http
+        .post(this.serverUrl + "resetpw", saveData, { headers: reqHeader })
+        .subscribe((data: any) => {
+          if (data.msg == "Success") {
+            this.toastr.successToastr("Pin Generated Successfully!","Success!",{ toastTimeout: 2500 });
+            this.txtPin = "";
+            this.txtConfirmPin = "";
+            //$("#closeResetNav").click();
             return false;
           } else {
             this.toastr.errorToastr(data.msg, "Error!", { toastTimeout: 2500 });
