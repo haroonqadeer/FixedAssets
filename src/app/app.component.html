@@ -234,11 +234,20 @@
           </div>
           <div class="col-md-8">
             <div class="row">
+              <div class="col-md-12">
+                <mat-form-field color="warn" class="w-100">
+                  <mat-label>Enter Asset ID</mat-label>
+                  <input matInput [(ngModel)]="txtAssetID" (keydown)="getQrCodeData()" />
+                </mat-form-field>
+              </div>
+            </div>
+            <!-- next row -->
+            <div class="row">
               <div class="col-md-4">
                 Account Category :
               </div>
               <div class="col-md-8 border-bottom">
-                Furniture & Fixture
+                {{lblAccCategory}}
               </div>
             </div>
             <!-- next row -->
@@ -247,7 +256,7 @@
                 Asset Category :
               </div>
               <div class="col-md-8 border-bottom">
-                Sofa Set
+                {{lblAssetCategory}}
               </div>
             </div>
             <!-- next row -->
@@ -256,16 +265,16 @@
                 Custody In :
               </div>
               <div class="col-md-8 border-bottom">
-                Deputy Director (B&A)
+                {{lblPost}}
               </div>
             </div>
             <!-- next row -->
             <div class="row">
               <div class="col-md-4">
-                Room No. :
+                Asset Location :
               </div>
               <div class="col-md-8 border-bottom">
-                15
+                {{lblAssetLocation}}
               </div>
             </div>
             <!-- next row -->
@@ -274,7 +283,7 @@
                 Description :
               </div>
               <div class="col-md-8 border-bottom">
-                two seater three sofa set brown color fabric cautioned
+                {{lblAssetDescription}}
               </div>
             </div>
             <!-- next row -->
@@ -283,7 +292,7 @@
                 Office Type :
               </div>
               <div class="col-md-8 border-bottom">
-                Head Quarter
+                {{lblOfficeType}}
               </div>
             </div>
             <!-- next row -->
@@ -292,30 +301,38 @@
                 Location :
               </div>
               <div class="col-md-8 border-bottom">
-                NHA Head Quarter
-              </div>
-            </div>
-            <!-- next row -->
-            <div class="row">
-              <div class="col-md-4">
-                Region :
-              </div>
-              <div class="col-md-8 border-bottom">
-                Head Quarter
-              </div>
-            </div>
-            <!-- next row -->
-            <div class="row">
-              <div class="col-md-4">
-                Province :
-              </div>
-              <div class="col-md-8 border-bottom">
-                Federal
+                {{lblLocation}}
               </div>
             </div>
           </div>
 
           <!-- asset detail -->
+        </div>
+        <!-- table -->
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Location</th>
+                <th>Office Type</th>
+                <th>Section</th>
+                <th>Created Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="
+                  let item of qrLogList;
+                  let i = index
+                ">
+                <td class="text-center">{{ i + 1 }}</td>
+                <td>{{ item.subLocationDescription }}</td>
+                <td>{{ item.officeTypeDescription }}</td>
+                <td>{{ item.officeDescription }}</td>
+                <td>{{ item.createdDateTime | date }}</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
 
         <!-- Modal footer -->

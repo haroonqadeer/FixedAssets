@@ -74,6 +74,7 @@ export class AssetEntryComponent implements OnInit {
   disableProject = true;
   disableCustody = false;
   disableTag = false;
+  disableAssetCat = false;
 
   txtPin = "";
   assetID = "";
@@ -187,6 +188,7 @@ export class AssetEntryComponent implements OnInit {
   transferByList = [];
   transferToList = [];
   AssetCatList = [];
+  tempAssetCatList = [];
   projectList = [];
   transferProjectList = [];
   refList = [];
@@ -628,6 +630,7 @@ export class AssetEntryComponent implements OnInit {
       .subscribe((data: any) => {
         // this.AssetCatList = data.filter((x) => x.isActivated == 1);
         this.AssetCatList = data;
+        this.tempAssetCatList = data;
       });
   }
 
@@ -754,6 +757,19 @@ export class AssetEntryComponent implements OnInit {
         this.tempDetailList = data;
         this.assetDetailList.reverse();
         this.tempDetailList.reverse();
+
+        for (var i = 0; i < this.tagList.length; i++) {
+          for (var j = 0; j < this.assetDetailList.length; j++) {
+            if (this.tagList[i].tag == this.assetDetailList[j].tag) {
+              this.assetDetailList[i].checkbox = true;
+            }
+          }
+          for (var j = 0; j < this.tempDetailList.length; j++) {
+            if (this.tagList[i].tag == this.tempDetailList[j].tag) {
+              this.tempDetailList[i].checkbox = true;
+            }
+          }
+        }
       });
   }
 
@@ -1192,8 +1208,8 @@ export class AssetEntryComponent implements OnInit {
       var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
       this.http
-        // .post(this.serverUrl + "saveasset", saveData, {
-        .post("http://localhost:5090/api/saveasset", saveData, {
+        .post(this.serverUrl + "saveasset", saveData, {
+          // .post("http://localhost:5090/api/saveasset", saveData, {
           headers: reqHeader,
         })
         .subscribe((data: any) => {
@@ -1277,17 +1293,33 @@ export class AssetEntryComponent implements OnInit {
       return false;
     } else {
       this.loadingBar = true;
-      var saveData = {
-        VehID: this.txtRegNo,
-        Make: this.cmbMake,
-        Model: this.cmbModel,
-        Type: this.cmbType,
-        ChasisNum: this.txtChasis,
-        EngineNum: this.txtEngine,
-        ID: 0,
-        Userid: this.cookie.get("userID"),
-        SPType: "Insert",
-      };
+      var saveData;
+
+      if (this.vehID == "") {
+        saveData = {
+          VehID: this.txtRegNo,
+          Make: this.cmbMake,
+          Model: this.cmbModel,
+          Type: this.cmbType,
+          ChasisNum: this.txtChasis,
+          EngineNum: this.txtEngine,
+          ID: 0,
+          Userid: this.cookie.get("userID"),
+          SPType: "Insert",
+        };
+      } else {
+        saveData = {
+          VehID: this.txtRegNo,
+          Make: this.cmbMake,
+          Model: this.cmbModel,
+          Type: this.cmbType,
+          ChasisNum: this.txtChasis,
+          EngineNum: this.txtEngine,
+          ID: this.vehID,
+          Userid: this.cookie.get("userID"),
+          SPType: "Update",
+        };
+      }
 
       var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
@@ -1297,13 +1329,24 @@ export class AssetEntryComponent implements OnInit {
         })
         .subscribe((data: any) => {
           if (data.msg == "Success") {
-            this.toastr.successToastr(
-              "Record Saved Successfully!",
-              "Success!",
-              {
-                toastTimeout: 2500,
-              }
-            );
+            if (this.vehID == "") {
+              this.toastr.successToastr(
+                "Record Saved Successfully!",
+                "Success!",
+                {
+                  toastTimeout: 2500,
+                }
+              );
+            } else {
+              this.toastr.successToastr(
+                "Record Updated Successfully!",
+                "Success!",
+                {
+                  toastTimeout: 2500,
+                }
+              );
+            }
+
             this.clear();
             this.getVehicle();
             this.loadingBar = false;
@@ -1443,6 +1486,8 @@ export class AssetEntryComponent implements OnInit {
     this.imgFileAsset3 = undefined;
     this.selectedAssetFile3 = null;
     this.imageAssetUrl3 = "../../../../../assets/assetEntryImg/dropHereImg.png";
+    this.AssetCatList = this.tempAssetCatList;
+    this.disableAssetCat = false;
   }
 
   clearAll() {
@@ -1523,6 +1568,9 @@ export class AssetEntryComponent implements OnInit {
     this.imgFileAsset3 = undefined;
     this.selectedAssetFile3 = null;
     this.imageAssetUrl3 = "../../../../../assets/assetEntryImg/dropHereImg.png";
+
+    this.AssetCatList = this.tempAssetCatList;
+    this.disableAssetCat = true;
   }
 
   setCondemned() {
@@ -1538,6 +1586,29 @@ export class AssetEntryComponent implements OnInit {
     this.cmbTransferProject = this.cmbProject;
     this.disableProject = true;
     this.getIPC();
+  }
+
+  getAssetCat() {
+    this.cmbVehicle = "";
+    this.AssetCatList = this.tempAssetCatList;
+    if (this.rdbAsset == "2") {
+      this.AssetCatList = this.AssetCatList.filter(
+        (x) => x.accountsCatagory == "VEHICLES"
+      );
+      this.lblAccCategory = "";
+    } else {
+      this.disableAssetCat = false;
+      this.cmbAssetCat = "";
+      this.lblAccCategory = "";
+    }
+  }
+
+  getAssetCatVehicle(vehID) {
+    var vehData = this.vehicleList.filter((x) => x.id == vehID);
+
+    this.cmbAssetCat = vehData[0].assetCatID;
+    this.disableAssetCat = true;
+    this.getAssetCatDescription(this.cmbAssetCat);
   }
 
   setTransfer() {

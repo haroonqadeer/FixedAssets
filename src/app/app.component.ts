@@ -30,8 +30,20 @@ export class AppComponent {
   txtNewPw = "";
   txtConfirmPw = "";
 
+  txtAssetID = "";
+
   txtPin = "";
   txtConfirmPin = "";
+
+  lblAccCategory = "";
+  lblAssetCategory = "";
+  lblPost = "";
+  lblAssetLocation = "";
+  lblAssetDescription = "";
+  lblOfficeType = "";
+  lblLocation = "";
+
+  qrLogList = [];
 
   constructor(
     private router: Router,
@@ -111,6 +123,52 @@ export class AppComponent {
     this.userIdle.resetTimer();
   }
 
+  getQrCodeData() {
+    this.qrLogList = [];
+    this.lblAccCategory = "";
+    this.lblAssetCategory = "";
+    this.lblPost = "";
+    this.lblAssetLocation = "";
+    this.lblAssetDescription = "";
+    this.lblOfficeType = "";
+    this.lblLocation = "";
+    setTimeout(() => this.getQrData(), 500);
+  }
+
+  getQrData() {
+    var reqHeader = new HttpHeaders({
+      "Content-Type": "application/json",
+      // Authorization: "Bearer " + Token,
+    });
+
+    this.http
+      // .get(this.serverUrl + "getsubloc", { headers: reqHeader })
+      .get(
+        this.serverUrl + "getMoveableAssetsListTag?assetID=" + this.txtAssetID,
+        { headers: reqHeader }
+      )
+      .subscribe((data: any) => {
+        if (data.length > 0) {
+          this.lblAccCategory = data[0].accountsCatagory;
+          this.lblAssetCategory = data[0].assetCatDescription;
+          this.lblPost = data[0].postName;
+          this.lblAssetLocation = data[0].assetLocation;
+          this.lblAssetDescription = data[0].assetDescription;
+          this.lblOfficeType = data[0].officeTypeDescription;
+          this.lblLocation = data[0].subLocationDescription;
+        }
+      });
+
+    this.http
+      // .get(this.serverUrl + "getsubloc", { headers: reqHeader })
+      .get(
+        this.serverUrl + "getAssetLocationClass?assetID=" + this.txtAssetID,
+        { headers: reqHeader }
+      )
+      .subscribe((data: any) => {
+        this.qrLogList = data;
+      });
+  }
   resetPw() {
     if (this.txtOldPw == undefined || this.txtOldPw == "") {
       this.toastr.errorToastr("Please Enter Old Password", "Error", {
@@ -192,6 +250,9 @@ export class AppComponent {
 
       this.http
         .post(this.serverUrl + "resetpw", saveData, { headers: reqHeader })
+        // .post("http://localhost:5090/api/resetpw", saveData, {
+        //   headers: reqHeader,
+        // })
         .subscribe((data: any) => {
           if (data.msg == "Success") {
             this.toastr.successToastr(

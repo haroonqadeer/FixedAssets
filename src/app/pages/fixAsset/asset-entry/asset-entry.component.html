@@ -365,7 +365,7 @@
         <!-- next row -->
         <div class="row">
           <div class="col-md-12">
-            <mat-radio-group aria-label="Select an option" [(ngModel)]="rdbAsset">
+            <mat-radio-group aria-label="Select an option" [(ngModel)]="rdbAsset" (change)="getAssetCat()">
               <mat-radio-button value="1" class="pr-5">Other Asset</mat-radio-button>
               <mat-radio-button value="2">Vehicle</mat-radio-button>
             </mat-radio-group>
@@ -426,7 +426,7 @@
           <div class="col-md-11">
             <mat-form-field color="warn" class="w-100">
               <mat-label>Vehicle</mat-label>
-              <mat-select [(ngModel)]="cmbVehicle">
+              <mat-select [(ngModel)]="cmbVehicle" (ngModelChange)="getAssetCatVehicle(cmbVehicle)">
                 <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchVehicle" />
                 <mat-option *ngFor="
                     let item of vehicleList | search: 'vehID':searchVehicle
@@ -487,7 +487,7 @@
               <mat-label>Asset - Category</mat-label>
               <mat-select [(ngModel)]="cmbAssetCat" (ngModelChange)="
                   getAssetNo(); getAssetCatDescription(cmbAssetCat)
-                " [disabled]="disableFields">
+                " [disabled]="disableAssetCat">
                 <mat-option>
                   <ngx-mat-select-search [(ngModel)]="searchCategory" [placeholderLabel]="'Search...'"
                     [noEntriesFoundLabel]="'Not found'" name="search"></ngx-mat-select-search>
@@ -1549,6 +1549,8 @@
                 <th>#</th>
                 <th>Transfer Type</th>
                 <th>From</th>
+                <th>Location</th>
+                <th>Office Type</th>
                 <th>To</th>
                 <th>Date</th>
                 <th class="text-center">Action</th>
@@ -1558,13 +1560,15 @@
               <tr *ngFor="
                   let item of transferList
                     | search
-                      : 'transferType,receiveBy,transfee,dateofTransfer'
+                      : 'transferType,subLocationDescription,officeTypeDescription,receiveBy,transfee,dateofTransfer'
                       : tblSearchTrans;
                   let i = index
                 ">
                 <td class="text-center">{{ i + 1 }}</td>
                 <td>{{ item.transferType }}</td>
                 <td>{{ item.transfee }}</td>
+                <td>{{ item.subLocationDescription }}</td>
+                <td>{{ item.officeTypeDescription }}</td>
                 <td>{{ item.receiveBy }}</td>
                 <td>{{ item.dateofTransfer | date }}</td>
                 <td class="inline-block text-center">

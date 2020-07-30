@@ -116,13 +116,16 @@ export class UserRegisterationComponent implements OnInit {
       // Authorization: "Bearer " + Token,
     });
 
-    this.http.get(this.serverUrl + "getuserlocation?UserId=" + userid, {headers: reqHeader,}).subscribe((data: any) => {
+    this.http
+      .get(this.serverUrl + "getuserlocation?UserId=" + userid, {
+        headers: reqHeader,
+      })
+      .subscribe((data: any) => {
         this.userLocationsList = data;
-    });
+      });
   }
 
   getUsers() {
-
     this.loadingBar = true;
     var reqHeader = new HttpHeaders({
       "Content-Type": "application/json",
@@ -213,6 +216,9 @@ export class UserRegisterationComponent implements OnInit {
 
       this.http
         .post(this.serverUrl + "reguser", SaveData, { headers: reqHeader })
+        // .post("http://localhost:5090/api/reguser", SaveData, {
+        //   headers: reqHeader,
+        // })
         .subscribe((data: any) => {
           if (data.msg == "Success") {
             if (this.userID == "") {
@@ -339,12 +345,23 @@ export class UserRegisterationComponent implements OnInit {
 
       var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
-      this.http.post(this.serverUrl + "sduserloc", SaveData, { headers: reqHeader }).subscribe((data: any) => {
+      this.http
+        .post(this.serverUrl + "sduserloc", SaveData, { headers: reqHeader })
+        .subscribe((data: any) => {
           if (data.msg == "Success") {
-            this.toastr.successToastr("Record Saved Successfully!","Success!",{ toastTimeout: 2500 });
-            this.http.get(this.serverUrl + "getuserlocation?UserId=" + this.userIDforLoc, {headers: reqHeader,}).subscribe((data: any) => {
-              this.userLocationsList = data;
-            });
+            this.toastr.successToastr(
+              "Record Saved Successfully!",
+              "Success!",
+              { toastTimeout: 2500 }
+            );
+            this.http
+              .get(
+                this.serverUrl + "getuserlocation?UserId=" + this.userIDforLoc,
+                { headers: reqHeader }
+              )
+              .subscribe((data: any) => {
+                this.userLocationsList = data;
+              });
             this.loadingBar = false;
             return false;
           } else {
@@ -358,34 +375,43 @@ export class UserRegisterationComponent implements OnInit {
     }
   }
 
-
   deleteLocation(item) {
+    var SaveData = {
+      UserId: this.userIDforLoc,
+      SubLocId: item.subLocID,
+      LoginID: this.cookie.get("userID"),
+      SPType: "Delete",
+    };
 
-      var SaveData = {
-        UserId: this.userIDforLoc,
-        SubLocId: item.subLocID,
-        LoginID: this.cookie.get("userID"),
-        SPType: "Delete",
-      };
+    var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
-      var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
-
-      this.http.post(this.serverUrl + "sduserloc", SaveData, { headers: reqHeader }).subscribe((data: any) => {
-          if (data.msg == "Success") {
-            this.toastr.successToastr("Record Deleted Successfully!","Success!",{ toastTimeout: 2500 });
-            this.http.get(this.serverUrl + "getuserlocation?UserId=" + this.userIDforLoc, {headers: reqHeader,}).subscribe((data: any) => {
+    this.http
+      .post(this.serverUrl + "sduserloc", SaveData, { headers: reqHeader })
+      .subscribe((data: any) => {
+        if (data.msg == "Success") {
+          this.toastr.successToastr(
+            "Record Deleted Successfully!",
+            "Success!",
+            { toastTimeout: 2500 }
+          );
+          this.http
+            .get(
+              this.serverUrl + "getuserlocation?UserId=" + this.userIDforLoc,
+              { headers: reqHeader }
+            )
+            .subscribe((data: any) => {
               this.userLocationsList = data;
             });
-            this.loadingBar = false;
-            return false;
-          } else {
-            this.toastr.errorToastr(data.msg, "Error !", {
-              toastTimeout: 5000,
-            });
-            this.loadingBar = false;
-            return false;
-          }
-        });
+          this.loadingBar = false;
+          return false;
+        } else {
+          this.toastr.errorToastr(data.msg, "Error !", {
+            toastTimeout: 5000,
+          });
+          this.loadingBar = false;
+          return false;
+        }
+      });
   }
 
   ValidateEmail(mail) {
@@ -397,7 +423,6 @@ export class UserRegisterationComponent implements OnInit {
   }
 
   active(obj) {
-
     var type = "";
     if (obj.isActivated == false) {
       type = "DEACTIVATE";
@@ -418,14 +443,24 @@ export class UserRegisterationComponent implements OnInit {
     this.loadingBar = true;
     var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
-    this.http.post(this.serverUrl + "reguser", SaveData, { headers: reqHeader }).subscribe((data: any) => {
-        if (data.msg == "Success" && type == 'DEACTIVATE') {
-          this.toastr.successToastr("User Deactivated Successfully!","Success!",{ toastTimeout: 2500 });
+    this.http
+      .post(this.serverUrl + "reguser", SaveData, { headers: reqHeader })
+      .subscribe((data: any) => {
+        if (data.msg == "Success" && type == "DEACTIVATE") {
+          this.toastr.successToastr(
+            "User Deactivated Successfully!",
+            "Success!",
+            { toastTimeout: 2500 }
+          );
           this.clear();
           this.getUsers();
           return false;
-        }else if (data.msg == "Success" && type == 'ACTIVATE') {
-          this.toastr.successToastr("User Activated Successfully!","Success!",{ toastTimeout: 2500 });
+        } else if (data.msg == "Success" && type == "ACTIVATE") {
+          this.toastr.successToastr(
+            "User Activated Successfully!",
+            "Success!",
+            { toastTimeout: 2500 }
+          );
           this.clear();
           this.getUsers();
           return false;
@@ -436,5 +471,4 @@ export class UserRegisterationComponent implements OnInit {
         }
       });
   }
-
 }
