@@ -54,12 +54,27 @@ export class AssetEntryComponent implements OnInit {
   imgFileAsset;
   selectedAssetFile: File = null;
 
+  imgAssetPath2 = "C:/inetpub/wwwroot/2008_FAR_Proj/assets/assetEntryImg";
+  imageAssetUrl2: string =
+    "../../../../../assets/assetEntryImg/dropHereImg.png";
+  imageAsset2;
+  imgFileAsset2;
+  selectedAssetFile2: File = null;
+
+  imgAssetPath3 = "C:/inetpub/wwwroot/2008_FAR_Proj/assets/assetEntryImg";
+  imageAssetUrl3: string =
+    "../../../../../assets/assetEntryImg/dropHereImg.png";
+  imageAsset3;
+  imgFileAsset3;
+  selectedAssetFile3: File = null;
+
   editMode = true;
   hidden = false;
   disableOfcType = true;
   disableProject = true;
   disableCustody = false;
   disableTag = false;
+  disableAssetCat = false;
 
   txtPin = "";
   assetID = "";
@@ -173,6 +188,7 @@ export class AssetEntryComponent implements OnInit {
   transferByList = [];
   transferToList = [];
   AssetCatList = [];
+  tempAssetCatList = [];
   projectList = [];
   transferProjectList = [];
   refList = [];
@@ -203,6 +219,7 @@ export class AssetEntryComponent implements OnInit {
   // name = "Angular 4";
   urls = [];
   onSelectFile(event) {
+    alert(this.urls.length);
     if (event.target.files && event.target.files[0]) {
       var filesAmount = event.target.files.length;
       for (let i = 0; i < filesAmount; i++) {
@@ -351,6 +368,7 @@ export class AssetEntryComponent implements OnInit {
     this.getAssetDetail();
     this.getTags();
     this.getLocation();
+    this.getTransLocation();
     this.getOfficeType();
     this.getVehicle();
     this.getCustody();
@@ -465,6 +483,20 @@ export class AssetEntryComponent implements OnInit {
       });
   }
 
+  getTransLocation() {
+    var reqHeader = new HttpHeaders({
+      "Content-Type": "application/json",
+      // Authorization: "Bearer " + Token,
+    });
+
+    this.http
+      // .get(this.serverUrl + "getsubloc", { headers: reqHeader })
+      .get(this.serverUrl + "getsubLoc", { headers: reqHeader })
+      .subscribe((data: any) => {
+        this.locTransList = data;
+      });
+  }
+
   getLocation() {
     var reqHeader = new HttpHeaders({
       "Content-Type": "application/json",
@@ -480,7 +512,6 @@ export class AssetEntryComponent implements OnInit {
       .subscribe((data: any) => {
         // this.locList = data.filter((x) => x.isActivated == 1);
         this.locList = data;
-        this.locTransList = data;
       });
   }
 
@@ -599,6 +630,7 @@ export class AssetEntryComponent implements OnInit {
       .subscribe((data: any) => {
         // this.AssetCatList = data.filter((x) => x.isActivated == 1);
         this.AssetCatList = data;
+        this.tempAssetCatList = data;
       });
   }
 
@@ -725,6 +757,19 @@ export class AssetEntryComponent implements OnInit {
         this.tempDetailList = data;
         this.assetDetailList.reverse();
         this.tempDetailList.reverse();
+
+        for (var i = 0; i < this.tagList.length; i++) {
+          for (var j = 0; j < this.assetDetailList.length; j++) {
+            if (this.tagList[i].tag == this.assetDetailList[j].tag) {
+              this.assetDetailList[j].checkbox = true;
+            }
+          }
+          for (var j = 0; j < this.tempDetailList.length; j++) {
+            if (this.tagList[i].tag == this.tempDetailList[j].tag) {
+              this.tempDetailList[j].checkbox = true;
+            }
+          }
+        }
       });
   }
 
@@ -733,6 +778,16 @@ export class AssetEntryComponent implements OnInit {
     this.imgFileAsset = undefined;
     this.selectedAssetFile = null;
     this.imageAssetUrl = "../../../../../assets/assetEntryImg/dropHereImg.png";
+
+    this.imageAsset2 = undefined;
+    this.imgFileAsset2 = undefined;
+    this.selectedAssetFile2 = null;
+    this.imageAssetUrl2 = "../../../../../assets/assetEntryImg/dropHereImg.png";
+
+    this.imageAsset3 = undefined;
+    this.imgFileAsset3 = undefined;
+    this.selectedAssetFile3 = null;
+    this.imageAssetUrl3 = "../../../../../assets/assetEntryImg/dropHereImg.png";
 
     if (item.vehicleID == 0) {
       this.rdbAsset = "1";
@@ -770,6 +825,8 @@ export class AssetEntryComponent implements OnInit {
     this.cmbProject = item.projectID;
     this.cmbRef = item.ipcRef;
 
+    this.getIPC();
+
     if (item.purchaseDate != null) {
       this.dtpPurchaseDt = new Date(item.purchaseDate);
     }
@@ -784,11 +841,32 @@ export class AssetEntryComponent implements OnInit {
     this.sldCondemned = item.isCondemned;
     this.sldMissing = item.isMissing;
     this.txtRemarks = item.remarks;
-    if (item.eDoc != null) {
+    if (
+      item.eDoc != null ||
+      item.eDoc != "C:/inetpub/wwwroot/2008_FAR_Proj/assets/assetEntryImg"
+    ) {
       this.imageAssetUrl =
         "http://95.217.206.195:2008/assets/assetEntryImg/" +
         item.assetID +
-        ".jpg";
+        "_1.jpg";
+    }
+    if (
+      item.eDoc2 != null ||
+      item.eDoc2 != "C:/inetpub/wwwroot/2008_FAR_Proj/assets/assetEntryImg"
+    ) {
+      this.imageAssetUrl2 =
+        "http://95.217.206.195:2008/assets/assetEntryImg/" +
+        item.assetID +
+        "_2.jpg";
+    }
+    if (
+      item.eDoc3 != null ||
+      item.eDoc3 != "C:/inetpub/wwwroot/2008_FAR_Proj/assets/assetEntryImg"
+    ) {
+      this.imageAssetUrl3 =
+        "http://95.217.206.195:2008/assets/assetEntryImg/" +
+        item.assetID +
+        "_3.jpg";
     }
 
     this.lblTransferID = item.transferID;
@@ -966,11 +1044,29 @@ export class AssetEntryComponent implements OnInit {
       if (this.cmbProject == "") {
         this.cmbProject = "0";
       }
-      var imgAsset;
+      var imgAsset, imgAsset2, imgAsset3;
+      var imgPath, imgPath2, imgPath3;
       if (this.imageAsset == undefined) {
         imgAsset = null;
+        imgPath = null;
       } else {
         imgAsset = this.imageAsset;
+        imgPath = this.imgAssetPath;
+      }
+      if (this.imageAsset2 == undefined) {
+        imgAsset2 = null;
+        imgPath2 = null;
+      } else {
+        imgAsset2 = this.imageAsset2;
+        imgPath2 = this.imgAssetPath2;
+      }
+
+      if (this.imageAsset3 == undefined) {
+        imgAsset3 = null;
+        imgPath3 = null;
+      } else {
+        imgAsset3 = this.imageAsset3;
+        imgPath3 = this.imgAssetPath3;
       }
 
       if (this.assetID == "") {
@@ -1045,9 +1141,13 @@ export class AssetEntryComponent implements OnInit {
           SpType: "Insert", //string
           AssetID: 0, //int
           Qty: parseInt(this.txtTagNo), //int
-          EDoc: this.imgAssetPath,
+          EDoc: imgPath,
+          EDoc2: imgPath2,
+          EDoc3: imgPath3,
           EDocExtension: "jpg",
           imgFile: imgAsset,
+          imgFile2: imgAsset2,
+          imgFile3: imgAsset3,
           TransferID: transferID, // int
         };
       } else {
@@ -1094,9 +1194,13 @@ export class AssetEntryComponent implements OnInit {
           SpType: "Update", //string
           AssetID: this.assetID, //int
           Qty: this.txtTagNo, //int
-          EDoc: this.imgAssetPath,
+          EDoc: imgPath,
+          EDoc2: imgPath2,
+          EDoc3: imgPath3,
           EDocExtension: "jpg",
           imgFile: imgAsset,
+          imgFile2: imgAsset2,
+          imgFile3: imgAsset3,
           TransferID: transferID, // int
         };
       }
@@ -1189,17 +1293,33 @@ export class AssetEntryComponent implements OnInit {
       return false;
     } else {
       this.loadingBar = true;
-      var saveData = {
-        VehID: this.txtRegNo,
-        Make: this.cmbMake,
-        Model: this.cmbModel,
-        Type: this.cmbType,
-        ChasisNum: this.txtChasis,
-        EngineNum: this.txtEngine,
-        ID: 0,
-        Userid: this.cookie.get("userID"),
-        SPType: "Insert",
-      };
+      var saveData;
+
+      if (this.vehID == "") {
+        saveData = {
+          VehID: this.txtRegNo,
+          Make: this.cmbMake,
+          Model: this.cmbModel,
+          Type: this.cmbType,
+          ChasisNum: this.txtChasis,
+          EngineNum: this.txtEngine,
+          ID: 0,
+          Userid: this.cookie.get("userID"),
+          SPType: "Insert",
+        };
+      } else {
+        saveData = {
+          VehID: this.txtRegNo,
+          Make: this.cmbMake,
+          Model: this.cmbModel,
+          Type: this.cmbType,
+          ChasisNum: this.txtChasis,
+          EngineNum: this.txtEngine,
+          ID: this.vehID,
+          Userid: this.cookie.get("userID"),
+          SPType: "Update",
+        };
+      }
 
       var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
@@ -1209,13 +1329,24 @@ export class AssetEntryComponent implements OnInit {
         })
         .subscribe((data: any) => {
           if (data.msg == "Success") {
-            this.toastr.successToastr(
-              "Record Saved Successfully!",
-              "Success!",
-              {
-                toastTimeout: 2500,
-              }
-            );
+            if (this.vehID == "") {
+              this.toastr.successToastr(
+                "Record Saved Successfully!",
+                "Success!",
+                {
+                  toastTimeout: 2500,
+                }
+              );
+            } else {
+              this.toastr.successToastr(
+                "Record Updated Successfully!",
+                "Success!",
+                {
+                  toastTimeout: 2500,
+                }
+              );
+            }
+
             this.clear();
             this.getVehicle();
             this.loadingBar = false;
@@ -1331,7 +1462,7 @@ export class AssetEntryComponent implements OnInit {
     this.sldCondemned = false;
     this.sldMissing = false;
     this.sldTransfered = false;
-    this.disableOfcType = false;
+    // this.disableOfcType = false;
     this.disableServiceable = false;
     this.disableSurplus = false;
     this.disableUsable = false;
@@ -1345,6 +1476,18 @@ export class AssetEntryComponent implements OnInit {
     this.imgFileAsset = undefined;
     this.selectedAssetFile = null;
     this.imageAssetUrl = "../../../../../assets/assetEntryImg/dropHereImg.png";
+
+    this.imageAsset2 = undefined;
+    this.imgFileAsset2 = undefined;
+    this.selectedAssetFile2 = null;
+    this.imageAssetUrl2 = "../../../../../assets/assetEntryImg/dropHereImg.png";
+
+    this.imageAsset3 = undefined;
+    this.imgFileAsset3 = undefined;
+    this.selectedAssetFile3 = null;
+    this.imageAssetUrl3 = "../../../../../assets/assetEntryImg/dropHereImg.png";
+    this.AssetCatList = this.tempAssetCatList;
+    this.disableAssetCat = false;
   }
 
   clearAll() {
@@ -1401,7 +1544,7 @@ export class AssetEntryComponent implements OnInit {
     this.sldCondemned = false;
     this.sldMissing = false;
     this.sldTransfered = false;
-    this.disableOfcType = false;
+    // this.disableOfcType = false;
     this.disableServiceable = false;
     this.disableSurplus = false;
     this.disableUsable = false;
@@ -1415,6 +1558,19 @@ export class AssetEntryComponent implements OnInit {
     this.imgFileAsset = undefined;
     this.selectedAssetFile = null;
     this.imageAssetUrl = "../../../../../assets/assetEntryImg/dropHereImg.png";
+
+    this.imageAsset2 = undefined;
+    this.imgFileAsset2 = undefined;
+    this.selectedAssetFile2 = null;
+    this.imageAssetUrl2 = "../../../../../assets/assetEntryImg/dropHereImg.png";
+
+    this.imageAsset3 = undefined;
+    this.imgFileAsset3 = undefined;
+    this.selectedAssetFile3 = null;
+    this.imageAssetUrl3 = "../../../../../assets/assetEntryImg/dropHereImg.png";
+
+    this.AssetCatList = this.tempAssetCatList;
+    this.disableAssetCat = true;
   }
 
   setCondemned() {
@@ -1430,6 +1586,29 @@ export class AssetEntryComponent implements OnInit {
     this.cmbTransferProject = this.cmbProject;
     this.disableProject = true;
     this.getIPC();
+  }
+
+  getAssetCat() {
+    this.cmbVehicle = "";
+    this.AssetCatList = this.tempAssetCatList;
+    if (this.rdbAsset == "2") {
+      this.AssetCatList = this.AssetCatList.filter(
+        (x) => x.accountsCatagory == "VEHICLES"
+      );
+      this.lblAccCategory = "";
+    } else {
+      this.disableAssetCat = false;
+      this.cmbAssetCat = "";
+      this.lblAccCategory = "";
+    }
+  }
+
+  getAssetCatVehicle(vehID) {
+    var vehData = this.vehicleList.filter((x) => x.id == vehID);
+
+    this.cmbAssetCat = vehData[0].assetCatID;
+    this.disableAssetCat = true;
+    this.getAssetCatDescription(this.cmbAssetCat);
   }
 
   setTransfer() {
@@ -1629,6 +1808,7 @@ export class AssetEntryComponent implements OnInit {
   }
 
   saveTransfer() {
+    alert(this.dtpTransferDt);
     if (this.rdbTransType == "") {
       this.toastr.errorToastr("Please Select Transfer Type", "Error", {
         toastTimeout: 2500,
@@ -1671,13 +1851,13 @@ export class AssetEntryComponent implements OnInit {
         }
       );
       return false;
-    } else if (this.dtpTransferDt == "") {
-      this.toastr.errorToastr("Please Select Transfer Date", "Error", {
+    } else if (this.txtTransDesc == "") {
+      this.toastr.errorToastr("Please Enter Transfer Description", "Error", {
         toastTimeout: 2500,
       });
       return false;
-    } else if (this.txtTransDesc == "") {
-      this.toastr.errorToastr("Please Enter Transfer Description", "Error", {
+    } else if (this.dtpTransferDt == "" || this.dtpTransferDt == undefined) {
+      this.toastr.errorToastr("Please Select Transfer Date", "Error", {
         toastTimeout: 2500,
       });
       return false;
@@ -1696,6 +1876,7 @@ export class AssetEntryComponent implements OnInit {
       var transferDate = this.convertDate(this.dtpTransferDt);
       var saveData;
       var projectID;
+
       if (this.cmbTransferProject == "0") {
         projectID = null;
       } else {
@@ -1749,6 +1930,7 @@ export class AssetEntryComponent implements OnInit {
         })
         .subscribe((data: any) => {
           if (data.msg == "SUCCESS") {
+            this.clearTransfer();
             if (this.lblTransferID == "") {
               this.toastr.successToastr(
                 "Record Saved Successfully!",
@@ -1757,6 +1939,7 @@ export class AssetEntryComponent implements OnInit {
                   toastTimeout: 2500,
                 }
               );
+              this.lblTransferID = data.transID;
             } else {
               this.toastr.successToastr(
                 "Record Updated Successfully!",
@@ -1766,10 +1949,6 @@ export class AssetEntryComponent implements OnInit {
                 }
               );
             }
-            // this.lblTransByPost = this.cmbTransByPost;
-            this.clearTransfer();
-
-            this.lblTransferID = data.transID;
 
             this.getTransfer();
             $("#assetTransferModal").modal("hide");
@@ -2087,6 +2266,64 @@ export class AssetEntryComponent implements OnInit {
     }
   }
 
+  onAssetFileSelected2(event) {
+    if (
+      event.target.files[0].type == "image/png" ||
+      event.target.files[0].type == "image/jpeg"
+    ) {
+      this.selectedAssetFile2 = <File>event.target.files[0];
+      let reader = new FileReader();
+
+      reader.onloadend = (e: any) => {
+        this.imageAsset2 = reader.result;
+
+        var splitImg = this.imageAsset2.split(",")[1];
+        this.imageAsset2 = splitImg;
+        this.imageAssetUrl2 = e.target.result;
+      };
+
+      reader.readAsDataURL(this.selectedAssetFile2);
+    } else {
+      this.toastr.errorToastr("Please Select JPEG / PNG Image", "Error", {
+        toastTimeout: 2500,
+      });
+
+      this.imageAsset2 = undefined;
+      this.imgFileAsset2 = undefined;
+      this.selectedAssetFile2 = null;
+      this.imageAssetUrl2 = "../../../../../assets/assetCatImg/dropHereImg.png";
+    }
+  }
+
+  onAssetFileSelected3(event) {
+    if (
+      event.target.files[0].type == "image/png" ||
+      event.target.files[0].type == "image/jpeg"
+    ) {
+      this.selectedAssetFile3 = <File>event.target.files[0];
+      let reader = new FileReader();
+
+      reader.onloadend = (e: any) => {
+        this.imageAsset3 = reader.result;
+
+        var splitImg = this.imageAsset3.split(",")[1];
+        this.imageAsset3 = splitImg;
+        this.imageAssetUrl3 = e.target.result;
+      };
+
+      reader.readAsDataURL(this.selectedAssetFile3);
+    } else {
+      this.toastr.errorToastr("Please Select JPEG / PNG Image", "Error", {
+        toastTimeout: 2500,
+      });
+
+      this.imageAsset3 = undefined;
+      this.imgFileAsset3 = undefined;
+      this.selectedAssetFile3 = null;
+      this.imageAssetUrl3 = "../../../../../assets/assetCatImg/dropHereImg.png";
+    }
+  }
+
   zoomAssetImage() {
     // Get the modal
     var modal = document.getElementById("myModal");
@@ -2111,6 +2348,54 @@ export class AssetEntryComponent implements OnInit {
     }
   }
 
+  zoomAssetImage2() {
+    // Get the modal
+    var modal = document.getElementById("myModal");
+
+    // Get the image and insert it inside the modal - use its "alt" text as a caption
+    // var img = document.getElementById("myImg");
+    // var modalImg = document.getElementById("img01");
+    // var captionText = document.getElementById("caption");
+
+    if (
+      this.imageAssetUrl2 ==
+      "../../../../../assets/assetEntryImg/dropHereImg.png"
+    ) {
+      this.toastr.errorToastr("Please Select Image", "Error", {
+        toastTimeout: 2500,
+      });
+    } else {
+      modal.style.display = "block";
+      (<HTMLImageElement>(
+        document.querySelector("#img01")
+      )).src = this.imageAssetUrl2;
+    }
+  }
+
+  zoomAssetImage3() {
+    // Get the modal
+    var modal = document.getElementById("myModal");
+
+    // Get the image and insert it inside the modal - use its "alt" text as a caption
+    // var img = document.getElementById("myImg");
+    // var modalImg = document.getElementById("img01");
+    // var captionText = document.getElementById("caption");
+
+    if (
+      this.imageAssetUrl3 ==
+      "../../../../../assets/assetEntryImg/dropHereImg.png"
+    ) {
+      this.toastr.errorToastr("Please Select Image", "Error", {
+        toastTimeout: 2500,
+      });
+    } else {
+      modal.style.display = "block";
+      (<HTMLImageElement>(
+        document.querySelector("#img01")
+      )).src = this.imageAssetUrl3;
+    }
+  }
+
   closeModal() {
     var modal = document.getElementById("myModal");
 
@@ -2118,13 +2403,21 @@ export class AssetEntryComponent implements OnInit {
   }
 
   genPin(obj, param) {
-    this.txtPin = "";
-    this.objList = [];
-    this.paramType = "";
-    this.objList = obj;
-    this.paramType = param;
+    // alert(this.cookie.get("pinstatus"));
+    if (this.cookie.get("pinstatus") == "true") {
+      this.txtPin = "";
+      this.objList = [];
+      this.paramType = "";
+      this.objList = obj;
+      this.paramType = param;
 
-    $("#genPinModal").modal("show");
+      $("#genPinModal").modal("show");
+    } else {
+      this.toastr.errorToastr("PIN Code is not allowed", "Error", {
+        toastTimeout: 2500,
+      });
+      return false;
+    }
   }
 
   resetPin() {

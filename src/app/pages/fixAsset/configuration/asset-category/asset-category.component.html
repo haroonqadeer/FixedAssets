@@ -133,9 +133,9 @@
               <td>{{item.depreciationRule}}</td>
               <td>{{item.baseRate}}</td>
               <td class='inline-block text-center'><span class='fa fa-edit cursorPointer pr-3 text-primary'
-                  (click)="genPin(item,'edit')"></span>
-                <span class='fa fa-trash-o cursorPointer text-danger pr-3' (click)="genPin(item,'delete')"></span>
-                <mat-slide-toggle [(ngModel)]="item.isActivated" (change)="active(item)">
+                  (click)="genPin(item,'edit',0)"></span>
+                <span class='fa fa-trash-o cursorPointer text-danger pr-3' (click)="genPin(item,'delete',0)"></span>
+                <mat-slide-toggle [(ngModel)]="item.isActivated" (change)="genPin(item,'active',i)">
                 </mat-slide-toggle>
               </td>
             </tr>
@@ -171,11 +171,11 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-md-4">
+          <!-- <div class="col-md-4">
             <button mat-raised-button color="warn" (click)="resetPin()">
               Generate Pin
             </button>
-          </div>
+          </div> -->
           <div class="col-md-4">
             <button mat-raised-button color="primary" (click)="allowUpdation()">
               OK

@@ -18,6 +18,7 @@ declare var $: any;
 })
 export class AppComponent {
   serverUrl = "http://95.217.206.195:2007/api/";
+  //serverUrl = "http://localhost:12345/api/";
 
   title = "FixedAssets";
   userName = "";
@@ -28,6 +29,21 @@ export class AppComponent {
   txtOldPw = "";
   txtNewPw = "";
   txtConfirmPw = "";
+
+  txtAssetID = "";
+
+  txtPin = "";
+  txtConfirmPin = "";
+
+  lblAccCategory = "";
+  lblAssetCategory = "";
+  lblPost = "";
+  lblAssetLocation = "";
+  lblAssetDescription = "";
+  lblOfficeType = "";
+  lblLocation = "";
+
+  qrLogList = [];
 
   constructor(
     private router: Router,
@@ -76,7 +92,13 @@ export class AppComponent {
     document.cookie =
       "userName=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    document.cookie =
+      "pinStatus=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     this.router.navigate([""]);
+
+    // this._cuId = "";
+    // this._cuName = "";
+
     $("#menuId").hide();
   }
 
@@ -101,6 +123,52 @@ export class AppComponent {
     this.userIdle.resetTimer();
   }
 
+  getQrCodeData() {
+    this.qrLogList = [];
+    this.lblAccCategory = "";
+    this.lblAssetCategory = "";
+    this.lblPost = "";
+    this.lblAssetLocation = "";
+    this.lblAssetDescription = "";
+    this.lblOfficeType = "";
+    this.lblLocation = "";
+    setTimeout(() => this.getQrData(), 500);
+  }
+
+  getQrData() {
+    var reqHeader = new HttpHeaders({
+      "Content-Type": "application/json",
+      // Authorization: "Bearer " + Token,
+    });
+
+    this.http
+      // .get(this.serverUrl + "getsubloc", { headers: reqHeader })
+      .get(
+        this.serverUrl + "getMoveableAssetsListTag?assetID=" + this.txtAssetID,
+        { headers: reqHeader }
+      )
+      .subscribe((data: any) => {
+        if (data.length > 0) {
+          this.lblAccCategory = data[0].accountsCatagory;
+          this.lblAssetCategory = data[0].assetCatDescription;
+          this.lblPost = data[0].postName;
+          this.lblAssetLocation = data[0].assetLocation;
+          this.lblAssetDescription = data[0].assetDescription;
+          this.lblOfficeType = data[0].officeTypeDescription;
+          this.lblLocation = data[0].subLocationDescription;
+        }
+      });
+
+    this.http
+      // .get(this.serverUrl + "getsubloc", { headers: reqHeader })
+      .get(
+        this.serverUrl + "getAssetLocationClass?assetID=" + this.txtAssetID,
+        { headers: reqHeader }
+      )
+      .subscribe((data: any) => {
+        this.qrLogList = data;
+      });
+  }
   resetPw() {
     if (this.txtOldPw == undefined || this.txtOldPw == "") {
       this.toastr.errorToastr("Please Enter Old Password", "Error", {
@@ -152,6 +220,58 @@ export class AppComponent {
           }
         });
     }
+  }
+
+  genPin() {
+    if (this.txtPin == undefined || this.txtPin == "") {
+      this.toastr.errorToastr("Please Enter Pin", "Error", {
+        toastTimeout: 2500,
+      });
+      return false;
+    } else if (this.txtConfirmPin == undefined || this.txtConfirmPin == "") {
+      this.toastr.errorToastr("Please Enter Confirm Pin", "Error", {
+        toastTimeout: 2500,
+      });
+      return false;
+    } else if (this.txtPin != this.txtConfirmPin) {
+      this.toastr.errorToastr("Pin Doesn't Match", "Error", {
+        toastTimeout: 2500,
+      });
+      return false;
+    } else {
+      var saveData = {
+        UserName: this.cookie.get("userName"),
+        HashPassword: this.txtPin,
+        UpdatedBY: this.cookie.get("userID"),
+        SpType: "PINCODE",
+      };
+
+      var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
+
+      this.http
+        .post(this.serverUrl + "resetpw", saveData, { headers: reqHeader })
+        // .post("http://localhost:5090/api/resetpw", saveData, {
+        //   headers: reqHeader,
+        // })
+        .subscribe((data: any) => {
+          if (data.msg == "Success") {
+            this.toastr.successToastr(
+              "Pin Generated Successfully!",
+              "Success!",
+              { toastTimeout: 2500 }
+            );
+            this.clearPin(); //$("#closeResetNav").click();
+            return false;
+          } else {
+            this.toastr.errorToastr(data.msg, "Error!", { toastTimeout: 2500 });
+          }
+        });
+    }
+  }
+
+  clearPin() {
+    this.txtPin = "";
+    this.txtConfirmPin = "";
   }
 
   /* Set the width of the side navigation to 250px and the left margin of the page content to 250px */

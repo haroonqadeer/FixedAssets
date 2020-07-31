@@ -40,6 +40,7 @@ export class NHALocComponent implements OnInit {
 
   objList = [];
   paramType = "";
+  index = 0;
 
   constructor(
     private toastr: ToastrManager,
@@ -259,9 +260,11 @@ export class NHALocComponent implements OnInit {
 
   active(obj) {
     var type = "";
-    if (obj.isActivated == false) {
+    if (obj.isActivated == true) {
+      setTimeout(() => (this.locList[this.index].isActivated = false), 10);
       type = "DEACTIVATE";
     } else {
+      setTimeout(() => (this.locList[this.index].isActivated = true), 10);
       type = "ACTIVATE";
     }
 
@@ -327,18 +330,36 @@ export class NHALocComponent implements OnInit {
     this.locList = this.tempList;
   }
 
-  genPin(obj, param) {
-    this.txtPin = "";
-    this.objList = [];
-    this.paramType = "";
-    this.objList = obj;
-    this.paramType = param;
+  genPin(obj, param, i) {
+    if (this.cookie.get("pinstatus") == "true") {
+      this.txtPin = "";
+      this.objList = [];
+      this.paramType = "";
+      this.objList = obj;
+      this.paramType = param;
+      this.index = i;
 
-    if (param == "active") {
-      alert(obj.isActivated);
-      // setTimeout(this.sld)
+      if (param == "active") {
+        // alert(obj.isActivated);
+        // setTimeout(this.sld)
+        if (obj.isActivated == false) {
+          setTimeout(() => (this.locList[i].isActivated = true), 10);
+        } else {
+          setTimeout(() => (this.locList[i].isActivated = false), 10);
+        }
+      }
+      $("#genPinModal").modal("show");
+    } else {
+      if (obj.isActivated == false) {
+        setTimeout(() => (this.locList[i].isActivated = true), 10);
+      } else {
+        setTimeout(() => (this.locList[i].isActivated = false), 10);
+      }
+      this.toastr.errorToastr("PIN Code is not allowed", "Error", {
+        toastTimeout: 2500,
+      });
+      return false;
     }
-    $("#genPinModal").modal("show");
   }
 
   resetPin() {

@@ -41,6 +41,7 @@ export class NHASectionComponent implements OnInit {
 
   objList = [];
   paramType = "";
+  index = 0;
 
   constructor(
     private toastr: ToastrManager,
@@ -263,13 +264,21 @@ export class NHASectionComponent implements OnInit {
 
   active(obj) {
     var type = "";
-    if (obj.isActivated == false) {
+    if (obj.isActivated == true) {
+      setTimeout(
+        () => (this.wngSectionList[this.index].isActivated = false),
+        10
+      );
       type = "DEACTIVATE";
     } else {
+      setTimeout(
+        () => (this.wngSectionList[this.index].isActivated = true),
+        10
+      );
       type = "ACTIVATE";
     }
 
-    this.loadingBar = true;
+    // this.loadingBar = true;
 
     var saveData = {
       Userid: this.cookie.get("userID"), //int
@@ -295,13 +304,13 @@ export class NHASectionComponent implements OnInit {
           );
           this.clear();
           this.getSection();
-          this.loadingBar = false;
+          // this.loadingBar = false;
           return false;
         } else {
           this.toastr.errorToastr(data.msg, "Error !", {
             toastTimeout: 5000,
           });
-          this.loadingBar = false;
+          // this.loadingBar = false;
           return false;
         }
       });
@@ -336,18 +345,38 @@ export class NHASectionComponent implements OnInit {
     this.wngSectionList = this.tempList;
   }
 
-  genPin(obj, param) {
-    this.txtPin = "";
-    this.objList = [];
-    this.paramType = "";
-    this.objList = obj;
-    this.paramType = param;
+  genPin(obj, param, i) {
+    if (this.cookie.get("pinstatus") == "true") {
+      this.txtPin = "";
+      this.objList = [];
+      this.paramType = "";
+      this.objList = obj;
+      this.paramType = param;
+      this.index = i;
+      if (param == "active") {
+        // alert(obj.isActivated);
+        // setTimeout(this.sld)
+        if (obj.isActivated == false) {
+          setTimeout(() => (this.wngSectionList[i].isActivated = true), 10);
+        } else {
+          setTimeout(() => (this.wngSectionList[i].isActivated = false), 10);
+        }
+      }
+      $("#genPinModal").modal("show");
+    } else {
+      if (param == "active") {
+        if (obj.isActivated == false) {
+          setTimeout(() => (this.wngSectionList[i].isActivated = true), 10);
+        } else {
+          setTimeout(() => (this.wngSectionList[i].isActivated = false), 10);
+        }
+      }
 
-    if (param == "active") {
-      alert(obj.isActivated);
-      // setTimeout(this.sld)
+      this.toastr.errorToastr("PIN Code is not allowed", "Error", {
+        toastTimeout: 2500,
+      });
+      return false;
     }
-    $("#genPinModal").modal("show");
   }
 
   resetPin() {
