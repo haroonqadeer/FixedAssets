@@ -31,6 +31,8 @@ export class LoginComponent implements OnInit {
   resetNewPassword = "";
   resetConfirmPassword = "";
 
+  roleTitle = "";
+
   constructor(
     public toastr: ToastrManager,
     private http: HttpClient,

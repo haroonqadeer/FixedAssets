@@ -1,16 +1,20 @@
 <!-- side nav -->
 <div id="mySidenav" class="sidenav bgGrey style-3">
-  <div class="row">
-    <a href="javascript:void(0)" class="closebtn" (click)="closeNav()">&times;</a>
-  </div>
-  <div class="row">
-    <div class="col-md-12 text-center">
-      <img src="../assets/images/nha.png" width="30%" alt="">
+  <!-- menu header -->
+  <div style='background-color: #1c5876;'>
+    <div class="row">
+      <a href="javascript:void(0)" class="closebtn" (click)="closeNav()">&times;</a>
     </div>
-  </div>
-  <div class="borderBottomDark"></div>
+    <div class="row pt-2 pb-2">
+      <div class="col-md-12 text-center">
+        <img src="../assets/images/nha.png" width="30%" alt="">
+      </div>
+    </div>
+  </div><!-- end menu header -->
+
+
   <ul>
-    <li>
+    <li *ngIf="userRole == 'Admin' || userRole == 'Super User'">
       <a href="" routerLinkActive="active" routerLink="dashboard" (click)="closeNav()"><i class="fa fa-dashboard"></i>
         <span class='pl-3'>Dashboard</span></a>
 
@@ -31,7 +35,7 @@
         <span class='pl-3'>Roads on Land</span></a>
 
     </li>
-    <li>
+    <li *ngIf="userRole == 'Super User'">
       <a href=""><i class="fa fa-diamond"></i> <span class="pl-3">Admin Panel</span>
         <span class='fa fa-chevron-right pull-right'></span>
       </a>
@@ -45,7 +49,7 @@
         </li>
       </ul>
     </li>
-    <li>
+    <li *ngIf="userRole == 'Admin' || userRole == 'Super User'">
       <a href=""><i class="fa fa-cog"></i> <span class="pl-3">Configurations</span>
         <span class="fa fa-chevron-right pull-right"></span></a>
       <ul class="nav-flyout">

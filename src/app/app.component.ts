@@ -22,6 +22,7 @@ export class AppComponent {
 
   title = "FixedAssets";
   userName = "";
+  userRole = "Super User";
   _cuId;
   _cuName;
   element = document.querySelector(".sidenav");
