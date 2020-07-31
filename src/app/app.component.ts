@@ -42,6 +42,18 @@ export class AppComponent {
   lblAssetDescription = "";
   lblOfficeType = "";
   lblLocation = "";
+  lblSection = "";
+  lblTag = "";
+  lblProject = "";
+  lblIPCRef = "";
+  lblSerialNo = "";
+  lblOtherIdentification = "";
+  lblCondition = "";
+  lblEDoc = "";
+  lblCreatedBy = "";
+  lblModifiedBy = "";
+  lblCreationDate = "";
+  lblModificationDate = "";
 
   qrLogList = [];
 
@@ -132,6 +144,19 @@ export class AppComponent {
     this.lblAssetDescription = "";
     this.lblOfficeType = "";
     this.lblLocation = "";
+    this.lblSection = "";
+    this.lblTag = "";
+    this.lblProject = "";
+    this.lblIPCRef = "";
+    this.lblSerialNo = "";
+    this.lblOtherIdentification = "";
+    this.lblCondition = "";
+    this.lblEDoc = "";
+    this.lblCreatedBy = "";
+    this.lblModifiedBy = "";
+    this.lblCreationDate = "";
+    this.lblModificationDate = "";
+
     setTimeout(() => this.getQrData(), 500);
   }
 
@@ -156,6 +181,18 @@ export class AppComponent {
           this.lblAssetDescription = data[0].assetDescription;
           this.lblOfficeType = data[0].officeTypeDescription;
           this.lblLocation = data[0].subLocationDescription;
+          this.lblSection = data[0].officeDescription;
+          this.lblTag = data[0].tag;
+          this.lblProject = data[0].projectShortName;
+          this.lblIPCRef = data[0].ipcRef;
+          this.lblSerialNo = data[0].serialNo;
+          this.lblOtherIdentification = data[0].otherIdentification;
+          this.lblCondition = data[0].assetCondition;
+          this.lblEDoc = "eDoc";
+          this.lblCreatedBy = data[0].createdBy;
+          this.lblCreationDate = data[0].createdDate;
+          this.lblModifiedBy = data[0].modifiedBy;
+          this.lblModificationDate = data[0].modificationDate;
         }
       });
 

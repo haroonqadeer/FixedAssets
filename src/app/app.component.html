@@ -66,8 +66,8 @@
               class="fa fa-list"></i>Asset Category</a>
         </li>
         <li>
-          <a href="" routerLinkActive="active" routerLink="nhaPost" (click)="closeNav()"><i class="fa fa-users"></i>NHA
-            Posts</a>
+          <a href="" routerLinkActive="active" routerLink="nhaPost" (click)="closeNav()"><i
+              class="fa fa-users"></i>Posts</a>
         </li>
         <li>
           <a href="" routerLinkActive="active" routerLink="nhaProject" (click)="closeNav()"><i
@@ -85,11 +85,11 @@
 <!-- header -->
 <div id='main'>
   <div class="row" id="menuId">
-    <div class="col-md-2 pl-4">
+    <div class="col-md-4 pl-4">
       <span style="font-size: 1.5em; cursor: pointer;font-family: 'Montserrat';" (click)="openNav()"
         class="animate__animated animate__bounce">&#9776; NHA</span>
     </div>
-    <div class="col-md-2 offset-md-8 pt-1 text-right">
+    <div class="col-md-2 offset-md-6 pt-1 text-right">
       <button mat-button class="noneOutline" style="font-family: 'Montserrat'; font-size: 1.0em !important;"
         [matMenuTriggerFor]="menu">
         <!-- <span class="fa fa-user"></span>&nbsp;&nbsp;{{ userName }} -->
@@ -213,25 +213,6 @@
       <!-- Modal body -->
       <div class="modal-body">
         <div class="row">
-          <div class="col-md-4 text-center">
-            <div class="row">
-              <div class="col-md-12">
-                <zxing-scanner (scanSuccess)="onCodeResult($event)"></zxing-scanner>
-              </div>
-            </div>
-            <!-- next row -->
-            <div class="row">
-              <div class="col-md-12">
-                <section class="results" *ngIf="qrResultString">
-                  <div>
-                    <small>Result</small>
-                    <strong>{{ qrResultString }}</strong>
-                  </div>
-                  <!-- <button mat-icon-button (click)="clearResult()">&times;</button> -->
-                </section>
-              </div>
-            </div>
-          </div>
           <div class="col-md-8">
             <div class="row">
               <div class="col-md-12">
@@ -239,6 +220,15 @@
                   <mat-label>Enter Asset ID</mat-label>
                   <input matInput [(ngModel)]="txtAssetID" (keydown)="getQrCodeData()" />
                 </mat-form-field>
+              </div>
+            </div>
+            <!-- next row -->
+            <div class="row">
+              <div class="col-md-4">
+                Asset Tag :
+              </div>
+              <div class="col-md-8 border-bottom">
+                {{lblTag}}
               </div>
             </div>
             <!-- next row -->
@@ -266,6 +256,24 @@
               </div>
               <div class="col-md-8 border-bottom">
                 {{lblPost}}
+              </div>
+            </div>
+            <!-- next row -->
+            <div class="row">
+              <div class="col-md-4">
+                Office Section :
+              </div>
+              <div class="col-md-8 border-bottom">
+                {{lblSection}}
+              </div>
+            </div>
+            <!-- next row -->
+            <div class="row">
+              <div class="col-md-4">
+                Asset Condition :
+              </div>
+              <div class="col-md-8 border-bottom">
+                {{lblCondition}}
               </div>
             </div>
             <!-- next row -->
@@ -304,8 +312,122 @@
                 {{lblLocation}}
               </div>
             </div>
+            <!-- next row -->
+            <div class="row">
+              <div class="col-md-4">
+                Project :
+              </div>
+              <div class="col-md-8 border-bottom">
+                {{lblProject}}
+              </div>
+            </div>
+            <!-- next row -->
+            <div class="row">
+              <div class="col-md-4">
+                IPC Ref. :
+              </div>
+              <div class="col-md-8 border-bottom">
+                {{lblIPCRef}}
+              </div>
+            </div>
+            <!-- next row -->
+            <div class="row">
+              <div class="col-md-4">
+                Serial No. :
+              </div>
+              <div class="col-md-8 border-bottom">
+                {{lblSerialNo}}
+              </div>
+            </div>
+            <!-- next row -->
+            <div class="row">
+              <div class="col-md-4">
+                Other Identification :
+              </div>
+              <div class="col-md-8 border-bottom">
+                {{lblOtherIdentification}}
+              </div>
+            </div>
           </div>
+          <div class="col-md-4">
+            <div class="row">
+              <div class="col-md-12">
+                <zxing-scanner (scanSuccess)="onCodeResult($event)"></zxing-scanner>
+              </div>
+            </div>
+            <!-- next row -->
+            <div class="row">
+              <div class="col-md-12">
+                <section class="results" *ngIf="qrResultString">
+                  <div>
+                    <small>Result</small>
+                    <strong>{{ qrResultString }}</strong>
+                  </div>
+                  <!-- <button mat-icon-button (click)="clearResult()">&times;</button> -->
+                </section>
+              </div>
+            </div>
+            <!-- next row -->
+            <div class="row">
+              <div class="col-md-12">
+                Created By:
+              </div>
+            </div>
+            <!-- next row -->
+            <div class="row">
+              <div class="col-md-12 border-bottom">
+                {{ lblCreatedBy}}
+              </div>
+            </div>
+            <!-- next row -->
+            <div class="row">
+              <div class="col-md-12">
+                Creation Date:
+              </div>
+            </div>
+            <!-- next row -->
+            <div class="row">
+              <div class="col-md-12 border-bottom">
+                {{ lblCreationDate | date : "dd-MMM-yyyy"}}
+              </div>
+            </div>
+            <!-- next row -->
+            <div class="row">
+              <div class="col-md-12">
+                Modified By:
+              </div>
+            </div>
+            <!-- next row -->
+            <div class="row">
+              <div class="col-md-12 border-bottom">
+                {{ lblModifiedBy}}
+              </div>
+            </div>
+            <!-- next row -->
+            <div class="row">
+              <div class="col-md-12">
+                Modification Date:
+              </div>
+            </div>
+            <!-- next row -->
+            <div class="row">
+              <div class="col-md-12 border-bottom">
+                {{ lblModificationDate | date : "dd-MM-yyyy"}}
+              </div>
+            </div>
+          </div>
+          <!-- next row -->
+          <div class="row">
+            <div class="col-md-12">
+              Asset Image:
+            </div>
+          </div>
+          <!-- next row -->
+          <div class="row">
+            <div class="col-md-12 border-bottom">
 
+            </div>
+          </div>
           <!-- asset detail -->
         </div>
         <!-- table -->
