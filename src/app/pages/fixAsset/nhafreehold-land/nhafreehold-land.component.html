@@ -377,7 +377,7 @@
           <!-- next row -->
           <div class="row mt-3">
             <div class="offset-md-1 col-md-5 mb-4">
-              <div class="card border-left-info shadow h-100 py-2" data-toggle="modal" data-target="#awardsModal" (click)="clearFaDetail()">
+              <div class="card border-left-info shadow h-100 py-2" data-toggle="modal" data-target="#awardsModal" (click)="clear()">
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
@@ -392,7 +392,7 @@
               </div>
             </div>
             <div class="col-md-5 mb-4">
-              <div class="card border-left-warning shadow h-100 py-2" data-toggle="modal" data-target="#mutationsModal" (click)="clearFaDetail()">
+              <div class="card border-left-warning shadow h-100 py-2" data-toggle="modal" data-target="#mutationsModal" (click)="clear()">
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
@@ -763,7 +763,7 @@
       <!-- Modal body -->
       <div class="modal-body">
         <div class="custom-file">
-          <input type="file" class="custom-file-input" id="customFile" [(ngModel)]="filePicker" (change)="onFileSelected($event); fileChange()" accept=".xlsx" />
+          <input type="file" class="custom-file-input" id="customFile" [(ngModel)]="filePicker" (change)="onFileSelected($event); fileChange(1)" accept=".xlsx" />
           <label class="custom-file-label" for="customFile">Choose XLSX file</label>
         </div>
         <br/>
@@ -800,8 +800,8 @@
       <!-- Modal body -->
       <div class="modal-body">
         <div class="custom-file">
-          <input type="file" class="custom-file-input" id="customFile" [(ngModel)]="filePicker" (change)="onFileSelected($event); fileChange()" accept=".xlsx" />
-          <label class="custom-file-label" for="customFile">Choose XLSX file</label>
+          <input type="file" class="custom-file-input" id="customFile2" [(ngModel)]="filePicker" (change)="onFileSelected($event); fileChange(2)" accept=".xlsx" />
+          <label class="custom-file-label" for="customFile2">Choose XLSX file</label>
         </div>
         <br/>
         <div class="row border-top bgGrey pt-3 pb-3 pl-4 pr-4">

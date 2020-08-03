@@ -143,12 +143,23 @@ export class NHAFreeholdLandComponent implements OnInit {
         reader.readAsDataURL(this.selectedFile);
     }
 
-    fileChange() {
+    fileChange(fileNo) {
         var fileName = $(".custom-file-input").val().split("\\").pop();
-        $(".custom-file-input")
-        .siblings(".custom-file-label")
-        .addClass("selected")
-        .html(fileName);
+
+        if(fileNo == 1){
+            $(".custom-file-input")
+            .siblings(".custom-file-label")
+            .addClass("selected")
+            .html(fileName);
+        }
+        
+        if(fileNo == 2){
+            $(".custom-file-input2")
+            .siblings(".custom-file-label2")
+            .addClass("selected")
+            .html(fileName);
+        }
+        
     }
 
     saveExcel(fileNo) {
@@ -172,6 +183,11 @@ export class NHAFreeholdLandComponent implements OnInit {
                 return false;
             }
 
+            if(fileNo == 1){
+                $('#awardsModal').modal('toggle');
+            }else if (fileNo == 2){
+                $('#mutationsModal').modal('toggle');
+            }
 
             var fPath = "C:/inetpub/wwwroot/2008_FAR_Proj/assets/files";
 
@@ -187,16 +203,18 @@ export class NHAFreeholdLandComponent implements OnInit {
             //var token = localStorage.getItem(this.tokenKey);
 
             //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
-
+            this.loadingBar = true;
             var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
             this.http.post(this.serverUrl + "uploadfile", saveData, { headers: reqHeader }).subscribe((data: any) => {
                 if (data.msg == "File Uploaded Successfully" ) {
                     this.toastr.successToastr(data.msg, "Success!", {toastTimeout: 2500,});
                     this.clear()
+                    this.loadingBar = false;
                     return false;
                 } else {
                     this.toastr.errorToastr(data.msg, "Error!", { toastTimeout: 5000, });
+                    this.loadingBar = false;
                     return false;
                 }
             });
