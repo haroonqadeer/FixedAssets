@@ -1,3 +1,8 @@
+<div class="loader" *ngIf="loadingBar">Loading...</div>
+
+<!-- container -->
+<div class="container-fluid boxShadow-1 bg-white" *ngIf="!loadingBar">
+
 <div class="row pl-3 m-0 p-0">
   <div class="col-md-6 align-self-center p-0 m-0">
     <h1 class="align-self-center">NHA Freehold Land</h1>
@@ -32,7 +37,7 @@
         <mat-form-field class="w-100">
           <mat-label>search asset</mat-label>
           <span matPrefix><span class="fa fa-search"></span> &nbsp;</span>
-          <input matInput />
+          <input matInput [(ngModel)]="txtSearchLandData" />
         </mat-form-field>
       </div>
       <div class="col-md-2 pr-3 align-self-center noneOutline">
@@ -52,93 +57,14 @@
           <th>Road</th>
         </thead>
         <tbody>
-          <tr>
+          <tr *ngFor="let item of landDataList | search: 'accountCode, projectName':txtSearchProject">
             <td class="inline-block">
-              <span class="fa fa-edit cursorPointer pr-3 text-primary"></span>
-              <span class="fa fa-trash-o cursorPointer text-danger"></span>
+              <span class="fa fa-edit cursorPointer pr-3 text-primary" (click)="edit(item)"></span>
+              <span class="fa fa-trash-o cursorPointer text-danger" (click)="delete(item)"></span>
             </td>
-            <td>
-              KHR-TKM
-            </td>
-            <td>Karachi - Torkham Project</td>
-            <td>N-5</td>
-          </tr>
-          <tr>
-            <td class="inline-block">
-              <span class="fa fa-edit cursorPointer pr-3 text-primary"></span>
-              <span class="fa fa-trash-o cursorPointer text-danger"></span>
-            </td>
-            <td>
-              KHR-TKM
-            </td>
-            <td>Karachi - Torkham Project</td>
-            <td>N-5</td>
-          </tr>
-          <tr>
-            <td class="inline-block">
-              <span class="fa fa-edit cursorPointer pr-3 text-primary"></span>
-              <span class="fa fa-trash-o cursorPointer text-danger"></span>
-            </td>
-            <td>
-              KHR-TKM
-            </td>
-            <td>Karachi - Torkham Project</td>
-            <td>N-5</td>
-          </tr>
-          <tr>
-            <td class="inline-block">
-              <span class="fa fa-edit cursorPointer pr-3 text-primary"></span>
-              <span class="fa fa-trash-o cursorPointer text-danger"></span>
-            </td>
-            <td>
-              KHR-TKM
-            </td>
-            <td>Karachi - Torkham Project</td>
-            <td>N-5</td>
-          </tr>
-          <tr>
-            <td class="inline-block">
-              <span class="fa fa-edit cursorPointer pr-3 text-primary"></span>
-              <span class="fa fa-trash-o cursorPointer text-danger"></span>
-            </td>
-            <td>
-              KHR-TKM
-            </td>
-            <td>Karachi - Torkham Project</td>
-            <td>N-5</td>
-          </tr>
-          <tr>
-            <td class="inline-block">
-              <span class="fa fa-edit cursorPointer pr-3 text-primary"></span>
-              <span class="fa fa-trash-o cursorPointer text-danger"></span>
-            </td>
-            <td>
-              KHR-TKM
-            </td>
-            <td>Karachi - Torkham Project</td>
-            <td>N-5</td>
-          </tr>
-          <tr>
-            <td class="inline-block">
-              <span class="fa fa-edit cursorPointer pr-3 text-primary"></span>
-              <span class="fa fa-trash-o cursorPointer text-danger"></span>
-            </td>
-            <td>
-              KHR-TKM
-            </td>
-            <td>Karachi - Torkham Project</td>
-            <td>N-5</td>
-          </tr>
-          <tr>
-            <td class="inline-block">
-              <span class="fa fa-edit cursorPointer pr-3 text-primary"></span>
-              <span class="fa fa-trash-o cursorPointer text-danger"></span>
-            </td>
-            <td>
-              KHR-TKM
-            </td>
-            <td>Karachi - Torkham Project</td>
-            <td>N-5</td>
+            <td>{{item.projectShortName}}</td>
+            <td>{{item.projectName}}</td>
+            <td>{{item.roadShortName}}</td>
           </tr>
         </tbody>
       </table>
@@ -150,38 +76,56 @@
 
     <div class="row">
       <div class="col-md-6 border-right pl-3 pr-0">
+        
         <div class="row mt-2 pl-4 pr-4">
           <div class="col-md-12">
             <mat-form-field class='w-100'>
               <mat-label>Account Section</mat-label>
-              <mat-select>
-                <mat-option value="option">Option</mat-option>
+              <mat-select [(ngModel)]="ddlAccSec">
+                <mat-option>
+                  <ngx-mat-select-search [(ngModel)]="txtSearchAccSec" [placeholderLabel]="'Search...'" [noEntriesFoundLabel]="'Not found'" name="search"></ngx-mat-select-search>
+                </mat-option>
+                <mat-option *ngFor="let item of accSecList | search: 'officeDescription':txtSearchAccSec" value="{{item.officeSecID}}">
+                  {{item.officeDescription}}</mat-option>
               </mat-select>
             </mat-form-field>
           </div>
         </div>
+
         <!-- next row -->
         <div class="row pl-4 pr-4">
           <div class="col-md-12">
             <mat-form-field class='w-100'>
               <mat-label>Trial Balance</mat-label>
-              <mat-select>
-                <mat-option value="option">Option</mat-option>
+              <mat-select [(ngModel)]="ddlTrailBalance" (ngModelChange)="filterProject(ddlTrailBalance, '')">
+                <mat-option>
+                  <ngx-mat-select-search [(ngModel)]="txtSearchTrailBalance" [placeholderLabel]="'Search...'" [noEntriesFoundLabel]="'Not found'" name="search"></ngx-mat-select-search>
+                </mat-option>
+                <mat-option *ngFor="let item of projectsList | search: 'accountCode, projectShortName, projectName':txtSearchTrailBalance" value="{{item.projectID}}">
+                  {{item.projectShortName}} - {{ item.projectName }}                  
+                </mat-option>
               </mat-select>
             </mat-form-field>
           </div>
         </div>
+
         <!-- next row -->
         <div class="row pl-4 pr-4">
           <div class="col-md-12">
             <mat-form-field class='w-100'>
               <mat-label>Account Code - Project Name</mat-label>
-              <mat-select>
-                <mat-option value="option">Option</mat-option>
+              <mat-select [(ngModel)]="ddlProject" (ngModelChange)="filterProject(ddlProject, 'accCode')">
+                <mat-option>
+                  <ngx-mat-select-search [(ngModel)]="txtSearchProject" [placeholderLabel]="'Search...'" [noEntriesFoundLabel]="'Not found'" name="search"></ngx-mat-select-search>
+                </mat-option>
+                <mat-option *ngFor="let item of projectsList | search: 'accountCode, projectName':txtSearchProject" value="{{item.projectID}}" [disabled]="item.accountCode == 0">
+                  {{ item.accountCode }} - {{ item.projectName }}
+                </mat-option>
               </mat-select>
             </mat-form-field>
           </div>
         </div>
+
         <!-- next row -->
         <div class="row pl-4 pr-4">
           <div class="col-md-4 align-self-center font-weight-bold">
@@ -190,72 +134,86 @@
           <div class="col-md-4">
             <mat-form-field class='w-100'>
               <mat-label>Measurement Unit</mat-label>
-              <mat-select>
-                <mat-option value="option">Kanals - Marlas</mat-option>
+              <mat-select [(ngModel)]="ddlLandMeasurement">
+                <mat-option *ngFor="let item of landMeasurementList" value="{{item.landMeasureTypeID}}">
+                  {{ item.landMeasureType}}
+                </mat-option>
               </mat-select>
             </mat-form-field>
           </div>
           <div class="col-md-2">
             <mat-form-field class='w-100'>
               <mat-label>Kanals</mat-label>
-              <input matInput>
+              <input matInput type="number" min="0" [(ngModel)]="aKanal">
             </mat-form-field>
           </div>
           <div class="col-md-2">
             <mat-form-field class='w-100'>
               <mat-label>Marlas</mat-label>
-              <input matInput>
+              <input matInput type="number" min="0" max="20" [(ngModel)]="aMarla">
             </mat-form-field>
           </div>
         </div>
+
         <!-- next row -->
         <div class="row pl-4 pr-4">
           <div class="col-md-12">
             <mat-form-field class='w-100'>
               <mat-label>Road</mat-label>
-              <mat-select>
-                <mat-option value="option">Option</mat-option>
+              <mat-select [(ngModel)]="ddlRoads">
+                <mat-option>
+                  <ngx-mat-select-search [(ngModel)]="txtSearchRoads" [placeholderLabel]="'Search...'" [noEntriesFoundLabel]="'Not found'" name="search"></ngx-mat-select-search>
+                </mat-option>
+                <mat-option *ngFor="let item of roadsList | search: 'roadShortName, roadName':txtSearchRoads" value="{{item.roadID}}">
+                  {{item.roadShortName}} - {{item.roadName}}
+                </mat-option>
               </mat-select>
             </mat-form-field>
           </div>
         </div>
+
         <!-- next row -->
         <div class="row pl-4 pr-4">
           <div class="col-md-12">
             <mat-form-field class='w-100'>
               <mat-label>Purpose of Purchase</mat-label>
-              <textarea matInput></textarea>
+              <textarea matInput [(ngModel)]="purposeOfPurchase"></textarea>
             </mat-form-field>
           </div>
         </div>
+
         <!-- next row -->
         <div class="row pl-4 pr-4">
           <div class="col-md-12">
             <mat-form-field class='w-100'>
               <mat-label>Present Use</mat-label>
-              <input matInput>
+              <input matInput [(ngModel)]="presentUse">
             </mat-form-field>
           </div>
         </div>
+
+        <!-- next row -->
         <div class="row pl-4 pr-4">
           <div class="col-md-12">
             <mat-form-field class='w-100'>
               <mat-label>Year of Acquisition</mat-label>
-              <input matInput [matDatepicker]="picker">
+              <input matInput [matDatepicker]="picker" [(ngModel)]="acquisitionDate">
               <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
               <mat-datepicker #picker></mat-datepicker>
             </mat-form-field>
           </div>
         </div>
+
         <!-- next row -->
         <div class="row pl-4 pr-4">
           <div class="col-md-12">
             <mat-form-field class='w-100'>
               <mat-label>Amount Paid to Different Affectees</mat-label>
-              <input matInput currencyMask>
+              <input matInput currencyMask [(ngModel)]="amountPaid">
             </mat-form-field>
           </div>
         </div>
+
         <!-- next row -->
         <div class="row pl-4 pr-4">
           <div class="col-md-4 align-self-center font-weight-bold">
@@ -264,29 +222,42 @@
           <div class="col-md-4">
             <mat-form-field class='w-100'>
               <mat-label>Measurement Unit</mat-label>
-              <mat-select>
-                <mat-option value="option">Kanals - Marlas</mat-option>
+              <mat-select [(ngModel)]="ddlLandMeasurement" disabled>
+                <mat-option *ngFor="let item of landMeasurementList" value="{{item.landMeasureTypeID}}">
+                  {{ item.landMeasureType}}
+                </mat-option>
               </mat-select>
             </mat-form-field>
           </div>
           <div class="col-md-2">
             <mat-form-field class='w-100'>
               <mat-label>Kanals</mat-label>
-              <input matInput>
+              <input matInput type="number" min="0" [(ngModel)]="tKanal">
             </mat-form-field>
           </div>
           <div class="col-md-2">
             <mat-form-field class='w-100'>
               <mat-label>Marlas</mat-label>
-              <input matInput>
+              <input matInput type="number" min="0" max="20" [(ngModel)]="tMarla">
             </mat-form-field>
           </div>
         </div>
+
+        <!-- next row -->
+        <div class="row pl-4 pr-4">
+          <div class="col-md-12">
+            <mat-form-field class='w-100'>
+              <mat-label>Remarks</mat-label>
+              <textarea matInput [(ngModel)]="remarks"></textarea>
+            </mat-form-field>
+          </div>
+        </div>
+
         <!-- next row -->
         <div class="row border-top bgGrey pt-3 pb-3 pl-4 pr-4">
           <div class="col-md-12 inline-block">
-            <a class="btn-flip mr-3" data-back="Save" data-front="Save"></a>
-            <a class="btn-flip" data-back="Reset" data-front="Reset"></a>
+            <a class="btn-flip mr-3" data-back="Save" data-front="Save" (click)="save()"></a>
+            <a class="btn-flip" data-back="Reset" data-front="Reset" (click)="clear()"></a>
           </div>
         </div>
       </div><!-- end of first 6 columns -->
@@ -294,21 +265,22 @@
       <!-- next 6 columns -->
       <div class="col-md-6 bg-light pt-2 pl-4 pr-4">
         <div>
+
           <div class="row mt-3">
             <div class="col-md-12 border-bottom">
               <h5>Cost Additions</h5>
             </div>
           </div>
+
           <!-- next row -->
           <div class="row mt-3">
             <div class="offset-md-1 col-md-5 mb-4">
-              <div class="card border-left-primary shadow h-100 py-2" data-toggle="modal"
-                data-target="#additionOpeningModal">
+              <div class="card border-left-primary shadow h-100 py-2" data-toggle="modal" data-target="#additionOpeningModal" (click)="clearFaDetail()">
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                       <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Opening</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">Rs. 400,000</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">Rs. {{lblOpeningCost | number}}</div>
                     </div>
                     <div class="col-auto">
                       <i class="fa fa-circle-o-notch fa-2x text-grey"></i>
@@ -318,13 +290,12 @@
               </div>
             </div>
             <div class="col-md-5 mb-4">
-              <div class="card border-left-success shadow h-100 py-2" data-toggle="modal"
-                data-target="#additionsAdditionModal">
+              <div class="card border-left-success shadow h-100 py-2" data-toggle="modal" data-target="#additionsAdditionModal" (click)="clearFaDetail()">
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                       <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Additions</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">Rs. 215,000</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">Rs. {{lblAddition | number}}</div>
                     </div>
                     <div class="col-auto">
                       <i class="fa fa-plus-circle fa-2x text-grey"></i>
@@ -341,16 +312,17 @@
               <h5>Re-Valuation</h5>
             </div>
           </div>
+
           <!-- next row -->
           <div class="row mt-3">
+
             <div class="offset-md-1 col-md-5 mb-4">
-              <div class="card border-left-warning shadow h-100 py-2" data-toggle="modal"
-                data-target="#revaluationsOpeningModal">
+              <div class="card border-left-warning shadow h-100 py-2" data-toggle="modal" data-target="#revaluationsOpeningModal" (click)="clearFaDetail()">
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                       <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Opening</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">Rs. 650,251</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">Rs. {{lblOpeningReval | number}}</div>
                     </div>
                     <div class="col-auto">
                       <i class="fa fa-circle-o-notch fa-2x text-grey"></i>
@@ -359,14 +331,15 @@
                 </div>
               </div>
             </div>
+
             <div class="col-md-5 mb-4">
               <div class="card border-left-info shadow h-100 py-2" data-toggle="modal"
-                data-target="#revaluationRevaluationsModal">
+                data-target="#revaluationRevaluationsModal" (click)="clearFaDetail()">
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                       <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Re-Valuations</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">Rs. 265,650</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">Rs. {{lblReval | number}}</div>
                     </div>
                     <div class="col-auto">
                       <i class="fa fa-chain fa-2x text-grey"></i>
@@ -375,6 +348,23 @@
                 </div>
               </div>
             </div>
+
+            <div class="offset-md-1 col-md-5 mb-4">
+              <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Surplus</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">Rs. {{lblSurplus | number}}</div>
+                    </div>
+                    <div class="col-auto">
+                      <i class="fa fa-circle-o-notch fa-2x text-grey"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
           </div>
 
           <!-- next row -->
@@ -383,10 +373,11 @@
               <h5>Awards & Mutations</h5>
             </div>
           </div>
+
           <!-- next row -->
           <div class="row mt-3">
             <div class="offset-md-1 col-md-5 mb-4">
-              <div class="card border-left-info shadow h-100 py-2" data-toggle="modal" data-target="#awardsModal">
+              <div class="card border-left-info shadow h-100 py-2" data-toggle="modal" data-target="#awardsModal" (click)="clearFaDetail()">
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
@@ -401,7 +392,7 @@
               </div>
             </div>
             <div class="col-md-5 mb-4">
-              <div class="card border-left-warning shadow h-100 py-2" data-toggle="modal" data-target="#mutationsModal">
+              <div class="card border-left-warning shadow h-100 py-2" data-toggle="modal" data-target="#mutationsModal" (click)="clearFaDetail()">
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
@@ -423,6 +414,7 @@
               <h5>Accounting Transactions</h5>
             </div>
           </div>
+
           <!-- next row -->
           <div class="row mt-3">
             <div class="offset-md-1 col-md-5 mb-4">
@@ -432,7 +424,7 @@
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                       <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Transactions</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">97</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">{{lblTransactions}}</div>
                     </div>
                     <div class="col-auto">
                       <i class="fa fa-stack fa-2x text-grey"></i>
@@ -442,6 +434,7 @@
               </div>
             </div>
           </div>
+
         </div>
       </div>
     </div>
@@ -529,27 +522,27 @@
             <thead>
               <tr>
                 <th class='text-center'>#</th>
-                <th class='text-right'>Amount</th>
+                <th class='text-right'>Opening Cost</th>
                 <th class='text-center'>As on</th>
                 <th class='text-center'>Actions</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td class='text-center'>1</td>
-                <td class='text-right'>10,000</td>
-                <td class='text-center'>15-Jul-2018</td>
-                <td class='inline-block text-center'><span class='fa fa-edit cursorPointer pr-3 text-primary'></span>
-                  <span class='fa fa-trash-o cursorPointer text-danger pr-3'></span>
+              <tr *ngFor="let item of oFaDetailList; let i=index;">
+                <td class='text-center'>{{i + 1}}</td>
+                <td class='text-right'>{{item.openingCost | number}}</td>
+                <td class='text-center'>{{item.year | date}}</td>
+                <td class='inline-block text-center'>
+                  <span class='fa fa-edit cursorPointer pr-3 text-primary' (click)="editOC(item)"></span>
+                  <span class='fa fa-trash-o cursorPointer text-danger pr-3' (click)="deleteFA(item, 'o')"></span>
                 </td>
               </tr>
               <tr>
-                <td class='text-center'>2</td>
-                <td><input type="text" class="form-control text-right" currencyMask></td>
-                <td>
-                  <input type="date" class="form-control text-right">
-                </td>
-                <td class='inline-block text-center'><span class='fa fa-save cursorPointer pr-3 text-primary'></span>
+                <td class='text-center'></td>
+                <td><input type="text" class="form-control text-right" placeholder="Opening Cost" currencyMask [(ngModel)]="txtFaAmount"></td>
+                <td><input type="date" class="form-control text-right" [(ngModel)]="txtFaDate"></td>
+                <td class='inline-block text-center'>
+                  <span class='fa fa-save cursorPointer pr-3 text-primary' (click)="saveOC()" ></span>
                 </td>
               </tr>
             </tbody>
@@ -587,34 +580,35 @@
             <thead>
               <tr>
                 <th class='text-center'>#</th>
-                <th class='text-right'>Amount</th>
+                <th class='text-right'>Addition In Cost</th>
+                <th class='text-right'>Disposal In Cost</th>
                 <th class='text-center'>As on</th>
                 <th class='text-center'>Actions</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td class='text-center'>2</td>
-                <td><input type="text" class="form-control text-right" currencyMask></td>
-                <td>
-                  <input type="date" class="form-control text-right">
-                </td>
+
+              <tr >
+                <td class='text-center'></td>
+                <td><input type="text" class="form-control text-right" placeholder="Addition in cost" currencyMask [(ngModel)]="txtFaAmount"></td>
+                <td><input type="text" class="form-control text-right" placeholder="Disposal in cost" currencyMask [(ngModel)]="txtFaCost"></td>
+                <td><input type="date" class="form-control text-right" [(ngModel)]="txtFaDate"></td>
                 <td class='inline-block text-center'>
-                  <button mat-icon-button color="primary" class='noneOutline'>
-                    <mat-icon class='fa fa-save'></mat-icon>
-                  </button>
-                  <!-- <span
-                      class='fa fa-save cursorPointer pr-3 text-primary'></span> -->
+                  <button mat-icon-button color="primary" class='noneOutline' (click)="saveAD()"><mat-icon class='fa fa-save'></mat-icon></button>
                 </td>
               </tr>
-              <tr>
-                <td class='text-center'>1</td>
-                <td class='text-right'>10,000</td>
-                <td class='text-center'>15-Jul-2018</td>
-                <td class='inline-block text-center'><span class='fa fa-edit cursorPointer pr-3 text-primary'></span>
-                  <span class='fa fa-trash-o cursorPointer text-danger pr-3'></span>
+
+              <tr *ngFor="let item of aFaDetailList; let i=index;">
+                <td class='text-center'>{{i + 1}}</td>
+                <td class='text-right'>{{item.additioninCost | number}}</td>
+                <td class='text-right'>{{item.disposalinCost | number}}</td>
+                <td class='text-center'>{{item.year | date}}</td>
+                <td class='inline-block text-center'>
+                  <span class='fa fa-edit cursorPointer pr-3 text-primary' (click)="editAD(item)"></span>
+                  <span class='fa fa-trash-o cursorPointer text-danger pr-3' (click)="deleteFA(item, 'a')"></span>
                 </td>
               </tr>
+
             </tbody>
           </table>
         </div>
@@ -650,7 +644,7 @@
             <thead>
               <tr>
                 <th class='text-center'>#</th>
-                <th class='text-right'>Amount</th>
+                <th class='text-right'>Opening Cost</th>
                 <th class='text-right'>Surplus</th>
                 <th class='text-center'>As on</th>
                 <th class='text-center'>Actions</th>
@@ -658,24 +652,23 @@
             </thead>
             <tbody>
               <tr>
-                <td class='text-center'>2</td>
-                <td><input placeholder="Amount" type="text" class="form-control text-right" currencyMask></td>
-                <td>
-                  <input placeholder="Date" type="text" class="form-control text-right" currencyMask>
-                </td>
-                <td>
-                  <input type="date" class="form-control text-right">
-                </td>
-                <td class='inline-block text-center'><span class='fa fa-save cursorPointer pr-3 text-primary'></span>
+                <td class='text-center'></td>
+                <td><input placeholder="Opening Amount" type="text" class="form-control text-right" currencyMask [(ngModel)]="txtFaAmount" ></td>
+                <td><input placeholder="Surplus" type="text" class="form-control text-right" currencyMask [(ngModel)]="txtFaCost"></td>
+                <td><input type="date" class="form-control text-right" [(ngModel)]="txtFaDate"></td>
+                <td class='inline-block text-center'>
+                  <span class='fa fa-save cursorPointer pr-3 text-primary' (click)="saveOV()"></span>
                 </td>
               </tr>
-              <tr>
-                <td class='text-center'>1</td>
-                <td class='text-right'>10,000</td>
-                <td class='text-right'>20,000</td>
-                <td class='text-center'>15-Jul-2018</td>
-                <td class='inline-block text-center'><span class='fa fa-edit cursorPointer pr-3 text-primary'></span>
-                  <span class='fa fa-trash-o cursorPointer text-danger pr-3'></span>
+
+              <tr *ngFor="let item of ovFaDetailList; let i=index;">
+                <td class='text-center'>{{i + 1}}</td>
+                <td class='text-right'>{{item.openingRevaluationAmount | number}}</td>
+                <td class='text-right'>{{item.openingRevaluationSurplus | number}}</td>
+                <td class='text-center'>{{item.year | date}}</td>
+                <td class='inline-block text-center'>
+                  <span class='fa fa-edit cursorPointer pr-3 text-primary' (click)="editOV(item)"></span>
+                  <span class='fa fa-trash-o cursorPointer text-danger pr-3' (click)="deleteFA(item, 'ov')"></span>
                 </td>
               </tr>
             </tbody>
@@ -713,35 +706,31 @@
             <thead>
               <tr>
                 <th class='text-center'>#</th>
-                <th class='text-right'>Amount</th>
-                <th class='text-right'>Surplus</th>
+                <th class='text-right'>Revaluation Amount</th>
+                <th class='text-right'>Revaluation Surplus</th>
                 <th class='text-center'>As on</th>
                 <th class='text-center'>Actions</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td class='text-center'>2</td>
-                <td><input type="text" class="form-control text-right" currencyMask></td>
-                <td><input type="text" class="form-control text-right" currencyMask></td>
-                <td>
-                  <input type="date" class="form-control text-right">
-                </td>
+                <td class='text-center'></td>
+                <td><input type="text" class="form-control text-right" placeholder="Revaluation Amount" currencyMask [(ngModel)]="txtFaAmount"></td>
+                <td><input type="text" class="form-control text-right" placeholder="Revaluation Surplus" currencyMask [(ngModel)]="txtFaCost"></td>
+                <td><input type="date" class="form-control text-right" [(ngModel)]="txtFaDate"></td>
                 <td class='inline-block text-center'>
-                  <button mat-icon-button color="primary" class='noneOutline'>
-                    <mat-icon class='fa fa-save'></mat-icon>
-                  </button>
-                  <!-- <span
-                      class='fa fa-save cursorPointer pr-3 text-primary'></span> -->
+                  <button mat-icon-button color="primary" class='noneOutline' (click)="saveRV()"><mat-icon class='fa fa-save'></mat-icon></button>
                 </td>
               </tr>
-              <tr>
-                <td class='text-center'>1</td>
-                <td class='text-right'>10,000</td>
-                <td class='text-right'>30,000</td>
-                <td class='text-center'>15-Jul-2018</td>
-                <td class='inline-block text-center'><span class='fa fa-edit cursorPointer pr-3 text-primary'></span>
-                  <span class='fa fa-trash cursorPointer text-danger pr-3'></span>
+
+              <tr *ngFor="let item of vFaDetailList; let i=index;">
+                <td class='text-center'>{{i + 1}}</td>
+                <td class='text-right'>{{item.revaluationAmount | number}}</td>
+                <td class='text-right'>{{item.revalutionSurplus | number}}</td>
+                <td class='text-center'>{{item.year | date}}</td>
+                <td class='inline-block text-center'>
+                  <span class='fa fa-edit cursorPointer pr-3 text-primary' (click)="editRV(item)"></span>
+                  <span class='fa fa-trash cursorPointer text-danger pr-3' (click)="deleteFA(item, 'v')"></span>
                 </td>
               </tr>
             </tbody>
@@ -773,7 +762,17 @@
 
       <!-- Modal body -->
       <div class="modal-body">
-
+        <div class="custom-file">
+          <input type="file" class="custom-file-input" id="customFile" [(ngModel)]="filePicker" (change)="onFileSelected($event); fileChange()" accept=".xlsx" />
+          <label class="custom-file-label" for="customFile">Choose XLSX file</label>
+        </div>
+        <br/>
+        <div class="row border-top bgGrey pt-3 pb-3 pl-4 pr-4">
+          <div class="col-md-12 inline-block">
+            <a class="btn-flip mr-3" data-back="Upload File" data-front="Upload File" (click)="saveExcel('1')"></a>
+          </div>
+        </div>
+        
       </div>
 
       <!-- Modal footer -->
@@ -800,7 +799,16 @@
 
       <!-- Modal body -->
       <div class="modal-body">
-
+        <div class="custom-file">
+          <input type="file" class="custom-file-input" id="customFile" [(ngModel)]="filePicker" (change)="onFileSelected($event); fileChange()" accept=".xlsx" />
+          <label class="custom-file-label" for="customFile">Choose XLSX file</label>
+        </div>
+        <br/>
+        <div class="row border-top bgGrey pt-3 pb-3 pl-4 pr-4">
+          <div class="col-md-12 inline-block">
+            <a class="btn-flip mr-3" data-back="Upload File" data-front="Upload File" (click)="saveExcel(2)"></a>
+          </div>
+        </div>
       </div>
 
       <!-- Modal footer -->
@@ -832,6 +840,7 @@
           <table class="table table-striped">
             <thead>
               <tr>
+                <th class='text-center'>#</th>
                 <th class='text-center'>Date</th>
                 <th>Account Code</th>
                 <th>Account Title</th>
@@ -841,21 +850,14 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td class='text-center'>17-Jul-2020</td>
-                <td>05.38.00</td>
-                <td>Gawadar Ratodero Project</td>
-                <td class='text-right'>10,000</td>
-                <td class='text-right'>0</td>
-                <td class="text-center">Addition</td>
-              </tr>
-              <tr>
-                <td class='text-center'>17-Jul-2020</td>
-                <td>20.01.00</td>
-                <td>Advance to LAC - Gawadar Ratodero Project</td>
-                <td class='text-right'>0</td>
-                <td class='text-right'>10,000</td>
-                <td class="text-center">Addition</td>
+              <tr *ngFor="let item of tempTransactionList; let i=index;">
+                <td class='text-center'>{{i+1}}</td>
+                <td class='text-center'>{{item.transDate | date}}</td>
+                <td>{{item.accountCode}}</td>
+                <td>{{item.accountTitle}}</td>
+                <td class='text-right'>{{item.debit}}</td>
+                <td class='text-right'>{{item.credit}}</td>
+                <td class="text-center">{{item.typeofEntry}}</td>
               </tr>
             </tbody>
           </table>

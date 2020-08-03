@@ -102,11 +102,11 @@ export class AppComponent {
   Logout() {
     this.stopWatching();
     document.cookie = "userID=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-    document.cookie =
-      "userName=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    document.cookie = "userName=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-    document.cookie =
-      "pinStatus=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    document.cookie = "pinstatus=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    document.cookie = "roleName=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    
     this.router.navigate([""]);
 
     // this._cuId = "";
@@ -322,5 +322,21 @@ export class AppComponent {
   closeNav() {
     document.getElementById("mySidenav").style.width = "0";
     document.getElementById("main").style.marginLeft = "0";
+  }
+
+
+  //function for convert date format
+  public convertDate(reqDate) {
+
+    var oldDate = new Date(reqDate);
+    var d = oldDate.getDate();
+    var m = oldDate.getMonth();
+    m += 1;  // JavaScript months are 0-11
+    var y = oldDate.getFullYear();
+
+    var convertedDate = m + "-" + d + "-" + y;
+
+    return convertedDate;
+
   }
 }

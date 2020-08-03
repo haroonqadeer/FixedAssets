@@ -23,6 +23,7 @@ declare var $: any;
 })
 export class AssetEntryComponent implements OnInit {
   serverUrl = "http://95.217.206.195:2007/api/";
+  //serverUrl = "http://localhost:12345/api/";
 
   loadingBar = true;
   //pagination variables for tag list
@@ -401,6 +402,7 @@ export class AssetEntryComponent implements OnInit {
   }
 
   getOldTags() {
+
     var reqHeader = new HttpHeaders({
       "Content-Type": "application/json",
       // Authorization: "Bearer " + Token,
@@ -412,6 +414,7 @@ export class AssetEntryComponent implements OnInit {
       })
       .subscribe((data: any) => {
         this.oldTagList = data;
+        //alert(data.length);
       });
   }
 

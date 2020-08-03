@@ -91,6 +91,7 @@ export class LoginComponent implements OnInit {
             this.cookie.set("userID", data.userDetail[0].id);
             this.cookie.set("userName", data.userDetail[0].loginName);
             this.cookie.set("pinstatus", data.userDetail[0].pinStatus);
+            this.cookie.set("roleName", data.userDetail[0].roleDisplayName);
 
             this.app.userName = this.cookie.get("userName");
 
