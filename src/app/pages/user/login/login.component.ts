@@ -94,6 +94,7 @@ export class LoginComponent implements OnInit {
             this.cookie.set("roleName", data.userDetail[0].roleDisplayName);
 
             this.app.userName = this.cookie.get("userName");
+            this.app.userRole = this.cookie.get("roleName");
 
             // alert(this.cookie.get("userID"));
             this.showProgress = false;

@@ -12,7 +12,6 @@
     </div>
   </div><!-- end menu header -->
 
-
   <ul>
     <li *ngIf="userRole == 'Admin' || userRole == 'Super User'">
       <a href="" routerLinkActive="active" routerLink="dashboard" (click)="closeNav()"><i class="fa fa-dashboard"></i>
@@ -33,7 +32,14 @@
     <li>
       <a href="" routerLinkActive="active" routerLink='nhaRoads' (click)="closeNav()"><i class="fa fa-road"></i>
         <span class='pl-3'>Roads on Land</span></a>
-
+    </li>
+    <li>
+      <a href="" routerLinkActive="active" routerLink='nhaBridges' (click)="closeNav()"><i class="fa fa-road"></i>
+        <span class='pl-3'>Bridges</span></a>
+    </li>
+    <li>
+      <a href="" routerLinkActive="active" routerLink='nhaBuildings' (click)="closeNav()"><i class="fa fa-road"></i>
+        <span class='pl-3'>Buildings</span></a>
     </li>
     <li *ngIf="userRole == 'Super User'">
       <a href=""><i class="fa fa-diamond"></i> <span class="pl-3">Admin Panel</span>
