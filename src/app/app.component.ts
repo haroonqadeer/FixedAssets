@@ -17,8 +17,8 @@ declare var $: any;
   styleUrls: ["./app.component.scss"],
 })
 export class AppComponent {
-  serverUrl = "http://95.217.206.195:2007/api/";
-  //serverUrl = "http://localhost:12345/api/";
+  // serverUrl = "http://95.217.206.195:2007/api/";
+  serverUrl = "http://localhost:5090/api/";
 
   title = "FixedAssets";
   userName = "";
@@ -62,6 +62,9 @@ export class AppComponent {
 
   qrLogList = [];
 
+  userLocations = [];
+  locationTitle = "Select Location";
+
   constructor(
     private router: Router,
     private cookie: CookieService,
@@ -89,8 +92,12 @@ export class AppComponent {
       // this.closeNav();
       // $(".sidenav").hide();
     }
+    this.getUserLocations();
   }
 
+  showLocCheckList(item) {
+    this.locationTitle = item.officeTypeDescription;
+  }
   // QR Scanner
   qrResultString: string;
 
@@ -172,6 +179,22 @@ export class AppComponent {
     this.lblModificationDate = "";
 
     setTimeout(() => this.getQrData(), 500);
+  }
+
+  // get user location
+  getUserLocations() {
+    var reqHeader = new HttpHeaders({
+      "Content-Type": "application/json",
+      // Authorization: "Bearer " + Token,
+    });
+
+    this.http
+      .get(this.serverUrl + "getuserlocation?UserID=" + this._cuId, {
+        headers: reqHeader,
+      })
+      .subscribe((data: any) => {
+        this.userLocations = data;
+      });
   }
 
   getQrData() {

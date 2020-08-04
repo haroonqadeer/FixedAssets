@@ -50,6 +50,7 @@ import { UserRegisterationComponent } from "./pages/user/adminPanel/user-registe
 import { NHARoadsComponent } from "./pages/fixasset/nharoads/nharoads.component";
 import { BridgesComponent } from './pages/fixasset/bridges/bridges.component';
 import { NhabuldingsComponent } from './pages/fixasset/nhabuldings/nhabuldings.component';
+import { CreateBuildingComponent } from './pages/fixasset/configuration/create-building/create-building.component';
 
 @NgModule({
   declarations: [
@@ -72,6 +73,7 @@ import { NhabuldingsComponent } from './pages/fixasset/nhabuldings/nhabuldings.c
     NHARoadsComponent,
     BridgesComponent,
     NhabuldingsComponent,
+    CreateBuildingComponent,
   ],
   imports: [
     BrowserModule,
