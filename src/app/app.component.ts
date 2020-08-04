@@ -56,6 +56,10 @@ export class AppComponent {
   lblCreationDate = "";
   lblModificationDate = "";
 
+  imageUrl: string = "../../../../../assets/assetEntryImg/dropHereImg.png";
+  imageUrl2: string = "../../../../../assets/assetEntryImg/dropHereImg.png";
+  imageUrl3: string = "../../../../../assets/assetEntryImg/dropHereImg.png";
+
   qrLogList = [];
 
   constructor(
@@ -92,6 +96,9 @@ export class AppComponent {
 
   clearResult(): void {
     this.qrResultString = null;
+    this.imageUrl = "../../../../../assets/assetEntryImg/dropHereImg.png";
+    this.imageUrl2 = "../../../../../assets/assetEntryImg/dropHereImg.png";
+    this.imageUrl3 = "../../../../../assets/assetEntryImg/dropHereImg.png";
   }
 
   onCodeResult(resultString: string) {
@@ -141,6 +148,9 @@ export class AppComponent {
 
   getQrCodeData() {
     this.qrLogList = [];
+    this.imageUrl = "../../../../../assets/assetEntryImg/dropHereImg.png";
+    this.imageUrl2 = "../../../../../assets/assetEntryImg/dropHereImg.png";
+    this.imageUrl3 = "../../../../../assets/assetEntryImg/dropHereImg.png";
     this.lblAccCategory = "";
     this.lblAssetCategory = "";
     this.lblPost = "";
@@ -197,6 +207,36 @@ export class AppComponent {
           this.lblCreationDate = data[0].createdDate;
           this.lblModifiedBy = data[0].modifiedBy;
           this.lblModificationDate = data[0].modificationDate;
+          if (
+            data[0].eDoc != null ||
+            data[0].eDoc !=
+              "C:/inetpub/wwwroot/2008_FAR_Proj/assets/assetEntryImg"
+          ) {
+            this.imageUrl =
+              "http://95.217.206.195:2008/assets/assetEntryImg/" +
+              data[0].assetID +
+              "_1.jpg";
+          }
+          if (
+            data[0].eDoc2 != null ||
+            data[0].eDoc2 !=
+              "C:/inetpub/wwwroot/2008_FAR_Proj/assets/assetEntryImg"
+          ) {
+            this.imageUrl2 =
+              "http://95.217.206.195:2008/assets/assetEntryImg/" +
+              data[0].assetID +
+              "_2.jpg";
+          }
+          if (
+            data[0].eDoc3 != null ||
+            data[0].eDoc3 !=
+              "C:/inetpub/wwwroot/2008_FAR_Proj/assets/assetEntryImg"
+          ) {
+            this.imageUrl3 =
+              "http://95.217.206.195:2008/assets/assetEntryImg/" +
+              data[0].assetID +
+              "_3.jpg";
+          }
         }
       });
 
