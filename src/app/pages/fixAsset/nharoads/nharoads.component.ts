@@ -82,6 +82,8 @@ export class NHARoadsComponent implements OnInit {
   aFaDetailList = [];
   ovFaDetailList = [];
   vFaDetailList = [];
+  odFaDetailList = [];
+  dFaDetailList = [];
   tempTransactionList = [];
 
   constructor(
@@ -265,18 +267,18 @@ export class NHARoadsComponent implements OnInit {
     }
 
     if (filterBy == "od") {
-      this.ovFaDetailList = [];
+      this.odFaDetailList = [];
       var tempList = this.faDetailList.filter(
         (x) => x.fixedAssetID == reqFixAssetID && x.openingDepreciation != 0
       );
 
       if (tempList.length > 0) {
-        this.ovFaDetailList = tempList;
+        this.odFaDetailList = tempList;
       }
     }
 
     if (filterBy == "d") {
-      this.vFaDetailList = [];
+      this.dFaDetailList = [];
       var tempList = this.faDetailList.filter(
         (x) =>
           x.fixedAssetID == reqFixAssetID &&
@@ -284,7 +286,7 @@ export class NHARoadsComponent implements OnInit {
       );
 
       if (tempList.length > 0) {
-        this.vFaDetailList = tempList;
+        this.dFaDetailList = tempList;
       }
     }
 
@@ -643,7 +645,6 @@ export class NHARoadsComponent implements OnInit {
 
   //
   saveOC() {
-    alert(this.dtpFaDate);
     if (
       this.txtFaAmount == undefined ||
       this.txtFaAmount == "" ||
@@ -664,8 +665,9 @@ export class NHARoadsComponent implements OnInit {
       });
       return false;
     } else {
-      //var reqDate = this.app.convertDate(this.acquisitionDate);
+      var reqDate = this.app.convertDate(this.dtpFaDate);
 
+      // alert(reqDate);
       var reqSpType = "Insert";
       if (this.FaDetailID > 0) {
         reqSpType = "Update";
@@ -675,13 +677,129 @@ export class NHARoadsComponent implements OnInit {
         FixedAssetID: this.lblFixAssetID,
         TypeofEntry: "Cost",
         OpeningCost: this.txtFaAmount,
-        Year: this.dtpFaDate,
+        Year: reqDate,
         FAdetailID: this.FaDetailID,
         Userid: this.cookie.get("userID"),
         SpType: reqSpType,
       };
 
       $("#additionOpeningModal").modal("toggle");
+
+      this.loadingBar = true;
+      var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
+
+      this.http
+        .post(this.serverUrl + "sudoc", SaveData, { headers: reqHeader })
+        // .post("http://localhost:5090/api/sudoc", SaveData, {
+        //   headers: reqHeader,
+        // })
+        .subscribe((data: any) => {
+          if (data.msg == "Success") {
+            if (this.FaDetailID == 0) {
+              this.toastr.successToastr(
+                "Record Saved Successfully!",
+                "Success!",
+                { toastTimeout: 2500 }
+              );
+            } else {
+              this.toastr.successToastr(
+                "Record Updated Successfully!",
+                "Success!",
+                { toastTimeout: 2500 }
+              );
+            }
+
+            this.clearFaDetail();
+            this.reqStatus = true;
+            this.getFaDetail();
+            return false;
+          } else {
+            this.toastr.errorToastr(data.msg, "Error !", {
+              toastTimeout: 5000,
+            });
+            this.loadingBar = false;
+            $("#additionOpeningModal").modal("toggle");
+            return false;
+          }
+        });
+    }
+  }
+
+  editOC(obj) {
+    this.FaDetailID = obj.faDetailID;
+    this.txtFaAmount = obj.openingCost;
+    this.dtpFaDate = new Date(obj.year);
+  }
+
+  saveAD() {
+    if (this.txtFaAmount == "") {
+      this.txtFaAmount = "0";
+    }
+
+    // if (this.txtFaCost == "") {
+    //   this.txtFaCost = "0";
+    // }
+
+    if (this.txtFaAmount == undefined || parseFloat(this.txtFaAmount) < 0) {
+      this.toastr.errorToastr("Please Enter Addition In Cost", "Error !", {
+        toastTimeout: 2500,
+      });
+      return false;
+      // } else if (this.txtFaCost == undefined || parseFloat(this.txtFaCost) < 0) {
+      //   this.toastr.errorToastr("Please Enter Disposal In Cost", "Error !", {
+      //     toastTimeout: 2500,
+      //   });
+      //   return false;
+    } else if (
+      parseFloat(this.txtFaAmount) == 0
+      //  &&
+      // parseFloat(this.txtFaCost) == 0
+    ) {
+      this.toastr.errorToastr("Please Enter Addition In Cost", "Error !", {
+        toastTimeout: 2500,
+      });
+      return false;
+    } else if (this.dtpFaDate == undefined || this.dtpFaDate == null) {
+      this.toastr.errorToastr("Please Enter Date", "Error !", {
+        toastTimeout: 2500,
+      });
+      return false;
+    } else if (this.lblFixAssetID == 0) {
+      this.toastr.errorToastr("Please Enter Complete Information", "Error !", {
+        toastTimeout: 2500,
+      });
+      return false;
+    } else {
+      //var reqDate = this.app.convertDate(this.acquisitionDate);
+      var reqFaAmount = parseFloat(this.txtFaAmount);
+      if (this.txtFaAmount == "") {
+        reqFaAmount = 0;
+      }
+
+      var reqFaCost = parseFloat(this.txtFaCost);
+      if (this.txtFaCost == "") {
+        reqFaCost = 0;
+      }
+
+      var reqDate = this.app.convertDate(this.dtpFaDate);
+
+      var reqSpType = "Insert";
+      if (this.FaDetailID > 0) {
+        reqSpType = "Update";
+      }
+
+      var SaveData = {
+        FixedAssetID: this.lblFixAssetID,
+        TypeofEntry: "Cost",
+        AdditioninCost: reqFaAmount,
+        // DisposalinCost: reqFaCost,
+        Year: reqDate,
+        FAdetailID: this.FaDetailID,
+        Userid: this.cookie.get("userID"),
+        SpType: reqSpType,
+      };
+
+      $("#additionsAdditionModal").modal("toggle");
 
       this.loadingBar = true;
       var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
@@ -713,11 +831,77 @@ export class NHARoadsComponent implements OnInit {
               toastTimeout: 5000,
             });
             this.loadingBar = false;
-            $("#additionOpeningModal").modal("toggle");
             return false;
           }
         });
     }
+  }
+
+  editAD(item) {
+    this.FaDetailID = item.faDetailID;
+    this.txtFaAmount = item.additioninCost;
+    // this.txtFaCost = item.disposalinCost;
+    this.dtpFaDate = new Date(item.year);
+  }
+
+  deleteFA(item, type) {
+    setTimeout(() => {
+      Swal.fire({
+        title: "Do you want to delete?",
+        text: "",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Yes",
+        cancelButtonText: "No",
+      }).then((result) => {
+        if (result.value) {
+          var SaveData = {
+            FaDetailID: item.faDetailID,
+            Userid: this.cookie.get("userID"),
+            SpType: "Delete",
+          };
+
+          var reqHeader = new HttpHeaders({
+            "Content-Type": "application/json",
+          });
+
+          if (type == "o") {
+            $("#additionOpeningModal").modal("toggle");
+          } else if (type == "a") {
+            $("#additionsAdditionModal").modal("toggle");
+          } else if (type == "ov") {
+            $("#revaluationsOpeningModal").modal("toggle");
+          } else if (type == "v") {
+            $("#revaluationRevaluationsModal").modal("toggle");
+          }
+
+          this.loadingBar = true;
+          this.http
+            .post(this.serverUrl + "sudoc", SaveData, { headers: reqHeader })
+            .subscribe((data: any) => {
+              if (data.msg == "Success") {
+                this.toastr.successToastr(
+                  "Record Deleted Successfully!",
+                  "Success!",
+                  { toastTimeout: 2500 }
+                );
+                this.clearFaDetail();
+                this.getFaDetail();
+                this.getFaSummary();
+                this.reqStatus = true;
+                this.getTransactions();
+                return false;
+              } else {
+                this.toastr.errorToastr(data.msg, "Error !", {
+                  toastTimeout: 5000,
+                });
+                this.loadingBar = false;
+                return false;
+              }
+            });
+        }
+      });
+    }, 1000);
   }
 
   clear() {
