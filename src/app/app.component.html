@@ -18,26 +18,31 @@
         <span class='pl-3'>Dashboard</span></a>
 
     </li>
-    <li>
+    <li
+      *ngIf="userRole == 'Data Entry' || userRole == 'Moveable Asset Admin' || userRole == 'Moveable Asset Data Entry' || userRole == 'Super User'">
       <a href="" routerLinkActive="active" routerLink="assetEntry" (click)="closeNav()"><i class="fa fa-table"></i>
         <span class='pl-3'>Asset Entry & Tags</span></a>
 
     </li>
-    <li>
+    <li
+      *ngIf="userRole == 'Data Entry' || userRole == 'Fixed Asset Admin' || userRole == 'Fixed Asset Data Entry' || userRole == 'Super User'">
       <a href="" routerLinkActive="active" routerLink='freeholdLand' (click)="closeNav()"><i
           class="fa fa-picture-o"></i>
         <span class='pl-3'>Freehold Land</span></a>
 
     </li>
-    <li>
+    <li
+      *ngIf="userRole == 'Data Entry' || userRole == 'Fixed Asset Admin' || userRole == 'Fixed Asset Data Entry' || userRole == 'Super User'">
       <a href="" routerLinkActive="active" routerLink='nhaRoads' (click)="closeNav()"><i class="fa fa-road"></i>
         <span class='pl-3'>Roads on Land</span></a>
     </li>
-    <li>
+    <li
+      *ngIf="userRole == 'Data Entry' || userRole == 'Fixed Asset Admin' || userRole == 'Fixed Asset Data Entry' || userRole == 'Super User'">
       <a href="" routerLinkActive="active" routerLink='nhaBridges' (click)="closeNav()"><i class="fa fa-road"></i>
         <span class='pl-3'>Bridges</span></a>
     </li>
-    <li>
+    <li
+      *ngIf="userRole == 'Data Entry' || userRole == 'Fixed Asset Admin' || userRole == 'Fixed Asset Data Entry' || userRole == 'Super User'">
       <a href="" routerLinkActive="active" routerLink='nhaBuildings' (click)="closeNav()"><i class="fa fa-road"></i>
         <span class='pl-3'>Buildings</span></a>
     </li>
@@ -135,7 +140,7 @@
 <!-- complete location modal windows -->
 <!-- The Modal -->
 <div class="modal animate__animated animate__bounceIn" id="compLocationModal">
-  <div class="modal-dialog modal-sm">
+  <div class="modal-dialog modal-xl">
     <div class="modal-content">
       <!-- Modal Header -->
       <div class="modal-header">
@@ -148,11 +153,12 @@
       <!-- Modal body -->
       <div class="modal-body">
         <div class="row">
-          <div class="col-md-12">
-            <mat-radio-group aria-label="Select an option">
-              <mat-radio-button value="1">Done</mat-radio-button>
-              <mat-radio-button value="2">Un-Done</mat-radio-button>
-            </mat-radio-group>
+          <div class="col-md-4">
+            <div class="table-responsive">
+              <table class="table table-striped">
+
+              </table>
+            </div>
           </div>
         </div>
         <!-- next row -->
