@@ -154,8 +154,14 @@
           <div class="col-md-12">
             <mat-form-field class='w-100'>
               <mat-label>Account Section</mat-label>
-              <mat-select>
-                <mat-option value="option">Option</mat-option>
+              <mat-select [(ngModel)]="ddlAccSec">
+                <mat-option>
+                  <ngx-mat-select-search [(ngModel)]="txtSearchAccSec" [placeholderLabel]="'Search...'"
+                    [noEntriesFoundLabel]="'Not found'" name="search"></ngx-mat-select-search>
+                </mat-option>
+                <mat-option *ngFor="let item of accSecList | search: 'officeDescription':txtSearchAccSec"
+                  value="{{item.officeSecID}}">
+                  {{item.officeDescription}}</mat-option>
               </mat-select>
             </mat-form-field>
           </div>
@@ -165,8 +171,16 @@
           <div class="col-md-12">
             <mat-form-field class='w-100'>
               <mat-label>Trial Balance</mat-label>
-              <mat-select>
-                <mat-option value="option">Option</mat-option>
+              <mat-select [(ngModel)]="ddlTrailBalance" (ngModelChange)="filterProject(ddlTrailBalance, '')">
+                <mat-option>
+                  <ngx-mat-select-search [(ngModel)]="txtSearchTrailBalance" [placeholderLabel]="'Search...'"
+                    [noEntriesFoundLabel]="'Not found'" name="search"></ngx-mat-select-search>
+                </mat-option>
+                <mat-option
+                  *ngFor="let item of projectsList | search: 'projectShortName, projectName':txtSearchTrailBalance"
+                  value="{{item.projectID}}">
+                  {{item.projectShortName}} - {{ item.projectName }}
+                </mat-option>
               </mat-select>
             </mat-form-field>
           </div>
@@ -176,8 +190,15 @@
           <div class="col-md-12">
             <mat-form-field class='w-100'>
               <mat-label>Account Code - Project Name</mat-label>
-              <mat-select>
-                <mat-option value="option">Option</mat-option>
+              <mat-select [(ngModel)]="ddlProject" (ngModelChange)="filterProject(ddlProject, 'accCode')">
+                <mat-option>
+                  <ngx-mat-select-search [(ngModel)]="txtSearchProject" [placeholderLabel]="'Search...'"
+                    [noEntriesFoundLabel]="'Not found'" name="search"></ngx-mat-select-search>
+                </mat-option>
+                <mat-option *ngFor="let item of projectsList | search: 'accountCode, projectName':txtSearchProject"
+                  value="{{item.projectID}}" [disabled]="item.accountCode == 0">
+                  {{ item.accountCode }} - {{ item.projectName }}
+                </mat-option>
               </mat-select>
             </mat-form-field>
           </div>
@@ -187,9 +208,7 @@
           <div class="col-md-12">
             <mat-form-field class='w-100'>
               <mat-label>Project Package</mat-label>
-              <mat-select>
-                <mat-option value="option">Option</mat-option>
-              </mat-select>
+              <input matInput>
             </mat-form-field>
           </div>
         </div>
