@@ -19,6 +19,7 @@ import { NHAFreeholdLandComponent } from "./pages/fixAsset/nhafreehold-land/nhaf
 import { NHARoadsComponent } from "./pages/fixasset/nharoads/nharoads.component";
 import { BridgesComponent } from "./pages/fixasset/bridges/bridges.component";
 import { NhabuldingsComponent } from "./pages/fixasset/nhabuldings/nhabuldings.component";
+import { CreateBuildingComponent } from "./pages/fixasset/configuration/create-building/create-building.component";
 
 const routes: Routes = [
   {
@@ -39,6 +40,8 @@ const routes: Routes = [
     path: "dashboard",
     component: DashboardyComponent,
   },
+
+  // Configuration
   {
     path: "nhaLoc",
     component: NHALocComponent,
@@ -67,6 +70,11 @@ const routes: Routes = [
     path: "nhaProjectIPC",
     component: NHAProjectIPCComponent,
   },
+  {
+    path: "createBuilding",
+    component: CreateBuildingComponent,
+  },
+  // end Configuration
   {
     path: "freeholdLand",
     component: NHAFreeholdLandComponent,

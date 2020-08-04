@@ -1,0 +1,155 @@
+<!-- heading -->
+<div class="row">
+  <div class="col-md-12 text-center">
+    <h1>Create Building</h1>
+  </div>
+</div>
+
+<!-- container -->
+<div class="container-fluid boxShadow-1 bg-white">
+  <div class="row">
+    <!-- entry form -->
+    <div class="col-md-4 pl-3 pr-0 border">
+      <div class="row bgGrey">
+        <div class="col-md-12 pt-4">
+          <h3 class="text-white pb-2">
+            Add / Edit Building
+          </h3>
+        </div>
+      </div>
+      <!-- next row -->
+      <div class="row pr-4 pl-1">
+        <div class="col-md-12 pt-2">
+          <mat-form-field class='w-100'>
+            <mat-label>Building Location</mat-label>
+            <mat-select>
+              <mat-option value="option">Option</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <!-- next row -->
+      <div class="row pr-4 pl-1">
+        <div class="col-md-12 pt-2">
+          <mat-form-field class='w-100'>
+            <mat-label>Building Short Name</mat-label>
+            <input matInput>
+          </mat-form-field>
+        </div>
+      </div>
+      <!-- next row -->
+      <div class="row pr-4 pl-1">
+        <div class="col-md-12 pt-2">
+          <mat-form-field class='w-100'>
+            <mat-label>Building Description</mat-label>
+            <input matInput>
+          </mat-form-field>
+        </div>
+      </div>
+      <!-- next row -->
+      <div class="row pr-4 pl-1">
+        <div class="col-md-12 pt-2">
+          <mat-form-field class='w-100'>
+            <mat-label>Address</mat-label>
+            <textarea matInput></textarea>
+          </mat-form-field>
+        </div>
+      </div>
+      <!-- next row -->
+      <div class="row pr-4 pl-1">
+        <div class="col-md-12 pt-2">
+          <mat-form-field class='w-100'>
+            <mat-label>Project Name</mat-label>
+            <mat-select>
+              <mat-option value="option">Option</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <!-- next row -->
+      <div class="row pr-4 pl-1">
+        <div class="col-md-12 pt-2">
+          <mat-form-field class='w-100'>
+            <mat-label>Package Name</mat-label>
+            <mat-select>
+              <mat-option value="option">Option</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <!-- next row -->
+      <div class="footer w-100">
+        <div class="row border-top bgGrey pt-2 pb-2 pl-3">
+          <div class="col-md-12 inline-block">
+            <a class="btn-flip mr-3" data-back="Save" data-front="Save"></a>
+            <a class="btn-flip" data-back="Reset" data-front="Reset"></a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- next 8 columns -->
+    <div class="col-md-8 bg-light">
+      <div class="row">
+        <div class="col-md-12 pt-2">
+          <mat-form-field class="w-100">
+            <mat-label>search...</mat-label>
+            <mat-icon matPrefix class='fa fa-search'></mat-icon>
+            <input matInput>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="table-responsive border mb-2 table-wrapper mx-auto mb-2 style-3" style='height: 560px;'>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th class="sticky-top" scope='col'>#</th>
+              <th class="sticky-top" scope='col'>Location</th>
+              <th class="sticky-top" scope='col'>Short Name</th>
+              <th class="sticky-top" scope='col'>Description</th>
+              <th class="sticky-top" scope='col'>Project</th>
+              <th class="sticky-top text-center" scope='col'>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="text-center">1</td>
+              <td>Islamabad</td>
+              <td>HQ</td>
+              <td>NHA Head Quarter</td>
+              <td>Gawadar Ratodero</td>
+              <td class='inline-block text-center'><span class='fa fa-edit cursorPointer pr-3 text-primary'></span>
+                <span class='fa fa-trash-o cursorPointer text-danger pr-3'></span>
+                <mat-slide-toggle>
+                </mat-slide-toggle>
+              </td>
+            </tr>
+            <tr>
+              <td class="text-center">2</td>
+              <td>Islamabad</td>
+              <td>HQ</td>
+              <td>NHA Head Quarter</td>
+              <td>Gawadar Ratodero</td>
+              <td class='inline-block text-center'><span class='fa fa-edit cursorPointer pr-3 text-primary'></span>
+                <span class='fa fa-trash-o cursorPointer text-danger pr-3'></span>
+                <mat-slide-toggle>
+                </mat-slide-toggle>
+              </td>
+            </tr>
+            <tr>
+              <td class="text-center">3</td>
+              <td>Islamabad</td>
+              <td>HQ</td>
+              <td>NHA Head Quarter</td>
+              <td>Gawadar Ratodero</td>
+              <td class='inline-block text-center'><span class='fa fa-edit cursorPointer pr-3 text-primary'></span>
+                <span class='fa fa-trash-o cursorPointer text-danger pr-3'></span>
+                <mat-slide-toggle>
+                </mat-slide-toggle>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div><!-- End -->
+    </div>
+  </div>
+</div><!-- end container -->
