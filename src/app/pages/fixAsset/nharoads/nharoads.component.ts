@@ -42,6 +42,7 @@ export class NHARoadsComponent implements OnInit {
   lblReval = 0;
   lblTransactions = 0;
   lblSurplus = 0;
+  lblOpeningSurplus = 0;
   lblFixAssetID = 0;
   lblAccCatID = 12;
   FaDetailID = 0;
@@ -55,6 +56,7 @@ export class NHARoadsComponent implements OnInit {
   txtAMarla = "";
   txtTMarla = "";
   txtRemarks = "";
+  txtSurplus = "";
 
   txtConstCost = "";
   txtLandCost = "";
@@ -230,6 +232,8 @@ export class NHARoadsComponent implements OnInit {
         if (this.reqStatus == true) {
           this.filterFaDetail(this.lblFixAssetID, "oc");
           this.filterFaDetail(this.lblFixAssetID, "a");
+          this.filterFaDetail(this.lblFixAssetID, "od");
+          this.filterFaDetail(this.lblFixAssetID, "d");
           this.filterFaDetail(this.lblFixAssetID, "ov");
           this.filterFaDetail(this.lblFixAssetID, "v");
           this.filterFaDetail(this.lblFixAssetID, "t");
@@ -321,6 +325,7 @@ export class NHARoadsComponent implements OnInit {
       this.lblOpeningReval = 0;
       this.lblReval = 0;
       this.lblTransactions = 0;
+      this.lblOpeningSurplus = 0;
       this.lblSurplus = 0;
 
       var tempList = this.faSummaryList.filter(
@@ -332,11 +337,13 @@ export class NHARoadsComponent implements OnInit {
         this.lblAddition =
           tempList[0].additioninCost + tempList[0].disposalinCost;
         this.lblOpeningDep = tempList[0].openingDepreciation;
-        this.lblDepriciation = tempList[0].disposalinDepreciation;
+        this.lblDepriciation =
+          tempList[0].depreciationforYear + tempList[0].disposalinDepreciation;
         this.lblOpeningReval = tempList[0].openingRevaluationAmount;
         this.lblReval = tempList[0].revaluationAmount;
         this.lblTransactions = tempList[0].nooftransactions;
         this.lblSurplus = tempList[0].revalutionSurplus;
+        this.lblOpeningSurplus = tempList[0].openingRevaluationSurplus;
       }
     }
 
@@ -586,6 +593,8 @@ export class NHARoadsComponent implements OnInit {
 
     this.filterFaDetail(obj.fixedAssetID, "oc");
     this.filterFaDetail(obj.fixedAssetID, "a");
+    this.filterFaDetail(obj.fixedAssetID, "od");
+    this.filterFaDetail(obj.fixedAssetID, "d");
     this.filterFaDetail(obj.fixedAssetID, "ov");
     this.filterFaDetail(obj.fixedAssetID, "v");
     this.filterFaDetail(obj.fixedAssetID, "t");
@@ -650,7 +659,7 @@ export class NHARoadsComponent implements OnInit {
       this.txtFaAmount == "" ||
       parseFloat(this.txtFaAmount) <= 0
     ) {
-      this.toastr.errorToastr("Please Enter Opening Cost", "Error !", {
+      this.toastr.errorToastr("Please Enter Opening Amount", "Error !", {
         toastTimeout: 2500,
       });
       return false;
@@ -736,24 +745,23 @@ export class NHARoadsComponent implements OnInit {
       this.txtFaAmount = "0";
     }
 
-    // if (this.txtFaCost == "") {
-    //   this.txtFaCost = "0";
-    // }
+    if (this.txtFaCost == "") {
+      this.txtFaCost = "0";
+    }
 
-    if (this.txtFaAmount == undefined || parseFloat(this.txtFaAmount) < 0) {
+    if (this.txtFaAmount == undefined || parseFloat(this.txtFaAmount) <= 0) {
       this.toastr.errorToastr("Please Enter Addition In Cost", "Error !", {
         toastTimeout: 2500,
       });
       return false;
-      // } else if (this.txtFaCost == undefined || parseFloat(this.txtFaCost) < 0) {
-      //   this.toastr.errorToastr("Please Enter Disposal In Cost", "Error !", {
-      //     toastTimeout: 2500,
-      //   });
-      //   return false;
+    } else if (this.txtFaCost == undefined || parseFloat(this.txtFaCost) <= 0) {
+      this.toastr.errorToastr("Please Enter Disposal In Cost", "Error !", {
+        toastTimeout: 2500,
+      });
+      return false;
     } else if (
-      parseFloat(this.txtFaAmount) == 0
-      //  &&
-      // parseFloat(this.txtFaCost) == 0
+      parseFloat(this.txtFaAmount) == 0 &&
+      parseFloat(this.txtFaCost) == 0
     ) {
       this.toastr.errorToastr("Please Enter Addition In Cost", "Error !", {
         toastTimeout: 2500,
@@ -792,7 +800,7 @@ export class NHARoadsComponent implements OnInit {
         FixedAssetID: this.lblFixAssetID,
         TypeofEntry: "Cost",
         AdditioninCost: reqFaAmount,
-        // DisposalinCost: reqFaCost,
+        DisposalinCost: reqFaCost,
         Year: reqDate,
         FAdetailID: this.FaDetailID,
         Userid: this.cookie.get("userID"),
@@ -840,7 +848,481 @@ export class NHARoadsComponent implements OnInit {
   editAD(item) {
     this.FaDetailID = item.faDetailID;
     this.txtFaAmount = item.additioninCost;
+    this.txtFaCost = item.disposalinCost;
+    this.dtpFaDate = new Date(item.year);
+  }
+
+  saveOD() {
+    if (this.txtFaAmount == "") {
+      this.txtFaAmount = "0";
+    }
+
+    // if (this.txtFaCost == "") {
+    //   this.txtFaCost = "0";
+    // }
+
+    if (this.txtFaAmount == undefined || parseFloat(this.txtFaAmount) <= 0) {
+      this.toastr.errorToastr(
+        "Please Enter Opening Depreciation Amount",
+        "Error !",
+        {
+          toastTimeout: 2500,
+        }
+      );
+      return false;
+      // } else if (this.txtFaCost == undefined || parseFloat(this.txtFaCost) < 0) {
+      //   this.toastr.errorToastr("Please Enter Disposal In Cost", "Error !", {
+      //     toastTimeout: 2500,
+      //   });
+      //   return false;
+    } else if (
+      parseFloat(this.txtFaAmount) == 0
+      //  &&
+      // parseFloat(this.txtFaCost) == 0
+    ) {
+      this.toastr.errorToastr(
+        "Please Enter Opening Depreciation Amount",
+        "Error !",
+        {
+          toastTimeout: 2500,
+        }
+      );
+      return false;
+    } else if (this.dtpFaDate == undefined || this.dtpFaDate == null) {
+      this.toastr.errorToastr("Please Enter Date", "Error !", {
+        toastTimeout: 2500,
+      });
+      return false;
+    } else if (this.lblFixAssetID == 0) {
+      this.toastr.errorToastr("Please Enter Complete Information", "Error !", {
+        toastTimeout: 2500,
+      });
+      return false;
+    } else {
+      //var reqDate = this.app.convertDate(this.acquisitionDate);
+      var reqFaAmount = parseFloat(this.txtFaAmount);
+      if (this.txtFaAmount == "") {
+        reqFaAmount = 0;
+      }
+
+      var reqFaCost = parseFloat(this.txtFaCost);
+      if (this.txtFaCost == "") {
+        reqFaCost = 0;
+      }
+
+      var reqDate = this.app.convertDate(this.dtpFaDate);
+
+      var reqSpType = "Insert";
+      if (this.FaDetailID > 0) {
+        reqSpType = "Update";
+      }
+
+      var SaveData = {
+        FixedAssetID: this.lblFixAssetID,
+        TypeofEntry: "Depreciation",
+        OpeningDepreciation: reqFaAmount,
+        // DisposalinCost: reqFaCost,
+        Year: reqDate,
+        FAdetailID: this.FaDetailID,
+        Userid: this.cookie.get("userID"),
+        SpType: reqSpType,
+      };
+
+      $("#depriciationsOpeningModal").modal("toggle");
+
+      this.loadingBar = true;
+      var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
+
+      this.http
+        .post(this.serverUrl + "sudoc", SaveData, { headers: reqHeader })
+        .subscribe((data: any) => {
+          if (data.msg == "Success") {
+            if (this.FaDetailID == 0) {
+              this.toastr.successToastr(
+                "Record Saved Successfully!",
+                "Success!",
+                { toastTimeout: 2500 }
+              );
+            } else {
+              this.toastr.successToastr(
+                "Record Updated Successfully!",
+                "Success!",
+                { toastTimeout: 2500 }
+              );
+            }
+
+            this.clearFaDetail();
+            this.reqStatus = true;
+            this.getFaDetail();
+            return false;
+          } else {
+            this.toastr.errorToastr(data.msg, "Error !", {
+              toastTimeout: 5000,
+            });
+            this.loadingBar = false;
+            return false;
+          }
+        });
+    }
+  }
+
+  editOD(item) {
+    this.FaDetailID = item.faDetailID;
+    this.txtFaAmount = item.openingDepreciation;
     // this.txtFaCost = item.disposalinCost;
+    this.dtpFaDate = new Date(item.year);
+  }
+
+  saveD() {
+    if (this.txtFaAmount == "") {
+      this.txtFaAmount = "0";
+    }
+
+    // if (this.txtFaCost == "") {
+    //   this.txtFaCost = "0";
+    // }
+
+    if (this.txtFaAmount == undefined || parseFloat(this.txtFaAmount) <= 0) {
+      this.toastr.errorToastr("Please Enter Depreciation Amount", "Error !", {
+        toastTimeout: 2500,
+      });
+      return false;
+      // } else if (this.txtFaCost == undefined || parseFloat(this.txtFaCost) < 0) {
+      //   this.toastr.errorToastr("Please Enter Disposal In Cost", "Error !", {
+      //     toastTimeout: 2500,
+      //   });
+      //   return false;
+    } else if (
+      parseFloat(this.txtFaAmount) == 0
+      //  &&
+      // parseFloat(this.txtFaCost) == 0
+    ) {
+      this.toastr.errorToastr("Please Enter Depreciation Amount", "Error !", {
+        toastTimeout: 2500,
+      });
+      return false;
+    } else if (this.dtpFaDate == undefined || this.dtpFaDate == null) {
+      this.toastr.errorToastr("Please Enter Date", "Error !", {
+        toastTimeout: 2500,
+      });
+      return false;
+    } else if (this.lblFixAssetID == 0) {
+      this.toastr.errorToastr("Please Enter Complete Information", "Error !", {
+        toastTimeout: 2500,
+      });
+      return false;
+    } else {
+      //var reqDate = this.app.convertDate(this.acquisitionDate);
+      var reqFaAmount = parseFloat(this.txtFaAmount);
+      if (this.txtFaAmount == "") {
+        reqFaAmount = 0;
+      }
+
+      var reqFaCost = parseFloat(this.txtFaCost);
+      if (this.txtFaCost == "") {
+        reqFaCost = 0;
+      }
+
+      var reqDate = this.app.convertDate(this.dtpFaDate);
+
+      var reqSpType = "Insert";
+      if (this.FaDetailID > 0) {
+        reqSpType = "Update";
+      }
+
+      var SaveData = {
+        FixedAssetID: this.lblFixAssetID,
+        TypeofEntry: "Depreciation",
+        DepreciationforYear: reqFaAmount,
+        // DisposalinCost: reqFaCost,
+        Year: reqDate,
+        FAdetailID: this.FaDetailID,
+        Userid: this.cookie.get("userID"),
+        SpType: reqSpType,
+      };
+
+      $("#depriciationsDepriciationModal").modal("toggle");
+
+      this.loadingBar = true;
+      var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
+
+      this.http
+        .post(this.serverUrl + "sudoc", SaveData, { headers: reqHeader })
+        .subscribe((data: any) => {
+          if (data.msg == "Success") {
+            if (this.FaDetailID == 0) {
+              this.toastr.successToastr(
+                "Record Saved Successfully!",
+                "Success!",
+                { toastTimeout: 2500 }
+              );
+            } else {
+              this.toastr.successToastr(
+                "Record Updated Successfully!",
+                "Success!",
+                { toastTimeout: 2500 }
+              );
+            }
+
+            this.clearFaDetail();
+            this.reqStatus = true;
+            this.getFaDetail();
+            return false;
+          } else {
+            this.toastr.errorToastr(data.msg, "Error !", {
+              toastTimeout: 5000,
+            });
+            this.loadingBar = false;
+            return false;
+          }
+        });
+    }
+  }
+
+  editD(item) {
+    this.FaDetailID = item.faDetailID;
+    this.txtFaAmount = item.depreciationforYear;
+    // this.txtFaCost = item.disposalinCost;
+    this.dtpFaDate = new Date(item.year);
+  }
+
+  saveOV() {
+    if (this.txtFaAmount == "") {
+      this.txtFaAmount = "0";
+    }
+
+    // if (this.txtFaCost == "") {
+    //   this.txtFaCost = "0";
+    // }
+
+    if (this.txtFaAmount == undefined || parseFloat(this.txtFaAmount) <= 0) {
+      this.toastr.errorToastr(
+        "Please Enter Opening Revaluation Amount",
+        "Error !",
+        {
+          toastTimeout: 2500,
+        }
+      );
+      return false;
+    } else if (
+      this.txtSurplus == undefined ||
+      parseFloat(this.txtSurplus) <= 0
+    ) {
+      this.toastr.errorToastr("Please Enter Surplus Cost", "Error !", {
+        toastTimeout: 2500,
+      });
+      return false;
+    } else if (
+      parseFloat(this.txtFaAmount) == 0
+      //  &&
+      // parseFloat(this.txtFaCost) == 0
+    ) {
+      this.toastr.errorToastr(
+        "Please Enter Opening Revaluation Amount",
+        "Error !",
+        {
+          toastTimeout: 2500,
+        }
+      );
+      return false;
+    } else if (this.dtpFaDate == undefined || this.dtpFaDate == null) {
+      this.toastr.errorToastr("Please Enter Date", "Error !", {
+        toastTimeout: 2500,
+      });
+      return false;
+    } else if (this.lblFixAssetID == 0) {
+      this.toastr.errorToastr("Please Enter Complete Information", "Error !", {
+        toastTimeout: 2500,
+      });
+      return false;
+    } else {
+      //var reqDate = this.app.convertDate(this.acquisitionDate);
+      var reqFaAmount = parseFloat(this.txtFaAmount);
+      if (this.txtFaAmount == "") {
+        reqFaAmount = 0;
+      }
+
+      var reqSurplus = parseFloat(this.txtSurplus);
+      if (this.txtSurplus == "") {
+        reqSurplus = 0;
+      }
+
+      var reqDate = this.app.convertDate(this.dtpFaDate);
+
+      var reqSpType = "Insert";
+      if (this.FaDetailID > 0) {
+        reqSpType = "Update";
+      }
+
+      var SaveData = {
+        FixedAssetID: this.lblFixAssetID,
+        TypeofEntry: "Revalued",
+        OpeningRevaluationAmount: reqFaAmount,
+        OpeningRevaluationSurplus: reqSurplus,
+        Year: reqDate,
+        FAdetailID: this.FaDetailID,
+        Userid: this.cookie.get("userID"),
+        SpType: reqSpType,
+      };
+
+      $("#revaluationsOpeningModal").modal("toggle");
+
+      this.loadingBar = true;
+      var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
+
+      this.http
+        .post(this.serverUrl + "sudoc", SaveData, { headers: reqHeader })
+        .subscribe((data: any) => {
+          if (data.msg == "Success") {
+            if (this.FaDetailID == 0) {
+              this.toastr.successToastr(
+                "Record Saved Successfully!",
+                "Success!",
+                { toastTimeout: 2500 }
+              );
+            } else {
+              this.toastr.successToastr(
+                "Record Updated Successfully!",
+                "Success!",
+                { toastTimeout: 2500 }
+              );
+            }
+
+            this.clearFaDetail();
+            this.reqStatus = true;
+            this.getFaDetail();
+            return false;
+          } else {
+            this.toastr.errorToastr(data.msg, "Error !", {
+              toastTimeout: 5000,
+            });
+            this.loadingBar = false;
+            return false;
+          }
+        });
+    }
+  }
+
+  editOV(item) {
+    this.FaDetailID = item.faDetailID;
+    this.txtFaAmount = item.openingRevaluationAmount;
+    this.txtSurplus = item.openingRevaluationSurplus;
+    this.dtpFaDate = new Date(item.year);
+  }
+
+  saveV() {
+    if (this.txtFaAmount == "") {
+      this.txtFaAmount = "0";
+    }
+
+    // if (this.txtFaCost == "") {
+    //   this.txtFaCost = "0";
+    // }
+
+    if (this.txtFaAmount == undefined || parseFloat(this.txtFaAmount) <= 0) {
+      this.toastr.errorToastr("Please Enter Revaluation Amount", "Error !", {
+        toastTimeout: 2500,
+      });
+      return false;
+    } else if (
+      this.txtSurplus == undefined ||
+      parseFloat(this.txtSurplus) <= 0
+    ) {
+      this.toastr.errorToastr("Please Enter Surplus Cost", "Error !", {
+        toastTimeout: 2500,
+      });
+      return false;
+    } else if (
+      parseFloat(this.txtFaAmount) == 0
+      //  &&
+      // parseFloat(this.txtFaCost) == 0
+    ) {
+      this.toastr.errorToastr("Please Enter Revaluation Amount", "Error !", {
+        toastTimeout: 2500,
+      });
+      return false;
+    } else if (this.dtpFaDate == undefined || this.dtpFaDate == null) {
+      this.toastr.errorToastr("Please Enter Date", "Error !", {
+        toastTimeout: 2500,
+      });
+      return false;
+    } else if (this.lblFixAssetID == 0) {
+      this.toastr.errorToastr("Please Enter Complete Information", "Error !", {
+        toastTimeout: 2500,
+      });
+      return false;
+    } else {
+      //var reqDate = this.app.convertDate(this.acquisitionDate);
+      var reqFaAmount = parseFloat(this.txtFaAmount);
+      if (this.txtFaAmount == "") {
+        reqFaAmount = 0;
+      }
+
+      var reqSurplus = parseFloat(this.txtSurplus);
+      if (this.txtSurplus == "") {
+        reqSurplus = 0;
+      }
+
+      var reqDate = this.app.convertDate(this.dtpFaDate);
+
+      var reqSpType = "Insert";
+      if (this.FaDetailID > 0) {
+        reqSpType = "Update";
+      }
+
+      var SaveData = {
+        FixedAssetID: this.lblFixAssetID,
+        TypeofEntry: "Revalued",
+        RevaluationAmount: reqFaAmount,
+        RevalutionSurplus: reqSurplus,
+        Year: reqDate,
+        FAdetailID: this.FaDetailID,
+        Userid: this.cookie.get("userID"),
+        SpType: reqSpType,
+      };
+
+      $("#revaluationRevaluationsModal").modal("toggle");
+
+      this.loadingBar = true;
+      var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
+
+      this.http
+        .post(this.serverUrl + "sudoc", SaveData, { headers: reqHeader })
+        .subscribe((data: any) => {
+          if (data.msg == "Success") {
+            if (this.FaDetailID == 0) {
+              this.toastr.successToastr(
+                "Record Saved Successfully!",
+                "Success!",
+                { toastTimeout: 2500 }
+              );
+            } else {
+              this.toastr.successToastr(
+                "Record Updated Successfully!",
+                "Success!",
+                { toastTimeout: 2500 }
+              );
+            }
+
+            this.clearFaDetail();
+            this.reqStatus = true;
+            this.getFaDetail();
+            return false;
+          } else {
+            this.toastr.errorToastr(data.msg, "Error !", {
+              toastTimeout: 5000,
+            });
+            this.loadingBar = false;
+            return false;
+          }
+        });
+    }
+  }
+
+  editV(item) {
+    this.FaDetailID = item.faDetailID;
+    this.txtFaAmount = item.revaluationAmount;
+    this.txtSurplus = item.revalutionSurplus;
     this.dtpFaDate = new Date(item.year);
   }
 
@@ -869,6 +1351,10 @@ export class NHARoadsComponent implements OnInit {
             $("#additionOpeningModal").modal("toggle");
           } else if (type == "a") {
             $("#additionsAdditionModal").modal("toggle");
+          } else if (type == "od") {
+            $("#depriciationsOpeningModal").modal("toggle");
+          } else if (type == "d") {
+            $("#depriciationsDepriciationModal").modal("toggle");
           } else if (type == "ov") {
             $("#revaluationsOpeningModal").modal("toggle");
           } else if (type == "v") {
@@ -930,6 +1416,7 @@ export class NHARoadsComponent implements OnInit {
     this.lblReval = 0;
     this.lblTransactions = 0;
     this.lblSurplus = 0;
+    this.lblOpeningSurplus = 0;
   }
 
   clearFaDetail() {
@@ -937,5 +1424,6 @@ export class NHARoadsComponent implements OnInit {
     this.txtFaAmount = "";
     this.txtFaCost = "";
     this.dtpFaDate = new Date();
+    this.txtSurplus = "";
   }
 }

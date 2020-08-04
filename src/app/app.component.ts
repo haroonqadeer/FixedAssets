@@ -83,7 +83,7 @@ export class AppComponent {
     } else {
       this._cuId = this.cookie.get("userID");
       this._cuName = this.cookie.get("userName");
-
+      this.userRole = this.cookie.get("roleName");
       //this.router.navigate(["importsurveyresult"]);
       this.userName = this.cookie.get("userName");
       $("#menuId").show();

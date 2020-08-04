@@ -319,7 +319,7 @@
         <div class="row mt-3">
           <div class="offset-md-1 col-md-5 mb-4">
             <div class="card border-left-primary shadow h-100 py-2" data-toggle="modal"
-              data-target="#additionOpeningModal">
+              data-target="#additionOpeningModal" (click)="clearFaDetail()">
               <div class="card-body">
                 <div class="row no-gutters align-items-center">
                   <div class="col mr-2">
@@ -335,7 +335,7 @@
           </div>
           <div class="col-md-5 mb-4">
             <div class="card border-left-success shadow h-100 py-2" data-toggle="modal"
-              data-target="#additionsAdditionModal">
+              data-target="#additionsAdditionModal" (click)="clearFaDetail()">
               <div class="card-body">
                 <div class="row no-gutters align-items-center">
                   <div class="col mr-2">
@@ -360,7 +360,7 @@
         <div class="row mt-3">
           <div class="offset-md-1 col-md-5 mb-4">
             <div class="card border-left-info shadow h-100 py-2" data-toggle="modal"
-              data-target="#depriciationsOpeningModal">
+              data-target="#depriciationsOpeningModal" (click)="clearFaDetail()">
               <div class="card-body">
                 <div class="row no-gutters align-items-center">
                   <div class="col mr-2">
@@ -376,7 +376,7 @@
           </div>
           <div class="col-md-5 mb-4">
             <div class="card border-left-warning shadow h-100 py-2" data-toggle="modal"
-              data-target="#depriciationsDepriciationModal">
+              data-target="#depriciationsDepriciationModal" (click)="clearFaDetail()">
               <div class="card-body">
                 <div class="row no-gutters align-items-center">
                   <div class="col mr-2">
@@ -401,7 +401,7 @@
         <div class="row mt-3">
           <div class="offset-md-1 col-md-5 mb-4">
             <div class="card border-left-warning shadow h-100 py-2" data-toggle="modal"
-              data-target="#revaluationsOpeningModal">
+              data-target="#revaluationsOpeningModal" (click)="clearFaDetail()">
               <div class="card-body">
                 <div class="row no-gutters align-items-center">
                   <div class="col mr-2">
@@ -417,7 +417,7 @@
           </div>
           <div class="col-md-5 mb-4">
             <div class="card border-left-info shadow h-100 py-2" data-toggle="modal"
-              data-target="#revaluationRevaluationsModal">
+              data-target="#revaluationRevaluationsModal" (click)="clearFaDetail()">
               <div class="card-body">
                 <div class="row no-gutters align-items-center">
                   <div class="col mr-2">
@@ -436,7 +436,22 @@
               <div class="card-body">
                 <div class="row no-gutters align-items-center">
                   <div class="col mr-2">
-                    <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Surplus</div>
+                    <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Opening</div>
+                    <div class="h5 mb-0 font-weight-bold text-gray-800">Rs. {{lblOpeningSurplus | number}}</div>
+                  </div>
+                  <div class="col-auto">
+                    <i class="fa fa-circle-o-notch fa-2x text-grey"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-5 mb-4">
+            <div class="card border-left-success shadow h-100 py-2">
+              <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                  <div class="col mr-2">
+                    <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Surplus</div>
                     <div class="h5 mb-0 font-weight-bold text-gray-800">Rs. {{lblSurplus | number}}</div>
                   </div>
                   <div class="col-auto">
@@ -457,8 +472,8 @@
         <!-- next row -->
         <div class="row mt-3">
           <div class="offset-md-1 col-md-5 mb-4">
-            <div class="card border-left-success shadow h-100 py-2" data-toggle="modal"
-              data-target="#transactionsModal">
+            <div class="card border-left-success shadow h-100 py-2" data-toggle="modal" data-target="#transactionsModal"
+              (click)="clearFaDetail()">
               <div class="card-body">
                 <div class="row no-gutters align-items-center">
                   <div class="col mr-2">
@@ -547,7 +562,7 @@
     <div class="modal-content">
       <!-- Modal Header -->
       <div class="modal-header">
-        <h3 class="modal-title">Cost Additions - Opening Balances</h3>
+        <h3 class="modal-title">Opening Balances</h3>
         <button type="button" class="close" data-dismiss="modal">
           &times;
         </button>
@@ -562,7 +577,7 @@
             <thead>
               <tr>
                 <th class='text-center'>#</th>
-                <th class='text-right'>Amount</th>
+                <th class='text-right'>Opening Amount</th>
                 <th class='text-center'>As on</th>
                 <th class='text-center'>Actions</th>
               </tr>
@@ -581,7 +596,7 @@
                 <td class='text-center'></td>
                 <td><input type="text" class="form-control text-right" currencyMask [(ngModel)]="txtFaAmount"></td>
                 <td>
-                  <p-calendar [(ngModel)]="dtpFaDate" [showIcon]="true" inputId="icon"></p-calendar>
+                  <p-calendar [(ngModel)]="dtpFaDate" inputId="icon"></p-calendar>
                   <!-- <input type="date" class="form-control text-right" [(ngModel)]="dtpFaDate"> -->
                 </td>
                 <td class='inline-block text-center'><span class='fa fa-save cursorPointer pr-3 text-primary'
@@ -609,7 +624,7 @@
     <div class="modal-content">
       <!-- Modal Header -->
       <div class="modal-header">
-        <h3 class="modal-title">Cost Additions - Additions</h3>
+        <h3 class="modal-title">Additions</h3>
         <button type="button" class="close" data-dismiss="modal">
           &times;
         </button>
@@ -623,7 +638,8 @@
             <thead>
               <tr>
                 <th class='text-center'>#</th>
-                <th class='text-right'>Amount</th>
+                <th class='text-right'>Addition Amount</th>
+                <th class='text-right'>Disposal Cost</th>
                 <th class='text-center'>As on</th>
                 <th class='text-center'>Actions</th>
               </tr>
@@ -634,9 +650,10 @@
                 <td class='text-center'></td>
                 <td><input type="text" class="form-control text-right" placeholder="Addition in cost" currencyMask
                     [(ngModel)]="txtFaAmount"></td>
-                <!-- <td><input type="text" class="form-control text-right" placeholder="Disposal in cost" currencyMask [(ngModel)]="txtFaCost"></td> -->
+                <td><input type="text" class="form-control text-right" placeholder="Disposal in cost" currencyMask
+                    [(ngModel)]="txtFaCost"></td>
                 <td>
-                  <p-calendar [(ngModel)]="dtpFaDate" [showIcon]="true" inputId="icon"></p-calendar>
+                  <p-calendar [(ngModel)]="dtpFaDate" inputId="icon"></p-calendar>
                   <!-- <input type="date" class="form-control text-right" [(ngModel)]="dtpDate"> -->
                 </td>
                 <td class='inline-block text-center'>
@@ -649,7 +666,7 @@
               <tr *ngFor="let item of aFaDetailList; let i=index;">
                 <td class='text-center'>{{i + 1}}</td>
                 <td class='text-right'>{{item.additioninCost | number}}</td>
-                <!-- <td class='text-right'>{{item.disposalinCost | number}}</td> -->
+                <td class='text-right'>{{item.disposalinCost | number}}</td>
                 <td class='text-center'>{{item.year | date}}</td>
                 <td class='inline-block text-center'>
                   <span class='fa fa-edit cursorPointer pr-3 text-primary' (click)="editAD(item)"></span>
@@ -678,7 +695,7 @@
     <div class="modal-content">
       <!-- Modal Header -->
       <div class="modal-header">
-        <h3 class="modal-title">Re-Valuation Cost - Opening Balances</h3>
+        <h3 class="modal-title">Re-Valuation Opening</h3>
         <button type="button" class="close" data-dismiss="modal">
           &times;
         </button>
@@ -692,7 +709,7 @@
             <thead>
               <tr>
                 <th class='text-center'>#</th>
-                <th class='text-right'>Amount</th>
+                <th class='text-right'>Opening Revaluation</th>
                 <th class='text-right'>Surplus</th>
                 <th class='text-center'>As on</th>
                 <th class='text-center'>Actions</th>
@@ -700,26 +717,37 @@
             </thead>
             <tbody>
               <tr>
-                <td class='text-center'>2</td>
-                <td><input placeholder="Amount" type="text" class="form-control text-right" currencyMask></td>
+                <td class='text-center'></td>
+                <td><input type="text" class="form-control text-right" placeholder="Depreciation cost" currencyMask
+                    [(ngModel)]="txtFaAmount"></td>
+                <!-- <td><input type="text" class="form-control text-right" placeholder="Disposal in cost" currencyMask
+                    [(ngModel)]="txtFaCost"></td> -->
                 <td>
-                  <input placeholder="Date" type="text" class="form-control text-right" currencyMask>
+                  <input type="text" class="form-control text-right" placeholder="Depreciation cost" currencyMask
+                    [(ngModel)]="txtSurplus">
                 </td>
                 <td>
-                  <input type="date" class="form-control text-right">
+                  <p-calendar [(ngModel)]="dtpFaDate" inputId="icon"></p-calendar>
+                  <!-- <input type="date" class="form-control text-right" [(ngModel)]="dtpDate"> -->
                 </td>
-                <td class='inline-block text-center'><span class='fa fa-save cursorPointer pr-3 text-primary'></span>
+                <td class='inline-block text-center'>
+                  <button mat-icon-button color="primary" class='noneOutline' (click)="saveOV()">
+                    <mat-icon class='fa fa-save'></mat-icon>
+                  </button>
                 </td>
               </tr>
-              <tr>
-                <td class='text-center'>1</td>
-                <td class='text-right'>10,000</td>
-                <td class='text-right'>20,000</td>
-                <td class='text-center'>15-Jul-2018</td>
-                <td class='inline-block text-center'><span class='fa fa-edit cursorPointer pr-3 text-primary'></span>
-                  <span class='fa fa-trash-o cursorPointer text-danger pr-3'></span>
+
+              <tr *ngFor="let item of ovFaDetailList; let i=index;">
+                <td class='text-center'>{{i + 1}}</td>
+                <td class='text-right'>{{item.openingRevaluationAmount | number}}</td>
+                <td class='text-center'>{{item.openingRevaluationSurplus | number}}</td>
+                <td class='text-center'>{{item.year | date}}</td>
+                <td class='inline-block text-center'>
+                  <span class='fa fa-edit cursorPointer pr-3 text-primary' (click)="editOV(item)"></span>
+                  <span class='fa fa-trash-o cursorPointer text-danger pr-3' (click)="deleteFA(item, 'ov')"></span>
                 </td>
               </tr>
+
             </tbody>
           </table>
         </div>
@@ -741,7 +769,7 @@
     <div class="modal-content">
       <!-- Modal Header -->
       <div class="modal-header">
-        <h3 class="modal-title">Re-Valuation Cost - Revaluatoins</h3>
+        <h3 class="modal-title">Re-Valuation</h3>
         <button type="button" class="close" data-dismiss="modal">
           &times;
         </button>
@@ -755,37 +783,46 @@
             <thead>
               <tr>
                 <th class='text-center'>#</th>
-                <th class='text-right'>Amount</th>
+                <th class='text-right'>Revaluation</th>
                 <th class='text-right'>Surplus</th>
                 <th class='text-center'>As on</th>
                 <th class='text-center'>Actions</th>
               </tr>
             </thead>
             <tbody>
+
               <tr>
-                <td class='text-center'>2</td>
-                <td><input type="text" class="form-control text-right" currencyMask></td>
-                <td><input type="text" class="form-control text-right" currencyMask></td>
+                <td class='text-center'></td>
+                <td><input type="text" class="form-control text-right" placeholder="Depreciation cost" currencyMask
+                    [(ngModel)]="txtFaAmount"></td>
+                <!-- <td><input type="text" class="form-control text-right" placeholder="Disposal in cost" currencyMask
+                    [(ngModel)]="txtFaCost"></td> -->
                 <td>
-                  <input type="date" class="form-control text-right">
+                  <input type="text" class="form-control text-right" placeholder="Depreciation cost" currencyMask
+                    [(ngModel)]="txtSurplus">
+                </td>
+                <td>
+                  <p-calendar [(ngModel)]="dtpFaDate" inputId="icon"></p-calendar>
+                  <!-- <input type="date" class="form-control text-right" [(ngModel)]="dtpDate"> -->
                 </td>
                 <td class='inline-block text-center'>
-                  <button mat-icon-button color="primary" class='noneOutline'>
+                  <button mat-icon-button color="primary" class='noneOutline' (click)="saveV()">
                     <mat-icon class='fa fa-save'></mat-icon>
                   </button>
-                  <!-- <span
-                      class='fa fa-save cursorPointer pr-3 text-primary'></span> -->
                 </td>
               </tr>
-              <tr>
-                <td class='text-center'>1</td>
-                <td class='text-right'>10,000</td>
-                <td class='text-right'>30,000</td>
-                <td class='text-center'>15-Jul-2018</td>
-                <td class='inline-block text-center'><span class='fa fa-edit cursorPointer pr-3 text-primary'></span>
-                  <span class='fa fa-trash cursorPointer text-danger pr-3'></span>
+
+              <tr *ngFor="let item of vFaDetailList; let i=index;">
+                <td class='text-center'>{{i + 1}}</td>
+                <td class='text-right'>{{item.revaluationAmount | number}}</td>
+                <td class='text-center'>{{item.revalutionSurplus | number}}</td>
+                <td class='text-center'>{{item.year | date}}</td>
+                <td class='inline-block text-center'>
+                  <span class='fa fa-edit cursorPointer pr-3 text-primary' (click)="editV(item)"></span>
+                  <span class='fa fa-trash-o cursorPointer text-danger pr-3' (click)="deleteFA(item, 'v')"></span>
                 </td>
               </tr>
+
             </tbody>
           </table>
         </div>
@@ -807,7 +844,7 @@
     <div class="modal-content">
       <!-- Modal Header -->
       <div class="modal-header">
-        <h3 class="modal-title">Depriciation - Opening Balances</h3>
+        <h3 class="modal-title">Depreciation Opening</h3>
         <button type="button" class="close" data-dismiss="modal">
           &times;
         </button>
@@ -822,7 +859,7 @@
             <thead>
               <tr>
                 <th class='text-center'>#</th>
-                <th class='text-right'>Amount</th>
+                <th class='text-right'>Opening Depreciation</th>
                 <th class='text-center'>As on</th>
                 <th class='text-center'>Actions</th>
               </tr>
@@ -834,7 +871,7 @@
                     [(ngModel)]="txtFaAmount"></td>
                 <!-- <td><input type="text" class="form-control text-right" placeholder="Disposal in cost" currencyMask [(ngModel)]="txtFaCost"></td> -->
                 <td>
-                  <p-calendar [(ngModel)]="dtpFaDate" [showIcon]="true" inputId="icon"></p-calendar>
+                  <p-calendar [(ngModel)]="dtpFaDate" inputId="icon"></p-calendar>
                   <!-- <input type="date" class="form-control text-right" [(ngModel)]="dtpDate"> -->
                 </td>
                 <td class='inline-block text-center'>
@@ -850,7 +887,7 @@
                 <td class='text-center'>{{item.year | date}}</td>
                 <td class='inline-block text-center'>
                   <span class='fa fa-edit cursorPointer pr-3 text-primary' (click)="editOD(item)"></span>
-                  <!-- <span class='fa fa-trash-o cursorPointer text-danger pr-3' (click)="deleteFA(item, 'a')"></span> -->
+                  <span class='fa fa-trash-o cursorPointer text-danger pr-3' (click)="deleteFA(item, 'od')"></span>
                 </td>
               </tr>
 
@@ -875,7 +912,7 @@
     <div class="modal-content">
       <!-- Modal Header -->
       <div class="modal-header">
-        <h3 class="modal-title">Deprciation - Annual Depriciation</h3>
+        <h3 class="modal-title">Depreciation</h3>
         <button type="button" class="close" data-dismiss="modal">
           &times;
         </button>
@@ -889,34 +926,39 @@
             <thead>
               <tr>
                 <th class='text-center'>#</th>
-                <th class='text-right'>Amount</th>
+                <th class='text-right'>Depreciation</th>
                 <th class='text-center'>As on</th>
                 <th class='text-center'>Actions</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td class='text-center'>2</td>
-                <td><input type="text" class="form-control text-right" currencyMask></td>
+                <td class='text-center'></td>
+                <td><input type="text" class="form-control text-right" placeholder="Depreciation cost" currencyMask
+                    [(ngModel)]="txtFaAmount"></td>
+                <!-- <td><input type="text" class="form-control text-right" placeholder="Disposal in cost" currencyMask
+                    [(ngModel)]="txtFaCost"></td> -->
                 <td>
-                  <input type="date" class="form-control text-right">
+                  <p-calendar [(ngModel)]="dtpFaDate" inputId="icon"></p-calendar>
+                  <!-- <input type="date" class="form-control text-right" [(ngModel)]="dtpDate"> -->
                 </td>
                 <td class='inline-block text-center'>
-                  <button mat-icon-button color="primary" class='noneOutline'>
+                  <button mat-icon-button color="primary" class='noneOutline' (click)="saveD()">
                     <mat-icon class='fa fa-save'></mat-icon>
                   </button>
-                  <!-- <span
-                      class='fa fa-save cursorPointer pr-3 text-primary'></span> -->
                 </td>
               </tr>
-              <tr>
-                <td class='text-center'>1</td>
-                <td class='text-right'>10,000</td>
-                <td class='text-center'>15-Jul-2018</td>
-                <td class='inline-block text-center'><span class='fa fa-edit cursorPointer pr-3 text-primary'></span>
-                  <span class='fa fa-trash-o cursorPointer text-danger pr-3'></span>
+
+              <tr *ngFor="let item of dFaDetailList; let i=index;">
+                <td class='text-center'>{{i + 1}}</td>
+                <td class='text-right'>{{item.depreciationforYear | number}}</td>
+                <td class='text-center'>{{item.year | date}}</td>
+                <td class='inline-block text-center'>
+                  <span class='fa fa-edit cursorPointer pr-3 text-primary' (click)="editD(item)"></span>
+                  <span class='fa fa-trash-o cursorPointer text-danger pr-3' (click)="deleteFA(item, 'd')"></span>
                 </td>
               </tr>
+
             </tbody>
           </table>
         </div>
@@ -960,21 +1002,13 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td class='text-center'>17-Jul-2020</td>
-                <td>05.38.00</td>
-                <td>Gawadar Ratodero Project</td>
-                <td class='text-right'>10,000</td>
-                <td class='text-right'>0</td>
-                <td class="text-center">Addition</td>
-              </tr>
-              <tr>
-                <td class='text-center'>17-Jul-2020</td>
-                <td>20.01.00</td>
-                <td>Advance to LAC - Gawadar Ratodero Project</td>
-                <td class='text-right'>0</td>
-                <td class='text-right'>10,000</td>
-                <td class="text-center">Addition</td>
+              <tr *ngFor="let item of tempTransactionList; let i=index;">
+                <td class='text-center'>{{item.transDate | date}}</td>
+                <td>{{item.accountCode}}</td>
+                <td>{{item.accountTitle}}</td>
+                <td class='text-right'>{{item.debit}}</td>
+                <td class='text-right'>{{item.credit}}</td>
+                <td class="text-center">{{item.typeofEntry}}</td>
               </tr>
             </tbody>
           </table>
