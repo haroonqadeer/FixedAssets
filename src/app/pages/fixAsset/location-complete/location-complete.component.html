@@ -115,7 +115,7 @@
               <button *ngIf="item.status == 0" mat-raised-button color="primary" (click)='updateCheckList(item)'>
                 Done
               </button>
-              <button *ngIf="item.status == 1" mat-raised-button color="warn">
+              <button *ngIf="item.status == 1" mat-raised-button color="warn" (click)='undoneCheckList(item)'>
                 un-Done
               </button>
             </div>
@@ -129,10 +129,10 @@
             <label class="text-white"><b>Complete the Location</b> Enter PIN Code</label>
           </div>
           <div class="col-md-2">
-            <input type="text" class="form-control" />
+            <input type="password" class="form-control" maxlength="4" [(ngModel)]="txtPin" />
           </div>
           <div class="col-md-2">
-            <a class="btn-flip mr-3" data-back="Save" data-front="Save"></a>
+            <a class="btn-flip mr-3" data-back="Save" data-front="Save" (click)="verifyPin()"></a>
           </div>
         </div>
       </div>

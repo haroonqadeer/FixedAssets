@@ -19,8 +19,8 @@ declare var $: any;
   styleUrls: ["./create-building.component.scss"],
 })
 export class CreateBuildingComponent implements OnInit {
-  // serverUrl = "http://95.217.206.195:2007/api/";
-  serverUrl = "http://localhost:5090/api/";
+  serverUrl = "http://95.217.206.195:2007/api/";
+  // serverUrl = "http://localhost:5090/api/";
 
   loadingBar = false;
 
