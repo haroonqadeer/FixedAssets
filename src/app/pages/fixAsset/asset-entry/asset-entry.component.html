@@ -12,7 +12,7 @@
           <a (click)="toggleView = 'table'" class="cursorPointer">Table View</a>
         </li>
         <li>
-          <a (click)="printDiv()" class="cursorPointer" matBadge="{{ tagList.length }}" [matBadgeHidden]="hidden">Print
+          <a (click)="printTags()" class="cursorPointer" matBadge="{{ tagList.length }}" [matBadgeHidden]="hidden">Print
             Tags</a>
         </li>
         <li>
@@ -607,7 +607,8 @@
             </mat-form-field>
           </div>
           <div class="col-md-1 text-left mt-2 ml-n3">
-            <button mat-raised-button data-toggle="modal" data-target="#tagModal" class="noneOutline fa fa-search"></button>
+            <button mat-raised-button data-toggle="modal" data-target="#tagModal"
+              class="noneOutline fa fa-search"></button>
             <!-- <button mat-raised-button class='noneOutline text-size-large' data-toggle="modal" data-target="#tagModal">
               <mat-icon><span class='fa fa-search'></span></mat-icon>
             </button> -->
@@ -801,6 +802,14 @@
         </div>
       </div>
       <div class="col-md-3 bgLightGrey boxShadow-1 pt-3">
+        <div class="row">
+          <div class="col-md-2">
+            <button mat-raised-button color="primary" class='noneOutline' (click)='clearTags()'>Clear</button>
+          </div>
+          <!-- <div class="col-md-2 offset-md-7">
+            <button mat-raised-button class='noneOutline fa fa-undo'></button>
+          </div> -->
+        </div>
         <mat-card class="text-center mb-2" *ngFor="
             let item of tagList
               | paginate: { id:'tagP', itemsPerPage: tagItemPerPage, currentPage: tagP }
@@ -843,8 +852,8 @@
         <div class="p-5 text-center" style="min-width: 520px !important;">
           <div class="row">
             <div class="col-md-2">
-              <qr-code [value]="'129'" [size]="75"></qr-code>
-              <!-- {{item.tempid}} -->
+              <qr-code [value]="item.assetId" [size]="75"></qr-code>
+              <!-- tag no. {{item.assetId}} -->
             </div>
             <div class="col-md-10">
               <div class="row">
