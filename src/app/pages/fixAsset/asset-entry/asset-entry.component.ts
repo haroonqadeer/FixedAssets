@@ -22,8 +22,9 @@ declare var $: any;
   styleUrls: ["./asset-entry.component.scss"],
 })
 export class AssetEntryComponent implements OnInit {
-  serverUrl = "http://95.217.206.195:2007/api/";
+  // serverUrl = "http://95.217.206.195:2007/api/";
   //serverUrl = "http://localhost:12345/api/";
+  serverUrl = "http://localhost:5090/api/";
 
   loadingBar = true;
   //pagination variables for tag list
@@ -236,7 +237,9 @@ export class AssetEntryComponent implements OnInit {
     }
   }
 
-  printDiv() {
+  clearTags() {
+    debugger;
+    alert(this.tagList);
     setTimeout(() => {
       Swal.fire({
         title: "Do you want to reset tag list?",
@@ -266,7 +269,39 @@ export class AssetEntryComponent implements OnInit {
           Swal.fire("Cancelled", "", "error");
         }
       });
-    }, 1000);
+    }, 0);
+  }
+  printTags() {
+    // setTimeout(() => {
+    //   Swal.fire({
+    //     title: "Do you want to reset tag list?",
+    //     text: "",
+    //     icon: "warning",
+    //     showCancelButton: true,
+    //     confirmButtonText: "Yes",
+    //     cancelButtonText: "No",
+    //   }).then((result) => {
+    //     if (result.value) {
+    //       var saveData = {
+    //         userId: this.cookie.get("userID"),
+    //       };
+
+    //       var reqHeader = new HttpHeaders({
+    //         "Content-Type": "application/json",
+    //       });
+
+    //       this.http
+    //         .post(this.serverUrl + "resettaglist", saveData, {
+    //           headers: reqHeader,
+    //         })
+    //         .subscribe((data: any) => {
+    //           this.getTags();
+    //         });
+    //     } else if (result.dismiss === Swal.DismissReason.cancel) {
+    //       Swal.fire("Cancelled", "", "error");
+    //     }
+    //   });
+    // }, 1000);
 
     var printCss = this.printCSS();
 
@@ -323,6 +358,7 @@ export class AssetEntryComponent implements OnInit {
         tag: obj.tag,
         assetLocation: obj.assetLocation,
         custody: obj.custody,
+        assetId: obj.assetId,
       });
     } else {
       if (event == "A") {
@@ -333,6 +369,7 @@ export class AssetEntryComponent implements OnInit {
             tag: obj.tag,
             assetLocation: obj.assetLocation,
             custody: obj.custody,
+            assetId: obj.assetId,
           });
         }
       } else {
@@ -402,7 +439,6 @@ export class AssetEntryComponent implements OnInit {
   }
 
   getOldTags() {
-
     var reqHeader = new HttpHeaders({
       "Content-Type": "application/json",
       // Authorization: "Bearer " + Token,
@@ -453,7 +489,6 @@ export class AssetEntryComponent implements OnInit {
   }
 
   getTags() {
-    //debugger;
     var reqHeader = new HttpHeaders({
       "Content-Type": "application/json",
       // Authorization: "Bearer " + Token,

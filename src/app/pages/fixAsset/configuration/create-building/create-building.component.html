@@ -4,16 +4,17 @@
     <h1>Create Building</h1>
   </div>
 </div>
+<div class="loader" *ngIf="loadingBar">Loading...</div>
 
 <!-- container -->
-<div class="container-fluid boxShadow-1 bg-white">
+<div class="container-fluid boxShadow-1 bg-white" *ngIf="!loadingBar">
   <div class="row">
     <!-- entry form -->
     <div class="col-md-4 pl-3 pr-0 border">
       <div class="row bgGrey">
         <div class="col-md-12 pt-4">
           <h3 class="text-white pb-2">
-            Add / Edit Building
+            {{heading}} Building
           </h3>
         </div>
       </div>
@@ -22,8 +23,24 @@
         <div class="col-md-12 pt-2">
           <mat-form-field class='w-100'>
             <mat-label>Building Location</mat-label>
-            <mat-select>
-              <mat-option value="option">Option</mat-option>
+            <mat-select [(ngModel)]="cmbLocation" (ngModelChange)="filterTable()">
+              <mat-option>
+                <ngx-mat-select-search [(ngModel)]="lblLocationSearch" [placeholderLabel]="'Search...'"
+                  [noEntriesFoundLabel]="'Not found'" name="search"></ngx-mat-select-search>
+              </mat-option>
+              <mat-option
+                *ngFor="
+                  let item of locationList | search: 'subLocationDescription, officeTypeDescription, mainLocationDescription, provinceName':lblLocationSearch"
+                [value]="item.subLocID">
+                <table class="table">
+                  <tr>
+                    <td class="col-3">{{ item.subLocationDescription }}</td>
+                    <td class="col-3">{{ item.officeTypeDescription }}</td>
+                    <td class="col-3">{{ item.mainLocationDescription }}</td>
+                    <td class="col-3">{{ item.provinceName }}</td>
+                  </tr>
+                </table>
+              </mat-option>
             </mat-select>
           </mat-form-field>
         </div>
@@ -33,7 +50,7 @@
         <div class="col-md-12 pt-2">
           <mat-form-field class='w-100'>
             <mat-label>Building Short Name</mat-label>
-            <input matInput>
+            <input matInput [(ngModel)]="txtShortName">
           </mat-form-field>
         </div>
       </div>
@@ -42,7 +59,7 @@
         <div class="col-md-12 pt-2">
           <mat-form-field class='w-100'>
             <mat-label>Building Description</mat-label>
-            <input matInput>
+            <input matInput [(ngModel)]="txtDescription">
           </mat-form-field>
         </div>
       </div>
@@ -51,7 +68,7 @@
         <div class="col-md-12 pt-2">
           <mat-form-field class='w-100'>
             <mat-label>Address</mat-label>
-            <textarea matInput></textarea>
+            <textarea matInput [(ngModel)]="txtAddress"></textarea>
           </mat-form-field>
         </div>
       </div>
@@ -60,8 +77,16 @@
         <div class="col-md-12 pt-2">
           <mat-form-field class='w-100'>
             <mat-label>Project Name</mat-label>
-            <mat-select>
-              <mat-option value="option">Option</mat-option>
+            <mat-select [(ngModel)]="cmbProject" (ngModelChange)="filterTable()">
+              <mat-option>
+                <ngx-mat-select-search [(ngModel)]="lblProjectSearch" [placeholderLabel]="'Search...'"
+                  [noEntriesFoundLabel]="'Not found'" name="search"></ngx-mat-select-search>
+              </mat-option>
+              <mat-option *ngFor="
+                  let item of projectList | search: 'projectShortName, projectName':lblProjectSearch"
+                [value]="item.projectID">
+                {{ item.projectShortName }} - {{item.projectName}}
+              </mat-option>
             </mat-select>
           </mat-form-field>
         </div>
@@ -71,9 +96,7 @@
         <div class="col-md-12 pt-2">
           <mat-form-field class='w-100'>
             <mat-label>Package Name</mat-label>
-            <mat-select>
-              <mat-option value="option">Option</mat-option>
-            </mat-select>
+            <input matInput [(ngModel)]="txtPackage">
           </mat-form-field>
         </div>
       </div>
@@ -81,8 +104,8 @@
       <div class="footer w-100">
         <div class="row border-top bgGrey pt-2 pb-2 pl-3">
           <div class="col-md-12 inline-block">
-            <a class="btn-flip mr-3" data-back="Save" data-front="Save"></a>
-            <a class="btn-flip" data-back="Reset" data-front="Reset"></a>
+            <a class="btn-flip mr-3" data-back="Save" data-front="Save" (click)="save()"></a>
+            <a class="btn-flip" data-back="Reset" data-front="Reset" (click)="clearAll()"></a>
           </div>
         </div>
       </div>
@@ -94,7 +117,7 @@
           <mat-form-field class="w-100">
             <mat-label>search...</mat-label>
             <mat-icon matPrefix class='fa fa-search'></mat-icon>
-            <input matInput>
+            <input matInput [(ngModel)]="tblSearch">
           </mat-form-field>
         </div>
       </div>
@@ -104,6 +127,7 @@
             <tr>
               <th class="sticky-top" scope='col'>#</th>
               <th class="sticky-top" scope='col'>Location</th>
+              <th class="sticky-top" scope='col'>Office Type</th>
               <th class="sticky-top" scope='col'>Short Name</th>
               <th class="sticky-top" scope='col'>Description</th>
               <th class="sticky-top" scope='col'>Project</th>
@@ -111,40 +135,17 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td class="text-center">1</td>
-              <td>Islamabad</td>
-              <td>HQ</td>
-              <td>NHA Head Quarter</td>
-              <td>Gawadar Ratodero</td>
-              <td class='inline-block text-center'><span class='fa fa-edit cursorPointer pr-3 text-primary'></span>
-                <span class='fa fa-trash-o cursorPointer text-danger pr-3'></span>
-                <mat-slide-toggle>
-                </mat-slide-toggle>
-              </td>
-            </tr>
-            <tr>
-              <td class="text-center">2</td>
-              <td>Islamabad</td>
-              <td>HQ</td>
-              <td>NHA Head Quarter</td>
-              <td>Gawadar Ratodero</td>
-              <td class='inline-block text-center'><span class='fa fa-edit cursorPointer pr-3 text-primary'></span>
-                <span class='fa fa-trash-o cursorPointer text-danger pr-3'></span>
-                <mat-slide-toggle>
-                </mat-slide-toggle>
-              </td>
-            </tr>
-            <tr>
-              <td class="text-center">3</td>
-              <td>Islamabad</td>
-              <td>HQ</td>
-              <td>NHA Head Quarter</td>
-              <td>Gawadar Ratodero</td>
-              <td class='inline-block text-center'><span class='fa fa-edit cursorPointer pr-3 text-primary'></span>
-                <span class='fa fa-trash-o cursorPointer text-danger pr-3'></span>
-                <mat-slide-toggle>
-                </mat-slide-toggle>
+            <tr
+              *ngFor="let item of buildingList | sort: 'buildingId : desc' | search:'subLocationDescription, officeTypeDescription, buildingShortName, buildingDescription, projectName':tblSearch let i=index">
+              <td class="text-center">{{i+1}}</td>
+              <td>{{item.subLocationDescription}}</td>
+              <td>{{item.officeTypeDescription}}</td>
+              <td>{{item.buildingShortName}}</td>
+              <td>{{item.buildingDescription}}</td>
+              <td>{{item.projectName}}</td>
+              <td class='inline-block text-center'><span class='fa fa-edit cursorPointer pr-3 text-primary'
+                  (click)="genPin(item,'edit',0)"></span>
+                <span class='fa fa-trash-o cursorPointer text-danger pr-3' (click)="genPin(item,'delete',0)"></span>
               </td>
             </tr>
           </tbody>
@@ -153,3 +154,51 @@
     </div>
   </div>
 </div><!-- end container -->
+
+<!-- Generate Pin Modal Windw -->
+<!-- The Modal -->
+<div class="modal animate__animated animate__bounceIn" id="genPinModal">
+  <div class="modal-dialog modal-md">
+    <div class="modal-content">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h3 class="modal-title">Generate Pin</h3>
+        <button type="button" class="close" data-dismiss="modal">
+          &times;
+        </button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+
+        <div class="row">
+          <div class="col-md-12">
+            <mat-form-field class="w-100">
+              <mat-label>Enter Pin</mat-label>
+              <input matInput type="password" maxlength="4" (keydown)="onKeyPress($event)" [(ngModel)]="txtPin" />
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <!-- <div class="col-md-4">
+            <button mat-raised-button color="warn" (click)="resetPin()">
+              Generate Pin
+            </button>
+          </div> -->
+          <div class="col-md-4">
+            <button mat-raised-button color="primary" (click)="allowUpdation()">
+              OK
+            </button>
+          </div>
+        </div>
+
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
