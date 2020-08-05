@@ -770,6 +770,7 @@
                 <th class='text-right'>Revaluation Amount</th>
                 <th class='text-right'>Revaluation Surplus</th>
                 <th class='text-center'>As on</th>
+                <th class='text-center'>File</th>
                 <th class='text-center'>Actions</th>
               </tr>
             </thead>
@@ -787,6 +788,7 @@
                     <mat-datepicker #picker4></mat-datepicker>
                   </mat-form-field>
                 </td>
+                <td></td>
                 <td class='inline-block text-center'>
                   <button mat-icon-button color="primary" class='noneOutline' (click)="saveRV()"><mat-icon class='fa fa-save'></mat-icon></button>
                 </td>
@@ -794,7 +796,7 @@
 
               <tr>
                 <td class='text-center'></td>
-                <td colspan="4">
+                <td colspan="5">
                   <div class="custom-file">
                     <input type="file" class="custom-file-input3" id="customFile3" [(ngModel)]="filePicker" (change)="onFileSelected($event);" accept=".pdf" />
                     <label class="custom-file-label" for="customFile3">Choose PDF file</label>
