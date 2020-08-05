@@ -81,6 +81,7 @@ export class NHAFreeholdLandComponent implements OnInit {
     lblOpeningReval = 0;
     lblReval = 0;
     lblTransactions = 0;
+    lblOpeningSurplus = 0;
     lblSurplus = 0;
 
     FaDetailID = 0;
@@ -201,15 +202,15 @@ export class NHAFreeholdLandComponent implements OnInit {
             };
 
             //var token = localStorage.getItem(this.tokenKey);
-
             //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
+            
             this.loadingBar = true;
             var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
             this.http.post(this.serverUrl + "uploadfile", saveData, { headers: reqHeader }).subscribe((data: any) => {
                 if (data.msg == "File Uploaded Successfully" ) {
                     this.toastr.successToastr(data.msg, "Success!", {toastTimeout: 2500,});
-                    this.clear()
+                    this.clearFaDetail();
                     this.loadingBar = false;
                     return false;
                 } else {
@@ -504,6 +505,7 @@ export class NHAFreeholdLandComponent implements OnInit {
         this.lblReval = 0;
         this.lblTransactions = 0;
         this.lblSurplus = 0;
+        this.lblOpeningSurplus = 0;
 
         this.oFaDetailList = [];
         this.aFaDetailList = [];
@@ -511,17 +513,6 @@ export class NHAFreeholdLandComponent implements OnInit {
         this.vFaDetailList = [];
         this.tempTransactionList = [];
 
-
-        this.filePicker = "";
-        this.filePicker = undefined;
-        this.file = undefined;
-        this.selectedFile = null;
-
-        var fileName = "Choose XLSX file";
-        $(".custom-file-input")
-        .siblings(".custom-file-label")
-        .addClass("selected")
-        .html(fileName);
 
     }
 
@@ -613,7 +604,7 @@ export class NHAFreeholdLandComponent implements OnInit {
             return false;
         } else {
 
-            //var reqDate = this.app.convertDate(this.acquisitionDate);
+            var reqDate = this.app.convertDate(this.txtFaDate);
 
             var reqSpType = "Insert";
             if (this.FaDetailID > 0) {
@@ -624,7 +615,7 @@ export class NHAFreeholdLandComponent implements OnInit {
                 FixedAssetID: this.fixAssetID,
                 TypeofEntry: 'Cost',
                 OpeningCost: this.txtFaAmount,
-                Year: this.txtFaDate,
+                Year: reqDate,
                 FAdetailID: this.FaDetailID,
                 Userid: this.cookie.get("userID"),
                 SpType: reqSpType
@@ -693,7 +684,8 @@ export class NHAFreeholdLandComponent implements OnInit {
             return false;
         } else {
 
-            //var reqDate = this.app.convertDate(this.acquisitionDate);
+            var reqDate = this.app.convertDate(this.txtFaDate);
+
             var reqFaAmount = parseFloat(this.txtFaAmount);
             if(this.txtFaAmount == ""){
                 reqFaAmount = 0;
@@ -714,7 +706,7 @@ export class NHAFreeholdLandComponent implements OnInit {
                 TypeofEntry: 'Cost',
                 AdditioninCost: reqFaAmount,
                 DisposalinCost: reqFaCost,
-                Year: this.txtFaDate,
+                Year: reqDate,
                 FAdetailID: this.FaDetailID,
                 Userid: this.cookie.get("userID"),
                 SpType: reqSpType
@@ -782,7 +774,8 @@ export class NHAFreeholdLandComponent implements OnInit {
             return false;
         } else {
 
-            //var reqDate = this.app.convertDate(this.acquisitionDate);
+            var reqDate = this.app.convertDate(this.txtFaDate);
+
             var reqFaAmount = parseFloat(this.txtFaAmount);
             if(this.txtFaAmount == ""){
                 reqFaAmount = 0;
@@ -803,7 +796,7 @@ export class NHAFreeholdLandComponent implements OnInit {
                 TypeofEntry: 'Revalued',
                 OpeningRevaluationAmount: reqFaAmount,
                 OpeningRevaluationSurplus: reqFaCost,
-                Year: this.txtFaDate,
+                Year: reqDate,
                 FAdetailID: this.FaDetailID,
                 Userid: this.cookie.get("userID"),
                 SpType: reqSpType
@@ -854,7 +847,7 @@ export class NHAFreeholdLandComponent implements OnInit {
         if(this.txtFaCost == ""){
             this.txtFaCost = '0';
         }
-        
+
         if (this.txtFaAmount == undefined ||  parseFloat(this.txtFaAmount) < 0) {
             this.toastr.errorToastr("Please Enter Revaluation Amount", "Error !", {toastTimeout: 2500,});
             return false;
@@ -867,12 +860,30 @@ export class NHAFreeholdLandComponent implements OnInit {
         } else if (this.txtFaDate == undefined || this.txtFaDate == null) {
             this.toastr.errorToastr("Please Enter Date", "Error !", {toastTimeout: 2500,});
             return false;
+        } else if (this.filePicker == undefined) { 
+            this.toastr.errorToastr("Please Select Document", "Error", {toastTimeout: 2500,});
+            return false;
         } else if (this.fixAssetID == 0) {
             this.toastr.errorToastr("Please Enter Complete Information", "Error !", {toastTimeout: 2500,});
             return false;
         } else {
 
-            //var reqDate = this.app.convertDate(this.acquisitionDate);
+            var filePath = null;
+            if (this.file != undefined) {
+                filePath = this.filePicker;
+            }
+
+            var fileNameExt = this.filePicker.substr(
+                this.filePicker.lastIndexOf(".") + 1
+            );
+
+            if (fileNameExt != "pdf") {
+                this.toastr.errorToastr("Please Select PDF File", "Error", { toastTimeout: 2500,});
+                return false;
+            }
+
+            var reqDate = this.app.convertDate(this.txtFaDate);
+
             var reqFaAmount = parseFloat(this.txtFaAmount);
             if(this.txtFaAmount == ""){
                 reqFaAmount = 0;
@@ -888,13 +899,17 @@ export class NHAFreeholdLandComponent implements OnInit {
                 reqSpType = "Update";
             }
 
+            var fPath = "C:/inetpub/wwwroot/2008_FAR_Proj/assets/files";
+
             var SaveData = {
                 FixedAssetID: this.fixAssetID,
                 TypeofEntry: 'Revalued',
                 revaluationAmount: reqFaAmount,
                 revalutionSurplus: reqFaCost,
-                Year: this.txtFaDate,
+                Year: reqDate,
                 FAdetailID: this.FaDetailID,
+                File: this.file,
+                FilePath: fPath,
                 Userid: this.cookie.get("userID"),
                 SpType: reqSpType
             };
@@ -994,6 +1009,18 @@ export class NHAFreeholdLandComponent implements OnInit {
         this.txtFaAmount = '';
         this.txtFaCost = '';
         this.txtFaDate = new Date();
+
+        this.filePicker = "";
+        this.filePicker = undefined;
+        this.file = undefined;
+        this.selectedFile = null;
+
+        var fileName = "Choose XLSX file";
+        $(".custom-file-input")
+        .siblings(".custom-file-label")
+        .addClass("selected")
+        .html(fileName);
+
     }
 
 
@@ -1078,6 +1105,7 @@ export class NHAFreeholdLandComponent implements OnInit {
                 this.lblReval = tempList[0].revaluationAmount;
                 this.lblTransactions = tempList[0].nooftransactions;
                 this.lblSurplus = tempList[0].revalutionSurplus;
+                this.lblOpeningSurplus = tempList[0].openingRevaluationSurplus;
             }
 
         }
