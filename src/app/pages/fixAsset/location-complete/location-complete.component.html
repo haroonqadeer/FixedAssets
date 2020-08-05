@@ -70,7 +70,8 @@
                     <span *ngIf="item.eDoc === null && item.fileRequired == 1">
                       <div class="custom-file">
                         <input type="file" class="custom-file-input">
-                        <label class="custom-file-label" [(ngModel)]="item.eDoc" for="customFile">Upload File</label>
+                        <label class="custom-file-label" [(ngModel)]="item.eDoc" for="customFile"
+                          (change)="onFileSelected($event,item)">Upload File</label>
                       </div>
                     </span>
                     <span *ngIf="item.eDoc != null && item.fileRequired == 1"

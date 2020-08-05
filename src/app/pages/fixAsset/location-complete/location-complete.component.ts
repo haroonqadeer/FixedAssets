@@ -94,6 +94,38 @@ export class LocationCompleteComponent implements OnInit {
       this.locationCheckList[i].status = !item.status;
       return false;
     } else {
+      //update
+      alert("");
+    }
+  }
+
+  selectedFile: File;
+  showPdf = "";
+  lblFileName = "";
+  imagePath = "";
+
+  onFileSelected(event, item) {
+    if (event.target.files[0].type == "application/pdf") {
+      this.selectedFile = <File>event.target.files[0];
+
+      let reader = new FileReader();
+
+      reader.onloadend = (e: any) => {
+        item.eDoc = reader.result;
+
+        var splitImg = item.eDoc.split(",")[1];
+        item.eDoc = splitImg;
+        this.showPdf = e.target.result;
+        this.lblFileName = this.selectedFile.name;
+      };
+
+      reader.readAsDataURL(this.selectedFile);
+    } else {
+      this.toastr.errorToastr("Please Select PDF File", "Error", {
+        toastTimeout: 2500,
+      });
+
+      this.selectedFile = null;
     }
   }
 }
