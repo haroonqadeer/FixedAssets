@@ -37,11 +37,11 @@
           <input matInput [(ngModel)]="txtSearch" />
         </mat-form-field>
       </div>
-      <div class="col-md-2 pr-3 align-self-center noneOutline">
+      <!-- <div class="col-md-2 pr-3 align-self-center noneOutline">
         <button mat-button color="warn" data-toggle="modal" data-target="#advanceSearchModal">
           Advance Search
         </button>
-      </div>
+      </div> -->
     </div>
 
     <!-- table -->
@@ -51,6 +51,7 @@
           <th>Action</th>
           <th>OfficeDescription</th>
           <th>RoadShortName</th>
+          <th>ProjectShortName</th>
           <th>LandMeasureType</th>
           <th>AreaAcquiredKanal</th>
           <th>AreaAcquiredMarla</th>
@@ -64,13 +65,14 @@
           <th>OpeningRevaluation</th>
         </thead>
         <tbody>
-          <tr *ngFor="let item of roadList | search: 'accountCode, projectName':txtSearch">
+          <tr *ngFor="let item of roadList | search: 'officeDescription, roadShortName, projectShortName':txtSearch">
             <td class="inline-block">
               <span class="fa fa-edit cursorPointer pr-3 text-primary" (click)="edit(item)"></span>
               <span class="fa fa-trash-o cursorPointer text-danger" (click)="delete(item)"></span>
             </td>
             <td>{{item.officeDescription}}</td>
             <td>{{item.roadShortName}}</td>
+            <td>{{item.projectShortName}}</td>
             <td>{{item.landMeasureType}}</td>
             <td>{{item.areaAcquiredKanal}}</td>
             <td>{{item.areaAcquiredMarla}}</td>
@@ -597,7 +599,7 @@
                 <td><input type="text" class="form-control text-right" currencyMask [(ngModel)]="txtFaAmount"></td>
                 <td>
                   <!-- <p-calendar [(ngModel)]="dtpFaDate" inputId="icon"></p-calendar> -->
-                  <mat-form-field class='w-100'>
+                  <mat-form-field class='w-100 mt-n3'>
                     <input matInput [matDatepicker]="picker1" [(ngModel)]="dtpFaDate">
                     <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                     <mat-datepicker #picker1></mat-datepicker>
@@ -658,7 +660,12 @@
                 <td><input type="text" class="form-control text-right" placeholder="Disposal in cost" currencyMask
                     [(ngModel)]="txtFaCost"></td>
                 <td>
-                  <p-calendar [(ngModel)]="dtpFaDate" inputId="icon"></p-calendar>
+                  <!-- <p-calendar [(ngModel)]="dtpFaDate" inputId="icon"></p-calendar> -->
+                  <mat-form-field class='w-100 mt-n3'>
+                    <input matInput [matDatepicker]="picker1" [(ngModel)]="dtpFaDate">
+                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                    <mat-datepicker #picker1></mat-datepicker>
+                  </mat-form-field>
                   <!-- <input type="date" class="form-control text-right" [(ngModel)]="dtpDate"> -->
                 </td>
                 <td class='inline-block text-center'>
@@ -732,7 +739,12 @@
                     [(ngModel)]="txtSurplus">
                 </td>
                 <td>
-                  <p-calendar [(ngModel)]="dtpFaDate" inputId="icon"></p-calendar>
+                  <!-- <p-calendar [(ngModel)]="dtpFaDate" inputId="icon"></p-calendar> -->
+                  <mat-form-field class='w-100 mt-n3'>
+                    <input matInput [matDatepicker]="picker1" [(ngModel)]="dtpFaDate">
+                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                    <mat-datepicker #picker1></mat-datepicker>
+                  </mat-form-field>
                   <!-- <input type="date" class="form-control text-right" [(ngModel)]="dtpDate"> -->
                 </td>
                 <td class='inline-block text-center'>
@@ -791,6 +803,7 @@
                 <th class='text-right'>Revaluation</th>
                 <th class='text-right'>Surplus</th>
                 <th class='text-center'>As on</th>
+                <th class='text-center'>File</th>
                 <th class='text-center'>Actions</th>
               </tr>
             </thead>
@@ -807,21 +820,39 @@
                     [(ngModel)]="txtSurplus">
                 </td>
                 <td>
-                  <p-calendar [(ngModel)]="dtpFaDate" inputId="icon"></p-calendar>
+                  <!-- <p-calendar [(ngModel)]="dtpFaDate" inputId="icon"></p-calendar> -->
+                  <mat-form-field class='w-100 mt-n3'>
+                    <input matInput [matDatepicker]="picker1" [(ngModel)]="dtpFaDate">
+                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                    <mat-datepicker #picker1></mat-datepicker>
+                  </mat-form-field>
                   <!-- <input type="date" class="form-control text-right" [(ngModel)]="dtpDate"> -->
                 </td>
+                <td></td>
                 <td class='inline-block text-center'>
                   <button mat-icon-button color="primary" class='noneOutline' (click)="saveV()">
                     <mat-icon class='fa fa-save'></mat-icon>
                   </button>
                 </td>
               </tr>
-
+              <tr>
+                <td class='text-center'></td>
+                <td colspan="5">
+                  <div class="custom-file">
+                    <input type="file" class="custom-file-input3" id="customFile3" [(ngModel)]="filePicker"
+                      (change)="onFileSelected($event);" accept=".pdf" />
+                    <label class="custom-file-label" for="customFile3">Choose PDF file</label>
+                  </div>
+                </td>
+              </tr>
               <tr *ngFor="let item of vFaDetailList; let i=index;">
                 <td class='text-center'>{{i + 1}}</td>
                 <td class='text-right'>{{item.revaluationAmount | number}}</td>
                 <td class='text-center'>{{item.revalutionSurplus | number}}</td>
                 <td class='text-center'>{{item.year | date}}</td>
+                <td class='text-center'>
+                  <a href="../../../../assets/files/{{item.faDetailID}}.pdf" download>download file</a>
+                </td>
                 <td class='inline-block text-center'>
                   <span class='fa fa-edit cursorPointer pr-3 text-primary' (click)="editV(item)"></span>
                   <span class='fa fa-trash-o cursorPointer text-danger pr-3' (click)="deleteFA(item, 'v')"></span>
@@ -876,7 +907,12 @@
                     [(ngModel)]="txtFaAmount"></td>
                 <!-- <td><input type="text" class="form-control text-right" placeholder="Disposal in cost" currencyMask [(ngModel)]="txtFaCost"></td> -->
                 <td>
-                  <p-calendar [(ngModel)]="dtpFaDate" inputId="icon"></p-calendar>
+                  <!-- <p-calendar [(ngModel)]="dtpFaDate" inputId="icon"></p-calendar> -->
+                  <mat-form-field class='w-100 mt-n3'>
+                    <input matInput [matDatepicker]="picker1" [(ngModel)]="dtpFaDate">
+                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                    <mat-datepicker #picker1></mat-datepicker>
+                  </mat-form-field>
                   <!-- <input type="date" class="form-control text-right" [(ngModel)]="dtpDate"> -->
                 </td>
                 <td class='inline-block text-center'>
@@ -944,7 +980,12 @@
                 <!-- <td><input type="text" class="form-control text-right" placeholder="Disposal in cost" currencyMask
                     [(ngModel)]="txtFaCost"></td> -->
                 <td>
-                  <p-calendar [(ngModel)]="dtpFaDate" inputId="icon"></p-calendar>
+                  <!-- <p-calendar [(ngModel)]="dtpFaDate" inputId="icon"></p-calendar> -->
+                  <mat-form-field class='w-100 mt-n3'>
+                    <input matInput [matDatepicker]="picker1" [(ngModel)]="dtpFaDate">
+                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                    <mat-datepicker #picker1></mat-datepicker>
+                  </mat-form-field>
                   <!-- <input type="date" class="form-control text-right" [(ngModel)]="dtpDate"> -->
                 </td>
                 <td class='inline-block text-center'>

@@ -88,6 +88,10 @@ export class NHARoadsComponent implements OnInit {
   dFaDetailList = [];
   tempTransactionList = [];
 
+  filePicker = "";
+  selectedFile: File = null;
+  file;
+
   constructor(
     private router: Router,
     private cookie: CookieService,
@@ -106,6 +110,31 @@ export class NHARoadsComponent implements OnInit {
     this.getFaDetail();
   }
 
+  onFileSelected(event) {
+    if (event.target.files[0].type == "application/pdf") {
+      this.selectedFile = <File>event.target.files[0];
+      let reader = new FileReader();
+
+      reader.onloadend = (e) => {
+        this.file = reader.result;
+
+        var splitFile = this.file.split(",")[1];
+        this.file = splitFile;
+      };
+
+      reader.readAsDataURL(this.selectedFile);
+    } else {
+      this.toastr.errorToastr("Please Select PDF File", "Error", {
+        toastTimeout: 2500,
+      });
+
+      this.filePicker = "";
+      this.filePicker = undefined;
+      this.file = undefined;
+      this.selectedFile = null;
+    }
+  }
+
   getRoadDetail() {
     this.loadingBar = true;
     var reqHeader = new HttpHeaders({
@@ -114,8 +143,8 @@ export class NHARoadsComponent implements OnInit {
     });
 
     this.http
-      // .get(this.serverUrl + "getRoadDetail", { headers: reqHeader })
-      .get("http://localhost:5090/api/getRoadDetail", { headers: reqHeader })
+      .get(this.serverUrl + "getRoadDetail", { headers: reqHeader })
+      // .get("http://localhost:5090/api/getRoadDetail", { headers: reqHeader })
       .subscribe((data: any) => {
         this.roadList = data;
         this.loadingBar = false;
@@ -510,6 +539,7 @@ export class NHARoadsComponent implements OnInit {
         OfficeSecID: this.ddlAccSec,
         ProjectID: this.ddlProject,
         RoadId: this.ddlRoads,
+        PackageName: this.txtProPackage,
         DateofNationalization: dtNation,
         ConstructionFrom: dtConstFrom,
         ConstructionTo: dtConstTo,
@@ -529,10 +559,10 @@ export class NHARoadsComponent implements OnInit {
       var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
       this.http
-        // .post(this.serverUrl + "sudRoad", SaveData, { headers: reqHeader })
-        .post("http://localhost:5090/api/sudRoad", SaveData, {
-          headers: reqHeader,
-        })
+        .post(this.serverUrl + "sudRoad", SaveData, { headers: reqHeader })
+        // .post("http://localhost:5090/api/sudRoad", SaveData, {
+        //   headers: reqHeader,
+        // })
         .subscribe((data: any) => {
           if (data.msg == "Success") {
             if (this.lblFixAssetID == 0) {
@@ -625,10 +655,10 @@ export class NHARoadsComponent implements OnInit {
           });
 
           this.http
-            // .post(this.serverUrl + "sudRoad", SaveData, { headers: reqHeader })
-            .post("http://localhost:5090/api/sudRoad", SaveData, {
-              headers: reqHeader,
-            })
+            .post(this.serverUrl + "sudRoad", SaveData, { headers: reqHeader })
+            // .post("http://localhost:5090/api/sudRoad", SaveData, {
+            //   headers: reqHeader,
+            // })
             .subscribe((data: any) => {
               if (data.msg == "Success") {
                 this.toastr.successToastr(
@@ -1048,6 +1078,9 @@ export class NHARoadsComponent implements OnInit {
 
       this.http
         .post(this.serverUrl + "sudoc", SaveData, { headers: reqHeader })
+        // .post("http://localhost:5090/api/sudoc", SaveData, {
+        //   headers: reqHeader,
+        // })
         .subscribe((data: any) => {
           if (data.msg == "Success") {
             if (this.FaDetailID == 0) {
@@ -1246,12 +1279,33 @@ export class NHARoadsComponent implements OnInit {
         toastTimeout: 2500,
       });
       return false;
+    } else if (this.filePicker == undefined) {
+      this.toastr.errorToastr("Please Select Document", "Error", {
+        toastTimeout: 2500,
+      });
+      return false;
     } else if (this.lblFixAssetID == 0) {
       this.toastr.errorToastr("Please Enter Complete Information", "Error !", {
         toastTimeout: 2500,
       });
       return false;
     } else {
+      var filePath = null;
+      if (this.file != undefined) {
+        filePath = this.filePicker;
+      }
+
+      var fileNameExt = this.filePicker.substr(
+        this.filePicker.lastIndexOf(".") + 1
+      );
+
+      if (fileNameExt != "pdf") {
+        this.toastr.errorToastr("Please Select PDF File", "Error", {
+          toastTimeout: 2500,
+        });
+        return false;
+      }
+
       //var reqDate = this.app.convertDate(this.acquisitionDate);
       var reqFaAmount = parseFloat(this.txtFaAmount);
       if (this.txtFaAmount == "") {
@@ -1270,6 +1324,8 @@ export class NHARoadsComponent implements OnInit {
         reqSpType = "Update";
       }
 
+      var fPath = "C:/inetpub/wwwroot/2008_FAR_Proj/assets/files";
+
       var SaveData = {
         FixedAssetID: this.lblFixAssetID,
         TypeofEntry: "Revalued",
@@ -1277,6 +1333,8 @@ export class NHARoadsComponent implements OnInit {
         RevalutionSurplus: reqSurplus,
         Year: reqDate,
         FAdetailID: this.FaDetailID,
+        File: this.file,
+        FilePath: fPath,
         Userid: this.cookie.get("userID"),
         SpType: reqSpType,
       };
@@ -1425,5 +1483,10 @@ export class NHARoadsComponent implements OnInit {
     this.txtFaCost = "";
     this.dtpFaDate = new Date();
     this.txtSurplus = "";
+
+    this.filePicker = "";
+    this.filePicker = undefined;
+    this.file = undefined;
+    this.selectedFile = null;
   }
 }
