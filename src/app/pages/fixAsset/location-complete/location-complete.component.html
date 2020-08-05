@@ -67,14 +67,14 @@
                     <span *ngIf="item.fileRequired == 1">Yes</span>
                   </td>
                   <td class='text-center'>
-                    <span *ngIf="item.eDoc === null && item.fileRequired == 1">
+                    <span *ngIf="item.eFile == null && item.fileRequired == 1">
                       <div class="custom-file">
-                        <input type="file" class="custom-file-input">
-                        <label class="custom-file-label" [(ngModel)]="item.eDoc" for="customFile"
-                          (change)="onFileSelected($event,item)">Upload File</label>
+                        <input type="file" class="custom-file-input" [(ngModel)]="item.eDoc"
+                          (change)="onFileSelected($event,item)">
+                        <label class="custom-file-label" for="customFile">Upload File</label>
                       </div>
                     </span>
-                    <span *ngIf="item.eDoc != null && item.fileRequired == 1"
+                    <span *ngIf="item.eFile != null && item.fileRequired == 1"
                       class='fa fa-file-pdf-o cursorPointer'></span>
                   </td>
                   <td class='text-center'>
