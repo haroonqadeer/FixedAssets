@@ -17,8 +17,8 @@ declare var $: any;
   styleUrls: ["./app.component.scss"],
 })
 export class AppComponent {
-  serverUrl = "http://95.217.206.195:2007/api/";
-  //serverUrl = "http://localhost:12345/api/";
+  // serverUrl = "http://95.217.206.195:2007/api/";
+  serverUrl = "http://localhost:5090/api/";
 
   title = "FixedAssets";
   userName = "";
@@ -80,7 +80,7 @@ export class AppComponent {
     } else {
       this._cuId = this.cookie.get("userID");
       this._cuName = this.cookie.get("userName");
-
+      this.userRole = this.cookie.get("roleName");
       //this.router.navigate(["importsurveyresult"]);
       this.userName = this.cookie.get("userName");
       $("#menuId").show();

@@ -13,33 +13,45 @@
   </div><!-- end menu header -->
 
   <ul>
+    <li>
+      <a href="" routerLinkActive="home" routerLink="home" (click)="closeNav()"><i class="fa fa-home"></i>
+        <span class='pl-3'>Home</span></a>
+    </li>
     <li *ngIf="userRole == 'Admin' || userRole == 'Super User'">
       <a href="" routerLinkActive="active" routerLink="dashboard" (click)="closeNav()"><i class="fa fa-dashboard"></i>
         <span class='pl-3'>Dashboard</span></a>
-
     </li>
-    <li>
+    <li
+      *ngIf="userRole == 'Data Entry' || userRole == 'Moveable Asset Admin' || userRole == 'Moveable Asset Data Entry' || userRole == 'Super User'">
       <a href="" routerLinkActive="active" routerLink="assetEntry" (click)="closeNav()"><i class="fa fa-table"></i>
         <span class='pl-3'>Asset Entry & Tags</span></a>
 
     </li>
-    <li>
+    <li
+      *ngIf="userRole == 'Data Entry' || userRole == 'Fixed Asset Admin' || userRole == 'Fixed Asset Data Entry' || userRole == 'Super User'">
       <a href="" routerLinkActive="active" routerLink='freeholdLand' (click)="closeNav()"><i
           class="fa fa-picture-o"></i>
         <span class='pl-3'>Freehold Land</span></a>
 
     </li>
-    <li>
+    <li
+      *ngIf="userRole == 'Data Entry' || userRole == 'Fixed Asset Admin' || userRole == 'Fixed Asset Data Entry' || userRole == 'Super User'">
       <a href="" routerLinkActive="active" routerLink='nhaRoads' (click)="closeNav()"><i class="fa fa-road"></i>
         <span class='pl-3'>Roads on Land</span></a>
     </li>
-    <li>
-      <a href="" routerLinkActive="active" routerLink='nhaBridges' (click)="closeNav()"><i class="fa fa-road"></i>
+    <li
+      *ngIf="userRole == 'Data Entry' || userRole == 'Fixed Asset Admin' || userRole == 'Fixed Asset Data Entry' || userRole == 'Super User'">
+      <a href="" routerLinkActive="active" routerLink='nhaBridges' (click)="closeNav()"><i class="fa fa-link"></i>
         <span class='pl-3'>Bridges</span></a>
     </li>
-    <li>
-      <a href="" routerLinkActive="active" routerLink='nhaBuildings' (click)="closeNav()"><i class="fa fa-road"></i>
+    <li
+      *ngIf="userRole == 'Data Entry' || userRole == 'Fixed Asset Admin' || userRole == 'Fixed Asset Data Entry' || userRole == 'Super User'">
+      <a href="" routerLinkActive="active" routerLink='nhaBuildings' (click)="closeNav()"><i class="fa fa-building"></i>
         <span class='pl-3'>Buildings</span></a>
+    </li>
+    <li *ngIf="userRole == 'Admin' || userRole == 'Moveable Asset Admin' || userRole == 'Super User'">
+      <a href="" routerLinkActive="active" routerLink='locComp' (click)="closeNav()"><i class="fa fa-flag"></i>
+        <span class='pl-3'>Location Status</span></a>
     </li>
     <li *ngIf="userRole == 'Super User'">
       <a href=""><i class="fa fa-diamond"></i> <span class="pl-3">Admin Panel</span>
@@ -87,6 +99,10 @@
           <a href="" routerLinkActive="active" routerLink="nhaProjectIPC" (click)="closeNav()"><i
               class="fa fa-file"></i>Project IPCs</a>
         </li>
+        <li>
+          <a href="" routerLinkActive="active" routerLink="createBuilding" (click)="closeNav()"><i
+              class="fa fa-building"></i>Create Buildings</a>
+        </li>
       </ul>
     </li>
   </ul>
@@ -113,9 +129,9 @@
           (click)="clearPin()">
           <span class="fa fa-lock"></span>&nbsp;Generate Pin
         </button>
-        <button mat-menu-item class="noneOutline" data-toggle="modal" data-target="#compLocationModal">
+        <!-- <button mat-menu-item class="noneOutline" data-toggle="modal" data-target="#compLocationModal">
           <span class="fa fa-check"></span>&nbsp;Complete Location
-        </button>
+        </button> -->
         <button mat-menu-item class="noneOutline" data-toggle="modal" data-target="#qrScannerModal">
           <span class="fa fa-qrcode"></span>&nbsp;QR Scanner
         </button>
@@ -130,81 +146,6 @@
   </div>
   <!-- <div id="menuId" class="animate__animated animate__bounce"></div> -->
   <router-outlet></router-outlet>
-</div>
-
-<!-- complete location modal windows -->
-<!-- The Modal -->
-<div class="modal animate__animated animate__bounceIn" id="compLocationModal">
-  <div class="modal-dialog modal-sm">
-    <div class="modal-content">
-      <!-- Modal Header -->
-      <div class="modal-header">
-        <h3 class="modal-title">Complete Location</h3>
-        <button type="button" class="close" data-dismiss="modal">
-          &times;
-        </button>
-      </div>
-
-      <!-- Modal body -->
-      <div class="modal-body">
-        <div class="row">
-          <div class="col-md-12">
-            <mat-radio-group aria-label="Select an option">
-              <mat-radio-button value="1">Done</mat-radio-button>
-              <mat-radio-button value="2">Un-Done</mat-radio-button>
-            </mat-radio-group>
-          </div>
-        </div>
-        <!-- next row -->
-        <div class="row">
-          <div class="col-md-12">
-            <mat-form-field class="w-100">
-              <mat-label>Select Location</mat-label>
-              <mat-select>
-                <mat-option value="option">Option</mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-        </div>
-        <!-- next row -->
-        <div class="row">
-          <div class="col-md-12">
-            <mat-form-field class="w-100">
-              <mat-label>Description</mat-label>
-              <textarea matInput></textarea>
-            </mat-form-field>
-          </div>
-        </div>
-        <!-- next Row -->
-        <div class="row">
-          <div class="col-md-12">
-            <mat-form-field class="w-100">
-              <mat-label fcsa-number>Enter PIN</mat-label>
-              <input matInput maxlength="4" />
-            </mat-form-field>
-          </div>
-        </div>
-        <!-- next Row -->
-        <div class="row">
-          <div class="col-md-12">
-            <button mat-raised-button color="warn">
-              <span class="fa fa-check"></span>Done
-            </button>
-            <button mat-button class="pull-right" color="primary">
-              generate PIN
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Modal footer -->
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">
-          Close
-        </button>
-      </div>
-    </div>
-  </div>
 </div>
 
 <!-- QR scanner Modal Window -->

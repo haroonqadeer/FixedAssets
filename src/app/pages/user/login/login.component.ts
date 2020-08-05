@@ -98,7 +98,7 @@ export class LoginComponent implements OnInit {
 
             // alert(this.cookie.get("userID"));
             this.showProgress = false;
-            this.router.navigate(["assetEntry"]);
+            this.router.navigate(["home"]);
             $("#menuId").show();
             // this.app.startWatching();
             // this.app.subscribeIdle();
