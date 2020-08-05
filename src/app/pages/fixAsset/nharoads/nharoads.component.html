@@ -52,6 +52,7 @@
           <th>OfficeDescription</th>
           <th>RoadShortName</th>
           <th>ProjectShortName</th>
+          <th>ProjectPackage</th>
           <th>LandMeasureType</th>
           <th>AreaAcquiredKanal</th>
           <th>AreaAcquiredMarla</th>
@@ -65,7 +66,8 @@
           <th>OpeningRevaluation</th>
         </thead>
         <tbody>
-          <tr *ngFor="let item of roadList | search: 'officeDescription, roadShortName, projectShortName':txtSearch">
+          <tr
+            *ngFor="let item of roadList | search: 'officeDescription, roadShortName, projectShortName, packageName':txtSearch">
             <td class="inline-block">
               <span class="fa fa-edit cursorPointer pr-3 text-primary" (click)="edit(item)"></span>
               <span class="fa fa-trash-o cursorPointer text-danger" (click)="delete(item)"></span>
@@ -73,6 +75,7 @@
             <td>{{item.officeDescription}}</td>
             <td>{{item.roadShortName}}</td>
             <td>{{item.projectShortName}}</td>
+            <td>{{item.packageName}}</td>
             <td>{{item.landMeasureType}}</td>
             <td>{{item.areaAcquiredKanal}}</td>
             <td>{{item.areaAcquiredMarla}}</td>

@@ -617,7 +617,7 @@ export class NHARoadsComponent implements OnInit {
     this.txtTMarla = obj.areaTransferedMarla;
     this.txtRemarks = obj.remarks;
     this.txtRoadLength = obj.roadLength;
-    this.txtProPackage = obj.projectName;
+    this.txtProPackage = obj.packageName;
     this.txtConstCost = obj.constructionCost;
     this.txtLandCost = obj.costofLand;
 
