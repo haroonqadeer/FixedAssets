@@ -1,3 +1,8 @@
+<div class="loader" *ngIf="loadingBar">Loading...</div>
+
+<!-- container -->
+<div class="container-fluid boxShadow-1 bg-white" *ngIf="!loadingBar">
+  
 <div class="row pl-3 m-0 p-0">
   <div class="col-md-6 align-self-center p-0 m-0">
     <h1 class="align-self-center">NHA Bridges</h1>
@@ -30,9 +35,9 @@
     <div class="row pl-3">
       <div class="col-md-10">
         <mat-form-field class="w-100">
-          <mat-label>search asset</mat-label>
+          <mat-label>Search asset</mat-label>
           <span matPrefix><span class="fa fa-search"></span> &nbsp;</span>
-          <input matInput />
+          <input matInput [(ngModel)]="txtSearchBridgeData" />
         </mat-form-field>
       </div>
       <div class="col-md-2 pr-3 align-self-center noneOutline">
@@ -47,46 +52,40 @@
       <table class="table table-striped">
         <thead>
           <th>Action</th>
-          <th>Trial</th>
+          <th>Account</th>
+          <th>Road</th>
           <th>Project</th>
-          <th>Bridge</th>
+          <th>Measure</th>
+          <th>Kanal</th>
+          <th>Marla</th>
+          <th>Cost</th>
+          <th>WDV</th>
+          <th>Total Revaluation</th>
+          <th>Revaluation Surplus</th>
+          <th>Addition in Revaluation</th>
+          <th>Addition In Revaluation Surplus </th>
+          <th>Opening Revaluation</th>
         </thead>
         <tbody>
-          <tr>
+          <tr *ngFor="let item of bridgeDataList | orderBy:'fixedAssetID': true | search: 'accountCode,openingRevaluationSurplus,openingRevaluationAmount,additionINRevaluationSurplus,additionINRevaluationAmount,revaluationSurplus,totalRevaluationAmount,wdv,costOfLand,areaAcquiredMarla,areaAcquiredKanal,projectShortName,roadShortName,officeDescription':txtSearchBridgeData">
+
             <td class="inline-block">
-              <span class="fa fa-edit cursorPointer pr-3 text-primary"></span>
-              <span class="fa fa-trash-o cursorPointer text-danger"></span>
+              <span class="fa fa-edit cursorPointer pr-3 text-primary" (click)="edit(item)"></span>
+              <span class="fa fa-trash-o cursorPointer text-danger" (click)="delete(item)"></span>
             </td>
-            <td>GWD-RTD</td>
-            <td>Gawadar Ratodero</td>
-            <td>Bridge Soan</td>
-          </tr>
-          <tr>
-            <td class="inline-block">
-              <span class="fa fa-edit cursorPointer pr-3 text-primary"></span>
-              <span class="fa fa-trash-o cursorPointer text-danger"></span>
-            </td>
-            <td>GWD-RTD</td>
-            <td>Gawadar Ratodero</td>
-            <td>Bridge Soan</td>
-          </tr>
-          <tr>
-            <td class="inline-block">
-              <span class="fa fa-edit cursorPointer pr-3 text-primary"></span>
-              <span class="fa fa-trash-o cursorPointer text-danger"></span>
-            </td>
-            <td>GWD-RTD</td>
-            <td>Gawadar Ratodero</td>
-            <td>Bridge Soan</td>
-          </tr>
-          <tr>
-            <td class="inline-block">
-              <span class="fa fa-edit cursorPointer pr-3 text-primary"></span>
-              <span class="fa fa-trash-o cursorPointer text-danger"></span>
-            </td>
-            <td>GWD-RTD</td>
-            <td>Gawadar Ratodero</td>
-            <td>Bridge Soan</td>
+            <td>{{item.officeDescription}}</td>
+            <td>{{item.roadShortName}}</td>
+            <td>{{item.projectShortName}}</td>
+            <td>{{item.areaAcquiredKanal | number}}</td>
+            <td>{{item.areaAcquiredMarla | number}}</td>
+            <td>{{item.costOfLand | number}}</td>
+            <td>{{item.wdv | number}}</td>
+            <td>{{item.totalRevaluationAmount | number}}</td>
+            <td>{{item.revaluationSurplus | number}}</td>
+            <td>{{item.additionINRevaluationAmount | number}}</td>
+            <td>{{item.additionINRevaluationSurplus | number}}</td>
+            <td>{{item.openingRevaluationAmount | number}}</td>
+            <td>{{item.openingRevaluationSurplus | number}}</td>
           </tr>
         </tbody>
       </table>
@@ -97,95 +96,121 @@
   <div *ngIf="toggleView == 'form'" class="animate_animated animate_fadeInUp">
     <div class="row">
       <div class="col-md-6 border-right pl-3 pr-0">
+
         <div class="row mt-2 pl-4 pr-4">
           <div class="col-md-12">
             <mat-form-field class='w-100'>
               <mat-label>Account Section</mat-label>
-              <mat-select>
-                <mat-option value="option">Option</mat-option>
+              <mat-select [(ngModel)]="ddlAccSec">
+                <mat-option>
+                  <ngx-mat-select-search [(ngModel)]="txtSearchAccSec" [placeholderLabel]="'Search...'" [noEntriesFoundLabel]="'Not found'" name="search"></ngx-mat-select-search>
+                </mat-option>
+                <mat-option *ngFor="let item of accSecList | search: 'officeDescription':txtSearchAccSec" value="{{item.officeSecID}}">
+                  {{item.officeDescription}}</mat-option>
               </mat-select>
             </mat-form-field>
           </div>
         </div>
+
         <!-- next row -->
         <div class="row pl-4 pr-4">
           <div class="col-md-12">
             <mat-form-field class='w-100'>
               <mat-label>Trial Balance</mat-label>
-              <mat-select>
-                <mat-option value="option">Option</mat-option>
+              <mat-select [(ngModel)]="ddlTrailBalance" (ngModelChange)="filterProject(ddlTrailBalance, '')">
+                <mat-option>
+                  <ngx-mat-select-search [(ngModel)]="txtSearchTrailBalance" [placeholderLabel]="'Search...'" [noEntriesFoundLabel]="'Not found'" name="search"></ngx-mat-select-search>
+                </mat-option>
+                <mat-option *ngFor="let item of projectsList | search: 'accountCode,projectShortName,projectName':txtSearchTrailBalance" value="{{item.projectID}}">
+                  {{item.projectShortName}} - {{ item.projectName }}                  
+                </mat-option>
               </mat-select>
             </mat-form-field>
           </div>
         </div>
+
         <!-- next row -->
         <div class="row pl-4 pr-4">
           <div class="col-md-12">
             <mat-form-field class='w-100'>
               <mat-label>Account Code - Project Name</mat-label>
-              <mat-select>
-                <mat-option value="option">Option</mat-option>
+              <mat-select [(ngModel)]="ddlProject" (ngModelChange)="filterProject(ddlProject, 'accCode')">
+                <mat-option>
+                  <ngx-mat-select-search [(ngModel)]="txtSearchProject" [placeholderLabel]="'Search...'" [noEntriesFoundLabel]="'Not found'" name="search"></ngx-mat-select-search>
+                </mat-option>
+                <mat-option *ngFor="let item of projectsList | search: 'accountCode,projectName':txtSearchProject" value="{{item.projectID}}" [disabled]="item.accountCode == 0">
+                  {{ item.accountCode }} - {{ item.projectName }}
+                </mat-option>
               </mat-select>
             </mat-form-field>
           </div>
         </div>
+
         <!-- next row -->
         <div class="row pl-4 pr-4">
           <div class="col-md-12">
             <mat-form-field class='w-100'>
               <mat-label>Project Package</mat-label>
-              <mat-select>
-                <mat-option value="option">Option</mat-option>
-              </mat-select>
+              <input matInput [(ngModel)]="projectPackage">
             </mat-form-field>
           </div>
         </div>
+
         <!-- next row -->
         <div class="row pl-4 pr-4">
           <div class="col-md-12">
             <mat-form-field class='w-100'>
               <mat-label>Bridge Name</mat-label>
-              <input matInput>
+              <input matInput [(ngModel)]="bridgeName">
             </mat-form-field>
           </div>
         </div>
-        <!-- next row -->
-        <div class="row pl-4 pr-4">
-          <div class="col-md-12">
-            <mat-form-field class='w-100'>
-              <mat-label>Road</mat-label>
-              <mat-select>
-                <mat-option value="option">Option</mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-        </div>
-        <!-- next row -->
-        <div class="row pl-4 pr-4">
-          <div class="col-md-12">
-            <mat-form-field class='w-100'>
-              <mat-label>Date of Nationalization</mat-label>
-              <input matInput [matDatepicker]="picker">
-              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-              <mat-datepicker #picker></mat-datepicker>
-            </mat-form-field>
-          </div>
-        </div>
+
         <!-- next row -->
         <div class="row pl-4 pr-4">
           <div class="col-md-12">
             <mat-form-field class='w-100'>
               <mat-label>Bridge Length</mat-label>
-              <input matInput>
+              <input matInput type="number" min="0" [(ngModel)]="bridgeLength">
             </mat-form-field>
           </div>
         </div>
+
+        <!-- next row -->
+        <div class="row pl-4 pr-4">
+          <div class="col-md-12">
+            <mat-form-field class='w-100'>
+              <mat-label>Road</mat-label>
+              <mat-select [(ngModel)]="ddlRoads">
+                <mat-option>
+                  <ngx-mat-select-search [(ngModel)]="txtSearchRoads" [placeholderLabel]="'Search...'" [noEntriesFoundLabel]="'Not found'" name="search"></ngx-mat-select-search>
+                </mat-option>
+                <mat-option *ngFor="let item of roadsList | search: 'roadShortName,roadName':txtSearchRoads" value="{{item.roadID}}">
+                  {{item.roadShortName}} - {{item.roadName}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <!-- next row -->
+        <div class="row pl-4 pr-4">
+          <div class="col-md-12">
+            <mat-form-field class='w-100'>
+              <mat-label>Date of Nationalization</mat-label>
+              <input matInput [matDatepicker]="picker2" [(ngModel)]="nationalizationDate">
+              <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+              <mat-datepicker #picker2></mat-datepicker>
+            </mat-form-field>
+          </div>
+        </div>
+
         <!-- next row -->
         <div class="row pl-4 pr-4">
           <div class="col-md-6">
             <mat-form-field class='w-100'>
               <mat-label>Construction From</mat-label>
-              <input matInput [matDatepicker]="picker">
+              <input matInput [matDatepicker]="picker" [(ngModel)]="cfDate">
               <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
               <mat-datepicker #picker></mat-datepicker>
             </mat-form-field>
@@ -193,27 +218,29 @@
           <div class="col-md-6">
             <mat-form-field class='w-100'>
               <mat-label>Construction To</mat-label>
-              <input matInput [matDatepicker]="picker">
-              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-              <mat-datepicker #picker></mat-datepicker>
+              <input matInput [matDatepicker]="picker1" [(ngModel)]="ctDate">
+              <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+              <mat-datepicker #picker1></mat-datepicker>
             </mat-form-field>
           </div>
         </div>
+
         <!-- next row -->
         <div class="row pl-4 pr-4">
           <div class="col-md-6">
             <mat-form-field class='w-100'>
               <mat-label>Construction Cost</mat-label>
-              <input matInput>
+              <input matInput type="number" min="0" [(ngModel)]="constructionCost">
             </mat-form-field>
           </div>
           <div class="col-md-6">
             <mat-form-field class='w-100'>
               <mat-label>Land Cost</mat-label>
-              <input matInput>
+              <input matInput type="number" min="0" [(ngModel)]="landCost">
             </mat-form-field>
           </div>
         </div>
+
         <!-- next row -->
         <div class="row pl-4 pr-4">
           <div class="col-md-4 align-self-center font-weight-bold">
@@ -222,30 +249,33 @@
           <div class="col-md-4">
             <mat-form-field class='w-100'>
               <mat-label>Measurement Unit</mat-label>
-              <mat-select>
-                <mat-option value="option">Kanals - Marlas</mat-option>
+              <mat-select [(ngModel)]="ddlLandMeasurement">
+                <mat-option *ngFor="let item of landMeasurementList" value="{{item.landMeasureTypeID}}">
+                  {{ item.landMeasureType}}
+                </mat-option>
               </mat-select>
             </mat-form-field>
           </div>
           <div class="col-md-2">
             <mat-form-field class='w-100'>
               <mat-label>Kanals</mat-label>
-              <input matInput>
+              <input matInput type="number" min="0" [(ngModel)]="aKanal">
             </mat-form-field>
           </div>
           <div class="col-md-2">
             <mat-form-field class='w-100'>
               <mat-label>Marlas</mat-label>
-              <input matInput>
+              <input matInput type="number" min="0" max="20" [(ngModel)]="aMarla">
             </mat-form-field>
           </div>
         </div>
+
         <!-- next row -->
         <div class="row pl-4 pr-4">
           <div class="col-md-12">
             <mat-form-field class='w-100'>
               <mat-label>Remarks</mat-label>
-              <textarea matInput></textarea>
+              <textarea matInput [(ngModel)]="remarks"></textarea>
             </mat-form-field>
           </div>
         </div>
@@ -253,8 +283,8 @@
         <!-- next row -->
         <div class="row border-top bgGrey pt-3 pb-3 pl-4 pr-4">
           <div class="col-md-12 inline-block">
-            <a class="btn-flip mr-3" data-back="Save" data-front="Save"></a>
-            <a class="btn-flip" data-back="Reset" data-front="Reset"></a>
+            <a class="btn-flip mr-3" data-back="Save" data-front="Save" (click)="save()"></a>
+            <a class="btn-flip" data-back="Reset" data-front="Reset" (click)="clear()"></a>
           </div>
         </div>
       </div><!-- end of first 6 columns -->

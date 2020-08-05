@@ -442,7 +442,7 @@ export class NHAFreeholdLandComponent implements OnInit {
                 DateofNationalization: reqDate,
                 PurposeofPurchase: this.purposeOfPurchase.trim(),
                 PresentUse: this.presentUse.trim(),
-                ConstructionFrom: null,
+                ConstructionFom: null,
                 ConstructionTo: null,
                 ConstructionCost: 0,
                 LandMeasureTypeID: this.ddlLandMeasurement,
