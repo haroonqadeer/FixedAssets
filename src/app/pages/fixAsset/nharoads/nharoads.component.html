@@ -596,7 +596,12 @@
                 <td class='text-center'></td>
                 <td><input type="text" class="form-control text-right" currencyMask [(ngModel)]="txtFaAmount"></td>
                 <td>
-                  <p-calendar [(ngModel)]="dtpFaDate" inputId="icon"></p-calendar>
+                  <!-- <p-calendar [(ngModel)]="dtpFaDate" inputId="icon"></p-calendar> -->
+                  <mat-form-field class='w-100'>
+                    <input matInput [matDatepicker]="picker1" [(ngModel)]="dtpFaDate">
+                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                    <mat-datepicker #picker1></mat-datepicker>
+                  </mat-form-field>
                   <!-- <input type="date" class="form-control text-right" [(ngModel)]="dtpFaDate"> -->
                 </td>
                 <td class='inline-block text-center'><span class='fa fa-save cursorPointer pr-3 text-primary'

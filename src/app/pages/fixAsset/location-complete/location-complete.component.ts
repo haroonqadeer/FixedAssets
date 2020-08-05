@@ -20,6 +20,12 @@ export class LocationCompleteComponent implements OnInit {
   // serverUrl = "http://95.217.206.195:2007/api/";
   serverUrl = "http://localhost:5090/api/";
 
+  imgPath = "C:/inetpub/wwwroot/2008_FAR_Proj/assets/IPCRefImg";
+  showPdf = "";
+  lblFileName = "";
+  image;
+  selectedFile: File = null;
+
   userLocations = [];
   locationTitle = "Select Location";
   locationCheckList = [];
@@ -94,6 +100,73 @@ export class LocationCompleteComponent implements OnInit {
       this.locationCheckList[i].status = !item.status;
       return false;
     } else {
+      //update
+      var saveData = {
+        LocCheckListID: "bigint",
+        SubLocID: "bigint",
+        OfficeTypeID: "bigint",
+        CheckListDescription: "bigint",
+        Status: item.status,
+        SubLocCompletionID: "bigint = 0",
+        EDoc: this.imgPath,
+        EDocExtension: "pdf",
+        imgFile: item.eFile,
+        userId: this.cookie.get("userID"),
+        spType: "UPDATE",
+      };
     }
   }
+
+  onFileSelected(event, item) {
+    if (event.target.files[0].type == "application/pdf") {
+      this.selectedFile = <File>event.target.files[0];
+      let reader = new FileReader();
+
+      reader.onloadend = (e: any) => {
+        this.image = reader.result;
+
+        var splitImg = this.image.split(",")[1];
+        this.image = splitImg;
+        this.showPdf = e.target.result;
+        this.lblFileName = this.selectedFile.name;
+        item.eFile = this.image;
+      };
+
+      reader.readAsDataURL(this.selectedFile);
+    } else {
+      this.toastr.errorToastr("Please Select PDF File", "Error", {
+        toastTimeout: 2500,
+      });
+
+      this.image = undefined;
+      // this.imgFile = undefined;
+      this.selectedFile = null;
+      // this.imageUrl = "";
+    }
+  }
+
+  // onFileSelected(event, item) {
+  //   if (event.target.files[0].type == "application/pdf") {
+  //     this.selectedFile = <File>event.target.files[0];
+
+  //     let reader = new FileReader();
+
+  //     reader.onloadend = (e: any) => {
+  //       item.eDoc = reader.result;
+
+  //       var splitImg = item.eDoc.split(",")[1];
+  //       item.eDoc = splitImg;
+  //       this.showPdf = e.target.result;
+  //       this.lblFileName = this.selectedFile.name;
+  //     };
+
+  //     reader.readAsDataURL(this.selectedFile);
+  //   } else {
+  //     this.toastr.errorToastr("Please Select PDF File", "Error", {
+  //       toastTimeout: 2500,
+  //     });
+
+  //     this.selectedFile = null;
+  //   }
+  // }
 }

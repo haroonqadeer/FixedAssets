@@ -510,6 +510,10 @@ th {
   box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2) !important;
 }
 
+.imgShadow {
+  filter: drop-shadow(2px 2px 2px grey);
+}
+
 /**********************************************************/
 
 /********************************************************/
@@ -710,6 +714,10 @@ $color-loader: #ce4233;
   border-bottom: 5px solid #f6f7f7 !important;
 }
 
+.modal .modal-content {
+  min-height: 80vh !important;
+}
+
 /***************** ENd Modal Window ************/
 
 /***********************************************/
@@ -793,7 +801,7 @@ $color-loader: #ce4233;
   /* Black*/
   overflow-x: hidden;
   /* Disable horizontal scroll */
-  padding-top: 60px;
+  // padding-top: 60px;
   /* Place content 60px from the top */
   transition: 0.5s;
   /* 0.5 second transition effect to slide in the sidenav */
