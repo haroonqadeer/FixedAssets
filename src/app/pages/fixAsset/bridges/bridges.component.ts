@@ -24,8 +24,8 @@ export class BridgesComponent implements OnInit {
     loadingBar = true;
     reqType = '';
     reqStatus = false;
-    serverUrl = "http://95.217.206.195:2007/api/";
-    //serverUrl = "http://localhost:12345/api/";
+    //serverUrl = "http://95.217.206.195:2007/api/";
+    serverUrl = "http://localhost:12345/api/";
 
     toggleView = "form";
     
@@ -44,6 +44,8 @@ export class BridgesComponent implements OnInit {
     ovFaDetailList = [];
     vFaDetailList = [];
     faSummaryList = [];
+    odFaDetailList = [];
+    dFaDetailList = [];
 
     transactionList = [];
     tempTransactionList = [];
@@ -79,6 +81,8 @@ export class BridgesComponent implements OnInit {
     lblTransactions = 0;
     lblOpeningSurplus = 0;
     lblSurplus = 0;
+    lblOpeningDepriciation = 0;
+    lblDepriciation = 0;
 
     FaDetailID = 0;
     txtFaAmount = '';
@@ -105,7 +109,7 @@ export class BridgesComponent implements OnInit {
         this.getLandMeasurement();
         this.getRoads();
         this.getBridgeData();
-        // this.getFaDetail();
+        this.getFaDetail();
 
     }
 
@@ -325,6 +329,8 @@ export class BridgesComponent implements OnInit {
                 this.filterFaDetail(this.fixAssetID, 'v');
                 this.filterFaDetail(this.fixAssetID, 't');
                 this.filterFaDetail(this.fixAssetID, 'td');
+                this.filterFaDetail(this.fixAssetID, 'od');
+                this.filterFaDetail(this.fixAssetID, 'd');
                 
                 this.reqStatus = false;
             }
@@ -499,13 +505,14 @@ export class BridgesComponent implements OnInit {
         this.lblTransactions = 0;
         this.lblSurplus = 0;
         this.lblOpeningSurplus = 0;
+        this.lblOpeningDepriciation = 0;
+        this.lblDepriciation = 0;
 
         this.oFaDetailList = [];
         this.aFaDetailList = [];
         this.ovFaDetailList = [];
         this.vFaDetailList = [];
         this.tempTransactionList = [];
-
 
     }
 
@@ -537,6 +544,8 @@ export class BridgesComponent implements OnInit {
         this.filterFaDetail(item.fixedAssetID, 'v');
         this.filterFaDetail(item.fixedAssetID, 't');
         this.filterFaDetail(item.fixedAssetID, 'td');
+        this.filterFaDetail(item.fixedAssetID, 'od');
+        this.filterFaDetail(item.fixedAssetID, 'd');
 
     }
 
@@ -652,6 +661,7 @@ export class BridgesComponent implements OnInit {
 
     }
 
+
     saveAD() {
 
         if(this.txtFaAmount == ""){
@@ -741,6 +751,11 @@ export class BridgesComponent implements OnInit {
         this.txtFaDate = new Date(item.year);
 
     }
+
+
+
+
+
 
     saveOV() {
 
@@ -832,6 +847,7 @@ export class BridgesComponent implements OnInit {
         this.txtFaDate = new Date(item.year);
 
     }
+
 
     saveRV() {
 
@@ -945,6 +961,170 @@ export class BridgesComponent implements OnInit {
     }
 
 
+
+
+    
+    saveOD() {
+
+        if (this.txtFaAmount == undefined || this.txtFaAmount == "" || parseFloat(this.txtFaAmount) <= 0) {
+            this.toastr.errorToastr("Please Enter Opening Cost", "Error !", {toastTimeout: 2500,});
+            return false;
+        } else if (this.txtFaDate == undefined || this.txtFaDate == null) {
+            this.toastr.errorToastr("Please Enter Date", "Error !", {toastTimeout: 2500,});
+            return false;
+        } else if (this.fixAssetID == 0) {
+            this.toastr.errorToastr("Please Enter Complete Information", "Error !", {toastTimeout: 2500,});
+            return false;
+        } else {
+
+            var reqDate = this.app.convertDate(this.txtFaDate);
+
+            var reqSpType = "Insert";
+            if (this.FaDetailID > 0) {
+                reqSpType = "Update";
+            }
+
+            var SaveData = {
+                FixedAssetID: this.fixAssetID,
+                TypeofEntry: 'Depreciation',
+                OpeningDepreciation: this.txtFaAmount,
+                Year: reqDate,
+                FAdetailID: this.FaDetailID,
+                Userid: this.cookie.get("userID"),
+                SpType: reqSpType
+            };
+
+            $('#depriciationsOpeningModal').modal('toggle');
+
+            this.loadingBar = true;
+            var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
+
+            this.http.post(this.serverUrl + "sudoc", SaveData, { headers: reqHeader }).subscribe((data: any) => {
+                if (data.msg == "Success") {
+                    if (this.FaDetailID == 0) {
+                        this.toastr.successToastr("Record Saved Successfully!","Success!",{ toastTimeout: 2500 });
+                    } else {
+                        this.toastr.successToastr("Record Updated Successfully!","Success!",{ toastTimeout: 2500 });
+                    }
+
+                    this.clearFaDetail();
+                    this.reqStatus = true;
+                    this.getFaDetail();                    
+                    return false;
+
+                } else {
+                    this.toastr.errorToastr(data.msg, "Error !", {toastTimeout: 5000,});
+                    this.loadingBar = false;
+                    $('#depriciationsOpeningModal').modal('toggle');
+                    return false;
+                }
+            });
+        }
+    }
+
+    editOD(item) {
+
+        this.FaDetailID = item.faDetailID;
+        this.txtFaAmount = item.openingDepreciation;
+        this.txtFaDate = new Date(item.year);
+
+    }
+
+
+    saveD() {
+
+        if(this.txtFaAmount == ""){
+            this.txtFaAmount = '0';
+        }
+
+        if(this.txtFaCost == ""){
+            this.txtFaCost = '0';
+        }
+
+        if (this.txtFaAmount == undefined ||  parseFloat(this.txtFaAmount) < 0) {
+            this.toastr.errorToastr("Please Enter Depriciation Amount", "Error !", {toastTimeout: 2500,});
+            return false;
+        } else if (this.txtFaCost == undefined || parseFloat(this.txtFaCost) < 0) {
+            this.toastr.errorToastr("Please Enter Disposal In Amount", "Error !", {toastTimeout: 2500,});
+            return false;
+        } else if (parseFloat(this.txtFaAmount) == 0 &&  parseFloat(this.txtFaCost) == 0 ) {
+            this.toastr.errorToastr("Please Enter Depriciation Amount / Disposal In Amount", "Error !", {toastTimeout: 2500,});
+            return false;
+        } else if (this.txtFaDate == undefined || this.txtFaDate == null) {
+            this.toastr.errorToastr("Please Enter Date", "Error !", {toastTimeout: 2500,});
+            return false;
+        } else if (this.fixAssetID == 0) {
+            this.toastr.errorToastr("Please Enter Complete Information", "Error !", {toastTimeout: 2500,});
+            return false;
+        } else {
+
+            var reqDate = this.app.convertDate(this.txtFaDate);
+
+            var reqFaAmount = parseFloat(this.txtFaAmount);
+            if(this.txtFaAmount == ""){
+                reqFaAmount = 0;
+            }
+
+            var reqFaCost = parseFloat(this.txtFaCost);
+            if(this.txtFaCost == ""){
+                reqFaCost = 0;
+            }
+
+            var reqSpType = "Insert";
+            if (this.FaDetailID > 0) {
+                reqSpType = "Update";
+            }
+
+            var SaveData = {
+                FixedAssetID: this.fixAssetID,
+                TypeofEntry: 'Depreciation',
+                DepreciationforYear: reqFaAmount,
+                DisposalinDepreciation: reqFaCost,
+                Year: reqDate,
+                FAdetailID: this.FaDetailID,
+                Userid: this.cookie.get("userID"),
+                SpType: reqSpType
+            };
+
+            $('#depriciationsDepriciationModal').modal('toggle');
+
+            this.loadingBar = true;
+            var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
+
+            this.http.post(this.serverUrl + "sudoc", SaveData, { headers: reqHeader }).subscribe((data: any) => {
+                if (data.msg == "Success") {
+                    if (this.FaDetailID == 0) {
+                        this.toastr.successToastr("Record Saved Successfully!","Success!",{ toastTimeout: 2500 });
+                    } else {
+                        this.toastr.successToastr("Record Updated Successfully!","Success!",{ toastTimeout: 2500 });
+                    }
+
+                    this.clearFaDetail();
+                    this.reqStatus = true;
+                    this.getFaDetail();
+                    return false;
+
+                } else {
+                    this.toastr.errorToastr(data.msg, "Error !", {toastTimeout: 5000,});
+                    this.loadingBar = false;
+                    return false;
+                }
+            });
+        }
+    }
+
+    editD(item) {
+
+        this.FaDetailID = item.faDetailID;
+        this.txtFaAmount = item.depreciationforYear;
+        this.txtFaCost = item.disposalinDepreciation;
+        this.txtFaDate = new Date(item.year);
+
+    }
+
+
+
+
     deleteFA(item, type) {
         setTimeout(() => {
         Swal.fire({
@@ -975,6 +1155,10 @@ export class BridgesComponent implements OnInit {
                     $('#revaluationsOpeningModal').modal('toggle');
                 } else if(type == 'v'){
                     $('#revaluationRevaluationsModal').modal('toggle');
+                } else if(type == 'od'){
+                    $('#depriciationsOpeningModal').modal('toggle');
+                } else if(type == 'd'){
+                    $('#depriciationsDepriciationModal').modal('toggle');
                 }
 
 
@@ -983,10 +1167,8 @@ export class BridgesComponent implements OnInit {
                 if (data.msg == "Success") {
                     this.toastr.successToastr("Record Deleted Successfully!","Success!",{ toastTimeout: 2500 });
                     this.clearFaDetail();
-                    this.getFaDetail();
-                    this.getFaSummary();
                     this.reqStatus = true;
-                    this.getTransactions();
+                    this.getFaDetail();
                     return false;
                 } else {
                     this.toastr.errorToastr(data.msg, "Error !", {toastTimeout: 5000,});
@@ -1101,6 +1283,8 @@ export class BridgesComponent implements OnInit {
                 this.lblTransactions = tempList[0].nooftransactions;
                 this.lblSurplus = tempList[0].revalutionSurplus;
                 this.lblOpeningSurplus = tempList[0].openingRevaluationSurplus;
+                this.lblOpeningDepriciation = tempList[0].openingDepreciation;
+                this.lblDepriciation = tempList[0].depreciationforYear + tempList[0].disposalinDepreciation;
             }
 
         }
@@ -1116,7 +1300,27 @@ export class BridgesComponent implements OnInit {
 
         }
 
-        
+        if (filterBy == 'od'){
+
+            this.odFaDetailList = [];
+            var tempList = this.faDetailList.filter((x) => x.fixedAssetID == reqFixAssetID && x.openingDepreciation != 0 );
+
+            if(tempList.length > 0 ){
+                this.odFaDetailList = tempList;
+            }
+
+        }
+
+        if (filterBy == 'd'){
+
+            this.dFaDetailList = [];
+            var tempList = this.faDetailList.filter((x) => x.fixedAssetID == reqFixAssetID && x.depreciationforYear != 0);
+
+            if(tempList.length > 0 ){
+                this.dFaDetailList = tempList;
+            }
+
+        }
 
     }
 
