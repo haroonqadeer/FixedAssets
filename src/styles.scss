@@ -9,6 +9,7 @@ body {
   background-color: #e6e6e6 !important;
   font-family: "Montserrat", sans-serif;
   background-color: #f6f7f7 !important;
+  overflow-x: hidden;
   // overflow: hidden;
 }
 
@@ -31,6 +32,11 @@ body {
 
 .divScrollable {
   overflow-y: auto !important;
+}
+
+.homePage h1 {
+  font-family: 'Lato';
+  color: white;
 }
 
 h1 {

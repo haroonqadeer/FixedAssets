@@ -13,10 +13,13 @@
   </div><!-- end menu header -->
 
   <ul>
+    <li>
+      <a href="" routerLinkActive="home" routerLink="home" (click)="closeNav()"><i class="fa fa-home"></i>
+        <span class='pl-3'>Home</span></a>
+    </li>
     <li *ngIf="userRole == 'Admin' || userRole == 'Super User'">
       <a href="" routerLinkActive="active" routerLink="dashboard" (click)="closeNav()"><i class="fa fa-dashboard"></i>
         <span class='pl-3'>Dashboard</span></a>
-
     </li>
     <li
       *ngIf="userRole == 'Data Entry' || userRole == 'Moveable Asset Admin' || userRole == 'Moveable Asset Data Entry' || userRole == 'Super User'">
@@ -43,8 +46,12 @@
     </li>
     <li
       *ngIf="userRole == 'Data Entry' || userRole == 'Fixed Asset Admin' || userRole == 'Fixed Asset Data Entry' || userRole == 'Super User'">
-      <a href="" routerLinkActive="active" routerLink='nhaBuildings' (click)="closeNav()"><i class="fa fa-road"></i>
+      <a href="" routerLinkActive="active" routerLink='nhaBuildings' (click)="closeNav()"><i class="fa fa-building"></i>
         <span class='pl-3'>Buildings</span></a>
+    </li>
+    <li *ngIf="userRole == 'Admin' || userRole == 'Moveable Asset Admin' || userRole == 'Super User'">
+      <a href="" routerLinkActive="active" routerLink='locComp' (click)="closeNav()"><i class="fa fa-flag"></i>
+        <span class='pl-3'>Location Status</span></a>
     </li>
     <li *ngIf="userRole == 'Super User'">
       <a href=""><i class="fa fa-diamond"></i> <span class="pl-3">Admin Panel</span>
@@ -122,9 +129,9 @@
           (click)="clearPin()">
           <span class="fa fa-lock"></span>&nbsp;Generate Pin
         </button>
-        <button mat-menu-item class="noneOutline" data-toggle="modal" data-target="#compLocationModal">
+        <!-- <button mat-menu-item class="noneOutline" data-toggle="modal" data-target="#compLocationModal">
           <span class="fa fa-check"></span>&nbsp;Complete Location
-        </button>
+        </button> -->
         <button mat-menu-item class="noneOutline" data-toggle="modal" data-target="#qrScannerModal">
           <span class="fa fa-qrcode"></span>&nbsp;QR Scanner
         </button>
@@ -139,71 +146,6 @@
   </div>
   <!-- <div id="menuId" class="animate__animated animate__bounce"></div> -->
   <router-outlet></router-outlet>
-</div>
-
-<!-- complete location modal windows -->
-<!-- The Modal -->
-<div class="modal animate__animated animate__bounceIn" id="compLocationModal">
-  <div class="modal-dialog modal-xl">
-    <div class="modal-content">
-      <!-- Modal Header -->
-      <div class="modal-header">
-        <h3 class="modal-title">Complete Location</h3>
-        <button type="button" class="close" data-dismiss="modal">
-          &times;
-        </button>
-      </div>
-
-      <!-- Modal body -->
-      <div class="modal-body h-75">
-        <div class="row">
-          <div class="col-md-5 border-right">
-            <div class="table-responsive table-wrapper border mb-2 mx-auto mb-2 style-3">
-              <table class="table table-striped">
-                <thead>
-                  <tr>
-                    <th class='text-center sticky-top' scope='col'>#</th>
-                    <th class='sticky-top' scope='col'></th>
-                    <th class='sticky-top' scope='col'>Location</th>
-                    <th class='sticky-top text-center' scope='col'>detail</th>
-                  </tr>
-                </thead>
-                <tbody style='height:400px !important;'>
-                  <tr *ngFor="let item of userLocations | sort: 'officeTypeDescription' let i=index">
-                    <td class='text-center'>{{i + 1}}</td>
-                    <td><span *ngIf="item.isCompleted == 1" class='fa fa-flag cursorPointer text-success pr-3'></span>
-                      <span *ngIf="item.isCompleted == 0" class='fa fa-flag cursorPointer text-danger pr-3'></span></td>
-                    <td>
-                      {{ item.officeTypeDescription }}
-                    </td>
-                    <td class='inline-block text-center'><span class='cursorPointer pr-3 text-primary'
-                        (click)='showLocCheckList(item)'>click</span>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-          <!-- next 7 columns -->
-          <div class="col-md-7 bg-light">
-            <!-- heading -->
-            <div class="row">
-              <div class="col-md-12 border-bottom">
-                <h3 class='pt-2 pb-2'>{{ locationTitle }}</h3>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Modal footer -->
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">
-          Close
-        </button>
-      </div>
-    </div>
-  </div>
 </div>
 
 <!-- QR scanner Modal Window -->

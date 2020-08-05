@@ -51,6 +51,8 @@ import { NHARoadsComponent } from "./pages/fixasset/nharoads/nharoads.component"
 import { BridgesComponent } from './pages/fixasset/bridges/bridges.component';
 import { NhabuldingsComponent } from './pages/fixasset/nhabuldings/nhabuldings.component';
 import { CreateBuildingComponent } from './pages/fixasset/configuration/create-building/create-building.component';
+import { HomePageComponent } from './pages/home-page/home-page.component';
+import { LocationCompleteComponent } from './pages/fixasset/location-complete/location-complete.component';
 
 @NgModule({
   declarations: [
@@ -74,6 +76,8 @@ import { CreateBuildingComponent } from './pages/fixasset/configuration/create-b
     BridgesComponent,
     NhabuldingsComponent,
     CreateBuildingComponent,
+    HomePageComponent,
+    LocationCompleteComponent,
   ],
   imports: [
     BrowserModule,

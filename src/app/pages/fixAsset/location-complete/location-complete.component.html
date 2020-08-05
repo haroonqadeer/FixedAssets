@@ -1,0 +1,106 @@
+<div class="row">
+  <div class="col-md-12 text-center">
+    <h1>Location Status</h1>
+  </div>
+</div>
+
+<!-- container -->
+<div class="container-fluid boxShadow-1 bg-white">
+  <div class="row">
+    <div class="col-md-4 border-right">
+      <div class="table-responsive table-wrapper border mb-2 mx-auto mb-2 style-3">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th class='text-center sticky-top' scope='col'>#</th>
+              <th class='sticky-top' scope='col'></th>
+              <th class='sticky-top' scope='col'>Location</th>
+              <th class='sticky-top text-center' scope='col'>detail</th>
+            </tr>
+          </thead>
+          <tbody style='height:400px !important;'>
+            <tr *ngFor="let item of userLocations | sort: 'officeTypeDescription' let i=index">
+              <td class='text-center'>{{i + 1}}</td>
+              <td><span *ngIf="item.isCompleted == 1" class='fa fa-flag cursorPointer text-success pr-3'></span>
+                <span *ngIf="item.isCompleted == 0" class='fa fa-flag cursorPointer text-danger pr-3'></span></td>
+              <td>
+                {{ item.officeTypeDescription }}
+              </td>
+              <td class='inline-block text-center'><span class='cursorPointer pr-3 text-primary'
+                  (click)='showLocCheckList(item)'>click</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <!-- next 8 columns -->
+    <div class="col-md-8 bg-light" style='height: 85vh;'>
+      <!-- heading -->
+      <div class="row">
+        <div class="col-md-12 border-bottom">
+          <h2 class='pt-2 pb-2'>{{ locationTitle }}</h2>
+        </div>
+      </div>
+      <!-- next row -->
+      <div class="row">
+        <div class="col-md-12">
+          <div class="table table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th class='text-center'>#</th>
+                  <th>Title</th>
+                  <th class='text-center'>File</th>
+                  <th>File Name</th>
+                  <th class='text-center'>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of locationCheckList | sort: 'locCheckListID' let i=index">
+                  <td class='text-center align-self-center'>{{ i + 1 }}</td>
+                  <td class='cursorPointer' data-toggle="tooltip" data-placement="top"
+                    title={{item.checkListDescription}}>
+                    {{item.checkListName}}</td>
+                  <td class='text-center'>
+                    <span *ngIf="item.fileRequired == 0">No</span>
+                    <span *ngIf="item.fileRequired == 1">Yes</span>
+                  </td>
+                  <td class='text-center'>
+                    <span *ngIf="item.eDoc === null && item.fileRequired == 1">
+                      <div class="custom-file">
+                        <input type="file" class="custom-file-input">
+                        <label class="custom-file-label" [(ngModel)]="item.eDoc" for="customFile">Upload File</label>
+                      </div>
+                    </span>
+                    <span *ngIf="item.eDoc != null && item.fileRequired == 1"
+                      class='fa fa-file-pdf-o cursorPointer'></span>
+                  </td>
+                  <td class='text-center'>
+                    <mat-checkbox [disabled]='locationStatus == 1' color='primary' [(ngModel)]="item.status"
+                      (change)='updateCheckList(item, i)'>
+                    </mat-checkbox>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div><!-- end table -->
+        </div>
+      </div>
+      <!-- next row -->
+      <div class="footer w-100">
+        <div class="row border-top bgGrey pt-2 pb-2 pl-3">
+          <div class="col-md-2 text-right align-self-center">
+            <label class='text-white'>Enter PIN Code</label>
+          </div>
+          <div class="col-md-2">
+            <input type="text" class='form-control'>
+          </div>
+          <div class="col-md-2">
+            <a class="btn-flip mr-3" data-back="Save" data-front="Save"></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

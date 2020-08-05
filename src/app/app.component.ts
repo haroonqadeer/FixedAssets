@@ -62,9 +62,6 @@ export class AppComponent {
 
   qrLogList = [];
 
-  userLocations = [];
-  locationTitle = "Select Location";
-
   constructor(
     private router: Router,
     private cookie: CookieService,
@@ -92,12 +89,8 @@ export class AppComponent {
       // this.closeNav();
       // $(".sidenav").hide();
     }
-    this.getUserLocations();
   }
 
-  showLocCheckList(item) {
-    this.locationTitle = item.officeTypeDescription;
-  }
   // QR Scanner
   qrResultString: string;
 
@@ -179,22 +172,6 @@ export class AppComponent {
     this.lblModificationDate = "";
 
     setTimeout(() => this.getQrData(), 500);
-  }
-
-  // get user location
-  getUserLocations() {
-    var reqHeader = new HttpHeaders({
-      "Content-Type": "application/json",
-      // Authorization: "Bearer " + Token,
-    });
-
-    this.http
-      .get(this.serverUrl + "getuserlocation?UserID=" + this._cuId, {
-        headers: reqHeader,
-      })
-      .subscribe((data: any) => {
-        this.userLocations = data;
-      });
   }
 
   getQrData() {
