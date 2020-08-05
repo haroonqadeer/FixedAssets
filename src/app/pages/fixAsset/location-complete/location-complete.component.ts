@@ -26,6 +26,7 @@ export class LocationCompleteComponent implements OnInit {
   image;
   selectedFile: File = null;
 
+  panelOpenState = false;
   userLocations = [];
   locationTitle = "Select Location";
   locationCheckList = [];
@@ -89,7 +90,7 @@ export class LocationCompleteComponent implements OnInit {
   }
 
   // update check list
-  updateCheckList(item, i) {
+  updateCheckList(item) {
     if (
       item.fileRequired == 1 &&
       (item.eDoc == "" || item.eDoc == null || item.eDoc == undefined)
@@ -97,7 +98,6 @@ export class LocationCompleteComponent implements OnInit {
       this.toastr.errorToastr("File Required to upload", "Error", {
         toastTimeout: 2500,
       });
-      this.locationCheckList[i].status = !item.status;
       return false;
     } else {
       //update

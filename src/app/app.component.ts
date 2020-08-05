@@ -103,6 +103,8 @@ export class AppComponent {
 
   onCodeResult(resultString: string) {
     this.qrResultString = resultString;
+    this.txtAssetID = this.qrResultString;
+    this.getQrCodeData();
   }
 
   //logout function
