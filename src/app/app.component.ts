@@ -21,8 +21,8 @@ declare var $: any;
   styleUrls: ["./app.component.scss"],
 })
 export class AppComponent {
-  // serverUrl = "http://95.217.206.195:2007/api/";
-  serverUrl = "http://localhost:5090/api/";
+  serverUrl = "http://95.217.206.195:2007/api/";
+  // serverUrl = "http://localhost:5090/api/";
 
   title = "FixedAssets";
   userName = "";

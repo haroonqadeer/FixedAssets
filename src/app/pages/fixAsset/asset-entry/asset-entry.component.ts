@@ -229,7 +229,7 @@ export class AssetEntryComponent implements OnInit {
   // name = "Angular 4";
   urls = [];
   onSelectFile(event) {
-    alert(this.urls.length);
+    // alert(this.urls.length);
     if (event.target.files && event.target.files[0]) {
       var filesAmount = event.target.files.length;
       for (let i = 0; i < filesAmount; i++) {
@@ -247,7 +247,7 @@ export class AssetEntryComponent implements OnInit {
 
   clearTags() {
     debugger;
-    alert(this.locList);
+    // alert(this.locList);
     setTimeout(() => {
       Swal.fire({
         title: "Do you want to reset tag list?",
@@ -1768,42 +1768,38 @@ export class AssetEntryComponent implements OnInit {
   }
 
   searchTableData() {
-    if (this.assetDetailList.length == 0) {
-      this.getAssetDetail();
-    } else if (this.assetDetailList.length != 0) {
-      if (this.cmbSearchOfcType == "" && this.cmbSearchWngSection == "") {
-        this.assetDetailList = this.assetDetailList.filter(
-          (x) => x.subLocID == this.cmbSearchLocation
-        );
+    this.assetDetailList = [];
+    this.assetDetailList = this.tempDetailList;
 
-        var locFilter = this.locList.filter(
-          (x) => x.subLocID == this.cmbSearchLocation
-        );
+    if (this.cmbSearchOfcType == "" && this.cmbSearchWngSection == "") {
+      this.assetDetailList = this.assetDetailList.filter(
+        (x) => x.subLocID == this.cmbSearchLocation
+      );
 
-        this.regionName = locFilter[0].locationDescription;
-        this.locationName = locFilter[0].subLocationDescription;
-        this.officeName = locFilter[0].officeTypeDescription;
-      } else if (
-        this.cmbSearchLocation == "" &&
-        this.cmbSearchWngSection == ""
-      ) {
-        this.assetDetailList = this.assetDetailList.filter(
-          (x) => x.officeTypeID == this.cmbSearchOfcType
-        );
-      } else if (this.cmbSearchWngSection == "") {
-        this.assetDetailList = this.assetDetailList.filter(
-          (x) =>
-            x.subLocID == this.cmbSearchLocation &&
-            x.officeTypeID == this.cmbSearchOfcType
-        );
-      } else {
-        this.assetDetailList = this.assetDetailList.filter(
-          (x) =>
-            x.subLocID == this.cmbSearchLocation &&
-            x.officeTypeID == this.cmbSearchOfcType &&
-            x.officeSecID == this.cmbSearchWngSection
-        );
-      }
+      var locFilter = this.locList.filter(
+        (x) => x.subLocID == this.cmbSearchLocation
+      );
+
+      this.regionName = locFilter[0].locationDescription;
+      this.locationName = locFilter[0].subLocationDescription;
+      this.officeName = locFilter[0].officeTypeDescription;
+    } else if (this.cmbSearchLocation == "" && this.cmbSearchWngSection == "") {
+      this.assetDetailList = this.assetDetailList.filter(
+        (x) => x.officeTypeID == this.cmbSearchOfcType
+      );
+    } else if (this.cmbSearchWngSection == "") {
+      this.assetDetailList = this.assetDetailList.filter(
+        (x) =>
+          x.subLocID == this.cmbSearchLocation &&
+          x.officeTypeID == this.cmbSearchOfcType
+      );
+    } else {
+      this.assetDetailList = this.assetDetailList.filter(
+        (x) =>
+          x.subLocID == this.cmbSearchLocation &&
+          x.officeTypeID == this.cmbSearchOfcType &&
+          x.officeSecID == this.cmbSearchWngSection
+      );
     }
   }
 
@@ -1863,7 +1859,7 @@ export class AssetEntryComponent implements OnInit {
   }
 
   saveTransfer() {
-    alert(this.dtpTransferDt);
+    // alert(this.dtpTransferDt);
     if (this.rdbTransType == "") {
       this.toastr.errorToastr("Please Select Transfer Type", "Error", {
         toastTimeout: 2500,
@@ -1890,7 +1886,7 @@ export class AssetEntryComponent implements OnInit {
       return false;
     } else if (this.cmbTransByPost == "") {
       this.toastr.errorToastr(
-        "Please Select Transferred By Post Title",
+        "Please Select Transferred By Custody Name",
         "Error",
         {
           toastTimeout: 2500,
@@ -1899,7 +1895,7 @@ export class AssetEntryComponent implements OnInit {
       return false;
     } else if (this.cmbTransToPost == "") {
       this.toastr.errorToastr(
-        "Please Select Transferred To Post Title",
+        "Please Select Transferred To Custody Name",
         "Error",
         {
           toastTimeout: 2500,

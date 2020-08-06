@@ -106,7 +106,7 @@
             </th>
 
             <th scope="col" [class.active]="order === 'postName'" (click)="setOrder('postName')">
-              Post Name
+              Custody Name
             </th>
             <th scope="col" [class.active]="order === 'assetLocation'" (click)="setOrder('assetLocation')">
               Asset-Location
@@ -696,7 +696,7 @@
             </mat-slide-toggle>
           </div>
           <div *ngIf="lblTransferID != '' && lblTransferID != '0'" class="col-md-2">
-            Post Title :
+            Custody Name :
           </div>
           <div class="col-md-3 border-bottom text-danger" *ngIf="lblTransferID != '' && lblTransferID != '0'">
             <b>{{ lblTransByPost }}</b>
@@ -940,7 +940,7 @@
           <div class="col-md-12">
             <mat-form-field class="w-100">
               <mat-label>Province - Location - Sub Location</mat-label>
-              <mat-select [(ngModel)]="cmbSearchLocation" (ngModelChange)="searchTableData(); showSearchOfficeType()">
+              <mat-select [(ngModel)]="cmbSearchLocation" (ngModelChange)=" showSearchOfficeType();searchTableData()">
                 <mat-option>
                   <ngx-mat-select-search [(ngModel)]="advSearchLocation" [placeholderLabel]="'Search...'"
                     [noEntriesFoundLabel]="'Not found'" name="search"></ngx-mat-select-search>
@@ -1051,7 +1051,7 @@
                 <th scope="col">Tag</th>
                 <th scope="col">Sub Location</th>
                 <th scope="col">Office Title</th>
-                <th scope="col">Post</th>
+                <th scope="col">Custody</th>
                 <th scope="col">Description</th>
                 <th scope="col">Condition</th>
                 <th scope="col">Project</th>
@@ -1223,6 +1223,24 @@
               <mat-label>Chasis No.</mat-label>
               <input matInput [(ngModel)]="txtChasis" />
             </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12 pt-2">
+            <div class="custom-file">
+              <input type="file" class="custom-file-input" [(ngModel)]="imgFileTrans"
+                (change)="onTransFileSelected($event)" />
+              <label class="custom-file-label" for="customFile">Choose Register Document</label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12 pt-2 text-center">
+            <div class="text-center">
+              <img [src]="imageTransUrl" class="rounded" width="115" height="115" id="myImg"
+                (click)="zoomTransImage()" />
+            </div>
           </div>
         </div>
 
@@ -1449,7 +1467,7 @@
         <div class="row">
           <div class="col-md-6">
             <mat-form-field class="w-100">
-              <mat-label>Tranfered By: Post Title</mat-label>
+              <mat-label>Tranfered By: Custody Name</mat-label>
               <mat-select [(ngModel)]="cmbTransByPost" (ngModelChange)="getTransByPost()">
                 <mat-option>
                   <ngx-mat-select-search [(ngModel)]="searchPostBy" [placeholderLabel]="'Search...'"
@@ -1539,7 +1557,7 @@
         <div class="row">
           <div class="col-md-6">
             <mat-form-field class="w-100">
-              <mat-label>Tranfered To: Post Title</mat-label>
+              <mat-label>Tranfered To: Custody Name</mat-label>
               <mat-select [(ngModel)]="cmbTransToPost" (ngModelChange)="getTransToPost()">
                 <mat-option>
                   <ngx-mat-select-search [(ngModel)]="searchPostTo" [placeholderLabel]="'Search...'"
@@ -1699,7 +1717,7 @@
                 <th>Section</th>
                 <th>Asset Category</th>
                 <th>Asset Description</th>
-                <th>Post Name</th>
+                <th>Custody Name</th>
                 <th>Transfer By</th>
               </tr>
             </thead>

@@ -90,7 +90,7 @@ export class NHAPostsComponent implements OnInit {
       });
       return false;
     } else if (this.txtPostName == "") {
-      this.toastr.errorToastr("Please Enter Post Title", "Error", {
+      this.toastr.errorToastr("Please Enter Custody Name", "Error", {
         toastTimeout: 2500,
       });
       return false;
