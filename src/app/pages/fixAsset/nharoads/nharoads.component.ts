@@ -533,6 +533,26 @@ export class NHARoadsComponent implements OnInit {
         reqSpType = "Update";
       }
 
+      // alert("AccountsCatID: " + this.lblAccCatID);
+      // alert("FixedAssetID: " + this.lblFixAssetID);
+      // alert("OfficeSecID: " + this.ddlAccSec);
+      // alert("ProjectID: " + this.ddlProject);
+      // alert("RoadId: " + this.ddlRoads);
+      // alert("PackageName: " + this.txtProPackage);
+      // alert("DateofNationalization: " + dtNation);
+      // alert("ConstructionFrom: " + dtConstFrom);
+      // alert("ConstructionTo: " + dtConstTo);
+      // alert("ConstructionCost: " + this.txtConstCost);
+      // alert("LandMeasureTypeID: " + this.ddlLandMeasurement);
+      // alert("AreaAcquiredKanal: " + aKanal);
+      // alert("AreaAcquiredMarla: " + aMarla);
+      // alert("AreaTransferedKanal: " + tKanal);
+      // alert("AreaTransferedMarla: " + tMarla);
+      // alert("CostOfLand: " + this.txtLandCost);
+      // alert("Remarks: " + reqRemarks);
+      // alert("Userid: " + this.cookie.get("userID"));
+      // alert("SpType: " + reqSpType);
+
       var SaveData = {
         AccountsCatID: this.lblAccCatID,
         FixedAssetID: this.lblFixAssetID,
