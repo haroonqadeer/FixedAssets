@@ -478,7 +478,7 @@ table {
 
 .h1Report {
   font-size: 2.0em !important;
-  font-weight: 300 !important;
+  font-weight: 500 !important;
   padding-bottom: 2px !important;
 }
 
@@ -488,7 +488,13 @@ table {
   padding-bottom: 2px !important;
 }
 
+.h5Report {
+  font-size: 0.75em !important;
+  font-weight: 800 !important;
+  padding-bottom: 2px !important;
+}
+
 .label {
-  font-size: 1.0em !important;
+  font-size: 0.75em !important;
   padding-bottom: 2px !important;
 }
