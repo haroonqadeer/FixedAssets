@@ -112,7 +112,7 @@ export class LocationCompleteComponent implements OnInit {
 
   // update check list
   updateCheckList(item) {
-    alert(item.description);
+    // alert(item.description);
     if (
       item.fileRequired == 1 &&
       (item.eDoc == "" || item.eDoc == null || item.eDoc == undefined)
