@@ -62,7 +62,8 @@ export class LocationCompleteComponent implements OnInit {
     this.compLoc = item.isCompleted;
     this.locID = item.subLocID;
     this.officeTypeID = item.officeTypeID;
-    this.locationTitle = item.officeTypeDescription;
+    this.locationTitle =
+      item.subLocationDescription + " - " + item.officeTypeDescription;
     this.locationStatus = item.isCompleted;
     // this.locationStatus = 1;
     this.getCheckList(this.locID, this.officeTypeID);
@@ -247,13 +248,9 @@ export class LocationCompleteComponent implements OnInit {
       }
 
       if (count < this.tempLocList.length) {
-        this.toastr.errorToastr(
-          "Please Complete Location " + this.locationTitle + " All Check List",
-          "Error !",
-          {
-            toastTimeout: 5000,
-          }
-        );
+        this.toastr.errorToastr("Please Complete Check List", "Error !", {
+          toastTimeout: 5000,
+        });
         return false;
       }
       this.loadingBar = true;
@@ -317,6 +314,8 @@ export class LocationCompleteComponent implements OnInit {
           return false;
         }
       });
+    this.txtPin = "";
+    this.locationCheckList = [];
   }
 
   saveInCompleteLocation() {
@@ -355,6 +354,8 @@ export class LocationCompleteComponent implements OnInit {
           return false;
         }
       });
+    this.txtPin = "";
+    this.locationCheckList = [];
   }
 
   onFileSelected(event, item) {
