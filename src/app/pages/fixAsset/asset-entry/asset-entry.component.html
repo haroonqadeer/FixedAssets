@@ -190,10 +190,12 @@
             ">
             <td class="inline-block">
               <!-- <span class="fa fa-edit cursorPointer pr-3 text-primary" (click)="editAsset(item)"></span> -->
-              <span class="fa fa-edit cursorPointer pr-3 text-primary" (click)="genPin(item,'editAsset')"></span>
-              <span class="fa fa-trash-o cursorPointer text-danger" (click)="genPin(item,'deleteAsset')"></span>
-              <mat-checkbox class="example-margin" color="primary" [(ngModel)]="item.checkbox"
-                (change)="pushTag(item, item.checkbox ? 'A' : 'B')"></mat-checkbox>
+              <span *ngIf="item.isCompleted == 0" class="fa fa-edit cursorPointer pr-3 text-primary"
+                (click)="genPin(item,'editAsset')"></span>
+              <span *ngIf="item.isCompleted == 0" class="fa fa-trash-o cursorPointer text-danger"
+                (click)="genPin(item,'deleteAsset')"></span>
+              <mat-checkbox *ngIf="item.isCompleted == 0" class="example-margin" color="primary"
+                [(ngModel)]="item.checkbox" (change)="pushTag(item, item.checkbox ? 'A' : 'B')"></mat-checkbox>
             </td>
             <td>{{ item.tag }}</td>
             <td>{{ item.subLocationDescription }}</td>
@@ -1219,13 +1221,27 @@
 <!-- asset register print -->
 <div class="table-responsive" id="assetRegister">
   <div class="row">
-    <div class="col-md-12 text-center p-0">
-      <h3 class="p-0">National Highway Authority</h3>
+    <div class="col-md-12 text-center p-0 m-0">
+      <h3 class="p-0 m-0">National Highway Authority</h3>
+      <h1 class="p-0 m-0">Asset Register</h1>
     </div>
   </div>
+  <!-- row -->
   <div class="row">
-    <div class="col-md-12 p-0 text-center">
-      <h1 class="p-0">Asset Register</h1>
+    <div class="col-md-2">
+      <b>Region Name:</b>
+    </div>
+    <div class="col-md-4 border-bottom">
+      {{regionName}}
+    </div>
+  </div>
+  <!-- row -->
+  <div class="row">
+    <div class="col-md-2">
+      <b>Office Title: </b>
+    </div>
+    <div class="col-md-4 border-bottom">
+      {{locationName}}
     </div>
   </div>
   <table class="table table-striped">

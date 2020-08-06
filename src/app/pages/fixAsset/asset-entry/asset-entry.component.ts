@@ -210,6 +210,8 @@ export class AssetEntryComponent implements OnInit {
   paramType = "";
 
   toggleView = "form";
+  regionName = "";
+  locationName = "";
 
   constructor(
     private toastr: ToastrManager,
@@ -1767,6 +1769,13 @@ export class AssetEntryComponent implements OnInit {
         this.assetDetailList = this.assetDetailList.filter(
           (x) => x.subLocID == this.cmbSearchLocation
         );
+
+        var locFilter = this.locList.filter(
+          (x) => x.subLocID == this.cmbSearchLocation
+        );
+
+        this.regionName = locFilter[0].subLocationDescription;
+        this.locationName = locFilter[0].officeTypeDescription;
       } else if (
         this.cmbSearchLocation == "" &&
         this.cmbSearchWngSection == ""
