@@ -10,6 +10,10 @@ import {
 import { CookieService } from "ngx-cookie-service";
 import Swal from "sweetalert2/dist/sweetalert2.js";
 import { Observable } from "rxjs";
+import { AppComponent } from "src/app/app.component";
+import * as XLSX from "xlsx";
+import html2canvas from "html2canvas";
+import * as jsPDF from "jspdf";
 // import "sweetalert2/src/sweetalert2.scss";
 
 declare var $: any;
@@ -212,11 +216,13 @@ export class AssetEntryComponent implements OnInit {
   toggleView = "form";
   regionName = "";
   locationName = "";
+  officeName = "";
 
   constructor(
     private toastr: ToastrManager,
     private http: HttpClient,
-    private cookie: CookieService
+    private cookie: CookieService,
+    private app: AppComponent
   ) {}
 
   // multiple image setting
@@ -1774,8 +1780,9 @@ export class AssetEntryComponent implements OnInit {
           (x) => x.subLocID == this.cmbSearchLocation
         );
 
-        this.regionName = locFilter[0].subLocationDescription;
-        this.locationName = locFilter[0].officeTypeDescription;
+        this.regionName = locFilter[0].locationDescription;
+        this.locationName = locFilter[0].subLocationDescription;
+        this.officeName = locFilter[0].officeTypeDescription;
       } else if (
         this.cmbSearchLocation == "" &&
         this.cmbSearchWngSection == ""
@@ -2571,5 +2578,27 @@ export class AssetEntryComponent implements OnInit {
     this.txtEngine = item.engineNum;
     this.txtChasis = item.chasisNum;
     this.cmbVehicle = "";
+  }
+
+  exportExcel() {
+    this.app.exportExcel("assetRegister", "Asset Register");
+  }
+
+  exportPdf() {
+    // this.app.exportPdf("assetRegister", "Asset Register");
+    var data = document.getElementById("assetRegister");
+    html2canvas(data).then((canvas) => {
+      // Few necessary setting options
+      var imgWidth = 208;
+      var pageHeight = 295;
+      var imgHeight = (canvas.height * imgWidth) / canvas.width;
+      var heightLeft = imgHeight;
+
+      const contentDataURL = canvas.toDataURL("image/png");
+      let pdf = new jsPDF("p", "mm", "a4"); // A4 size page of PDF
+      var position = 0;
+      pdf.addImage(contentDataURL, "PNG", 0, position, imgWidth, imgHeight);
+      pdf.save("MYPdf.pdf"); // Generated PDF
+    });
   }
 }

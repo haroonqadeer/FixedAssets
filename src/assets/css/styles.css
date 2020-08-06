@@ -473,11 +473,11 @@ table {
 }
 
 .text-primary {
-  color: #fff
+  color: #fff;
 }
 
 .h1Report {
-  font-size: 2.0em !important;
+  font-size: 2em !important;
   font-weight: 500 !important;
   padding-bottom: 2px !important;
 }
@@ -489,12 +489,82 @@ table {
 }
 
 .h5Report {
-  font-size: 0.75em !important;
-  font-weight: 800 !important;
+  font-size: 0.8em !important;
+  font-weight: 600 !important;
   padding-bottom: 2px !important;
 }
 
 .label {
-  font-size: 0.75em !important;
+  font-size: 0.9em !important;
   padding-bottom: 2px !important;
+}
+
+.reportTable th {
+  font-size: 0.65em !important;
+}
+
+.reportTable td {
+  font-size: 0.65em !important;
+}
+
+div.divFooter {
+  padding-top: 5px !important;
+  position: fixed;
+  bottom: 0;
+  width: 100% !important;
+}
+
+@media screen {
+  div.divFooter {
+    display: none;
+  }
+}
+
+div.divHeader {
+  padding-top: 5px !important;
+  position: fixed;
+  top: 0;
+  width: 100% !important;
+}
+
+@media screen {
+  div.divHeader {
+    display: none;
+  }
+}
+
+div.divFooter .label {
+  font-size: 0.5em !important;
+}
+
+.text-left {
+  text-align: left !important;
+}
+
+.text-right {
+  text-align: right !important;
+}
+
+.text-center {
+  text-align: center !important;
+}
+
+.border {
+  border: 1px solid #dee2e6 !important;
+}
+
+.border-top {
+  border-top: 1px solid #dee2e6 !important;
+}
+
+.border-right {
+  border-right: 1px solid #dee2e6 !important;
+}
+
+.border-bottom {
+  border-bottom: 1px solid #dee2e6 !important;
+}
+
+.border-left {
+  border-left: 1px solid #dee2e6 !important;
 }
