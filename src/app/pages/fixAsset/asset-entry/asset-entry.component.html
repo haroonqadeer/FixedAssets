@@ -1271,53 +1271,44 @@
     </div>
   </div>
 
-  <!-- row -->
-  <div class="row">
-    <div class="col-md-6">
-      <!-- <b class="label">Location Name: &nbsp;&nbsp;</b> -->
-      <label class="label pl-2 pr-2">{{ locationName }} - {{ officeName }}</label>
+  <!-- report header -->
+  <div class="">
+    <div class="row">
+      <div class="col-md-6">
+        <!-- <b class="label">Location Name: &nbsp;&nbsp;</b> -->
+        <label class="label pl-2 pr-2">{{ locationName }} - {{ officeName }}</label>
+      </div>
+      <!-- <div class="col-md-6 text-right">
+        <b>Office Title: &nbsp;&nbsp; </b>
+        <label class="label pl-2 pr-2">{{ officeName }}</label>
+      </div> -->
     </div>
-    <!-- <div class="col-md-6 text-right">
-      <b>Office Title: &nbsp;&nbsp; </b>
-      <label class="label pl-2 pr-2">{{ officeName }}</label>
-    </div> -->
   </div>
   <!-- row -->
   <div class="row"></div>
   <table class="table table-striped reportTable">
     <thead>
       <tr>
+        <th class="text-center">#</th>
+        <th>Office</th>
         <th>
           Tag
           <!-- <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
             <span class="fa fa-angle-double-up" [hidden]="!reverse"></span> -->
         </th>
         <th>
-          Location
-          <!-- <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
-            <span class="fa fa-angle-double-up" [hidden]="!reverse"></span></th> -->
-        </th>
-
-        <th>
-          Office Type
-          <!-- <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
-            <span class="fa fa-angle-double-up" [hidden]="!reverse"></span></th> -->
-        </th>
-
-        <th>
           Accounts Category
           <!-- <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
             <span class="fa fa-angle-double-up" [hidden]="!reverse"></span></th> -->
         </th>
-
         <th>
           Asset - Category
           <!-- <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
             <span class="fa fa-angle-double-up" [hidden]="!reverse"></span></th> -->
         </th>
-
+        <th> Asset - Description</th>
         <th>
-          Post Name
+          Custodian
         </th>
         <th>
           Asset-Location
@@ -1329,11 +1320,6 @@
           Project
           <!-- <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
             <span class="fa fa-angle-double-up" [hidden]="!reverse"></span> -->
-        </th>
-        <th>
-          Serial No.
-          <!-- <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
-            <span class="fa fa-angle-double-up" [hidden]="!reverse"></span></th> -->
         </th>
         <th>
           Vehicle ID
@@ -1381,15 +1367,17 @@
               : tblSearch;
           let i = index
         ">
+        <td class='text-center'>{{ i + 1 }}</td>
+        <td>{{ item.officeDescription }}</td>
         <td>{{ item.tag }}</td>
         <td>{{ item.subLocationDescription }}</td>
         <td>{{ item.officeTypeDescription }}</td>
         <td>{{ item.accountsCatagory }}</td>
         <td>{{ item.assetCatDescription }}</td>
+        <th>{{ item.assetDescription }}</th>
         <td>{{ item.postName }}</td>
         <td>{{ item.assetLocation }}</td>
         <td>{{ item.projectShortName }}</td>
-        <td>{{ item.serialNo }}</td>
         <td>{{ item.vehID }}</td>
         <td>{{ item.costAmount | number }}</td>
         <td>{{ item.purchaseDate | date: "dd-MM-yyyy" }}</td>
@@ -1406,7 +1394,7 @@
   <div class="divFooter">
     <div class="row">
       <div class="col-md-12 text-center border-top pt-2">
-        <label class="label">powered by: <b>Muniff Ziauddin & Co.</b></label>
+        <label class="label">{{ locationName }} - {{ officeName }}</label>
       </div>
     </div>
   </div>

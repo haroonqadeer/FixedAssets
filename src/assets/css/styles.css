@@ -80,8 +80,8 @@ html {
   margin-left: 0;
 }
 
-.no-gutters > .col,
-.no-gutters > [class*="col-"] {
+.no-gutters>.col,
+.no-gutters>[class*="col-"] {
   padding-right: 0;
   padding-left: 0;
 }
@@ -421,7 +421,7 @@ table {
   border-bottom: 2px solid #dee2e6;
 }
 
-.table tbody + tbody {
+.table tbody+tbody {
   border-top: 2px solid #dee2e6;
 }
 
@@ -516,6 +516,19 @@ div.divFooter {
 
 @media screen {
   div.divFooter {
+    display: none;
+  }
+}
+
+div.divHeader {
+  padding-top: 5px !important;
+  position: fixed;
+  top: 0;
+  width: 100% !important;
+}
+
+@media screen {
+  div.divHeader {
     display: none;
   }
 }
