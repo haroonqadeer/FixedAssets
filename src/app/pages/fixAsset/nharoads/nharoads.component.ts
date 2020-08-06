@@ -793,20 +793,18 @@ export class NHARoadsComponent implements OnInit {
       this.txtFaCost = "0";
     }
 
-    if (this.txtFaAmount == undefined || parseFloat(this.txtFaAmount) <= 0) {
-      this.toastr.errorToastr("Please Enter Addition In Cost", "Error !", {
-        toastTimeout: 2500,
-      });
-      return false;
-    } else if (this.txtFaCost == undefined || parseFloat(this.txtFaCost) <= 0) {
-      this.toastr.errorToastr("Please Enter Disposal In Cost", "Error !", {
-        toastTimeout: 2500,
-      });
-      return false;
-    } else if (
-      parseFloat(this.txtFaAmount) == 0 &&
-      parseFloat(this.txtFaCost) == 0
-    ) {
+    // if (this.txtFaAmount == undefined || parseFloat(this.txtFaAmount) <= 0) {
+    //   this.toastr.errorToastr("Please Enter Addition In Cost", "Error !", {
+    //     toastTimeout: 2500,
+    //   });
+    //   return false;
+    // } else if (this.txtFaCost == undefined || parseFloat(this.txtFaCost) <= 0) {
+    //   this.toastr.errorToastr("Please Enter Disposal In Cost", "Error !", {
+    //     toastTimeout: 2500,
+    //   });
+    //   return false;
+    // } else
+    if (parseFloat(this.txtFaAmount) == 0 && parseFloat(this.txtFaCost) == 0) {
       this.toastr.errorToastr("Please Enter Addition In Cost", "Error !", {
         toastTimeout: 2500,
       });
@@ -1022,25 +1020,22 @@ export class NHARoadsComponent implements OnInit {
       this.txtFaAmount = "0";
     }
 
-    // if (this.txtFaCost == "") {
-    //   this.txtFaCost = "0";
-    // }
+    if (this.txtFaCost == "") {
+      this.txtFaCost = "0";
+    }
 
-    if (this.txtFaAmount == undefined || parseFloat(this.txtFaAmount) <= 0) {
-      this.toastr.errorToastr("Please Enter Depreciation Amount", "Error !", {
-        toastTimeout: 2500,
-      });
-      return false;
-      // } else if (this.txtFaCost == undefined || parseFloat(this.txtFaCost) < 0) {
-      //   this.toastr.errorToastr("Please Enter Disposal In Cost", "Error !", {
-      //     toastTimeout: 2500,
-      //   });
-      //   return false;
-    } else if (
-      parseFloat(this.txtFaAmount) == 0
-      //  &&
-      // parseFloat(this.txtFaCost) == 0
-    ) {
+    // if (this.txtFaAmount == undefined || parseFloat(this.txtFaAmount) <= 0) {
+    //   this.toastr.errorToastr("Please Enter Depreciation Amount", "Error !", {
+    //     toastTimeout: 2500,
+    //   });
+    //   return false;
+    // } else if (this.txtFaCost == undefined || parseFloat(this.txtFaCost) < 0) {
+    //   this.toastr.errorToastr("Please Enter Disposal In Cost", "Error !", {
+    //     toastTimeout: 2500,
+    //   });
+    //   return false;
+    // } else
+    if (parseFloat(this.txtFaAmount) == 0 && parseFloat(this.txtFaCost) == 0) {
       this.toastr.errorToastr("Please Enter Depreciation Amount", "Error !", {
         toastTimeout: 2500,
       });
@@ -1078,7 +1073,7 @@ export class NHARoadsComponent implements OnInit {
         FixedAssetID: this.lblFixAssetID,
         TypeofEntry: "Depreciation",
         DepreciationforYear: reqFaAmount,
-        // DisposalinCost: reqFaCost,
+        DisposalinDepreciation: reqFaCost,
         Year: reqDate,
         FAdetailID: this.FaDetailID,
         Userid: this.cookie.get("userID"),

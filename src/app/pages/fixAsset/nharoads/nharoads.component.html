@@ -77,16 +77,16 @@
             <td>{{item.projectShortName}}</td>
             <td>{{item.packageName}}</td>
             <td>{{item.landMeasureType}}</td>
-            <td>{{item.areaAcquiredKanal}}</td>
-            <td>{{item.areaAcquiredMarla}}</td>
-            <td>{{item.historicalCost}}</td>
-            <td>{{item.accDepreciation}}</td>
-            <td>{{item.wdv}}</td>
-            <td>{{item.totalRevaluationAmount}}</td>
-            <td>{{item.revaluationSurplus}}</td>
-            <td>{{item.additionINRevaluationAmount}}</td>
-            <td>{{item.additionINRevaluationSurplus}}</td>
-            <td>{{item.openingRevaluationAmount}}</td>
+            <td>{{item.areaAcquiredKanal | number}}</td>
+            <td>{{item.areaAcquiredMarla | number}}</td>
+            <td>{{item.historicalCost | number}}</td>
+            <td>{{item.accDepreciation | number}}</td>
+            <td>{{item.wdv | number}}</td>
+            <td>{{item.totalRevaluationAmount | number}}</td>
+            <td>{{item.revaluationSurplus | number}}</td>
+            <td>{{item.additionINRevaluationAmount | number}}</td>
+            <td>{{item.additionINRevaluationSurplus | number}}</td>
+            <td>{{item.openingRevaluationAmount | number}}</td>
           </tr>
         </tbody>
       </table>
@@ -648,7 +648,7 @@
             <thead>
               <tr>
                 <th class='text-center'>#</th>
-                <th class='text-right'>Addition Amount</th>
+                <th class='text-right'>Addition Cost</th>
                 <th class='text-right'>Disposal Cost</th>
                 <th class='text-center'>As on</th>
                 <th class='text-center'>Actions</th>
@@ -970,7 +970,8 @@
             <thead>
               <tr>
                 <th class='text-center'>#</th>
-                <th class='text-right'>Depreciation</th>
+                <th class='text-right'>Opening Depreciation</th>
+                <th class='text-right'>Disposal Depreciation</th>
                 <th class='text-center'>As on</th>
                 <th class='text-center'>Actions</th>
               </tr>
@@ -980,8 +981,8 @@
                 <td class='text-center'></td>
                 <td><input type="text" class="form-control text-right" placeholder="Depreciation cost" currencyMask
                     [(ngModel)]="txtFaAmount"></td>
-                <!-- <td><input type="text" class="form-control text-right" placeholder="Disposal in cost" currencyMask
-                    [(ngModel)]="txtFaCost"></td> -->
+                <td><input type="text" class="form-control text-right" placeholder="Disposal in cost" currencyMask
+                    [(ngModel)]="txtFaCost"></td>
                 <td>
                   <!-- <p-calendar [(ngModel)]="dtpFaDate" inputId="icon"></p-calendar> -->
                   <mat-form-field class='w-100 mt-n3'>
@@ -1001,6 +1002,7 @@
               <tr *ngFor="let item of dFaDetailList; let i=index;">
                 <td class='text-center'>{{i + 1}}</td>
                 <td class='text-right'>{{item.depreciationforYear | number}}</td>
+                <td class='text-right'>{{item.disposalinDepreciation | number}}</td>
                 <td class='text-center'>{{item.year | date}}</td>
                 <td class='inline-block text-center'>
                   <span class='fa fa-edit cursorPointer pr-3 text-primary' (click)="editD(item)"></span>
