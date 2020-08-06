@@ -696,7 +696,7 @@ export class NHARoadsComponent implements OnInit {
     }, 1000);
   }
 
-  //
+  //Modal Window Crud Operations
   saveOC() {
     if (
       this.txtFaAmount == undefined ||
@@ -1124,7 +1124,7 @@ export class NHARoadsComponent implements OnInit {
   editD(item) {
     this.FaDetailID = item.faDetailID;
     this.txtFaAmount = item.depreciationforYear;
-    // this.txtFaCost = item.disposalinCost;
+    this.txtFaCost = item.disposalinDepreciation;
     this.dtpFaDate = new Date(item.year);
   }
 
