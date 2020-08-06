@@ -475,3 +475,20 @@ table {
 .text-primary {
   color: #fff
 }
+
+.h1Report {
+  font-size: 2.0em !important;
+  font-weight: 300 !important;
+  padding-bottom: 2px !important;
+}
+
+.h2Report {
+  font-size: 1.5em !important;
+  font-weight: 300 !important;
+  padding-bottom: 2px !important;
+}
+
+.label {
+  font-size: 1.0em !important;
+  padding-bottom: 2px !important;
+}
