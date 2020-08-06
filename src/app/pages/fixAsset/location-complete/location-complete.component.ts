@@ -218,7 +218,7 @@ export class LocationCompleteComponent implements OnInit {
       });
   }
 
-  verifyPin() {
+  verifyPin(param) {
     var count = 0;
     if (this.locID == 0) {
       this.toastr.errorToastr("Please Select Location", "Error !", {
@@ -261,7 +261,11 @@ export class LocationCompleteComponent implements OnInit {
         .post(this.serverUrl + "pincode", saveData, { headers: reqHeader })
         .subscribe((data: any) => {
           if (data.msg == "Success") {
-            this.saveCompleteLocation();
+            if (param == "Complete") {
+              this.saveCompleteLocation();
+            } else {
+              this.saveInCompleteLocation();
+            }
             return false;
           } else {
             this.toastr.errorToastr(data.msg, "Error!", { toastTimeout: 2500 });
@@ -288,7 +292,45 @@ export class LocationCompleteComponent implements OnInit {
       .subscribe((data: any) => {
         if (data.msg == "SUCCESS") {
           this.toastr.successToastr(
-            "Record Completed Successfully!",
+            "Location Completed Successfully!",
+            "Success!",
+            {
+              toastTimeout: 2500,
+            }
+          );
+          // this.clear();
+          this.getUserLocations();
+          this.loadingBar = false;
+          return false;
+        } else {
+          this.toastr.errorToastr(data.msg, "Error !", {
+            toastTimeout: 5000,
+          });
+          this.loadingBar = false;
+          return false;
+        }
+      });
+  }
+
+  saveInCompleteLocation() {
+    var saveData = {
+      SpType: "UNCOMPLETE", //string
+      SubLocationID: this.locID,
+      userID: this.cookie.get("userID"), //int
+    };
+
+    var reqHeader = new HttpHeaders({
+      "Content-Type": "application/json",
+    });
+
+    this.http
+      .post(this.serverUrl + "sublocation", saveData, {
+        headers: reqHeader,
+      })
+      .subscribe((data: any) => {
+        if (data.msg == "SUCCESS") {
+          this.toastr.successToastr(
+            "Location InComplete Successfully!",
             "Success!",
             {
               toastTimeout: 2500,
@@ -334,5 +376,13 @@ export class LocationCompleteComponent implements OnInit {
       this.selectedFile = null;
       // this.imageUrl = "";
     }
+  }
+
+  openPDFFile(item) {
+    var url =
+      "http://95.217.206.195:2008/assets/Location/" +
+      item.subLocCompletionID +
+      ".pdf";
+    window.open(url);
   }
 }

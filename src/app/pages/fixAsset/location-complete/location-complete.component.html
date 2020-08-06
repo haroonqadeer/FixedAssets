@@ -79,8 +79,8 @@
           <!-- row -->
           <div class="row mt-2" *ngIf="item.fileRequired == 1 && item.eDoc != null">
             <div class="col-md-12 inline-block">
-              <label>uploaded File</label>
-              <span class="fa fa-file-pdf-o cursorPointer"></span>
+              <label>uploaded File: </label>
+              <span class="fa fa-file-pdf-o cursorPointer" (click)='openPDFFile(item)'></span>
             </div>
           </div>
           <!-- row -->
@@ -135,10 +135,12 @@
             <input type="password" class="form-control" placeholder="PIN Code" maxlength="4" [(ngModel)]="txtPin" />
           </div>
           <div class="col-md-3" *ngIf="locStatus == 0">
-            <a class="btn-flip mr-3" data-back="Close Location" data-front="Close Location" (click)="verifyPin()"></a>
+            <a class="btn-flip mr-3" data-back="Close Location" data-front="Close Location"
+              (click)="verifyPin('Complete')"></a>
           </div>
           <div class="col-md-3" *ngIf="locStatus == 1 && userRole == 'Super User'">
-            <a class="btn-flip mr-3" data-back="Open Location" data-front="Open Location"></a>
+            <a class="btn-flip mr-3" data-back="Open Location" data-front="Open Location"
+              (click)="verifyPin('InComplete')"></a>
           </div>
         </div>
       </div>
