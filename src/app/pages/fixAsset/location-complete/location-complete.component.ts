@@ -35,6 +35,7 @@ export class LocationCompleteComponent implements OnInit {
   txtPin = "";
   compLoc = "";
   locID = 0;
+  officeTypeID = 0;
   locationTitle = "Select Location";
   locationCheckList = [];
   locationStatus = 1;
@@ -60,10 +61,14 @@ export class LocationCompleteComponent implements OnInit {
     // alert(item.officeTypeID);
     this.compLoc = item.isCompleted;
     this.locID = item.subLocID;
+    this.officeTypeID = item.officeTypeID;
     this.locationTitle = item.officeTypeDescription;
     this.locationStatus = item.isCompleted;
     // this.locationStatus = 1;
+    this.getCheckList(this.locID, this.officeTypeID);
+  }
 
+  getCheckList(subLocIDp, officeTypeIDp) {
     var reqHeader = new HttpHeaders({
       "Content-Type": "application/json",
       // Authorization: "Bearer " + Token,
@@ -73,9 +78,9 @@ export class LocationCompleteComponent implements OnInit {
       .get(
         this.serverUrl +
           "getLocationCheckList?subLocID=" +
-          item.subLocID +
+          subLocIDp +
           "&officeTypeID=" +
-          item.officeTypeID,
+          officeTypeIDp,
         {
           headers: reqHeader,
         }
@@ -162,7 +167,8 @@ export class LocationCompleteComponent implements OnInit {
                 toastTimeout: 2500,
               }
             );
-            this.showLocCheckList(item);
+            // this.showLocCheckList(item);
+            this.getCheckList(this.locID, this.officeTypeID);
             // this.clear();
             // this.getAssetCategory();
             // this.loadingBar = false;
@@ -207,7 +213,8 @@ export class LocationCompleteComponent implements OnInit {
               toastTimeout: 2500,
             }
           );
-          this.showLocCheckList(item);
+          // this.showLocCheckList(item);
+          this.getCheckList(this.locID, this.officeTypeID);
           return false;
         } else {
           this.toastr.errorToastr(data.msg, "Error !", {
