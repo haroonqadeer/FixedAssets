@@ -352,6 +352,7 @@ export class LocationCompleteComponent implements OnInit {
 
   onFileSelected(event, item) {
     if (event.target.files[0].type == "application/pdf") {
+      this.lblFileName = event.target.files[0].name;
       this.selectedFile = <File>event.target.files[0];
       let reader = new FileReader();
 
