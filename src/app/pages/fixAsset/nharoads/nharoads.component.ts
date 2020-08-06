@@ -533,43 +533,37 @@ export class NHARoadsComponent implements OnInit {
         reqSpType = "Update";
       }
 
-      // alert("AccountsCatID: " + this.lblAccCatID);
-      // alert("FixedAssetID: " + this.lblFixAssetID);
-      // alert("OfficeSecID: " + this.ddlAccSec);
-      // alert("ProjectID: " + this.ddlProject);
-      // alert("RoadId: " + this.ddlRoads);
-      // alert("PackageName: " + this.txtProPackage);
-      // alert("DateofNationalization: " + dtNation);
-      // alert("ConstructionFrom: " + dtConstFrom);
-      // alert("ConstructionTo: " + dtConstTo);
-      // alert("ConstructionCost: " + this.txtConstCost);
-      // alert("LandMeasureTypeID: " + this.ddlLandMeasurement);
-      // alert("AreaAcquiredKanal: " + aKanal);
-      // alert("AreaAcquiredMarla: " + aMarla);
-      // alert("AreaTransferedKanal: " + tKanal);
-      // alert("AreaTransferedMarla: " + tMarla);
-      // alert("CostOfLand: " + this.txtLandCost);
-      // alert("Remarks: " + reqRemarks);
-      // alert("Userid: " + this.cookie.get("userID"));
-      // alert("SpType: " + reqSpType);
+      var landCost, consCost;
+      if (this.txtLandCost == "") {
+        landCost = 0;
+      } else {
+        landCost = parseInt(this.txtLandCost);
+      }
 
+      if (this.txtConstCost == "") {
+        consCost = 0;
+      } else {
+        consCost = parseInt(this.txtConstCost);
+      }
+
+      debugger;
       var SaveData = {
         AccountsCatID: this.lblAccCatID,
         FixedAssetID: this.lblFixAssetID,
-        OfficeSecID: this.ddlAccSec,
-        ProjectID: this.ddlProject,
-        RoadId: this.ddlRoads,
+        OfficeSecID: parseInt(this.ddlAccSec),
+        ProjectID: parseInt(this.ddlProject),
+        RoadId: parseInt(this.ddlRoads),
         PackageName: this.txtProPackage,
         DateofNationalization: dtNation,
         ConstructionFrom: dtConstFrom,
         ConstructionTo: dtConstTo,
-        ConstructionCost: this.txtConstCost,
+        ConstructionCost: consCost,
         LandMeasureTypeID: this.ddlLandMeasurement,
         AreaAcquiredKanal: aKanal,
         AreaAcquiredMarla: aMarla,
         AreaTransferedKanal: tKanal,
         AreaTransferedMarla: tMarla,
-        CostOfLand: this.txtLandCost,
+        CostOfLand: landCost,
         Remarks: reqRemarks,
         Userid: this.cookie.get("userID"),
         SpType: reqSpType,
