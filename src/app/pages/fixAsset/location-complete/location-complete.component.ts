@@ -17,12 +17,12 @@ declare var $: any;
   styleUrls: ["./location-complete.component.scss"],
 })
 export class LocationCompleteComponent implements OnInit {
-  // serverUrl = "http://95.217.206.195:2007/api/";
-  serverUrl = "http://localhost:5090/api/";
+  serverUrl = "http://95.217.206.195:2007/api/";
+  // serverUrl = "http://localhost:5090/api/";
 
   loadingBar = false;
 
-  imgPath = "C:/inetpub/wwwroot/2008_FAR_Proj/assets/IPCRefImg";
+  imgPath = "C:/inetpub/wwwroot/2008_FAR_Proj/assets/Location";
   showPdf = "";
   lblFileName = "";
   image;
