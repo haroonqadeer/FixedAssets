@@ -69,7 +69,7 @@
             </div>
           </div>
           <!-- row -->
-          <div class="row mt-2" *ngIf="item.fileRequired == 1 && item.eDoc == null">
+          <div class="row mt-2" *ngIf="item.fileRequired == 1 && (item.eDoc == null || item.status == 0)">
             <div class="col-md-12 inline-block">
               <input type="file" class="custom-file-input noneOutline" [(ngModel)]="item.eDoc"
                 (change)="onFileSelected($event, item)" />
@@ -77,10 +77,18 @@
             </div>
           </div>
           <!-- row -->
-          <div class="row mt-2" *ngIf="item.fileRequired == 1 && item.eDoc != null">
+          <div class="row mt-2" *ngIf="item.fileRequired == 1 && item.eDoc != null && item.status == 0">
+            <div class="col-md-12 inline-block">
+              <label>File Name: </label>
+              <span class="ml-2 cursorPointer text-danger border-bottom"></span>
+            </div>
+          </div>
+          <!-- row -->
+          <div class="row mt-2" *ngIf="item.fileRequired == 1 && item.eDoc != null && item.status == 1">
             <div class="col-md-12 inline-block">
               <label>uploaded File: </label>
-              <span class="fa fa-file-pdf-o cursorPointer" (click)='openPDFFile(item)'></span>
+              <span class="fa fa-file-pdf-o ml-5 cursorPointer text-danger" style='font-size: 2.0em !important;'
+                (click)='openPDFFile(item)'></span>
             </div>
           </div>
           <!-- row -->
