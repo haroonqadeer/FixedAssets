@@ -239,7 +239,7 @@ export class AssetEntryComponent implements OnInit {
 
   clearTags() {
     debugger;
-    alert(this.tagList);
+    alert(this.locList);
     setTimeout(() => {
       Swal.fire({
         title: "Do you want to reset tag list?",
@@ -536,6 +536,7 @@ export class AssetEntryComponent implements OnInit {
   }
 
   getLocation() {
+    debugger;
     var reqHeader = new HttpHeaders({
       "Content-Type": "application/json",
       // Authorization: "Bearer " + Token,

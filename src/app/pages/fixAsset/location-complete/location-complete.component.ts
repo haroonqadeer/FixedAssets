@@ -17,8 +17,8 @@ declare var $: any;
   styleUrls: ["./location-complete.component.scss"],
 })
 export class LocationCompleteComponent implements OnInit {
-  serverUrl = "http://95.217.206.195:2007/api/";
-  // serverUrl = "http://localhost:5090/api/";
+  // serverUrl = "http://95.217.206.195:2007/api/";
+  serverUrl = "http://localhost:5090/api/";
 
   loadingBar = false;
 
@@ -38,6 +38,8 @@ export class LocationCompleteComponent implements OnInit {
   locationTitle = "Select Location";
   locationCheckList = [];
   locationStatus = 1;
+  locStatus = 0;
+  userRole = "";
 
   constructor(
     private router: Router,
@@ -49,9 +51,13 @@ export class LocationCompleteComponent implements OnInit {
 
   ngOnInit(): void {
     this.getUserLocations();
+    this.userRole = this.cookie.get("roleName");
   }
 
   showLocCheckList(item) {
+    this.locStatus = item.isCompleted;
+    // alert(this.locID);
+    // alert(item.officeTypeID);
     this.compLoc = item.isCompleted;
     this.locID = item.subLocID;
     this.locationTitle = item.officeTypeDescription;
@@ -101,6 +107,7 @@ export class LocationCompleteComponent implements OnInit {
 
   // update check list
   updateCheckList(item) {
+    alert(item.description);
     if (
       item.fileRequired == 1 &&
       (item.eDoc == "" || item.eDoc == null || item.eDoc == undefined)
@@ -109,15 +116,32 @@ export class LocationCompleteComponent implements OnInit {
         toastTimeout: 2500,
       });
       return false;
+    } else if (
+      item.description == "" ||
+      item.description == undefined ||
+      item.description == null
+    ) {
+      this.toastr.errorToastr("description is required", "Error", {
+        toastTimeout: 2500,
+      });
+      return false;
     } else {
+      var filePath = "";
+      var fileExtension = "";
+
+      //eDoc setting
+      if (item.fileRequired == 1) {
+        filePath = this.imgPath;
+        fileExtension = "pdf";
+      }
       //update
       var saveData = {
         LocCheckListID: item.locCheckListID,
         Description: item.description,
         status: 1,
         SubLocCompletionID: item.subLocCompletionID,
-        EDoc: this.imgPath,
-        EDocExtension: "pdf",
+        EDoc: filePath,
+        EDocExtension: fileExtension,
         imgFile: item.eFile,
         UserId: this.cookie.get("userID"),
         SpType: "UPDATE",

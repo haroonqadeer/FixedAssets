@@ -911,7 +911,7 @@
                       | search
                         : 'subLocationDescription,officeTypeDescription, mainLocationDescription, provinceName'
                         : advSearchLocation
-                  " [value]="item.subLocID" [disabled]="item.isActivated == 0">
+                  " [value]="item.subLocID" [disabled]="item.isActivated === 0">
                   <table class="table">
                     <tr class="d-flex">
                       <td class="col-3">{{ item.subLocationDescription }}</td>
@@ -1423,7 +1423,7 @@
                       | search
                         : 'subLocationDescription, mainLocationDescription, officeTypeDescription, provinceName'
                         : searchTransLocation
-                  " [value]="item.subLocID" [disabled]="item.isActivated == 0">
+                  " [value]="item.subLocID" [disabled]="item.isActivated == 0 || item.isCompleted == 1">
                   <table class="table">
                     <tr class="d-flex">
                       <td class="col-3">{{ item.subLocationDescription }}</td>
