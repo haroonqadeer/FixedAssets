@@ -931,3 +931,20 @@ $color-loader: #ce4233;
   -moz-transition: all 0.5s ease;
   transition: all 0.5s ease;
 }
+
+//////////////////////////////////////////
+///////////Fieldset Border////////////////
+//////////////////////////////////////////
+
+fieldset.scheduler-border {
+  border: 1px solid #ccc !important;
+  padding: 0 1.4em 1.4em 1.4em !important;
+}
+
+legend.scheduler-border {
+  font-size: 1.2em !important;
+  text-align: left !important;
+  width: auto;
+  padding: 0 10px;
+  border-bottom: none;
+}

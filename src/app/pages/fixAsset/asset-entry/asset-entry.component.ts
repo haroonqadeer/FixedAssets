@@ -89,6 +89,9 @@ export class AssetEntryComponent implements OnInit {
   disableCustody = false;
   disableTag = false;
   disableAssetCat = false;
+  disableSenderTrans = true;
+  disableReceiveTrans = false;
+  hiddenFields = true;
 
   txtPin = "";
   assetID = "";
@@ -98,10 +101,13 @@ export class AssetEntryComponent implements OnInit {
   cmbVehicle = "";
   cmbWngSection = "";
   cmbTransWngSection = "";
+  cmbSendTransWngSection = "";
   cmbOfcType = "";
   cmbTransOfcType = "";
+  cmbSendTransOfcType = "";
   cmbLocation = "";
   cmbTransLocation = "";
+  cmbSendTransLocation = "";
   cmbAssetCat = "";
   txtAssetDesc = "";
   txtAssetLoc = "";
@@ -175,6 +181,7 @@ export class AssetEntryComponent implements OnInit {
   tblSearchTrans = "";
   tblSearch = "";
   searchLocation = "";
+  searchSendTransLocation = "";
   searchTransLocation = "";
   searchMake = "";
   searchModel = "";
@@ -185,6 +192,7 @@ export class AssetEntryComponent implements OnInit {
   searchRef = "";
   searchVehicle = "";
   searchSection = "";
+  searchSendTransSection = "";
   searchTransSection = "";
   advSearchSection = "";
   advSearchLocation = "";
@@ -196,10 +204,13 @@ export class AssetEntryComponent implements OnInit {
   oldTagList = [];
   tagList = [];
   locList = [];
+  locSendTransList = [];
   locTransList = [];
   ofcTypeList = [];
+  ofcTypeSendTransList = [];
   ofcTypeTransList = [];
   wngSectionList = [];
+  wngSectSendTransList = [];
   wngSectTransList = [];
   vehicleList = [];
   custodyList = [];
@@ -422,6 +433,7 @@ export class AssetEntryComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.rdbTransMode = "Sender";
     this.rdbAsset = "1";
     this.disableOfcType = true;
     this.getAssetDetail();
@@ -509,6 +521,40 @@ export class AssetEntryComponent implements OnInit {
     );
   }
 
+  getTransLocData() {
+    // alert(this.rdbTransMode);
+    if (this.rdbTransMode == "Sender") {
+      this.disableSenderTrans = true;
+      this.disableReceiveTrans = false;
+
+      this.cmbTransLocation = "";
+      this.cmbTransOfcType = "";
+      this.cmbSendTransLocation = this.cmbLocation;
+      this.cmbSendTransOfcType = this.cmbOfcType;
+
+      // alert(this.cmbSendTransOfcType);
+      this.wngSectTransList = [];
+      this.wngSectSendTransList = [];
+      if (this.cmbSendTransOfcType != "") {
+        this.getSendTransWingSection(this.cmbSendTransOfcType);
+      }
+    } else if (this.rdbTransMode == "Receiver") {
+      this.disableSenderTrans = false;
+      this.disableReceiveTrans = true;
+
+      this.cmbSendTransLocation = "";
+      this.cmbSendTransOfcType = "";
+      this.cmbTransLocation = this.cmbLocation;
+      this.cmbTransOfcType = this.cmbOfcType;
+
+      this.wngSectSendTransList = [];
+      this.wngSectTransList = [];
+      if (this.cmbTransOfcType != "") {
+        this.getTransWingSection(this.cmbTransOfcType);
+      }
+    }
+  }
+
   getTags() {
     var reqHeader = new HttpHeaders({
       "Content-Type": "application/json",
@@ -553,6 +599,7 @@ export class AssetEntryComponent implements OnInit {
       .get(this.serverUrl + "getsubLoc", { headers: reqHeader })
       .subscribe((data: any) => {
         this.locTransList = data;
+        this.locSendTransList = data;
       });
   }
 
@@ -593,6 +640,15 @@ export class AssetEntryComponent implements OnInit {
     this.getWingSection(this.cmbOfcType);
   }
 
+  showSendTransOfcType() {
+    var ofcType = this.locSendTransList.filter(
+      (x) => x.subLocID == this.cmbSendTransLocation
+    );
+    this.cmbSendTransOfcType = ofcType[0].officeTypeID;
+
+    this.getSendTransWingSection(this.cmbSendTransOfcType);
+  }
+
   showTransOfcType() {
     var ofcType = this.locTransList.filter(
       (x) => x.subLocID == this.cmbTransLocation
@@ -622,6 +678,7 @@ export class AssetEntryComponent implements OnInit {
       .subscribe((data: any) => {
         this.ofcTypeList = data;
         this.ofcTypeTransList = data;
+        this.ofcTypeSendTransList = data;
       });
   }
 
@@ -639,6 +696,24 @@ export class AssetEntryComponent implements OnInit {
       .subscribe((data: any) => {
         // this.wngSectionList = data.filter((x) => x.isActivated == 1);
         this.wngSectionList = data;
+      });
+  }
+
+  getSendTransWingSection(obj) {
+    // alert(obj)
+    this.cmbSendTransWngSection = "";
+    var reqHeader = new HttpHeaders({
+      "Content-Type": "application/json",
+      // Authorization: "Bearer " + Token,
+    });
+
+    this.http
+      .get(this.serverUrl + "getwingsec?officeTypeID=" + obj, {
+        headers: reqHeader,
+      })
+      .subscribe((data: any) => {
+        // this.wngSectionList = data.filter((x) => x.isActivated == 1);
+        this.wngSectSendTransList = data;
       });
   }
 
@@ -1757,8 +1832,16 @@ export class AssetEntryComponent implements OnInit {
   }
 
   removeTransfer() {
+    this.clearTransfer();
+    this.disableSenderTrans = true;
     if (this.lblTransferID == "") {
       this.sldTransfered = false;
+      this.cmbSendTransLocation = this.cmbLocation;
+      this.cmbSendTransOfcType = this.cmbOfcType;
+
+      if (this.cmbSendTransOfcType != "") {
+        this.getSendTransWingSection(this.cmbSendTransOfcType);
+      }
     }
   }
 
@@ -1788,6 +1871,31 @@ export class AssetEntryComponent implements OnInit {
       var trans = this.transferList.filter(
         (x) => x.transferID == this.lblTransferID
       );
+      if (this.cmbLocation == "") {
+        this.toastr.errorToastr("Please Select Main Location", "Error !", {
+          toastTimeout: 5000,
+        });
+        return false;
+      }
+      if (this.cmbLocation == trans[0].tSubLocID) {
+        this.rdbTransMode = "Sender";
+        this.disableSenderTrans = true;
+        this.disableReceiveTrans = false;
+      } else if (this.cmbLocation == trans[0].rSubLocID) {
+        this.rdbTransMode = "Receiver";
+        this.disableSenderTrans = false;
+        this.disableReceiveTrans = true;
+      }
+      this.sldTransfered = true;
+      this.lblTransferID = trans[0].transferID;
+      this.rdbTransType = trans[0].transferType;
+
+      this.cmbSendTransLocation = trans[0].tSubLocID;
+      this.cmbSendTransOfcType = trans[0].tofficeTypeID;
+
+      this.getSendTransWingSection(trans[0].tofficeTypeID);
+
+      this.cmbSendTransWngSection = trans[0].tOfficeSecID;
 
       this.rdbTransType = trans[0].transferType;
       this.cmbTransferProject = trans[0].projectID;
@@ -1944,9 +2052,36 @@ export class AssetEntryComponent implements OnInit {
         toastTimeout: 2500,
       });
       return false;
+    } else if (this.cmbSendTransLocation == "") {
+      this.toastr.errorToastr(
+        "Please Select Sender Transfer Province Location & Sub Location",
+        "Error",
+        {
+          toastTimeout: 2500,
+        }
+      );
+      return false;
+    } else if (this.cmbSendTransOfcType == "") {
+      this.toastr.errorToastr(
+        "Please Select Sender Transfer Office Type",
+        "Error",
+        {
+          toastTimeout: 2500,
+        }
+      );
+      return false;
+    } else if (this.cmbSendTransWngSection == "") {
+      this.toastr.errorToastr(
+        "Please Select Sender Transfer Wing Section",
+        "Error",
+        {
+          toastTimeout: 2500,
+        }
+      );
+      return false;
     } else if (this.cmbTransLocation == "") {
       this.toastr.errorToastr(
-        "Please Select Transfer Province Location & Sub Location",
+        "Please Select Receiver Transfer Province Location & Sub Location",
         "Error",
         {
           toastTimeout: 2500,
@@ -1954,14 +2089,22 @@ export class AssetEntryComponent implements OnInit {
       );
       return false;
     } else if (this.cmbTransOfcType == "") {
-      this.toastr.errorToastr("Please Select Transfer Office Type", "Error", {
-        toastTimeout: 2500,
-      });
+      this.toastr.errorToastr(
+        "Please Select Receiver Transfer Office Type",
+        "Error",
+        {
+          toastTimeout: 2500,
+        }
+      );
       return false;
     } else if (this.cmbTransWngSection == "") {
-      this.toastr.errorToastr("Please Select Transfer Wing Section", "Error", {
-        toastTimeout: 2500,
-      });
+      this.toastr.errorToastr(
+        "Please Select Receiver Transfer Wing Section",
+        "Error",
+        {
+          toastTimeout: 2500,
+        }
+      );
       return false;
     } else if (this.cmbTransByPost == "") {
       this.toastr.errorToastr(
@@ -1996,6 +2139,15 @@ export class AssetEntryComponent implements OnInit {
         toastTimeout: 2500,
       });
       return false;
+    } else if (this.cmbTransLocation == this.cmbSendTransLocation) {
+      this.toastr.errorToastr(
+        "Same Sender & Receiver Locations are not Allowed",
+        "Error",
+        {
+          toastTimeout: 2500,
+        }
+      );
+      return false;
     } else {
       this.loadingBar = true;
 
@@ -2015,6 +2167,9 @@ export class AssetEntryComponent implements OnInit {
 
       if (this.lblTransferID == "") {
         saveData = {
+          tSubLocID: parseInt(this.cmbSendTransLocation), //int
+          tofficeTypeID: parseInt(this.cmbSendTransOfcType), //int
+          tOfficeSecID: parseInt(this.cmbSendTransWngSection), //int
           rSubLocID: parseInt(this.cmbTransLocation), //int
           officeTypeID: parseInt(this.cmbTransOfcType), //int
           rOfficeSecID: parseInt(this.cmbTransWngSection), //int
@@ -2033,6 +2188,9 @@ export class AssetEntryComponent implements OnInit {
         };
       } else {
         saveData = {
+          tSubLocID: parseInt(this.cmbSendTransLocation), //int
+          tofficeTypeID: parseInt(this.cmbSendTransOfcType), //int
+          tOfficeSecID: parseInt(this.cmbSendTransWngSection), //int
           rSubLocID: parseInt(this.cmbTransLocation), //int
           officeTypeID: parseInt(this.cmbTransOfcType), //int
           rOfficeSecID: parseInt(this.cmbTransWngSection), //int
@@ -2097,12 +2255,48 @@ export class AssetEntryComponent implements OnInit {
   }
 
   editTransfer(obj) {
+    var count = 0;
+    if (this.cmbLocation == "") {
+      this.toastr.errorToastr("Please Select Main Location", "Error !", {
+        toastTimeout: 5000,
+      });
+      return false;
+    } else if (this.cmbLocation != obj.rSubLocID) {
+      count++;
+    } else if (this.cmbLocation != obj.tSubLocID) {
+      count++;
+    }
+
+    if (count > 1) {
+      this.toastr.errorToastr("Main Location Not Match", "Error !", {
+        toastTimeout: 5000,
+      });
+      return false;
+    }
+    if (this.cmbLocation == obj.tSubLocID) {
+      this.rdbTransMode = "Sender";
+      this.disableSenderTrans = true;
+      this.disableReceiveTrans = false;
+    } else if (this.cmbLocation == obj.rSubLocID) {
+      this.rdbTransMode = "Receiver";
+      this.disableSenderTrans = false;
+      this.disableReceiveTrans = true;
+    }
     this.sldTransfered = true;
     this.lblTransferID = obj.transferID;
     this.rdbTransType = obj.transferType;
+
     this.cmbTransferProject = obj.projectID;
+    this.cmbSendTransLocation = obj.tSubLocID;
+    this.cmbSendTransOfcType = obj.tofficeTypeID;
+
+    this.getSendTransWingSection(obj.tofficeTypeID);
+
+    this.cmbSendTransWngSection = obj.tOfficeSecID;
+
     this.cmbTransLocation = obj.rSubLocID;
     this.cmbTransOfcType = obj.officeTypeID;
+
     this.getTransWingSection(obj.officeTypeID);
     this.cmbTransWngSection = obj.rOfficeSecID;
     this.cmbTransByPost = obj.tPostID;
@@ -2267,7 +2461,11 @@ export class AssetEntryComponent implements OnInit {
   }
 
   clearTransfer() {
+    this.rdbTransMode = "Sender";
     this.rdbTransType = "";
+    this.cmbSendTransLocation = "";
+    this.cmbSendTransOfcType = "";
+    this.cmbSendTransWngSection = "";
     this.cmbTransLocation = "";
     this.cmbTransOfcType = "";
     this.cmbTransWngSection = "";
@@ -2284,8 +2482,16 @@ export class AssetEntryComponent implements OnInit {
   }
 
   clearTransferDetail() {
+    this.sldTransfered = false;
+    this.rdbTransMode = "Sender";
     this.rdbTransType = "";
     this.cmbTransferProject = "";
+    this.cmbSendTransLocation = this.cmbLocation;
+    this.cmbSendTransOfcType = this.cmbOfcType;
+
+    this.getSendTransWingSection(this.cmbSendTransOfcType);
+
+    this.cmbSendTransWngSection = "";
     this.cmbTransLocation = "";
     this.cmbTransOfcType = "";
     this.cmbTransWngSection = "";

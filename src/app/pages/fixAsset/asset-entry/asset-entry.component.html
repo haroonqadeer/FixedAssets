@@ -1469,9 +1469,9 @@
       <div class="modal-body">
         <div class="row">
           <div class="col-md-12">
-            <mat-radio-group aria-label="Transfer Mode" [(ngModel)]="rdbTransMode">
-              <mat-radio-button color='primary' value="Internal">Sender</mat-radio-button>&nbsp;&nbsp;
-              <mat-radio-button color='primary' value="External">Receiver</mat-radio-button>
+            <mat-radio-group aria-label="Transfer Mode" [(ngModel)]="rdbTransMode" (change)="getTransLocData()">
+              <mat-radio-button color='primary' value="Sender">Sender</mat-radio-button>&nbsp;&nbsp;
+              <mat-radio-button color='primary' value="Receiver">Receiver</mat-radio-button>
             </mat-radio-group>
           </div>
         </div>
@@ -1508,173 +1508,222 @@
         </div>
         <!-- next row -->
         <div class="row">
-          <div class="col-md-6 border-right">
-            <div class="row">
+          <div class="col-md-6">
+            <fieldset class="scheduler-border">
+              <legend class="scheduler-border text-skyblue">Sender Info</legend>
+
+              <!-- <div class="row">
               <div class="col-md-12 border-bottom">
                 <h4> Sender Info</h4>
               </div>
-            </div>
-            <!-- next row -->
-            <div class="row">
-              <div class="col-md-12">
-                <mat-form-field class='w-100'>
-                  <mat-label>Province - Location - Sub Location</mat-label>
-                  <mat-select>
-                    <mat-option value="option">Option</mat-option>
-                  </mat-select>
-                </mat-form-field>
-              </div>
-            </div>
-            <!-- next row -->
-            <div class="row">
-              <div class="col-md-12">
-                <mat-form-field class='w-100'>
-                  <mat-label>Office Type</mat-label>
-                  <mat-select>
-                    <mat-option value="option">Option</mat-option>
-                  </mat-select>
-                </mat-form-field>
-              </div>
-            </div>
-            <!-- next row -->
-            <div class="row">
-              <div class="col-md-12">
-                <mat-form-field class='w-100'>
-                  <mat-label>Office Section</mat-label>
-                  <mat-select>
-                    <mat-option value="option">Option</mat-option>
-                  </mat-select>
-                </mat-form-field>
-              </div>
-            </div>
-            <!-- next row -->
-            <div class="row">
-              <div class="col-md-12">
-                <mat-form-field class="w-100">
-                  <mat-label>Tranfered By: Custody Name</mat-label>
-                  <mat-select [(ngModel)]="cmbTransByPost" (ngModelChange)="getTransByPost()">
-                    <mat-option>
-                      <ngx-mat-select-search [(ngModel)]="searchPostBy" [placeholderLabel]="'Search...'"
-                        [noEntriesFoundLabel]="'Not found'" name="search"></ngx-mat-select-search>
-                    </mat-option>
+            </div> -->
+              <!-- next row -->
+              <div class="row">
+                <div class="col-md-12">
+                  <mat-form-field class='w-100'>
+                    <mat-label>Province - Location - Sub Location</mat-label>
+                    <mat-select [(ngModel)]="cmbSendTransLocation" (ngModelChange)="showSendTransOfcType()"
+                      [disabled]="(disableFields) || (disableSenderTrans)">
+                      <mat-option>
+                        <ngx-mat-select-search [(ngModel)]="searchSendTransLocation" [placeholderLabel]="'Search...'"
+                          [noEntriesFoundLabel]="'Not found'" name="search"></ngx-mat-select-search>
+                      </mat-option>
 
-                    <mat-option *ngFor="
+                      <mat-option *ngFor="
+                    let item of locSendTransList
+                      | search
+                        : 'subLocationDescription, mainLocationDescription, officeTypeDescription, provinceName'
+                        : searchSendTransLocation
+                  " [value]="item.subLocID" [disabled]="item.isActivated == 0">
+                        <div class="row d-flex border-bottom">
+                          <div class="col-md-3 col-sm-12">
+                            {{ item.subLocationDescription }}
+                          </div>
+                          <div class="col-md-3 col-sm-12">
+                            {{ item.officeTypeDescription }}
+                          </div>
+                          <div class="col-md-3 col-sm-12">
+                            {{ item.mainLocationDescription }}
+                          </div>
+                          <div class="col-md-3 col-sm-12">
+                            {{ item.provinceName }}
+                          </div>
+                        </div>
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+              <!-- next row -->
+              <div class="row">
+                <div class="col-md-12">
+                  <mat-form-field class='w-100'>
+                    <mat-label>Office Type</mat-label>
+                    <mat-select [(ngModel)]="cmbSendTransOfcType"
+                      (ngModelChange)="getSendTransWingSection(cmbSendTransOfcType)" [disabled]="disableOfcType">
+                      <mat-option *ngFor="let item of ofcTypeSendTransList" [value]="item.officeTypeID">
+                        {{ item.officeTypeDescription }}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+              <!-- next row -->
+              <div class="row">
+                <div class="col-md-12">
+                  <mat-form-field class='w-100'>
+                    <mat-label>Wing - Section</mat-label>
+                    <mat-select [(ngModel)]="cmbSendTransWngSection" [disabled]="disableFields">
+                      <!-- <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchSection" /> -->
+                      <mat-option>
+                        <ngx-mat-select-search [(ngModel)]="searchSendTransSection" [placeholderLabel]="'Search...'"
+                          [noEntriesFoundLabel]="'Not found'" name="search"></ngx-mat-select-search>
+                      </mat-option>
+
+                      <mat-option *ngFor="
+                    let item of wngSectSendTransList
+                      | search: 'officeDescription':searchSendTransSection
+                  " [value]="item.officeSecID" [disabled]="item.isActivated == 0">
+                        {{ item.officeDescription }}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+              <!-- next row -->
+              <div class="row">
+                <div class="col-md-12">
+                  <mat-form-field class="w-100">
+                    <mat-label>Tranfered By: Custody Name</mat-label>
+                    <mat-select [(ngModel)]="cmbTransByPost" (ngModelChange)="getTransByPost()">
+                      <mat-option>
+                        <ngx-mat-select-search [(ngModel)]="searchPostBy" [placeholderLabel]="'Search...'"
+                          [noEntriesFoundLabel]="'Not found'" name="search"></ngx-mat-select-search>
+                      </mat-option>
+
+                      <mat-option *ngFor="
                         let item of transferByList
                           | search: 'postName,companyName':searchPostBy
                       " [value]="item.postID" [disabled]="item.isActivated == 0">
-                      {{ item.postName }} - {{ item.companyName }}
-                    </mat-option>
-                  </mat-select>
-                </mat-form-field>
+                        {{ item.postName }} - {{ item.companyName }}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
               </div>
-            </div>
-            <!-- next row -->
-            <div class="row">
-              <div class="col-md-12">
-                Company Name: <b>{{ lblTransByComp }}</b>
+              <!-- next row -->
+              <div class="row">
+                <div class="col-md-12">
+                  Company Name: <b>{{ lblTransByComp }}</b>
+                </div>
               </div>
-            </div>
+            </fieldset>
           </div>
           <div class="col-md-6">
-            <div class="row">
-              <div class="col-md-12 border-bottom">
-                <h4> Reveiver Info</h4>
-              </div>
-            </div>
-            <!--next row-->
-            <div class="row pt-2">
-              <div class="col-md-12">
-                <mat-form-field class="w-100">
-                  <mat-label>Province - Location - Sub Location</mat-label>
-                  <mat-select [(ngModel)]="cmbTransLocation" (ngModelChange)="showTransOfcType()"
-                    [disabled]="disableFields">
-                    <mat-option>
-                      <ngx-mat-select-search [(ngModel)]="searchTransLocation" [placeholderLabel]="'Search...'"
-                        [noEntriesFoundLabel]="'Not found'" name="search"></ngx-mat-select-search>
-                    </mat-option>
 
-                    <mat-option *ngFor="
+            <fieldset class="scheduler-border">
+              <legend class="scheduler-border text-skyblue">Receiver Info</legend>
+              <!--next row-->
+              <div class="row">
+                <div class="col-md-12">
+                  <mat-form-field class="w-100">
+                    <mat-label>Province - Location - Sub Location</mat-label>
+                    <mat-select [(ngModel)]="cmbTransLocation" (ngModelChange)="showTransOfcType()"
+                      [disabled]="(disableFields) || (disableReceiveTrans)">
+                      <mat-option>
+                        <ngx-mat-select-search [(ngModel)]="searchTransLocation" [placeholderLabel]="'Search...'"
+                          [noEntriesFoundLabel]="'Not found'" name="search"></ngx-mat-select-search>
+                      </mat-option>
+
+                      <mat-option *ngFor="
                     let item of locTransList
                       | search
                         : 'subLocationDescription, mainLocationDescription, officeTypeDescription, provinceName'
                         : searchTransLocation
                   " [value]="item.subLocID" [disabled]="item.isActivated == 0">
-                      <table class="table">
-                        <tr class="d-flex">
-                          <td class="col-3">{{ item.subLocationDescription }}</td>
-                          <td class="col-3">{{ item.officeTypeDescription }}</td>
-                          <td class="col-3">{{ item.mainLocationDescription }}</td>
-                          <td class="col-3">{{ item.provinceName }}</td>
-                        </tr>
-                      </table>
-                    </mat-option>
-                  </mat-select>
-                </mat-form-field>
+                        <div class="row d-flex border-bottom">
+                          <div class="col-md-3 col-sm-12">
+                            {{ item.subLocationDescription }}
+                          </div>
+                          <div class="col-md-3 col-sm-12">
+                            {{ item.officeTypeDescription }}
+                          </div>
+                          <div class="col-md-3 col-sm-12">
+                            {{ item.mainLocationDescription }}
+                          </div>
+                          <div class="col-md-3 col-sm-12">
+                            {{ item.provinceName }}
+                          </div>
+                        </div>
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
               </div>
-            </div>
-            <!-- next row -->
-            <div class="row">
-              <div class="col-md-12">
-                <mat-form-field class="w-100">
-                  <mat-label>Office Type</mat-label>
-                  <mat-select [(ngModel)]="cmbTransOfcType" (ngModelChange)="getTransWingSection(cmbTransOfcType)"
-                    [disabled]="disableOfcType">
-                    <mat-option *ngFor="let item of ofcTypeTransList" [value]="item.officeTypeID">
-                      {{ item.officeTypeDescription }}
-                    </mat-option>
-                  </mat-select>
-                </mat-form-field>
+              <!-- next row -->
+              <div class="row">
+                <div class="col-md-12">
+                  <mat-form-field class="w-100">
+                    <mat-label>Office Type</mat-label>
+                    <mat-select [(ngModel)]="cmbTransOfcType" (ngModelChange)="getTransWingSection(cmbTransOfcType)"
+                      [disabled]="disableOfcType">
+                      <mat-option *ngFor="let item of ofcTypeTransList" [value]="item.officeTypeID">
+                        {{ item.officeTypeDescription }}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
               </div>
-            </div>
-            <!-- next row -->
-            <div class="row">
-              <div class="col-md-12">
-                <mat-form-field class="w-100">
-                  <mat-label>Wing - Section</mat-label>
-                  <mat-select [(ngModel)]="cmbTransWngSection" [disabled]="disableFields">
-                    <!-- <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchSection" /> -->
-                    <mat-option>
-                      <ngx-mat-select-search [(ngModel)]="searchTransSection" [placeholderLabel]="'Search...'"
-                        [noEntriesFoundLabel]="'Not found'" name="search"></ngx-mat-select-search>
-                    </mat-option>
+              <!-- next row -->
+              <div class="row">
+                <div class="col-md-12">
+                  <mat-form-field class="w-100">
+                    <mat-label>Wing - Section</mat-label>
+                    <mat-select [(ngModel)]="cmbTransWngSection" [disabled]="disableFields">
+                      <!-- <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchSection" /> -->
+                      <mat-option>
+                        <ngx-mat-select-search [(ngModel)]="searchTransSection" [placeholderLabel]="'Search...'"
+                          [noEntriesFoundLabel]="'Not found'" name="search"></ngx-mat-select-search>
+                      </mat-option>
 
-                    <mat-option *ngFor="
+                      <mat-option *ngFor="
                     let item of wngSectTransList
                       | search: 'officeDescription':searchTransSection
                   " [value]="item.officeSecID" [disabled]="item.isActivated == 0">
-                      {{ item.officeDescription }}
-                    </mat-option>
-                  </mat-select>
-                </mat-form-field>
+                        {{ item.officeDescription }}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
               </div>
-            </div>
-            <!-- next row -->
-            <div class="row">
-              <div class="col-md-12">
-                <mat-form-field class="w-100">
-                  <mat-label>Tranfered To: Custody Name</mat-label>
-                  <mat-select [(ngModel)]="cmbTransToPost" (ngModelChange)="getTransToPost()">
-                    <mat-option>
-                      <ngx-mat-select-search [(ngModel)]="searchPostTo" [placeholderLabel]="'Search...'"
-                        [noEntriesFoundLabel]="'Not found'" name="search"></ngx-mat-select-search>
-                    </mat-option>
+              <!-- next row -->
+              <div class="row">
+                <div class="col-md-12">
+                  <mat-form-field class="w-100">
+                    <mat-label>Tranfered To: Custody Name</mat-label>
+                    <mat-select [(ngModel)]="cmbTransToPost" (ngModelChange)="getTransToPost()">
+                      <mat-option>
+                        <ngx-mat-select-search [(ngModel)]="searchPostTo" [placeholderLabel]="'Search...'"
+                          [noEntriesFoundLabel]="'Not found'" name="search"></ngx-mat-select-search>
+                      </mat-option>
 
-                    <mat-option *ngFor="
+                      <mat-option *ngFor="
                     let item of transferToList
                       | search: 'postName,companyName':searchPostTo
                   " [value]="item.postID" [disabled]="item.isActivated == 0">
-                      {{ item.postName }} - {{ item.companyName }}
-                    </mat-option>
-                  </mat-select>
-                </mat-form-field>
+                        {{ item.postName }} - {{ item.companyName }}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
               </div>
-            </div>
-            <!-- next row -->
-            <div class="row">
-              <div class="col-md-12">
-                Company Name : <b>{{ lblTransToComp }}</b>
+              <!-- next row -->
+              <div class="row">
+                <div class="col-md-12">
+                  Company Name : <b>{{ lblTransToComp }}</b>
+                </div>
               </div>
-            </div>
+            </fieldset>
           </div>
         </div>
 
@@ -1727,6 +1776,11 @@
           <div class="col-md-4">
             <button mat-raised-button color="primary" (click)="clearTransferDetail()">
               Reset
+            </button>
+          </div>
+          <div class="col-md-2">
+            <button mat-raised-button color="primary" (click)="clearTransferDetail()">
+              New
             </button>
           </div>
         </div>
