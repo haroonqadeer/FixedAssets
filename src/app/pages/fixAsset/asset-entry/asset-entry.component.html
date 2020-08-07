@@ -480,7 +480,7 @@
           </div>
           <div class="col-md-1">
             <button mat-mini-fab color="primary" aria-label="" class="noneOutline fa fa-plus" data-toggle="modal"
-              data-target="#vehicleModal"></button>
+              data-target="#vehicleModal" (click)="clearVehicle()"></button>
           </div>
         </div>
 
@@ -1211,6 +1211,25 @@
         <div class="row">
           <div class="col-md-12">
             <mat-form-field color="warn" class="w-100">
+              <mat-label>Asset Category</mat-label>
+              <mat-select [(ngModel)]="cmbVehicleAssetCat">
+                <mat-option>
+                  <ngx-mat-select-search [(ngModel)]="searchVehicleAssetCat" [placeholderLabel]="'Search...'"
+                    [noEntriesFoundLabel]="'Not found'" name="search"></ngx-mat-select-search>
+                </mat-option>
+
+                <mat-option *ngFor="let item of vehAssetCatList | search: 'assetCatDescription':searchVehicleAssetCat"
+                  [value]="item.assetCatID" [disabled]="item.isActivated == 0">
+                  {{ item.assetCatDescription }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <!-- next row -->
+        <div class="row">
+          <div class="col-md-12">
+            <mat-form-field color="warn" class="w-100">
               <mat-label>Engine No.</mat-label>
               <input matInput [(ngModel)]="txtEngine" />
             </mat-form-field>
@@ -1226,11 +1245,21 @@
           </div>
         </div>
 
+        <!-- next row -->
+        <div class="row pr-4 pl-1">
+          <div class="col-md-12 pt-2">
+            <mat-form-field class="w-100">
+              <mat-label>Deployed With</mat-label>
+              <textarea matInput placeholder="" [(ngModel)]="txtDeploy"></textarea>
+            </mat-form-field>
+          </div>
+        </div>
+        <!-- next row -->
         <div class="row">
           <div class="col-md-12 pt-2">
             <div class="custom-file">
-              <input type="file" class="custom-file-input" [(ngModel)]="imgFileTrans"
-                (change)="onTransFileSelected($event)" />
+              <input type="file" class="custom-file-input" [(ngModel)]="imgFileVehicle"
+                (change)="onVehicleFileSelected($event)" />
               <label class="custom-file-label" for="customFile">Choose Register Document</label>
             </div>
           </div>
@@ -1238,8 +1267,13 @@
         <div class="row">
           <div class="col-md-12 pt-2 text-center">
             <div class="text-center">
-              <img [src]="imageTransUrl" class="rounded" width="115" height="115" id="myImg"
-                (click)="zoomTransImage()" />
+              <button class='noneOutline' mat-button
+                *ngIf="imageVehicleUrl!='../../../../../assets/assetEntryImg/dropHereImg.png' && lblFileName==''"
+                color="primary">Open
+                uploaded File</button>
+              <button class='noneOutline' mat-button
+                *ngIf="imageVehicleUrl!='../../../../../assets/assetEntryImg/dropHereImg.png' && lblFileName!=''"
+                color="primary" (click)='openPDFFile()'>{{lblFileName}}</button>
             </div>
           </div>
         </div>

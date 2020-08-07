@@ -43,7 +43,7 @@ export class NhabuldingsComponent implements OnInit {
   lblSurplus = 0;
   lblOpeningSurplus = 0;
   lblFixAssetID = 0;
-  lblAccCatID = 12;
+  lblAccCatID = 14;
   FaDetailID = 0;
 
   txtFaAmount = "";
