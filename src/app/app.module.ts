@@ -53,6 +53,7 @@ import { NhabuldingsComponent } from "./pages/fixasset/nhabuldings/nhabuldings.c
 import { CreateBuildingComponent } from "./pages/fixasset/configuration/create-building/create-building.component";
 import { HomePageComponent } from "./pages/home-page/home-page.component";
 import { LocationCompleteComponent } from "./pages/fixasset/location-complete/location-complete.component";
+import { AssetRegisterRptComponent } from "./pages/fixAsset/Reports/asset-register-rpt/asset-register-rpt.component";
 
 @NgModule({
   declarations: [
@@ -78,6 +79,7 @@ import { LocationCompleteComponent } from "./pages/fixasset/location-complete/lo
     CreateBuildingComponent,
     HomePageComponent,
     LocationCompleteComponent,
+    AssetRegisterRptComponent,
   ],
   imports: [
     BrowserModule,
