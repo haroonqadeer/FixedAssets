@@ -561,17 +561,28 @@ export class AssetEntryComponent implements OnInit {
       "Content-Type": "application/json",
       // Authorization: "Bearer " + Token,
     });
-
-    this.http
-      // .get(this.serverUrl + "getsubloc", { headers: reqHeader })
-      .get(
-        this.serverUrl + "getuserLocation?userId=" + this.cookie.get("userID"),
-        { headers: reqHeader }
-      )
-      .subscribe((data: any) => {
-        // this.locList = data.filter((x) => x.isActivated == 1);
-        this.locList = data;
-      });
+    if (this.cookie.get("roleName") == "Super User") {
+      this.http
+        // .get(this.serverUrl + "getsubloc", { headers: reqHeader })
+        .get(this.serverUrl + "getsubloc", { headers: reqHeader })
+        .subscribe((data: any) => {
+          // this.locList = data.filter((x) => x.isActivated == 1);
+          this.locList = data;
+        });
+    } else {
+      this.http
+        // .get(this.serverUrl + "getsubloc", { headers: reqHeader })
+        .get(
+          this.serverUrl +
+            "getuserLocation?userId=" +
+            this.cookie.get("userID"),
+          { headers: reqHeader }
+        )
+        .subscribe((data: any) => {
+          // this.locList = data.filter((x) => x.isActivated == 1);
+          this.locList = data;
+        });
+    }
   }
 
   showOfficeType() {
@@ -805,33 +816,56 @@ export class AssetEntryComponent implements OnInit {
       "Content-Type": "application/json",
       // Authorization: "Bearer " + Token,
     });
+    if (this.cookie.get("roleName") == "Super User") {
+      this.http
+        .get(this.serverUrl + "getassetdetail", { headers: reqHeader })
+        .subscribe((data: any) => {
+          this.assetDetailList = data;
+          this.tempDetailList = data;
+          // this.assetDetailList.reverse();
+          // this.tempDetailList.reverse();
 
-    this.http
-      .get(
-        this.serverUrl +
-          "getuserassetdetail?UserId=" +
-          this.cookie.get("userID"),
-        { headers: reqHeader }
-      )
-      .subscribe((data: any) => {
-        this.assetDetailList = data;
-        this.tempDetailList = data;
-        this.assetDetailList.reverse();
-        this.tempDetailList.reverse();
-
-        for (var i = 0; i < this.tagList.length; i++) {
-          for (var j = 0; j < this.assetDetailList.length; j++) {
-            if (this.tagList[i].tag == this.assetDetailList[j].tag) {
-              this.assetDetailList[j].checkbox = true;
+          for (var i = 0; i < this.tagList.length; i++) {
+            for (var j = 0; j < this.assetDetailList.length; j++) {
+              if (this.tagList[i].tag == this.assetDetailList[j].tag) {
+                this.assetDetailList[j].checkbox = true;
+              }
+            }
+            for (var j = 0; j < this.tempDetailList.length; j++) {
+              if (this.tagList[i].tag == this.tempDetailList[j].tag) {
+                this.tempDetailList[j].checkbox = true;
+              }
             }
           }
-          for (var j = 0; j < this.tempDetailList.length; j++) {
-            if (this.tagList[i].tag == this.tempDetailList[j].tag) {
-              this.tempDetailList[j].checkbox = true;
+        });
+    } else {
+      this.http
+        .get(
+          this.serverUrl +
+            "getuserassetdetail?UserId=" +
+            this.cookie.get("userID"),
+          { headers: reqHeader }
+        )
+        .subscribe((data: any) => {
+          this.assetDetailList = data;
+          this.tempDetailList = data;
+          this.assetDetailList.reverse();
+          this.tempDetailList.reverse();
+
+          for (var i = 0; i < this.tagList.length; i++) {
+            for (var j = 0; j < this.assetDetailList.length; j++) {
+              if (this.tagList[i].tag == this.assetDetailList[j].tag) {
+                this.assetDetailList[j].checkbox = true;
+              }
+            }
+            for (var j = 0; j < this.tempDetailList.length; j++) {
+              if (this.tagList[i].tag == this.tempDetailList[j].tag) {
+                this.tempDetailList[j].checkbox = true;
+              }
             }
           }
-        }
-      });
+        });
+    }
   }
 
   editAsset(item) {
