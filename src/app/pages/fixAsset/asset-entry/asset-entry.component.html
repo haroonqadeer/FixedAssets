@@ -1455,7 +1455,7 @@
 <!-- transfers Modal Windw -->
 <!-- The Modal -->
 <div class="modal animate__animated animate__bounceIn" id="assetTransferModal">
-  <div class="modal-dialog modal-lg">
+  <div class="modal-dialog modal-xl">
     <div class="modal-content">
       <!-- Modal Header -->
       <div class="modal-header">
@@ -1469,9 +1469,19 @@
       <div class="modal-body">
         <div class="row">
           <div class="col-md-12">
+            <mat-radio-group aria-label="Transfer Mode" [(ngModel)]="rdbTransMode">
+              <mat-radio-button color='primary' value="Internal">Sender</mat-radio-button>&nbsp;&nbsp;
+              <mat-radio-button color='primary' value="External">Receiver</mat-radio-button>
+            </mat-radio-group>
+          </div>
+        </div>
+        <hr>
+        <!-- next row -->
+        <div class="row">
+          <div class="col-md-12">
             <mat-radio-group aria-label="Transfer Type" [(ngModel)]="rdbTransType">
-              <mat-radio-button value="Internal">Internal Transfer</mat-radio-button>&nbsp;&nbsp;
-              <mat-radio-button value="External">External Transfer</mat-radio-button>
+              <mat-radio-button color='primary' value="Internal">Internal Transfer</mat-radio-button>&nbsp;&nbsp;
+              <mat-radio-button color='primary' value="External">External Transfer</mat-radio-button>
             </mat-radio-group>
           </div>
         </div>

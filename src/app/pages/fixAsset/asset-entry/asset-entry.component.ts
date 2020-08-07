@@ -125,6 +125,7 @@ export class AssetEntryComponent implements OnInit {
   cmbTransByPost = "";
 
   rdbTransType = "";
+  rdbTransMode = "";
   txtRegNo = "";
   cmbMake = "";
   cmbModel = "";
