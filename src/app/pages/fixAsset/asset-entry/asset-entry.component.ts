@@ -48,6 +48,14 @@ export class AssetEntryComponent implements OnInit {
   reverse = false;
   sortedCollection: any[];
 
+  imgVehiclePath = "C:/inetpub/wwwroot/2008_FAR_Proj/assets/vehicleImg";
+  imageVehicleUrl: string =
+    "../../../../../assets/assetEntryImg/dropHereImg.png";
+  imageVehicle;
+  imgFileVehicle;
+  selectedVehicleFile: File = null;
+  lblFileName = "";
+
   imgTransPath = "C:/inetpub/wwwroot/2008_FAR_Proj/assets/transferImg";
   imageTransUrl: string = "../../../../../assets/assetEntryImg/dropHereImg.png";
   imageTrans;
@@ -125,7 +133,9 @@ export class AssetEntryComponent implements OnInit {
   txtChasis = "";
   txtTagNo = "1";
   txtTransDesc = "";
+  txtDeploy = "";
   vehID = "";
+  cmbVehicleAssetCat = "";
 
   lblAssetCatID = "";
   lblLocID = "";
@@ -180,6 +190,7 @@ export class AssetEntryComponent implements OnInit {
   searchTransProject = "";
   searchPostTo = "";
   searchPostBy = "";
+  searchVehicleAssetCat = "";
 
   oldTagList = [];
   tagList = [];
@@ -205,6 +216,7 @@ export class AssetEntryComponent implements OnInit {
   transferList = [];
   tempTransList = [];
   transDetailList = [];
+  vehAssetCatList = [];
 
   vehMakeList = [];
   vehModelList = [];
@@ -549,17 +561,28 @@ export class AssetEntryComponent implements OnInit {
       "Content-Type": "application/json",
       // Authorization: "Bearer " + Token,
     });
-
-    this.http
-      // .get(this.serverUrl + "getsubloc", { headers: reqHeader })
-      .get(
-        this.serverUrl + "getuserLocation?userId=" + this.cookie.get("userID"),
-        { headers: reqHeader }
-      )
-      .subscribe((data: any) => {
-        // this.locList = data.filter((x) => x.isActivated == 1);
-        this.locList = data;
-      });
+    if (this.cookie.get("roleName") == "Super User") {
+      this.http
+        // .get(this.serverUrl + "getsubloc", { headers: reqHeader })
+        .get(this.serverUrl + "getsubloc", { headers: reqHeader })
+        .subscribe((data: any) => {
+          // this.locList = data.filter((x) => x.isActivated == 1);
+          this.locList = data;
+        });
+    } else {
+      this.http
+        // .get(this.serverUrl + "getsubloc", { headers: reqHeader })
+        .get(
+          this.serverUrl +
+            "getuserLocation?userId=" +
+            this.cookie.get("userID"),
+          { headers: reqHeader }
+        )
+        .subscribe((data: any) => {
+          // this.locList = data.filter((x) => x.isActivated == 1);
+          this.locList = data;
+        });
+    }
   }
 
   showOfficeType() {
@@ -675,8 +698,10 @@ export class AssetEntryComponent implements OnInit {
     this.http
       .get(this.serverUrl + "getassetcat", { headers: reqHeader })
       .subscribe((data: any) => {
-        // this.AssetCatList = data.filter((x) => x.isActivated == 1);
         this.AssetCatList = data;
+        this.vehAssetCatList = data.filter(
+          (x) => x.accountsCatagoryDisplay == "VEHICLES"
+        );
         this.tempAssetCatList = data;
       });
   }
@@ -791,33 +816,56 @@ export class AssetEntryComponent implements OnInit {
       "Content-Type": "application/json",
       // Authorization: "Bearer " + Token,
     });
+    if (this.cookie.get("roleName") == "Super User") {
+      this.http
+        .get(this.serverUrl + "getassetdetail", { headers: reqHeader })
+        .subscribe((data: any) => {
+          this.assetDetailList = data;
+          this.tempDetailList = data;
+          // this.assetDetailList.reverse();
+          // this.tempDetailList.reverse();
 
-    this.http
-      .get(
-        this.serverUrl +
-          "getuserassetdetail?UserId=" +
-          this.cookie.get("userID"),
-        { headers: reqHeader }
-      )
-      .subscribe((data: any) => {
-        this.assetDetailList = data;
-        this.tempDetailList = data;
-        this.assetDetailList.reverse();
-        this.tempDetailList.reverse();
-
-        for (var i = 0; i < this.tagList.length; i++) {
-          for (var j = 0; j < this.assetDetailList.length; j++) {
-            if (this.tagList[i].tag == this.assetDetailList[j].tag) {
-              this.assetDetailList[j].checkbox = true;
+          for (var i = 0; i < this.tagList.length; i++) {
+            for (var j = 0; j < this.assetDetailList.length; j++) {
+              if (this.tagList[i].tag == this.assetDetailList[j].tag) {
+                this.assetDetailList[j].checkbox = true;
+              }
+            }
+            for (var j = 0; j < this.tempDetailList.length; j++) {
+              if (this.tagList[i].tag == this.tempDetailList[j].tag) {
+                this.tempDetailList[j].checkbox = true;
+              }
             }
           }
-          for (var j = 0; j < this.tempDetailList.length; j++) {
-            if (this.tagList[i].tag == this.tempDetailList[j].tag) {
-              this.tempDetailList[j].checkbox = true;
+        });
+    } else {
+      this.http
+        .get(
+          this.serverUrl +
+            "getuserassetdetail?UserId=" +
+            this.cookie.get("userID"),
+          { headers: reqHeader }
+        )
+        .subscribe((data: any) => {
+          this.assetDetailList = data;
+          this.tempDetailList = data;
+          this.assetDetailList.reverse();
+          this.tempDetailList.reverse();
+
+          for (var i = 0; i < this.tagList.length; i++) {
+            for (var j = 0; j < this.assetDetailList.length; j++) {
+              if (this.tagList[i].tag == this.assetDetailList[j].tag) {
+                this.assetDetailList[j].checkbox = true;
+              }
+            }
+            for (var j = 0; j < this.tempDetailList.length; j++) {
+              if (this.tagList[i].tag == this.tempDetailList[j].tag) {
+                this.tempDetailList[j].checkbox = true;
+              }
             }
           }
-        }
-      });
+        });
+    }
   }
 
   editAsset(item) {
@@ -1328,6 +1376,11 @@ export class AssetEntryComponent implements OnInit {
         toastTimeout: 2500,
       });
       return false;
+    } else if (this.cmbVehicleAssetCat == "") {
+      this.toastr.errorToastr("Please Select Asset Category", "Error", {
+        toastTimeout: 2500,
+      });
+      return false;
     } else if (this.txtEngine == "") {
       this.toastr.errorToastr("Please Enter Engine No.", "Error", {
         toastTimeout: 2500,
@@ -1338,30 +1391,53 @@ export class AssetEntryComponent implements OnInit {
         toastTimeout: 2500,
       });
       return false;
+    } else if (this.txtDeploy == "") {
+      this.toastr.errorToastr("Please Enter Deployed With", "Error", {
+        toastTimeout: 2500,
+      });
+      return false;
     } else {
       this.loadingBar = true;
       var saveData;
 
+      this.imgVehiclePath =
+        "C:/inetpub/wwwroot/2008_FAR_Proj/assets/vehicleImg";
+      if (this.imageVehicle == undefined) {
+        this.imgVehiclePath = null;
+        this.imageVehicle = null;
+      }
+      // alert(this.imgVehiclePath);
+      // alert(this.imageVehicle);
       if (this.vehID == "") {
         saveData = {
+          assetCatID: parseInt(this.cmbVehicleAssetCat),
           VehID: this.txtRegNo,
           Make: this.cmbMake,
           Model: this.cmbModel,
           Type: this.cmbType,
           ChasisNum: this.txtChasis,
           EngineNum: this.txtEngine,
+          deployedWith: this.txtDeploy,
+          eDoc: this.imgVehiclePath,
+          eDocExtension: "pdf",
+          imgFile: this.imageVehicle,
           ID: 0,
           Userid: this.cookie.get("userID"),
           SPType: "Insert",
         };
       } else {
         saveData = {
+          assetCatID: parseInt(this.cmbVehicleAssetCat),
           VehID: this.txtRegNo,
           Make: this.cmbMake,
           Model: this.cmbModel,
           Type: this.cmbType,
           ChasisNum: this.txtChasis,
           EngineNum: this.txtEngine,
+          deployedWith: this.txtDeploy,
+          eDoc: this.imgVehiclePath,
+          eDocExtension: "pdf",
+          imgFile: this.imageVehicle,
           ID: this.vehID,
           Userid: this.cookie.get("userID"),
           SPType: "Update",
@@ -1394,8 +1470,10 @@ export class AssetEntryComponent implements OnInit {
               );
             }
 
-            this.clear();
+            this.clearVehicle();
             this.getVehicle();
+            $("#vehicleModal").modal("hide");
+
             this.loadingBar = false;
             return false;
           } else {
@@ -2227,12 +2305,50 @@ export class AssetEntryComponent implements OnInit {
   }
 
   clearVehicle() {
+    this.cmbVehicleAssetCat = "";
+    this.vehID = "";
     this.txtRegNo = "";
     this.cmbMake = "";
     this.cmbModel = "";
     this.cmbType = "";
     this.txtEngine = "";
     this.txtChasis = "";
+    this.txtDeploy = "";
+    this.imageVehicle = undefined;
+    this.imgFileVehicle = undefined;
+    this.selectedVehicleFile = null;
+    this.imageVehicleUrl =
+      "../../../../../assets/assetEntryImg/dropHereImg.png";
+    this.lblFileName = "";
+  }
+
+  onVehicleFileSelected(event) {
+    if (event.target.files[0].type == "application/pdf") {
+      this.selectedVehicleFile = <File>event.target.files[0];
+      let reader = new FileReader();
+
+      reader.onloadend = (e: any) => {
+        this.imageVehicle = reader.result;
+
+        var splitImg = this.imageVehicle.split(",")[1];
+        this.imageVehicle = splitImg;
+        this.imageVehicleUrl = "";
+        this.lblFileName = event.target.files[0].name;
+      };
+
+      reader.readAsDataURL(this.selectedVehicleFile);
+    } else {
+      this.toastr.errorToastr("Please Select PDF File", "Error", {
+        toastTimeout: 2500,
+      });
+
+      this.imageVehicle = undefined;
+      this.imgFileVehicle = undefined;
+      this.selectedVehicleFile = null;
+      this.lblFileName = "";
+      this.imageVehicleUrl =
+        "../../../../../assets/assetEntryImg/dropHereImg.png";
+    }
   }
 
   onTransFileSelected(event) {
@@ -2565,15 +2681,29 @@ export class AssetEntryComponent implements OnInit {
 
   // Edit Vehicle
   editVehicle(item) {
+    this.imageVehicle = undefined;
+    this.imgFileVehicle = undefined;
+    this.selectedVehicleFile = null;
+    this.imageVehicleUrl =
+      "../../../../../assets/assetEntryImg/dropHereImg.png";
+    this.lblFileName = "";
+
     $("#vehicleModal").modal("show");
     this.vehID = item.id;
     this.txtRegNo = item.vehID;
     this.cmbMake = item.make;
     this.cmbModel = item.model;
     this.cmbType = item.type;
+    this.cmbVehicleAssetCat = item.assetCatID;
+    this.txtDeploy = item.deployedWith;
     this.txtEngine = item.engineNum;
     this.txtChasis = item.chasisNum;
     this.cmbVehicle = "";
+    if (item.eDoc != null) {
+      this.imageVehicleUrl =
+        "http://95.217.206.195:2008/assets/vehicleImg/" + item.id + ".pdf";
+      this.lblFileName = "Open Uploaded File";
+    }
   }
 
   exportExcel() {
@@ -2596,5 +2726,11 @@ export class AssetEntryComponent implements OnInit {
       pdf.addImage(contentDataURL, "PNG", 0, position, imgWidth, imgHeight);
       pdf.save("MYPdf.pdf"); // Generated PDF
     });
+  }
+
+  openPDFFile() {
+    if (this.imageVehicleUrl != "") {
+      window.open(this.imageVehicleUrl);
+    }
   }
 }
