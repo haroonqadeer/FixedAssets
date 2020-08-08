@@ -10,6 +10,10 @@ import {
 import { CookieService } from "ngx-cookie-service";
 import Swal from "sweetalert2/dist/sweetalert2.js";
 import { Observable } from "rxjs";
+import { AppComponent } from "src/app/app.component";
+import * as XLSX from "xlsx";
+import html2canvas from "html2canvas";
+import * as jsPDF from "jspdf";
 // import "sweetalert2/src/sweetalert2.scss";
 
 declare var $: any;
@@ -24,7 +28,6 @@ declare var $: any;
 export class AssetEntryComponent implements OnInit {
   serverUrl = "http://95.217.206.195:2007/api/";
   //serverUrl = "http://localhost:12345/api/";
-  //serverUrl = "http://localhost:5090/api/";
 
   loadingBar = true;
   //pagination variables for tag list
@@ -43,6 +46,14 @@ export class AssetEntryComponent implements OnInit {
   order = "info.name";
   reverse = false;
   sortedCollection: any[];
+
+  imgVehiclePath = "C:/inetpub/wwwroot/2008_FAR_Proj/assets/vehicleImg";
+  imageVehicleUrl: string =
+    "../../../../../assets/assetEntryImg/dropHereImg.png";
+  imageVehicle;
+  imgFileVehicle;
+  selectedVehicleFile: File = null;
+  lblFileName = "";
 
   imgTransPath = "C:/inetpub/wwwroot/2008_FAR_Proj/assets/transferImg";
   imageTransUrl: string = "../../../../../assets/assetEntryImg/dropHereImg.png";
@@ -77,6 +88,9 @@ export class AssetEntryComponent implements OnInit {
   disableCustody = false;
   disableTag = false;
   disableAssetCat = false;
+  disableSenderTrans = true;
+  disableReceiveTrans = false;
+  hiddenFields = true;
 
   txtPin = "";
   assetID = "";
@@ -86,10 +100,13 @@ export class AssetEntryComponent implements OnInit {
   cmbVehicle = "";
   cmbWngSection = "";
   cmbTransWngSection = "";
+  cmbSendTransWngSection = "";
   cmbOfcType = "";
   cmbTransOfcType = "";
+  cmbSendTransOfcType = "";
   cmbLocation = "";
   cmbTransLocation = "";
+  cmbSendTransLocation = "";
   cmbAssetCat = "";
   txtAssetDesc = "";
   txtAssetLoc = "";
@@ -113,6 +130,7 @@ export class AssetEntryComponent implements OnInit {
   cmbTransByPost = "";
 
   rdbTransType = "";
+  rdbTransMode = "";
   txtRegNo = "";
   cmbMake = "";
   cmbModel = "";
@@ -121,7 +139,9 @@ export class AssetEntryComponent implements OnInit {
   txtChasis = "";
   txtTagNo = "1";
   txtTransDesc = "";
+  txtDeploy = "";
   vehID = "";
+  cmbVehicleAssetCat = "";
 
   lblAssetCatID = "";
   lblLocID = "";
@@ -160,6 +180,7 @@ export class AssetEntryComponent implements OnInit {
   tblSearchTrans = "";
   tblSearch = "";
   searchLocation = "";
+  searchSendTransLocation = "";
   searchTransLocation = "";
   searchMake = "";
   searchModel = "";
@@ -170,20 +191,25 @@ export class AssetEntryComponent implements OnInit {
   searchRef = "";
   searchVehicle = "";
   searchSection = "";
+  searchSendTransSection = "";
   searchTransSection = "";
   advSearchSection = "";
   advSearchLocation = "";
   searchTransProject = "";
   searchPostTo = "";
   searchPostBy = "";
+  searchVehicleAssetCat = "";
 
   oldTagList = [];
   tagList = [];
   locList = [];
+  locSendTransList = [];
   locTransList = [];
   ofcTypeList = [];
+  ofcTypeSendTransList = [];
   ofcTypeTransList = [];
   wngSectionList = [];
+  wngSectSendTransList = [];
   wngSectTransList = [];
   vehicleList = [];
   custodyList = [];
@@ -201,6 +227,7 @@ export class AssetEntryComponent implements OnInit {
   transferList = [];
   tempTransList = [];
   transDetailList = [];
+  vehAssetCatList = [];
 
   vehMakeList = [];
   vehModelList = [];
@@ -210,18 +237,22 @@ export class AssetEntryComponent implements OnInit {
   paramType = "";
 
   toggleView = "form";
+  regionName = "";
+  locationName = "";
+  officeName = "";
 
   constructor(
     private toastr: ToastrManager,
     private http: HttpClient,
-    private cookie: CookieService
+    private cookie: CookieService,
+    private app: AppComponent
   ) {}
 
   // multiple image setting
   // name = "Angular 4";
   urls = [];
   onSelectFile(event) {
-    alert(this.urls.length);
+    // alert(this.urls.length);
     if (event.target.files && event.target.files[0]) {
       var filesAmount = event.target.files.length;
       for (let i = 0; i < filesAmount; i++) {
@@ -239,7 +270,7 @@ export class AssetEntryComponent implements OnInit {
 
   clearTags() {
     debugger;
-    alert(this.tagList);
+    // alert(this.locList);
     setTimeout(() => {
       Swal.fire({
         title: "Do you want to reset tag list?",
@@ -401,6 +432,7 @@ export class AssetEntryComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.rdbTransMode = "Sender";
     this.rdbAsset = "1";
     this.disableOfcType = true;
     this.getAssetDetail();
@@ -488,6 +520,40 @@ export class AssetEntryComponent implements OnInit {
     );
   }
 
+  getTransLocData() {
+    // alert(this.rdbTransMode);
+    if (this.rdbTransMode == "Sender") {
+      this.disableSenderTrans = true;
+      this.disableReceiveTrans = false;
+
+      this.cmbTransLocation = "";
+      this.cmbTransOfcType = "";
+      this.cmbSendTransLocation = this.cmbLocation;
+      this.cmbSendTransOfcType = this.cmbOfcType;
+
+      // alert(this.cmbSendTransOfcType);
+      this.wngSectTransList = [];
+      this.wngSectSendTransList = [];
+      if (this.cmbSendTransOfcType != "") {
+        this.getSendTransWingSection(this.cmbSendTransOfcType);
+      }
+    } else if (this.rdbTransMode == "Receiver") {
+      this.disableSenderTrans = false;
+      this.disableReceiveTrans = true;
+
+      this.cmbSendTransLocation = "";
+      this.cmbSendTransOfcType = "";
+      this.cmbTransLocation = this.cmbLocation;
+      this.cmbTransOfcType = this.cmbOfcType;
+
+      this.wngSectSendTransList = [];
+      this.wngSectTransList = [];
+      if (this.cmbTransOfcType != "") {
+        this.getTransWingSection(this.cmbTransOfcType);
+      }
+    }
+  }
+
   getTags() {
     var reqHeader = new HttpHeaders({
       "Content-Type": "application/json",
@@ -532,25 +598,38 @@ export class AssetEntryComponent implements OnInit {
       .get(this.serverUrl + "getsubLoc", { headers: reqHeader })
       .subscribe((data: any) => {
         this.locTransList = data;
+        this.locSendTransList = data;
       });
   }
 
   getLocation() {
+    debugger;
     var reqHeader = new HttpHeaders({
       "Content-Type": "application/json",
       // Authorization: "Bearer " + Token,
     });
-
-    this.http
-      // .get(this.serverUrl + "getsubloc", { headers: reqHeader })
-      .get(
-        this.serverUrl + "getuserLocation?userId=" + this.cookie.get("userID"),
-        { headers: reqHeader }
-      )
-      .subscribe((data: any) => {
-        // this.locList = data.filter((x) => x.isActivated == 1);
-        this.locList = data;
-      });
+    if (this.cookie.get("roleName") == "Super User") {
+      this.http
+        // .get(this.serverUrl + "getsubloc", { headers: reqHeader })
+        .get(this.serverUrl + "getsubloc", { headers: reqHeader })
+        .subscribe((data: any) => {
+          // this.locList = data.filter((x) => x.isActivated == 1);
+          this.locList = data;
+        });
+    } else {
+      this.http
+        // .get(this.serverUrl + "getsubloc", { headers: reqHeader })
+        .get(
+          this.serverUrl +
+            "getuserLocation?userId=" +
+            this.cookie.get("userID"),
+          { headers: reqHeader }
+        )
+        .subscribe((data: any) => {
+          // this.locList = data.filter((x) => x.isActivated == 1);
+          this.locList = data;
+        });
+    }
   }
 
   showOfficeType() {
@@ -558,6 +637,15 @@ export class AssetEntryComponent implements OnInit {
     this.cmbOfcType = ofcType[0].officeTypeID;
 
     this.getWingSection(this.cmbOfcType);
+  }
+
+  showSendTransOfcType() {
+    var ofcType = this.locSendTransList.filter(
+      (x) => x.subLocID == this.cmbSendTransLocation
+    );
+    this.cmbSendTransOfcType = ofcType[0].officeTypeID;
+
+    this.getSendTransWingSection(this.cmbSendTransOfcType);
   }
 
   showTransOfcType() {
@@ -589,6 +677,7 @@ export class AssetEntryComponent implements OnInit {
       .subscribe((data: any) => {
         this.ofcTypeList = data;
         this.ofcTypeTransList = data;
+        this.ofcTypeSendTransList = data;
       });
   }
 
@@ -606,6 +695,24 @@ export class AssetEntryComponent implements OnInit {
       .subscribe((data: any) => {
         // this.wngSectionList = data.filter((x) => x.isActivated == 1);
         this.wngSectionList = data;
+      });
+  }
+
+  getSendTransWingSection(obj) {
+    // alert(obj)
+    this.cmbSendTransWngSection = "";
+    var reqHeader = new HttpHeaders({
+      "Content-Type": "application/json",
+      // Authorization: "Bearer " + Token,
+    });
+
+    this.http
+      .get(this.serverUrl + "getwingsec?officeTypeID=" + obj, {
+        headers: reqHeader,
+      })
+      .subscribe((data: any) => {
+        // this.wngSectionList = data.filter((x) => x.isActivated == 1);
+        this.wngSectSendTransList = data;
       });
   }
 
@@ -666,8 +773,10 @@ export class AssetEntryComponent implements OnInit {
     this.http
       .get(this.serverUrl + "getassetcat", { headers: reqHeader })
       .subscribe((data: any) => {
-        // this.AssetCatList = data.filter((x) => x.isActivated == 1);
         this.AssetCatList = data;
+        this.vehAssetCatList = data.filter(
+          (x) => x.accountsCatagoryDisplay == "VEHICLES"
+        );
         this.tempAssetCatList = data;
       });
   }
@@ -782,33 +891,56 @@ export class AssetEntryComponent implements OnInit {
       "Content-Type": "application/json",
       // Authorization: "Bearer " + Token,
     });
+    if (this.cookie.get("roleName") == "Super User") {
+      this.http
+        .get(this.serverUrl + "getassetdetail", { headers: reqHeader })
+        .subscribe((data: any) => {
+          this.assetDetailList = data;
+          this.tempDetailList = data;
+          // this.assetDetailList.reverse();
+          // this.tempDetailList.reverse();
 
-    this.http
-      .get(
-        this.serverUrl +
-          "getuserassetdetail?UserId=" +
-          this.cookie.get("userID"),
-        { headers: reqHeader }
-      )
-      .subscribe((data: any) => {
-        this.assetDetailList = data;
-        this.tempDetailList = data;
-        this.assetDetailList.reverse();
-        this.tempDetailList.reverse();
-
-        for (var i = 0; i < this.tagList.length; i++) {
-          for (var j = 0; j < this.assetDetailList.length; j++) {
-            if (this.tagList[i].tag == this.assetDetailList[j].tag) {
-              this.assetDetailList[j].checkbox = true;
+          for (var i = 0; i < this.tagList.length; i++) {
+            for (var j = 0; j < this.assetDetailList.length; j++) {
+              if (this.tagList[i].tag == this.assetDetailList[j].tag) {
+                this.assetDetailList[j].checkbox = true;
+              }
+            }
+            for (var j = 0; j < this.tempDetailList.length; j++) {
+              if (this.tagList[i].tag == this.tempDetailList[j].tag) {
+                this.tempDetailList[j].checkbox = true;
+              }
             }
           }
-          for (var j = 0; j < this.tempDetailList.length; j++) {
-            if (this.tagList[i].tag == this.tempDetailList[j].tag) {
-              this.tempDetailList[j].checkbox = true;
+        });
+    } else {
+      this.http
+        .get(
+          this.serverUrl +
+            "getuserassetdetail?UserId=" +
+            this.cookie.get("userID"),
+          { headers: reqHeader }
+        )
+        .subscribe((data: any) => {
+          this.assetDetailList = data;
+          this.tempDetailList = data;
+          this.assetDetailList.reverse();
+          this.tempDetailList.reverse();
+
+          for (var i = 0; i < this.tagList.length; i++) {
+            for (var j = 0; j < this.assetDetailList.length; j++) {
+              if (this.tagList[i].tag == this.assetDetailList[j].tag) {
+                this.assetDetailList[j].checkbox = true;
+              }
+            }
+            for (var j = 0; j < this.tempDetailList.length; j++) {
+              if (this.tagList[i].tag == this.tempDetailList[j].tag) {
+                this.tempDetailList[j].checkbox = true;
+              }
             }
           }
-        }
-      });
+        });
+    }
   }
 
   editAsset(item) {
@@ -1319,6 +1451,11 @@ export class AssetEntryComponent implements OnInit {
         toastTimeout: 2500,
       });
       return false;
+    } else if (this.cmbVehicleAssetCat == "") {
+      this.toastr.errorToastr("Please Select Asset Category", "Error", {
+        toastTimeout: 2500,
+      });
+      return false;
     } else if (this.txtEngine == "") {
       this.toastr.errorToastr("Please Enter Engine No.", "Error", {
         toastTimeout: 2500,
@@ -1329,30 +1466,53 @@ export class AssetEntryComponent implements OnInit {
         toastTimeout: 2500,
       });
       return false;
+    } else if (this.txtDeploy == "") {
+      this.toastr.errorToastr("Please Enter Deployed With", "Error", {
+        toastTimeout: 2500,
+      });
+      return false;
     } else {
       this.loadingBar = true;
       var saveData;
 
+      this.imgVehiclePath =
+        "C:/inetpub/wwwroot/2008_FAR_Proj/assets/vehicleImg";
+      if (this.imageVehicle == undefined) {
+        this.imgVehiclePath = null;
+        this.imageVehicle = null;
+      }
+      // alert(this.imgVehiclePath);
+      // alert(this.imageVehicle);
       if (this.vehID == "") {
         saveData = {
+          assetCatID: parseInt(this.cmbVehicleAssetCat),
           VehID: this.txtRegNo,
           Make: this.cmbMake,
           Model: this.cmbModel,
           Type: this.cmbType,
           ChasisNum: this.txtChasis,
           EngineNum: this.txtEngine,
+          deployedWith: this.txtDeploy,
+          eDoc: this.imgVehiclePath,
+          eDocExtension: "pdf",
+          imgFile: this.imageVehicle,
           ID: 0,
           Userid: this.cookie.get("userID"),
           SPType: "Insert",
         };
       } else {
         saveData = {
+          assetCatID: parseInt(this.cmbVehicleAssetCat),
           VehID: this.txtRegNo,
           Make: this.cmbMake,
           Model: this.cmbModel,
           Type: this.cmbType,
           ChasisNum: this.txtChasis,
           EngineNum: this.txtEngine,
+          deployedWith: this.txtDeploy,
+          eDoc: this.imgVehiclePath,
+          eDocExtension: "pdf",
+          imgFile: this.imageVehicle,
           ID: this.vehID,
           Userid: this.cookie.get("userID"),
           SPType: "Update",
@@ -1385,8 +1545,10 @@ export class AssetEntryComponent implements OnInit {
               );
             }
 
-            this.clear();
+            this.clearVehicle();
             this.getVehicle();
+            $("#vehicleModal").modal("hide");
+
             this.loadingBar = false;
             return false;
           } else {
@@ -1669,8 +1831,16 @@ export class AssetEntryComponent implements OnInit {
   }
 
   removeTransfer() {
+    this.clearTransfer();
+    this.disableSenderTrans = true;
     if (this.lblTransferID == "") {
       this.sldTransfered = false;
+      this.cmbSendTransLocation = this.cmbLocation;
+      this.cmbSendTransOfcType = this.cmbOfcType;
+
+      if (this.cmbSendTransOfcType != "") {
+        this.getSendTransWingSection(this.cmbSendTransOfcType);
+      }
     }
   }
 
@@ -1700,6 +1870,31 @@ export class AssetEntryComponent implements OnInit {
       var trans = this.transferList.filter(
         (x) => x.transferID == this.lblTransferID
       );
+      if (this.cmbLocation == "") {
+        this.toastr.errorToastr("Please Select Main Location", "Error !", {
+          toastTimeout: 5000,
+        });
+        return false;
+      }
+      if (this.cmbLocation == trans[0].tSubLocID) {
+        this.rdbTransMode = "Sender";
+        this.disableSenderTrans = true;
+        this.disableReceiveTrans = false;
+      } else if (this.cmbLocation == trans[0].rSubLocID) {
+        this.rdbTransMode = "Receiver";
+        this.disableSenderTrans = false;
+        this.disableReceiveTrans = true;
+      }
+      this.sldTransfered = true;
+      this.lblTransferID = trans[0].transferID;
+      this.rdbTransType = trans[0].transferType;
+
+      this.cmbSendTransLocation = trans[0].tSubLocID;
+      this.cmbSendTransOfcType = trans[0].tofficeTypeID;
+
+      this.getSendTransWingSection(trans[0].tofficeTypeID);
+
+      this.cmbSendTransWngSection = trans[0].tOfficeSecID;
 
       this.rdbTransType = trans[0].transferType;
       this.cmbTransferProject = trans[0].projectID;
@@ -1759,34 +1954,38 @@ export class AssetEntryComponent implements OnInit {
   }
 
   searchTableData() {
-    if (this.assetDetailList.length == 0) {
-      this.getAssetDetail();
-    } else if (this.assetDetailList.length != 0) {
-      if (this.cmbSearchOfcType == "" && this.cmbSearchWngSection == "") {
-        this.assetDetailList = this.assetDetailList.filter(
-          (x) => x.subLocID == this.cmbSearchLocation
-        );
-      } else if (
-        this.cmbSearchLocation == "" &&
-        this.cmbSearchWngSection == ""
-      ) {
-        this.assetDetailList = this.assetDetailList.filter(
-          (x) => x.officeTypeID == this.cmbSearchOfcType
-        );
-      } else if (this.cmbSearchWngSection == "") {
-        this.assetDetailList = this.assetDetailList.filter(
-          (x) =>
-            x.subLocID == this.cmbSearchLocation &&
-            x.officeTypeID == this.cmbSearchOfcType
-        );
-      } else {
-        this.assetDetailList = this.assetDetailList.filter(
-          (x) =>
-            x.subLocID == this.cmbSearchLocation &&
-            x.officeTypeID == this.cmbSearchOfcType &&
-            x.officeSecID == this.cmbSearchWngSection
-        );
-      }
+    this.assetDetailList = [];
+    this.assetDetailList = this.tempDetailList;
+
+    if (this.cmbSearchOfcType == "" && this.cmbSearchWngSection == "") {
+      this.assetDetailList = this.assetDetailList.filter(
+        (x) => x.subLocID == this.cmbSearchLocation
+      );
+
+      var locFilter = this.locList.filter(
+        (x) => x.subLocID == this.cmbSearchLocation
+      );
+
+      this.regionName = locFilter[0].locationDescription;
+      this.locationName = locFilter[0].subLocationDescription;
+      this.officeName = locFilter[0].officeTypeDescription;
+    } else if (this.cmbSearchLocation == "" && this.cmbSearchWngSection == "") {
+      this.assetDetailList = this.assetDetailList.filter(
+        (x) => x.officeTypeID == this.cmbSearchOfcType
+      );
+    } else if (this.cmbSearchWngSection == "") {
+      this.assetDetailList = this.assetDetailList.filter(
+        (x) =>
+          x.subLocID == this.cmbSearchLocation &&
+          x.officeTypeID == this.cmbSearchOfcType
+      );
+    } else {
+      this.assetDetailList = this.assetDetailList.filter(
+        (x) =>
+          x.subLocID == this.cmbSearchLocation &&
+          x.officeTypeID == this.cmbSearchOfcType &&
+          x.officeSecID == this.cmbSearchWngSection
+      );
     }
   }
 
@@ -1846,15 +2045,42 @@ export class AssetEntryComponent implements OnInit {
   }
 
   saveTransfer() {
-    alert(this.dtpTransferDt);
+    // alert(this.dtpTransferDt);
     if (this.rdbTransType == "") {
       this.toastr.errorToastr("Please Select Transfer Type", "Error", {
         toastTimeout: 2500,
       });
       return false;
+    } else if (this.cmbSendTransLocation == "") {
+      this.toastr.errorToastr(
+        "Please Select Sender Transfer Province Location & Sub Location",
+        "Error",
+        {
+          toastTimeout: 2500,
+        }
+      );
+      return false;
+    } else if (this.cmbSendTransOfcType == "") {
+      this.toastr.errorToastr(
+        "Please Select Sender Transfer Office Type",
+        "Error",
+        {
+          toastTimeout: 2500,
+        }
+      );
+      return false;
+    } else if (this.cmbSendTransWngSection == "") {
+      this.toastr.errorToastr(
+        "Please Select Sender Transfer Wing Section",
+        "Error",
+        {
+          toastTimeout: 2500,
+        }
+      );
+      return false;
     } else if (this.cmbTransLocation == "") {
       this.toastr.errorToastr(
-        "Please Select Transfer Province Location & Sub Location",
+        "Please Select Receiver Transfer Province Location & Sub Location",
         "Error",
         {
           toastTimeout: 2500,
@@ -1862,18 +2088,26 @@ export class AssetEntryComponent implements OnInit {
       );
       return false;
     } else if (this.cmbTransOfcType == "") {
-      this.toastr.errorToastr("Please Select Transfer Office Type", "Error", {
-        toastTimeout: 2500,
-      });
+      this.toastr.errorToastr(
+        "Please Select Receiver Transfer Office Type",
+        "Error",
+        {
+          toastTimeout: 2500,
+        }
+      );
       return false;
     } else if (this.cmbTransWngSection == "") {
-      this.toastr.errorToastr("Please Select Transfer Wing Section", "Error", {
-        toastTimeout: 2500,
-      });
+      this.toastr.errorToastr(
+        "Please Select Receiver Transfer Wing Section",
+        "Error",
+        {
+          toastTimeout: 2500,
+        }
+      );
       return false;
     } else if (this.cmbTransByPost == "") {
       this.toastr.errorToastr(
-        "Please Select Transferred By Post Title",
+        "Please Select Transferred By Custody Name",
         "Error",
         {
           toastTimeout: 2500,
@@ -1882,7 +2116,7 @@ export class AssetEntryComponent implements OnInit {
       return false;
     } else if (this.cmbTransToPost == "") {
       this.toastr.errorToastr(
-        "Please Select Transferred To Post Title",
+        "Please Select Transferred To Custody Name",
         "Error",
         {
           toastTimeout: 2500,
@@ -1904,6 +2138,15 @@ export class AssetEntryComponent implements OnInit {
         toastTimeout: 2500,
       });
       return false;
+    } else if (this.cmbTransLocation == this.cmbSendTransLocation) {
+      this.toastr.errorToastr(
+        "Same Sender & Receiver Locations are not Allowed",
+        "Error",
+        {
+          toastTimeout: 2500,
+        }
+      );
+      return false;
     } else {
       this.loadingBar = true;
 
@@ -1923,6 +2166,9 @@ export class AssetEntryComponent implements OnInit {
 
       if (this.lblTransferID == "") {
         saveData = {
+          tSubLocID: parseInt(this.cmbSendTransLocation), //int
+          tofficeTypeID: parseInt(this.cmbSendTransOfcType), //int
+          tOfficeSecID: parseInt(this.cmbSendTransWngSection), //int
           rSubLocID: parseInt(this.cmbTransLocation), //int
           officeTypeID: parseInt(this.cmbTransOfcType), //int
           rOfficeSecID: parseInt(this.cmbTransWngSection), //int
@@ -1941,6 +2187,9 @@ export class AssetEntryComponent implements OnInit {
         };
       } else {
         saveData = {
+          tSubLocID: parseInt(this.cmbSendTransLocation), //int
+          tofficeTypeID: parseInt(this.cmbSendTransOfcType), //int
+          tOfficeSecID: parseInt(this.cmbSendTransWngSection), //int
           rSubLocID: parseInt(this.cmbTransLocation), //int
           officeTypeID: parseInt(this.cmbTransOfcType), //int
           rOfficeSecID: parseInt(this.cmbTransWngSection), //int
@@ -2005,12 +2254,48 @@ export class AssetEntryComponent implements OnInit {
   }
 
   editTransfer(obj) {
+    var count = 0;
+    if (this.cmbLocation == "") {
+      this.toastr.errorToastr("Please Select Main Location", "Error !", {
+        toastTimeout: 5000,
+      });
+      return false;
+    } else if (this.cmbLocation != obj.rSubLocID) {
+      count++;
+    } else if (this.cmbLocation != obj.tSubLocID) {
+      count++;
+    }
+
+    if (count > 1) {
+      this.toastr.errorToastr("Main Location Not Match", "Error !", {
+        toastTimeout: 5000,
+      });
+      return false;
+    }
+    if (this.cmbLocation == obj.tSubLocID) {
+      this.rdbTransMode = "Sender";
+      this.disableSenderTrans = true;
+      this.disableReceiveTrans = false;
+    } else if (this.cmbLocation == obj.rSubLocID) {
+      this.rdbTransMode = "Receiver";
+      this.disableSenderTrans = false;
+      this.disableReceiveTrans = true;
+    }
     this.sldTransfered = true;
     this.lblTransferID = obj.transferID;
     this.rdbTransType = obj.transferType;
+
     this.cmbTransferProject = obj.projectID;
+    this.cmbSendTransLocation = obj.tSubLocID;
+    this.cmbSendTransOfcType = obj.tofficeTypeID;
+
+    this.getSendTransWingSection(obj.tofficeTypeID);
+
+    this.cmbSendTransWngSection = obj.tOfficeSecID;
+
     this.cmbTransLocation = obj.rSubLocID;
     this.cmbTransOfcType = obj.officeTypeID;
+
     this.getTransWingSection(obj.officeTypeID);
     this.cmbTransWngSection = obj.rOfficeSecID;
     this.cmbTransByPost = obj.tPostID;
@@ -2175,7 +2460,11 @@ export class AssetEntryComponent implements OnInit {
   }
 
   clearTransfer() {
+    this.rdbTransMode = "Sender";
     this.rdbTransType = "";
+    this.cmbSendTransLocation = "";
+    this.cmbSendTransOfcType = "";
+    this.cmbSendTransWngSection = "";
     this.cmbTransLocation = "";
     this.cmbTransOfcType = "";
     this.cmbTransWngSection = "";
@@ -2192,8 +2481,16 @@ export class AssetEntryComponent implements OnInit {
   }
 
   clearTransferDetail() {
+    this.sldTransfered = false;
+    this.rdbTransMode = "Sender";
     this.rdbTransType = "";
     this.cmbTransferProject = "";
+    this.cmbSendTransLocation = this.cmbLocation;
+    this.cmbSendTransOfcType = this.cmbOfcType;
+
+    this.getSendTransWingSection(this.cmbSendTransOfcType);
+
+    this.cmbSendTransWngSection = "";
     this.cmbTransLocation = "";
     this.cmbTransOfcType = "";
     this.cmbTransWngSection = "";
@@ -2214,12 +2511,50 @@ export class AssetEntryComponent implements OnInit {
   }
 
   clearVehicle() {
+    this.cmbVehicleAssetCat = "";
+    this.vehID = "";
     this.txtRegNo = "";
     this.cmbMake = "";
     this.cmbModel = "";
     this.cmbType = "";
     this.txtEngine = "";
     this.txtChasis = "";
+    this.txtDeploy = "";
+    this.imageVehicle = undefined;
+    this.imgFileVehicle = undefined;
+    this.selectedVehicleFile = null;
+    this.imageVehicleUrl =
+      "../../../../../assets/assetEntryImg/dropHereImg.png";
+    this.lblFileName = "";
+  }
+
+  onVehicleFileSelected(event) {
+    if (event.target.files[0].type == "application/pdf") {
+      this.selectedVehicleFile = <File>event.target.files[0];
+      let reader = new FileReader();
+
+      reader.onloadend = (e: any) => {
+        this.imageVehicle = reader.result;
+
+        var splitImg = this.imageVehicle.split(",")[1];
+        this.imageVehicle = splitImg;
+        this.imageVehicleUrl = "";
+        this.lblFileName = event.target.files[0].name;
+      };
+
+      reader.readAsDataURL(this.selectedVehicleFile);
+    } else {
+      this.toastr.errorToastr("Please Select PDF File", "Error", {
+        toastTimeout: 2500,
+      });
+
+      this.imageVehicle = undefined;
+      this.imgFileVehicle = undefined;
+      this.selectedVehicleFile = null;
+      this.lblFileName = "";
+      this.imageVehicleUrl =
+        "../../../../../assets/assetEntryImg/dropHereImg.png";
+    }
   }
 
   onTransFileSelected(event) {
@@ -2552,14 +2887,56 @@ export class AssetEntryComponent implements OnInit {
 
   // Edit Vehicle
   editVehicle(item) {
+    this.imageVehicle = undefined;
+    this.imgFileVehicle = undefined;
+    this.selectedVehicleFile = null;
+    this.imageVehicleUrl =
+      "../../../../../assets/assetEntryImg/dropHereImg.png";
+    this.lblFileName = "";
+
     $("#vehicleModal").modal("show");
     this.vehID = item.id;
     this.txtRegNo = item.vehID;
     this.cmbMake = item.make;
     this.cmbModel = item.model;
     this.cmbType = item.type;
+    this.cmbVehicleAssetCat = item.assetCatID;
+    this.txtDeploy = item.deployedWith;
     this.txtEngine = item.engineNum;
     this.txtChasis = item.chasisNum;
     this.cmbVehicle = "";
+    if (item.eDoc != null) {
+      this.imageVehicleUrl =
+        "http://95.217.206.195:2008/assets/vehicleImg/" + item.id + ".pdf";
+      this.lblFileName = "Open Uploaded File";
+    }
+  }
+
+  exportExcel() {
+    this.app.exportExcel("assetRegister", "Asset Register");
+  }
+
+  exportPdf() {
+    // this.app.exportPdf("assetRegister", "Asset Register");
+    var data = document.getElementById("assetRegister");
+    html2canvas(data).then((canvas) => {
+      // Few necessary setting options
+      var imgWidth = 208;
+      var pageHeight = 295;
+      var imgHeight = (canvas.height * imgWidth) / canvas.width;
+      var heightLeft = imgHeight;
+
+      const contentDataURL = canvas.toDataURL("image/png");
+      let pdf = new jsPDF("p", "mm", "a4"); // A4 size page of PDF
+      var position = 0;
+      pdf.addImage(contentDataURL, "PNG", 0, position, imgWidth, imgHeight);
+      pdf.save("MYPdf.pdf"); // Generated PDF
+    });
+  }
+
+  openPDFFile() {
+    if (this.imageVehicleUrl != "") {
+      window.open(this.imageVehicleUrl);
+    }
   }
 }

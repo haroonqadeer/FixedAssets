@@ -22,7 +22,7 @@ export class LocationCompleteComponent implements OnInit {
 
   loadingBar = false;
 
-  imgPath = "C:/inetpub/wwwroot/2008_FAR_Proj/assets/IPCRefImg";
+  imgPath = "C:/inetpub/wwwroot/2008_FAR_Proj/assets/Location";
   showPdf = "";
   lblFileName = "";
   image;
@@ -35,9 +35,12 @@ export class LocationCompleteComponent implements OnInit {
   txtPin = "";
   compLoc = "";
   locID = 0;
+  officeTypeID = 0;
   locationTitle = "Select Location";
   locationCheckList = [];
   locationStatus = 1;
+  locStatus = 0;
+  userRole = "";
 
   constructor(
     private router: Router,
@@ -49,15 +52,24 @@ export class LocationCompleteComponent implements OnInit {
 
   ngOnInit(): void {
     this.getUserLocations();
+    this.userRole = this.cookie.get("roleName");
   }
 
   showLocCheckList(item) {
+    this.locStatus = item.isCompleted;
+    // alert(this.locID);
+    // alert(item.officeTypeID);
     this.compLoc = item.isCompleted;
     this.locID = item.subLocID;
-    this.locationTitle = item.officeTypeDescription;
+    this.officeTypeID = item.officeTypeID;
+    this.locationTitle =
+      item.subLocationDescription + " - " + item.officeTypeDescription;
     this.locationStatus = item.isCompleted;
     // this.locationStatus = 1;
+    this.getCheckList(this.locID, this.officeTypeID);
+  }
 
+  getCheckList(subLocIDp, officeTypeIDp) {
     var reqHeader = new HttpHeaders({
       "Content-Type": "application/json",
       // Authorization: "Bearer " + Token,
@@ -67,9 +79,9 @@ export class LocationCompleteComponent implements OnInit {
       .get(
         this.serverUrl +
           "getLocationCheckList?subLocID=" +
-          item.subLocID +
+          subLocIDp +
           "&officeTypeID=" +
-          item.officeTypeID,
+          officeTypeIDp,
         {
           headers: reqHeader,
         }
@@ -101,6 +113,7 @@ export class LocationCompleteComponent implements OnInit {
 
   // update check list
   updateCheckList(item) {
+    // alert(item.description);
     if (
       item.fileRequired == 1 &&
       (item.eDoc == "" || item.eDoc == null || item.eDoc == undefined)
@@ -109,15 +122,32 @@ export class LocationCompleteComponent implements OnInit {
         toastTimeout: 2500,
       });
       return false;
+    } else if (
+      item.description == "" ||
+      item.description == undefined ||
+      item.description == null
+    ) {
+      this.toastr.errorToastr("description is required", "Error", {
+        toastTimeout: 2500,
+      });
+      return false;
     } else {
+      var filePath = "";
+      var fileExtension = "";
+
+      //eDoc setting
+      if (item.fileRequired == 1) {
+        filePath = this.imgPath;
+        fileExtension = "pdf";
+      }
       //update
       var saveData = {
         LocCheckListID: item.locCheckListID,
         Description: item.description,
         status: 1,
         SubLocCompletionID: item.subLocCompletionID,
-        EDoc: this.imgPath,
-        EDocExtension: "pdf",
+        EDoc: filePath,
+        EDocExtension: fileExtension,
         imgFile: item.eFile,
         UserId: this.cookie.get("userID"),
         SpType: "UPDATE",
@@ -138,7 +168,8 @@ export class LocationCompleteComponent implements OnInit {
                 toastTimeout: 2500,
               }
             );
-            this.showLocCheckList(item);
+            // this.showLocCheckList(item);
+            this.getCheckList(this.locID, this.officeTypeID);
             // this.clear();
             // this.getAssetCategory();
             // this.loadingBar = false;
@@ -183,7 +214,8 @@ export class LocationCompleteComponent implements OnInit {
               toastTimeout: 2500,
             }
           );
-          this.showLocCheckList(item);
+          // this.showLocCheckList(item);
+          this.getCheckList(this.locID, this.officeTypeID);
           return false;
         } else {
           this.toastr.errorToastr(data.msg, "Error !", {
@@ -194,7 +226,7 @@ export class LocationCompleteComponent implements OnInit {
       });
   }
 
-  verifyPin() {
+  verifyPin(param) {
     var count = 0;
     if (this.locID == 0) {
       this.toastr.errorToastr("Please Select Location", "Error !", {
@@ -216,13 +248,9 @@ export class LocationCompleteComponent implements OnInit {
       }
 
       if (count < this.tempLocList.length) {
-        this.toastr.errorToastr(
-          "Please Complete Location " + this.locationTitle + " All Check List",
-          "Error !",
-          {
-            toastTimeout: 5000,
-          }
-        );
+        this.toastr.errorToastr("Please Complete Check List", "Error !", {
+          toastTimeout: 5000,
+        });
         return false;
       }
       this.loadingBar = true;
@@ -237,7 +265,11 @@ export class LocationCompleteComponent implements OnInit {
         .post(this.serverUrl + "pincode", saveData, { headers: reqHeader })
         .subscribe((data: any) => {
           if (data.msg == "Success") {
-            this.saveCompleteLocation();
+            if (param == "Complete") {
+              this.saveCompleteLocation();
+            } else {
+              this.saveInCompleteLocation();
+            }
             return false;
           } else {
             this.toastr.errorToastr(data.msg, "Error!", { toastTimeout: 2500 });
@@ -264,7 +296,7 @@ export class LocationCompleteComponent implements OnInit {
       .subscribe((data: any) => {
         if (data.msg == "SUCCESS") {
           this.toastr.successToastr(
-            "Record Completed Successfully!",
+            "Location Completed Successfully!",
             "Success!",
             {
               toastTimeout: 2500,
@@ -282,10 +314,53 @@ export class LocationCompleteComponent implements OnInit {
           return false;
         }
       });
+    this.txtPin = "";
+    this.locationCheckList = [];
+  }
+
+  saveInCompleteLocation() {
+    var saveData = {
+      SpType: "UNCOMPLETE", //string
+      SubLocationID: this.locID,
+      userID: this.cookie.get("userID"), //int
+    };
+
+    var reqHeader = new HttpHeaders({
+      "Content-Type": "application/json",
+    });
+
+    this.http
+      .post(this.serverUrl + "sublocation", saveData, {
+        headers: reqHeader,
+      })
+      .subscribe((data: any) => {
+        if (data.msg == "SUCCESS") {
+          this.toastr.successToastr(
+            "Location InComplete Successfully!",
+            "Success!",
+            {
+              toastTimeout: 2500,
+            }
+          );
+          // this.clear();
+          this.getUserLocations();
+          this.loadingBar = false;
+          return false;
+        } else {
+          this.toastr.errorToastr(data.msg, "Error !", {
+            toastTimeout: 5000,
+          });
+          this.loadingBar = false;
+          return false;
+        }
+      });
+    this.txtPin = "";
+    this.locationCheckList = [];
   }
 
   onFileSelected(event, item) {
     if (event.target.files[0].type == "application/pdf") {
+      this.lblFileName = event.target.files[0].name;
       this.selectedFile = <File>event.target.files[0];
       let reader = new FileReader();
 
@@ -310,5 +385,13 @@ export class LocationCompleteComponent implements OnInit {
       this.selectedFile = null;
       // this.imageUrl = "";
     }
+  }
+
+  openPDFFile(item) {
+    var url =
+      "http://95.217.206.195:2008/assets/Location/" +
+      item.subLocCompletionID +
+      ".pdf";
+    window.open(url);
   }
 }

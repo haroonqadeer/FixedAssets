@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, ViewChild, ElementRef } from "@angular/core";
 import { Router } from "@angular/router";
 import { CookieService } from "ngx-cookie-service";
 import { UserIdleService } from "angular-user-idle";
@@ -9,6 +9,10 @@ import {
   HttpErrorResponse,
 } from "@angular/common/http";
 
+import * as XLSX from "xlsx";
+import html2canvas from "html2canvas";
+import * as jsPDF from "jspdf";
+
 declare var $: any;
 
 @Component({
@@ -17,8 +21,8 @@ declare var $: any;
   styleUrls: ["./app.component.scss"],
 })
 export class AppComponent {
-  // serverUrl = "http://95.217.206.195:2007/api/";
-  serverUrl = "http://localhost:5090/api/";
+  serverUrl = "http://95.217.206.195:2007/api/";
+  // serverUrl = "http://localhost:5090/api/";
 
   title = "FixedAssets";
   userName = "";
@@ -380,5 +384,35 @@ export class AppComponent {
     var convertedDate = m + "-" + d + "-" + y;
 
     return convertedDate;
+  }
+
+  // export in excel call from any child page
+  exportExcel(elementName, fileName) {
+    const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(
+      document.getElementById(elementName)
+    );
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
+
+    /* save to file */
+    XLSX.writeFile(wb, fileName + ".xlsx");
+  }
+
+  //export pdf from any child page
+  exportPdf(elementName, fileName) {
+    var data = document.getElementById(elementName);
+    html2canvas(data).then((canvas) => {
+      // Few necessary setting options
+      var imgWidth = 208;
+      var pageHeight = 295;
+      var imgHeight = (canvas.height * imgWidth) / canvas.width;
+      var heightLeft = imgHeight;
+
+      const contentDataURL = canvas.toDataURL("image/png");
+      let pdf = new jsPDF("p", "mm", "a4"); // A4 size page of PDF
+      var position = 0;
+      pdf.addImage(contentDataURL, "PNG", 0, position, imgWidth, imgHeight);
+      pdf.save(fileName + ".pdf"); // Generated PDF
+    });
   }
 }

@@ -33,7 +33,7 @@ import { NgxPaginationModule } from "ngx-pagination";
 import { InputTextModule } from "primeng/inputtext";
 import { SearchPipe } from "./shared/pipe-filters/pipe-search";
 import { SortPipe } from "./shared/pipe-filters/pipe-sort";
-import { LimitPipe } from "./shared/pipe-filters/pipe-limit";
+import { TruncatePipe } from "./shared/pipe-filters/TruncatePipe";
 import { CookieService } from "ngx-cookie-service";
 import { LoginComponent } from "./pages/user/login/login.component";
 import { AssetEntryComponent } from "./pages/fixAsset/asset-entry/asset-entry.component";
@@ -48,18 +48,19 @@ import { NHAProjectIPCComponent } from "./pages/fixasset/configuration/nhaprojec
 import { NHAFreeholdLandComponent } from "./pages/fixAsset/nhafreehold-land/nhafreehold-land.component";
 import { UserRegisterationComponent } from "./pages/user/adminPanel/user-registeration/user-registeration.component";
 import { NHARoadsComponent } from "./pages/fixasset/nharoads/nharoads.component";
-import { BridgesComponent } from './pages/fixasset/bridges/bridges.component';
-import { NhabuldingsComponent } from './pages/fixasset/nhabuldings/nhabuldings.component';
-import { CreateBuildingComponent } from './pages/fixasset/configuration/create-building/create-building.component';
-import { HomePageComponent } from './pages/home-page/home-page.component';
-import { LocationCompleteComponent } from './pages/fixasset/location-complete/location-complete.component';
+import { BridgesComponent } from "./pages/fixasset/bridges/bridges.component";
+import { NhabuldingsComponent } from "./pages/fixasset/nhabuldings/nhabuldings.component";
+import { CreateBuildingComponent } from "./pages/fixasset/configuration/create-building/create-building.component";
+import { HomePageComponent } from "./pages/home-page/home-page.component";
+import { LocationCompleteComponent } from "./pages/fixasset/location-complete/location-complete.component";
+import { AssetRegisterRptComponent } from "./pages/fixAsset/Reports/asset-register-rpt/asset-register-rpt.component";
 
 @NgModule({
   declarations: [
     AppComponent,
     SearchPipe,
     SortPipe,
-    LimitPipe,
+    TruncatePipe,
     LoginComponent,
     AssetEntryComponent,
     DashboardyComponent,
@@ -78,6 +79,7 @@ import { LocationCompleteComponent } from './pages/fixasset/location-complete/lo
     CreateBuildingComponent,
     HomePageComponent,
     LocationCompleteComponent,
+    AssetRegisterRptComponent,
   ],
   imports: [
     BrowserModule,
