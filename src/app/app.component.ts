@@ -273,7 +273,7 @@ export class AppComponent {
           //     "_3.jpg";
           // }
           if (
-            data[0].eDoc != null ||
+            data[0].eDoc != null &&
             data[0].eDoc !=
               "C:/inetpub/wwwroot/2008_FAR_Proj/assets/assetEntryImg"
           ) {
@@ -283,7 +283,7 @@ export class AppComponent {
               "_1.jpg";
           }
           if (
-            data[0].eDoc2 != null ||
+            data[0].eDoc2 != null &&
             data[0].eDoc2 !=
               "C:/inetpub/wwwroot/2008_FAR_Proj/assets/assetEntryImg"
           ) {
@@ -293,7 +293,7 @@ export class AppComponent {
               "_2.jpg";
           }
           if (
-            data[0].eDoc3 != null ||
+            data[0].eDoc3 != null &&
             data[0].eDoc3 !=
               "C:/inetpub/wwwroot/2008_FAR_Proj/assets/assetEntryImg"
           ) {
