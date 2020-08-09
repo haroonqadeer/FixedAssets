@@ -568,3 +568,7 @@ div.divFooter .label {
 .border-left {
   border-left: 1px solid #dee2e6 !important;
 }
+
+.printNone {
+  display: none;
+}

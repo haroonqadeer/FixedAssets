@@ -1,8 +1,8 @@
 <div class="row pl-3 m-0 p-0">
-  <div class="col-md-5 align-self-center p-0 m-0">
+  <div class="col-md-4 align-self-center p-0 m-0">
     <h1 class="align-self-center">Asset Entry & Tags</h1>
   </div>
-  <div class="col-md-7 text-right">
+  <div class="col-md-8 text-right">
     <nav id="pageNav" class="stroke text-right">
       <ul>
         <li>
@@ -22,6 +22,11 @@
           <a (click)="exportExcel()" class="cursorPointer"><span
               class="fa fa-file-excel-o text-success"></span>&nbsp;&nbsp;
             Register</a>
+        </li>
+        <li>
+          <a class="cursorPointer" data-toggle="modal" data-target="#transfersReportModal"
+            (click)="toggleView = 'table'">
+            Transfers Report</a>
         </li>
         <!-- <li class="hide">
           <a (click)="exportPdf()" class="cursorPointer"
@@ -1342,73 +1347,21 @@
     <thead>
       <tr>
         <th class="text-center">#</th>
+        <th>Location</th>
+        <th>Office Type</th>
         <th>Office</th>
-        <th>
-          Tag
-          <!-- <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
-            <span class="fa fa-angle-double-up" [hidden]="!reverse"></span> -->
-        </th>
-        <th>
-          Accounts Category
-          <!-- <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
-            <span class="fa fa-angle-double-up" [hidden]="!reverse"></span></th> -->
-        </th>
-        <th>
-          Asset - Category
-          <!-- <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
-            <span class="fa fa-angle-double-up" [hidden]="!reverse"></span></th> -->
-        </th>
+        <th>Tag</th>
+        <th>Accounts Category</th>
+        <th>Asset - Category</th>
         <th> Asset - Description</th>
-        <th>
-          Custodian
-        </th>
-        <th>
-          Asset-Location
-          <!-- <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
-            <span class="fa fa-angle-double-up" [hidden]="!reverse"></span></th> -->
-        </th>
-
-        <th>
-          Project
-          <!-- <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
-            <span class="fa fa-angle-double-up" [hidden]="!reverse"></span> -->
-        </th>
-        <th>
-          Vehicle ID
-          <!-- <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
-            <span class="fa fa-angle-double-up" [hidden]="!reverse"></span></th> -->
-        </th>
-        <th>
-          Cost
-          <!-- <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
-            <span class="fa fa-angle-double-up" [hidden]="!reverse"></span></th> -->
-        </th>
-        <th>
-          Purchase Date
-          <!-- <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
-            <span class="fa fa-angle-double-up" [hidden]="!reverse"></span> -->
-        </th>
-        <th>
-          IPC-Ref
-          <!-- <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
-            <span class="fa fa-angle-double-up" [hidden]="!reverse"></span> -->
-        </th>
-        <th>
-          Condition
-          <!-- <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
-            <span class="fa fa-angle-double-up" [hidden]="!reverse"></span> -->
-        </th>
-        <!-- <th>
-          Create Date -->
-        <!-- <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
-            <span class="fa fa-angle-double-up" [hidden]="!reverse"></span></th> -->
-        <!-- </th> -->
-
-        <!-- <th>
-          Net Book Value -->
-        <!-- <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
-            <span class="fa fa-angle-double-up" [hidden]="!reverse"></span></th> -->
-        <!-- </th> -->
+        <th>Custodian</th>
+        <th>Asset-Location</th>
+        <th>Project</th>
+        <th>IPC-Ref</th>
+        <th>Cost</th>
+        <th>Purchase Date</th>
+        <th>Condition</th>
+        <th>Old Tag</th>
       </tr>
     </thead>
     <tbody>
@@ -1420,23 +1373,21 @@
           let i = index
         ">
         <td class='text-center'>{{ i + 1 }}</td>
-        <td>{{ item.officeDescription }}</td>
-        <td>{{ item.tag }}</td>
         <td>{{ item.subLocationDescription }}</td>
         <td>{{ item.officeTypeDescription }}</td>
+        <td>{{ item.officeDescription }}</td>
+        <td>{{ item.tag }}</td>
         <td>{{ item.accountsCatagory }}</td>
         <td>{{ item.assetCatDescription }}</td>
         <th>{{ item.assetDescription }}</th>
         <td>{{ item.postName }}</td>
         <td>{{ item.assetLocation }}</td>
         <td>{{ item.projectShortName }}</td>
-        <td>{{ item.vehID }}</td>
+        <td>{{ item.ipcRef }}</td>
         <td>{{ item.costAmount | number }}</td>
         <td>{{ item.purchaseDate | date: "dd-MM-yyyy" }}</td>
-        <td>{{ item.ipcRef }}</td>
         <td>{{ item.assetCondition }}</td>
-        <!-- <td>{{ item.createdDate | date: "dd-MM-yyyy" }}</td>
-        <td>{{ item.netBookAmount | number }}</td> -->
+        <td>{{ item.prviousTag}}</td>
       </tr>
       <tr *ngIf="assetDetailList.length == 0">
         <td>No Record Found</td>
@@ -1768,17 +1719,13 @@
         </div>
         <!-- next row -->
         <div class="row">
-          <div class="col-md-4">
+          <div class="col-md-12 inline-block">
             <button mat-raised-button color="warn" (click)="saveTransfer()">
               Save Transfers Detail
             </button>
-          </div>
-          <div class="col-md-4">
             <button mat-raised-button color="primary" (click)="clearTransferDetail()">
               Reset
             </button>
-          </div>
-          <div class="col-md-2">
             <button mat-raised-button color="primary" (click)="clearTransferDetail()">
               New
             </button>
@@ -1963,3 +1910,126 @@
   <!-- Modal Caption (Image Text) -->
 </div>
 <!-- End modal window for bigger image -->
+
+<!-- Transfers Report Modal Windw -->
+<!-- The Modal -->
+<div class="modal animate__animated animate__bounceIn" id="transfersReportModal">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h3 class="modal-title">Transfers Report</h3>
+        <button type="button" class="close" data-dismiss="modal">
+          &times;
+        </button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-2">
+            <label><b>Report Mode</b>: &nbsp;&nbsp;</label>
+          </div>
+          <div class="col-md-3">
+            <mat-radio-group [(ngModel)]="rdbTransRptMode" aria-label="Select an option">
+              <mat-radio-button value="1" class='pr-2'>Sender</mat-radio-button>
+              <mat-radio-button value="2">Reveiver</mat-radio-button>
+            </mat-radio-group>
+          </div>
+          <div class="coll-md-3 inline-block">
+            <button class='mr-2' mat-raised-button color="primary" (click)="transfersReport(rdbTransRptMode)">
+              Report
+            </button>
+            <button mat-raised-button color="primary" (click)="printReport('#assetTransfersReport')">
+              <span class="fa fa-print"></span>
+            </button>
+          </div>
+        </div>
+
+        <!-- transfers report -->
+        <div class="row">
+          <div class="col-md-12">
+            <div class="table-responsive" id="assetTransfersReport">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <label class="h5Report">NATIONAL HIGHWAY AUTHORITY</label>
+                    </div>
+                  </div>
+                  <!-- next row -->
+                  <div class="row">
+                    <div class="col-md-12">
+                      <label class="h1Report">Asset Transfers Report</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6 text-right">
+                  <label class="h2Report">Muniff Ziauddin & Co.</label>
+                </div>
+              </div>
+
+              <!-- report header -->
+              <div class="">
+                <div class="row">
+                  <div class="col-md-6">
+                    <!-- <b class="label">Location Name: &nbsp;&nbsp;</b> -->
+                    <label class="label pl-2 pr-2">{{ locationName }} - {{ officeName }}</label>
+                  </div>
+                </div>
+              </div>
+              <!-- Table -->
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th class='text-center' rowspan="2">#</th>
+                    <th class='printNone' *ngIf="rdbTransRptMode === '2'" rowspan="2">action</th>
+                    <th rowspan="2">Tag</th>
+                    <th rowspan="2">Asset Description</th>
+                    <th class='text-center' colspan="4">Sender Info</th>
+                    <th class='text-center' colspan="4">Receiver Info</th>
+                  </tr>
+                  <tr>
+                    <th>Location</th>
+                    <th>Office</th>
+                    <th>Section</th>
+                    <th>Post Name</th>
+                    <th>Location</th>
+                    <th>Office</th>
+                    <th>Section</th>
+                    <th>Post Name</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of assetTransfersRptList let i=index">
+                    <td class='text-center'>{{i+1}}</td>
+                    <td class='printNone' *ngIf="rdbTransRptMode === '2'">
+                      <mat-checkbox class="example-margin" color="primary"></mat-checkbox>
+                    </td>
+                    <td>{{item.tag}}</td>
+                    <td>{{item.tSubLocationDescription}}</td>
+                    <td>{{item.tOfficeTypeDescription}}</td>
+                    <td>{{item.tOfficeDescription}}</td>
+                    <td>{{item.tPostName}}</td>
+                    <td>{{item.rSubLocationDescription}}</td>
+                    <td>{{item.rOfficeTypeDescription}}</td>
+                    <td>{{item.rOfficeDescription}}</td>
+                    <td>{{item.rPostName}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div><!-- end report -->
+          </div>
+        </div>
+
+
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

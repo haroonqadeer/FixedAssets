@@ -26,9 +26,9 @@ declare var $: any;
   styleUrls: ["./asset-entry.component.scss"],
 })
 export class AssetEntryComponent implements OnInit {
-  serverUrl = "http://95.217.206.195:2007/api/";
+  // serverUrl = "http://95.217.206.195:2007/api/";
   //serverUrl = "http://localhost:12345/api/";
-  // serverUrl = "http://localhost:5090/api/";
+  serverUrl = "http://localhost:6090/api/";
 
   loadingBar = true;
   //pagination variables for tag list
@@ -132,6 +132,7 @@ export class AssetEntryComponent implements OnInit {
 
   rdbTransType = "";
   rdbTransMode = "";
+  rdbTransRptMode = "";
   txtRegNo = "";
   cmbMake = "";
   cmbModel = "";
@@ -229,6 +230,7 @@ export class AssetEntryComponent implements OnInit {
   tempTransList = [];
   transDetailList = [];
   vehAssetCatList = [];
+  assetTransfersRptList = [];
 
   vehMakeList = [];
   vehModelList = [];
@@ -434,6 +436,7 @@ export class AssetEntryComponent implements OnInit {
 
   ngOnInit(): void {
     this.rdbTransMode = "Sender";
+    this.rdbTransRptMode = "1";
     this.rdbAsset = "1";
     this.disableOfcType = true;
     this.getAssetDetail();
@@ -1955,6 +1958,7 @@ export class AssetEntryComponent implements OnInit {
   }
 
   searchTableData() {
+    // debugger;
     this.assetDetailList = [];
     this.assetDetailList = this.tempDetailList;
 
@@ -1980,6 +1984,9 @@ export class AssetEntryComponent implements OnInit {
           x.subLocID == this.cmbSearchLocation &&
           x.officeTypeID == this.cmbSearchOfcType
       );
+
+      this.locationName = this.assetDetailList[0].subLocationDescription;
+      this.officeName = this.assetDetailList[0].officeTypeDescription;
     } else {
       this.assetDetailList = this.assetDetailList.filter(
         (x) =>
@@ -1988,6 +1995,7 @@ export class AssetEntryComponent implements OnInit {
           x.officeSecID == this.cmbSearchWngSection
       );
     }
+    // alert(this.locationName);
   }
 
   //*function for sort table data
@@ -2939,5 +2947,43 @@ export class AssetEntryComponent implements OnInit {
     if (this.imageVehicleUrl != "") {
       window.open(this.imageVehicleUrl);
     }
+  }
+
+  transfersReport(rptMode) {
+    if (this.locationName == "" || this.locationName == undefined) {
+      this.toastr.errorToastr(
+        "select province - location - sublocation from advance search",
+        "Error",
+        {
+          toastTimeout: 2500,
+        }
+      );
+      return false;
+    } else {
+      var reqHeader = new HttpHeaders({
+        "Content-Type": "application/json",
+        // Authorization: "Bearer " + Token,
+      });
+
+      this.http
+        .get(
+          this.serverUrl +
+            "getassetTransfersReport?rptMode=" +
+            rptMode +
+            "&subLocation=" +
+            this.locationName +
+            "&officeType=" +
+            this.officeName,
+          { headers: reqHeader }
+        )
+        .subscribe((data: any) => {
+          this.assetTransfersRptList = data;
+        });
+    }
+  }
+
+  //print report
+  printReport(divID) {
+    this.app.printReport(divID);
   }
 }
