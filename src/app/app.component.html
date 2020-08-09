@@ -112,7 +112,9 @@
     </li>
   </ul>
 </div> <!-- end side nav -->
+<div class="loader" *ngIf="loadingBar">Loading...</div>
 
+<div class="container-fluid bg-white" *ngIf="!loadingBar">
 <!-- header -->
 <div id='main'>
   <div class="row" id="menuId">
@@ -178,6 +180,7 @@
                 </mat-form-field>
               </div>
             </div>
+            
             <!-- next row -->
             <div class="row">
               <div class="col-md-4">
@@ -187,6 +190,7 @@
                 {{lblTag}}
               </div>
             </div>
+
             <!-- next row -->
             <div class="row">
               <div class="col-md-4">
@@ -196,6 +200,7 @@
                 {{lblAccCategory}}
               </div>
             </div>
+
             <!-- next row -->
             <div class="row">
               <div class="col-md-4">
@@ -205,6 +210,7 @@
                 {{lblAssetCategory}}
               </div>
             </div>
+
             <!-- next row -->
             <div class="row">
               <div class="col-md-4">
@@ -214,6 +220,7 @@
                 {{lblPost}}
               </div>
             </div>
+
             <!-- next row -->
             <div class="row">
               <div class="col-md-4">
@@ -223,6 +230,7 @@
                 {{lblSection}}
               </div>
             </div>
+
             <!-- next row -->
             <div class="row">
               <div class="col-md-4">
@@ -232,6 +240,7 @@
                 {{lblCondition}}
               </div>
             </div>
+
             <!-- next row -->
             <div class="row">
               <div class="col-md-4">
@@ -250,6 +259,7 @@
                 {{lblAssetDescription}}
               </div>
             </div>
+
             <!-- next row -->
             <div class="row">
               <div class="col-md-4">
@@ -259,6 +269,7 @@
                 {{lblOfficeType}}
               </div>
             </div>
+
             <!-- next row -->
             <div class="row">
               <div class="col-md-4">
@@ -268,6 +279,7 @@
                 {{lblLocation}}
               </div>
             </div>
+
             <!-- next row -->
             <div class="row">
               <div class="col-md-4">
@@ -277,6 +289,7 @@
                 {{lblProject}}
               </div>
             </div>
+
             <!-- next row -->
             <div class="row">
               <div class="col-md-4">
@@ -286,6 +299,7 @@
                 {{lblIPCRef}}
               </div>
             </div>
+
             <!-- next row -->
             <div class="row">
               <div class="col-md-4">
@@ -295,6 +309,7 @@
                 {{lblSerialNo}}
               </div>
             </div>
+
             <!-- next row -->
             <div class="row">
               <div class="col-md-4">
@@ -372,12 +387,14 @@
               </div>
             </div>
           </div>
+
           <!-- next row -->
           <div class="row">
             <div class="col-md-12">
               Asset Image:
             </div>
           </div>
+
           <!-- next row -->
           <div class="row">
             <div class="col-md-4 border-bottom">
@@ -390,6 +407,54 @@
               <img [src]="imageUrl3" class="rounded" width="115" height="115" />
             </div>
           </div>
+
+          <hr/>
+          <div class="row">
+            <div class="col-md-4 pt-2">
+              <div class="custom-file">
+                <input type="file" class="custom-file-input" [(ngModel)]="imgFileAsset" (change)="onAssetFileSelected($event)" />
+                <label class="custom-file-label" for="customFile">Choose 1st Asset Image</label>
+              </div>
+            </div>
+            <div class="col-md-4 pt-2">
+              <div class="custom-file">
+                <input type="file" class="custom-file-input" [(ngModel)]="imgFileAsset2" (change)="onAssetFileSelected2($event)" />
+                <label class="custom-file-label" for="customFile">Choose 2nd Asset Image</label>
+              </div>
+            </div>
+            <div class="col-md-4 pt-2">
+              <div class="custom-file">
+                <input type="file" class="custom-file-input" [(ngModel)]="imgFileAsset" (change)="onAssetFileSelected3($event)" />
+                <label class="custom-file-label" for="customFile">Choose 3rd Asset Image</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-4 text-center">
+              <div class="text-center">
+                <img [src]="imageAssetUrl" class="rounded" width="115" height="115" id="myImg"/>
+              </div>
+            </div>
+            <div class="col-md-4 text-center">
+              <div class="text-center">
+                <img [src]="imageAssetUrl2" class="rounded" width="115" height="115" id="myImg"/>
+              </div>
+            </div>
+            <div class="col-md-4 text-center">
+              <div class="text-center">
+                <img [src]="imageAssetUrl3" class="rounded" width="115" height="115" id="myImg" />
+              </div>
+            </div>
+          </div>
+
+          <br/>
+          <div class="row border-top bgGrey">
+            <div class="col-md-12 pt-4 pb-2">
+              <a class="btn-flip mr-3" data-back="Save Asset Images" data-front="Save Asset Images" (click)="updateAssetPic()"></a>
+            </div>
+          </div>
+
           <!-- asset detail -->
         </div>
         <!-- table -->
