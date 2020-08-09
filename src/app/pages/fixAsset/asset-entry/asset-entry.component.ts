@@ -28,10 +28,8 @@ declare var $: any;
 export class AssetEntryComponent implements OnInit {
   // serverUrl = "http://95.217.206.195:2007/api/";
   //serverUrl = "http://localhost:12345/api/";
-<<<<<<< HEAD
+
   serverUrl = "http://localhost:6090/api/";
-=======
->>>>>>> a059066ea669d6777094e83df1d7cb82d87ddadd
 
   loadingBar = true;
   //pagination variables for tag list
