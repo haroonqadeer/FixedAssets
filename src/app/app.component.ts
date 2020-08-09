@@ -123,9 +123,12 @@ export class AppComponent {
 
   clearResult(): void {
     this.qrResultString = null;
-    this.imageUrl = "../../../../../assets/assetEntryImg/dropHereImg.png";
-    this.imageUrl2 = "../../../../../assets/assetEntryImg/dropHereImg.png";
-    this.imageUrl3 = "../../../../../assets/assetEntryImg/dropHereImg.png";
+    this.imageAssetUrl = "../../../../../assets/assetEntryImg/dropHereImg.png";
+    this.imageAssetUrl2 = "../../../../../assets/assetEntryImg/dropHereImg.png";
+    this.imageAssetUrl3 = "../../../../../assets/assetEntryImg/dropHereImg.png";
+    // this.imageUrl = "../../../../../assets/assetEntryImg/dropHereImg.png";
+    // this.imageUrl2 = "../../../../../assets/assetEntryImg/dropHereImg.png";
+    // this.imageUrl3 = "../../../../../assets/assetEntryImg/dropHereImg.png";
   }
 
   onCodeResult(resultString: string) {
@@ -177,9 +180,12 @@ export class AppComponent {
 
   getQrCodeData() {
     this.qrLogList = [];
-    this.imageUrl = "../../../../../assets/assetEntryImg/dropHereImg.png";
-    this.imageUrl2 = "../../../../../assets/assetEntryImg/dropHereImg.png";
-    this.imageUrl3 = "../../../../../assets/assetEntryImg/dropHereImg.png";
+    this.imageAssetUrl = "../../../../../assets/assetEntryImg/dropHereImg.png";
+    this.imageAssetUrl2 = "../../../../../assets/assetEntryImg/dropHereImg.png";
+    this.imageAssetUrl3 = "../../../../../assets/assetEntryImg/dropHereImg.png";
+    // this.imageUrl = "../../../../../assets/assetEntryImg/dropHereImg.png";
+    // this.imageUrl2 = "../../../../../assets/assetEntryImg/dropHereImg.png";
+    // this.imageUrl3 = "../../../../../assets/assetEntryImg/dropHereImg.png";
     this.lblAccCategory = "";
     this.lblAssetCategory = "";
     this.lblPost = "";
@@ -236,12 +242,42 @@ export class AppComponent {
           this.lblCreationDate = data[0].createdDate;
           this.lblModifiedBy = data[0].modifiedBy;
           this.lblModificationDate = data[0].modificationDate;
+          // if (
+          //   data[0].eDoc != null ||
+          //   data[0].eDoc !=
+          //     "C:/inetpub/wwwroot/2008_FAR_Proj/assets/assetEntryImg"
+          // ) {
+          //   this.imageUrl =
+          //     "http://95.217.206.195:2008/assets/assetEntryImg/" +
+          //     data[0].assetID +
+          //     "_1.jpg";
+          // }
+          // if (
+          //   data[0].eDoc2 != null ||
+          //   data[0].eDoc2 !=
+          //     "C:/inetpub/wwwroot/2008_FAR_Proj/assets/assetEntryImg"
+          // ) {
+          //   this.imageUrl2 =
+          //     "http://95.217.206.195:2008/assets/assetEntryImg/" +
+          //     data[0].assetID +
+          //     "_2.jpg";
+          // }
+          // if (
+          //   data[0].eDoc3 != null ||
+          //   data[0].eDoc3 !=
+          //     "C:/inetpub/wwwroot/2008_FAR_Proj/assets/assetEntryImg"
+          // ) {
+          //   this.imageUrl3 =
+          //     "http://95.217.206.195:2008/assets/assetEntryImg/" +
+          //     data[0].assetID +
+          //     "_3.jpg";
+          // }
           if (
             data[0].eDoc != null ||
             data[0].eDoc !=
               "C:/inetpub/wwwroot/2008_FAR_Proj/assets/assetEntryImg"
           ) {
-            this.imageUrl =
+            this.imageAssetUrl =
               "http://95.217.206.195:2008/assets/assetEntryImg/" +
               data[0].assetID +
               "_1.jpg";
@@ -251,7 +287,7 @@ export class AppComponent {
             data[0].eDoc2 !=
               "C:/inetpub/wwwroot/2008_FAR_Proj/assets/assetEntryImg"
           ) {
-            this.imageUrl2 =
+            this.imageAssetUrl2 =
               "http://95.217.206.195:2008/assets/assetEntryImg/" +
               data[0].assetID +
               "_2.jpg";
@@ -261,7 +297,7 @@ export class AppComponent {
             data[0].eDoc3 !=
               "C:/inetpub/wwwroot/2008_FAR_Proj/assets/assetEntryImg"
           ) {
-            this.imageUrl3 =
+            this.imageAssetUrl3 =
               "http://95.217.206.195:2008/assets/assetEntryImg/" +
               data[0].assetID +
               "_3.jpg";
@@ -430,7 +466,6 @@ export class AppComponent {
     //   var pageHeight = 295;
     //   var imgHeight = (canvas.height * imgWidth) / canvas.width;
     //   var heightLeft = imgHeight;
-
     //   const contentDataURL = canvas.toDataURL("image/png");
     //   let pdf = new jsPDF("p", "mm", "a4"); // A4 size page of PDF
     //   var position = 0;
@@ -501,14 +536,6 @@ export class AppComponent {
 
     return printCss;
   }
-
-
-
-
-
-
-
-
 
   onAssetFileSelected(event) {
     if (
@@ -597,16 +624,24 @@ export class AppComponent {
     }
   }
 
-
   updateAssetPic() {
     if (this.txtAssetID == "" || this.txtAssetID == undefined) {
-      this.toastr.errorToastr("Please Enter Asset ID","Error",{toastTimeout: 2500,});
+      this.toastr.errorToastr("Please Enter Asset ID", "Error", {
+        toastTimeout: 2500,
+      });
       return false;
-    } else if (this.imageAsset == undefined && this.imageAsset2 == undefined && this.imageAsset3 == undefined) {
-      this.toastr.errorToastr("Please Select At Least One Asset Image","Error",{toastTimeout: 2500,});
+    } else if (
+      this.imageAsset == undefined &&
+      this.imageAsset2 == undefined &&
+      this.imageAsset3 == undefined
+    ) {
+      this.toastr.errorToastr(
+        "Please Select At Least One Asset Image",
+        "Error",
+        { toastTimeout: 2500 }
+      );
       return false;
-    }  else {
-
+    } else {
       this.loadingBar = true;
 
       var imgAsset, imgAsset2, imgAsset3;
@@ -634,30 +669,38 @@ export class AppComponent {
         imgPath3 = this.imgAssetPath3;
       }
 
-        var saveData = {
-          Userid: this.cookie.get("userID"),
-          AssetID: this.txtAssetID,
-          EDoc: imgPath,
-          EDoc2: imgPath2,
-          EDoc3: imgPath3,
-          EDocExtension: "jpg",
-          imgFile: imgAsset,
-          imgFile2: imgAsset2,
-          imgFile3: imgAsset3
-        };
+      var saveData = {
+        Userid: this.cookie.get("userID"),
+        AssetID: this.txtAssetID,
+        EDoc: imgPath,
+        EDoc2: imgPath2,
+        EDoc3: imgPath3,
+        EDocExtension: "jpg",
+        imgFile: imgAsset,
+        imgFile2: imgAsset2,
+        imgFile3: imgAsset3,
+      };
 
-        $('#qrScannerModal').modal('toggle');
+      $("#qrScannerModal").modal("toggle");
       var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
-      this.http.post(this.serverUrl + "updateassetimgs", saveData, { headers: reqHeader,}).subscribe((data: any) => {
+      this.http
+        .post(this.serverUrl + "updateassetimgs", saveData, {
+          headers: reqHeader,
+        })
+        .subscribe((data: any) => {
           if (data.msg == "Success") {
-            this.toastr.successToastr("Record Updated Successfully!","Success!",{toastTimeout: 2500,});
+            this.toastr.successToastr(
+              "Record Updated Successfully!",
+              "Success!",
+              { toastTimeout: 2500 }
+            );
             this.loadingBar = false;
 
             this.imageAsset = undefined;
             this.imgFileAsset = undefined;
             this.selectedAssetFile = null;
-            
+
             this.imageAsset2 = undefined;
             this.imgFileAsset2 = undefined;
             this.selectedAssetFile2 = null;
@@ -671,12 +714,13 @@ export class AppComponent {
             this.imageAssetUrl3 = "../assets/assetCatImg/dropHereImg.png";
             return false;
           } else {
-            this.toastr.errorToastr(data.msg, "Error !", {toastTimeout: 5000,});
+            this.toastr.errorToastr(data.msg, "Error !", {
+              toastTimeout: 5000,
+            });
             this.loadingBar = false;
             return false;
           }
         });
     }
   }
-
 }
