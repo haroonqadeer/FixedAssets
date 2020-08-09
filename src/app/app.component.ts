@@ -10,8 +10,8 @@ import {
 } from "@angular/common/http";
 
 import * as XLSX from "xlsx";
-import html2canvas from "html2canvas";
-import * as jsPDF from "jspdf";
+//import html2canvas from "html2canvas";
+//import * as jsPDF from "jspdf";
 
 declare var $: any;
 
@@ -30,6 +30,7 @@ export class AppComponent {
   _cuId;
   _cuName;
   element = document.querySelector(".sidenav");
+  loadingBar = false;
 
   txtOldPw = "";
   txtNewPw = "";
@@ -64,7 +65,29 @@ export class AppComponent {
   imageUrl2: string = "../../../../../assets/assetEntryImg/dropHereImg.png";
   imageUrl3: string = "../../../../../assets/assetEntryImg/dropHereImg.png";
 
+  // imageUrl: string = "";
+  // imageUrl2: string = "";
+  // imageUrl3: string = "";
+
   qrLogList = [];
+
+  imgAssetPath = "C:/inetpub/wwwroot/2008_FAR_Proj/assets/assetEntryImg";
+  imageAssetUrl: string = "../assets/assetCatImg/dropHereImg.png";
+  imageAsset;
+  imgFileAsset;
+  selectedAssetFile: File = null;
+
+  imgAssetPath2 = "C:/inetpub/wwwroot/2008_FAR_Proj/assets/assetEntryImg";
+  imageAssetUrl2: string = "../assets/assetCatImg/dropHereImg.png";
+  imageAsset2;
+  imgFileAsset2;
+  selectedAssetFile2: File = null;
+
+  imgAssetPath3 = "C:/inetpub/wwwroot/2008_FAR_Proj/assets/assetEntryImg";
+  imageAssetUrl3: string = "../assets/assetCatImg/dropHereImg.png";
+  imageAsset3;
+  imgFileAsset3;
+  selectedAssetFile3: File = null;
 
   constructor(
     private router: Router,
@@ -400,20 +423,20 @@ export class AppComponent {
 
   //export pdf from any child page
   exportPdf(elementName, fileName) {
-    var data = document.getElementById(elementName);
-    html2canvas(data).then((canvas) => {
-      // Few necessary setting options
-      var imgWidth = 208;
-      var pageHeight = 295;
-      var imgHeight = (canvas.height * imgWidth) / canvas.width;
-      var heightLeft = imgHeight;
+    // var data = document.getElementById(elementName);
+    // html2canvas(data).then((canvas) => {
+    //   // Few necessary setting options
+    //   var imgWidth = 208;
+    //   var pageHeight = 295;
+    //   var imgHeight = (canvas.height * imgWidth) / canvas.width;
+    //   var heightLeft = imgHeight;
 
-      const contentDataURL = canvas.toDataURL("image/png");
-      let pdf = new jsPDF("p", "mm", "a4"); // A4 size page of PDF
-      var position = 0;
-      pdf.addImage(contentDataURL, "PNG", 0, position, imgWidth, imgHeight);
-      pdf.save(fileName + ".pdf"); // Generated PDF
-    });
+    //   const contentDataURL = canvas.toDataURL("image/png");
+    //   let pdf = new jsPDF("p", "mm", "a4"); // A4 size page of PDF
+    //   var position = 0;
+    //   pdf.addImage(contentDataURL, "PNG", 0, position, imgWidth, imgHeight);
+    //   pdf.save(fileName + ".pdf"); // Generated PDF
+    // });
   }
 
   //print Report
@@ -478,4 +501,182 @@ export class AppComponent {
 
     return printCss;
   }
+
+
+
+
+
+
+
+
+
+  onAssetFileSelected(event) {
+    if (
+      event.target.files[0].type == "image/png" ||
+      event.target.files[0].type == "image/jpeg"
+    ) {
+      this.selectedAssetFile = <File>event.target.files[0];
+      let reader = new FileReader();
+
+      reader.onloadend = (e: any) => {
+        this.imageAsset = reader.result;
+
+        var splitImg = this.imageAsset.split(",")[1];
+        this.imageAsset = splitImg;
+        this.imageAssetUrl = e.target.result;
+      };
+
+      reader.readAsDataURL(this.selectedAssetFile);
+    } else {
+      this.toastr.errorToastr("Please Select JPEG / PNG Image", "Error", {
+        toastTimeout: 2500,
+      });
+
+      this.imageAsset = undefined;
+      this.imgFileAsset = undefined;
+      this.selectedAssetFile = null;
+      this.imageAssetUrl = "../assets/assetCatImg/dropHereImg.png";
+    }
+  }
+
+  onAssetFileSelected2(event) {
+    if (
+      event.target.files[0].type == "image/png" ||
+      event.target.files[0].type == "image/jpeg"
+    ) {
+      this.selectedAssetFile2 = <File>event.target.files[0];
+      let reader = new FileReader();
+
+      reader.onloadend = (e: any) => {
+        this.imageAsset2 = reader.result;
+
+        var splitImg = this.imageAsset2.split(",")[1];
+        this.imageAsset2 = splitImg;
+        this.imageAssetUrl2 = e.target.result;
+      };
+
+      reader.readAsDataURL(this.selectedAssetFile2);
+    } else {
+      this.toastr.errorToastr("Please Select JPEG / PNG Image", "Error", {
+        toastTimeout: 2500,
+      });
+
+      this.imageAsset2 = undefined;
+      this.imgFileAsset2 = undefined;
+      this.selectedAssetFile2 = null;
+      this.imageAssetUrl2 = "../assets/assetCatImg/dropHereImg.png";
+    }
+  }
+
+  onAssetFileSelected3(event) {
+    if (
+      event.target.files[0].type == "image/png" ||
+      event.target.files[0].type == "image/jpeg"
+    ) {
+      this.selectedAssetFile3 = <File>event.target.files[0];
+      let reader = new FileReader();
+
+      reader.onloadend = (e: any) => {
+        this.imageAsset3 = reader.result;
+
+        var splitImg = this.imageAsset3.split(",")[1];
+        this.imageAsset3 = splitImg;
+        this.imageAssetUrl3 = e.target.result;
+      };
+
+      reader.readAsDataURL(this.selectedAssetFile3);
+    } else {
+      this.toastr.errorToastr("Please Select JPEG / PNG Image", "Error", {
+        toastTimeout: 2500,
+      });
+
+      this.imageAsset3 = undefined;
+      this.imgFileAsset3 = undefined;
+      this.selectedAssetFile3 = null;
+      this.imageAssetUrl3 = "../assets/assetCatImg/dropHereImg.png";
+    }
+  }
+
+
+  updateAssetPic() {
+    if (this.txtAssetID == "" || this.txtAssetID == undefined) {
+      this.toastr.errorToastr("Please Enter Asset ID","Error",{toastTimeout: 2500,});
+      return false;
+    } else if (this.imageAsset == undefined && this.imageAsset2 == undefined && this.imageAsset3 == undefined) {
+      this.toastr.errorToastr("Please Select At Least One Asset Image","Error",{toastTimeout: 2500,});
+      return false;
+    }  else {
+
+      this.loadingBar = true;
+
+      var imgAsset, imgAsset2, imgAsset3;
+      var imgPath, imgPath2, imgPath3;
+      if (this.imageAsset == undefined) {
+        imgAsset = null;
+        imgPath = null;
+      } else {
+        imgAsset = this.imageAsset;
+        imgPath = this.imgAssetPath;
+      }
+      if (this.imageAsset2 == undefined) {
+        imgAsset2 = null;
+        imgPath2 = null;
+      } else {
+        imgAsset2 = this.imageAsset2;
+        imgPath2 = this.imgAssetPath2;
+      }
+
+      if (this.imageAsset3 == undefined) {
+        imgAsset3 = null;
+        imgPath3 = null;
+      } else {
+        imgAsset3 = this.imageAsset3;
+        imgPath3 = this.imgAssetPath3;
+      }
+
+        var saveData = {
+          Userid: this.cookie.get("userID"),
+          AssetID: this.txtAssetID,
+          EDoc: imgPath,
+          EDoc2: imgPath2,
+          EDoc3: imgPath3,
+          EDocExtension: "jpg",
+          imgFile: imgAsset,
+          imgFile2: imgAsset2,
+          imgFile3: imgAsset3
+        };
+
+        $('#qrScannerModal').modal('toggle');
+      var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
+
+      this.http.post(this.serverUrl + "updateassetimgs", saveData, { headers: reqHeader,}).subscribe((data: any) => {
+          if (data.msg == "Success") {
+            this.toastr.successToastr("Record Updated Successfully!","Success!",{toastTimeout: 2500,});
+            this.loadingBar = false;
+
+            this.imageAsset = undefined;
+            this.imgFileAsset = undefined;
+            this.selectedAssetFile = null;
+            
+            this.imageAsset2 = undefined;
+            this.imgFileAsset2 = undefined;
+            this.selectedAssetFile2 = null;
+
+            this.imageAsset3 = undefined;
+            this.imgFileAsset3 = undefined;
+            this.selectedAssetFile3 = null;
+
+            this.imageAssetUrl = "../assets/assetCatImg/dropHereImg.png";
+            this.imageAssetUrl2 = "../assets/assetCatImg/dropHereImg.png";
+            this.imageAssetUrl3 = "../assets/assetCatImg/dropHereImg.png";
+            return false;
+          } else {
+            this.toastr.errorToastr(data.msg, "Error !", {toastTimeout: 5000,});
+            this.loadingBar = false;
+            return false;
+          }
+        });
+    }
+  }
+
 }
