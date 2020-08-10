@@ -128,7 +128,7 @@ export class DashboardyComponent implements OnInit {
       })
       .subscribe((data: any) => {
         this.tagUserList = data;
-        this.tagUserList;
+        // this.tagUserList;
         $("#userTagDateWise").modal("show");
       });
   }
@@ -143,9 +143,16 @@ export class DashboardyComponent implements OnInit {
     });
 
     this.http
-      .get(this.serverUrl + "gettagsuserdatewise?UserId=0&reqDate=" + dt, {
-        headers: reqHeader,
-      })
+      .get(
+        this.serverUrl +
+          "gettagsuserdatewise?UserId=" +
+          obj.userId +
+          "&reqDate=" +
+          dt,
+        {
+          headers: reqHeader,
+        }
+      )
       .subscribe((data: any) => {
         this.tagUserDateList = data;
         $("#userTagDateWiseLocationWiseModal").modal("show");

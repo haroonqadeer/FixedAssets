@@ -430,6 +430,7 @@
               <th>Location</th>
               <th>Sub-Location</th>
               <th>Office Type</th>
+              <th>Completion Date</th>
             </tr>
           </thead>
           <tbody>
@@ -445,6 +446,7 @@
               <td>{{ item.mainLocationDescription }}</td>
               <td>{{ item.subLocationDescription }}</td>
               <td>{{ item.officeTypeDescription }}</td>
+              <td>{{ item.completedDatetime | date }}</td>
             </tr>
           </tbody>
         </table>
@@ -745,17 +747,19 @@
             <tr>
               <th>#</th>
               <th>Location</th>
+              <th>Office Type</th>
               <th>No. of Tags</th>
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="
                 let item of tagDetDtWiseList
-                  | search: 'subLocationDescription':searchTagLoc;
+                  | search: 'subLocationDescription, officeTypeDescription':searchTagLoc;
                 let i = index
               ">
               <td>{{ i + 1 }}</td>
               <td>{{ item.subLocationDescription }}</td>
+              <td>{{ item.officeTypeDescription }}</td>
               <td>{{ item.tagsCreated }}</td>
             </tr>
           </tbody>

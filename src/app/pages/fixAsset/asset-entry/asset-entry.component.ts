@@ -2411,7 +2411,7 @@ export class AssetEntryComponent implements OnInit {
                 }
               );
             }
-
+            this.sldTransfered = true;
             this.getTransfer();
             $("#assetTransferModal").modal("hide");
             // this.lblTransferID=data.ID;
@@ -3194,7 +3194,7 @@ export class AssetEntryComponent implements OnInit {
   printReport(divID) {
     this.app.printReport(divID);
   }
-  
+
   /*** Capture Enter key ***/
   getKeyPressed(e) {
     if (e.keyCode == 13) {
