@@ -300,7 +300,7 @@ export class AssetEntryComponent implements OnInit {
 
   clearTags() {
     // alert(this.tempSpecID);
-    debugger;
+    // debugger;
     // alert(this.locList);
     setTimeout(() => {
       Swal.fire({
@@ -635,7 +635,7 @@ export class AssetEntryComponent implements OnInit {
   }
 
   getLocation() {
-    debugger;
+    // debugger;
     var reqHeader = new HttpHeaders({
       "Content-Type": "application/json",
       // Authorization: "Bearer " + Token,
@@ -1074,6 +1074,17 @@ export class AssetEntryComponent implements OnInit {
     this.lblTransferID = item.transferID;
     this.sldTransfered = item.isTransfered;
 
+    this.make = item.make;
+    this.model = item.model;
+    this.size = item.size;
+    this.generation = item.generation;
+    this.processor = item.processor;
+    this.ram = item.ram;
+    this.driveType1 = item.driveType1;
+    this.hdSize1 = item.hd1;
+    this.driveType2 = item.driveType2;
+    this.hdSize2 = item.hd2;
+
     var trans = this.tempTransList.filter(
       (x) => x.transferID == this.lblTransferID
     );
@@ -1144,23 +1155,6 @@ export class AssetEntryComponent implements OnInit {
         toastTimeout: 2500,
       });
       return false;
-    } else if (this.assetCategorySpecsList.length > 0) {
-      for (var i = 0; i < this.assetCategorySpecsList.length; i++) {
-        if (
-          this[this.assetCategorySpecsList[i].specificationNgModel] == "" ||
-          this[this.assetCategorySpecsList[i].specificationNgModel] == undefined
-        ) {
-          this.toastr.errorToastr(
-            "Please Fill Asset Category Specification - " +
-              this.assetCategorySpecsList[i].specificationTitle,
-            "Error",
-            {
-              toastTimeout: 2500,
-            }
-          );
-          return false;
-        }
-      }
     } else if (this.txtAssetDesc == "") {
       this.toastr.errorToastr("Please Enter Asset Description", "Error", {
         toastTimeout: 2500,
@@ -1184,6 +1178,26 @@ export class AssetEntryComponent implements OnInit {
       });
       return false;
     } else {
+      if (this.assetCategorySpecsList.length > 0) {
+        for (var i = 0; i < this.assetCategorySpecsList.length; i++) {
+          if (
+            this[this.assetCategorySpecsList[i].specificationNgModel] == "" ||
+            this[this.assetCategorySpecsList[i].specificationNgModel] ==
+              undefined
+          ) {
+            this.toastr.errorToastr(
+              "Please Fill Asset Category Specification - " +
+                this.assetCategorySpecsList[i].specificationTitle,
+              "Error",
+              {
+                toastTimeout: 2500,
+              }
+            );
+            return false;
+          }
+        }
+      }
+
       var vehicleID;
       if (this.rdbAsset == "1") {
         vehicleID = null;
@@ -1235,6 +1249,7 @@ export class AssetEntryComponent implements OnInit {
           return false;
         }
       }
+      debugger;
 
       this.loadingBar = true;
 
@@ -1254,12 +1269,19 @@ export class AssetEntryComponent implements OnInit {
       } else {
         ipcRef = parseInt(this.cmbRef);
       }
+      var amount, netBal;
       if (this.txtAmount == "") {
-        this.txtAmount = "0";
+        amount = 0.0;
+      } else {
+        amount = parseFloat(this.txtAmount);
       }
+
       if (this.txtNetBVal == "") {
-        this.txtNetBVal = "0";
+        netBal = 0.0;
+      } else {
+        netBal = this.txtNetBVal;
       }
+
       if (this.cmbProject == "") {
         this.cmbProject = "0";
       }
@@ -1338,8 +1360,8 @@ export class AssetEntryComponent implements OnInit {
           VehicleID: vehicleID, //int
           ProjectID: projectID, //int
           PreviousTag: this.txtPreTag, //string
-          costAmount: this.txtAmount, //float
-          NetBookAmount: this.txtNetBVal, //int
+          costAmount: amount, //float
+          NetBookAmount: netBal, //int
           PurchaseDate: purchaseDate, //string
           IPCRef: ipcRef, //string
           AssetCondition: this.cmbAssetCond, //int
@@ -1401,8 +1423,8 @@ export class AssetEntryComponent implements OnInit {
           VehicleID: vehicleID, //int
           ProjectID: projectID, //int
           PreviousTag: this.txtPreTag, //string
-          costAmount: this.txtAmount, //float
-          NetBookAmount: this.txtNetBVal, //int
+          costAmount: amount, //float
+          NetBookAmount: netBal, //int
           PurchaseDate: purchaseDate, //string
           IPCRef: ipcRef, //string
           AssetCondition: this.cmbAssetCond, //int
@@ -1757,6 +1779,29 @@ export class AssetEntryComponent implements OnInit {
     this.imageAssetUrl3 = "../../../../../assets/assetEntryImg/dropHereImg.png";
     this.AssetCatList = this.tempAssetCatList;
     this.disableAssetCat = false;
+
+    this.assetCategorySpecsList = [];
+    //empty asset category specification
+    this.make = "";
+    this.makeList = [];
+    this.model = "";
+    this.modelList = [];
+    this.size = "";
+    this.sizeList = [];
+    this.generation = "";
+    this.generationList = [];
+    this.processor = "";
+    this.processorList = [];
+    this.ram = "";
+    this.ramList = [];
+    this.driveType1 = "";
+    this.driverType1List = [];
+    this.hdSize1 = "";
+    this.hdSize1List = [];
+    this.driveType2 = "";
+    this.driverType2List = [];
+    this.hdSize2 = "";
+    this.hdSize2List = [];
   }
 
   clearAll() {
@@ -1841,6 +1886,7 @@ export class AssetEntryComponent implements OnInit {
     this.AssetCatList = this.tempAssetCatList;
     this.disableAssetCat = true;
 
+    this.assetCategorySpecsList = [];
     //empty asset category specification
     this.make = "";
     this.makeList = [];
