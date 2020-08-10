@@ -27,10 +27,10 @@ declare var $: any;
   styleUrls: ["./asset-entry.component.scss"],
 })
 export class AssetEntryComponent implements OnInit {
-  // serverUrl = "http://95.217.206.195:2007/api/";
+  serverUrl = "http://95.217.206.195:2007/api/";
   //serverUrl = "http://localhost:12345/api/";
 
-  serverUrl = "http://localhost:6090/api/";
+  // serverUrl = "http://localhost:6090/api/";
 
   loadingBar = true;
   //pagination variables for tag list
@@ -125,7 +125,9 @@ export class AssetEntryComponent implements OnInit {
   dtpPurchaseDt;
   dtpTransferDt;
   cmbSearchOfcType = "";
+  cmbSearchTransferOfcType = "";
   cmbSearchLocation = "";
+  cmbSearchTransferLocation = "";
   cmbSearchWngSection = "";
   cmbResetField = "";
   cmbTransferProject = "";
@@ -159,6 +161,7 @@ export class AssetEntryComponent implements OnInit {
   lblDepRule = "";
   lblBaseRate = "";
   lblTransferID = "";
+  lblNewTransfer = 0;
   lblTransToComp = "";
   lblTransByComp = "";
   lblTransByPost = "";
@@ -687,6 +690,13 @@ export class AssetEntryComponent implements OnInit {
     this.cmbTransOfcType = ofcType[0].officeTypeID;
 
     this.getTransWingSection(this.cmbTransOfcType);
+  }
+
+  showSearchTransferOfficeType() {
+    var ofcType = this.locList.filter(
+      (x) => x.subLocID == this.cmbSearchTransferLocation
+    );
+    this.cmbSearchTransferOfcType = ofcType[0].officeTypeID;
   }
 
   showSearchOfficeType() {
@@ -1237,6 +1247,7 @@ export class AssetEntryComponent implements OnInit {
       var saveData;
       var ipcRef;
       var transferID;
+      var newTrans;
       var projectID;
       if (this.cmbProject == "") {
         projectID = null;
@@ -1253,10 +1264,12 @@ export class AssetEntryComponent implements OnInit {
 
       this.loadingBar = true;
 
-      if (this.lblTransferID == "") {
+      if (this.lblTransferID == "" || this.lblTransferID == "0") {
         transferID = null;
+        newTrans = 0;
       } else {
         transferID = parseInt(this.lblTransferID);
+        newTrans = this.lblNewTransfer;
       }
       if (this.dtpPurchaseDt == undefined || this.dtpPurchaseDt == "") {
         purchaseDate = null;
@@ -1390,6 +1403,7 @@ export class AssetEntryComponent implements OnInit {
           imgFile2: imgAsset2,
           imgFile3: imgAsset3,
           TransferID: transferID, // int
+          newTransfer: newTrans, // int
           make: this.make, //string
           model: this.model,
           size: this.size,
@@ -1453,6 +1467,7 @@ export class AssetEntryComponent implements OnInit {
           imgFile2: imgAsset2,
           imgFile3: imgAsset3,
           TransferID: transferID, // int
+          newTransfer: newTrans, // int
           make: this.make, //string
           model: this.model,
           size: this.size,
@@ -1970,6 +1985,7 @@ export class AssetEntryComponent implements OnInit {
   removeTransfer() {
     this.clearTransfer();
     this.disableSenderTrans = true;
+    this.disableReceiveTrans = false;
     if (this.lblTransferID == "") {
       this.sldTransfered = false;
       this.cmbSendTransLocation = this.cmbLocation;
@@ -2088,6 +2104,23 @@ export class AssetEntryComponent implements OnInit {
     this.cmbSearchWngSection = "";
 
     this.assetDetailList = this.tempDetailList;
+  }
+
+  clearTransferReport() {
+    this.cmbSearchTransferLocation = "";
+    this.cmbSearchTransferOfcType = "";
+
+    this.assetTransfersRptList = [];
+  }
+
+  searchTransferTableData() {
+    var locFilter = this.locList.filter(
+      (x) => x.subLocID == this.cmbSearchTransferLocation
+    );
+
+    this.regionName = locFilter[0].locationDescription;
+    this.locationName = locFilter[0].subLocationDescription;
+    this.officeName = locFilter[0].officeTypeDescription;
   }
 
   searchTableData() {
@@ -2622,7 +2655,13 @@ export class AssetEntryComponent implements OnInit {
     this.imageTransUrl = "../../../../../assets/assetEntryImg/dropHereImg.png";
   }
 
-  clearTransferDetail() {
+  clearTransferDetail(param) {
+    if (param == "New") {
+      this.lblNewTransfer = 1;
+    } else {
+      this.lblNewTransfer = 0;
+    }
+
     this.sldTransfered = false;
     this.rdbTransMode = "Sender";
     this.rdbTransType = "";
@@ -3154,5 +3193,12 @@ export class AssetEntryComponent implements OnInit {
   //print report
   printReport(divID) {
     this.app.printReport(divID);
+  }
+  
+  /*** Capture Enter key ***/
+  getKeyPressed(e) {
+    if (e.keyCode == 13) {
+      this.allowUpdation();
+    }
   }
 }

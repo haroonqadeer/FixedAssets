@@ -25,7 +25,7 @@
         </li>
         <li>
           <a class="cursorPointer" data-toggle="modal" data-target="#transfersReportModal"
-            (click)="toggleView = 'table'">
+            (click)="toggleView = 'table'; clearTransferReport()">
             Transfers Report</a>
         </li>
         <!-- <li class="hide">
@@ -1466,11 +1466,16 @@
       <!-- Modal body -->
       <div class="modal-body">
         <div class="row">
-          <div class="col-md-12">
+          <div class="col-md-6">
             <mat-radio-group aria-label="Transfer Mode" [(ngModel)]="rdbTransMode" (change)="getTransLocData()">
               <mat-radio-button color="primary" value="Sender">Sender</mat-radio-button>&nbsp;&nbsp;
               <mat-radio-button color="primary" value="Receiver">Receiver</mat-radio-button>
             </mat-radio-group>
+          </div>
+          <div class="col-md-6 text-right" *ngIf="assetID!='' && lblTransferID!=''">
+            <button mat-raised-button color="primary" (click)="clearTransferDetail('New')">
+              New
+            </button>
           </div>
         </div>
         <hr />
@@ -1772,11 +1777,8 @@
             <button mat-raised-button color="warn" (click)="saveTransfer()">
               Save Transfers Detail
             </button>
-            <button mat-raised-button color="primary" (click)="clearTransferDetail()">
+            <button mat-raised-button color="primary" (click)="clearTransferDetail('Reset')">
               Reset
-            </button>
-            <button mat-raised-button color="primary" (click)="clearTransferDetail()">
-              New
             </button>
           </div>
         </div>
@@ -1920,7 +1922,8 @@
           <div class="col-md-12">
             <mat-form-field class="w-100">
               <mat-label>Enter Pin</mat-label>
-              <input matInput type="password" maxlength="4" (keydown)="onKeyPress($event)" [(ngModel)]="txtPin" />
+              <input matInput type="password" maxlength="4" (keydown)="onKeyPress($event);getKeyPressed($event)"
+                [(ngModel)]="txtPin" />
             </mat-form-field>
           </div>
         </div>
@@ -1976,13 +1979,56 @@
       <!-- Modal body -->
       <div class="modal-body">
         <div class="row">
+          <div class="col-md-12">
+            <mat-form-field class="w-100">
+              <mat-label>Province - Location - Sub Location</mat-label>
+              <mat-select [(ngModel)]="cmbSearchTransferLocation"
+                (ngModelChange)="showSearchTransferOfficeType(); searchTransferTableData()">
+                <mat-option>
+                  <ngx-mat-select-search [(ngModel)]="advSearchLocation" [placeholderLabel]="'Search...'"
+                    [noEntriesFoundLabel]="'Not found'" name="search"></ngx-mat-select-search>
+                </mat-option>
+
+                <mat-option *ngFor="
+                    let item of locList
+                      | search
+                        : 'subLocationDescription,officeTypeDescription, mainLocationDescription, provinceName'
+                        : advSearchLocation
+                  " [value]="item.subLocID" [disabled]="item.isActivated === 0">
+                  <table class="table">
+                    <tr class="d-flex">
+                      <td class="col-3">{{ item.subLocationDescription }}</td>
+                      <td class="col-3">{{ item.officeTypeDescription }}</td>
+                      <td class="col-3">{{ item.mainLocationDescription }}</td>
+                      <td class="col-3">{{ item.provinceName }}</td>
+                    </tr>
+                  </table>
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <!-- next row -->
+        <div class="row">
+          <div class="col-md-12">
+            <mat-form-field class="w-100">
+              <mat-label>Office Type</mat-label>
+              <mat-select [(ngModel)]="cmbSearchTransferOfcType" [disabled]="disableOfcType">
+                <mat-option *ngFor="let item of ofcTypeList" [value]="item.officeTypeID">
+                  {{ item.officeTypeDescription }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
           <div class="col-md-2">
             <label><b>Report Mode</b>: &nbsp;&nbsp;</label>
           </div>
           <div class="col-md-3">
             <mat-radio-group [(ngModel)]="rdbTransRptMode" aria-label="Select an option">
               <mat-radio-button value="1" class="pr-2">Sender</mat-radio-button>
-              <mat-radio-button value="2">Reveiver</mat-radio-button>
+              <mat-radio-button value="2">Receiver</mat-radio-button>
             </mat-radio-group>
           </div>
           <div class="coll-md-3 inline-block">
