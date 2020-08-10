@@ -12,34 +12,21 @@
           <a (click)="toggleView = 'table'" class="cursorPointer">Table View</a>
         </li>
         <li>
-          <a
-            (click)="printTags()"
-            class="cursorPointer"
-            matBadge="{{ tagList.length }}"
-            [matBadgeHidden]="hidden"
-            >Print Tags</a
-          >
+          <a (click)="printTags()" class="cursorPointer" matBadge="{{ tagList.length }}" [matBadgeHidden]="hidden">Print
+            Tags</a>
         </li>
         <li>
-          <a (click)="printAssetRegister()" class="cursorPointer"
-            >Print Register</a
-          >
+          <a (click)="printAssetRegister()" class="cursorPointer">Print Register</a>
         </li>
         <li>
-          <a (click)="exportExcel()" class="cursorPointer"
-            ><span class="fa fa-file-excel-o text-success"></span>&nbsp;&nbsp;
-            Register</a
-          >
+          <a (click)="exportExcel()" class="cursorPointer"><span
+              class="fa fa-file-excel-o text-success"></span>&nbsp;&nbsp;
+            Register</a>
         </li>
         <li>
-          <a
-            class="cursorPointer"
-            data-toggle="modal"
-            data-target="#transfersReportModal"
-            (click)="toggleView = 'table'"
-          >
-            Transfers Report</a
-          >
+          <a class="cursorPointer" data-toggle="modal" data-target="#transfersReportModal"
+            (click)="toggleView = 'table'; clearTransferReport()">
+            Transfers Report</a>
         </li>
         <!-- <li class="hide">
           <a (click)="exportPdf()" class="cursorPointer"
@@ -64,10 +51,7 @@
 
 <div class="container-fluid bg-white" *ngIf="!loadingBar">
   <!-- Form View -->
-  <div
-    *ngIf="toggleView == 'table'"
-    class="animate__animated animate__fadeInUp"
-  >
+  <div *ngIf="toggleView == 'table'" class="animate__animated animate__fadeInUp">
     <!-- search bar -->
     <div class="row pl-3">
       <div class="col-md-10">
@@ -78,13 +62,7 @@
         </mat-form-field>
       </div>
       <div class="col-md-2 pr-3 align-self-center noneOutline">
-        <button
-          mat-button
-          color="warn"
-          data-toggle="modal"
-          data-target="#advanceSearchModal"
-          (click)="clearLocation()"
-        >
+        <button mat-button color="warn" data-toggle="modal" data-target="#advanceSearchModal" (click)="clearLocation()">
           Advance Search
         </button>
       </div>
@@ -95,165 +73,99 @@
         <thead>
           <tr>
             <th scope="col">Action</th>
-            <th
-              scope="col"
-              [class.active]="order === 'tag'"
-              (click)="setOrder('tag')"
-            >
+            <th scope="col" [class.active]="order === 'tag'" (click)="setOrder('tag')">
               Tag
               <!-- <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
               <span class="fa fa-angle-double-up" [hidden]="!reverse"></span> -->
             </th>
-            <th
-              scope="col"
-              [class.active]="order === 'subLocationDescription'"
-              (click)="setOrder('subLocationDescription')"
-            >
+            <th scope="col" [class.active]="order === 'subLocationDescription'"
+              (click)="setOrder('subLocationDescription')">
               Sub-Location
               <!-- <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
               <span class="fa fa-angle-double-up" [hidden]="!reverse"></span> -->
             </th>
 
-            <th
-              scope="col"
-              [class.active]="order === 'officeTypeDescription'"
-              (click)="setOrder('officeTypeDescription')"
-            >
+            <th scope="col" [class.active]="order === 'officeTypeDescription'"
+              (click)="setOrder('officeTypeDescription')">
               Office Type
               <!-- <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
               <span class="fa fa-angle-double-up" [hidden]="!reverse"></span> -->
             </th>
 
-            <th
-              scope="col"
-              [class.active]="order === 'accountsCatagory'"
-              (click)="setOrder('accountsCatagory')"
-            >
+            <th scope="col" [class.active]="order === 'accountsCatagory'" (click)="setOrder('accountsCatagory')">
               Accounts Category
               <!-- <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
               <span class="fa fa-angle-double-up" [hidden]="!reverse"></span> -->
             </th>
 
-            <th
-              scope="col"
-              [class.active]="order === 'assetCatDescription'"
-              (click)="setOrder('assetCatDescription')"
-            >
+            <th scope="col" [class.active]="order === 'assetCatDescription'" (click)="setOrder('assetCatDescription')">
               Asset - Category
               <!-- <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
               <span class="fa fa-angle-double-up" [hidden]="!reverse"></span></th> -->
             </th>
 
-            <th
-              scope="col"
-              [class.active]="order === 'assetDescription'"
-              (click)="setOrder('assetDescription')"
-            >
+            <th scope="col" [class.active]="order === 'assetDescription'" (click)="setOrder('assetDescription')">
               Description
               <!-- <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
               <span class="fa fa-angle-double-up" [hidden]="!reverse"></span></th> -->
             </th>
 
-            <th
-              scope="col"
-              [class.active]="order === 'postName'"
-              (click)="setOrder('postName')"
-            >
+            <th scope="col" [class.active]="order === 'postName'" (click)="setOrder('postName')">
               Custody Name
             </th>
-            <th
-              scope="col"
-              [class.active]="order === 'assetLocation'"
-              (click)="setOrder('assetLocation')"
-            >
+            <th scope="col" [class.active]="order === 'assetLocation'" (click)="setOrder('assetLocation')">
               Asset-Location
               <!-- <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
               <span class="fa fa-angle-double-up" [hidden]="!reverse"></span></th> -->
             </th>
 
-            <th
-              scope="col"
-              [class.active]="order === 'projectShortName'"
-              (click)="setOrder('projectShortName')"
-            >
+            <th scope="col" [class.active]="order === 'projectShortName'" (click)="setOrder('projectShortName')">
               Project
               <!-- <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
               <span class="fa fa-angle-double-up" [hidden]="!reverse"></span> -->
             </th>
-            <th
-              scope="col"
-              [class.active]="order === 'ipcRef'"
-              (click)="setOrder('ipcRef')"
-            >
+            <th scope="col" [class.active]="order === 'ipcRef'" (click)="setOrder('ipcRef')">
               IPC Ref.
               <!-- <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
               <span class="fa fa-angle-double-up" [hidden]="!reverse"></span></th> -->
             </th>
 
-            <th
-              scope="col"
-              [class.active]="order === 'otherIdentification'"
-              (click)="setOrder('otherIdentification')"
-            >
+            <th scope="col" [class.active]="order === 'otherIdentification'" (click)="setOrder('otherIdentification')">
               Other Identification
               <!-- <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
               <span class="fa fa-angle-double-up" [hidden]="!reverse"></span></th> -->
             </th>
 
-            <th
-              scope="col"
-              [class.active]="order === 'serialNo'"
-              (click)="setOrder('serialNo')"
-            >
+            <th scope="col" [class.active]="order === 'serialNo'" (click)="setOrder('serialNo')">
               Serial No.
               <!-- <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
               <span class="fa fa-angle-double-up" [hidden]="!reverse"></span></th> -->
             </th>
 
-            <th
-              scope="col"
-              [class.active]="order === 'vehID'"
-              (click)="setOrder('vehID')"
-            >
+            <th scope="col" [class.active]="order === 'vehID'" (click)="setOrder('vehID')">
               Vehicle ID
               <!-- <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
               <span class="fa fa-angle-double-up" [hidden]="!reverse"></span></th> -->
             </th>
 
-            <th
-              scope="col"
-              [class.active]="order === 'previousTag'"
-              (click)="setOrder('previousTag')"
-            >
+            <th scope="col" [class.active]="order === 'previousTag'" (click)="setOrder('previousTag')">
               Previous Tag
               <!-- <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
               <span class="fa fa-angle-double-up" [hidden]="!reverse"></span></th> -->
             </th>
 
-            <th
-              scope="col"
-              [class.active]="order === 'costAmount'"
-              (click)="setOrder('costAmount')"
-            >
+            <th scope="col" [class.active]="order === 'costAmount'" (click)="setOrder('costAmount')">
               Cost
               <!-- <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
               <span class="fa fa-angle-double-up" [hidden]="!reverse"></span></th> -->
             </th>
 
-            <th
-              scope="col"
-              [class.active]="order === 'purchaseDate'"
-              (click)="setOrder('purchaseDate')"
-            >
+            <th scope="col" [class.active]="order === 'purchaseDate'" (click)="setOrder('purchaseDate')">
               Purchase Date
               <!-- <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
               <span class="fa fa-angle-double-up" [hidden]="!reverse"></span> -->
             </th>
-            <th
-              scope="col"
-              [class.active]="order === 'assetCondition'"
-              (click)="setOrder('assetCondition')"
-            >
+            <th scope="col" [class.active]="order === 'assetCondition'" (click)="setOrder('assetCondition')">
               Condition
               <!-- <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
               <span class="fa fa-angle-double-up" [hidden]="!reverse"></span> -->
@@ -263,31 +175,19 @@
             <th scope="col">Serviceable?</th>
             <th scope="col">Condemned?</th>
             <th scope="col">Missing?</th>
-            <th
-              scope="col"
-              [class.active]="order === 'remarks'"
-              (click)="setOrder('remarks')"
-            >
+            <th scope="col" [class.active]="order === 'remarks'" (click)="setOrder('remarks')">
               Remarks
               <!-- <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
               <span class="fa fa-angle-double-up" [hidden]="!reverse"></span></th> -->
             </th>
 
-            <th
-              scope="col"
-              [class.active]="order === 'createdDate'"
-              (click)="setOrder('createdDate')"
-            >
+            <th scope="col" [class.active]="order === 'createdDate'" (click)="setOrder('createdDate')">
               Create Date
               <!-- <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
               <span class="fa fa-angle-double-up" [hidden]="!reverse"></span></th> -->
             </th>
 
-            <th
-              scope="col"
-              [class.active]="order === 'netBookAmount'"
-              (click)="setOrder('netBookAmount')"
-            >
+            <th scope="col" [class.active]="order === 'netBookAmount'" (click)="setOrder('netBookAmount')">
               Net Book Value
               <!-- <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
               <span class="fa fa-angle-double-up" [hidden]="!reverse"></span></th> -->
@@ -295,8 +195,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr
-            *ngFor="
+          <tr *ngFor="
               let item of assetDetailList
                 | search
                   : 'tag,subLocationDescription,officeTypeDescription,accountsCatagory,assetCatDescription,assetCatDescription,assetDescription,assetLocation,postName,projectShortName,ipcRef,otherIdentification,serialNo,vehID,previousTag'
@@ -308,27 +207,15 @@
                       currentPage: mainTableP
                     };
               let i = index
-            "
-          >
+            ">
             <td class="inline-block">
               <!-- <span class="fa fa-edit cursorPointer pr-3 text-primary" (click)="editAsset(item)"></span> -->
-              <span
-                *ngIf="item.isCompleted == 0"
-                class="fa fa-edit cursorPointer pr-3 text-primary"
-                (click)="genPin(item, 'editAsset')"
-              ></span>
-              <span
-                *ngIf="item.isCompleted == 0"
-                class="fa fa-trash-o cursorPointer text-danger"
-                (click)="genPin(item, 'deleteAsset')"
-              ></span>
-              <mat-checkbox
-                *ngIf="item.isCompleted == 0"
-                class="example-margin"
-                color="primary"
-                [(ngModel)]="item.checkbox"
-                (change)="pushTag(item, item.checkbox ? 'A' : 'B')"
-              ></mat-checkbox>
+              <span *ngIf="item.isCompleted == 0" class="fa fa-edit cursorPointer pr-3 text-primary"
+                (click)="genPin(item, 'editAsset')"></span>
+              <span *ngIf="item.isCompleted == 0" class="fa fa-trash-o cursorPointer text-danger"
+                (click)="genPin(item, 'deleteAsset')"></span>
+              <mat-checkbox *ngIf="item.isCompleted == 0" class="example-margin" color="primary"
+                [(ngModel)]="item.checkbox" (change)="pushTag(item, item.checkbox ? 'A' : 'B')"></mat-checkbox>
             </td>
             <td>{{ item.tag }}</td>
             <td>{{ item.subLocationDescription }}</td>
@@ -345,7 +232,7 @@
             <td>{{ item.vehID }}</td>
             <td>{{ item.previousTag }}</td>
             <td>{{ item.costAmount }}</td>
-            <td>{{ item.purchaseDate | date: "dd-MMM-yyyy" }}</td>
+            <td>{{ item.purchaseDate | date }}</td>
             <td>{{ item.assetCondition }}</td>
             <td>{{ item.isUseable }}</td>
             <td>{{ item.isSurplus }}</td>
@@ -353,7 +240,7 @@
             <td>{{ item.isCondemned }}</td>
             <td>{{ item.isMissing }}</td>
             <td>{{ item.reamarks }}</td>
-            <td>{{ item.createdDate | date: "dd-MMM-yyyy" }}</td>
+            <td>{{ item.createdDate | date }}</td>
             <td>{{ item.netBookAmount }}</td>
           </tr>
           <tr *ngIf="assetDetailList.length == 0">
@@ -364,10 +251,7 @@
       <!-- Pagination Starts -->
       <div class="col-md-12 text-right">
         <div class="paginationBox">
-          <pagination-controls
-            id="mainTableP"
-            (pageChange)="mainTableP = $event"
-          ></pagination-controls>
+          <pagination-controls id="mainTableP" (pageChange)="mainTableP = $event"></pagination-controls>
         </div>
         <div class="paginationBox">
           <mat-form-field class="pagenateList">
@@ -407,10 +291,7 @@
                 <label class="align-self-center">Location:</label>
               </div>
               <div class="col-md-7 text-left">
-                <label
-                  class="align-self-center text-primary font-weight-bold border-bottom"
-                  >{{ lblLocation }}</label
-                >
+                <label class="align-self-center text-primary font-weight-bold border-bottom">{{ lblLocation }}</label>
               </div>
             </div>
           </div>
@@ -419,30 +300,19 @@
           <div class="col-md-12">
             <mat-form-field class="w-100">
               <mat-label>Province - Location - Sub Location</mat-label>
-              <mat-select
-                [(ngModel)]="cmbLocation"
-                (ngModelChange)="getAssetNo(); showOfficeType()"
-                [disabled]="disableFields"
-              >
+              <mat-select [(ngModel)]="cmbLocation" (ngModelChange)="getAssetNo(); showOfficeType()"
+                [disabled]="disableFields">
                 <mat-option>
-                  <ngx-mat-select-search
-                    [(ngModel)]="searchLocation"
-                    [placeholderLabel]="'Search...'"
-                    [noEntriesFoundLabel]="'Not found'"
-                    name="search"
-                  ></ngx-mat-select-search>
+                  <ngx-mat-select-search [(ngModel)]="searchLocation" [placeholderLabel]="'Search...'"
+                    [noEntriesFoundLabel]="'Not found'" name="search"></ngx-mat-select-search>
                 </mat-option>
 
-                <mat-option
-                  *ngFor="
+                <mat-option *ngFor="
                     let item of locList
                       | search
                         : 'subLocationDescription, mainLocationDescription, officeTypeDescription, provinceName'
                         : searchLocation
-                  "
-                  [value]="item.subLocID"
-                  [disabled]="item.isActivated == 0 || item.isCompleted == 1"
-                >
+                  " [value]="item.subLocID" [disabled]="item.isActivated == 0 || item.isCompleted == 1">
                   <div class="row d-flex border-bottom">
                     <div class="col-md-3 col-sm-12">
                       {{ item.subLocationDescription }}
@@ -479,10 +349,7 @@
                 <label class="align-self-center">Office Type:</label>
               </div>
               <div class="col-md-7 text-left">
-                <label
-                  class="align-self-center text-primary font-weight-bold border-bottom"
-                  >{{ lblOfficeType }}</label
-                >
+                <label class="align-self-center text-primary font-weight-bold border-bottom">{{ lblOfficeType }}</label>
               </div>
             </div>
           </div>
@@ -492,10 +359,7 @@
                 <label class="align-self-center">Wing Section:</label>
               </div>
               <div class="col-md-5 text-left">
-                <label
-                  class="align-self-center text-primary font-weight-bold border-bottom"
-                  >{{ lblSection }}</label
-                >
+                <label class="align-self-center text-primary font-weight-bold border-bottom">{{ lblSection }}</label>
               </div>
             </div>
           </div>
@@ -505,15 +369,9 @@
           <div class="col-md-6">
             <mat-form-field class="w-100">
               <mat-label>Office Type</mat-label>
-              <mat-select
-                [(ngModel)]="cmbOfcType"
-                (ngModelChange)="getAssetNo(); getWingSection(cmbOfcType)"
-                [disabled]="disableOfcType"
-              >
-                <mat-option
-                  *ngFor="let item of ofcTypeList"
-                  [value]="item.officeTypeID"
-                >
+              <mat-select [(ngModel)]="cmbOfcType" (ngModelChange)="getAssetNo(); getWingSection(cmbOfcType)"
+                [disabled]="disableOfcType">
+                <mat-option *ngFor="let item of ofcTypeList" [value]="item.officeTypeID">
                   {{ item.officeTypeDescription }}
                 </mat-option>
               </mat-select>
@@ -522,28 +380,17 @@
           <div class="col-md-6">
             <mat-form-field class="w-100">
               <mat-label>Wing - Section</mat-label>
-              <mat-select
-                [(ngModel)]="cmbWngSection"
-                [disabled]="disableFields"
-              >
+              <mat-select [(ngModel)]="cmbWngSection" [disabled]="disableFields">
                 <!-- <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchSection" /> -->
                 <mat-option>
-                  <ngx-mat-select-search
-                    [(ngModel)]="searchSection"
-                    [placeholderLabel]="'Search...'"
-                    [noEntriesFoundLabel]="'Not found'"
-                    name="search"
-                  ></ngx-mat-select-search>
+                  <ngx-mat-select-search [(ngModel)]="searchSection" [placeholderLabel]="'Search...'"
+                    [noEntriesFoundLabel]="'Not found'" name="search"></ngx-mat-select-search>
                 </mat-option>
 
-                <mat-option
-                  *ngFor="
+                <mat-option *ngFor="
                     let item of wngSectionList
                       | search: 'officeDescription':searchSection
-                  "
-                  [value]="item.officeSecID"
-                  [disabled]="item.isActivated == 0"
-                >
+                  " [value]="item.officeSecID" [disabled]="item.isActivated == 0">
                   {{ item.officeDescription }}
                 </mat-option>
               </mat-select>
@@ -554,14 +401,8 @@
         <!-- next row -->
         <div class="row">
           <div class="col-md-12">
-            <mat-radio-group
-              aria-label="Select an option"
-              [(ngModel)]="rdbAsset"
-              (change)="getAssetCat()"
-            >
-              <mat-radio-button value="1" class="pr-5"
-                >Other Asset</mat-radio-button
-              >
+            <mat-radio-group aria-label="Select an option" [(ngModel)]="rdbAsset" (change)="getAssetCat()">
+              <mat-radio-button value="1" class="pr-5">Other Asset</mat-radio-button>
               <mat-radio-button value="2">Vehicle</mat-radio-button>
             </mat-radio-group>
           </div>
@@ -575,10 +416,7 @@
                 <label class="align-self-center">Base Rate:</label>
               </div>
               <div class="col-md-2 text-left">
-                <label
-                  class="align-self-center text-primary font-weight-bold border-bottom"
-                  >{{ lblBaseRate }}</label
-                >
+                <label class="align-self-center text-primary font-weight-bold border-bottom">{{ lblBaseRate }}</label>
               </div>
             </div>
           </div>
@@ -588,10 +426,7 @@
                 <label class="align-self-center">Asset No:</label>
               </div>
               <div class="col-md-3 text-left">
-                <label
-                  class="align-self-center text-primary font-weight-bold border-bottom"
-                  >{{ assetNo }}</label
-                >
+                <label class="align-self-center text-primary font-weight-bold border-bottom">{{ assetNo }}</label>
               </div>
             </div>
           </div>
@@ -606,9 +441,7 @@
               </div>
               <div class="col-md-7 text-left">
                 <label
-                  class="align-self-center text-primary font-weight-bold border-bottom"
-                  >{{ lblAccCategory }}</label
-                >
+                  class="align-self-center text-primary font-weight-bold border-bottom">{{ lblAccCategory }}</label>
               </div>
             </div>
           </div>
@@ -618,10 +451,7 @@
                 <label class="align-self-center">Depreciation Rule:</label>
               </div>
               <div class="col-md-5 text-left">
-                <label
-                  class="align-self-center text-primary font-weight-bold border-bottom"
-                  >{{ lblDepRule }}</label
-                >
+                <label class="align-self-center text-primary font-weight-bold border-bottom">{{ lblDepRule }}</label>
               </div>
             </div>
           </div>
@@ -632,22 +462,11 @@
           <div class="col-md-11">
             <mat-form-field color="warn" class="w-100">
               <mat-label>Vehicle</mat-label>
-              <mat-select
-                [(ngModel)]="cmbVehicle"
-                (ngModelChange)="getAssetCatVehicle(cmbVehicle)"
-              >
-                <input
-                  type="text"
-                  class="form-control"
-                  placeholder="Search..."
-                  [(ngModel)]="searchVehicle"
-                />
-                <mat-option
-                  *ngFor="
+              <mat-select [(ngModel)]="cmbVehicle" (ngModelChange)="getAssetCatVehicle(cmbVehicle)">
+                <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchVehicle" />
+                <mat-option *ngFor="
                     let item of vehicleList | search: 'vehID':searchVehicle
-                  "
-                  [value]="item.id"
-                >
+                  " [value]="item.id">
                   <table class="table">
                     <tr class="d-flex">
                       <td class="col-2">{{ item.vehID }}</td>
@@ -656,10 +475,7 @@
                       <td class="col-2">{{ item.engineNum }}</td>
                       <td class="col-3">{{ item.chasisNum }}</td>
                       <td class="col-1">
-                        <span
-                          class="fa fa-edit text-primary cursorPointer"
-                          (click)="editVehicle(item)"
-                        ></span>
+                        <span class="fa fa-edit text-primary cursorPointer" (click)="editVehicle(item)"></span>
                       </td>
                     </tr>
                   </table>
@@ -668,15 +484,8 @@
             </mat-form-field>
           </div>
           <div class="col-md-1">
-            <button
-              mat-mini-fab
-              color="primary"
-              aria-label=""
-              class="noneOutline fa fa-plus"
-              data-toggle="modal"
-              data-target="#vehicleModal"
-              (click)="clearVehicle()"
-            ></button>
+            <button mat-mini-fab color="primary" aria-label="" class="noneOutline fa fa-plus" data-toggle="modal"
+              data-target="#vehicleModal" (click)="clearVehicle()"></button>
           </div>
         </div>
 
@@ -687,22 +496,14 @@
               <mat-label>Custody</mat-label>
               <mat-select [(ngModel)]="cmbCustody" [disabled]="disableCustody">
                 <mat-option>
-                  <ngx-mat-select-search
-                    [(ngModel)]="searchCustody"
-                    [placeholderLabel]="'Search...'"
-                    [noEntriesFoundLabel]="'Not found'"
-                    name="search"
-                  ></ngx-mat-select-search>
+                  <ngx-mat-select-search [(ngModel)]="searchCustody" [placeholderLabel]="'Search...'"
+                    [noEntriesFoundLabel]="'Not found'" name="search"></ngx-mat-select-search>
                 </mat-option>
 
-                <mat-option
-                  *ngFor="
+                <mat-option *ngFor="
                     let item of custodyList
                       | search: 'postName,companyName':searchCustody
-                  "
-                  [value]="item.postID"
-                  [disabled]="item.isActivated == 0"
-                >
+                  " [value]="item.postID" [disabled]="item.isActivated == 0">
                   {{ item.postName }} - {{ item.companyName }}
                 </mat-option>
               </mat-select>
@@ -713,42 +514,33 @@
               <div class="col-md-5">
                 <label class="align-self-center">Asset Category:</label>
               </div>
-              <div class="col-md-7 text-left">
+              <div class="col-md-5 text-left">
                 <label
-                  class="align-self-center text-primary font-weight-bold border-bottom"
-                  >{{ lblAssetCategory }}</label
-                >
+                  class="align-self-center text-primary font-weight-bold border-bottom">{{ lblAssetCategory }}</label>
+              </div>
+              <div class="col-md-2">
+                <button mat-raised-button class="noneOutline" color="primary" (click)="assetCategorySpecs()">Show
+                  Specifications</button>
               </div>
             </div>
+
           </div>
           <div class="col-md-6" *ngIf="lblAssetCategory == ''">
             <mat-form-field color="warn" class="w-100">
               <mat-label>Asset - Category</mat-label>
-              <mat-select
-                [(ngModel)]="cmbAssetCat"
-                (ngModelChange)="
+              <mat-select [(ngModel)]="cmbAssetCat" (ngModelChange)="
                   getAssetNo();
                   getAssetCatDescription(cmbAssetCat);
                   assetCategorySpecs()
-                "
-                [disabled]="disableAssetCat"
-              >
+                " [disabled]="disableAssetCat">
                 <mat-option>
-                  <ngx-mat-select-search
-                    [(ngModel)]="searchCategory"
-                    [placeholderLabel]="'Search...'"
-                    [noEntriesFoundLabel]="'Not found'"
-                    name="search"
-                  ></ngx-mat-select-search>
+                  <ngx-mat-select-search [(ngModel)]="searchCategory" [placeholderLabel]="'Search...'"
+                    [noEntriesFoundLabel]="'Not found'" name="search"></ngx-mat-select-search>
                 </mat-option>
-                <mat-option
-                  *ngFor="
+                <mat-option *ngFor="
                     let item of AssetCatList
                       | search: 'assetCatDescription':searchCategory
-                  "
-                  [value]="item.assetCatID"
-                  [disabled]="item.isActivated == 0"
-                >
+                  " [value]="item.assetCatID" [disabled]="item.isActivated == 0">
                   {{ item.assetCatDescription }}
                 </mat-option>
               </mat-select>
@@ -757,23 +549,17 @@
         </div>
 
         <!-- next row -->
-        <div
-          *ngIf="assetCategorySpecsList.length > 0"
-          class="d-flex flex-row bd-highlight mb-3 bg-light"
-        >
+        <div *ngIf="assetCategorySpecsList.length > 0" class="d-flex flex-wrap flex-row bd-highlight mb-3 bg-light">
           <!-- dynamic fields creation -->
           <div *ngFor="let item of assetCategorySpecsList">
             <!-- hidden filed -->
-            <div
-              *ngIf="item"
-              (appOnCreate)="
+            <div *ngIf="item" (appOnCreate)="
                 assetCategorySpecsData(
                   item.assetCatID,
                   item.specID,
                   item.specificationListName
                 )
-              "
-            >
+              ">
               <!-- if text box required -->
               <mat-form-field *ngIf="item.type == 'TB'">
                 <mat-label>{{ item.specificationTitle }}</mat-label>
@@ -784,10 +570,8 @@
               <mat-form-field *ngIf="item.type == 'DD'">
                 <mat-label>{{ item.specificationTitle }}</mat-label>
                 <mat-select [(ngModel)]="this[item.specificationNgModel]">
-                  <mat-option
-                    *ngFor="let spec of this[item.specificationListName]"
-                    value="spec.makeID"
-                    >{{ spec.makeTitle }}
+                  <mat-option *ngFor="let spec of this[item.specificationListName]" [value]="spec.makeTitle">
+                    {{ spec.makeTitle }}
                   </mat-option>
                 </mat-select>
               </mat-form-field>
@@ -831,12 +615,9 @@
           <div class="col-md-12">
             <mat-form-field color="warn" class="w-100">
               <mat-label>Select Project</mat-label>
-              <mat-select
-                [(ngModel)]="cmbProject"
-                (ngModelChange)="
+              <mat-select [(ngModel)]="cmbProject" (ngModelChange)="
                   getIPC(); setProject(); filterTansTable(cmbTransferProject)
-                "
-              >
+                ">
                 <!-- <input
                   type="text"
                   class="form-control"
@@ -844,20 +625,13 @@
                   [(ngModel)]="searchProject"
                 /> -->
                 <mat-option>
-                  <ngx-mat-select-search
-                    [(ngModel)]="searchProject"
-                    [placeholderLabel]="'Search...'"
-                    [noEntriesFoundLabel]="'Not found'"
-                    name="search"
-                  ></ngx-mat-select-search>
+                  <ngx-mat-select-search [(ngModel)]="searchProject" [placeholderLabel]="'Search...'"
+                    [noEntriesFoundLabel]="'Not found'" name="search"></ngx-mat-select-search>
                 </mat-option>
-                <mat-option
-                  *ngFor="
+                <mat-option *ngFor="
                     let item of projectList
                       | search: 'projectName':searchProject
-                  "
-                  [value]="item.projectID"
-                >
+                  " [value]="item.projectID">
                   {{ item.projectName }}
                 </mat-option>
               </mat-select>
@@ -872,19 +646,12 @@
               <mat-label>IPC Reference</mat-label>
               <mat-select [(ngModel)]="cmbRef">
                 <mat-option>
-                  <ngx-mat-select-search
-                    [(ngModel)]="searchRef"
-                    [placeholderLabel]="'Search...'"
-                    [noEntriesFoundLabel]="'Not found'"
-                    name="search"
-                  ></ngx-mat-select-search>
+                  <ngx-mat-select-search [(ngModel)]="searchRef" [placeholderLabel]="'Search...'"
+                    [noEntriesFoundLabel]="'Not found'" name="search"></ngx-mat-select-search>
                 </mat-option>
-                <mat-option
-                  *ngFor="
+                <mat-option *ngFor="
                     let item of refList | search: 'ipcRefDescription':searchRef
-                  "
-                  [value]="item.ipcRefID"
-                >
+                  " [value]="item.ipcRefID">
                   {{ item.ipcRefDescription }}
                 </mat-option>
               </mat-select>
@@ -893,15 +660,8 @@
           <div class="col-md-4">
             <mat-form-field color="warn" class="w-100">
               <mat-label>Purchase Date</mat-label>
-              <input
-                matInput
-                [matDatepicker]="picker"
-                [(ngModel)]="dtpPurchaseDt"
-              />
-              <mat-datepicker-toggle
-                matSuffix
-                [for]="picker"
-              ></mat-datepicker-toggle>
+              <input matInput [matDatepicker]="picker" [(ngModel)]="dtpPurchaseDt" />
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
               <mat-datepicker #picker></mat-datepicker>
             </mat-form-field>
           </div>
@@ -922,12 +682,8 @@
             </mat-form-field>
           </div>
           <div class="col-md-1 text-left mt-2 ml-n3">
-            <button
-              mat-raised-button
-              data-toggle="modal"
-              data-target="#tagModal"
-              class="noneOutline fa fa-search"
-            ></button>
+            <button mat-raised-button data-toggle="modal" data-target="#tagModal"
+              class="noneOutline fa fa-search"></button>
             <!-- <button mat-raised-button class='noneOutline text-size-large' data-toggle="modal" data-target="#tagModal">
               <mat-icon><span class='fa fa-search'></span></mat-icon>
             </button> -->
@@ -945,10 +701,7 @@
             <mat-form-field color="warn" class="w-100">
               <mat-label>Asset Condition</mat-label>
               <mat-select [(ngModel)]="cmbAssetCond">
-                <mat-option
-                  *ngFor="let item of assetCondList"
-                  [value]="item.condition"
-                >
+                <mat-option *ngFor="let item of assetCondList" [value]="item.condition">
                   {{ item.condition }}
                 </mat-option>
               </mat-select>
@@ -958,80 +711,44 @@
         <!-- next row -->
         <div class="row">
           <div class="col-md-2">
-            <mat-slide-toggle
-              [(ngModel)]="sldUsable"
-              [disabled]="disableUsable"
-              (change)="setCondemned()"
-              >Useable
+            <mat-slide-toggle [(ngModel)]="sldUsable" [disabled]="disableUsable" (change)="setCondemned()">Useable
             </mat-slide-toggle>
           </div>
           <div class="col-md-3">
-            <mat-slide-toggle
-              [(ngModel)]="sldServiceable"
-              [disabled]="disableServiceable"
-              >Serviceable
+            <mat-slide-toggle [(ngModel)]="sldServiceable" [disabled]="disableServiceable">Serviceable
             </mat-slide-toggle>
           </div>
           <div class="col-md-2">
-            <mat-slide-toggle
-              [(ngModel)]="sldSurplus"
-              [disabled]="disableSurplus"
-              >Surplus</mat-slide-toggle
-            >
+            <mat-slide-toggle [(ngModel)]="sldSurplus" [disabled]="disableSurplus">Surplus</mat-slide-toggle>
           </div>
           <div class="col-md-3">
-            <mat-slide-toggle
-              [(ngModel)]="sldCondemned"
-              [disabled]="disableCondemned"
-            >
+            <mat-slide-toggle [(ngModel)]="sldCondemned" [disabled]="disableCondemned">
               Condemned
             </mat-slide-toggle>
           </div>
           <div class="col-md-2">
-            <mat-slide-toggle
-              [(ngModel)]="sldMissing"
-              (change)="setMissingYes()"
-              >Missing</mat-slide-toggle
-            >
+            <mat-slide-toggle [(ngModel)]="sldMissing" (change)="setMissingYes()">Missing</mat-slide-toggle>
           </div>
         </div>
         <br />
         <!-- next row -->
         <div class="row">
           <div class="col-md-2">
-            <mat-slide-toggle
-              [(ngModel)]="sldTransfered"
-              (change)="setTransfer()"
-              >Transfered
+            <mat-slide-toggle [(ngModel)]="sldTransfered" (change)="setTransfer()">Transfered
             </mat-slide-toggle>
           </div>
-          <div
-            *ngIf="lblTransferID != '' && lblTransferID != '0'"
-            class="col-md-2"
-          >
+          <div *ngIf="lblTransferID != '' && lblTransferID != '0'" class="col-md-2">
             Custody Name :
           </div>
-          <div
-            class="col-md-3 border-bottom text-danger"
-            *ngIf="lblTransferID != '' && lblTransferID != '0'"
-          >
+          <div class="col-md-3 border-bottom text-danger" *ngIf="lblTransferID != '' && lblTransferID != '0'">
             <b>{{ lblTransByPost }}</b>
           </div>
-          <div
-            class="col-md-2"
-            *ngIf="lblTransferID != '' && lblTransferID != '0'"
-          >
+          <div class="col-md-2" *ngIf="lblTransferID != '' && lblTransferID != '0'">
             Company Name :
           </div>
-          <div
-            class="col-md-3 border-bottom text-danger"
-            *ngIf="lblTransferID != '' && lblTransferID != '0'"
-          >
+          <div class="col-md-3 border-bottom text-danger" *ngIf="lblTransferID != '' && lblTransferID != '0'">
             <b>{{ lblTransByComp }}</b>
-            <span
-              class="fa fa-edit cursorPointer text-primary pull-right"
-              (click)="openTransferModal()"
-            ></span>
+            <span class="fa fa-edit cursorPointer text-primary pull-right" (click)="openTransferModal()"></span>
           </div>
         </div>
         <!-- next row -->
@@ -1057,41 +774,23 @@
         <div class="row pr-4 pl-1">
           <div class="col-md-4 pt-2">
             <div class="custom-file">
-              <input
-                type="file"
-                class="custom-file-input"
-                [(ngModel)]="imgFileAsset"
-                (change)="onAssetFileSelected($event)"
-              />
-              <label class="custom-file-label" for="customFile"
-                >Choose 1st Asset Image</label
-              >
+              <input type="file" class="custom-file-input" [(ngModel)]="imgFileAsset"
+                (change)="onAssetFileSelected($event)" />
+              <label class="custom-file-label" for="customFile">Choose 1st Asset Image</label>
             </div>
           </div>
           <div class="col-md-4 pt-2">
             <div class="custom-file">
-              <input
-                type="file"
-                class="custom-file-input"
-                [(ngModel)]="imgFileAsset2"
-                (change)="onAssetFileSelected2($event)"
-              />
-              <label class="custom-file-label" for="customFile"
-                >Choose 2nd Asset Image</label
-              >
+              <input type="file" class="custom-file-input" [(ngModel)]="imgFileAsset2"
+                (change)="onAssetFileSelected2($event)" />
+              <label class="custom-file-label" for="customFile">Choose 2nd Asset Image</label>
             </div>
           </div>
           <div class="col-md-4 pt-2">
             <div class="custom-file">
-              <input
-                type="file"
-                class="custom-file-input"
-                [(ngModel)]="imgFileAsset"
-                (change)="onAssetFileSelected3($event)"
-              />
-              <label class="custom-file-label" for="customFile"
-                >Choose 3rd Asset Image</label
-              >
+              <input type="file" class="custom-file-input" [(ngModel)]="imgFileAsset"
+                (change)="onAssetFileSelected3($event)" />
+              <label class="custom-file-label" for="customFile">Choose 3rd Asset Image</label>
             </div>
           </div>
         </div>
@@ -1099,38 +798,20 @@
         <div class="row pr-4 pl-1">
           <div class="col-md-4 pt-2 text-center">
             <div class="text-center">
-              <img
-                [src]="imageAssetUrl"
-                class="rounded"
-                width="115"
-                height="115"
-                id="myImg"
-                (click)="zoomAssetImage()"
-              />
+              <img [src]="imageAssetUrl" class="rounded" width="115" height="115" id="myImg"
+                (click)="zoomAssetImage()" />
             </div>
           </div>
           <div class="col-md-4 pt-2 text-center">
             <div class="text-center">
-              <img
-                [src]="imageAssetUrl2"
-                class="rounded"
-                width="115"
-                height="115"
-                id="myImg"
-                (click)="zoomAssetImage2()"
-              />
+              <img [src]="imageAssetUrl2" class="rounded" width="115" height="115" id="myImg"
+                (click)="zoomAssetImage2()" />
             </div>
           </div>
           <div class="col-md-4 pt-2 text-center">
             <div class="text-center">
-              <img
-                [src]="imageAssetUrl3"
-                class="rounded"
-                width="115"
-                height="115"
-                id="myImg"
-                (click)="zoomAssetImage3()"
-              />
+              <img [src]="imageAssetUrl3" class="rounded" width="115" height="115" id="myImg"
+                (click)="zoomAssetImage3()" />
             </div>
           </div>
         </div>
@@ -1159,37 +840,20 @@
         <!-- next row -->
         <div class="row">
           <div class="col-md-2 mt-2">
-            <mat-checkbox
-              class="example-margin"
-              color="primary"
-              [(ngModel)]="chkCustody"
-              [disabled]="disableChkCustody"
-              >Custody
+            <mat-checkbox class="example-margin" color="primary" [(ngModel)]="chkCustody"
+              [disabled]="disableChkCustody">Custody
             </mat-checkbox>
           </div>
           <div class="col-md-2 mt-2">
-            <mat-checkbox
-              class="example-margin"
-              color="primary"
-              [(ngModel)]="chkProject"
-              >Project
+            <mat-checkbox class="example-margin" color="primary" [(ngModel)]="chkProject">Project
             </mat-checkbox>
           </div>
           <div class="col-md-2 mt-2">
-            <mat-checkbox
-              class="example-margin"
-              color="primary"
-              [(ngModel)]="chkassetLoc"
-              >Asset Location
+            <mat-checkbox class="example-margin" color="primary" [(ngModel)]="chkassetLoc">Asset Location
             </mat-checkbox>
           </div>
           <div class="col-md-2 mt-2">
-            <mat-checkbox
-              class="example-margin"
-              color="primary"
-              [(ngModel)]="chkTag"
-              [disabled]="disableTag"
-              >Same Tags
+            <mat-checkbox class="example-margin" color="primary" [(ngModel)]="chkTag" [disabled]="disableTag">Same Tags
             </mat-checkbox>
           </div>
           <div class="col-md-4" *ngIf="chkTag == true">
@@ -1202,18 +866,8 @@
         <!-- next row -->
         <div class="row border-top bgGrey">
           <div class="col-md-12 pt-4 pb-2">
-            <a
-              class="btn-flip mr-3"
-              data-back="Save Asset"
-              data-front="Save Asset"
-              (click)="save()"
-            ></a>
-            <a
-              class="btn-flip"
-              data-back="Reset"
-              data-front="Reset"
-              (click)="clearAll()"
-            ></a>
+            <a class="btn-flip mr-3" data-back="Save Asset" data-front="Save Asset" (click)="save()"></a>
+            <a class="btn-flip" data-back="Reset" data-front="Reset" (click)="clearAll()"></a>
             <!-- <button mat-raised-button class="noneOutline" color="warn" (click)="save()">
               Save Asset
             </button> -->
@@ -1226,12 +880,7 @@
       <div class="col-md-3 bgLightGrey boxShadow-1 pt-3">
         <div class="row">
           <div class="col-md-2">
-            <button
-              mat-raised-button
-              color="primary"
-              class="noneOutline"
-              (click)="clearTags()"
-            >
+            <button mat-raised-button color="primary" class="noneOutline" (click)="clearTags()">
               Clear
             </button>
           </div>
@@ -1239,9 +888,7 @@
             <button mat-raised-button class='noneOutline fa fa-undo'></button>
           </div> -->
         </div>
-        <mat-card
-          class="text-center mb-2"
-          *ngFor="
+        <mat-card class="text-center mb-2" *ngFor="
             let item of tagList
               | paginate
                 : {
@@ -1249,16 +896,11 @@
                     itemsPerPage: tagItemPerPage,
                     currentPage: tagP
                   }
-          "
-          >{{ item.tag }}</mat-card
-        >
+          ">{{ item.tag }}</mat-card>
         <!-- Pagination Starts -->
         <div class="col-md-12 text-right">
           <div class="paginationBox">
-            <pagination-controls
-              id="tagP"
-              (pageChange)="tagP = $event"
-            ></pagination-controls>
+            <pagination-controls id="tagP" (pageChange)="tagP = $event"></pagination-controls>
           </div>
           <div class="paginationBox">
             <mat-form-field class="pagenateList">
@@ -1341,29 +983,18 @@
           <div class="col-md-12">
             <mat-form-field class="w-100">
               <mat-label>Province - Location - Sub Location</mat-label>
-              <mat-select
-                [(ngModel)]="cmbSearchLocation"
-                (ngModelChange)="showSearchOfficeType(); searchTableData()"
-              >
+              <mat-select [(ngModel)]="cmbSearchLocation" (ngModelChange)="showSearchOfficeType(); searchTableData()">
                 <mat-option>
-                  <ngx-mat-select-search
-                    [(ngModel)]="advSearchLocation"
-                    [placeholderLabel]="'Search...'"
-                    [noEntriesFoundLabel]="'Not found'"
-                    name="search"
-                  ></ngx-mat-select-search>
+                  <ngx-mat-select-search [(ngModel)]="advSearchLocation" [placeholderLabel]="'Search...'"
+                    [noEntriesFoundLabel]="'Not found'" name="search"></ngx-mat-select-search>
                 </mat-option>
 
-                <mat-option
-                  *ngFor="
+                <mat-option *ngFor="
                     let item of locList
                       | search
                         : 'subLocationDescription,officeTypeDescription, mainLocationDescription, provinceName'
                         : advSearchLocation
-                  "
-                  [value]="item.subLocID"
-                  [disabled]="item.isActivated === 0"
-                >
+                  " [value]="item.subLocID" [disabled]="item.isActivated === 0">
                   <table class="table">
                     <tr class="d-flex">
                       <td class="col-3">{{ item.subLocationDescription }}</td>
@@ -1382,17 +1013,10 @@
           <div class="col-md-12">
             <mat-form-field class="w-100">
               <mat-label>Office Type</mat-label>
-              <mat-select
-                [(ngModel)]="cmbSearchOfcType"
-                (ngModelChange)="
+              <mat-select [(ngModel)]="cmbSearchOfcType" (ngModelChange)="
                   getWingSection(cmbSearchOfcType); searchTableData()
-                "
-                [disabled]="disableOfcType"
-              >
-                <mat-option
-                  *ngFor="let item of ofcTypeList"
-                  [value]="item.officeTypeID"
-                >
+                " [disabled]="disableOfcType">
+                <mat-option *ngFor="let item of ofcTypeList" [value]="item.officeTypeID">
                   {{ item.officeTypeDescription }}
                 </mat-option>
               </mat-select>
@@ -1404,10 +1028,7 @@
           <div class="col-md-12">
             <mat-form-field class="w-100">
               <mat-label>Wing - Section</mat-label>
-              <mat-select
-                [(ngModel)]="cmbSearchWngSection"
-                (ngModelChange)="searchTableData()"
-              >
+              <mat-select [(ngModel)]="cmbSearchWngSection" (ngModelChange)="searchTableData()">
                 <!-- <input
                   type="text"
                   class="form-control"
@@ -1415,22 +1036,14 @@
                   [(ngModel)]="advSearchSection"
                 /> -->
                 <mat-option>
-                  <ngx-mat-select-search
-                    [(ngModel)]="advSearchSection"
-                    [placeholderLabel]="'Search...'"
-                    [noEntriesFoundLabel]="'Not found'"
-                    name="search"
-                  ></ngx-mat-select-search>
+                  <ngx-mat-select-search [(ngModel)]="advSearchSection" [placeholderLabel]="'Search...'"
+                    [noEntriesFoundLabel]="'Not found'" name="search"></ngx-mat-select-search>
                 </mat-option>
 
-                <mat-option
-                  *ngFor="
+                <mat-option *ngFor="
                     let item of wngSectionList
                       | search: 'officeDescription':advSearchSection
-                  "
-                  [value]="item.officeSecID"
-                  [disabled]="item.isActivated == 0"
-                >
+                  " [value]="item.officeSecID" [disabled]="item.isActivated == 0">
                   {{ item.officeDescription }}
                 </mat-option>
               </mat-select>
@@ -1488,8 +1101,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr
-                *ngFor="
+              <tr *ngFor="
                   let item of oldTagList
                     | search
                       : 'tag,subLocation,officeTitle,custody,description,assetCondition,project'
@@ -1501,13 +1113,9 @@
                           currentPage: preTagP
                         };
                   let i = index
-                "
-              >
+                ">
                 <td class="inline-block">
-                  <span
-                    class="fa fa-plus-circle cursorPointer pr-3 text-primary"
-                    (click)="getPrevTag(item)"
-                  ></span>
+                  <span class="fa fa-plus-circle cursorPointer pr-3 text-primary" (click)="getPrevTag(item)"></span>
                 </td>
                 <td>{{ item.tag }}</td>
                 <td>{{ item.subLocation }}</td>
@@ -1525,10 +1133,7 @@
           <!-- Pagination Starts -->
           <div class="col-md-12 text-right">
             <div class="paginationBox">
-              <pagination-controls
-                id="preTagP"
-                (pageChange)="preTagP = $event"
-              ></pagination-controls>
+              <pagination-controls id="preTagP" (pageChange)="preTagP = $event"></pagination-controls>
             </div>
             <div class="paginationBox">
               <mat-form-field class="pagenateList">
@@ -1596,18 +1201,11 @@
               <mat-label>Make / Brand</mat-label>
               <mat-select [(ngModel)]="cmbMake">
                 <mat-option>
-                  <ngx-mat-select-search
-                    [(ngModel)]="searchMake"
-                    [placeholderLabel]="'Search...'"
-                    [noEntriesFoundLabel]="'Not found'"
-                    name="search"
-                  ></ngx-mat-select-search>
+                  <ngx-mat-select-search [(ngModel)]="searchMake" [placeholderLabel]="'Search...'"
+                    [noEntriesFoundLabel]="'Not found'" name="search"></ngx-mat-select-search>
                 </mat-option>
 
-                <mat-option
-                  *ngFor="let item of vehMakeList | search: 'make':searchMake"
-                  [value]="item.make"
-                >
+                <mat-option *ngFor="let item of vehMakeList | search: 'make':searchMake" [value]="item.make">
                   {{ item.make }}
                 </mat-option>
               </mat-select>
@@ -1621,20 +1219,13 @@
               <mat-label>Model</mat-label>
               <mat-select [(ngModel)]="cmbModel">
                 <mat-option>
-                  <ngx-mat-select-search
-                    [(ngModel)]="searchModel"
-                    [placeholderLabel]="'Search...'"
-                    [noEntriesFoundLabel]="'Not found'"
-                    name="search"
-                  ></ngx-mat-select-search>
+                  <ngx-mat-select-search [(ngModel)]="searchModel" [placeholderLabel]="'Search...'"
+                    [noEntriesFoundLabel]="'Not found'" name="search"></ngx-mat-select-search>
                 </mat-option>
 
-                <mat-option
-                  *ngFor="
+                <mat-option *ngFor="
                     let item of vehModelList | search: 'model':searchModel
-                  "
-                  [value]="item.model"
-                >
+                  " [value]="item.model">
                   {{ item.model }}
                 </mat-option>
               </mat-select>
@@ -1648,18 +1239,11 @@
               <mat-label>Type</mat-label>
               <mat-select [(ngModel)]="cmbType">
                 <mat-option>
-                  <ngx-mat-select-search
-                    [(ngModel)]="searchType"
-                    [placeholderLabel]="'Search...'"
-                    [noEntriesFoundLabel]="'Not found'"
-                    name="search"
-                  ></ngx-mat-select-search>
+                  <ngx-mat-select-search [(ngModel)]="searchType" [placeholderLabel]="'Search...'"
+                    [noEntriesFoundLabel]="'Not found'" name="search"></ngx-mat-select-search>
                 </mat-option>
 
-                <mat-option
-                  *ngFor="let item of vehTypeList | search: 'model':searchType"
-                  [value]="item.type"
-                >
+                <mat-option *ngFor="let item of vehTypeList | search: 'model':searchType" [value]="item.type">
                   {{ item.type }}
                 </mat-option>
               </mat-select>
@@ -1673,22 +1257,14 @@
               <mat-label>Asset Category</mat-label>
               <mat-select [(ngModel)]="cmbVehicleAssetCat">
                 <mat-option>
-                  <ngx-mat-select-search
-                    [(ngModel)]="searchVehicleAssetCat"
-                    [placeholderLabel]="'Search...'"
-                    [noEntriesFoundLabel]="'Not found'"
-                    name="search"
-                  ></ngx-mat-select-search>
+                  <ngx-mat-select-search [(ngModel)]="searchVehicleAssetCat" [placeholderLabel]="'Search...'"
+                    [noEntriesFoundLabel]="'Not found'" name="search"></ngx-mat-select-search>
                 </mat-option>
 
-                <mat-option
-                  *ngFor="
+                <mat-option *ngFor="
                     let item of vehAssetCatList
                       | search: 'assetCatDescription':searchVehicleAssetCat
-                  "
-                  [value]="item.assetCatID"
-                  [disabled]="item.isActivated == 0"
-                >
+                  " [value]="item.assetCatID" [disabled]="item.isActivated == 0">
                   {{ item.assetCatDescription }}
                 </mat-option>
               </mat-select>
@@ -1719,11 +1295,7 @@
           <div class="col-md-12 pt-2">
             <mat-form-field class="w-100">
               <mat-label>Deployed With</mat-label>
-              <textarea
-                matInput
-                placeholder=""
-                [(ngModel)]="txtDeploy"
-              ></textarea>
+              <textarea matInput placeholder="" [(ngModel)]="txtDeploy"></textarea>
             </mat-form-field>
           </div>
         </div>
@@ -1731,44 +1303,27 @@
         <div class="row">
           <div class="col-md-12 pt-2">
             <div class="custom-file">
-              <input
-                type="file"
-                class="custom-file-input"
-                [(ngModel)]="imgFileVehicle"
-                (change)="onVehicleFileSelected($event)"
-              />
-              <label class="custom-file-label" for="customFile"
-                >Choose Register Document</label
-              >
+              <input type="file" class="custom-file-input" [(ngModel)]="imgFileVehicle"
+                (change)="onVehicleFileSelected($event)" />
+              <label class="custom-file-label" for="customFile">Choose Register Document</label>
             </div>
           </div>
         </div>
         <div class="row">
           <div class="col-md-12 pt-2 text-center">
             <div class="text-center">
-              <button
-                class="noneOutline"
-                mat-button
-                *ngIf="
+              <button class="noneOutline" mat-button *ngIf="
                   imageVehicleUrl !=
                     '../../../../../assets/assetEntryImg/dropHereImg.png' &&
                   lblFileName == ''
-                "
-                color="primary"
-              >
+                " color="primary">
                 Open uploaded File
               </button>
-              <button
-                class="noneOutline"
-                mat-button
-                *ngIf="
+              <button class="noneOutline" mat-button *ngIf="
                   imageVehicleUrl !=
                     '../../../../../assets/assetEntryImg/dropHereImg.png' &&
                   lblFileName != ''
-                "
-                color="primary"
-                (click)="openPDFFile()"
-              >
+                " color="primary" (click)="openPDFFile()">
                 {{ lblFileName }}
               </button>
             </div>
@@ -1825,9 +1380,7 @@
     <div class="row">
       <div class="col-md-6">
         <!-- <b class="label">Location Name: &nbsp;&nbsp;</b> -->
-        <label class="label pl-2 pr-2"
-          >{{ locationName }} - {{ officeName }}</label
-        >
+        <label class="label pl-2 pr-2">{{ locationName }} - {{ officeName }}</label>
       </div>
       <!-- <div class="col-md-6 text-right">
         <b>Office Title: &nbsp;&nbsp; </b>
@@ -1859,15 +1412,13 @@
       </tr>
     </thead>
     <tbody>
-      <tr
-        *ngFor="
+      <tr *ngFor="
           let item of assetDetailList
             | search
               : 'subLocationDescription,accountsCatagory,postName'
               : tblSearch;
           let i = index
-        "
-      >
+        ">
         <td class="text-center">{{ i + 1 }}</td>
         <td>{{ item.subLocationDescription }}</td>
         <td>{{ item.officeTypeDescription }}</td>
@@ -1881,7 +1432,7 @@
         <td>{{ item.projectShortName }}</td>
         <td>{{ item.ipcRef }}</td>
         <td>{{ item.costAmount | number }}</td>
-        <td>{{ item.purchaseDate | date: "dd-MM-yyyy" }}</td>
+        <td>{{ item.purchaseDate | date }}</td>
         <td>{{ item.assetCondition }}</td>
         <td>{{ item.prviousTag }}</td>
       </tr>
@@ -1915,35 +1466,25 @@
       <!-- Modal body -->
       <div class="modal-body">
         <div class="row">
-          <div class="col-md-12">
-            <mat-radio-group
-              aria-label="Transfer Mode"
-              [(ngModel)]="rdbTransMode"
-              (change)="getTransLocData()"
-            >
-              <mat-radio-button color="primary" value="Sender"
-                >Sender</mat-radio-button
-              >&nbsp;&nbsp;
-              <mat-radio-button color="primary" value="Receiver"
-                >Receiver</mat-radio-button
-              >
+          <div class="col-md-6">
+            <mat-radio-group aria-label="Transfer Mode" [(ngModel)]="rdbTransMode" (change)="getTransLocData()">
+              <mat-radio-button color="primary" value="Sender">Sender</mat-radio-button>&nbsp;&nbsp;
+              <mat-radio-button color="primary" value="Receiver">Receiver</mat-radio-button>
             </mat-radio-group>
+          </div>
+          <div class="col-md-6 text-right" *ngIf="assetID!='' && lblTransferID!=''">
+            <button mat-raised-button color="primary" (click)="clearTransferDetail('New')">
+              New
+            </button>
           </div>
         </div>
         <hr />
         <!-- next row -->
         <div class="row">
           <div class="col-md-12">
-            <mat-radio-group
-              aria-label="Transfer Type"
-              [(ngModel)]="rdbTransType"
-            >
-              <mat-radio-button color="primary" value="Internal"
-                >Internal Transfer</mat-radio-button
-              >&nbsp;&nbsp;
-              <mat-radio-button color="primary" value="External"
-                >External Transfer</mat-radio-button
-              >
+            <mat-radio-group aria-label="Transfer Type" [(ngModel)]="rdbTransType">
+              <mat-radio-button color="primary" value="Internal">Internal Transfer</mat-radio-button>&nbsp;&nbsp;
+              <mat-radio-button color="primary" value="External">External Transfer</mat-radio-button>
             </mat-radio-group>
           </div>
         </div>
@@ -1952,26 +1493,16 @@
           <div class="col-md-12">
             <mat-form-field class="w-100">
               <mat-label>Project Title</mat-label>
-              <mat-select
-                [(ngModel)]="cmbTransferProject"
-                (ngModelChange)="filterTansTable(cmbTransferProject)"
-                [disabled]="disableProject"
-              >
+              <mat-select [(ngModel)]="cmbTransferProject" (ngModelChange)="filterTansTable(cmbTransferProject)"
+                [disabled]="disableProject">
                 <mat-option>
-                  <ngx-mat-select-search
-                    [(ngModel)]="searchTransProject"
-                    [placeholderLabel]="'Search...'"
-                    [noEntriesFoundLabel]="'Not found'"
-                    name="search"
-                  ></ngx-mat-select-search>
+                  <ngx-mat-select-search [(ngModel)]="searchTransProject" [placeholderLabel]="'Search...'"
+                    [noEntriesFoundLabel]="'Not found'" name="search"></ngx-mat-select-search>
                 </mat-option>
-                <mat-option
-                  *ngFor="
+                <mat-option *ngFor="
                     let item of transferProjectList
                       | search: 'projectName':searchTransProject
-                  "
-                  [value]="item.projectID"
-                >
+                  " [value]="item.projectID">
                   {{ item.projectName }}
                 </mat-option>
               </mat-select>
@@ -1994,30 +1525,19 @@
                 <div class="col-md-12">
                   <mat-form-field class="w-100">
                     <mat-label>Province - Location - Sub Location</mat-label>
-                    <mat-select
-                      [(ngModel)]="cmbSendTransLocation"
-                      (ngModelChange)="showSendTransOfcType()"
-                      [disabled]="disableFields || disableSenderTrans"
-                    >
+                    <mat-select [(ngModel)]="cmbSendTransLocation" (ngModelChange)="showSendTransOfcType()"
+                      [disabled]="disableFields || disableSenderTrans">
                       <mat-option>
-                        <ngx-mat-select-search
-                          [(ngModel)]="searchSendTransLocation"
-                          [placeholderLabel]="'Search...'"
-                          [noEntriesFoundLabel]="'Not found'"
-                          name="search"
-                        ></ngx-mat-select-search>
+                        <ngx-mat-select-search [(ngModel)]="searchSendTransLocation" [placeholderLabel]="'Search...'"
+                          [noEntriesFoundLabel]="'Not found'" name="search"></ngx-mat-select-search>
                       </mat-option>
 
-                      <mat-option
-                        *ngFor="
+                      <mat-option *ngFor="
                           let item of locSendTransList
                             | search
                               : 'subLocationDescription, mainLocationDescription, officeTypeDescription, provinceName'
                               : searchSendTransLocation
-                        "
-                        [value]="item.subLocID"
-                        [disabled]="item.isActivated == 0"
-                      >
+                        " [value]="item.subLocID" [disabled]="item.isActivated == 0">
                         <div class="row d-flex border-bottom">
                           <div class="col-md-3 col-sm-12">
                             {{ item.subLocationDescription }}
@@ -2042,17 +1562,10 @@
                 <div class="col-md-12">
                   <mat-form-field class="w-100">
                     <mat-label>Office Type</mat-label>
-                    <mat-select
-                      [(ngModel)]="cmbSendTransOfcType"
-                      (ngModelChange)="
+                    <mat-select [(ngModel)]="cmbSendTransOfcType" (ngModelChange)="
                         getSendTransWingSection(cmbSendTransOfcType)
-                      "
-                      [disabled]="disableOfcType"
-                    >
-                      <mat-option
-                        *ngFor="let item of ofcTypeSendTransList"
-                        [value]="item.officeTypeID"
-                      >
+                      " [disabled]="disableOfcType">
+                      <mat-option *ngFor="let item of ofcTypeSendTransList" [value]="item.officeTypeID">
                         {{ item.officeTypeDescription }}
                       </mat-option>
                     </mat-select>
@@ -2064,28 +1577,17 @@
                 <div class="col-md-12">
                   <mat-form-field class="w-100">
                     <mat-label>Wing - Section</mat-label>
-                    <mat-select
-                      [(ngModel)]="cmbSendTransWngSection"
-                      [disabled]="disableFields"
-                    >
+                    <mat-select [(ngModel)]="cmbSendTransWngSection" [disabled]="disableFields">
                       <!-- <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchSection" /> -->
                       <mat-option>
-                        <ngx-mat-select-search
-                          [(ngModel)]="searchSendTransSection"
-                          [placeholderLabel]="'Search...'"
-                          [noEntriesFoundLabel]="'Not found'"
-                          name="search"
-                        ></ngx-mat-select-search>
+                        <ngx-mat-select-search [(ngModel)]="searchSendTransSection" [placeholderLabel]="'Search...'"
+                          [noEntriesFoundLabel]="'Not found'" name="search"></ngx-mat-select-search>
                       </mat-option>
 
-                      <mat-option
-                        *ngFor="
+                      <mat-option *ngFor="
                           let item of wngSectSendTransList
                             | search: 'officeDescription':searchSendTransSection
-                        "
-                        [value]="item.officeSecID"
-                        [disabled]="item.isActivated == 0"
-                      >
+                        " [value]="item.officeSecID" [disabled]="item.isActivated == 0">
                         {{ item.officeDescription }}
                       </mat-option>
                     </mat-select>
@@ -2097,27 +1599,16 @@
                 <div class="col-md-12">
                   <mat-form-field class="w-100">
                     <mat-label>Tranfered By: Custody Name</mat-label>
-                    <mat-select
-                      [(ngModel)]="cmbTransByPost"
-                      (ngModelChange)="getTransByPost()"
-                    >
+                    <mat-select [(ngModel)]="cmbTransByPost" (ngModelChange)="getTransByPost()">
                       <mat-option>
-                        <ngx-mat-select-search
-                          [(ngModel)]="searchPostBy"
-                          [placeholderLabel]="'Search...'"
-                          [noEntriesFoundLabel]="'Not found'"
-                          name="search"
-                        ></ngx-mat-select-search>
+                        <ngx-mat-select-search [(ngModel)]="searchPostBy" [placeholderLabel]="'Search...'"
+                          [noEntriesFoundLabel]="'Not found'" name="search"></ngx-mat-select-search>
                       </mat-option>
 
-                      <mat-option
-                        *ngFor="
+                      <mat-option *ngFor="
                           let item of transferByList
                             | search: 'postName,companyName':searchPostBy
-                        "
-                        [value]="item.postID"
-                        [disabled]="item.isActivated == 0"
-                      >
+                        " [value]="item.postID" [disabled]="item.isActivated == 0">
                         {{ item.postName }} - {{ item.companyName }}
                       </mat-option>
                     </mat-select>
@@ -2142,30 +1633,19 @@
                 <div class="col-md-12">
                   <mat-form-field class="w-100">
                     <mat-label>Province - Location - Sub Location</mat-label>
-                    <mat-select
-                      [(ngModel)]="cmbTransLocation"
-                      (ngModelChange)="showTransOfcType()"
-                      [disabled]="disableFields || disableReceiveTrans"
-                    >
+                    <mat-select [(ngModel)]="cmbTransLocation" (ngModelChange)="showTransOfcType()"
+                      [disabled]="disableFields || disableReceiveTrans">
                       <mat-option>
-                        <ngx-mat-select-search
-                          [(ngModel)]="searchTransLocation"
-                          [placeholderLabel]="'Search...'"
-                          [noEntriesFoundLabel]="'Not found'"
-                          name="search"
-                        ></ngx-mat-select-search>
+                        <ngx-mat-select-search [(ngModel)]="searchTransLocation" [placeholderLabel]="'Search...'"
+                          [noEntriesFoundLabel]="'Not found'" name="search"></ngx-mat-select-search>
                       </mat-option>
 
-                      <mat-option
-                        *ngFor="
+                      <mat-option *ngFor="
                           let item of locTransList
                             | search
                               : 'subLocationDescription, mainLocationDescription, officeTypeDescription, provinceName'
                               : searchTransLocation
-                        "
-                        [value]="item.subLocID"
-                        [disabled]="item.isActivated == 0"
-                      >
+                        " [value]="item.subLocID" [disabled]="item.isActivated == 0">
                         <div class="row d-flex border-bottom">
                           <div class="col-md-3 col-sm-12">
                             {{ item.subLocationDescription }}
@@ -2190,15 +1670,9 @@
                 <div class="col-md-12">
                   <mat-form-field class="w-100">
                     <mat-label>Office Type</mat-label>
-                    <mat-select
-                      [(ngModel)]="cmbTransOfcType"
-                      (ngModelChange)="getTransWingSection(cmbTransOfcType)"
-                      [disabled]="disableOfcType"
-                    >
-                      <mat-option
-                        *ngFor="let item of ofcTypeTransList"
-                        [value]="item.officeTypeID"
-                      >
+                    <mat-select [(ngModel)]="cmbTransOfcType" (ngModelChange)="getTransWingSection(cmbTransOfcType)"
+                      [disabled]="disableOfcType">
+                      <mat-option *ngFor="let item of ofcTypeTransList" [value]="item.officeTypeID">
                         {{ item.officeTypeDescription }}
                       </mat-option>
                     </mat-select>
@@ -2210,28 +1684,17 @@
                 <div class="col-md-12">
                   <mat-form-field class="w-100">
                     <mat-label>Wing - Section</mat-label>
-                    <mat-select
-                      [(ngModel)]="cmbTransWngSection"
-                      [disabled]="disableFields"
-                    >
+                    <mat-select [(ngModel)]="cmbTransWngSection" [disabled]="disableFields">
                       <!-- <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchSection" /> -->
                       <mat-option>
-                        <ngx-mat-select-search
-                          [(ngModel)]="searchTransSection"
-                          [placeholderLabel]="'Search...'"
-                          [noEntriesFoundLabel]="'Not found'"
-                          name="search"
-                        ></ngx-mat-select-search>
+                        <ngx-mat-select-search [(ngModel)]="searchTransSection" [placeholderLabel]="'Search...'"
+                          [noEntriesFoundLabel]="'Not found'" name="search"></ngx-mat-select-search>
                       </mat-option>
 
-                      <mat-option
-                        *ngFor="
+                      <mat-option *ngFor="
                           let item of wngSectTransList
                             | search: 'officeDescription':searchTransSection
-                        "
-                        [value]="item.officeSecID"
-                        [disabled]="item.isActivated == 0"
-                      >
+                        " [value]="item.officeSecID" [disabled]="item.isActivated == 0">
                         {{ item.officeDescription }}
                       </mat-option>
                     </mat-select>
@@ -2243,27 +1706,16 @@
                 <div class="col-md-12">
                   <mat-form-field class="w-100">
                     <mat-label>Tranfered To: Custody Name</mat-label>
-                    <mat-select
-                      [(ngModel)]="cmbTransToPost"
-                      (ngModelChange)="getTransToPost()"
-                    >
+                    <mat-select [(ngModel)]="cmbTransToPost" (ngModelChange)="getTransToPost()">
                       <mat-option>
-                        <ngx-mat-select-search
-                          [(ngModel)]="searchPostTo"
-                          [placeholderLabel]="'Search...'"
-                          [noEntriesFoundLabel]="'Not found'"
-                          name="search"
-                        ></ngx-mat-select-search>
+                        <ngx-mat-select-search [(ngModel)]="searchPostTo" [placeholderLabel]="'Search...'"
+                          [noEntriesFoundLabel]="'Not found'" name="search"></ngx-mat-select-search>
                       </mat-option>
 
-                      <mat-option
-                        *ngFor="
+                      <mat-option *ngFor="
                           let item of transferToList
                             | search: 'postName,companyName':searchPostTo
-                        "
-                        [value]="item.postID"
-                        [disabled]="item.isActivated == 0"
-                      >
+                        " [value]="item.postID" [disabled]="item.isActivated == 0">
                         {{ item.postName }} - {{ item.companyName }}
                       </mat-option>
                     </mat-select>
@@ -2295,15 +1747,8 @@
           <div class="col-md-12">
             <mat-form-field class="w-100">
               <mat-label>Transfer Date</mat-label>
-              <input
-                matInput
-                [matDatepicker]="picker"
-                [(ngModel)]="dtpTransferDt"
-              />
-              <mat-datepicker-toggle
-                matSuffix
-                [for]="picker"
-              ></mat-datepicker-toggle>
+              <input matInput [matDatepicker]="picker" [(ngModel)]="dtpTransferDt" />
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
               <mat-datepicker #picker></mat-datepicker>
             </mat-form-field>
           </div>
@@ -2312,29 +1757,17 @@
         <div class="row">
           <div class="col-md-12 pt-2">
             <div class="custom-file">
-              <input
-                type="file"
-                class="custom-file-input"
-                [(ngModel)]="imgFileTrans"
-                (change)="onTransFileSelected($event)"
-              />
-              <label class="custom-file-label" for="customFile"
-                >Choose Handing Taking File</label
-              >
+              <input type="file" class="custom-file-input" [(ngModel)]="imgFileTrans"
+                (change)="onTransFileSelected($event)" />
+              <label class="custom-file-label" for="customFile">Choose Handing Taking File</label>
             </div>
           </div>
         </div>
         <div class="row">
           <div class="col-md-12 pt-2 text-center">
             <div class="text-center">
-              <img
-                [src]="imageTransUrl"
-                class="rounded"
-                width="115"
-                height="115"
-                id="myImg"
-                (click)="zoomTransImage()"
-              />
+              <img [src]="imageTransUrl" class="rounded" width="115" height="115" id="myImg"
+                (click)="zoomTransImage()" />
             </div>
           </div>
         </div>
@@ -2344,19 +1777,8 @@
             <button mat-raised-button color="warn" (click)="saveTransfer()">
               Save Transfers Detail
             </button>
-            <button
-              mat-raised-button
-              color="primary"
-              (click)="clearTransferDetail()"
-            >
+            <button mat-raised-button color="primary" (click)="clearTransferDetail('Reset')">
               Reset
-            </button>
-            <button
-              mat-raised-button
-              color="primary"
-              (click)="clearTransferDetail()"
-            >
-              New
             </button>
           </div>
         </div>
@@ -2385,15 +1807,13 @@
               </tr>
             </thead>
             <tbody>
-              <tr
-                *ngFor="
+              <tr *ngFor="
                   let item of transferList
                     | search
                       : 'transferType,subLocationDescription,officeTypeDescription,receiveBy,transfee,dateofTransfer'
                       : tblSearchTrans;
                   let i = index
-                "
-              >
+                ">
                 <td class="text-center">{{ i + 1 }}</td>
                 <td>{{ item.transferType }}</td>
                 <td>{{ item.transfee }}</td>
@@ -2402,18 +1822,11 @@
                 <td>{{ item.receiveBy }}</td>
                 <td>{{ item.dateofTransfer | date }}</td>
                 <td class="inline-block text-center">
-                  <span
-                    class="fa fa-info-circle cursorPointer pr-3"
-                    (click)="getTransferDetail(item)"
-                  ></span>
-                  <span
-                    class="fa fa-edit cursorPointer pr-3 text-primary"
-                    (click)="genPin(item, 'editTransfer')"
-                  ></span>
-                  <span
-                    class="fa fa-trash-o cursorPointer text-danger pr-3"
-                    (click)="genPin(item, 'deleteTransfer')"
-                  ></span>
+                  <span class="fa fa-info-circle cursorPointer pr-3" (click)="getTransferDetail(item)"></span>
+                  <span class="fa fa-edit cursorPointer pr-3 text-primary"
+                    (click)="genPin(item, 'editTransfer')"></span>
+                  <span class="fa fa-trash-o cursorPointer text-danger pr-3"
+                    (click)="genPin(item, 'deleteTransfer')"></span>
                 </td>
               </tr>
             </tbody>
@@ -2432,10 +1845,7 @@
 
 <!-- transfers detail Modal Windw -->
 <!-- The Modal -->
-<div
-  class="modal animate__animated animate__bounceIn"
-  id="assetTransferDetailModal"
->
+<div class="modal animate__animated animate__bounceIn" id="assetTransferDetailModal">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <!-- Modal Header -->
@@ -2467,10 +1877,8 @@
             <tbody>
               <tr *ngFor="let item of transDetailList">
                 <td class="inline-block text-center">
-                  <span
-                    class="fa fa-trash-o cursorPointer text-danger pr-3"
-                    (click)="genPin(item, 'deleteTransferDetail')"
-                  ></span>
+                  <span class="fa fa-trash-o cursorPointer text-danger pr-3"
+                    (click)="genPin(item, 'deleteTransferDetail')"></span>
                 </td>
                 <td>{{ item.tag }}</td>
                 <td>{{ item.subLocationDescription }}</td>
@@ -2514,13 +1922,8 @@
           <div class="col-md-12">
             <mat-form-field class="w-100">
               <mat-label>Enter Pin</mat-label>
-              <input
-                matInput
-                type="password"
-                maxlength="4"
-                (keydown)="onKeyPress($event)"
-                [(ngModel)]="txtPin"
-              />
+              <input matInput type="password" maxlength="4" (keydown)="onKeyPress($event);getKeyPressed($event)"
+                [(ngModel)]="txtPin" />
             </mat-form-field>
           </div>
         </div>
@@ -2562,10 +1965,7 @@
 
 <!-- Transfers Report Modal Windw -->
 <!-- The Modal -->
-<div
-  class="modal animate__animated animate__bounceIn"
-  id="transfersReportModal"
->
+<div class="modal animate__animated animate__bounceIn" id="transfersReportModal">
   <div class="modal-dialog modal-xl">
     <div class="modal-content">
       <!-- Modal Header -->
@@ -2579,32 +1979,63 @@
       <!-- Modal body -->
       <div class="modal-body">
         <div class="row">
+          <div class="col-md-12">
+            <mat-form-field class="w-100">
+              <mat-label>Province - Location - Sub Location</mat-label>
+              <mat-select [(ngModel)]="cmbSearchTransferLocation"
+                (ngModelChange)="showSearchTransferOfficeType(); searchTransferTableData()">
+                <mat-option>
+                  <ngx-mat-select-search [(ngModel)]="advSearchLocation" [placeholderLabel]="'Search...'"
+                    [noEntriesFoundLabel]="'Not found'" name="search"></ngx-mat-select-search>
+                </mat-option>
+
+                <mat-option *ngFor="
+                    let item of locList
+                      | search
+                        : 'subLocationDescription,officeTypeDescription, mainLocationDescription, provinceName'
+                        : advSearchLocation
+                  " [value]="item.subLocID" [disabled]="item.isActivated === 0">
+                  <table class="table">
+                    <tr class="d-flex">
+                      <td class="col-3">{{ item.subLocationDescription }}</td>
+                      <td class="col-3">{{ item.officeTypeDescription }}</td>
+                      <td class="col-3">{{ item.mainLocationDescription }}</td>
+                      <td class="col-3">{{ item.provinceName }}</td>
+                    </tr>
+                  </table>
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <!-- next row -->
+        <div class="row">
+          <div class="col-md-12">
+            <mat-form-field class="w-100">
+              <mat-label>Office Type</mat-label>
+              <mat-select [(ngModel)]="cmbSearchTransferOfcType" [disabled]="disableOfcType">
+                <mat-option *ngFor="let item of ofcTypeList" [value]="item.officeTypeID">
+                  {{ item.officeTypeDescription }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
           <div class="col-md-2">
             <label><b>Report Mode</b>: &nbsp;&nbsp;</label>
           </div>
           <div class="col-md-3">
-            <mat-radio-group
-              [(ngModel)]="rdbTransRptMode"
-              aria-label="Select an option"
-            >
+            <mat-radio-group [(ngModel)]="rdbTransRptMode" aria-label="Select an option">
               <mat-radio-button value="1" class="pr-2">Sender</mat-radio-button>
-              <mat-radio-button value="2">Reveiver</mat-radio-button>
+              <mat-radio-button value="2">Receiver</mat-radio-button>
             </mat-radio-group>
           </div>
           <div class="coll-md-3 inline-block">
-            <button
-              class="mr-2"
-              mat-raised-button
-              color="primary"
-              (click)="transfersReport(rdbTransRptMode)"
-            >
+            <button class="mr-2" mat-raised-button color="primary" (click)="transfersReport(rdbTransRptMode)">
               Report
             </button>
-            <button
-              mat-raised-button
-              color="primary"
-              (click)="printReport('#assetTransfersReport')"
-            >
+            <button mat-raised-button color="primary" (click)="printReport('#assetTransfersReport')">
               <span class="fa fa-print"></span>
             </button>
           </div>
@@ -2638,9 +2069,7 @@
                 <div class="row">
                   <div class="col-md-6">
                     <!-- <b class="label">Location Name: &nbsp;&nbsp;</b> -->
-                    <label class="label pl-2 pr-2"
-                      >{{ locationName }} - {{ officeName }}</label
-                    >
+                    <label class="label pl-2 pr-2">{{ locationName }} - {{ officeName }}</label>
                   </div>
                 </div>
               </div>
@@ -2649,11 +2078,7 @@
                 <thead>
                   <tr>
                     <th class="text-center" rowspan="2">#</th>
-                    <th
-                      class="printNone"
-                      *ngIf="rdbTransRptMode === '2'"
-                      rowspan="2"
-                    >
+                    <th class="printNone" *ngIf="rdbTransRptMode === '2'" rowspan="2">
                       action
                     </th>
                     <th rowspan="2">Tag</th>
@@ -2676,10 +2101,7 @@
                   <tr *ngFor="let item of assetTransfersRptList; let i = index">
                     <td class="text-center">{{ i + 1 }}</td>
                     <td class="printNone" *ngIf="rdbTransRptMode === '2'">
-                      <mat-checkbox
-                        class="example-margin"
-                        color="primary"
-                      ></mat-checkbox>
+                      <mat-checkbox class="example-margin" color="primary"></mat-checkbox>
                     </td>
                     <td>{{ item.tag }}</td>
                     <td>{{ item.tSubLocationDescription }}</td>

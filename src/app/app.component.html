@@ -388,81 +388,59 @@
               </div>
             </div>
 
-            <!-- next row -->
-            <div class="row">
-              <div class="col-md-12">
-                Asset Image:
+          </div>
+
+          <div class="row">
+            <div class="col-md-4 pt-2">
+              <div class="custom-file">
+                <input type="file" class="custom-file-input" [(ngModel)]="imgFileAsset"
+                  (change)="onAssetFileSelected($event)" />
+                <label class="custom-file-label" for="customFile">Choose 1st Asset Image</label>
               </div>
             </div>
-
-            <!-- next row -->
-            <!-- <div class="row">
-            <div class="col-md-4 border-bottom">
-              <img [src]="imageUrl" class="rounded" width="115" height="115" />
+            <div class="col-md-4 pt-2">
+              <div class="custom-file">
+                <input type="file" class="custom-file-input" [(ngModel)]="imgFileAsset2"
+                  (change)="onAssetFileSelected2($event)" />
+                <label class="custom-file-label" for="customFile">Choose 2nd Asset Image</label>
+              </div>
             </div>
-            <div class="col-md-4 border-bottom">
-              <img [src]="imageUrl2" class="rounded" width="115" height="115" />
+            <div class="col-md-4 pt-2">
+              <div class="custom-file">
+                <input type="file" class="custom-file-input" [(ngModel)]="imgFileAsset"
+                  (change)="onAssetFileSelected3($event)" />
+                <label class="custom-file-label" for="customFile">Choose 3rd Asset Image</label>
+              </div>
             </div>
-            <div class="col-md-4 border-bottom">
-              <img [src]="imageUrl3" class="rounded" width="115" height="115" />
+          </div>
+          <div class="row pt-2">
+            <div class="col-md-4 text-center">
+              <div class="text-center">
+                <img [src]="imageAssetUrl" class="rounded" width="115" height="115" id="myImg" />
+              </div>
+            </div>
+            <div class="col-md-4 text-center">
+              <div class="text-center">
+                <img [src]="imageAssetUrl2" class="rounded" width="115" height="115" id="myImg" />
+              </div>
+            </div>
+            <div class="col-md-4 text-center">
+              <div class="text-center">
+                <img [src]="imageAssetUrl3" class="rounded" width="115" height="115" id="myImg" />
+              </div>
             </div>
           </div>
 
-          <hr/> -->
-            <div class="row">
-              <div class="col-md-4 pt-2">
-                <div class="custom-file">
-                  <input type="file" class="custom-file-input" [(ngModel)]="imgFileAsset"
-                    (change)="onAssetFileSelected($event)" />
-                  <label class="custom-file-label" for="customFile">Choose 1st Asset Image</label>
-                </div>
-              </div>
-              <div class="col-md-4 pt-2">
-                <div class="custom-file">
-                  <input type="file" class="custom-file-input" [(ngModel)]="imgFileAsset2"
-                    (change)="onAssetFileSelected2($event)" />
-                  <label class="custom-file-label" for="customFile">Choose 2nd Asset Image</label>
-                </div>
-              </div>
-              <div class="col-md-4 pt-2">
-                <div class="custom-file">
-                  <input type="file" class="custom-file-input" [(ngModel)]="imgFileAsset"
-                    (change)="onAssetFileSelected3($event)" />
-                  <label class="custom-file-label" for="customFile">Choose 3rd Asset Image</label>
-                </div>
-              </div>
+          <br />
+          <div class="row">
+            <div class="col-md-12">
+              <button mat-raised-button color="warn" (click)="updateAssetPic()">
+                Save Asset Images
+              </button>
             </div>
-
-            <div class="row">
-              <div class="col-md-4 text-center">
-                <div class="text-center">
-                  <img [src]="imageAssetUrl" class="rounded" width="115" height="115" id="myImg" />
-                </div>
-              </div>
-              <div class="col-md-4 text-center">
-                <div class="text-center">
-                  <img [src]="imageAssetUrl2" class="rounded" width="115" height="115" id="myImg" />
-                </div>
-              </div>
-              <div class="col-md-4 text-center">
-                <div class="text-center">
-                  <img [src]="imageAssetUrl3" class="rounded" width="115" height="115" id="myImg" />
-                </div>
-              </div>
-            </div>
-
-            <br />
-            <div class="row border-top bgGrey">
-              <div class="col-md-12 pt-4 pb-2">
-                <a class="btn-flip mr-3" data-back="Save Asset Images" data-front="Save Asset Images"
-                  (click)="updateAssetPic()"></a>
-              </div>
-            </div>
-
-            <!-- asset detail -->
           </div>
           <!-- table -->
-          <div class="table-responsive">
+          <div class="table-responsive pt-2">
             <table class="table table-striped">
               <thead>
                 <tr>

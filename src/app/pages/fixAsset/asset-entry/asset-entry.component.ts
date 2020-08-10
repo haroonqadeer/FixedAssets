@@ -27,10 +27,10 @@ declare var $: any;
   styleUrls: ["./asset-entry.component.scss"],
 })
 export class AssetEntryComponent implements OnInit {
-  // serverUrl = "http://95.217.206.195:2007/api/";
+  serverUrl = "http://95.217.206.195:2007/api/";
   //serverUrl = "http://localhost:12345/api/";
 
-  serverUrl = "http://localhost:6090/api/";
+  // serverUrl = "http://localhost:6090/api/";
 
   loadingBar = true;
   //pagination variables for tag list
@@ -125,7 +125,9 @@ export class AssetEntryComponent implements OnInit {
   dtpPurchaseDt;
   dtpTransferDt;
   cmbSearchOfcType = "";
+  cmbSearchTransferOfcType = "";
   cmbSearchLocation = "";
+  cmbSearchTransferLocation = "";
   cmbSearchWngSection = "";
   cmbResetField = "";
   cmbTransferProject = "";
@@ -159,6 +161,7 @@ export class AssetEntryComponent implements OnInit {
   lblDepRule = "";
   lblBaseRate = "";
   lblTransferID = "";
+  lblNewTransfer = 0;
   lblTransToComp = "";
   lblTransByComp = "";
   lblTransByPost = "";
@@ -300,7 +303,7 @@ export class AssetEntryComponent implements OnInit {
 
   clearTags() {
     // alert(this.tempSpecID);
-    debugger;
+    // debugger;
     // alert(this.locList);
     setTimeout(() => {
       Swal.fire({
@@ -635,7 +638,7 @@ export class AssetEntryComponent implements OnInit {
   }
 
   getLocation() {
-    debugger;
+    // debugger;
     var reqHeader = new HttpHeaders({
       "Content-Type": "application/json",
       // Authorization: "Bearer " + Token,
@@ -687,6 +690,13 @@ export class AssetEntryComponent implements OnInit {
     this.cmbTransOfcType = ofcType[0].officeTypeID;
 
     this.getTransWingSection(this.cmbTransOfcType);
+  }
+
+  showSearchTransferOfficeType() {
+    var ofcType = this.locList.filter(
+      (x) => x.subLocID == this.cmbSearchTransferLocation
+    );
+    this.cmbSearchTransferOfcType = ofcType[0].officeTypeID;
   }
 
   showSearchOfficeType() {
@@ -1074,6 +1084,17 @@ export class AssetEntryComponent implements OnInit {
     this.lblTransferID = item.transferID;
     this.sldTransfered = item.isTransfered;
 
+    this.make = item.make;
+    this.model = item.model;
+    this.size = item.size;
+    this.generation = item.generation;
+    this.processor = item.processor;
+    this.ram = item.ram;
+    this.driveType1 = item.driveType1;
+    this.hdSize1 = item.hd1;
+    this.driveType2 = item.driveType2;
+    this.hdSize2 = item.hd2;
+
     var trans = this.tempTransList.filter(
       (x) => x.transferID == this.lblTransferID
     );
@@ -1144,23 +1165,6 @@ export class AssetEntryComponent implements OnInit {
         toastTimeout: 2500,
       });
       return false;
-    } else if (this.assetCategorySpecsList.length > 0) {
-      for (var i = 0; i < this.assetCategorySpecsList.length; i++) {
-        if (
-          this[this.assetCategorySpecsList[i].specificationNgModel] == "" ||
-          this[this.assetCategorySpecsList[i].specificationNgModel] == undefined
-        ) {
-          this.toastr.errorToastr(
-            "Please Fill Asset Category Specification - " +
-              this.assetCategorySpecsList[i].specificationTitle,
-            "Error",
-            {
-              toastTimeout: 2500,
-            }
-          );
-          return false;
-        }
-      }
     } else if (this.txtAssetDesc == "") {
       this.toastr.errorToastr("Please Enter Asset Description", "Error", {
         toastTimeout: 2500,
@@ -1184,6 +1188,26 @@ export class AssetEntryComponent implements OnInit {
       });
       return false;
     } else {
+      if (this.assetCategorySpecsList.length > 0) {
+        for (var i = 0; i < this.assetCategorySpecsList.length; i++) {
+          if (
+            this[this.assetCategorySpecsList[i].specificationNgModel] == "" ||
+            this[this.assetCategorySpecsList[i].specificationNgModel] ==
+              undefined
+          ) {
+            this.toastr.errorToastr(
+              "Please Fill Asset Category Specification - " +
+                this.assetCategorySpecsList[i].specificationTitle,
+              "Error",
+              {
+                toastTimeout: 2500,
+              }
+            );
+            return false;
+          }
+        }
+      }
+
       var vehicleID;
       if (this.rdbAsset == "1") {
         vehicleID = null;
@@ -1223,6 +1247,7 @@ export class AssetEntryComponent implements OnInit {
       var saveData;
       var ipcRef;
       var transferID;
+      var newTrans;
       var projectID;
       if (this.cmbProject == "") {
         projectID = null;
@@ -1235,13 +1260,16 @@ export class AssetEntryComponent implements OnInit {
           return false;
         }
       }
+      debugger;
 
       this.loadingBar = true;
 
-      if (this.lblTransferID == "") {
+      if (this.lblTransferID == "" || this.lblTransferID == "0") {
         transferID = null;
+        newTrans = 0;
       } else {
         transferID = parseInt(this.lblTransferID);
+        newTrans = this.lblNewTransfer;
       }
       if (this.dtpPurchaseDt == undefined || this.dtpPurchaseDt == "") {
         purchaseDate = null;
@@ -1254,12 +1282,19 @@ export class AssetEntryComponent implements OnInit {
       } else {
         ipcRef = parseInt(this.cmbRef);
       }
+      var amount, netBal;
       if (this.txtAmount == "") {
-        this.txtAmount = "0";
+        amount = 0.0;
+      } else {
+        amount = parseFloat(this.txtAmount);
       }
+
       if (this.txtNetBVal == "") {
-        this.txtNetBVal = "0";
+        netBal = 0.0;
+      } else {
+        netBal = this.txtNetBVal;
       }
+
       if (this.cmbProject == "") {
         this.cmbProject = "0";
       }
@@ -1338,8 +1373,8 @@ export class AssetEntryComponent implements OnInit {
           VehicleID: vehicleID, //int
           ProjectID: projectID, //int
           PreviousTag: this.txtPreTag, //string
-          costAmount: this.txtAmount, //float
-          NetBookAmount: this.txtNetBVal, //int
+          costAmount: amount, //float
+          NetBookAmount: netBal, //int
           PurchaseDate: purchaseDate, //string
           IPCRef: ipcRef, //string
           AssetCondition: this.cmbAssetCond, //int
@@ -1368,6 +1403,7 @@ export class AssetEntryComponent implements OnInit {
           imgFile2: imgAsset2,
           imgFile3: imgAsset3,
           TransferID: transferID, // int
+          newTransfer: newTrans, // int
           make: this.make, //string
           model: this.model,
           size: this.size,
@@ -1401,8 +1437,8 @@ export class AssetEntryComponent implements OnInit {
           VehicleID: vehicleID, //int
           ProjectID: projectID, //int
           PreviousTag: this.txtPreTag, //string
-          costAmount: this.txtAmount, //float
-          NetBookAmount: this.txtNetBVal, //int
+          costAmount: amount, //float
+          NetBookAmount: netBal, //int
           PurchaseDate: purchaseDate, //string
           IPCRef: ipcRef, //string
           AssetCondition: this.cmbAssetCond, //int
@@ -1431,6 +1467,7 @@ export class AssetEntryComponent implements OnInit {
           imgFile2: imgAsset2,
           imgFile3: imgAsset3,
           TransferID: transferID, // int
+          newTransfer: newTrans, // int
           make: this.make, //string
           model: this.model,
           size: this.size,
@@ -1757,6 +1794,29 @@ export class AssetEntryComponent implements OnInit {
     this.imageAssetUrl3 = "../../../../../assets/assetEntryImg/dropHereImg.png";
     this.AssetCatList = this.tempAssetCatList;
     this.disableAssetCat = false;
+
+    this.assetCategorySpecsList = [];
+    //empty asset category specification
+    this.make = "";
+    this.makeList = [];
+    this.model = "";
+    this.modelList = [];
+    this.size = "";
+    this.sizeList = [];
+    this.generation = "";
+    this.generationList = [];
+    this.processor = "";
+    this.processorList = [];
+    this.ram = "";
+    this.ramList = [];
+    this.driveType1 = "";
+    this.driverType1List = [];
+    this.hdSize1 = "";
+    this.hdSize1List = [];
+    this.driveType2 = "";
+    this.driverType2List = [];
+    this.hdSize2 = "";
+    this.hdSize2List = [];
   }
 
   clearAll() {
@@ -1841,6 +1901,7 @@ export class AssetEntryComponent implements OnInit {
     this.AssetCatList = this.tempAssetCatList;
     this.disableAssetCat = true;
 
+    this.assetCategorySpecsList = [];
     //empty asset category specification
     this.make = "";
     this.makeList = [];
@@ -1924,6 +1985,7 @@ export class AssetEntryComponent implements OnInit {
   removeTransfer() {
     this.clearTransfer();
     this.disableSenderTrans = true;
+    this.disableReceiveTrans = false;
     if (this.lblTransferID == "") {
       this.sldTransfered = false;
       this.cmbSendTransLocation = this.cmbLocation;
@@ -2042,6 +2104,23 @@ export class AssetEntryComponent implements OnInit {
     this.cmbSearchWngSection = "";
 
     this.assetDetailList = this.tempDetailList;
+  }
+
+  clearTransferReport() {
+    this.cmbSearchTransferLocation = "";
+    this.cmbSearchTransferOfcType = "";
+
+    this.assetTransfersRptList = [];
+  }
+
+  searchTransferTableData() {
+    var locFilter = this.locList.filter(
+      (x) => x.subLocID == this.cmbSearchTransferLocation
+    );
+
+    this.regionName = locFilter[0].locationDescription;
+    this.locationName = locFilter[0].subLocationDescription;
+    this.officeName = locFilter[0].officeTypeDescription;
   }
 
   searchTableData() {
@@ -2576,7 +2655,13 @@ export class AssetEntryComponent implements OnInit {
     this.imageTransUrl = "../../../../../assets/assetEntryImg/dropHereImg.png";
   }
 
-  clearTransferDetail() {
+  clearTransferDetail(param) {
+    if (param == "New") {
+      this.lblNewTransfer = 1;
+    } else {
+      this.lblNewTransfer = 0;
+    }
+
     this.sldTransfered = false;
     this.rdbTransMode = "Sender";
     this.rdbTransType = "";
@@ -3108,5 +3193,12 @@ export class AssetEntryComponent implements OnInit {
   //print report
   printReport(divID) {
     this.app.printReport(divID);
+  }
+  
+  /*** Capture Enter key ***/
+  getKeyPressed(e) {
+    if (e.keyCode == 13) {
+      this.allowUpdation();
+    }
   }
 }
