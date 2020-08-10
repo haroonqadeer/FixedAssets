@@ -8,6 +8,7 @@ import { ChartModule } from "angular-highcharts";
 import { UserIdleModule } from "angular-user-idle";
 import { ZXingScannerModule } from "@zxing/ngx-scanner";
 import { QRCodeModule } from "angular2-qrcode";
+
 import {
   CurrencyMaskConfig,
   CurrencyMaskModule,
@@ -54,6 +55,7 @@ import { CreateBuildingComponent } from "./pages/fixasset/configuration/create-b
 import { HomePageComponent } from "./pages/home-page/home-page.component";
 import { LocationCompleteComponent } from "./pages/fixasset/location-complete/location-complete.component";
 import { AssetRegisterRptComponent } from "./pages/fixAsset/Reports/asset-register-rpt/asset-register-rpt.component";
+import { OnCreateDirective } from "./on-create.directive";
 
 @NgModule({
   declarations: [
@@ -80,6 +82,7 @@ import { AssetRegisterRptComponent } from "./pages/fixAsset/Reports/asset-regist
     HomePageComponent,
     LocationCompleteComponent,
     AssetRegisterRptComponent,
+    OnCreateDirective,
   ],
   imports: [
     BrowserModule,
@@ -108,5 +111,6 @@ import { AssetRegisterRptComponent } from "./pages/fixAsset/Reports/asset-regist
     { provide: CURRENCY_MASK_CONFIG, useValue: CustomCurrencyMaskConfig },
   ],
   bootstrap: [AppComponent],
+  exports: [OnCreateDirective],
 })
 export class AppModule {}

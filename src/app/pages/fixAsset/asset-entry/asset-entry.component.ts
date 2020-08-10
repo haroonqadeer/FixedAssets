@@ -11,6 +11,7 @@ import { CookieService } from "ngx-cookie-service";
 import Swal from "sweetalert2/dist/sweetalert2.js";
 import { Observable } from "rxjs";
 import { AppComponent } from "src/app/app.component";
+
 import * as XLSX from "xlsx";
 //import html2canvas from "html2canvas";
 //import * as jsPDF from "jspdf";
@@ -26,10 +27,10 @@ declare var $: any;
   styleUrls: ["./asset-entry.component.scss"],
 })
 export class AssetEntryComponent implements OnInit {
-  serverUrl = "http://95.217.206.195:2007/api/";
+  // serverUrl = "http://95.217.206.195:2007/api/";
   //serverUrl = "http://localhost:12345/api/";
 
-  //serverUrl = "http://localhost:6090/api/";
+  serverUrl = "http://localhost:6090/api/";
 
   loadingBar = true;
   //pagination variables for tag list
@@ -203,6 +204,29 @@ export class AssetEntryComponent implements OnInit {
   searchPostBy = "";
   searchVehicleAssetCat = "";
 
+  //asset category sepecificaiton ngModels
+  make = "";
+  makeList = [];
+  model = "";
+  modelList = [];
+  size = "";
+  sizeList = [];
+  generation = "";
+  generationList = [];
+  processor = "";
+  processorList = [];
+  ram = "";
+  ramList = [];
+  driveType1 = "";
+  driverType1List = [];
+  hdSize1 = "";
+  hdSize1List = [];
+  driveType2 = "";
+  driverType2List = [];
+  hdSize2 = "";
+  hdSize2List = [];
+  tempSpecID = "";
+
   oldTagList = [];
   tagList = [];
   locList = [];
@@ -232,6 +256,8 @@ export class AssetEntryComponent implements OnInit {
   transDetailList = [];
   vehAssetCatList = [];
   assetTransfersRptList = [];
+  assetCategorySpecsList = [];
+  assetCategorySpecsDataList = [];
 
   vehMakeList = [];
   vehModelList = [];
@@ -273,6 +299,7 @@ export class AssetEntryComponent implements OnInit {
   }
 
   clearTags() {
+    // alert(this.tempSpecID);
     debugger;
     // alert(this.locList);
     setTimeout(() => {
@@ -1117,6 +1144,23 @@ export class AssetEntryComponent implements OnInit {
         toastTimeout: 2500,
       });
       return false;
+    } else if (this.assetCategorySpecsList.length > 0) {
+      for (var i = 0; i < this.assetCategorySpecsList.length; i++) {
+        if (
+          this[this.assetCategorySpecsList[i].specificationNgModel] == "" ||
+          this[this.assetCategorySpecsList[i].specificationNgModel] == undefined
+        ) {
+          this.toastr.errorToastr(
+            "Please Fill Asset Category Specification - " +
+              this.assetCategorySpecsList[i].specificationTitle,
+            "Error",
+            {
+              toastTimeout: 2500,
+            }
+          );
+          return false;
+        }
+      }
     } else if (this.txtAssetDesc == "") {
       this.toastr.errorToastr("Please Enter Asset Description", "Error", {
         toastTimeout: 2500,
@@ -1324,6 +1368,16 @@ export class AssetEntryComponent implements OnInit {
           imgFile2: imgAsset2,
           imgFile3: imgAsset3,
           TransferID: transferID, // int
+          make: this.make, //string
+          model: this.model,
+          size: this.size,
+          generation: this.generation,
+          processor: this.processor,
+          ram: this.ram,
+          driveType1: this.driveType1,
+          hd1: this.hdSize1,
+          driveType2: this.driveType2,
+          hd2: this.hdSize2,
         };
       } else {
         // var imgAsset;
@@ -1377,6 +1431,16 @@ export class AssetEntryComponent implements OnInit {
           imgFile2: imgAsset2,
           imgFile3: imgAsset3,
           TransferID: transferID, // int
+          make: this.make, //string
+          model: this.model,
+          size: this.size,
+          generation: this.generation,
+          processor: this.processor,
+          ram: this.ram,
+          driveType1: this.driveType1,
+          hd1: this.hdSize1,
+          driveType2: this.driveType2,
+          hd2: this.hdSize2,
         };
       }
 
@@ -1776,6 +1840,28 @@ export class AssetEntryComponent implements OnInit {
 
     this.AssetCatList = this.tempAssetCatList;
     this.disableAssetCat = true;
+
+    //empty asset category specification
+    this.make = "";
+    this.makeList = [];
+    this.model = "";
+    this.modelList = [];
+    this.size = "";
+    this.sizeList = [];
+    this.generation = "";
+    this.generationList = [];
+    this.processor = "";
+    this.processorList = [];
+    this.ram = "";
+    this.ramList = [];
+    this.driveType1 = "";
+    this.driverType1List = [];
+    this.hdSize1 = "";
+    this.hdSize1List = [];
+    this.driveType2 = "";
+    this.driverType2List = [];
+    this.hdSize2 = "";
+    this.hdSize2List = [];
   }
 
   setCondemned() {
@@ -2935,7 +3021,6 @@ export class AssetEntryComponent implements OnInit {
     //   var pageHeight = 295;
     //   var imgHeight = (canvas.height * imgWidth) / canvas.width;
     //   var heightLeft = imgHeight;
-
     //   const contentDataURL = canvas.toDataURL("image/png");
     //   let pdf = new jsPDF("p", "mm", "a4"); // A4 size page of PDF
     //   var position = 0;
@@ -2981,6 +3066,43 @@ export class AssetEntryComponent implements OnInit {
           this.assetTransfersRptList = data;
         });
     }
+  }
+
+  assetCategorySpecs() {
+    var reqHeader = new HttpHeaders({
+      "Content-Type": "application/json",
+      // Authorization: "Bearer " + Token,
+    });
+
+    this.http
+      .get(
+        this.serverUrl + "getAssetCategorySpecs?assetCatID=" + this.cmbAssetCat,
+        { headers: reqHeader }
+      )
+      .subscribe((data: any) => {
+        this.assetCategorySpecsList = data;
+      });
+  }
+
+  // asset category specification data
+  assetCategorySpecsData(assetCatID, specID, specListName) {
+    var reqHeader = new HttpHeaders({
+      "Content-Type": "application/json",
+      // Authorization: "Bearer " + Token,
+    });
+
+    this.http
+      .get(
+        this.serverUrl +
+          "getAssetCategorySpecsData?assetCatID=" +
+          assetCatID +
+          "&specID=" +
+          specID,
+        { headers: reqHeader }
+      )
+      .subscribe((data: any) => {
+        this[specListName] = data;
+      });
   }
 
   //print report
