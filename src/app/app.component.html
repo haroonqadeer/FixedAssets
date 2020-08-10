@@ -115,288 +115,288 @@
 <div class="loader" *ngIf="loadingBar">Loading...</div>
 
 <div class="container-fluid bg-white" *ngIf="!loadingBar">
-<!-- header -->
-<div id='main'>
-  <div class="row" id="menuId">
-    <div class="col-md-4 pl-4">
-      <span style="font-size: 1.5em; cursor: pointer;font-family: 'Montserrat';" (click)="openNav()"
-        class="animate__animated animate__bounce">&#9776; NHA</span>
-    </div>
-    <div class="col-md-2 offset-md-6 pt-1 text-right">
-      <button mat-button class="noneOutline" style="font-family: 'Montserrat'; font-size: 1.0em !important;"
-        [matMenuTriggerFor]="menu">
-        <!-- <span class="fa fa-user"></span>&nbsp;&nbsp;{{ userName }} -->
-        <span class="fa fa-user"></span>&nbsp;&nbsp;{{userName}}
-      </button>
-      <mat-menu #menu="matMenu">
-        <button mat-menu-item class="noneOutline" data-toggle="modal" data-target="#resetPasswordModal">
-          <span class="fa fa-lock"></span>&nbsp;Reset Password
+  <!-- header -->
+  <div id='main'>
+    <div class="row" id="menuId">
+      <div class="col-md-4 pl-4">
+        <span style="font-size: 1.5em; cursor: pointer;font-family: 'Montserrat';" (click)="openNav()"
+          class="animate__animated animate__bounce">&#9776; NHA</span>
+      </div>
+      <div class="col-md-2 offset-md-6 pt-1 text-right">
+        <button mat-button class="noneOutline" style="font-family: 'Montserrat'; font-size: 1.0em !important;"
+          [matMenuTriggerFor]="menu">
+          <!-- <span class="fa fa-user"></span>&nbsp;&nbsp;{{ userName }} -->
+          <span class="fa fa-user"></span>&nbsp;&nbsp;{{userName}}
         </button>
-        <button mat-menu-item class="noneOutline" data-toggle="modal" data-target="#genPinCodeModal"
-          (click)="clearPin()">
-          <span class="fa fa-lock"></span>&nbsp;Generate Pin
-        </button>
-        <!-- <button mat-menu-item class="noneOutline" data-toggle="modal" data-target="#compLocationModal">
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item class="noneOutline" data-toggle="modal" data-target="#resetPasswordModal">
+            <span class="fa fa-lock"></span>&nbsp;Reset Password
+          </button>
+          <button mat-menu-item class="noneOutline" data-toggle="modal" data-target="#genPinCodeModal"
+            (click)="clearPin()">
+            <span class="fa fa-lock"></span>&nbsp;Generate Pin
+          </button>
+          <!-- <button mat-menu-item class="noneOutline" data-toggle="modal" data-target="#compLocationModal">
           <span class="fa fa-check"></span>&nbsp;Complete Location
         </button> -->
-        <button mat-menu-item class="noneOutline" data-toggle="modal" data-target="#qrScannerModal">
-          <span class="fa fa-qrcode"></span>&nbsp;QR Scanner
-        </button>
-        <button mat-menu-item class="noneOutline" (click)="Logout()">
-          <span class="fa fa-sign-out"></span>&nbsp;Log out
-        </button>
-      </mat-menu>
-    </div>
-    <!-- <div class="col-md-1">
+          <button mat-menu-item class="noneOutline" data-toggle="modal" data-target="#qrScannerModal">
+            <span class="fa fa-qrcode"></span>&nbsp;QR Scanner
+          </button>
+          <button mat-menu-item class="noneOutline" (click)="Logout()">
+            <span class="fa fa-sign-out"></span>&nbsp;Log out
+          </button>
+        </mat-menu>
+      </div>
+      <!-- <div class="col-md-1">
       <button mat-mini-fab color="warn" class="p-0 m-0 noneOutline fa fa-sign-out" (click)="Logout()"></button>
     </div> -->
+    </div>
+    <!-- <div id="menuId" class="animate__animated animate__bounce"></div> -->
+    <router-outlet></router-outlet>
   </div>
-  <!-- <div id="menuId" class="animate__animated animate__bounce"></div> -->
-  <router-outlet></router-outlet>
-</div>
 
-<!-- QR scanner Modal Window -->
-<!-- The Modal -->
-<div class="modal animate__animated animate__bounceIn" id="qrScannerModal">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <!-- Modal Header -->
-      <div class="modal-header">
-        <h3 class="modal-title">QR Scanner</h3>
-        <button type="button" class="close" data-dismiss="modal">
-          &times;
-        </button>
-      </div>
+  <!-- QR scanner Modal Window -->
+  <!-- The Modal -->
+  <div class="modal animate__animated animate__bounceIn" id="qrScannerModal">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h3 class="modal-title">QR Scanner</h3>
+          <button type="button" class="close" data-dismiss="modal">
+            &times;
+          </button>
+        </div>
 
-      <!-- Modal body -->
-      <div class="modal-body">
-        <div class="row">
-          <div class="col-md-8">
-            <div class="row">
-              <div class="col-md-12">
-                <mat-form-field color="warn" class="w-100">
-                  <mat-label>Enter Asset ID</mat-label>
-                  <input matInput [(ngModel)]="txtAssetID" (keydown)="getQrCodeData()" />
-                </mat-form-field>
-              </div>
-            </div>
-            
-            <!-- next row -->
-            <div class="row">
-              <div class="col-md-4">
-                Asset Tag :
-              </div>
-              <div class="col-md-8 border-bottom">
-                {{lblTag}}
-              </div>
-            </div>
-
-            <!-- next row -->
-            <div class="row">
-              <div class="col-md-4">
-                Account Category :
-              </div>
-              <div class="col-md-8 border-bottom">
-                {{lblAccCategory}}
-              </div>
-            </div>
-
-            <!-- next row -->
-            <div class="row">
-              <div class="col-md-4">
-                Asset Category :
-              </div>
-              <div class="col-md-8 border-bottom">
-                {{lblAssetCategory}}
-              </div>
-            </div>
-
-            <!-- next row -->
-            <div class="row">
-              <div class="col-md-4">
-                Custody In :
-              </div>
-              <div class="col-md-8 border-bottom">
-                {{lblPost}}
-              </div>
-            </div>
-
-            <!-- next row -->
-            <div class="row">
-              <div class="col-md-4">
-                Office Section :
-              </div>
-              <div class="col-md-8 border-bottom">
-                {{lblSection}}
-              </div>
-            </div>
-
-            <!-- next row -->
-            <div class="row">
-              <div class="col-md-4">
-                Asset Condition :
-              </div>
-              <div class="col-md-8 border-bottom">
-                {{lblCondition}}
-              </div>
-            </div>
-
-            <!-- next row -->
-            <div class="row">
-              <div class="col-md-4">
-                Asset Location :
-              </div>
-              <div class="col-md-8 border-bottom">
-                {{lblAssetLocation}}
-              </div>
-            </div>
-            <!-- next row -->
-            <div class="row">
-              <div class="col-md-4">
-                Description :
-              </div>
-              <div class="col-md-8 border-bottom">
-                {{lblAssetDescription}}
-              </div>
-            </div>
-
-            <!-- next row -->
-            <div class="row">
-              <div class="col-md-4">
-                Office Type :
-              </div>
-              <div class="col-md-8 border-bottom">
-                {{lblOfficeType}}
-              </div>
-            </div>
-
-            <!-- next row -->
-            <div class="row">
-              <div class="col-md-4">
-                Location :
-              </div>
-              <div class="col-md-8 border-bottom">
-                {{lblLocation}}
-              </div>
-            </div>
-
-            <!-- next row -->
-            <div class="row">
-              <div class="col-md-4">
-                Project :
-              </div>
-              <div class="col-md-8 border-bottom">
-                {{lblProject}}
-              </div>
-            </div>
-
-            <!-- next row -->
-            <div class="row">
-              <div class="col-md-4">
-                IPC Ref. :
-              </div>
-              <div class="col-md-8 border-bottom">
-                {{lblIPCRef}}
-              </div>
-            </div>
-
-            <!-- next row -->
-            <div class="row">
-              <div class="col-md-4">
-                Serial No. :
-              </div>
-              <div class="col-md-8 border-bottom">
-                {{lblSerialNo}}
-              </div>
-            </div>
-
-            <!-- next row -->
-            <div class="row">
-              <div class="col-md-4">
-                Other Identification :
-              </div>
-              <div class="col-md-8 border-bottom">
-                {{lblOtherIdentification}}
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="row">
-              <div class="col-md-12">
-                <zxing-scanner (scanSuccess)="onCodeResult($event)"></zxing-scanner>
-              </div>
-            </div>
-            <!-- next row -->
-            <div class="row">
-              <div class="col-md-12">
-                <section class="results" *ngIf="qrResultString">
-                  <div>
-                    <label [(ngModel)]="qrResultString"></label>
-                    <strong>{{ qrResultString }}</strong>
-                  </div>
-                  <!-- <button mat-icon-button (click)="clearResult()">&times;</button> -->
-                </section>
-              </div>
-            </div>
-            <!-- next row -->
-            <div class="row">
-              <div class="col-md-12">
-                Created By:
-              </div>
-            </div>
-            <!-- next row -->
-            <div class="row">
-              <div class="col-md-12 border-bottom">
-                {{ lblCreatedBy}}
-              </div>
-            </div>
-            <!-- next row -->
-            <div class="row">
-              <div class="col-md-12">
-                Creation Date:
-              </div>
-            </div>
-            <!-- next row -->
-            <div class="row">
-              <div class="col-md-12 border-bottom">
-                {{ lblCreationDate | date : "dd-MMM-yyyy"}}
-              </div>
-            </div>
-            <!-- next row -->
-            <div class="row">
-              <div class="col-md-12">
-                Modified By:
-              </div>
-            </div>
-            <!-- next row -->
-            <div class="row">
-              <div class="col-md-12 border-bottom">
-                {{ lblModifiedBy}}
-              </div>
-            </div>
-            <!-- next row -->
-            <div class="row">
-              <div class="col-md-12">
-                Modification Date:
-              </div>
-            </div>
-            <!-- next row -->
-            <div class="row">
-              <div class="col-md-12 border-bottom">
-                {{ lblModificationDate | date : "dd-MM-yyyy"}}
-              </div>
-            </div>
-          </div>
-
-          <!-- next row -->
+        <!-- Modal body -->
+        <div class="modal-body">
           <div class="row">
-            <div class="col-md-12">
-              Asset Image:
-            </div>
-          </div>
+            <div class="col-md-8">
+              <div class="row">
+                <div class="col-md-12">
+                  <mat-form-field color="warn" class="w-100">
+                    <mat-label>Enter Asset ID</mat-label>
+                    <input matInput [(ngModel)]="txtAssetID" (keydown)="getQrCodeData()" />
+                  </mat-form-field>
+                </div>
+              </div>
 
-          <!-- next row -->
-          <div class="row">
+              <!-- next row -->
+              <div class="row">
+                <div class="col-md-4">
+                  Asset Tag :
+                </div>
+                <div class="col-md-8 border-bottom">
+                  {{lblTag}}
+                </div>
+              </div>
+
+              <!-- next row -->
+              <div class="row">
+                <div class="col-md-4">
+                  Account Category :
+                </div>
+                <div class="col-md-8 border-bottom">
+                  {{lblAccCategory}}
+                </div>
+              </div>
+
+              <!-- next row -->
+              <div class="row">
+                <div class="col-md-4">
+                  Asset Category :
+                </div>
+                <div class="col-md-8 border-bottom">
+                  {{lblAssetCategory}}
+                </div>
+              </div>
+
+              <!-- next row -->
+              <div class="row">
+                <div class="col-md-4">
+                  Custody In :
+                </div>
+                <div class="col-md-8 border-bottom">
+                  {{lblPost}}
+                </div>
+              </div>
+
+              <!-- next row -->
+              <div class="row">
+                <div class="col-md-4">
+                  Office Section :
+                </div>
+                <div class="col-md-8 border-bottom">
+                  {{lblSection}}
+                </div>
+              </div>
+
+              <!-- next row -->
+              <div class="row">
+                <div class="col-md-4">
+                  Asset Condition :
+                </div>
+                <div class="col-md-8 border-bottom">
+                  {{lblCondition}}
+                </div>
+              </div>
+
+              <!-- next row -->
+              <div class="row">
+                <div class="col-md-4">
+                  Asset Location :
+                </div>
+                <div class="col-md-8 border-bottom">
+                  {{lblAssetLocation}}
+                </div>
+              </div>
+              <!-- next row -->
+              <div class="row">
+                <div class="col-md-4">
+                  Description :
+                </div>
+                <div class="col-md-8 border-bottom">
+                  {{lblAssetDescription}}
+                </div>
+              </div>
+
+              <!-- next row -->
+              <div class="row">
+                <div class="col-md-4">
+                  Office Type :
+                </div>
+                <div class="col-md-8 border-bottom">
+                  {{lblOfficeType}}
+                </div>
+              </div>
+
+              <!-- next row -->
+              <div class="row">
+                <div class="col-md-4">
+                  Location :
+                </div>
+                <div class="col-md-8 border-bottom">
+                  {{lblLocation}}
+                </div>
+              </div>
+
+              <!-- next row -->
+              <div class="row">
+                <div class="col-md-4">
+                  Project :
+                </div>
+                <div class="col-md-8 border-bottom">
+                  {{lblProject}}
+                </div>
+              </div>
+
+              <!-- next row -->
+              <div class="row">
+                <div class="col-md-4">
+                  IPC Ref. :
+                </div>
+                <div class="col-md-8 border-bottom">
+                  {{lblIPCRef}}
+                </div>
+              </div>
+
+              <!-- next row -->
+              <div class="row">
+                <div class="col-md-4">
+                  Serial No. :
+                </div>
+                <div class="col-md-8 border-bottom">
+                  {{lblSerialNo}}
+                </div>
+              </div>
+
+              <!-- next row -->
+              <div class="row">
+                <div class="col-md-4">
+                  Other Identification :
+                </div>
+                <div class="col-md-8 border-bottom">
+                  {{lblOtherIdentification}}
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="row">
+                <div class="col-md-12">
+                  <zxing-scanner (scanSuccess)="onCodeResult($event)"></zxing-scanner>
+                </div>
+              </div>
+              <!-- next row -->
+              <div class="row">
+                <div class="col-md-12">
+                  <section class="results" *ngIf="qrResultString">
+                    <div>
+                      <label [(ngModel)]="qrResultString"></label>
+                      <strong>{{ qrResultString }}</strong>
+                    </div>
+                    <!-- <button mat-icon-button (click)="clearResult()">&times;</button> -->
+                  </section>
+                </div>
+              </div>
+              <!-- next row -->
+              <div class="row">
+                <div class="col-md-12">
+                  Created By:
+                </div>
+              </div>
+              <!-- next row -->
+              <div class="row">
+                <div class="col-md-12 border-bottom">
+                  {{ lblCreatedBy}}
+                </div>
+              </div>
+              <!-- next row -->
+              <div class="row">
+                <div class="col-md-12">
+                  Creation Date:
+                </div>
+              </div>
+              <!-- next row -->
+              <div class="row">
+                <div class="col-md-12 border-bottom">
+                  {{ lblCreationDate | date : "dd-MMM-yyyy"}}
+                </div>
+              </div>
+              <!-- next row -->
+              <div class="row">
+                <div class="col-md-12">
+                  Modified By:
+                </div>
+              </div>
+              <!-- next row -->
+              <div class="row">
+                <div class="col-md-12 border-bottom">
+                  {{ lblModifiedBy}}
+                </div>
+              </div>
+              <!-- next row -->
+              <div class="row">
+                <div class="col-md-12">
+                  Modification Date:
+                </div>
+              </div>
+              <!-- next row -->
+              <div class="row">
+                <div class="col-md-12 border-bottom">
+                  {{ lblModificationDate | date : "dd-MM-yyyy"}}
+                </div>
+              </div>
+            </div>
+
+            <!-- next row -->
+            <div class="row">
+              <div class="col-md-12">
+                Asset Image:
+              </div>
+            </div>
+
+            <!-- next row -->
+            <!-- <div class="row">
             <div class="col-md-4 border-bottom">
               <img [src]="imageUrl" class="rounded" width="115" height="115" />
             </div>
@@ -408,80 +408,144 @@
             </div>
           </div>
 
-          <hr/>
-          <div class="row">
-            <div class="col-md-4 pt-2">
-              <div class="custom-file">
-                <input type="file" class="custom-file-input" [(ngModel)]="imgFileAsset" (change)="onAssetFileSelected($event)" />
-                <label class="custom-file-label" for="customFile">Choose 1st Asset Image</label>
+          <hr/> -->
+            <div class="row">
+              <div class="col-md-4 pt-2">
+                <div class="custom-file">
+                  <input type="file" class="custom-file-input" [(ngModel)]="imgFileAsset"
+                    (change)="onAssetFileSelected($event)" />
+                  <label class="custom-file-label" for="customFile">Choose 1st Asset Image</label>
+                </div>
+              </div>
+              <div class="col-md-4 pt-2">
+                <div class="custom-file">
+                  <input type="file" class="custom-file-input" [(ngModel)]="imgFileAsset2"
+                    (change)="onAssetFileSelected2($event)" />
+                  <label class="custom-file-label" for="customFile">Choose 2nd Asset Image</label>
+                </div>
+              </div>
+              <div class="col-md-4 pt-2">
+                <div class="custom-file">
+                  <input type="file" class="custom-file-input" [(ngModel)]="imgFileAsset"
+                    (change)="onAssetFileSelected3($event)" />
+                  <label class="custom-file-label" for="customFile">Choose 3rd Asset Image</label>
+                </div>
               </div>
             </div>
-            <div class="col-md-4 pt-2">
-              <div class="custom-file">
-                <input type="file" class="custom-file-input" [(ngModel)]="imgFileAsset2" (change)="onAssetFileSelected2($event)" />
-                <label class="custom-file-label" for="customFile">Choose 2nd Asset Image</label>
-              </div>
-            </div>
-            <div class="col-md-4 pt-2">
-              <div class="custom-file">
-                <input type="file" class="custom-file-input" [(ngModel)]="imgFileAsset" (change)="onAssetFileSelected3($event)" />
-                <label class="custom-file-label" for="customFile">Choose 3rd Asset Image</label>
-              </div>
-            </div>
-          </div>
 
-          <div class="row">
-            <div class="col-md-4 text-center">
-              <div class="text-center">
-                <img [src]="imageAssetUrl" class="rounded" width="115" height="115" id="myImg"/>
+            <div class="row">
+              <div class="col-md-4 text-center">
+                <div class="text-center">
+                  <img [src]="imageAssetUrl" class="rounded" width="115" height="115" id="myImg" />
+                </div>
+              </div>
+              <div class="col-md-4 text-center">
+                <div class="text-center">
+                  <img [src]="imageAssetUrl2" class="rounded" width="115" height="115" id="myImg" />
+                </div>
+              </div>
+              <div class="col-md-4 text-center">
+                <div class="text-center">
+                  <img [src]="imageAssetUrl3" class="rounded" width="115" height="115" id="myImg" />
+                </div>
               </div>
             </div>
-            <div class="col-md-4 text-center">
-              <div class="text-center">
-                <img [src]="imageAssetUrl2" class="rounded" width="115" height="115" id="myImg"/>
-              </div>
-            </div>
-            <div class="col-md-4 text-center">
-              <div class="text-center">
-                <img [src]="imageAssetUrl3" class="rounded" width="115" height="115" id="myImg" />
-              </div>
-            </div>
-          </div>
 
-          <br/>
-          <div class="row border-top bgGrey">
-            <div class="col-md-12 pt-4 pb-2">
-              <a class="btn-flip mr-3" data-back="Save Asset Images" data-front="Save Asset Images" (click)="updateAssetPic()"></a>
+            <br />
+            <div class="row border-top bgGrey">
+              <div class="col-md-12 pt-4 pb-2">
+                <a class="btn-flip mr-3" data-back="Save Asset Images" data-front="Save Asset Images"
+                  (click)="updateAssetPic()"></a>
+              </div>
             </div>
-          </div>
 
-          <!-- asset detail -->
-        </div>
-        <!-- table -->
-        <div class="table-responsive">
-          <table class="table table-striped">
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>Location</th>
-                <th>Office Type</th>
-                <th>Section</th>
-                <th>Created Date</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="
+            <!-- asset detail -->
+          </div>
+          <!-- table -->
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Location</th>
+                  <th>Office Type</th>
+                  <th>Section</th>
+                  <th>Created Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="
                   let item of qrLogList;
                   let i = index
                 ">
-                <td class="text-center">{{ i + 1 }}</td>
-                <td>{{ item.subLocationDescription }}</td>
-                <td>{{ item.officeTypeDescription }}</td>
-                <td>{{ item.officeDescription }}</td>
-                <td>{{ item.createdDateTime | date }}</td>
-              </tr>
-            </tbody>
-          </table>
+                  <td class="text-center">{{ i + 1 }}</td>
+                  <td>{{ item.subLocationDescription }}</td>
+                  <td>{{ item.officeTypeDescription }}</td>
+                  <td>{{ item.officeDescription }}</td>
+                  <td>{{ item.createdDateTime | date }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Modal footer -->
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Reset Password Modal -->
+  <div class="modal animate__animated animate__bounceIn" id="resetPasswordModal">
+    <div class="modal-dialog modal-md">
+      <div class="modal-content">
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h3 class="modal-title">Reset Password</h3>
+          <button type="button" class="close" data-dismiss="modal" id="closeResetNav">
+            &times;
+          </button>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-12">
+              <mat-form-field class='w-100'>
+                <mat-label>Old Password</mat-label>
+                <input type='password' matInput [(ngModel)]="txtOldPw">
+              </mat-form-field>
+            </div>
+          </div>
+          <!-- next row -->
+          <div class="row">
+            <div class="col-md-12">
+              <mat-form-field class='w-100'>
+                <mat-label>New Password</mat-label>
+                <input type='password' matInput [(ngModel)]="txtNewPw">
+              </mat-form-field>
+            </div>
+          </div>
+          <!-- next row -->
+          <div class="row">
+            <div class="col-md-12">
+              <mat-form-field class='w-100'>
+                <mat-label>Confirm Password</mat-label>
+                <input type='password' matInput [(ngModel)]="txtConfirmPw">
+              </mat-form-field>
+            </div>
+          </div>
+          <!-- next row -->
+          <div class="row">
+            <div class="col-md-12">
+              <a class="btn-flip" data-back="Save" data-front="Save" (click)="resetPw()"></a>
+            </div>
+          </div>
         </div>
 
         <!-- Modal footer -->
@@ -494,113 +558,53 @@
     </div>
   </div>
 
-</div>
 
-<!-- Reset Password Modal -->
-<div class="modal animate__animated animate__bounceIn" id="resetPasswordModal">
-  <div class="modal-dialog modal-md">
-    <div class="modal-content">
-      <!-- Modal Header -->
-      <div class="modal-header">
-        <h3 class="modal-title">Reset Password</h3>
-        <button type="button" class="close" data-dismiss="modal" id="closeResetNav">
-          &times;
-        </button>
-      </div>
 
-      <!-- Modal body -->
-      <div class="modal-body">
-        <div class="row">
-          <div class="col-md-12">
-            <mat-form-field class='w-100'>
-              <mat-label>Old Password</mat-label>
-              <input type='password' matInput [(ngModel)]="txtOldPw">
-            </mat-form-field>
-          </div>
+  <!-- Generate Pin Modal -->
+  <div class="modal animate__animated animate__bounceIn" id="genPinCodeModal">
+    <div class="modal-dialog modal-md">
+      <div class="modal-content">
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h3 class="modal-title">Generate Pin</h3>
+          <button type="button" class="close" data-dismiss="modal" id="closeResetNav">
+            &times;
+          </button>
         </div>
-        <!-- next row -->
-        <div class="row">
-          <div class="col-md-12">
-            <mat-form-field class='w-100'>
-              <mat-label>New Password</mat-label>
-              <input type='password' matInput [(ngModel)]="txtNewPw">
-            </mat-form-field>
-          </div>
-        </div>
-        <!-- next row -->
-        <div class="row">
-          <div class="col-md-12">
-            <mat-form-field class='w-100'>
-              <mat-label>Confirm Password</mat-label>
-              <input type='password' matInput [(ngModel)]="txtConfirmPw">
-            </mat-form-field>
-          </div>
-        </div>
-        <!-- next row -->
-        <div class="row">
-          <div class="col-md-12">
-            <a class="btn-flip" data-back="Save" data-front="Save" (click)="resetPw()"></a>
-          </div>
-        </div>
-      </div>
 
-      <!-- Modal footer -->
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">
-          Close
-        </button>
+        <!-- Modal body -->
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-12">
+              <mat-form-field class='w-100'>
+                <mat-label>Pin</mat-label>
+                <input type='password' matInput [(ngModel)]="txtPin" maxlength="4">
+              </mat-form-field>
+            </div>
+          </div>
+          <!-- next row -->
+          <div class="row">
+            <div class="col-md-12">
+              <mat-form-field class='w-100'>
+                <mat-label>Confirm Pin</mat-label>
+                <input type='password' matInput [(ngModel)]="txtConfirmPin" maxlength="4">
+              </mat-form-field>
+            </div>
+          </div>
+          <!-- next row -->
+          <div class="row">
+            <div class="col-md-12">
+              <a class="btn-flip" data-back="Save" data-front="Save" (click)="genPin()"></a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">
+            Close
+          </button>
+        </div>
       </div>
     </div>
   </div>
-</div>
-
-
-
-<!-- Generate Pin Modal -->
-<div class="modal animate__animated animate__bounceIn" id="genPinCodeModal">
-  <div class="modal-dialog modal-md">
-    <div class="modal-content">
-      <!-- Modal Header -->
-      <div class="modal-header">
-        <h3 class="modal-title">Generate Pin</h3>
-        <button type="button" class="close" data-dismiss="modal" id="closeResetNav">
-          &times;
-        </button>
-      </div>
-
-      <!-- Modal body -->
-      <div class="modal-body">
-        <div class="row">
-          <div class="col-md-12">
-            <mat-form-field class='w-100'>
-              <mat-label>Pin</mat-label>
-              <input type='password' matInput [(ngModel)]="txtPin" maxlength="4">
-            </mat-form-field>
-          </div>
-        </div>
-        <!-- next row -->
-        <div class="row">
-          <div class="col-md-12">
-            <mat-form-field class='w-100'>
-              <mat-label>Confirm Pin</mat-label>
-              <input type='password' matInput [(ngModel)]="txtConfirmPin" maxlength="4">
-            </mat-form-field>
-          </div>
-        </div>
-        <!-- next row -->
-        <div class="row">
-          <div class="col-md-12">
-            <a class="btn-flip" data-back="Save" data-front="Save" (click)="genPin()"></a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Modal footer -->
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">
-          Close
-        </button>
-      </div>
-    </div>
-  </div>
-</div>
