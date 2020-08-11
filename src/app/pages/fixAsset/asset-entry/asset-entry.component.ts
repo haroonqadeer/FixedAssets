@@ -1007,7 +1007,7 @@ export class AssetEntryComponent implements OnInit {
       this.rdbAsset = "2";
       this.cmbVehicle = item.vehicleID;
     }
-    this.disableFields = true;
+    // this.disableFields = true;
     this.disableTag = true;
 
     this.lblAssetCatID = item.assetCatID;
@@ -2029,6 +2029,7 @@ export class AssetEntryComponent implements OnInit {
         });
         return false;
       }
+
       if (this.cmbLocation == trans[0].tSubLocID) {
         this.rdbTransMode = "Sender";
         this.disableSenderTrans = true;
@@ -2043,11 +2044,18 @@ export class AssetEntryComponent implements OnInit {
       this.rdbTransType = trans[0].transferType;
 
       this.cmbSendTransLocation = trans[0].tSubLocID;
-      this.cmbSendTransOfcType = trans[0].tofficeTypeID;
+      this.cmbSendTransOfcType = trans[0].tOfficeTypeID;
 
-      this.getSendTransWingSection(trans[0].tofficeTypeID);
+      this.getSendTransWingSection(trans[0].tOfficeTypeID);
 
       this.cmbSendTransWngSection = trans[0].tOfficeSecID;
+
+      this.cmbTransLocation = trans[0].rSubLocID;
+      this.cmbTransOfcType = trans[0].officeTypeID;
+
+      this.getTransWingSection(trans[0].rOfficeTypeID);
+
+      this.cmbTransWngSection = trans[0].rOfficeSecID;
 
       this.rdbTransType = trans[0].transferType;
       this.cmbTransferProject = trans[0].projectID;
@@ -2075,6 +2083,7 @@ export class AssetEntryComponent implements OnInit {
       this.lblTransByComp = transBy[0].companyName;
     }
   }
+
   setMissingYes() {
     if (this.sldMissing) {
       this.disableUsable = true;
