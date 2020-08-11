@@ -5,6 +5,7 @@ import {
   HttpHeaders,
   HttpErrorResponse,
 } from "@angular/common/http";
+import { CookieService } from "ngx-cookie-service";
 
 import * as Highcharts from "highcharts";
 import Drilldown from "highcharts/modules/drilldown.src.js";
@@ -77,7 +78,7 @@ export class DashboardyComponent implements OnInit {
   locationModalTitle: string;
   timeSeries_chart: Chart;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private cookie: CookieService) {}
 
   ngOnInit(): void {
     this.dtpDate = new Date();
@@ -260,7 +261,12 @@ export class DashboardyComponent implements OnInit {
     });
 
     this.http
-      .get(this.serverUrl + "getassetdetail", { headers: reqHeader })
+      .get(
+        this.serverUrl +
+          "getuserassetdetail?UserId=" +
+          this.cookie.get("userID"),
+        { headers: reqHeader }
+      )
       .subscribe((data: any) => {
         this.assetDetailList = data;
         this.assetDetailList;

@@ -933,56 +933,33 @@ export class AssetEntryComponent implements OnInit {
       "Content-Type": "application/json",
       // Authorization: "Bearer " + Token,
     });
-    if (this.cookie.get("roleName") == "Super User") {
-      this.http
-        .get(this.serverUrl + "getassetdetail", { headers: reqHeader })
-        .subscribe((data: any) => {
-          this.assetDetailList = data;
-          this.tempDetailList = data;
-          // this.assetDetailList.reverse();
-          // this.tempDetailList.reverse();
 
-          for (var i = 0; i < this.tagList.length; i++) {
-            for (var j = 0; j < this.assetDetailList.length; j++) {
-              if (this.tagList[i].tag == this.assetDetailList[j].tag) {
-                this.assetDetailList[j].checkbox = true;
-              }
-            }
-            for (var j = 0; j < this.tempDetailList.length; j++) {
-              if (this.tagList[i].tag == this.tempDetailList[j].tag) {
-                this.tempDetailList[j].checkbox = true;
-              }
+    this.http
+      .get(
+        this.serverUrl +
+          "getuserassetdetail?UserId=" +
+          this.cookie.get("userID"),
+        { headers: reqHeader }
+      )
+      .subscribe((data: any) => {
+        this.assetDetailList = data;
+        this.tempDetailList = data;
+        this.assetDetailList.reverse();
+        this.tempDetailList.reverse();
+
+        for (var i = 0; i < this.tagList.length; i++) {
+          for (var j = 0; j < this.assetDetailList.length; j++) {
+            if (this.tagList[i].tag == this.assetDetailList[j].tag) {
+              this.assetDetailList[j].checkbox = true;
             }
           }
-        });
-    } else {
-      this.http
-        .get(
-          this.serverUrl +
-            "getuserassetdetail?UserId=" +
-            this.cookie.get("userID"),
-          { headers: reqHeader }
-        )
-        .subscribe((data: any) => {
-          this.assetDetailList = data;
-          this.tempDetailList = data;
-          this.assetDetailList.reverse();
-          this.tempDetailList.reverse();
-
-          for (var i = 0; i < this.tagList.length; i++) {
-            for (var j = 0; j < this.assetDetailList.length; j++) {
-              if (this.tagList[i].tag == this.assetDetailList[j].tag) {
-                this.assetDetailList[j].checkbox = true;
-              }
-            }
-            for (var j = 0; j < this.tempDetailList.length; j++) {
-              if (this.tagList[i].tag == this.tempDetailList[j].tag) {
-                this.tempDetailList[j].checkbox = true;
-              }
+          for (var j = 0; j < this.tempDetailList.length; j++) {
+            if (this.tagList[i].tag == this.tempDetailList[j].tag) {
+              this.tempDetailList[j].checkbox = true;
             }
           }
-        });
-    }
+        }
+      });
   }
 
   editAsset(item) {
@@ -1961,6 +1938,7 @@ export class AssetEntryComponent implements OnInit {
     this.cmbAssetCat = vehData[0].assetCatID;
     this.disableAssetCat = true;
     this.getAssetCatDescription(this.cmbAssetCat);
+    this.getAssetNo();
   }
 
   setTransfer() {
