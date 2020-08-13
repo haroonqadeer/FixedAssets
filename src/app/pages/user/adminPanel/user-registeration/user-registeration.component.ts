@@ -192,7 +192,7 @@ export class UserRegisterationComponent implements OnInit {
       if (this.rdbPin == "1") {
         reqPin = true;
       }
-
+      debugger;
       var SaveData = {
         LoginName: this.txtEmail.trim(),
         HashPassword: this.txtEmail.trim(),
@@ -216,7 +216,7 @@ export class UserRegisterationComponent implements OnInit {
 
       this.http
         .post(this.serverUrl + "reguser", SaveData, { headers: reqHeader })
-        // .post("http://localhost:5090/api/reguser", SaveData, {
+        // .post("http://localhost:6090/api/reguser", SaveData, {
         //   headers: reqHeader,
         // })
         .subscribe((data: any) => {

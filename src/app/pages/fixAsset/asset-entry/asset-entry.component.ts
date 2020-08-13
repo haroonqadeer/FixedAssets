@@ -1165,9 +1165,26 @@ export class AssetEntryComponent implements OnInit {
       });
       return false;
     } else {
+      var count = 0;
       if (this.assetCategorySpecsList.length > 0) {
         for (var i = 0; i < this.assetCategorySpecsList.length; i++) {
           if (
+            this.assetCategorySpecsList[i].specificationTitle == "Drive Type1"
+          ) {
+            count++;
+          } else if (
+            this.assetCategorySpecsList[i].specificationTitle == "HD Size1"
+          ) {
+            count++;
+          } else if (
+            this.assetCategorySpecsList[i].specificationTitle == "Drive Type2"
+          ) {
+            count++;
+          } else if (
+            this.assetCategorySpecsList[i].specificationTitle == "HD Size2"
+          ) {
+            count++;
+          } else if (
             this[this.assetCategorySpecsList[i].specificationNgModel] == "" ||
             this[this.assetCategorySpecsList[i].specificationNgModel] ==
               undefined
@@ -1182,6 +1199,42 @@ export class AssetEntryComponent implements OnInit {
             );
             return false;
           }
+        }
+      }
+
+      if (count == 4) {
+        if (this.driveType1 == "" && this.driveType2 == "") {
+          this.toastr.errorToastr(
+            "Please Fill Any Asset Category Specification - Drive",
+            "Error",
+            {
+              toastTimeout: 2500,
+            }
+          );
+          return false;
+        }
+        if (
+          (this.driveType1 != "" && this.hdSize1 == "") ||
+          (this.driveType2 != "" && this.hdSize2 == "")
+        ) {
+          this.toastr.errorToastr(
+            "Please Fill Correct Asset Category Specification",
+            "Error",
+            {
+              toastTimeout: 2500,
+            }
+          );
+          return false;
+        }
+        if (this.hdSize1 == "" && this.hdSize2 == "") {
+          this.toastr.errorToastr(
+            "Please Fill Any Asset Category Specification - Size",
+            "Error",
+            {
+              toastTimeout: 2500,
+            }
+          );
+          return false;
         }
       }
 
@@ -1226,11 +1279,19 @@ export class AssetEntryComponent implements OnInit {
       var transferID;
       var newTrans;
       var projectID;
-      if (this.cmbProject == "") {
+      if (
+        this.cmbProject == "" ||
+        this.cmbProject == undefined ||
+        this.cmbProject == null
+      ) {
         projectID = null;
       } else {
         projectID = parseInt(this.cmbProject);
-        if (this.cmbRef == "" || this.cmbRef == null) {
+        if (
+          this.cmbRef == "" ||
+          this.cmbRef == undefined ||
+          this.cmbRef == null
+        ) {
           this.toastr.errorToastr("Please Select IPC Reference", "Error", {
             toastTimeout: 2500,
           });

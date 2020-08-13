@@ -358,6 +358,7 @@ export class AssetCategoryComponent implements OnInit {
 
   active(obj) {
     var type = "";
+    // alert(obj.isActivated);
     if (obj.isActivated == true) {
       setTimeout(() => (this.assetCatList[this.index].isActivated = false), 10);
       type = "DEACTIVATE";
