@@ -26,11 +26,11 @@ export class Group {
 }
 
 @Component({
-  selector: "app-asset-register-rpt",
-  templateUrl: "./asset-register-rpt.component.html",
-  styleUrls: ["./asset-register-rpt.component.scss"],
+  selector: "app-register-computer-rpt",
+  templateUrl: "./register-computer-rpt.component.html",
+  styleUrls: ["./register-computer-rpt.component.scss"],
 })
-export class AssetRegisterRptComponent implements OnInit {
+export class RegisterComputerRptComponent implements OnInit {
   // serverUrl = "http://95.217.206.195:2007/api/";
   //serverUrl = "http://localhost:12345/api/";
 
@@ -72,126 +72,67 @@ export class AssetRegisterRptComponent implements OnInit {
       {
         field: "subLocationDescription",
         title: "Main Location",
-        display: true,
       },
       {
         field: "officeTypeDescription",
         title: "Sub Location",
-        display: true,
       },
       {
         field: "officeDescription",
         title: "Office",
-        display: true,
       },
       {
         field: "accountsCatagory",
         title: "Asset Category",
-        display: true,
       },
       {
         field: "assetCatDescription",
-        title: "Asset Name",
-        display: true,
+        title: "Computer Type",
       },
       {
         field: "tag",
         title: "Tag. ID",
-        display: true,
       },
       {
         field: "postName",
         title: "Custodian",
-        display: true,
       },
-      { field: "assetDescription", title: "Asset Description", display: true },
+      { field: "make", title: "Make" },
+      { field: "model", title: "Model" },
+      { field: "size", title: "Size" },
+      { field: "processor", title: "Processor" },
+      { field: "generation", title: "Genration" },
+      { field: "ram", title: "RAM" },
+      { field: "driveType1", title: "Drive-01" },
+      { field: "hd1", title: "size" },
+      { field: "driveType2", title: "Drive-02" },
+      { field: "hd2", title: "size" },
       {
         field: "ipcRef",
         title: "IPC/Invoice Ref.",
-        display: true,
       },
       {
         field: "projectShortName",
         title: "Project",
-        display: true,
       },
       {
         field: "purchaseDate",
         title: "Purchase Date",
-        display: true,
       },
       {
         field: "costAmount",
         title: "Cost Price",
-        display: true,
       },
       {
         field: "assetCondition",
         title: "Condition",
-        display: true,
       },
       {
         field: "previousTag",
         title: "old Tag",
-        display: true,
       },
     ];
 
-    // this.columns = [
-    //   {
-    //     field: "subLocationDescription",
-    //     title: "Main Location",
-    //   },
-    //   {
-    //     field: "officeTypeDescription",
-    //     title: "Sub Location",
-    //   },
-    //   {
-    //     field: "officeDescription",
-    //     title: "Office",
-    //   },
-    //   {
-    //     field: "accountsCatagory",
-    //     title: "Asset Category",
-    //   },
-    //   {
-    //     field: "assetCatDescription",
-    //     title: "Asset Name",
-    //   },
-    //   {
-    //     field: "tag",
-    //     title: "Tag. ID",
-    //   },
-    //   {
-    //     field: "postName",
-    //     title: "Custodian",
-    //   },
-    //   { field: "assetDescription", title: "Asset Description" },
-    //   {
-    //     field: "ipcRef",
-    //     title: "IPC/Invoice Ref.",
-    //   },
-    //   {
-    //     field: "projectShortName",
-    //     title: "Project",
-    //   },
-    //   {
-    //     field: "purchaseDate",
-    //     title: "Purchase Date",
-    //   },
-    //   {
-    //     field: "costAmount",
-    //     title: "Cost Price",
-    //   },
-    //   {
-    //     field: "assetCondition",
-    //     title: "Condition",
-    //   },
-    //   {
-    //     field: "previousTag",
-    //     title: "old Tag",
-    //   },
-    // ];
     this.availColumns = this.columns.slice();
     this.displayedColumns = this.columns.map((column) => column.field);
     this.groupByColumns = ["subLocationDescription"];
@@ -200,12 +141,6 @@ export class AssetRegisterRptComponent implements OnInit {
   // displayedColumns: string[] = ["position", "name", "weight", "symbol"];
 
   // dataSource: any;
-
-  getDisplayedColumns(): string[] {
-    return this.columns
-      .filter((cd) => cd.display == true)
-      .map((cd) => cd.field);
-  }
 
   showItem() {
     console.log(this.availColumns[0].title);
@@ -281,12 +216,10 @@ export class AssetRegisterRptComponent implements OnInit {
   showOfficeType() {
     var ofcType = this.locList.filter((x) => x.subLocID == this.cmbLocation);
     this.cmbOfcType = ofcType[0].officeTypeID;
-
     this.tempRptTitle =
       ofcType[0].subLocationDescription +
       " - " +
       ofcType[0].officeTypeDescription;
-
     this.getWingSection(this.cmbOfcType);
   }
 
@@ -319,12 +252,11 @@ export class AssetRegisterRptComponent implements OnInit {
     this.cmbLocation = "";
     this.cmbOfcType = "";
     this.cmbWngSection = "";
-    this.tempRptTitle = "";
     this.rptTitle = "";
+    this.tempRptTitle = "";
   }
 
   getAssetRegister() {
-    debugger;
     var subLocID = 0;
     var officeTypeID = 0;
     var userID = this.cookie.get("userID");
@@ -353,7 +285,7 @@ export class AssetRegisterRptComponent implements OnInit {
     this.http
       .get(
         this.serverUrl +
-          "getAssetdetailGeneral?UserId=" +
+          "getAssetdetailComputers?UserId=" +
           userID +
           "&SubLocID=" +
           subLocID +

@@ -1,3 +1,6 @@
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import "./assets/fonts/fonts.scss";
+
 body {
   overflow: auto;
   background-color: #efefef !important;
@@ -416,6 +419,18 @@ table {
   font-size: 0.75em !important;
 }
 
+th {
+  border-top: 1px solid grey;
+  font-family: 'Roboto';
+  font-size: 0.60em !important;
+}
+
+td {
+  border-bottom: 1px solid grey;
+  font-family: 'Roboto';
+  font-size: 0.60em !important;
+}
+
 .table thead th {
   vertical-align: bottom;
   border-bottom: 2px solid #dee2e6;
@@ -428,6 +443,11 @@ table {
 .table-striped tbody tr:nth-of-type(odd) {
   background-color: rgba(0, 0, 0, 0.05);
 }
+
+th {
+  font-family: '';
+}
+
 
 /**************************************/
 /************ Reports *****************/

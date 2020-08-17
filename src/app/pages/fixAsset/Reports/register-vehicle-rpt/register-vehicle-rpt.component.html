@@ -12,9 +12,6 @@
         <li>
           <a class="cursorPointer" data-toggle='modal' data-target='#filterModal'>Report Filters</a>
         </li>
-        <li>
-          <a class="cursorPointer" data-toggle='modal' data-target='#configModal'>Fields Display</a>
-        </li>
       </ul>
     </nav>
   </div>
@@ -32,7 +29,7 @@
         <!-- next row -->
         <div class="row">
           <div class="col-md-12">
-            <label class="h1Report">Asset Register Report - General</label>
+            <label class="h1Report">Asset Register Report - Vehicle</label>
           </div>
         </div>
       </div>
@@ -46,7 +43,7 @@
       <div class="row">
         <div class="col-md-6">
           <!-- <b class="label">Location Name: &nbsp;&nbsp;</b> -->
-          <label class="label pl-2 pr-2">{{rptTitle}}</label>
+          <label class="label pl-2 pr-2">{{ rptTitle }}</label>
         </div>
       </div>
     </div>
@@ -76,8 +73,8 @@
         <td class='pr-2 pl-2 border-right' mat-cell *matCellDef="let row">{{ row[column.field] }}</td>
       </ng-container>
 
-      <tr mat-header-row mat-header-row *matHeaderRowDef="getDisplayedColumns(); sticky: true;"></tr>
-      <tr mat-row *matRowDef="let row; columns: getDisplayedColumns()"></tr>
+      <tr mat-header-row mat-header-row *matHeaderRowDef="displayedColumns; sticky:true;"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
 
       <!-- Group header -->
       <ng-container matColumnDef="groupHeader">
@@ -86,83 +83,18 @@
           <mat-icon *ngIf="!group.expanded" class="fa fa-angle-up printNone"></mat-icon>
           <strong>{{ groupByColumns[group.level - 1] }} =
             {{ group[groupByColumns[group.level - 1]] }} ({{
-              group.totalCounts
-            }})</strong>
+                group.totalCounts
+              }})</strong>
         </td>
       </ng-container>
 
       <tr mat-row *matRowDef="let row; columns: ['groupHeader']; when: isGroup" (click)="groupHeaderClick(row)"></tr>
     </table>
-    <!-- <table mat-table [dataSource]="dataSource" cdkDropList cdkDropListOrientation="horizontal"
-      (cdkDropListDropped)="drop($event)" class="w-100">
-      <ng-container matColumnDef="subLocationDescription">
-        <th mat-header-cell cdkDrag *matHeaderCellDef>Main Location</th>
-        <td mat-cell *matCellDef="let element">{{ element.subLocationDescription }}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="officeTypeDescription">
-        <th mat-header-cell cdkDrag *matHeaderCellDef>Sub Location</th>
-        <td mat-cell *matCellDef="let element">{{ element.officeTypeDescription }}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="officeDescription">
-        <th mat-header-cell cdkDrag *matHeaderCellDef>Office</th>
-        <td mat-cell *matCellDef="let element">{{ element.officeDescription }}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="accountsCatagory">
-        <th mat-header-cell cdkDrag *matHeaderCellDef>Asset Category</th>
-        <td mat-cell *matCellDef="let element">{{ element.accountsCatagory }}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="assetCatDescription">
-        <th mat-header-cell cdkDrag *matHeaderCellDef>Asset Name</th>
-        <td mat-cell *matCellDef="let element">{{ element.assetCatDescription }}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="tag">
-        <th mat-header-cell cdkDrag *matHeaderCellDef>Tag. ID</th>
-        <td mat-cell *matCellDef="let element">{{ element.tag }}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="postName">
-        <th mat-header-cell cdkDrag *matHeaderCellDef>Custodian Name</th>
-        <td mat-cell *matCellDef="let element">{{ element.postName }}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="assetDescription">
-        <th mat-header-cell cdkDrag *matHeaderCellDef>Asset Description</th>
-        <td mat-cell *matCellDef="let element">{{ element.assetDescription }}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="ipcRef">
-        <th mat-header-cell cdkDrag *matHeaderCellDef>IPC/Invoice Ref.</th>
-        <td mat-cell *matCellDef="let element">{{ element.ipcRef }}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="projectShortName">
-        <th mat-header-cell cdkDrag *matHeaderCellDef>Project</th>
-        <td mat-cell *matCellDef="let element">{{ element.projectShortName }}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="purchaseDate">
-        <th mat-header-cell cdkDrag *matHeaderCellDef>Purchase Date</th>
-        <td mat-cell *matCellDef="let element">{{ element.purchaseDate }}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="costAmount">
-        <th mat-header-cell cdkDrag *matHeaderCellDef>Purchase Cost/Price</th>
-        <td mat-cell *matCellDef="let element">{{ element.costAmount }}</td>
-      </ng-container>
-
-      <tr mat-header-row *matHeaderRowDef="columns; sticky: true"></tr>
-      <tr mat-row *matRowDef="let row; columns: columns"></tr>
-    </table> -->
   </div>
 </div>
 
 
-<!-- Report Configurations -->
+<!-- Report Filters -->
 <!-- The Modal -->
 <div class="modal animate__animated animate__bounceIn" id="configModal">
   <div class="modal-dialog modal-lg">
@@ -178,18 +110,16 @@
       <!-- Modal body -->
       <div class="modal-body">
 
-        <!-- <div class="row">
+        <div class="row">
           <div class="col-md-12">
             <button mat-raised-button color="primary" (click)='showItem()'>Show Item</button>
           </div>
-        </div> -->
+        </div>
         <div class="container">
-          <!-- <h2>Movies</h2> -->
+          <h2>Movies</h2>
           <div cdkDropList #moviesList="cdkDropList" [cdkDropListData]="columns"
             [cdkDropListConnectedTo]="[doneMovieList]" class="movie-list" (cdkDropListDropped)="onDrop($event)">
-            <div class="movie-block" *ngFor="let moviesList of columns" cdkDrag>{{moviesList.title}}<mat-checkbox
-                [(ngModel)]="moviesList.display"></mat-checkbox>
-            </div>
+            <div class="movie-block" *ngFor="let moviesList of columns" cdkDrag>{{moviesList.title}}</div>
           </div>
         </div>
 
@@ -197,9 +127,7 @@
           <h2>Movies Watched</h2>
           <div cdkDropList #doneMovieList="cdkDropList" [cdkDropListData]="availColumns"
             [cdkDropListConnectedTo]="[moviesList]" class="movie-list" (cdkDropListDropped)="onDrop($event)">
-            <div class="movie-block" *ngFor="let moviesWatched of availColumns" cdkDrag>{{moviesWatched.title}}
-
-            </div>
+            <div class="movie-block" *ngFor="let moviesWatched of availColumns" cdkDrag>{{moviesWatched.title}}</div>
           </div>
         </div>
         <!-- Modal footer -->
@@ -213,7 +141,7 @@
   </div>
 </div>
 
-<!-- Report Filters -->
+<!-- Report Configuration -->
 <!-- The Modal -->
 <div class="modal animate__animated animate__bounceIn" id="filterModal">
   <div class="modal-dialog modal-lg">
@@ -241,11 +169,11 @@
                 </mat-option>
 
                 <mat-option *ngFor="
-                    let item of locList
-                      | search
-                        : 'subLocationDescription, mainLocationDescription, officeTypeDescription, provinceName'
-                        : searchLocation
-                  " [value]="item.subLocID" [disabled]="item.isActivated == 0 || item.isCompleted == 1">
+                      let item of locList
+                        | search
+                          : 'subLocationDescription, mainLocationDescription, officeTypeDescription, provinceName'
+                          : searchLocation
+                    " [value]="item.subLocID" [disabled]="item.isActivated == 0 || item.isCompleted == 1">
                   <div class="row d-flex border-bottom">
                     <div class="col-md-3 col-sm-12">
                       {{ item.subLocationDescription }}
@@ -293,9 +221,9 @@
                 </mat-option>
 
                 <mat-option *ngFor="
-                    let item of wngSectionList
-                      | search: 'officeDescription':searchSection
-                  " [value]="item.officeSecID" [disabled]="item.isActivated == 0">
+                      let item of wngSectionList
+                        | search: 'officeDescription':searchSection
+                    " [value]="item.officeSecID" [disabled]="item.isActivated == 0">
                   {{ item.officeDescription }}
                 </mat-option>
               </mat-select>
@@ -317,54 +245,6 @@
           </button>
         </div>
       </div><!-- end modal body -->
-    </div>
-  </div>
-</div>
-
-<!-- Fields to Display -->
-<!-- The Modal -->
-<div class="modal animate__animated animate__bounceIn" id="fieldsDisplayModal">
-  <div class="modal-dialog modal-sm">
-    <div class="modal-content">
-      <!-- Modal Header -->
-      <div class="modal-header">
-        <h3 class="modal-title">Report Fields Display</h3>
-        <button type="button" class="close" data-dismiss="modal">
-          &times;
-        </button>
-      </div>
-
-      <!-- Modal body -->
-      <div class="modal-body">
-
-        <div class="row">
-          <div class="col-md-12">
-            <button mat-raised-button color="primary" (click)='showItem()'>Show Item</button>
-          </div>
-        </div>
-        <div class="container">
-          <!-- <h2>Movies</h2> -->
-          <div class="movie-list">
-            <div class="movie-block" *ngFor="let item of columns">
-              {{item.title}}<mat-checkbox [(ngModel)]="item.display"></mat-checkbox>
-            </div>
-          </div>
-        </div>
-
-        <!-- <div class="container">
-          <h2>Movies Watched</h2>
-          <div cdkDropList #doneMovieList="cdkDropList" [cdkDropListData]="availColumns"
-            [cdkDropListConnectedTo]="[moviesList]" class="movie-list" (cdkDropListDropped)="onDrop($event)">
-            <div class="movie-block" *ngFor="let moviesWatched of availColumns" cdkDrag>{{moviesWatched.title}}</div>
-          </div>
-        </div> -->
-        <!-- Modal footer -->
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">
-            Close
-          </button>
-        </div>
-      </div>
     </div>
   </div>
 </div>

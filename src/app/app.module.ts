@@ -56,6 +56,12 @@ import { HomePageComponent } from "./pages/home-page/home-page.component";
 import { LocationCompleteComponent } from "./pages/fixasset/location-complete/location-complete.component";
 import { AssetRegisterRptComponent } from "./pages/fixAsset/Reports/asset-register-rpt/asset-register-rpt.component";
 import { OnCreateDirective } from "./on-create.directive";
+import { DragDropModule } from "@angular/cdk/drag-drop";
+import { CdkTableModule } from "@angular/cdk/table";
+import { CdkTreeModule } from "@angular/cdk/tree";
+import { LandReportComponent } from './pages/fixAsset/Reports/land-report/land-report.component';
+import { RegisterVehicleRptComponent } from './pages/fixAsset/Reports/register-vehicle-rpt/register-vehicle-rpt.component';
+import { RegisterComputerRptComponent } from './pages/fixAsset/Reports/register-computer-rpt/register-computer-rpt.component';
 
 @NgModule({
   declarations: [
@@ -83,6 +89,9 @@ import { OnCreateDirective } from "./on-create.directive";
     LocationCompleteComponent,
     AssetRegisterRptComponent,
     OnCreateDirective,
+    LandReportComponent,
+    RegisterVehicleRptComponent,
+    RegisterComputerRptComponent,
   ],
   imports: [
     BrowserModule,
@@ -101,6 +110,9 @@ import { OnCreateDirective } from "./on-create.directive";
     CurrencyMaskModule,
     ZXingScannerModule,
     QRCodeModule,
+    DragDropModule,
+    CdkTableModule,
+    CdkTreeModule,
     // Optionally you can set time for `idle`, `timeout` and `ping` in seconds.
     // Default values: `idle` is 60 (1 minutes), `timeout` is 30 (0.5 minutes)
     // and `ping` is 15 0.25 minutes).

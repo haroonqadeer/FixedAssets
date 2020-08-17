@@ -1,0 +1,20 @@
+<div class="row">
+  <div class="col-md-12">
+    <button mat-raised-button color="primary" (click)='showItem()'>Show Item</button>
+  </div>
+</div>
+<div class="container">
+  <h2>Movies</h2>
+  <div cdkDropList #moviesList="cdkDropList" [cdkDropListData]="MoviesList" [cdkDropListConnectedTo]="[doneMovieList]"
+    class="movie-list" (cdkDropListDropped)="onDrop($event)">
+    <div class="movie-block" *ngFor="let moviesList of MoviesList" cdkDrag>{{moviesList.title}}</div>
+  </div>
+</div>
+
+<div class="container">
+  <h2>Movies Watched</h2>
+  <div cdkDropList #doneMovieList="cdkDropList" [cdkDropListData]="MoviesWatched"
+    [cdkDropListConnectedTo]="[moviesList]" class="movie-list" (cdkDropListDropped)="onDrop($event)">
+    <div class="movie-block" *ngFor="let moviesWatched of MoviesWatched" cdkDrag>{{moviesWatched.title}}</div>
+  </div>
+</div>

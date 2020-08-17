@@ -23,6 +23,9 @@ import { CreateBuildingComponent } from "./pages/fixasset/configuration/create-b
 import { HomePageComponent } from "./pages/home-page/home-page.component";
 import { LocationCompleteComponent } from "./pages/fixasset/location-complete/location-complete.component";
 import { AssetRegisterRptComponent } from "./pages/fixAsset/Reports/asset-register-rpt/asset-register-rpt.component";
+import { LandReportComponent } from "./pages/fixAsset/Reports/land-report/land-report.component";
+import { RegisterVehicleRptComponent } from "./pages/fixAsset/Reports/register-vehicle-rpt/register-vehicle-rpt.component";
+import { RegisterComputerRptComponent } from "./pages/fixAsset/Reports/register-computer-rpt/register-computer-rpt.component";
 
 const routes: Routes = [
   {
@@ -106,6 +109,18 @@ const routes: Routes = [
   {
     path: "assetRegisterRpt",
     component: AssetRegisterRptComponent,
+  },
+  {
+    path: "landReport",
+    component: LandReportComponent,
+  },
+  {
+    path: "registerVehicle",
+    component: RegisterVehicleRptComponent,
+  },
+  {
+    path: "registerComputer",
+    component: RegisterComputerRptComponent,
   },
 ];
 
