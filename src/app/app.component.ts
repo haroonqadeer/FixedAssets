@@ -8,7 +8,7 @@ import {
   HttpHeaders,
   HttpErrorResponse,
 } from "@angular/common/http";
-
+import { Location } from "@angular/common";
 import * as XLSX from "xlsx";
 //import html2canvas from "html2canvas";
 //import * as jsPDF from "jspdf";
@@ -90,6 +90,7 @@ export class AppComponent {
   selectedAssetFile3: File = null;
 
   constructor(
+    private location: Location,
     private router: Router,
     private cookie: CookieService,
     private userIdle: UserIdleService,
@@ -108,13 +109,16 @@ export class AppComponent {
       this._cuId = this.cookie.get("userID");
       this._cuName = this.cookie.get("userName");
       this.userRole = this.cookie.get("roleName");
-      //this.router.navigate(["importsurveyresult"]);
+      // this.router.navigate(["home"]);
       this.userName = this.cookie.get("userName");
       $("#menuId").show();
       // $(".sidenav").hide();
       $(".sideNav-backdrop").hide();
       // this.closeNav();
       // $(".sidenav").hide();
+      if (this.location.path() == "") {
+        this.router.navigate(["home"]);
+      }
     }
   }
 

@@ -933,56 +933,33 @@ export class AssetEntryComponent implements OnInit {
       "Content-Type": "application/json",
       // Authorization: "Bearer " + Token,
     });
-    if (this.cookie.get("roleName") == "Super User") {
-      this.http
-        .get(this.serverUrl + "getassetdetail", { headers: reqHeader })
-        .subscribe((data: any) => {
-          this.assetDetailList = data;
-          this.tempDetailList = data;
-          // this.assetDetailList.reverse();
-          // this.tempDetailList.reverse();
 
-          for (var i = 0; i < this.tagList.length; i++) {
-            for (var j = 0; j < this.assetDetailList.length; j++) {
-              if (this.tagList[i].tag == this.assetDetailList[j].tag) {
-                this.assetDetailList[j].checkbox = true;
-              }
-            }
-            for (var j = 0; j < this.tempDetailList.length; j++) {
-              if (this.tagList[i].tag == this.tempDetailList[j].tag) {
-                this.tempDetailList[j].checkbox = true;
-              }
+    this.http
+      .get(
+        this.serverUrl +
+          "getuserassetdetail?UserId=" +
+          this.cookie.get("userID"),
+        { headers: reqHeader }
+      )
+      .subscribe((data: any) => {
+        this.assetDetailList = data;
+        this.tempDetailList = data;
+        this.assetDetailList.reverse();
+        this.tempDetailList.reverse();
+
+        for (var i = 0; i < this.tagList.length; i++) {
+          for (var j = 0; j < this.assetDetailList.length; j++) {
+            if (this.tagList[i].tag == this.assetDetailList[j].tag) {
+              this.assetDetailList[j].checkbox = true;
             }
           }
-        });
-    } else {
-      this.http
-        .get(
-          this.serverUrl +
-            "getuserassetdetail?UserId=" +
-            this.cookie.get("userID"),
-          { headers: reqHeader }
-        )
-        .subscribe((data: any) => {
-          this.assetDetailList = data;
-          this.tempDetailList = data;
-          this.assetDetailList.reverse();
-          this.tempDetailList.reverse();
-
-          for (var i = 0; i < this.tagList.length; i++) {
-            for (var j = 0; j < this.assetDetailList.length; j++) {
-              if (this.tagList[i].tag == this.assetDetailList[j].tag) {
-                this.assetDetailList[j].checkbox = true;
-              }
-            }
-            for (var j = 0; j < this.tempDetailList.length; j++) {
-              if (this.tagList[i].tag == this.tempDetailList[j].tag) {
-                this.tempDetailList[j].checkbox = true;
-              }
+          for (var j = 0; j < this.tempDetailList.length; j++) {
+            if (this.tagList[i].tag == this.tempDetailList[j].tag) {
+              this.tempDetailList[j].checkbox = true;
             }
           }
-        });
-    }
+        }
+      });
   }
 
   editAsset(item) {
@@ -1188,9 +1165,26 @@ export class AssetEntryComponent implements OnInit {
       });
       return false;
     } else {
+      var count = 0;
       if (this.assetCategorySpecsList.length > 0) {
         for (var i = 0; i < this.assetCategorySpecsList.length; i++) {
           if (
+            this.assetCategorySpecsList[i].specificationTitle == "Drive Type1"
+          ) {
+            count++;
+          } else if (
+            this.assetCategorySpecsList[i].specificationTitle == "HD Size1"
+          ) {
+            count++;
+          } else if (
+            this.assetCategorySpecsList[i].specificationTitle == "Drive Type2"
+          ) {
+            count++;
+          } else if (
+            this.assetCategorySpecsList[i].specificationTitle == "HD Size2"
+          ) {
+            count++;
+          } else if (
             this[this.assetCategorySpecsList[i].specificationNgModel] == "" ||
             this[this.assetCategorySpecsList[i].specificationNgModel] ==
               undefined
@@ -1205,6 +1199,42 @@ export class AssetEntryComponent implements OnInit {
             );
             return false;
           }
+        }
+      }
+
+      if (count == 4) {
+        if (this.driveType1 == "" && this.driveType2 == "") {
+          this.toastr.errorToastr(
+            "Please Fill Any Asset Category Specification - Drive",
+            "Error",
+            {
+              toastTimeout: 2500,
+            }
+          );
+          return false;
+        }
+        if (
+          (this.driveType1 != "" && this.hdSize1 == "") ||
+          (this.driveType2 != "" && this.hdSize2 == "")
+        ) {
+          this.toastr.errorToastr(
+            "Please Fill Correct Asset Category Specification",
+            "Error",
+            {
+              toastTimeout: 2500,
+            }
+          );
+          return false;
+        }
+        if (this.hdSize1 == "" && this.hdSize2 == "") {
+          this.toastr.errorToastr(
+            "Please Fill Any Asset Category Specification - Size",
+            "Error",
+            {
+              toastTimeout: 2500,
+            }
+          );
+          return false;
         }
       }
 
@@ -1249,11 +1279,19 @@ export class AssetEntryComponent implements OnInit {
       var transferID;
       var newTrans;
       var projectID;
-      if (this.cmbProject == "") {
+      if (
+        this.cmbProject == "" ||
+        this.cmbProject == undefined ||
+        this.cmbProject == null
+      ) {
         projectID = null;
       } else {
         projectID = parseInt(this.cmbProject);
-        if (this.cmbRef == "" || this.cmbRef == null) {
+        if (
+          this.cmbRef == "" ||
+          this.cmbRef == undefined ||
+          this.cmbRef == null
+        ) {
           this.toastr.errorToastr("Please Select IPC Reference", "Error", {
             toastTimeout: 2500,
           });
@@ -1961,6 +1999,7 @@ export class AssetEntryComponent implements OnInit {
     this.cmbAssetCat = vehData[0].assetCatID;
     this.disableAssetCat = true;
     this.getAssetCatDescription(this.cmbAssetCat);
+    this.getAssetNo();
   }
 
   setTransfer() {

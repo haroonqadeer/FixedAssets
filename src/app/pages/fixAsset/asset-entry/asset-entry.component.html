@@ -293,7 +293,8 @@
         <div class="row pt-2" *ngIf="lblLocation == ''">
           <div class="col-md-12">
             <mat-form-field class="w-100">
-              <mat-label>Province - Location - Sub Location</mat-label>
+              <mat-label>Province - Location - Sub Location *
+              </mat-label>
               <mat-select [(ngModel)]="cmbLocation" (ngModelChange)="getAssetNo(); showOfficeType()"
                 [disabled]="disableFields">
                 <mat-option>
@@ -351,7 +352,7 @@
         <div class="row" *ngIf="lblOfficeType == ''">
           <div class="col-md-6">
             <mat-form-field class="w-100">
-              <mat-label>Office Type</mat-label>
+              <mat-label>Office Type *</mat-label>
               <mat-select [(ngModel)]="cmbOfcType" (ngModelChange)="getAssetNo(); getWingSection(cmbOfcType)"
                 [disabled]="disableOfcType">
                 <mat-option *ngFor="let item of ofcTypeList" [value]="item.officeTypeID">
@@ -362,7 +363,7 @@
           </div>
           <div class="col-md-6">
             <mat-form-field class="w-100">
-              <mat-label>Wing - Section</mat-label>
+              <mat-label>Wing - Section *</mat-label>
               <mat-select [(ngModel)]="cmbWngSection" [disabled]="disableFields">
                 <!-- <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchSection" /> -->
                 <mat-option>
@@ -419,7 +420,7 @@
         <div class="row" *ngIf="rdbAsset == '2'">
           <div class="col-md-11">
             <mat-form-field color="warn" class="w-100">
-              <mat-label>Vehicle</mat-label>
+              <mat-label>Vehicle *</mat-label>
               <mat-select [(ngModel)]="cmbVehicle" (ngModelChange)="getAssetCatVehicle(cmbVehicle)">
                 <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchVehicle" />
                 <mat-option *ngFor="
@@ -451,7 +452,7 @@
         <div class="row">
           <div class="col-md-6">
             <mat-form-field color="warn" class="w-100">
-              <mat-label>Custody</mat-label>
+              <mat-label>Custody *</mat-label>
               <mat-select [(ngModel)]="cmbCustody" [disabled]="disableCustody">
                 <mat-option>
                   <ngx-mat-select-search [(ngModel)]="searchCustody" [placeholderLabel]="'Search...'"
@@ -484,7 +485,7 @@
           </div>
           <div class="col-md-6" *ngIf="lblAssetCategory == ''">
             <mat-form-field color="warn" class="w-100">
-              <mat-label>Asset - Category</mat-label>
+              <mat-label>Asset - Category *</mat-label>
               <mat-select [(ngModel)]="cmbAssetCat" (ngModelChange)="
                   getAssetNo();
                   getAssetCatDescription(cmbAssetCat);
@@ -540,7 +541,7 @@
         <div class="row">
           <div class="col-md-12">
             <mat-form-field color="warn" class="w-100">
-              <mat-label>Asset Description</mat-label>
+              <mat-label>Asset Description *</mat-label>
               <input matInput [(ngModel)]="txtAssetDesc" />
             </mat-form-field>
           </div>
@@ -550,7 +551,7 @@
         <div class="row">
           <div class="col-md-4">
             <mat-form-field color="warn" class="w-100">
-              <mat-label>Asset Location</mat-label>
+              <mat-label>Asset Location *</mat-label>
               <input matInput [(ngModel)]="txtAssetLoc" />
             </mat-form-field>
           </div>
@@ -657,7 +658,7 @@
           </div>
           <div class="col-md-4">
             <mat-form-field color="warn" class="w-100">
-              <mat-label>Asset Condition</mat-label>
+              <mat-label>Asset Condition *</mat-label>
               <mat-select [(ngModel)]="cmbAssetCond">
                 <mat-option *ngFor="let item of assetCondList" [value]="item.condition">
                   {{ item.condition }}
@@ -1952,7 +1953,7 @@
                       | search
                         : 'subLocationDescription,officeTypeDescription, mainLocationDescription, provinceName'
                         : advSearchLocation
-                  " [value]="item.subLocID" [disabled]="item.isActivated === 0">
+                  " [value]="item.subLocID" [disabled]="item.isActivated == 0 || item.isCompleted == 1">
                   <table class="table">
                     <tr class="d-flex">
                       <td class="col-3">{{ item.subLocationDescription }}</td>
