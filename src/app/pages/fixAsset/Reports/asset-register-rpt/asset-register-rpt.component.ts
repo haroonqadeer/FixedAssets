@@ -31,10 +31,10 @@ export class Group {
   styleUrls: ["./asset-register-rpt.component.scss"],
 })
 export class AssetRegisterRptComponent implements OnInit {
-  // serverUrl = "http://95.217.206.195:2007/api/";
+  serverUrl = "http://95.217.206.195:2007/api/";
   //serverUrl = "http://localhost:12345/api/";
 
-  serverUrl = "http://localhost:6090/api/";
+  // serverUrl = "http://localhost:6090/api/";
 
   // declarations
   searchLocation = "";
@@ -43,7 +43,8 @@ export class AssetRegisterRptComponent implements OnInit {
   cmbWngSection = "";
   searchSection = "";
   tempRptTitle = "";
-  rptTitle = "";
+  rptTitle = "Asset Register Report - General";
+  rptHeader = "";
 
   assetRegisterList = [];
   filterAssetRegisterList = [];
@@ -86,7 +87,7 @@ export class AssetRegisterRptComponent implements OnInit {
       },
       {
         field: "accountsCatagory",
-        title: "Asset Category",
+        title: "Accounts Category",
         display: true,
       },
       {
@@ -212,21 +213,25 @@ export class AssetRegisterRptComponent implements OnInit {
     this.getAssetRegister();
   }
 
-  onDrop(event: CdkDragDrop<string[]>) {
-    if (event.previousContainer === event.container) {
-      moveItemInArray(
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex
-      );
-    } else {
-      transferArrayItem(
-        event.previousContainer.data,
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex
-      );
-    }
+  // onDrop(event: CdkDragDrop<string[]>) {
+  //   if (event.previousContainer === event.container) {
+  //     moveItemInArray(
+  //       event.container.data,
+  //       event.previousIndex,
+  //       event.currentIndex
+  //     );
+  //   } else {
+  //     transferArrayItem(
+  //       event.previousContainer.data,
+  //       event.container.data,
+  //       event.previousIndex,
+  //       event.currentIndex
+  //     );
+  //   }
+  // }
+
+  drop(event: CdkDragDrop<string[]>) {
+    moveItemInArray(this.columns, event.previousIndex, event.currentIndex);
   }
 
   ngOnInit(): void {
@@ -320,7 +325,7 @@ export class AssetRegisterRptComponent implements OnInit {
     this.cmbOfcType = "";
     this.cmbWngSection = "";
     this.tempRptTitle = "";
-    this.rptTitle = "";
+    this.rptHeader = "";
   }
 
   getAssetRegister() {
@@ -331,7 +336,7 @@ export class AssetRegisterRptComponent implements OnInit {
 
     // header setting
     if (this.tempRptTitle != "") {
-      this.rptTitle = this.tempRptTitle;
+      this.rptHeader = this.tempRptTitle;
     }
 
     if (this.cmbLocation == "" || this.cmbLocation == undefined) {

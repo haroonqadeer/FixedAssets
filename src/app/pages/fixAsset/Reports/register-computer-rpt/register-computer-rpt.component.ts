@@ -31,10 +31,10 @@ export class Group {
   styleUrls: ["./register-computer-rpt.component.scss"],
 })
 export class RegisterComputerRptComponent implements OnInit {
-  // serverUrl = "http://95.217.206.195:2007/api/";
+  serverUrl = "http://95.217.206.195:2007/api/";
   //serverUrl = "http://localhost:12345/api/";
 
-  serverUrl = "http://localhost:6090/api/";
+  // serverUrl = "http://localhost:6090/api/";
 
   // declarations
   searchLocation = "";
