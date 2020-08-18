@@ -465,6 +465,22 @@ body {
   background-color: #0c4866;
 }
 
+.style-1::-webkit-scrollbar {
+  width: 8px;
+  -webkit-transition: 0.5s;
+  transition: all 0.5s;
+}
+
+.style-1::-webkit-scrollbar-thumb {
+  background: linear-gradient(transparent, #9cafb9);
+  border-radius: 6px;
+}
+
+.style-1::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(transparent, #0c4866);
+  border-radius: 6px;
+}
+
 /*************** end Scroll bar ****************/
 
 /********************************************************/
@@ -1012,7 +1028,7 @@ legend.scheduler-border {
 // }
 
 #myTable {
-  width: 90em;
+  width: 91em;
   height: 39em !important;
   overflow-x: auto;
   white-space: nowrap;
