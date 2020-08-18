@@ -430,6 +430,10 @@ body {
   background-image: linear-gradient(#a3be4c, #abc556);
 }
 
+.bgDarkBlue {
+  background-color: #06293a !important;
+}
+
 .txt-color-green {
   color: #768b32 !important;
 }
@@ -787,11 +791,11 @@ $color-loader: #ce4233;
 
 /* The side navigation menu */
 .nav-link[data-toggle].collapsed:before {
-  content: " ▾";
+  content: "▾  ";
 }
 
 .nav-link[data-toggle]:not(.collapsed):before {
-  content: " ▴";
+  content: "▴  ";
 }
 
 .sidenav {
@@ -817,9 +821,9 @@ $color-loader: #ce4233;
 
 /* The navigation menu links */
 .sidenav a {
-  padding: 8px 8px 8px 32px;
+  // padding: 8px 8px 8px 32px;
   text-decoration: none;
-  font-size: 25px;
+  font-size: 0.75em;
   color: #818181;
   display: block;
   transition: 0.3s;
@@ -868,6 +872,7 @@ $color-loader: #ce4233;
   padding-left: 0;
   display: inline-block;
   width: 100%;
+  border-bottom: 1px dotted #9999 !important;
   /* -------------
   sidenav: icons
   ----------------*/
@@ -877,7 +882,7 @@ $color-loader: #ce4233;
   color: rgba(255, 255, 255, 0.9);
   font-size: 1.0em;
   text-decoration: none;
-  padding: 1.05em 1em;
+  // padding: 1.05em 1em;
   position: relative;
   display: block;
 }
@@ -1008,7 +1013,7 @@ legend.scheduler-border {
 
 #myTable {
   width: 90em;
-  height: 60em !important;
+  height: 39em !important;
   overflow-x: auto;
   white-space: nowrap;
 }
