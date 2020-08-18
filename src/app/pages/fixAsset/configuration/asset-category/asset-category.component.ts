@@ -30,21 +30,38 @@ export class AssetCategoryComponent implements OnInit {
 
   loadingBar = true;
 
+  lblSpecDetailID = 0;
+  lblAssetCatID = 0;
+  lblSpecID = 0;
+  lblMakeID = 0;
   txtPin = "";
   assetCatID = "";
   txtCatShrtName = "";
   txtCatFullName = "";
+  txtSpecTitle = "";
+  txtTitle = "";
+
   cmbAccCategory = "";
+  cmbSpec = "";
+  cmbType = "";
 
   lblDepRule = "";
   lblBaseRate = "";
 
   searchAccCat = "";
   tblSearch = "";
+  searchSpec = "";
 
   assetCatList = [];
   tempList = [];
   accCatList = [];
+  specList = [];
+  specDetailList = [];
+  specDataList = [];
+  typeList = [
+    { typeID: "DD", typeName: "Drop Down" },
+    { typeID: "TB", typeName: "TextBox" },
+  ];
 
   objList = [];
   paramType = "";
@@ -59,6 +76,7 @@ export class AssetCategoryComponent implements OnInit {
   ngOnInit(): void {
     this.getAssetCategory();
     this.getAccountCategory();
+    this.getAssetsSpecificationsList();
   }
 
   onFileSelected(event) {
@@ -121,6 +139,66 @@ export class AssetCategoryComponent implements OnInit {
     var modal = document.getElementById("myModal");
 
     modal.style.display = "none";
+  }
+
+  getAssetsSpecificationsList() {
+    var reqHeader = new HttpHeaders({
+      "Content-Type": "application/json",
+      // Authorization: "Bearer " + Token,
+    });
+
+    this.http
+      .get(this.serverUrl + "getAssetsSpecificationsList", {
+        headers: reqHeader,
+      })
+      .subscribe((data: any) => {
+        this.specList = data;
+      });
+  }
+
+  getAssetCatagoriesSpecifications(item) {
+    this.lblAssetCatID = item;
+    var reqHeader = new HttpHeaders({
+      "Content-Type": "application/json",
+      // Authorization: "Bearer " + Token,
+    });
+
+    this.http
+      .get(
+        this.serverUrl + "getAssetCatagoriesSpecifications?assetCatID=" + item,
+        {
+          headers: reqHeader,
+        }
+      )
+      .subscribe((data: any) => {
+        this.specDetailList = data;
+        $("#specsModal").modal("show");
+      });
+  }
+
+  getAssetCatagoriesSpecificationDATA(assetCatID, specID) {
+    this.lblAssetCatID = assetCatID;
+    this.lblSpecID = specID;
+    var reqHeader = new HttpHeaders({
+      "Content-Type": "application/json",
+      // Authorization: "Bearer " + Token,
+    });
+
+    this.http
+      .get(
+        this.serverUrl +
+          "getAssetCatagoriesSpecificationDATA?assetCatID=" +
+          assetCatID +
+          "&specID=" +
+          specID,
+        {
+          headers: reqHeader,
+        }
+      )
+      .subscribe((data: any) => {
+        this.specDataList = data;
+        $("#specsDataModal").modal("show");
+      });
   }
 
   getAssetCategory() {
@@ -560,5 +638,284 @@ export class AssetCategoryComponent implements OnInit {
     } else {
       return false;
     }
+  }
+
+  saveSpec() {
+    if (this.cmbSpec == "") {
+      this.toastr.errorToastr("Please Select Specification", "Error", {
+        toastTimeout: 2500,
+      });
+      return false;
+    } else if (this.txtSpecTitle == "") {
+      this.toastr.errorToastr("Please Enter Specification Title", "Error", {
+        toastTimeout: 2500,
+      });
+      return false;
+    } else if (this.cmbType == "") {
+      this.toastr.errorToastr("Please Select Type", "Error", {
+        toastTimeout: 2500,
+      });
+      return false;
+    } else {
+      this.loadingBar = true;
+      var saveData;
+      var spType = "Insert";
+      if (this.lblSpecDetailID != 0) {
+        spType = "Update";
+      }
+
+      saveData = {
+        specID: parseInt(this.cmbSpec),
+        assetCatID: this.lblAssetCatID,
+        specificationTitle: this.txtSpecTitle,
+        type: this.cmbType,
+        userID: this.cookie.get("userID"),
+        specDetailID: this.lblSpecDetailID,
+        spType: spType,
+      };
+
+      var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
+
+      this.http
+        .post(this.serverUrl + "sudAssetCatSpecDetail", saveData, {
+          headers: reqHeader,
+        })
+        .subscribe((data: any) => {
+          if (data.msg == "Success") {
+            if (this.lblSpecDetailID == 0) {
+              this.toastr.successToastr(
+                "Record Saved Successfully!",
+                "Success!",
+                {
+                  toastTimeout: 2500,
+                }
+              );
+            } else {
+              this.toastr.successToastr(
+                "Record Updated Successfully!",
+                "Success!",
+                {
+                  toastTimeout: 2500,
+                }
+              );
+            }
+            this.clearSpec();
+            this.getAssetCatagoriesSpecifications(this.lblAssetCatID);
+            this.loadingBar = false;
+            return false;
+          } else {
+            this.toastr.errorToastr(data.msg, "Error !", {
+              toastTimeout: 5000,
+            });
+            this.loadingBar = false;
+            return false;
+          }
+        });
+    }
+  }
+
+  editSpec(item) {
+    this.cmbType = item.type;
+    this.cmbSpec = item.specID;
+    this.txtSpecTitle = item.specificationTitle;
+    this.lblSpecDetailID = item.specDetailID;
+    this.lblAssetCatID = item.assetCatID;
+  }
+
+  deleteSpec(item) {
+    setTimeout(() => {
+      Swal.fire({
+        title: "Do you want to delete?",
+        text: "",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Yes",
+        cancelButtonText: "No",
+      }).then((result) => {
+        if (result.value) {
+          this.loadingBar = true;
+          var saveData = {
+            Userid: this.cookie.get("userID"), //int
+            SpType: "DELETE", //string
+            specDetailID: item.specDetailID,
+          };
+
+          var reqHeader = new HttpHeaders({
+            "Content-Type": "application/json",
+          });
+
+          this.http
+            .post(this.serverUrl + "sudAssetCatSpecDetail", saveData, {
+              headers: reqHeader,
+            })
+            .subscribe((data: any) => {
+              if (data.msg == "Success") {
+                this.toastr.successToastr(
+                  "Record Deleted Successfully!",
+                  "Success!",
+                  {
+                    toastTimeout: 2500,
+                  }
+                );
+                this.clearSpec();
+                this.getAssetCatagoriesSpecifications(item.assetCatID);
+                this.loadingBar = false;
+                return false;
+              } else {
+                this.toastr.errorToastr(data.msg, "Error !", {
+                  toastTimeout: 5000,
+                });
+                this.loadingBar = false;
+                return false;
+              }
+            });
+        }
+      });
+    }, 1000);
+  }
+
+  clearSpec() {
+    this.cmbType = "";
+    this.cmbSpec = "";
+    this.txtSpecTitle = "";
+    this.txtTitle = "";
+    this.lblSpecDetailID = 0;
+  }
+
+  clearAllSpec() {
+    this.cmbType = "";
+    this.cmbSpec = "";
+    this.txtSpecTitle = "";
+    this.txtTitle = "";
+    this.lblSpecDetailID = 0;
+    this.lblAssetCatID = 0;
+  }
+
+  saveSpecData() {
+    if (this.txtTitle == "") {
+      this.toastr.errorToastr("Please Enter Title", "Error", {
+        toastTimeout: 2500,
+      });
+      return false;
+    } else {
+      this.loadingBar = true;
+      var saveData;
+      var spType = "Insert";
+      if (this.lblMakeID != 0) {
+        spType = "Update";
+      }
+
+      saveData = {
+        specID: this.lblSpecID,
+        assetCatID: this.lblAssetCatID,
+        specificationTitle: this.txtTitle,
+        userID: this.cookie.get("userID"),
+        makeID: this.lblMakeID,
+        spType: spType,
+      };
+
+      var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
+
+      this.http
+        .post(this.serverUrl + "sudAssetCatSpecData", saveData, {
+          headers: reqHeader,
+        })
+        .subscribe((data: any) => {
+          if (data.msg == "Success") {
+            if (this.lblMakeID == 0) {
+              this.toastr.successToastr(
+                "Record Saved Successfully!",
+                "Success!",
+                {
+                  toastTimeout: 2500,
+                }
+              );
+            } else {
+              this.toastr.successToastr(
+                "Record Updated Successfully!",
+                "Success!",
+                {
+                  toastTimeout: 2500,
+                }
+              );
+            }
+            this.txtTitle = "";
+            this.lblMakeID = 0;
+            this.getAssetCatagoriesSpecificationDATA(
+              this.lblAssetCatID,
+              this.lblSpecID
+            );
+            this.loadingBar = false;
+            return false;
+          } else {
+            this.toastr.errorToastr(data.msg, "Error !", {
+              toastTimeout: 5000,
+            });
+            this.loadingBar = false;
+            return false;
+          }
+        });
+    }
+  }
+
+  editSpecData(item) {
+    this.txtTitle = item.makeTitle;
+    this.lblMakeID = item.makeID;
+  }
+
+  deleteSpecData(item) {
+    setTimeout(() => {
+      Swal.fire({
+        title: "Do you want to delete?",
+        text: "",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Yes",
+        cancelButtonText: "No",
+      }).then((result) => {
+        if (result.value) {
+          this.loadingBar = true;
+          var saveData = {
+            Userid: this.cookie.get("userID"), //int
+            SpType: "DELETE", //string
+            makeID: item.makeID,
+          };
+
+          var reqHeader = new HttpHeaders({
+            "Content-Type": "application/json",
+          });
+
+          this.http
+            .post(this.serverUrl + "sudAssetCatSpecData", saveData, {
+              headers: reqHeader,
+            })
+            .subscribe((data: any) => {
+              if (data.msg == "Success") {
+                this.toastr.successToastr(
+                  "Record Deleted Successfully!",
+                  "Success!",
+                  {
+                    toastTimeout: 2500,
+                  }
+                );
+                this.txtTitle = "";
+                this.lblMakeID = 0;
+                this.getAssetCatagoriesSpecificationDATA(
+                  item.assetCatID,
+                  item.specID
+                );
+                this.loadingBar = false;
+                return false;
+              } else {
+                this.toastr.errorToastr(data.msg, "Error !", {
+                  toastTimeout: 5000,
+                });
+                this.loadingBar = false;
+                return false;
+              }
+            });
+        }
+      });
+    }, 1000);
   }
 }
