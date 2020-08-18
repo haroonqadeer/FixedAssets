@@ -1,5 +1,5 @@
 <!-- side nav -->
-<div id="mySidenav" class="sidenav bgGrey style-3  boxShadow-1">
+<div id="mySidenav" class="sidenav bgGrey style-1  boxShadow-1">
   <!-- menu header -->
   <div class='border-right' style='background-color: #093951;'>
     <!-- <div class="row">
@@ -16,8 +16,132 @@
       </div>
     </div>
   </div><!-- end menu header -->
-
-  <ul>
+  <ul class="nav flex-column flex-nowrap overflow-hidden">
+    <li class="nav-item">
+      <a class="nav-link text-truncate" href="" routerLinkActive="home" routerLink="home" (click)="closeNav()"><span
+          class="d-none d-sm-inline">Home</span></a>
+    </li>
+    <li class="nav-item" *ngIf="userRole == 'Admin' || userRole == 'Super User'">
+      <a class="nav-link text-truncate" href="" routerLinkActive="active" routerLink="dashboard"
+        (click)="closeNav()"><span class="d-none d-sm-inline">Dashboard</span></a>
+    </li>
+    <li class="nav-item"
+      *ngIf="userRole == 'Data Entry' || userRole == 'Moveable Asset Admin' || userRole == 'Moveable Asset Data Entry' || userRole == 'Super User'">
+      <a class="nav-link text-truncate" href="" routerLinkActive="active" routerLink="assetEntry"
+        (click)="closeNav()"><span class="d-none d-sm-inline">Asset Entry & Tags</span></a>
+    </li>
+    <li class="nav-item"
+      *ngIf="userRole == 'Data Entry' || userRole == 'Fixed Asset Admin' || userRole == 'Fixed Asset Data Entry' || userRole == 'Super User'">
+      <a class="nav-link text-truncate" href="" routerLinkActive="active" routerLink="freeholdLand"
+        (click)="closeNav()"><span class="d-none d-sm-inline">Freehold Land</span></a>
+    </li>
+    <li class="nav-item"
+      *ngIf="userRole == 'Data Entry' || userRole == 'Fixed Asset Admin' || userRole == 'Fixed Asset Data Entry' || userRole == 'Super User'">
+      <a class="nav-link text-truncate" href="" routerLinkActive="active" routerLink="nhaRoads"
+        (click)="closeNav()"><span class="d-none d-sm-inline">Roads on Land</span></a>
+    </li>
+    <li class="nav-item"
+      *ngIf="userRole == 'Data Entry' || userRole == 'Fixed Asset Admin' || userRole == 'Fixed Asset Data Entry' || userRole == 'Super User'">
+      <a class="nav-link text-truncate" href="" routerLinkActive="active" routerLink="nhaBridges"
+        (click)="closeNav()"><span class="d-none d-sm-inline">Bridges</span></a>
+    </li>
+    <li class="nav-item"
+      *ngIf="userRole == 'Data Entry' || userRole == 'Fixed Asset Admin' || userRole == 'Fixed Asset Data Entry' || userRole == 'Super User'">
+      <a class="nav-link text-truncate" href="" routerLinkActive="active" routerLink="nhaBuildings"
+        (click)="closeNav()"><span class="d-none d-sm-inline">Buildings</span></a>
+    </li>
+    <li class="nav-item" *ngIf="userRole == 'Admin' || userRole == 'Moveable Asset Admin' || userRole == 'Super User'">
+      <a class="nav-link text-truncate" href="" routerLinkActive="active" routerLink="locComp"
+        (click)="closeNav()"><span class="d-none d-sm-inline">Location Status</span></a>
+    </li>
+    <li class="nav-item" *ngIf="userRole == 'Admin' || userRole == 'Super User'">
+      <a class="nav-link collapsed text-truncate" href="" data-toggle="collapse" data-target="#submenuReports"><span
+          class="d-none d-sm-inline">Reports</span></a>
+      <div class="collapse" id="submenuReports" aria-expanded="false">
+        <ul class="flex-column nav bgDarkBlue">
+          <li class="nav-item"><a class="nav-link py-0 pl-5 pt-2 pb-2" href="" routerLink='assetRegisterRpt'
+              routerLinkActive="active" (click)="closeNav()"><span>Register
+                General</span></a></li>
+          <li class="nav-item"><a class="nav-link py-0 pl-5 pt-2 pb-2" href="" routerLink='registerVehicle'
+              routerLinkActive="active" (click)="closeNav()"><span>Register Vehicle</span></a></li>
+          <li class="nav-item"><a class="nav-link py-0 pl-5 pl-2 pt-2 pb-2" href="" routerLink='registerComputer'
+              routerLinkActive="active" (click)="closeNav()"><span>Register Computer</span></a></li>
+        </ul>
+      </div>
+    </li>
+    <li class="nav-item" *ngIf="userRole == 'Super User'">
+      <a class="nav-link collapsed text-truncate" href="" data-toggle="collapse" data-target="#submenuAdmin"><span
+          class="d-none d-sm-inline">Admin Panel</span></a>
+      <div class="collapse" id="submenuAdmin" aria-expanded="false">
+        <ul class="flex-column nav bgDarkBlue">
+          <li class="nav-item"><a class="nav-link py-0 pl-5 pt-2 pb-2" href="" routerLink='userRegisteration'
+              routerLinkActive="active" (click)="closeNav()"><span>User Registeration</span></a></li>
+        </ul>
+      </div>
+    </li>
+    <li class="nav-item" *ngIf="userRole == 'Admin' || userRole == 'Super User'">
+      <a class="nav-link collapsed text-truncate" href="" data-toggle="collapse" data-target="#submenuConfig"><span
+          class="d-none d-sm-inline">Configurations</span></a>
+      <div class="collapse" id="submenuConfig" aria-expanded="false">
+        <ul class="flex-column nav bgDarkBlue">
+          <li class="nav-item inline-block"><a class="nav-link py-0 pl-5 pt-2 pb-2" href="" routerLink='nhaLoc'
+              routerLinkActive="active" (click)="closeNav()"><span>Locations</span></a></li>
+          <li class="nav-item"><a class="nav-link py-0 pl-5 pt-2 pb-2" href="" routerLink='nhaSec'
+              routerLinkActive="active" (click)="closeNav()"><span>Section</span></a></li>
+          <li class="nav-item"><a class="nav-link py-0 pl-5 pt-2 pb-2" href="" routerLink='nhaOfficeType'
+              routerLinkActive="active" (click)="closeNav()"><span>Office Type</span></a></li>
+          <li class="nav-item"><a class="nav-link py-0 pl-5 pt-2 pb-2" href="" routerLink='assetCat'
+              routerLinkActive="active" (click)="closeNav()"><span>Asset Category</span></a></li>
+          <li class="nav-item"><a class="nav-link py-0 pl-5 pt-2 pb-2" href="" routerLink='nhaPost'
+              routerLinkActive="active" (click)="closeNav()"><span>Custody</span></a></li>
+          <li class="nav-item"><a class="nav-link py-0 pl-5 pt-2 pb-2" href="" routerLink='nhaProject'
+              routerLinkActive="active" (click)="closeNav()"><span>Project</span></a></li>
+          <li class="nav-item"><a class="nav-link py-0 pl-5 pt-2 pb-2" href="" routerLink='nhaProjectIPC'
+              routerLinkActive="active" (click)="closeNav()"><span>Project IPCs</span></a></li>
+          <li class="nav-item"><a class="nav-link py-0 pl-5 pt-2 pb-2" href="" routerLink='createBuilding'
+              routerLinkActive="active" (click)="closeNav()"><span>Create Buildings</span></a></li>
+        </ul>
+      </div>
+    </li>
+    <!-- <li class="nav-item">
+      <a class="nav-link collapsed text-truncate" href="#submenu1" data-toggle="collapse" data-target="#submenu1"><i
+          class="fa fa-table"></i> <span class="d-none d-sm-inline">Reports</span></a>
+      <div class="collapse" id="submenu1" aria-expanded="false">
+        <ul class="flex-column pl-2 nav">
+          <li class="nav-item"><a class="nav-link py-0" href="#"><span>Orders</span></a></li>
+          <li class="nav-item">
+            <a class="nav-link collapsed py-1" href="#submenu1sub1" data-toggle="collapse"
+              data-target="#submenu1sub1"><span>Customers</span></a>
+            <div class="collapse" id="submenu1sub1" aria-expanded="false">
+              <ul class="flex-column nav pl-4">
+                <li class="nav-item">
+                  <a class="nav-link p-1" href="#">
+                    <i class="fa fa-fw fa-clock-o"></i> Daily </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link p-1" href="#">
+                    <i class="fa fa-fw fa-dashboard"></i> Dashboard </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link p-1" href="#">
+                    <i class="fa fa-fw fa-bar-chart"></i> Charts </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link p-1" href="#">
+                    <i class="fa fa-fw fa-compass"></i> Areas </a>
+                </li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </li>
+    <li class="nav-item"><a class="nav-link text-truncate" href="#"><i class="fa fa-bar-chart"></i> <span
+          class="d-none d-sm-inline">Analytics</span></a></li>
+    <li class="nav-item"><a class="nav-link text-truncate" href="#"><i class="fa fa-download"></i> <span
+          class="d-none d-sm-inline">Export</span></a></li> -->
+  </ul>
+  <!-- <ul>
     <li>
       <a href="" routerLinkActive="home" routerLink="home" (click)="closeNav()"><i class="fa fa-home"></i>
         <span class='pl-3'>Home</span></a>
@@ -129,7 +253,7 @@
         </li>
       </ul>
     </li>
-  </ul>
+  </ul> -->
 </div> <!-- end side nav -->
 <div class="loader" *ngIf="loadingBar">Loading...</div>
 
