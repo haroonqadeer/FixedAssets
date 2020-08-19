@@ -45,6 +45,7 @@ export class AssetRegisterRptComponent implements OnInit {
   tempRptTitle = "";
   rptTitle = "Asset Register Report - General";
   rptHeader = "";
+  rptPreset = "";
 
   assetRegisterList = [];
   filterAssetRegisterList = [];
@@ -62,7 +63,9 @@ export class AssetRegisterRptComponent implements OnInit {
   displayedColumns: string[];
   groupByColumns: string[] = [];
 
-  availColumns: any[];
+  generalColumns: any[];
+  computerColumns: any[];
+  vehicleColumns: any[];
   constructor(
     private http: HttpClient,
     private app: AppComponent,
@@ -106,6 +109,126 @@ export class AssetRegisterRptComponent implements OnInit {
         display: true,
       },
       { field: "assetDescription", title: "Asset Description", display: true },
+
+      // computers extra fields
+      { field: "make", title: "Make", display: true },
+      { field: "model", title: "Model", display: true },
+      { field: "size", title: "Size", display: true },
+      { field: "processor", title: "Processor", display: true },
+      { field: "generation", title: "Genration", display: true },
+      { field: "ram", title: "RAM", display: true },
+      { field: "driveType1", title: "Drive-01", display: true },
+      { field: "hd1", title: "size", display: true },
+      { field: "driveType2", title: "Drive-02", display: true },
+      { field: "hd2", title: "size", display: true },
+
+      // vehcile extra fields
+      { field: "vehMake", title: "Veh-Make", display: true },
+      { field: "vehType", title: "Veh-Type", display: true },
+      { field: "vehEngineNum", title: "Veh-Engine No.", display: true },
+      { field: "vehModel", title: "Veh-Model", display: true },
+      { field: "vehChasisNum", title: "Veh-Chasis No.", display: true },
+
+      {
+        field: "ipcRef",
+        title: "IPC/Invoice Ref.",
+        display: true,
+      },
+      {
+        field: "projectShortName",
+        title: "Project",
+        display: true,
+      },
+      {
+        field: "purchaseDate",
+        title: "Purchase Date",
+        display: true,
+      },
+      {
+        field: "costAmount",
+        title: "Cost Price",
+        display: true,
+      },
+      {
+        field: "assetCondition",
+        title: "Condition",
+        display: true,
+      },
+      {
+        field: "previousTag",
+        title: "old Tag",
+        display: true,
+      },
+    ];
+    // this.availColumns = this.columns.slice();
+    this.displayedColumns = this.columns.map((column) => column.field);
+    this.groupByColumns = ["subLocationDescription"];
+  }
+
+  ngOnInit(): void {
+    $("#rptOptionsModal").modal("show");
+    this.getLocation();
+    // this.getAssetRegister();
+    this.getOfficeType();
+
+    // general columns settings
+    this.generalColumns = [
+      {
+        field: "subLocationDescription",
+        title: "Main Location",
+        display: true,
+      },
+      {
+        field: "officeTypeDescription",
+        title: "Sub Location",
+        display: true,
+      },
+      {
+        field: "officeDescription",
+        title: "Office",
+        display: true,
+      },
+      {
+        field: "accountsCatagory",
+        title: "Accounts Category",
+        display: true,
+      },
+      {
+        field: "assetCatDescription",
+        title: "Asset Name",
+        display: true,
+      },
+      {
+        field: "tag",
+        title: "Tag. ID",
+        display: true,
+      },
+      {
+        field: "postName",
+        title: "Custodian",
+        display: true,
+      },
+      { field: "assetDescription", title: "Asset Description", display: true },
+
+      // computers extra fields
+      { field: "make", title: "Make", display: false },
+      { field: "model", title: "Model", display: false },
+      { field: "size", title: "Size", display: false },
+      { field: "processor", title: "Processor", display: false },
+      { field: "generation", title: "Genration", display: false },
+      { field: "ram", title: "RAM", display: false },
+      { field: "driveType1", title: "Drive-01", display: false },
+      { field: "hd1", title: "size", display: false },
+      { field: "driveType2", title: "Drive-02", display: false },
+      { field: "hd2", title: "size", display: false },
+
+      // vehcile extra fields
+      { field: "vehMake", title: "Veh-Make", display: false },
+      { field: "vehType", title: "Veh-Type", display: false },
+      { field: "vehEngineNum", title: "Veh-Engine No.", display: false },
+      { field: "vehModel", title: "Veh-Model", display: false },
+      { field: "vehChasisNum", title: "Veh-Chasis No.", display: false },
+
       {
         field: "ipcRef",
         title: "IPC/Invoice Ref.",
@@ -138,64 +261,185 @@ export class AssetRegisterRptComponent implements OnInit {
       },
     ];
 
-    // this.columns = [
-    //   {
-    //     field: "subLocationDescription",
-    //     title: "Main Location",
-    //   },
-    //   {
-    //     field: "officeTypeDescription",
-    //     title: "Sub Location",
-    //   },
-    //   {
-    //     field: "officeDescription",
-    //     title: "Office",
-    //   },
-    //   {
-    //     field: "accountsCatagory",
-    //     title: "Asset Category",
-    //   },
-    //   {
-    //     field: "assetCatDescription",
-    //     title: "Asset Name",
-    //   },
-    //   {
-    //     field: "tag",
-    //     title: "Tag. ID",
-    //   },
-    //   {
-    //     field: "postName",
-    //     title: "Custodian",
-    //   },
-    //   { field: "assetDescription", title: "Asset Description" },
-    //   {
-    //     field: "ipcRef",
-    //     title: "IPC/Invoice Ref.",
-    //   },
-    //   {
-    //     field: "projectShortName",
-    //     title: "Project",
-    //   },
-    //   {
-    //     field: "purchaseDate",
-    //     title: "Purchase Date",
-    //   },
-    //   {
-    //     field: "costAmount",
-    //     title: "Cost Price",
-    //   },
-    //   {
-    //     field: "assetCondition",
-    //     title: "Condition",
-    //   },
-    //   {
-    //     field: "previousTag",
-    //     title: "old Tag",
-    //   },
-    // ];
-    this.availColumns = this.columns.slice();
-    this.displayedColumns = this.columns.map((column) => column.field);
-    this.groupByColumns = ["subLocationDescription"];
+    // computer columns settings
+    this.computerColumns = [
+      {
+        field: "subLocationDescription",
+        title: "Main Location",
+        display: true,
+      },
+      {
+        field: "officeTypeDescription",
+        title: "Sub Location",
+        display: true,
+      },
+      {
+        field: "officeDescription",
+        title: "Office",
+        display: true,
+      },
+      {
+        field: "accountsCatagory",
+        title: "Accounts Category",
+        display: true,
+      },
+      {
+        field: "assetCatDescription",
+        title: "Asset Name",
+        display: true,
+      },
+      {
+        field: "tag",
+        title: "Tag. ID",
+        display: true,
+      },
+      {
+        field: "postName",
+        title: "Custodian",
+        display: true,
+      },
+      { field: "assetDescription", title: "Asset Description", display: true },
+
+      // computers extra fields
+      { field: "make", title: "Make", display: true },
+      { field: "model", title: "Model", display: true },
+      { field: "size", title: "Size", display: true },
+      { field: "processor", title: "Processor", display: true },
+      { field: "generation", title: "Genration", display: true },
+      { field: "ram", title: "RAM", display: true },
+      { field: "driveType1", title: "Drive-01", display: true },
+      { field: "hd1", title: "size", display: true },
+      { field: "driveType2", title: "Drive-02", display: true },
+      { field: "hd2", title: "size", display: true },
+
+      // vehcile extra fields
+      { field: "vehMake", title: "Veh-Make", display: false },
+      { field: "vehType", title: "Veh-Type", display: false },
+      { field: "vehEngineNum", title: "Veh-Engine No.", display: false },
+      { field: "vehModel", title: "Veh-Model", display: false },
+      { field: "vehChasisNum", title: "Veh-Chasis No.", display: false },
+
+      {
+        field: "ipcRef",
+        title: "IPC/Invoice Ref.",
+        display: true,
+      },
+      {
+        field: "projectShortName",
+        title: "Project",
+        display: true,
+      },
+      {
+        field: "purchaseDate",
+        title: "Purchase Date",
+        display: true,
+      },
+      {
+        field: "costAmount",
+        title: "Cost Price",
+        display: true,
+      },
+      {
+        field: "assetCondition",
+        title: "Condition",
+        display: true,
+      },
+      {
+        field: "previousTag",
+        title: "old Tag",
+        display: true,
+      },
+    ];
+
+    // vehicle columns settings
+    this.vehicleColumns = [
+      {
+        field: "subLocationDescription",
+        title: "Main Location",
+        display: true,
+      },
+      {
+        field: "officeTypeDescription",
+        title: "Sub Location",
+        display: true,
+      },
+      {
+        field: "officeDescription",
+        title: "Office",
+        display: true,
+      },
+      {
+        field: "accountsCatagory",
+        title: "Accounts Category",
+        display: true,
+      },
+      {
+        field: "assetCatDescription",
+        title: "Asset Name",
+        display: true,
+      },
+      {
+        field: "tag",
+        title: "Tag. ID",
+        display: true,
+      },
+      {
+        field: "postName",
+        title: "Custodian",
+        display: true,
+      },
+      { field: "assetDescription", title: "Asset Description", display: true },
+
+      // computers extra fields
+      { field: "make", title: "Make", display: false },
+      { field: "model", title: "Model", display: false },
+      { field: "size", title: "Size", display: false },
+      { field: "processor", title: "Processor", display: false },
+      { field: "generation", title: "Genration", display: false },
+      { field: "ram", title: "RAM", display: false },
+      { field: "driveType1", title: "Drive-01", display: false },
+      { field: "hd1", title: "size", display: false },
+      { field: "driveType2", title: "Drive-02", display: false },
+      { field: "hd2", title: "size", display: false },
+
+      // vehcile extra fields
+      { field: "vehMake", title: "Veh-Make", display: true },
+      { field: "vehType", title: "Veh-Type", display: true },
+      { field: "vehEngineNum", title: "Veh-Engine No.", display: true },
+      { field: "vehModel", title: "Veh-Model", display: true },
+      { field: "vehChasisNum", title: "Veh-Chasis No.", display: true },
+
+      {
+        field: "ipcRef",
+        title: "IPC/Invoice Ref.",
+        display: true,
+      },
+      {
+        field: "projectShortName",
+        title: "Project",
+        display: true,
+      },
+      {
+        field: "purchaseDate",
+        title: "Purchase Date",
+        display: true,
+      },
+      {
+        field: "costAmount",
+        title: "Cost Price",
+        display: true,
+      },
+      {
+        field: "assetCondition",
+        title: "Condition",
+        display: true,
+      },
+      {
+        field: "previousTag",
+        title: "old Tag",
+        display: true,
+      },
+    ];
   }
 
   // displayedColumns: string[] = ["position", "name", "weight", "symbol"];
@@ -209,35 +453,11 @@ export class AssetRegisterRptComponent implements OnInit {
   }
 
   showItem() {
-    console.log(this.availColumns[0].title);
     this.getAssetRegister();
   }
-
-  // onDrop(event: CdkDragDrop<string[]>) {
-  //   if (event.previousContainer === event.container) {
-  //     moveItemInArray(
-  //       event.container.data,
-  //       event.previousIndex,
-  //       event.currentIndex
-  //     );
-  //   } else {
-  //     transferArrayItem(
-  //       event.previousContainer.data,
-  //       event.container.data,
-  //       event.previousIndex,
-  //       event.currentIndex
-  //     );
-  //   }
-  // }
 
   drop(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.columns, event.previousIndex, event.currentIndex);
-  }
-
-  ngOnInit(): void {
-    this.getLocation();
-    this.getAssetRegister();
-    this.getOfficeType();
   }
 
   getLocation() {
@@ -350,6 +570,67 @@ export class AssetRegisterRptComponent implements OnInit {
     } else {
       officeTypeID = parseInt(this.cmbOfcType);
     }
+
+    // general report preset generation
+    if (this.rptPreset == "1") {
+      this.columns = this.generalColumns;
+      this.rptTitle = "Moveable Asset Register - General Items";
+      this.getAssetRegisterGeneral(userID, subLocID, officeTypeID);
+    }
+
+    // computer report preset generation
+    else if (this.rptPreset == "2") {
+      this.columns = this.computerColumns;
+      this.rptTitle = "Moveable Asset Register - Computer Items";
+      this.getAssetRegisterComputer(userID, subLocID, officeTypeID);
+    }
+
+    // vehicle report preset generation
+    else if (this.rptPreset == "3") {
+      this.columns = this.vehicleColumns;
+      this.rptTitle = "Moveable Asset Register - Vehicles";
+      this.getAssetRegisterVehicle(userID, subLocID, officeTypeID);
+    }
+  }
+
+  // asset Register general
+  getAssetRegisterGeneral(userID, subLocID, officeTypeID) {
+    var reqHeader = new HttpHeaders({
+      "Content-Type": "application/json",
+      // Authorization: "Bearer " + Token,
+    });
+    this.http
+      .get(
+        this.serverUrl +
+          "getAssetdetailGeneral?UserId=" +
+          userID +
+          "&SubLocID=" +
+          subLocID +
+          "&OfficeTypeID=" +
+          officeTypeID,
+        { headers: reqHeader }
+      )
+      .subscribe((data: any) => {
+        this.assetRegisterList = data;
+        this.filterAssetRegisterList = data;
+
+        data.forEach((item, index) => {
+          item.id = index + 1;
+        });
+        this._alldata = data;
+        this.dataSource.data = this.addGroups(
+          this._alldata,
+          this.groupByColumns
+        );
+        this.dataSource.filterPredicate = this.customFilterPredicate.bind(this);
+        this.dataSource.filter = performance.now().toString();
+        this.cdr.detectChanges();
+
+        // this.dataSource = this.filterAssetRegisterList;
+      });
+  }
+
+  getAssetRegisterVehicle(userID, subLocID, officeTypeID) {
     var reqHeader = new HttpHeaders({
       "Content-Type": "application/json",
       // Authorization: "Bearer " + Token,
@@ -358,7 +639,45 @@ export class AssetRegisterRptComponent implements OnInit {
     this.http
       .get(
         this.serverUrl +
-          "getAssetdetailGeneral?UserId=" +
+          "getAssetdetailVehicles?UserId=" +
+          userID +
+          "&SubLocID=" +
+          subLocID +
+          "&OfficeTypeID=" +
+          officeTypeID,
+        { headers: reqHeader }
+      )
+      .subscribe((data: any) => {
+        this.assetRegisterList = data;
+        this.filterAssetRegisterList = data;
+
+        data.forEach((item, index) => {
+          item.id = index + 1;
+        });
+        this._alldata = data;
+        this.dataSource.data = this.addGroups(
+          this._alldata,
+          this.groupByColumns
+        );
+        this.dataSource.filterPredicate = this.customFilterPredicate.bind(this);
+        this.dataSource.filter = performance.now().toString();
+        this.cdr.detectChanges();
+
+        // this.dataSource = this.filterAssetRegisterList;
+      });
+  }
+
+  // asset register computer
+  getAssetRegisterComputer(userID, subLocID, officeTypeID) {
+    var reqHeader = new HttpHeaders({
+      "Content-Type": "application/json",
+      // Authorization: "Bearer " + Token,
+    });
+
+    this.http
+      .get(
+        this.serverUrl +
+          "getAssetdetailComputers?UserId=" +
           userID +
           "&SubLocID=" +
           subLocID +
