@@ -228,6 +228,14 @@ export class AssetEntryComponent implements OnInit {
   driverType2List = [];
   hdSize2 = "";
   hdSize2List = [];
+  author = "";
+  authorList = [];
+  publisher = "";
+  publisherList = [];
+  volume = "";
+  volumeList = [];
+  edition = "";
+  editionList = [];
   tempSpecID = "";
 
   oldTagList = [];
@@ -1071,6 +1079,10 @@ export class AssetEntryComponent implements OnInit {
     this.hdSize1 = item.hd1;
     this.driveType2 = item.driveType2;
     this.hdSize2 = item.hd2;
+    this.author = item.author;
+    this.publisher = item.publisher;
+    this.volume = item.volume;
+    this.edition = item.edition;
 
     var trans = this.tempTransList.filter(
       (x) => x.transferID == this.lblTransferID
@@ -1452,6 +1464,10 @@ export class AssetEntryComponent implements OnInit {
           hd1: this.hdSize1,
           driveType2: this.driveType2,
           hd2: this.hdSize2,
+          author: this.author,
+          publisher: this.publisher,
+          volume: this.volume,
+          edition: this.edition,
         };
       } else {
         // var imgAsset;
@@ -1516,6 +1532,10 @@ export class AssetEntryComponent implements OnInit {
           hd1: this.hdSize1,
           driveType2: this.driveType2,
           hd2: this.hdSize2,
+          author: this.author,
+          publisher: this.publisher,
+          volume: this.volume,
+          edition: this.edition,
         };
       }
 

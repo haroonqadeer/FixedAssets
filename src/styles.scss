@@ -467,8 +467,6 @@ body {
 
 .style-1::-webkit-scrollbar {
   width: 8px;
-  -webkit-transition: 0.5s;
-  transition: all 0.5s;
 }
 
 .style-1::-webkit-scrollbar-thumb {
@@ -1032,6 +1030,7 @@ legend.scheduler-border {
   height: 39em !important;
   overflow-x: auto;
   white-space: nowrap;
+  transition: 0.5s ease;
 }
 
 /****************************************/
