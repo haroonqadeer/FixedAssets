@@ -135,7 +135,10 @@ export class RevaluationMoveAssetComponent implements OnInit {
       });
   }
   filterTableData(accCat) {
-    this.tempList = this.revalList;
+    this.revalList = this.tempList;
+    this.revalList = this.revalList.filter(
+      (x) => x.accountsCatagory == this.cmbAccCat
+    );
   }
 
   openReval() {
