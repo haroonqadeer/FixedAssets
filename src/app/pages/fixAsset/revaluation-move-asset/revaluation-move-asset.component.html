@@ -111,20 +111,20 @@
               <td class='inline-block text-center'>
                 <span class='fa fa-info-circle cursorPointer text-primary pr-3' (click)="assetDetail(item)"></span>
                 <span
-                  *ngIf="(item.revaluationAmount == null && (item.lblAssetDetailID == null || item.lblAssetDetailID == undefined)) || (item.revaluationAmount!=null && (item.lblAssetDetailID != null || item.lblAssetDetailID != undefined))"
+                  *ngIf="(this.lblRevalComplete != 1) || ((item.revaluationAmount == null && (item.lblAssetDetailID == null || item.lblAssetDetailID == undefined)) || (item.revaluationAmount!=null && (item.lblAssetDetailID != null || item.lblAssetDetailID != undefined)))"
                   class='fa fa-plus-circle cursorPointer text-primary pr-3' (click)="save(item)"></span>
                 <span
-                  *ngIf="(item.revaluationAmount!=null && (item.lblAssetDetailID == null || item.lblAssetDetailID == undefined)) || (item.revaluationAmount==null && (item.lblAssetDetailID != null || item.lblAssetDetailID != undefined))"
+                  *ngIf="(this.lblRevalComplete != 1) || ((item.revaluationAmount!=null && (item.lblAssetDetailID == null || item.lblAssetDetailID == undefined)) || (item.revaluationAmount==null && (item.lblAssetDetailID != null || item.lblAssetDetailID != undefined)))"
                   class='fa fa-edit cursorPointer pr-3 text-primary' (click)="edit(item)"></span>
-                <span
+                <!-- <span
                   *ngIf="(item.revaluationAmount!=null && (item.lblAssetDetailID == null || item.lblAssetDetailID == undefined)) || (item.revaluationAmount==null && (item.lblAssetDetailID != null || item.lblAssetDetailID != undefined))"
-                  class='fa fa-trash-o cursorPointer text-danger pr-3' (click)="delete(item)"></span>
+                  class='fa fa-trash-o cursorPointer text-danger pr-3' (click)="delete(item)"></span> -->
               </td>
               <td
-                *ngIf="(item.revaluationAmount!=null && (item.lblAssetDetailID == null || item.lblAssetDetailID == undefined))">
+                *ngIf="(this.lblRevalComplete == 1) || ((item.revaluationAmount!=null && (item.lblAssetDetailID == null || item.lblAssetDetailID == undefined)))">
                 {{item.revaluationAmount | number}}</td>
               <td
-                *ngIf="(item.revaluationAmount == null && (item.lblAssetDetailID == null || item.lblAssetDetailID == undefined)) || (item.revaluationAmount != null && (item.lblAssetDetailID != null || item.lblAssetDetailID != undefined))">
+                *ngIf="(this.lblRevalComplete != 1) || ((item.revaluationAmount == null && (item.lblAssetDetailID == null || item.lblAssetDetailID == undefined)) || (item.revaluationAmount != null && (item.lblAssetDetailID != null || item.lblAssetDetailID != undefined)))">
                 <input type="text" class="form-control text-right" currencyMask [(ngModel)]="item.revalAmount">
               </td>
               <td>{{item.tag}}</td>

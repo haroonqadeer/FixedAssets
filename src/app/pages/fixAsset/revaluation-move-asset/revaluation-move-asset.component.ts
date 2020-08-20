@@ -16,8 +16,8 @@ declare var $: any;
   styleUrls: ["./revaluation-move-asset.component.scss"],
 })
 export class RevaluationMoveAssetComponent implements OnInit {
-  // serverUrl = "http://95.217.206.195:2007/api/";
-  serverUrl = "http://localhost:6090/api/";
+  serverUrl = "http://95.217.206.195:2007/api/";
+  // serverUrl = "http://localhost:6090/api/";
 
   heading = "Add";
 
@@ -28,6 +28,7 @@ export class RevaluationMoveAssetComponent implements OnInit {
 
   lblAssetDetailID = 0;
   lblOfficeType = "";
+  lblRevalComplete = 0;
   lblProject = "";
   lblUsable = "";
   lblComdemned = "";
@@ -113,9 +114,21 @@ export class RevaluationMoveAssetComponent implements OnInit {
     var officeType = this.locList.filter((x) => x.subLocID == this.cmbLoc);
 
     this.lblOfficeType = officeType[0].officeTypeDescription;
+    this.lblRevalComplete = officeType[0].isRevaluationCompleted;
   }
 
   getMoveableAssetListforRevaluation(locID) {
+    var oldDate = new Date(this.dtpDate);
+    var m = oldDate.getMonth();
+    var y = oldDate.getFullYear();
+    var year;
+
+    if (m >= 7) {
+      year = y + "-" + (y + 1);
+    } else if (m < 7) {
+      year = y - 1 + "-" + y;
+    }
+
     var reqHeader = new HttpHeaders({
       "Content-Type": "application/json",
       // Authorization: "Bearer " + Token,
@@ -167,7 +180,7 @@ export class RevaluationMoveAssetComponent implements OnInit {
           headers: reqHeader,
         })
         .subscribe((data: any) => {
-          if (data.msg == "Success") {
+          if (data.msg == "SUCCESS") {
             this.getMoveableAssetListforRevaluation(this.cmbLoc);
 
             return false;
@@ -208,7 +221,7 @@ export class RevaluationMoveAssetComponent implements OnInit {
           headers: reqHeader,
         })
         .subscribe((data: any) => {
-          if (data.msg == "Success") {
+          if (data.msg == "SUCCESS") {
             this.getMoveableAssetListforRevaluation(this.cmbLoc);
 
             return false;
@@ -249,7 +262,7 @@ export class RevaluationMoveAssetComponent implements OnInit {
           headers: reqHeader,
         })
         .subscribe((data: any) => {
-          if (data.msg == "Success") {
+          if (data.msg == "SUCCESS") {
             this.getMoveableAssetListforRevaluation(this.cmbLoc);
 
             return false;
