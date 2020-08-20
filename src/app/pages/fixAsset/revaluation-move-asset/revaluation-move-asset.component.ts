@@ -142,8 +142,8 @@ export class RevaluationMoveAssetComponent implements OnInit {
   }
 
   openReval() {
-    this.getMoveableAssetListforRevaluation(this.cmbLoc);
-    return;
+    // this.getMoveableAssetListforRevaluation(this.cmbLoc);
+    // return;
 
     if (this.cmbLoc == "") {
       this.toastr.errorToastr("Please Select Location", "Error", {
