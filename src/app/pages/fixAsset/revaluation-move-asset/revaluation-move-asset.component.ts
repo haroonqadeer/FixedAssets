@@ -165,9 +165,22 @@ export class RevaluationMoveAssetComponent implements OnInit {
       return false;
     } else {
       this.loadingBar = true;
+
+      var oldDate = new Date(this.dtpDate);
+      var m = oldDate.getMonth();
+      var y = oldDate.getFullYear();
+      var year;
+
+      if (m >= 7) {
+        year = y + "-" + (y + 1);
+      } else if (m < 7) {
+        year = y - 1 + "-" + y;
+      }
+
       var saveData = {
         SpType: "OPENREVALUATION", //string
         SubLocationID: this.cmbLoc,
+        finYear: year,
         userID: this.cookie.get("userID"), //int
       };
 
@@ -206,9 +219,22 @@ export class RevaluationMoveAssetComponent implements OnInit {
       return false;
     } else {
       this.loadingBar = true;
+
+      var oldDate = new Date(this.dtpDate);
+      var m = oldDate.getMonth();
+      var y = oldDate.getFullYear();
+      var year;
+
+      if (m >= 7) {
+        year = y + "-" + (y + 1);
+      } else if (m < 7) {
+        year = y - 1 + "-" + y;
+      }
+
       var saveData = {
         SpType: "SUPERVISEDREVALUATION", //string
         SubLocationID: this.cmbLoc,
+        finYear: year,
         userID: this.cookie.get("userID"), //int
       };
 
@@ -247,9 +273,22 @@ export class RevaluationMoveAssetComponent implements OnInit {
       return false;
     } else {
       this.loadingBar = true;
+
+      var oldDate = new Date(this.dtpDate);
+      var m = oldDate.getMonth();
+      var y = oldDate.getFullYear();
+      var year;
+
+      if (m >= 7) {
+        year = y + "-" + (y + 1);
+      } else if (m < 7) {
+        year = y - 1 + "-" + y;
+      }
+
       var saveData = {
         SpType: "COMPLETEREVALUATION", //string
         SubLocationID: this.cmbLoc,
+        finYear: year,
         userID: this.cookie.get("userID"), //int
       };
 
