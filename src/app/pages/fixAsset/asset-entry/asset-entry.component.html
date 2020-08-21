@@ -72,6 +72,11 @@
       <table class="table table-striped">
         <thead>
           <tr>
+            <th scope="col">
+              <mat-checkbox class="example-margin" color="primary" [(ngModel)]="chkSelectAll"
+                (change)="selectAllData(mainTableP, mainTableItemPerPage, chkSelectAll ? 'A' : 'B')">Select All
+              </mat-checkbox>
+            </th>
             <th scope="col">Action</th>
             <th scope="col" [class.active]="order === 'tag'" (click)="setOrder('tag')">
               Tag
@@ -216,12 +221,21 @@
             ">
             <td class="inline-block">
               <!-- <span class="fa fa-edit cursorPointer pr-3 text-primary" (click)="editAsset(item)"></span> -->
+              <!-- <span *ngIf="item.isCompleted == 0" class="fa fa-edit cursorPointer pr-3 text-primary"
+                (click)="genPin(item, 'editAsset')"></span>
+              <span *ngIf="item.isCompleted == 0" class="fa fa-trash-o cursorPointer text-danger"
+                (click)="genPin(item, 'deleteAsset')"></span> -->
+              <mat-checkbox *ngIf="item.isCompleted == 0" class="example-margin" color="primary"
+                [(ngModel)]="item.checkbox" (change)="pushTag(item, item.checkbox ? 'A' : 'B')"></mat-checkbox>
+            </td>
+            <td class="inline-block">
+              <!-- <span class="fa fa-edit cursorPointer pr-3 text-primary" (click)="editAsset(item)"></span> -->
               <span *ngIf="item.isCompleted == 0" class="fa fa-edit cursorPointer pr-3 text-primary"
                 (click)="genPin(item, 'editAsset')"></span>
               <span *ngIf="item.isCompleted == 0" class="fa fa-trash-o cursorPointer text-danger"
                 (click)="genPin(item, 'deleteAsset')"></span>
-              <mat-checkbox *ngIf="item.isCompleted == 0" class="example-margin" color="primary"
-                [(ngModel)]="item.checkbox" (change)="pushTag(item, item.checkbox ? 'A' : 'B')"></mat-checkbox>
+              <!-- <mat-checkbox *ngIf="item.isCompleted == 0" class="example-margin" color="primary"
+                [(ngModel)]="item.checkbox" (change)="pushTag(item, item.checkbox ? 'A' : 'B')"></mat-checkbox> -->
             </td>
             <td>{{ item.tag }}</td>
             <td>{{ item.subLocationDescription }}</td>
@@ -583,7 +597,7 @@
               <mat-label>Select Project</mat-label>
               <mat-select [(ngModel)]="cmbProject" (ngModelChange)="
                   getIPC(); setProject(); filterTansTable(cmbTransferProject)
-                ">
+                " [disabled]="disableMainProject">
                 <!-- <input
                   type="text"
                   class="form-control"
