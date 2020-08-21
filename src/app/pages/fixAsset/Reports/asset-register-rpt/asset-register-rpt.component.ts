@@ -46,6 +46,8 @@ export class AssetRegisterRptComponent implements OnInit {
   rptTitle = "Asset Register Report - General";
   rptHeader = "";
   rptPreset = "";
+  rdbFilter = "";
+  rptTitle2nd = "";
 
   assetRegisterList = [];
   filterAssetRegisterList = [];
@@ -549,10 +551,13 @@ export class AssetRegisterRptComponent implements OnInit {
   }
 
   getAssetRegister() {
-    debugger;
     var subLocID = 0;
     var officeTypeID = 0;
     var userID = this.cookie.get("userID");
+
+    //clear filters
+    this.rdbFilter = "";
+    this.rptTitle2nd = "";
 
     // header setting
     if (this.tempRptTitle != "") {
@@ -703,6 +708,46 @@ export class AssetRegisterRptComponent implements OnInit {
 
         // this.dataSource = this.filterAssetRegisterList;
       });
+  }
+
+  // apply report filters
+  applyReportFilter() {
+    var filteredData: any;
+
+    if (this.rdbFilter == "useable") {
+      filteredData = this.assetRegisterList.filter((x) => x.isUseable == true);
+      this.rptTitle2nd = "Useable Assets";
+    } else if (this.rdbFilter == "serviceable") {
+      filteredData = this.assetRegisterList.filter(
+        (x) => x.isServiceAble == true
+      );
+      this.rptTitle2nd = "Serviceable Assets";
+    } else if (this.rdbFilter == "surplus") {
+      filteredData = this.assetRegisterList.filter((x) => x.isSurplus == true);
+      this.rptTitle2nd = "Surplus Assets";
+    } else if (this.rdbFilter == "condemned") {
+      filteredData = this.assetRegisterList.filter(
+        (x) => x.isCondemned == true
+      );
+      this.rptTitle2nd = "Condemned Assets";
+    } else if (this.rdbFilter == "missing") {
+      filteredData = this.assetRegisterList.filter((x) => x.isMissing == true);
+      this.rptTitle2nd = "Missing Assets";
+    } else if (this.rdbFilter == "transferred") {
+      filteredData = this.assetRegisterList.filter(
+        (x) => x.isTransfered == true
+      );
+      this.rptTitle2nd = "Transferred Assets";
+    }
+
+    filteredData.forEach((item, index) => {
+      item.id = index + 1;
+    });
+    this._alldata = filteredData;
+    this.dataSource.data = this.addGroups(this._alldata, this.groupByColumns);
+    this.dataSource.filterPredicate = this.customFilterPredicate.bind(this);
+    this.dataSource.filter = performance.now().toString();
+    this.cdr.detectChanges();
   }
 
   groupBy(event, column) {

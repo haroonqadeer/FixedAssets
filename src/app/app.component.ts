@@ -497,10 +497,7 @@ export class AppComponent {
 
     //Create a new HTML document.
     frameDoc.document.write(
-      "<html><head><title>DIV Contents</title>" +
-        "<style>" +
-        printCss +
-        "</style>"
+      "<html><head><title></title>" + "<style>" + printCss + "</style>"
     );
 
     //Append the external CSS file. <link rel="stylesheet" href="../../../styles.scss" /> <link rel="stylesheet" href="../../../../node_modules/bootstrap/dist/css/bootstrap.min.css" />

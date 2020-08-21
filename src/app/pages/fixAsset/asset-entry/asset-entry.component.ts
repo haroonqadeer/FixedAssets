@@ -375,7 +375,6 @@ export class AssetEntryComponent implements OnInit {
     //     }
     //   });
     // }, 1000);
-
     var printCss = this.printCSS();
 
     var contents = $("#tagDiv").html();
@@ -431,7 +430,7 @@ export class AssetEntryComponent implements OnInit {
         tag: obj.tag,
         assetLocation: obj.assetLocation,
         custody: obj.custody,
-        assetId: obj.assetId,
+        assetId: obj.assetID.toString(),
       });
     } else {
       if (event == "A") {
@@ -442,7 +441,7 @@ export class AssetEntryComponent implements OnInit {
             tag: obj.tag,
             assetLocation: obj.assetLocation,
             custody: obj.custody,
-            assetId: obj.assetId,
+            assetId: obj.assetID.toString(),
           });
         }
       } else {

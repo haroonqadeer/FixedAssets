@@ -23,7 +23,7 @@
 <div class="row">
   <div class="col-md-12 inline-block">
     <span class='fa fa-filter text-primary text-lg'>:</span>
-    <mat-radio-group aria-label="Select an option">
+    <mat-radio-group aria-label="Select an option" [(ngModel)]="rdbFilter" (change)='applyReportFilter()'>
       <mat-radio-button class='pr-2 pl-2' value="useable">Useable</mat-radio-button>
       <mat-radio-button class='pr-2' value="serviceable">Serviceable</mat-radio-button>
       <mat-radio-button class='pr-2' value="surplus">Surplus</mat-radio-button>
@@ -43,12 +43,6 @@
             <label class="h5Report">NATIONAL HIGHWAY AUTHORITY</label>
           </div>
         </div>
-        <!-- next row -->
-        <div class="row">
-          <div class="col-md-12">
-            <label class="h1Report">{{ rptTitle }}</label>
-          </div>
-        </div>
       </div>
       <div class="col-md-6 text-right">
         <label class="h2Report">Muniff Ziauddin & Co.</label>
@@ -56,6 +50,20 @@
     </div>
 
     <!-- report header -->
+    <div class="row">
+      <div class="col-md-12">
+        <label class="h1Report">{{ rptTitle }}</label>
+      </div>
+    </div>
+    <!-- next row -->
+    <div *ngIf="rptTitle2nd != ''">
+      <div class="row">
+        <div class="col-md-6">
+          <label class='h2Report'>{{rptTitle2nd}}</label>
+        </div>
+      </div>
+    </div>
+    <!-- next row -->
     <div *ngIf="rptHeader != ''">
       <div class="row">
         <div class="col-md-6">
@@ -109,71 +117,7 @@
 
       <tr mat-row *matRowDef="let row; columns: ['groupHeader']; when: isGroup" (click)="groupHeaderClick(row)"></tr>
     </table>
-    <!-- <table mat-table [dataSource]="dataSource" cdkDropList cdkDropListOrientation="horizontal"
-      (cdkDropListDropped)="drop($event)" class="w-100">
-      <ng-container matColumnDef="subLocationDescription">
-        <th mat-header-cell cdkDrag *matHeaderCellDef>Main Location</th>
-        <td mat-cell *matCellDef="let element">{{ element.subLocationDescription }}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="officeTypeDescription">
-        <th mat-header-cell cdkDrag *matHeaderCellDef>Sub Location</th>
-        <td mat-cell *matCellDef="let element">{{ element.officeTypeDescription }}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="officeDescription">
-        <th mat-header-cell cdkDrag *matHeaderCellDef>Office</th>
-        <td mat-cell *matCellDef="let element">{{ element.officeDescription }}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="accountsCatagory">
-        <th mat-header-cell cdkDrag *matHeaderCellDef>Asset Category</th>
-        <td mat-cell *matCellDef="let element">{{ element.accountsCatagory }}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="assetCatDescription">
-        <th mat-header-cell cdkDrag *matHeaderCellDef>Asset Name</th>
-        <td mat-cell *matCellDef="let element">{{ element.assetCatDescription }}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="tag">
-        <th mat-header-cell cdkDrag *matHeaderCellDef>Tag. ID</th>
-        <td mat-cell *matCellDef="let element">{{ element.tag }}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="postName">
-        <th mat-header-cell cdkDrag *matHeaderCellDef>Custodian Name</th>
-        <td mat-cell *matCellDef="let element">{{ element.postName }}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="assetDescription">
-        <th mat-header-cell cdkDrag *matHeaderCellDef>Asset Description</th>
-        <td mat-cell *matCellDef="let element">{{ element.assetDescription }}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="ipcRef">
-        <th mat-header-cell cdkDrag *matHeaderCellDef>IPC/Invoice Ref.</th>
-        <td mat-cell *matCellDef="let element">{{ element.ipcRef }}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="projectShortName">
-        <th mat-header-cell cdkDrag *matHeaderCellDef>Project</th>
-        <td mat-cell *matCellDef="let element">{{ element.projectShortName }}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="purchaseDate">
-        <th mat-header-cell cdkDrag *matHeaderCellDef>Purchase Date</th>
-        <td mat-cell *matCellDef="let element">{{ element.purchaseDate }}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="costAmount">
-        <th mat-header-cell cdkDrag *matHeaderCellDef>Purchase Cost/Price</th>
-        <td mat-cell *matCellDef="let element">{{ element.costAmount }}</td>
-      </ng-container>
-
-      <tr mat-header-row *matHeaderRowDef="columns; sticky: true"></tr>
-      <tr mat-row *matRowDef="let row; columns: columns"></tr>
-    </table> -->
+    <div class='divFooter'></div>
   </div>
 </div>
 

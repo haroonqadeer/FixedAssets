@@ -534,6 +534,18 @@ div.divFooter {
   width: 100% !important;
 }
 
+div.divFooter:after {
+  /* counter-increment: page;
+  content: "Page "counter(page);
+  left: 0;
+  top: 100%;
+  white-space: nowrap;
+  z-index: 20;
+  -moz-border-radius: 5px;
+  -moz-box-shadow: 0px 0px 4px #222;
+  background-image: -moz-linear-gradient(top, #eeeeee, #cccccc); */
+}
+
 @media screen {
   div.divFooter {
     display: none;
@@ -592,3 +604,21 @@ div.divFooter .label {
 .printNone {
   display: none;
 }
+
+/************ Tag Box ***********************/
+.tagBox {
+  width: 520px;
+  height: 197.10px;
+  border: 1px solid red;
+}
+
+
+@media all and (max-width : 768) {
+  .tagBox {
+    width: 520px;
+    height: 197.10px;
+    border: 1px solid red;
+  }
+}
+
+/*************** the end ************************/

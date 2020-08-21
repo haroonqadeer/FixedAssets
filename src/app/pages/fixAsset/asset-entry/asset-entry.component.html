@@ -891,11 +891,10 @@
   <div id="tagDiv" hidden>
     <div class="d-flex flex-wrap">
       <div *ngFor="let item of tagList">
-        <div class="p-5 text-center" style="min-width: 520px !important;">
+        <div class="p-5 text-center allBorder tagBox">
           <div class="row">
-            <div class="col-md-2">
+            <div class="col-md-2 text-center">
               <qr-code [value]="item.assetId" [size]="75"></qr-code>
-              {{item.assetId}}
             </div>
             <div class="col-md-10">
               <div class="row">
@@ -912,7 +911,7 @@
               <div class="row">
                 <div class="col-md-12">
                   <!-- Room No. 12 - AD Accounts -->
-                  {{ item.assetLocation }} - {{ item.custody }}
+                  {{ item.assetLocation }} - {{ item.custody }} - {{item.assetId}}
                 </div>
               </div>
             </div>
