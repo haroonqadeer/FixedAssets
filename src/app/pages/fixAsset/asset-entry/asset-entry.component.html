@@ -192,6 +192,12 @@
               <!-- <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
               <span class="fa fa-angle-double-up" [hidden]="!reverse"></span></th> -->
             </th>
+
+            <th scope="col">
+              Created By
+              <!-- <span class="fa fa-angle-double-down" [hidden]="reverse"></span>
+              <span class="fa fa-angle-double-up" [hidden]="!reverse"></span></th> -->
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -242,6 +248,7 @@
             <td>{{ item.reamarks }}</td>
             <td>{{ item.createdDate | date }}</td>
             <td>{{ item.netBookAmount }}</td>
+            <td>{{ item.createdBy }}</td>
           </tr>
           <tr *ngIf="assetDetailList.length == 0">
             <td>No Record Found</td>
@@ -1367,6 +1374,7 @@
         <th>Purchase Date</th>
         <th>Condition</th>
         <th>Old Tag</th>
+        <th>Created By</th>
       </tr>
     </thead>
     <tbody>
@@ -1393,6 +1401,7 @@
         <td>{{ item.purchaseDate | date }}</td>
         <td>{{ item.assetCondition }}</td>
         <td>{{ item.prviousTag }}</td>
+        <td>{{ item.createdBy }}</td>
       </tr>
       <tr *ngIf="assetDetailList.length == 0">
         <td>No Record Found</td>
