@@ -511,6 +511,7 @@ export class AppComponent {
 
     //Append the DIV contents.
     frameDoc.document.write(contents);
+
     frameDoc.document.write("</body></html>");
 
     frameDoc.document.close();

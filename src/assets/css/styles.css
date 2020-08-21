@@ -2,8 +2,9 @@
 @import "./assets/fonts/fonts.scss";
 
 body {
-  overflow: auto;
+
   background-color: #efefef !important;
+  margin: 0mm 0mm 0mm 0mm;
 }
 
 p {
@@ -607,9 +608,10 @@ div.divFooter .label {
 
 /************ Tag Box ***********************/
 .tagBox {
+  margin-top: 0 !important;
   width: 520px;
-  height: 197.10px;
-  border: 1px solid red;
+  height: 185px;
+  /* border: 1px solid red; */
 }
 
 
@@ -617,7 +619,7 @@ div.divFooter .label {
   .tagBox {
     width: 520px;
     height: 197.10px;
-    border: 1px solid red;
+    /* border: 1px solid red; */
   }
 }
 

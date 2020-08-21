@@ -68,6 +68,8 @@ export class AssetRegisterRptComponent implements OnInit {
   generalColumns: any[];
   computerColumns: any[];
   vehicleColumns: any[];
+  bookColumns: any[];
+
   constructor(
     private http: HttpClient,
     private app: AppComponent,
@@ -130,6 +132,12 @@ export class AssetRegisterRptComponent implements OnInit {
       { field: "vehEngineNum", title: "Veh-Engine No.", display: true },
       { field: "vehModel", title: "Veh-Model", display: true },
       { field: "vehChasisNum", title: "Veh-Chasis No.", display: true },
+
+      // books extra fields
+      { field: "author", title: "Author", display: true },
+      { field: "publisher", title: "Publisher", display: true },
+      { field: "volume", title: "Volume", display: true },
+      { field: "edition", title: "Edition", display: true },
 
       {
         field: "ipcRef",
@@ -231,6 +239,12 @@ export class AssetRegisterRptComponent implements OnInit {
       { field: "vehModel", title: "Veh-Model", display: false },
       { field: "vehChasisNum", title: "Veh-Chasis No.", display: false },
 
+      // books extra fields
+      { field: "author", title: "Author", display: false },
+      { field: "publisher", title: "Publisher", display: false },
+      { field: "volume", title: "Volume", display: false },
+      { field: "edition", title: "Edition", display: false },
+
       {
         field: "ipcRef",
         title: "IPC/Invoice Ref.",
@@ -321,6 +335,12 @@ export class AssetRegisterRptComponent implements OnInit {
       { field: "vehModel", title: "Veh-Model", display: false },
       { field: "vehChasisNum", title: "Veh-Chasis No.", display: false },
 
+      // books extra fields
+      { field: "author", title: "Author", display: false },
+      { field: "publisher", title: "Publisher", display: false },
+      { field: "volume", title: "Volume", display: false },
+      { field: "edition", title: "Edition", display: false },
+
       {
         field: "ipcRef",
         title: "IPC/Invoice Ref.",
@@ -410,6 +430,108 @@ export class AssetRegisterRptComponent implements OnInit {
       { field: "vehEngineNum", title: "Veh-Engine No.", display: true },
       { field: "vehModel", title: "Veh-Model", display: true },
       { field: "vehChasisNum", title: "Veh-Chasis No.", display: true },
+
+      // books extra fields
+      { field: "author", title: "Author", display: false },
+      { field: "publisher", title: "Publisher", display: false },
+      { field: "volume", title: "Volume", display: false },
+      { field: "edition", title: "Edition", display: false },
+
+      {
+        field: "ipcRef",
+        title: "IPC/Invoice Ref.",
+        display: true,
+      },
+      {
+        field: "projectShortName",
+        title: "Project",
+        display: true,
+      },
+      {
+        field: "purchaseDate",
+        title: "Purchase Date",
+        display: true,
+      },
+      {
+        field: "costAmount",
+        title: "Cost Price",
+        display: true,
+      },
+      {
+        field: "assetCondition",
+        title: "Condition",
+        display: true,
+      },
+      {
+        field: "previousTag",
+        title: "old Tag",
+        display: true,
+      },
+    ];
+
+    // Books columns settings
+    this.bookColumns = [
+      {
+        field: "subLocationDescription",
+        title: "Main Location",
+        display: true,
+      },
+      {
+        field: "officeTypeDescription",
+        title: "Sub Location",
+        display: true,
+      },
+      {
+        field: "officeDescription",
+        title: "Office",
+        display: true,
+      },
+      {
+        field: "accountsCatagory",
+        title: "Accounts Category",
+        display: true,
+      },
+      {
+        field: "assetCatDescription",
+        title: "Asset Name",
+        display: true,
+      },
+      {
+        field: "tag",
+        title: "Tag. ID",
+        display: true,
+      },
+      {
+        field: "postName",
+        title: "Custodian",
+        display: true,
+      },
+      { field: "assetDescription", title: "Asset Description", display: true },
+
+      // computers extra fields
+      { field: "make", title: "Make", display: false },
+      { field: "model", title: "Model", display: false },
+      { field: "size", title: "Size", display: false },
+      { field: "processor", title: "Processor", display: false },
+      { field: "generation", title: "Genration", display: false },
+      { field: "ram", title: "RAM", display: false },
+      { field: "driveType1", title: "Drive-01", display: false },
+      { field: "hd1", title: "size", display: false },
+      { field: "driveType2", title: "Drive-02", display: false },
+      { field: "hd2", title: "size", display: false },
+
+      // vehcile extra fields
+      { field: "vehMake", title: "Veh-Make", display: false },
+      { field: "vehType", title: "Veh-Type", display: false },
+      { field: "vehEngineNum", title: "Veh-Engine No.", display: false },
+      { field: "vehModel", title: "Veh-Model", display: false },
+      { field: "vehChasisNum", title: "Veh-Chasis No.", display: false },
+
+      // books extra fields
+      { field: "author", title: "Author", display: true },
+      { field: "publisher", title: "Publisher", display: true },
+      { field: "volume", title: "Volume", display: true },
+      { field: "edition", title: "Edition", display: true },
 
       {
         field: "ipcRef",
@@ -596,6 +718,13 @@ export class AssetRegisterRptComponent implements OnInit {
       this.rptTitle = "Moveable Asset Register - Vehicles";
       this.getAssetRegisterVehicle(userID, subLocID, officeTypeID);
     }
+
+    // Books report preset generation
+    else if (this.rptPreset == "4") {
+      this.columns = this.bookColumns;
+      this.rptTitle = "Moveable Asset Register - Books";
+      this.getAssetRegisterBooks(userID, subLocID, officeTypeID);
+    }
   }
 
   // asset Register general
@@ -683,6 +812,44 @@ export class AssetRegisterRptComponent implements OnInit {
       .get(
         this.serverUrl +
           "getAssetdetailComputers?UserId=" +
+          userID +
+          "&SubLocID=" +
+          subLocID +
+          "&OfficeTypeID=" +
+          officeTypeID,
+        { headers: reqHeader }
+      )
+      .subscribe((data: any) => {
+        this.assetRegisterList = data;
+        this.filterAssetRegisterList = data;
+
+        data.forEach((item, index) => {
+          item.id = index + 1;
+        });
+        this._alldata = data;
+        this.dataSource.data = this.addGroups(
+          this._alldata,
+          this.groupByColumns
+        );
+        this.dataSource.filterPredicate = this.customFilterPredicate.bind(this);
+        this.dataSource.filter = performance.now().toString();
+        this.cdr.detectChanges();
+
+        // this.dataSource = this.filterAssetRegisterList;
+      });
+  }
+
+  // asset register computer
+  getAssetRegisterBooks(userID, subLocID, officeTypeID) {
+    var reqHeader = new HttpHeaders({
+      "Content-Type": "application/json",
+      // Authorization: "Bearer " + Token,
+    });
+
+    this.http
+      .get(
+        this.serverUrl +
+          "getAssetdetailBooks?UserId=" +
           userID +
           "&SubLocID=" +
           subLocID +
