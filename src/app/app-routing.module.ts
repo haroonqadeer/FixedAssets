@@ -26,6 +26,7 @@ import { AssetRegisterRptComponent } from "./pages/fixAsset/Reports/asset-regist
 import { LandReportComponent } from "./pages/fixAsset/Reports/land-report/land-report.component";
 import { RegisterVehicleRptComponent } from "./pages/fixAsset/Reports/register-vehicle-rpt/register-vehicle-rpt.component";
 import { RegisterComputerRptComponent } from "./pages/fixAsset/Reports/register-computer-rpt/register-computer-rpt.component";
+import { RevaluationMoveAssetComponent } from "./pages/fixAsset/revaluation-move-asset/revaluation-move-asset.component";
 
 const routes: Routes = [
   {
@@ -121,6 +122,10 @@ const routes: Routes = [
   {
     path: "registerComputer",
     component: RegisterComputerRptComponent,
+  },
+  {
+    path: "revaluation",
+    component: RevaluationMoveAssetComponent,
   },
 ];
 

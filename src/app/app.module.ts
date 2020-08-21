@@ -59,9 +59,10 @@ import { OnCreateDirective } from "./on-create.directive";
 import { DragDropModule } from "@angular/cdk/drag-drop";
 import { CdkTableModule } from "@angular/cdk/table";
 import { CdkTreeModule } from "@angular/cdk/tree";
-import { LandReportComponent } from './pages/fixAsset/Reports/land-report/land-report.component';
-import { RegisterVehicleRptComponent } from './pages/fixAsset/Reports/register-vehicle-rpt/register-vehicle-rpt.component';
-import { RegisterComputerRptComponent } from './pages/fixAsset/Reports/register-computer-rpt/register-computer-rpt.component';
+import { LandReportComponent } from "./pages/fixAsset/Reports/land-report/land-report.component";
+import { RegisterVehicleRptComponent } from "./pages/fixAsset/Reports/register-vehicle-rpt/register-vehicle-rpt.component";
+import { RegisterComputerRptComponent } from "./pages/fixAsset/Reports/register-computer-rpt/register-computer-rpt.component";
+import { RevaluationMoveAssetComponent } from "./pages/fixAsset/revaluation-move-asset/revaluation-move-asset.component";
 
 @NgModule({
   declarations: [
@@ -92,6 +93,7 @@ import { RegisterComputerRptComponent } from './pages/fixAsset/Reports/register-
     LandReportComponent,
     RegisterVehicleRptComponent,
     RegisterComputerRptComponent,
+    RevaluationMoveAssetComponent,
   ],
   imports: [
     BrowserModule,

@@ -30,6 +30,10 @@
       <a class="nav-link text-truncate" href="" routerLinkActive="active" routerLink="assetEntry"
         (click)="closeNav()"><span class="d-none d-sm-inline">Asset Entry & Tags</span></a>
     </li>
+    <li class="nav-item" *ngIf="userRole == 'Super User'">
+      <a class="nav-link text-truncate" href="" routerLinkActive="active" routerLink="revaluation"
+        (click)="closeNav()"><span class="d-none d-sm-inline">Revaluation Movable Asset</span></a>
+    </li>
     <li class="nav-item"
       *ngIf="userRole == 'Data Entry' || userRole == 'Fixed Asset Admin' || userRole == 'Fixed Asset Data Entry' || userRole == 'Super User'">
       <a class="nav-link text-truncate" href="" routerLinkActive="active" routerLink="freeholdLand"
