@@ -27,10 +27,10 @@ declare var $: any;
   styleUrls: ["./asset-entry.component.scss"],
 })
 export class AssetEntryComponent implements OnInit {
-  serverUrl = "http://95.217.206.195:2007/api/";
+  // serverUrl = "http://95.217.206.195:2007/api/";
   //serverUrl = "http://localhost:12345/api/";
 
-  // serverUrl = "http://localhost:6090/api/";
+  serverUrl = "http://localhost:6090/api/";
 
   loadingBar = true;
   //pagination variables for tag list
@@ -38,7 +38,7 @@ export class AssetEntryComponent implements OnInit {
   tagP = 1;
 
   //pagination variables for main table (asset detail list)
-  mainTableItemPerPage = "10";
+  mainTableItemPerPage = "16";
   mainTableP = 1;
 
   //pagination variables for previous tag modal window table (old tag list)
@@ -87,6 +87,7 @@ export class AssetEntryComponent implements OnInit {
   editMode = true;
   hidden = false;
   disableOfcType = true;
+  disableMainProject = false;
   disableProject = true;
   disableCustody = false;
   disableTag = false;
@@ -94,6 +95,8 @@ export class AssetEntryComponent implements OnInit {
   disableSenderTrans = true;
   disableReceiveTrans = false;
   hiddenFields = true;
+
+  chkSelectAll = false;
 
   txtPin = "";
   assetID = "";
@@ -309,6 +312,56 @@ export class AssetEntryComponent implements OnInit {
     }
   }
 
+  selectAllData(curPage, itemPerPage, event) {
+    curPage = curPage - 1;
+    var startPoint;
+
+    if (curPage == 0) {
+      startPoint = curPage;
+    } else {
+      startPoint = curPage * itemPerPage;
+    }
+    var endPoint = +startPoint + +itemPerPage - 1;
+
+    if (event == "A") {
+      for (startPoint; startPoint <= endPoint; startPoint++) {
+        if (startPoint > this.assetDetailList.length) {
+          startPoint = endPoint + 1;
+        } else {
+          if (this.tagList.length == 0) {
+            this.tagList.push({
+              tempid: this.assetDetailList[startPoint].tempid,
+              tag: this.assetDetailList[startPoint].tag,
+              assetLocation: this.assetDetailList[startPoint].assetLocation,
+              custody: this.assetDetailList[startPoint].custody,
+              assetId: this.assetDetailList[startPoint].assetID.toString(),
+            });
+            this.assetDetailList[startPoint].checkbox = true;
+          } else {
+            var srchTag = this.tagList.filter(
+              (x) => x.tag == this.assetDetailList[startPoint].tag
+            );
+            if (srchTag.length == 0) {
+              this.tagList.push({
+                tempid: this.assetDetailList[startPoint].tempid,
+                tag: this.assetDetailList[startPoint].tag,
+                assetLocation: this.assetDetailList[startPoint].assetLocation,
+                custody: this.assetDetailList[startPoint].custody,
+                assetId: this.assetDetailList[startPoint].assetID.toString(),
+              });
+              this.assetDetailList[startPoint].checkbox = true;
+            }
+          }
+        }
+      }
+    } else {
+      this.tagList = [];
+      for (var i = 0; i < this.assetDetailList.length; i++) {
+        this.assetDetailList[i].checkbox = false;
+      }
+    }
+  }
+
   clearTags() {
     // alert(this.tempSpecID);
     // debugger;
@@ -344,6 +397,7 @@ export class AssetEntryComponent implements OnInit {
       });
     }, 0);
   }
+
   printTags() {
     // setTimeout(() => {
     //   Swal.fire({
@@ -1790,6 +1844,7 @@ export class AssetEntryComponent implements OnInit {
     this.lblTransByPost = "";
     this.lblTransferID = "";
 
+    this.disableMainProject = false;
     this.disableTag = false;
     this.disableCustody = false;
 
@@ -1883,6 +1938,7 @@ export class AssetEntryComponent implements OnInit {
     this.lblTransByPost = "";
     this.lblTransferID = "";
 
+    this.disableMainProject = false;
     this.disableTag = false;
     this.disableCustody = false;
 
@@ -2478,6 +2534,7 @@ export class AssetEntryComponent implements OnInit {
                 }
               );
             }
+            this.disableMainProject = true;
             this.sldTransfered = true;
             this.getTransfer();
             $("#assetTransferModal").modal("hide");
@@ -2567,6 +2624,7 @@ export class AssetEntryComponent implements OnInit {
     this.disableProject = true;
     this.cmbCustody = this.cmbTransToPost;
     this.disableCustody = true;
+    this.disableMainProject = true;
     this.getIPC();
   }
 

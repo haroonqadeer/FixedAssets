@@ -342,10 +342,10 @@ export class AppComponent {
       return false;
     } else {
       var saveData = {
-        UserName: this._cuName,
+        UserName: this.cookie.get("userName"),
         OldHashPassword: this.txtOldPw,
         HashPassword: this.txtNewPw,
-        UpdatedBY: this._cuId,
+        UpdatedBY: this.cookie.get("userID"),
         SpType: "PASSWORD",
       };
 
