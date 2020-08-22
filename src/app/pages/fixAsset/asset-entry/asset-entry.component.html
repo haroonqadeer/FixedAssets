@@ -272,7 +272,9 @@
       <!-- Pagination Starts -->
       <div class="col-md-12 text-right">
         <div class="paginationBox">
-          <pagination-controls id="mainTableP" (pageChange)="mainTableP = $event"></pagination-controls>
+          <pagination-controls id="mainTableP"
+            (pageChange)="mainTableP = $event;selectAllData(mainTableP, mainTableItemPerPage, 'C')">
+          </pagination-controls>
         </div>
         <div class="paginationBox">
           <mat-form-field class="pagenateList">

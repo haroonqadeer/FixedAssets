@@ -361,11 +361,31 @@ export class AssetEntryComponent implements OnInit {
           }
         }
       }
-    } else {
-      this.tagList = [];
-      for (var i = 0; i < this.assetDetailList.length; i++) {
-        this.assetDetailList[i].checkbox = false;
+    } else if (event == "B") {
+      // this.tagList = [];
+      // for (var i = 0; i < this.assetDetailList.length; i++) {
+      //   this.assetDetailList[i].checkbox = false;
+      // }
+
+      for (startPoint; startPoint <= endPoint; startPoint++) {
+        var i = 0;
+        i = this.tagList.findIndex(
+          (x) => x.tag == this.assetDetailList[startPoint].tag
+        );
+        if (i != 0) {
+          this.tagList.splice(i, 1);
+          this.assetDetailList[startPoint].checkbox = false;
+        }
       }
+    } else if (event == "C") {
+      var found = false;
+      for (startPoint; startPoint <= endPoint; startPoint++) {
+        found = this.assetDetailList[startPoint].checkbox;
+        if (found == false) {
+          startPoint = endPoint + 1;
+        }
+      }
+      this.chkSelectAll = found;
     }
   }
 
