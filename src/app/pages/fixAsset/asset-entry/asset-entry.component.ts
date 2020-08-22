@@ -27,10 +27,10 @@ declare var $: any;
   styleUrls: ["./asset-entry.component.scss"],
 })
 export class AssetEntryComponent implements OnInit {
-  // serverUrl = "http://95.217.206.195:2007/api/";
+  serverUrl = "http://95.217.206.195:2007/api/";
   //serverUrl = "http://localhost:12345/api/";
 
-  serverUrl = "http://localhost:6090/api/";
+  // serverUrl = "http://localhost:6090/api/";
 
   loadingBar = true;
   //pagination variables for tag list
@@ -95,6 +95,7 @@ export class AssetEntryComponent implements OnInit {
   disableSenderTrans = true;
   disableReceiveTrans = false;
   hiddenFields = true;
+  showBtn = true;
 
   chkSelectAll = false;
 
@@ -114,6 +115,8 @@ export class AssetEntryComponent implements OnInit {
   cmbTransLocation = "";
   cmbSendTransLocation = "";
   cmbAssetCat = "";
+  cmbTransProject = "";
+
   txtAssetDesc = "";
   txtAssetLoc = "";
   txtIdentification = "";
@@ -136,6 +139,7 @@ export class AssetEntryComponent implements OnInit {
   cmbTransferProject = "";
   cmbTransToPost = "";
   cmbTransByPost = "";
+  cmbTransRptRef = "";
 
   rdbTransType = "";
   rdbTransMode = "";
@@ -206,9 +210,11 @@ export class AssetEntryComponent implements OnInit {
   advSearchSection = "";
   advSearchLocation = "";
   searchTransProject = "";
+  searchTransRptProject = "";
   searchPostTo = "";
   searchPostBy = "";
   searchVehicleAssetCat = "";
+  searchTransRptRef = "";
 
   //asset category sepecificaiton ngModels
   make = "";
@@ -261,6 +267,7 @@ export class AssetEntryComponent implements OnInit {
   projectList = [];
   transferProjectList = [];
   refList = [];
+  transRefList = [];
   preTagList = [];
   assetCondList = [];
   assetDetailList = [];
@@ -2232,6 +2239,7 @@ export class AssetEntryComponent implements OnInit {
   clearTransferReport() {
     this.cmbSearchTransferLocation = "";
     this.cmbSearchTransferOfcType = "";
+    this.cmbTransProject = "";
 
     this.assetTransfersRptList = [];
   }
@@ -3269,7 +3277,9 @@ export class AssetEntryComponent implements OnInit {
             "&subLocation=" +
             this.locationName +
             "&officeType=" +
-            this.officeName,
+            this.officeName +
+            "&projectID=" +
+            this.cmbTransProject,
           { headers: reqHeader }
         )
         .subscribe((data: any) => {
@@ -3324,6 +3334,78 @@ export class AssetEntryComponent implements OnInit {
   getKeyPressed(e) {
     if (e.keyCode == 13) {
       this.allowUpdation();
+    }
+  }
+
+  getTransIPC() {
+    // this.loadingBar = true;
+    var reqHeader = new HttpHeaders({
+      "Content-Type": "application/json",
+      // Authorization: "Bearer " + Token,
+    });
+
+    this.http
+      .get(this.serverUrl + "getipc?ProjectId=" + this.cmbProject, {
+        headers: reqHeader,
+      })
+      .subscribe((data: any) => {
+        this.transRefList = data;
+        // this.loadingBar = false;
+      });
+  }
+
+  editIPC(item) {
+    item.showBtn = 1;
+
+    this.cmbTransRptRef = item.iPCRef;
+  }
+
+  saveIPC(item) {
+    if (
+      this.cmbTransRptRef == "" ||
+      this.cmbTransRptRef == null ||
+      this.cmbTransRptRef == undefined ||
+      this.cmbTransRptRef == "0"
+    ) {
+      this.toastr.errorToastr("Please Select IPC Reference", "Error", {
+        toastTimeout: 2500,
+      });
+      return false;
+    } else {
+      var saveData = {
+        AssetID: item.assetID,
+        IPCRef: parseInt(this.cmbTransRptRef),
+        ProjectID: item.projectID,
+      };
+
+      var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
+
+      this.http
+        .post(this.serverUrl + "editIPC", saveData, {
+          headers: reqHeader,
+        })
+        .subscribe((data: any) => {
+          if (data.msg == "Success") {
+            this.toastr.successToastr(
+              "Record Updated Successfully!",
+              "Success!",
+              {
+                toastTimeout: 2500,
+              }
+            );
+            item.showBtn = undefined;
+
+            this.transfersReport(this.rdbTransRptMode);
+            this.loadingBar = false;
+            return false;
+          } else {
+            this.toastr.errorToastr(data.msg, "Error !", {
+              toastTimeout: 5000,
+            });
+            this.loadingBar = false;
+            return false;
+          }
+        });
     }
   }
 }
