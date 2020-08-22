@@ -27,10 +27,10 @@ declare var $: any;
   styleUrls: ["./asset-entry.component.scss"],
 })
 export class AssetEntryComponent implements OnInit {
-  // serverUrl = "http://95.217.206.195:2007/api/";
+  serverUrl = "http://95.217.206.195:2007/api/";
   //serverUrl = "http://localhost:12345/api/";
 
-  serverUrl = "http://localhost:6090/api/";
+  // serverUrl = "http://localhost:6090/api/";
 
   loadingBar = true;
   //pagination variables for tag list
@@ -354,11 +354,31 @@ export class AssetEntryComponent implements OnInit {
           }
         }
       }
-    } else {
-      this.tagList = [];
-      for (var i = 0; i < this.assetDetailList.length; i++) {
-        this.assetDetailList[i].checkbox = false;
+    } else if (event == "B") {
+      // this.tagList = [];
+      // for (var i = 0; i < this.assetDetailList.length; i++) {
+      //   this.assetDetailList[i].checkbox = false;
+      // }
+
+      for (startPoint; startPoint <= endPoint; startPoint++) {
+        var i = 0;
+        i = this.tagList.findIndex(
+          (x) => x.tag == this.assetDetailList[startPoint].tag
+        );
+        if (i != 0) {
+          this.tagList.splice(i, 1);
+          this.assetDetailList[startPoint].checkbox = false;
+        }
       }
+    } else if (event == "C") {
+      var found = false;
+      for (startPoint; startPoint <= endPoint; startPoint++) {
+        found = this.assetDetailList[startPoint].checkbox;
+        if (found == false) {
+          startPoint = endPoint + 1;
+        }
+      }
+      this.chkSelectAll = found;
     }
   }
 
