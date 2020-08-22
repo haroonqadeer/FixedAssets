@@ -610,16 +610,16 @@ div.divFooter .label {
 .tagBox {
   margin-top: 0 !important;
   width: 520px;
-  height: 185px;
-  /* border: 1px solid red; */
+  height: 188px;
+  border: 1px solid red;
 }
 
 
 @media all and (max-width : 768) {
   .tagBox {
     width: 520px;
-    height: 197.10px;
-    /* border: 1px solid red; */
+    height: 188px;
+    border: 1px solid red;
   }
 }
 
