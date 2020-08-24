@@ -169,6 +169,11 @@ export class AssetRegisterRptComponent implements OnInit {
         title: "old Tag",
         display: true,
       },
+      {
+        field: "createdBy",
+        title: "Created By",
+        display: false,
+      },
     ];
     // this.availColumns = this.columns.slice();
     this.displayedColumns = this.columns.map((column) => column.field);
@@ -275,6 +280,11 @@ export class AssetRegisterRptComponent implements OnInit {
         title: "old Tag",
         display: true,
       },
+      {
+        field: "createdBy",
+        title: "Created By",
+        display: false,
+      },
     ];
 
     // computer columns settings
@@ -370,6 +380,11 @@ export class AssetRegisterRptComponent implements OnInit {
         field: "previousTag",
         title: "old Tag",
         display: true,
+      },
+      {
+        field: "createdBy",
+        title: "Created By",
+        display: false,
       },
     ];
 
@@ -467,6 +482,11 @@ export class AssetRegisterRptComponent implements OnInit {
         title: "old Tag",
         display: true,
       },
+      {
+        field: "createdBy",
+        title: "Created By",
+        display: false,
+      },
     ];
 
     // Books columns settings
@@ -562,6 +582,11 @@ export class AssetRegisterRptComponent implements OnInit {
         field: "previousTag",
         title: "old Tag",
         display: true,
+      },
+      {
+        field: "createdBy",
+        title: "Created By",
+        display: false,
       },
     ];
   }
