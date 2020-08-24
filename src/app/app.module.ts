@@ -8,6 +8,7 @@ import { ChartModule } from "angular-highcharts";
 import { UserIdleModule } from "angular-user-idle";
 import { ZXingScannerModule } from "@zxing/ngx-scanner";
 import { QRCodeModule } from "angular2-qrcode";
+import { HashLocationStrategy, LocationStrategy } from "@angular/common";
 
 import {
   CurrencyMaskConfig,
@@ -123,6 +124,7 @@ import { RevaluationMoveAssetComponent } from "./pages/fixAsset/revaluation-move
   providers: [
     CookieService,
     { provide: CURRENCY_MASK_CONFIG, useValue: CustomCurrencyMaskConfig },
+    { provide: LocationStrategy, useClass: HashLocationStrategy },
   ],
   bootstrap: [AppComponent],
   exports: [OnCreateDirective],
