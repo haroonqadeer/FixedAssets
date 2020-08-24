@@ -29,6 +29,10 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
+import { LoaderService } from "./loadingservices/loader.service";
+import { LoaderInterceptor } from "./loadingservices/loader-interceptor.service";
+import { CustomloaderComponent } from "./loadingservices/customloader/customloader.component";
+
 import { ToastrModule } from "ng6-toastr-notifications";
 import { OrderModule } from "ngx-order-pipe";
 import { NgxPaginationModule } from "ngx-pagination";
@@ -95,6 +99,7 @@ import { RevaluationMoveAssetComponent } from "./pages/fixAsset/revaluation-move
     RegisterVehicleRptComponent,
     RegisterComputerRptComponent,
     RevaluationMoveAssetComponent,
+    CustomloaderComponent,
   ],
   imports: [
     BrowserModule,
@@ -125,6 +130,8 @@ import { RevaluationMoveAssetComponent } from "./pages/fixAsset/revaluation-move
     CookieService,
     { provide: CURRENCY_MASK_CONFIG, useValue: CustomCurrencyMaskConfig },
     { provide: LocationStrategy, useClass: HashLocationStrategy },
+    LoaderService,
+    { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],
   exports: [OnCreateDirective],
