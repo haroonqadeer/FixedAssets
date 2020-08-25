@@ -926,7 +926,7 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col-md-12 font-weight-bold pt-2 pb-2">
+                <div class="col-md-12 font-weight-bold pt-0 pb-0">
                   {{ item.tag }}
                   <!-- {{ item.tag }} - {{ item.finding }} -->
                 </div>
@@ -2090,6 +2090,9 @@
                     <th rowspan="2">
                       IPC Reference
                     </th>
+                    <th rowspan="2">
+                      Project Name
+                    </th>
                     <th rowspan="2">Tag</th>
                     <th rowspan="2">Asset Description</th>
                     <th class="text-center" colspan="4">Sender Info</th>
@@ -2134,6 +2137,7 @@
                     <td *ngIf="item.showBtn==undefined">
                       {{item.iPCRef}}
                     </td>
+                    <td>{{ item.projectName }}</td>
                     <td>{{ item.tag }}</td>
                     <td>{{ item.tSubLocationDescription }}</td>
                     <td>{{ item.tOfficeTypeDescription }}</td>
