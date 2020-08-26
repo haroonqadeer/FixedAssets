@@ -45,6 +45,10 @@ export class AssetpurchaseComponent implements OnInit {
   ddlLocation = "";
   ddlPost = "";
   ddlMemoIssued = "";
+  ddlCustody = "";
+  ddlOfcSec = "";
+  ddlVehicle = "";
+  ddlAssetCat = "";
 
   dtpPurchase = new Date();
   dtpSupplierInvoice = new Date();
@@ -53,6 +57,12 @@ export class AssetpurchaseComponent implements OnInit {
   txtMemo = "";
   txtSupplier = "";
   txtSupInvoiceNo = "";
+  txtTotalAmount = "";
+  txtAssetDesc = "";
+  txtCost = "";
+  txtRemarks = "";
+
+  rdbAsset = "";
 
   txtSearchPurchaseData = "";
   txtSearchAccSec = "";
@@ -61,6 +71,10 @@ export class AssetpurchaseComponent implements OnInit {
   txtSearchLocation = "";
   txtSearchPost = "";
   txtSearchMemoIssued = "";
+  txtSearchCustody = "";
+  txtSearchOfcSec = "";
+  txtSearchVehicle = "";
+  txtSearchAssetCat = "";
 
   accSecList = [];
   projectsList = [];
@@ -68,6 +82,11 @@ export class AssetpurchaseComponent implements OnInit {
   locList = [];
   purchaseList = [];
   postList = [];
+  custodyList = [];
+  ofcSecList = [];
+  vehList = [];
+  assetCatList = [];
+  assetCategorySpecsList = [];
 
   filePicker = "";
   selectedFile: File = null;
@@ -122,6 +141,8 @@ export class AssetpurchaseComponent implements OnInit {
 
     reader.readAsDataURL(this.selectedFileSup);
   }
+
+  assetCategorySpecsData() {}
 
   getAccSec() {
     this.loadingBar = true;

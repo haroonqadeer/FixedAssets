@@ -35,6 +35,7 @@ export class AssetCategoryComponent implements OnInit {
   lblAssetCatID = 0;
   lblSpecID = 0;
   lblMakeID = 0;
+  lblAssetCatName = "";
   txtPin = "";
   assetCatID = "";
   txtCatShrtName = "";
@@ -160,6 +161,10 @@ export class AssetCategoryComponent implements OnInit {
 
   getAssetCatagoriesSpecifications(item) {
     this.lblAssetCatID = item;
+    var catName = this.assetCatList.filter((x) => x.assetCatID == item);
+
+    this.lblAssetCatName = catName[0].assetCatDescription;
+
     var reqHeader = new HttpHeaders({
       "Content-Type": "application/json",
       // Authorization: "Bearer " + Token,
