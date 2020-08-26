@@ -27,7 +27,8 @@ declare var $: any;
   styleUrls: ["./asset-entry.component.scss"],
 })
 export class AssetEntryComponent implements OnInit {
-  serverUrl = "http://95.217.206.195:2007/api/";
+  // serverUrl = "http://95.217.206.195:2007/api/";
+  serverUrl = "http://58.27.164.137:7001/api/";
   //serverUrl = "http://localhost:12345/api/";
 
   // serverUrl = "http://localhost:6090/api/";
@@ -558,7 +559,7 @@ export class AssetEntryComponent implements OnInit {
     this.rdbTransRptMode = "1";
     this.rdbAsset = "1";
     this.disableOfcType = true;
-    this.getAssetDetail();
+    // this.getAssetDetail();
     this.getTags();
     this.getLocation();
     this.getTransLocation();
@@ -571,7 +572,7 @@ export class AssetEntryComponent implements OnInit {
     this.getVehicleMake();
     this.getVehicleModel();
     this.getVehicleType();
-    this.getOldTags();
+    // this.getOldTags();
     this.getTransfer();
     $("#assetRegister").hide();
   }
@@ -2321,6 +2322,14 @@ export class AssetEntryComponent implements OnInit {
       this.reverse = !this.reverse;
     }
     this.order = value;
+  }
+
+  setOldTagList() {
+    //load previousTag
+    debugger;
+    if (this.oldTagList.length == 0) {
+      this.getOldTags();
+    }
   }
 
   //print Asset Register Report

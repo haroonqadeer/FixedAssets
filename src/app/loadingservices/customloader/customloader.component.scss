@@ -5,10 +5,11 @@
   width: 100%;
   top: 0px;
   left: 0px;
-  height: 100vh;
+  min-height: 100%;
   align-items: center;
   justify-content: center;
   display: grid;
+  z-index: 99999 !important;
 }
 
 .loading-spinner span {
