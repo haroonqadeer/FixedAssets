@@ -142,7 +142,7 @@ export class AssetpurchaseComponent implements OnInit {
     reader.readAsDataURL(this.selectedFileSup);
   }
 
-  assetCategorySpecsData() {}
+  assetCategorySpecsData(assetCatID, specID, specificationListName) {}
 
   getAccSec() {
     this.loadingBar = true;
