@@ -24,6 +24,7 @@ export class UserRegisterationComponent implements OnInit {
   //serverUrl = "http://localhost:12345/api/";
   toppings = new FormControl();
 
+  txtPin = "";
   userIDforLoc = 0;
   userID = "";
   txtEmail = "";
@@ -46,6 +47,7 @@ export class UserRegisterationComponent implements OnInit {
   userLocationsList = [];
 
   usersList = [];
+  objList = [];
 
   toppingList: string[] = [
     "Abbottabad - GM Office",
@@ -468,6 +470,96 @@ export class UserRegisterationComponent implements OnInit {
           this.toastr.errorToastr(data.msg, "Error !", { toastTimeout: 5000 });
           this.loadingBar = false;
           return false;
+        }
+      });
+  }
+
+  genPin(obj) {
+    // alert(obj.email);
+    if (this.cookie.get("pinstatus") == "true") {
+      this.txtPin = "";
+      this.objList = [];
+      this.objList = obj;
+
+      $("#genPinModal").modal("show");
+    } else {
+      this.toastr.errorToastr("PIN Code is not allowed", "Error", {
+        toastTimeout: 2500,
+      });
+      return false;
+    }
+  }
+
+  /*** Capture Enter key ***/
+  getKeyPressed(e) {
+    if (e.keyCode == 13) {
+      this.allowUpdation();
+    }
+  }
+
+  allowUpdation() {
+    // alert(this.objList);
+    // alert(this.paramType);
+
+    if (this.txtPin == "") {
+      this.toastr.errorToastr("Please Enter Pin", "Error", {
+        toastTimeout: 2500,
+      });
+      return false;
+    } else if (this.txtPin.length != 4) {
+      this.toastr.errorToastr("Please Enter Correct Pin", "Error", {
+        toastTimeout: 2500,
+      });
+      return false;
+    } else {
+      var saveData = {
+        UserName: this.cookie.get("userName"),
+        Pincode: this.txtPin,
+      };
+
+      var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
+
+      this.http
+        .post(this.serverUrl + "pincode", saveData, { headers: reqHeader })
+        .subscribe((data: any) => {
+          if (data.msg == "Success") {
+            $("#genPinModal").modal("hide");
+            this.resetPw(this.objList);
+            // this.paramType = "";
+            // this.objList = [];
+            return false;
+          } else {
+            this.toastr.errorToastr(data.msg, "Error!", { toastTimeout: 2500 });
+          }
+        });
+    }
+  }
+
+  resetPw(item) {
+    var saveData = {
+      UserName: item.email,
+      HashPassword: "1234",
+      UpdatedBY: this.cookie.get("userID"),
+      SpType: "PASSWORD",
+    };
+
+    var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
+
+    this.http
+      .post(this.serverUrl + "resetpw", saveData, { headers: reqHeader })
+      // .post("http://localhost:6090/api/resetpw", saveData, {
+      //   headers: reqHeader,
+      // })
+      .subscribe((data: any) => {
+        if (data.msg == "Success") {
+          this.toastr.successToastr(
+            "Password Reset Successfully!",
+            "Success!",
+            { toastTimeout: 2500 }
+          );
+          return false;
+        } else {
+          this.toastr.errorToastr(data.msg, "Error!", { toastTimeout: 2500 });
         }
       });
   }
