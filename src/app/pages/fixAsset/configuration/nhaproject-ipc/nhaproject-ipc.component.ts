@@ -7,6 +7,7 @@ import {
 } from "@angular/common/http";
 import { CookieService } from "ngx-cookie-service";
 import Swal from "sweetalert2/dist/sweetalert2.js";
+import { AppComponent } from "../../../../app.component";
 
 declare var $: any;
 
@@ -16,7 +17,7 @@ declare var $: any;
   styleUrls: ["./nhaproject-ipc.component.scss"],
 })
 export class NHAProjectIPCComponent implements OnInit {
-  serverUrl = "http://95.217.206.195:2007/api/";
+  // serverUrl = "http://95.217.206.195:2007/api/";
 
   // imgPath = "D:/Flutter App/FixedAssets/src/assets/assetCatImg";
   imgPath = "C:/inetpub/wwwroot/2008_FAR_Proj/assets/IPCRefImg";
@@ -64,7 +65,8 @@ export class NHAProjectIPCComponent implements OnInit {
   constructor(
     private toastr: ToastrManager,
     private http: HttpClient,
-    private cookie: CookieService
+    private cookie: CookieService,
+    private app: AppComponent
   ) {}
 
   ngOnInit(): void {
@@ -80,7 +82,7 @@ export class NHAProjectIPCComponent implements OnInit {
     });
 
     this.http
-      .get(this.serverUrl + "getipc", { headers: reqHeader })
+      .get(this.app.serverUrl + "getipc", { headers: reqHeader })
       .subscribe((data: any) => {
         this.tempList = data.reverse();
         if (this.cmbProject != "") {
@@ -104,7 +106,7 @@ export class NHAProjectIPCComponent implements OnInit {
     });
 
     this.http
-      .get(this.serverUrl + "getassetcat", { headers: reqHeader })
+      .get(this.app.serverUrl + "getassetcat", { headers: reqHeader })
       .subscribe((data: any) => {
         this.AssetCatList = data;
       });
@@ -117,7 +119,7 @@ export class NHAProjectIPCComponent implements OnInit {
     });
 
     this.http
-      .get(this.serverUrl + "getprojects", { headers: reqHeader })
+      .get(this.app.serverUrl + "getprojects", { headers: reqHeader })
       .subscribe((data: any) => {
         this.projectList = data;
         this.loadingBar = false;
@@ -205,7 +207,7 @@ export class NHAProjectIPCComponent implements OnInit {
     });
 
     this.http
-      .get(this.serverUrl + "getipcdetail?IPCRefID=" + this.ipcID, {
+      .get(this.app.serverUrl + "getipcdetail?IPCRefID=" + this.ipcID, {
         headers: reqHeader,
       })
       .subscribe((data: any) => {
@@ -270,7 +272,7 @@ export class NHAProjectIPCComponent implements OnInit {
       var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
       this.http
-        .post(this.serverUrl + "sudipcref", saveData, {
+        .post(this.app.serverUrl + "sudipcref", saveData, {
           // .post("http://localhost:5090/api/sudipcref", saveData, {
           headers: reqHeader,
         })
@@ -361,7 +363,7 @@ export class NHAProjectIPCComponent implements OnInit {
           });
 
           this.http
-            .post(this.serverUrl + "sudipcref", saveData, {
+            .post(this.app.serverUrl + "sudipcref", saveData, {
               // .post("http://localhost:5090/api/sudipcref", saveData, {
               headers: reqHeader,
             })
@@ -473,7 +475,7 @@ export class NHAProjectIPCComponent implements OnInit {
       var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
       this.http
-        .post(this.serverUrl + "sudipcrefdetail", saveData, {
+        .post(this.app.serverUrl + "sudipcrefdetail", saveData, {
           headers: reqHeader,
         })
         .subscribe((data: any) => {
@@ -546,7 +548,7 @@ export class NHAProjectIPCComponent implements OnInit {
           });
 
           this.http
-            .post(this.serverUrl + "sudipcrefdetail", saveData, {
+            .post(this.app.serverUrl + "sudipcrefdetail", saveData, {
               headers: reqHeader,
             })
             .subscribe((data: any) => {
@@ -623,7 +625,7 @@ export class NHAProjectIPCComponent implements OnInit {
       var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
       this.http
-        .post(this.serverUrl + "resetPw", saveData, { headers: reqHeader })
+        .post(this.app.serverUrl + "resetPw", saveData, { headers: reqHeader })
         .subscribe((data: any) => {
           if (data.msg == "Success") {
             this.toastr.successToastr("Pin Changed Successfully!", "Success!", {
@@ -660,7 +662,7 @@ export class NHAProjectIPCComponent implements OnInit {
       var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
       this.http
-        .post(this.serverUrl + "pincode", saveData, { headers: reqHeader })
+        .post(this.app.serverUrl + "pincode", saveData, { headers: reqHeader })
         .subscribe((data: any) => {
           if (data.msg == "Success") {
             $("#genPinModal").modal("hide");

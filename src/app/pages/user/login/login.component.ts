@@ -18,7 +18,7 @@ declare var $: any;
   styleUrls: ["./login.component.scss"],
 })
 export class LoginComponent implements OnInit {
-  serverUrl = "http://95.217.206.195:2006/";
+  serverUrl = "http://58.27.164.137:7002/";
   //serverUrl = "http://localhost:9010/";
 
   showProgress = false;

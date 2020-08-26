@@ -28,7 +28,7 @@ declare var $: any;
 })
 export class AssetEntryComponent implements OnInit {
   // serverUrl = "http://95.217.206.195:2007/api/";
-  serverUrl = "http://58.27.164.137:7001/api/";
+  // serverUrl = "http://58.27.164.137:7001/api/";
   //serverUrl = "http://localhost:12345/api/";
 
   // serverUrl = "http://localhost:6090/api/";
@@ -413,7 +413,7 @@ export class AssetEntryComponent implements OnInit {
           });
 
           this.http
-            .post(this.serverUrl + "resettaglist", saveData, {
+            .post(this.app.serverUrl + "resettaglist", saveData, {
               headers: reqHeader,
             })
             .subscribe((data: any) => {
@@ -446,7 +446,7 @@ export class AssetEntryComponent implements OnInit {
     //       });
 
     //       this.http
-    //         .post(this.serverUrl + "resettaglist", saveData, {
+    //         .post(this.app.serverUrl + "resettaglist", saveData, {
     //           headers: reqHeader,
     //         })
     //         .subscribe((data: any) => {
@@ -601,7 +601,7 @@ export class AssetEntryComponent implements OnInit {
     });
 
     this.http
-      .get(this.serverUrl + "getoldtagdata", {
+      .get(this.app.serverUrl + "getoldtagdata", {
         headers: reqHeader,
       })
       .subscribe((data: any) => {
@@ -617,7 +617,7 @@ export class AssetEntryComponent implements OnInit {
     });
 
     this.http
-      .get(this.serverUrl + "getassettransfer", {
+      .get(this.app.serverUrl + "getassettransfer", {
         headers: reqHeader,
       })
       .subscribe((data: any) => {
@@ -685,7 +685,7 @@ export class AssetEntryComponent implements OnInit {
     });
 
     this.http
-      .get(this.serverUrl + "gettags?UserId=" + this.cookie.get("userID"), {
+      .get(this.app.serverUrl + "gettags?UserId=" + this.cookie.get("userID"), {
         headers: reqHeader,
       })
       .subscribe((data: any) => {
@@ -702,7 +702,7 @@ export class AssetEntryComponent implements OnInit {
     });
 
     this.http
-      .get(this.serverUrl + "getipc?ProjectId=" + this.cmbProject, {
+      .get(this.app.serverUrl + "getipc?ProjectId=" + this.cmbProject, {
         headers: reqHeader,
       })
       .subscribe((data: any) => {
@@ -718,8 +718,8 @@ export class AssetEntryComponent implements OnInit {
     });
 
     this.http
-      // .get(this.serverUrl + "getsubloc", { headers: reqHeader })
-      .get(this.serverUrl + "getsubLoc", { headers: reqHeader })
+      // .get(this.app.serverUrl + "getsubloc", { headers: reqHeader })
+      .get(this.app.serverUrl + "getsubLoc", { headers: reqHeader })
       .subscribe((data: any) => {
         this.locTransList = data;
         this.locSendTransList = data;
@@ -734,17 +734,17 @@ export class AssetEntryComponent implements OnInit {
     });
     if (this.cookie.get("roleName") == "Super User") {
       this.http
-        // .get(this.serverUrl + "getsubloc", { headers: reqHeader })
-        .get(this.serverUrl + "getsubloc", { headers: reqHeader })
+        // .get(this.app.serverUrl + "getsubloc", { headers: reqHeader })
+        .get(this.app.serverUrl + "getsubloc", { headers: reqHeader })
         .subscribe((data: any) => {
           // this.locList = data.filter((x) => x.isActivated == 1);
           this.locList = data;
         });
     } else {
       this.http
-        // .get(this.serverUrl + "getsubloc", { headers: reqHeader })
+        // .get(this.app.serverUrl + "getsubloc", { headers: reqHeader })
         .get(
-          this.serverUrl +
+          this.app.serverUrl +
             "getuserLocation?userId=" +
             this.cookie.get("userID"),
           { headers: reqHeader }
@@ -804,7 +804,7 @@ export class AssetEntryComponent implements OnInit {
     });
 
     this.http
-      .get(this.serverUrl + "getofctype", { headers: reqHeader })
+      .get(this.app.serverUrl + "getofctype", { headers: reqHeader })
       .subscribe((data: any) => {
         this.ofcTypeList = data;
         this.ofcTypeTransList = data;
@@ -820,7 +820,7 @@ export class AssetEntryComponent implements OnInit {
     });
 
     this.http
-      .get(this.serverUrl + "getwingsec?officeTypeID=" + obj, {
+      .get(this.app.serverUrl + "getwingsec?officeTypeID=" + obj, {
         headers: reqHeader,
       })
       .subscribe((data: any) => {
@@ -838,7 +838,7 @@ export class AssetEntryComponent implements OnInit {
     });
 
     this.http
-      .get(this.serverUrl + "getwingsec?officeTypeID=" + obj, {
+      .get(this.app.serverUrl + "getwingsec?officeTypeID=" + obj, {
         headers: reqHeader,
       })
       .subscribe((data: any) => {
@@ -855,7 +855,7 @@ export class AssetEntryComponent implements OnInit {
     });
 
     this.http
-      .get(this.serverUrl + "getwingsec?officeTypeID=" + obj, {
+      .get(this.app.serverUrl + "getwingsec?officeTypeID=" + obj, {
         headers: reqHeader,
       })
       .subscribe((data: any) => {
@@ -871,7 +871,7 @@ export class AssetEntryComponent implements OnInit {
     });
 
     this.http
-      .get(this.serverUrl + "getvehicles", { headers: reqHeader })
+      .get(this.app.serverUrl + "getvehicles", { headers: reqHeader })
       .subscribe((data: any) => {
         this.vehicleList = data;
       });
@@ -884,7 +884,7 @@ export class AssetEntryComponent implements OnInit {
     });
 
     this.http
-      .get(this.serverUrl + "getposts", { headers: reqHeader })
+      .get(this.app.serverUrl + "getposts", { headers: reqHeader })
       .subscribe((data: any) => {
         // this.custodyList = data.filter((x) => x.isActivated == 1);
         this.custodyList = data;
@@ -902,7 +902,7 @@ export class AssetEntryComponent implements OnInit {
     });
 
     this.http
-      .get(this.serverUrl + "getassetcat", { headers: reqHeader })
+      .get(this.app.serverUrl + "getassetcat", { headers: reqHeader })
       .subscribe((data: any) => {
         this.AssetCatList = data;
         this.vehAssetCatList = data.filter(
@@ -919,7 +919,7 @@ export class AssetEntryComponent implements OnInit {
     });
 
     this.http
-      .get(this.serverUrl + "getprojects", { headers: reqHeader })
+      .get(this.app.serverUrl + "getprojects", { headers: reqHeader })
       .subscribe((data: any) => {
         this.projectList = data;
         this.transferProjectList = data;
@@ -936,7 +936,7 @@ export class AssetEntryComponent implements OnInit {
     });
 
     this.http
-      .get(this.serverUrl + "getassetcondition", { headers: reqHeader })
+      .get(this.app.serverUrl + "getassetcondition", { headers: reqHeader })
       .subscribe((data: any) => {
         this.assetCondList = data;
       });
@@ -949,7 +949,7 @@ export class AssetEntryComponent implements OnInit {
     });
 
     this.http
-      .get(this.serverUrl + "getvehiclemake", { headers: reqHeader })
+      .get(this.app.serverUrl + "getvehiclemake", { headers: reqHeader })
       .subscribe((data: any) => {
         this.vehMakeList = data;
       });
@@ -962,7 +962,7 @@ export class AssetEntryComponent implements OnInit {
     });
 
     this.http
-      .get(this.serverUrl + "getvehiclemodel", { headers: reqHeader })
+      .get(this.app.serverUrl + "getvehiclemodel", { headers: reqHeader })
       .subscribe((data: any) => {
         this.vehModelList = data;
       });
@@ -975,7 +975,7 @@ export class AssetEntryComponent implements OnInit {
     });
 
     this.http
-      .get(this.serverUrl + "getvehicletype", { headers: reqHeader })
+      .get(this.app.serverUrl + "getvehicletype", { headers: reqHeader })
       .subscribe((data: any) => {
         this.vehTypeList = data;
       });
@@ -1008,7 +1008,7 @@ export class AssetEntryComponent implements OnInit {
       var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
       this.http
-        .post(this.serverUrl + "getassetno", saveData, {
+        .post(this.app.serverUrl + "getassetno", saveData, {
           headers: reqHeader,
         })
         .subscribe((data: any) => {
@@ -1025,7 +1025,7 @@ export class AssetEntryComponent implements OnInit {
 
     this.http
       .get(
-        this.serverUrl +
+        this.app.serverUrl +
           "getuserassetdetail?UserId=" +
           this.cookie.get("userID"),
         { headers: reqHeader }
@@ -1623,7 +1623,7 @@ export class AssetEntryComponent implements OnInit {
       var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
       this.http
-        .post(this.serverUrl + "saveasset", saveData, {
+        .post(this.app.serverUrl + "saveasset", saveData, {
           // .post("http://localhost:5090/api/saveasset", saveData, {
           headers: reqHeader,
         })
@@ -1767,7 +1767,7 @@ export class AssetEntryComponent implements OnInit {
       var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
       this.http
-        .post(this.serverUrl + "savevehicle", saveData, {
+        .post(this.app.serverUrl + "savevehicle", saveData, {
           headers: reqHeader,
         })
         .subscribe((data: any) => {
@@ -1830,7 +1830,7 @@ export class AssetEntryComponent implements OnInit {
           });
 
           this.http
-            .post(this.serverUrl + "saveasset", saveData, {
+            .post(this.app.serverUrl + "saveasset", saveData, {
               headers: reqHeader,
             })
             .subscribe((data: any) => {
@@ -2546,7 +2546,7 @@ export class AssetEntryComponent implements OnInit {
       var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
       this.http
-        .post(this.serverUrl + "sudassettransfer", saveData, {
+        .post(this.app.serverUrl + "sudassettransfer", saveData, {
           // .post("http://localhost:5090/api/sudassettransfer", saveData, {
           headers: reqHeader,
         })
@@ -2688,7 +2688,7 @@ export class AssetEntryComponent implements OnInit {
           });
 
           this.http
-            .post(this.serverUrl + "sudassettransfer", saveData, {
+            .post(this.app.serverUrl + "sudassettransfer", saveData, {
               headers: reqHeader,
             })
             .subscribe((data: any) => {
@@ -2752,7 +2752,7 @@ export class AssetEntryComponent implements OnInit {
           });
 
           this.http
-            .post(this.serverUrl + "deltransferdetail", saveData, {
+            .post(this.app.serverUrl + "deltransferdetail", saveData, {
               headers: reqHeader,
             })
             .subscribe((data: any) => {
@@ -2787,7 +2787,9 @@ export class AssetEntryComponent implements OnInit {
     });
 
     this.http
-      .get(this.serverUrl + "getassettransferdetail", { headers: reqHeader })
+      .get(this.app.serverUrl + "getassettransferdetail", {
+        headers: reqHeader,
+      })
       .subscribe((data: any) => {
         this.transDetailList = data.filter(
           (x) => x.transferID == obj.transferID
@@ -3158,7 +3160,7 @@ export class AssetEntryComponent implements OnInit {
       var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
       this.http
-        .post(this.serverUrl + "resetPw", saveData, { headers: reqHeader })
+        .post(this.app.serverUrl + "resetPw", saveData, { headers: reqHeader })
         .subscribe((data: any) => {
           if (data.msg == "Success") {
             this.toastr.successToastr("Pin Changed Successfully!", "Success!", {
@@ -3195,7 +3197,7 @@ export class AssetEntryComponent implements OnInit {
       var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
       this.http
-        .post(this.serverUrl + "pincode", saveData, { headers: reqHeader })
+        .post(this.app.serverUrl + "pincode", saveData, { headers: reqHeader })
         .subscribe((data: any) => {
           if (data.msg == "Success") {
             $("#genPinModal").modal("hide");
@@ -3300,7 +3302,7 @@ export class AssetEntryComponent implements OnInit {
 
       this.http
         .get(
-          this.serverUrl +
+          this.app.serverUrl +
             "getassetTransfersReport?rptMode=" +
             rptMode +
             "&subLocation=" +
@@ -3325,7 +3327,9 @@ export class AssetEntryComponent implements OnInit {
 
     this.http
       .get(
-        this.serverUrl + "getAssetCategorySpecs?assetCatID=" + this.cmbAssetCat,
+        this.app.serverUrl +
+          "getAssetCategorySpecs?assetCatID=" +
+          this.cmbAssetCat,
         { headers: reqHeader }
       )
       .subscribe((data: any) => {
@@ -3342,7 +3346,7 @@ export class AssetEntryComponent implements OnInit {
 
     this.http
       .get(
-        this.serverUrl +
+        this.app.serverUrl +
           "getAssetCategorySpecsData?assetCatID=" +
           assetCatID +
           "&specID=" +
@@ -3374,7 +3378,7 @@ export class AssetEntryComponent implements OnInit {
     });
 
     this.http
-      .get(this.serverUrl + "getipc?ProjectId=" + this.cmbProject, {
+      .get(this.app.serverUrl + "getipc?ProjectId=" + this.cmbProject, {
         headers: reqHeader,
       })
       .subscribe((data: any) => {
@@ -3410,7 +3414,7 @@ export class AssetEntryComponent implements OnInit {
       var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
       this.http
-        .post(this.serverUrl + "editIPC", saveData, {
+        .post(this.app.serverUrl + "editIPC", saveData, {
           headers: reqHeader,
         })
         .subscribe((data: any) => {

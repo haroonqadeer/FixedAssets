@@ -7,6 +7,7 @@ import {
 } from "@angular/common/http";
 import { CookieService } from "ngx-cookie-service";
 import Swal from "sweetalert2/dist/sweetalert2.js";
+import { AppComponent } from "../../../app.component";
 
 declare var $: any;
 
@@ -16,7 +17,7 @@ declare var $: any;
   styleUrls: ["./revaluation-move-asset.component.scss"],
 })
 export class RevaluationMoveAssetComponent implements OnInit {
-  serverUrl = "http://95.217.206.195:2007/api/";
+  // serverUrl = "http://95.217.206.195:2007/api/";
   // serverUrl = "http://localhost:6090/api/";
 
   heading = "Add";
@@ -63,7 +64,8 @@ export class RevaluationMoveAssetComponent implements OnInit {
   constructor(
     private toastr: ToastrManager,
     private http: HttpClient,
-    private cookie: CookieService
+    private cookie: CookieService,
+    private app: AppComponent
   ) {}
 
   ngOnInit(): void {
@@ -82,7 +84,7 @@ export class RevaluationMoveAssetComponent implements OnInit {
     });
 
     this.http
-      .get(this.serverUrl + "getSubLocationforRevaluator", {
+      .get(this.app.serverUrl + "getSubLocationforRevaluator", {
         headers: reqHeader,
       })
       .subscribe((data: any) => {
@@ -98,7 +100,7 @@ export class RevaluationMoveAssetComponent implements OnInit {
     });
 
     this.http
-      .get(this.serverUrl + "getAccountsCatagoriesforRevaluator", {
+      .get(this.app.serverUrl + "getAccountsCatagoriesforRevaluator", {
         headers: reqHeader,
       })
       .subscribe((data: any) => {
@@ -136,7 +138,9 @@ export class RevaluationMoveAssetComponent implements OnInit {
 
     this.http
       .get(
-        this.serverUrl + "getMoveableAssetListforRevaluation?locID=" + locID,
+        this.app.serverUrl +
+          "getMoveableAssetListforRevaluation?locID=" +
+          locID,
         {
           headers: reqHeader,
         }
@@ -189,7 +193,7 @@ export class RevaluationMoveAssetComponent implements OnInit {
       });
 
       this.http
-        .post(this.serverUrl + "sublocation", saveData, {
+        .post(this.app.serverUrl + "sublocation", saveData, {
           headers: reqHeader,
         })
         .subscribe((data: any) => {
@@ -243,7 +247,7 @@ export class RevaluationMoveAssetComponent implements OnInit {
       });
 
       this.http
-        .post(this.serverUrl + "sublocation", saveData, {
+        .post(this.app.serverUrl + "sublocation", saveData, {
           headers: reqHeader,
         })
         .subscribe((data: any) => {
@@ -297,7 +301,7 @@ export class RevaluationMoveAssetComponent implements OnInit {
       });
 
       this.http
-        .post(this.serverUrl + "sublocation", saveData, {
+        .post(this.app.serverUrl + "sublocation", saveData, {
           headers: reqHeader,
         })
         .subscribe((data: any) => {
@@ -466,7 +470,7 @@ export class RevaluationMoveAssetComponent implements OnInit {
       });
 
       this.http
-        .post(this.serverUrl + "sudAssetDetail", saveData, {
+        .post(this.app.serverUrl + "sudAssetDetail", saveData, {
           headers: reqHeader,
         })
         .subscribe((data: any) => {
@@ -534,7 +538,7 @@ export class RevaluationMoveAssetComponent implements OnInit {
           });
 
           this.http
-            .post(this.serverUrl + "sudAssetDetail", saveData, {
+            .post(this.app.serverUrl + "sudAssetDetail", saveData, {
               headers: reqHeader,
             })
             .subscribe((data: any) => {
@@ -593,7 +597,7 @@ export class RevaluationMoveAssetComponent implements OnInit {
       var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
       this.http
-        .post(this.serverUrl + "pincode", saveData, { headers: reqHeader })
+        .post(this.app.serverUrl + "pincode", saveData, { headers: reqHeader })
         .subscribe((data: any) => {
           if (data.msg == "Success") {
             $("#genPinModal").modal("hide");

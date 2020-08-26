@@ -20,7 +20,7 @@ declare var $: any;
 })
 export class NhabuldingsComponent implements OnInit {
   toggleView = "form";
-  serverUrl = "http://95.217.206.195:2007/api/";
+  // serverUrl = "http://95.217.206.195:2007/api/";
   // serverUrl = "http://localhost:5090/api/";
 
   loadingBar = true;
@@ -144,7 +144,7 @@ export class NhabuldingsComponent implements OnInit {
     });
 
     this.http
-      .get(this.serverUrl + "getBuildingDetail", { headers: reqHeader })
+      .get(this.app.serverUrl + "getBuildingDetail", { headers: reqHeader })
       .subscribe((data: any) => {
         this.buildDetailList = data;
         this.loadingBar = false;
@@ -159,7 +159,7 @@ export class NhabuldingsComponent implements OnInit {
     });
 
     this.http
-      .get(this.serverUrl + "getaccsec", { headers: reqHeader })
+      .get(this.app.serverUrl + "getaccsec", { headers: reqHeader })
       .subscribe((data: any) => {
         this.accSecList = data;
         this.loadingBar = false;
@@ -174,7 +174,7 @@ export class NhabuldingsComponent implements OnInit {
     });
 
     this.http
-      .get(this.serverUrl + "getBuildings", { headers: reqHeader })
+      .get(this.app.serverUrl + "getBuildings", { headers: reqHeader })
       .subscribe((data: any) => {
         this.buildingList = data;
         this.loadingBar = false;
@@ -189,7 +189,9 @@ export class NhabuldingsComponent implements OnInit {
     });
 
     this.http
-      .get(this.serverUrl + "getprojects?IsActivated=1", { headers: reqHeader })
+      .get(this.app.serverUrl + "getprojects?IsActivated=1", {
+        headers: reqHeader,
+      })
       .subscribe((data: any) => {
         this.projectsList = data;
         // this.projectsList2 = data;
@@ -205,7 +207,7 @@ export class NhabuldingsComponent implements OnInit {
     });
 
     this.http
-      .get(this.serverUrl + "getlandmeasurement", { headers: reqHeader })
+      .get(this.app.serverUrl + "getlandmeasurement", { headers: reqHeader })
       .subscribe((data: any) => {
         this.landMeasurementList = data;
         this.loadingBar = false;
@@ -220,7 +222,7 @@ export class NhabuldingsComponent implements OnInit {
     });
 
     this.http
-      .get(this.serverUrl + "getfadetail", { headers: reqHeader })
+      .get(this.app.serverUrl + "getfadetail", { headers: reqHeader })
       .subscribe((data: any) => {
         this.faDetailList = data;
         // alert(this.faDetailList.length);
@@ -236,7 +238,7 @@ export class NhabuldingsComponent implements OnInit {
     });
 
     this.http
-      .get(this.serverUrl + "getfasummary", { headers: reqHeader })
+      .get(this.app.serverUrl + "getfasummary", { headers: reqHeader })
       .subscribe((data: any) => {
         this.faSummaryList = data;
         // alert(this.faSummaryList.length);
@@ -252,7 +254,7 @@ export class NhabuldingsComponent implements OnInit {
     });
 
     this.http
-      .get(this.serverUrl + "gettransaction", { headers: reqHeader })
+      .get(this.app.serverUrl + "gettransaction", { headers: reqHeader })
       .subscribe((data: any) => {
         this.transactionList = data;
         // alert(this.transactionList.length);
@@ -566,7 +568,9 @@ export class NhabuldingsComponent implements OnInit {
       var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
       this.http
-        .post(this.serverUrl + "sudBuilding", SaveData, { headers: reqHeader })
+        .post(this.app.serverUrl + "sudBuilding", SaveData, {
+          headers: reqHeader,
+        })
         // .post("http://localhost:5090/api/sudBuilding", SaveData, {
         //   headers: reqHeader,
         // })
@@ -667,7 +671,7 @@ export class NhabuldingsComponent implements OnInit {
           });
 
           this.http
-            .post(this.serverUrl + "sudBuilding", SaveData, {
+            .post(this.app.serverUrl + "sudBuilding", SaveData, {
               headers: reqHeader,
             })
             // .post("http://localhost:5090/api/sudBuilding", SaveData, {
@@ -742,7 +746,7 @@ export class NhabuldingsComponent implements OnInit {
       var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
       this.http
-        .post(this.serverUrl + "sudoc", SaveData, { headers: reqHeader })
+        .post(this.app.serverUrl + "sudoc", SaveData, { headers: reqHeader })
         // .post("http://localhost:5090/api/sudoc", SaveData, {
         //   headers: reqHeader,
         // })
@@ -855,7 +859,7 @@ export class NhabuldingsComponent implements OnInit {
       var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
       this.http
-        .post(this.serverUrl + "sudoc", SaveData, { headers: reqHeader })
+        .post(this.app.serverUrl + "sudoc", SaveData, { headers: reqHeader })
         .subscribe((data: any) => {
           if (data.msg == "Success") {
             if (this.FaDetailID == 0) {
@@ -976,7 +980,7 @@ export class NhabuldingsComponent implements OnInit {
       var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
       this.http
-        .post(this.serverUrl + "sudoc", SaveData, { headers: reqHeader })
+        .post(this.app.serverUrl + "sudoc", SaveData, { headers: reqHeader })
         .subscribe((data: any) => {
           if (data.msg == "Success") {
             if (this.FaDetailID == 0) {
@@ -1086,7 +1090,7 @@ export class NhabuldingsComponent implements OnInit {
       var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
       this.http
-        .post(this.serverUrl + "sudoc", SaveData, { headers: reqHeader })
+        .post(this.app.serverUrl + "sudoc", SaveData, { headers: reqHeader })
         // .post("http://localhost:5090/api/sudoc", SaveData, {
         //   headers: reqHeader,
         // })
@@ -1213,7 +1217,7 @@ export class NhabuldingsComponent implements OnInit {
       var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
       this.http
-        .post(this.serverUrl + "sudoc", SaveData, { headers: reqHeader })
+        .post(this.app.serverUrl + "sudoc", SaveData, { headers: reqHeader })
         .subscribe((data: any) => {
           if (data.msg == "Success") {
             if (this.FaDetailID == 0) {
@@ -1354,7 +1358,7 @@ export class NhabuldingsComponent implements OnInit {
       var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
       this.http
-        .post(this.serverUrl + "sudoc", SaveData, { headers: reqHeader })
+        .post(this.app.serverUrl + "sudoc", SaveData, { headers: reqHeader })
         .subscribe((data: any) => {
           if (data.msg == "Success") {
             if (this.FaDetailID == 0) {
@@ -1430,7 +1434,9 @@ export class NhabuldingsComponent implements OnInit {
 
           this.loadingBar = true;
           this.http
-            .post(this.serverUrl + "sudoc", SaveData, { headers: reqHeader })
+            .post(this.app.serverUrl + "sudoc", SaveData, {
+              headers: reqHeader,
+            })
             .subscribe((data: any) => {
               if (data.msg == "Success") {
                 this.toastr.successToastr(

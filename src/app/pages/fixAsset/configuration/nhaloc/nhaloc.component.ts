@@ -7,6 +7,7 @@ import {
 } from "@angular/common/http";
 import { CookieService } from "ngx-cookie-service";
 import Swal from "sweetalert2/dist/sweetalert2.js";
+import { AppComponent } from "../../../../app.component";
 
 declare var $: any;
 
@@ -16,7 +17,7 @@ declare var $: any;
   styleUrls: ["./nhaloc.component.scss"],
 })
 export class NHALocComponent implements OnInit {
-  serverUrl = "http://95.217.206.195:2007/api/";
+  // serverUrl = "http://95.217.206.195:2007/api/";
   // serverUrl = "http://localhost:5090/api/";
   heading = "Add";
 
@@ -45,7 +46,8 @@ export class NHALocComponent implements OnInit {
   constructor(
     private toastr: ToastrManager,
     private http: HttpClient,
-    private cookie: CookieService
+    private cookie: CookieService,
+    private app: AppComponent
   ) {}
 
   ngOnInit(): void {
@@ -61,7 +63,7 @@ export class NHALocComponent implements OnInit {
     });
 
     this.http
-      .get(this.serverUrl + "getofctype", { headers: reqHeader })
+      .get(this.app.serverUrl + "getofctype", { headers: reqHeader })
       .subscribe((data: any) => {
         this.ofcTypeList = data;
       });
@@ -74,7 +76,7 @@ export class NHALocComponent implements OnInit {
     });
 
     this.http
-      .get(this.serverUrl + "getmainLoc", { headers: reqHeader })
+      .get(this.app.serverUrl + "getmainLoc", { headers: reqHeader })
       .subscribe((data: any) => {
         this.mainLocList = data;
         this.loadingBar = false;
@@ -88,7 +90,7 @@ export class NHALocComponent implements OnInit {
     });
 
     this.http
-      .get(this.serverUrl + "getsubloc", { headers: reqHeader })
+      .get(this.app.serverUrl + "getsubloc", { headers: reqHeader })
       .subscribe((data: any) => {
         this.tempList = data;
         // alert(this.cmbRegion);
@@ -159,7 +161,7 @@ export class NHALocComponent implements OnInit {
       var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
       this.http
-        .post(this.serverUrl + "sublocation", saveData, {
+        .post(this.app.serverUrl + "sublocation", saveData, {
           headers: reqHeader,
         })
         .subscribe((data: any) => {
@@ -229,7 +231,7 @@ export class NHALocComponent implements OnInit {
           });
 
           this.http
-            .post(this.serverUrl + "sublocation", saveData, {
+            .post(this.app.serverUrl + "sublocation", saveData, {
               headers: reqHeader,
             })
             .subscribe((data: any) => {
@@ -279,7 +281,7 @@ export class NHALocComponent implements OnInit {
     var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
     this.http
-      .post(this.serverUrl + "sublocation", saveData, {
+      .post(this.app.serverUrl + "sublocation", saveData, {
         headers: reqHeader,
       })
       .subscribe((data: any) => {
@@ -384,7 +386,7 @@ export class NHALocComponent implements OnInit {
       var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
       this.http
-        .post(this.serverUrl + "resetPw", saveData, { headers: reqHeader })
+        .post(this.app.serverUrl + "resetPw", saveData, { headers: reqHeader })
         .subscribe((data: any) => {
           if (data.msg == "Success") {
             this.toastr.successToastr("Pin Changed Successfully!", "Success!", {
@@ -421,7 +423,7 @@ export class NHALocComponent implements OnInit {
       var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
       this.http
-        .post(this.serverUrl + "pincode", saveData, { headers: reqHeader })
+        .post(this.app.serverUrl + "pincode", saveData, { headers: reqHeader })
         .subscribe((data: any) => {
           if (data.msg == "Success") {
             $("#genPinModal").modal("hide");

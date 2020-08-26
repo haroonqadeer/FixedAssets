@@ -7,6 +7,7 @@ import {
 } from "@angular/common/http";
 import { CookieService } from "ngx-cookie-service";
 import Swal from "sweetalert2/dist/sweetalert2.js";
+import { AppComponent } from "../../../../app.component";
 
 declare var $: any;
 
@@ -16,7 +17,7 @@ declare var $: any;
   styleUrls: ["./nhasection.component.scss"],
 })
 export class NHASectionComponent implements OnInit {
-  serverUrl = "http://95.217.206.195:2007/api/";
+  // serverUrl = "http://95.217.206.195:2007/api/";
   // serverUrl = "http://localhost:5090/api/";
 
   heading = "Add";
@@ -46,7 +47,8 @@ export class NHASectionComponent implements OnInit {
   constructor(
     private toastr: ToastrManager,
     private http: HttpClient,
-    private cookie: CookieService
+    private cookie: CookieService,
+    private app: AppComponent
   ) {}
 
   ngOnInit(): void {
@@ -62,7 +64,7 @@ export class NHASectionComponent implements OnInit {
     });
 
     this.http
-      .get(this.serverUrl + "getofctype", { headers: reqHeader })
+      .get(this.app.serverUrl + "getofctype", { headers: reqHeader })
       .subscribe((data: any) => {
         this.ofcTypeList = data;
       });
@@ -75,7 +77,7 @@ export class NHASectionComponent implements OnInit {
     });
 
     this.http
-      .get(this.serverUrl + "getwing", {
+      .get(this.app.serverUrl + "getwing", {
         headers: reqHeader,
       })
       .subscribe((data: any) => {
@@ -90,7 +92,7 @@ export class NHASectionComponent implements OnInit {
     });
 
     this.http
-      .get(this.serverUrl + "getwingsec", {
+      .get(this.app.serverUrl + "getwingsec", {
         headers: reqHeader,
       })
       .subscribe((data: any) => {
@@ -162,7 +164,7 @@ export class NHASectionComponent implements OnInit {
       var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
       this.http
-        .post(this.serverUrl + "ofcsection", saveData, {
+        .post(this.app.serverUrl + "ofcsection", saveData, {
           headers: reqHeader,
         })
         .subscribe((data: any) => {
@@ -232,7 +234,7 @@ export class NHASectionComponent implements OnInit {
           });
 
           this.http
-            .post(this.serverUrl + "ofcsection", saveData, {
+            .post(this.app.serverUrl + "ofcsection", saveData, {
               // .post("http://localhost:5090/api/ofcsection", saveData, {
               headers: reqHeader,
             })
@@ -289,7 +291,7 @@ export class NHASectionComponent implements OnInit {
     var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
     this.http
-      .post(this.serverUrl + "ofcsection", saveData, {
+      .post(this.app.serverUrl + "ofcsection", saveData, {
         // .post("http://localhost:5090/api/ofcsection", saveData, {
         headers: reqHeader,
       })
@@ -401,7 +403,7 @@ export class NHASectionComponent implements OnInit {
       var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
       this.http
-        .post(this.serverUrl + "resetPw", saveData, { headers: reqHeader })
+        .post(this.app.serverUrl + "resetPw", saveData, { headers: reqHeader })
         .subscribe((data: any) => {
           if (data.msg == "Success") {
             this.toastr.successToastr("Pin Changed Successfully!", "Success!", {
@@ -438,7 +440,7 @@ export class NHASectionComponent implements OnInit {
       var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
       this.http
-        .post(this.serverUrl + "pincode", saveData, { headers: reqHeader })
+        .post(this.app.serverUrl + "pincode", saveData, { headers: reqHeader })
         .subscribe((data: any) => {
           if (data.msg == "Success") {
             $("#genPinModal").modal("hide");

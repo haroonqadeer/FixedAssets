@@ -6,6 +6,7 @@ import {
   HttpErrorResponse,
 } from "@angular/common/http";
 import { CookieService } from "ngx-cookie-service";
+import { AppComponent } from "../../../app.component";
 
 import * as Highcharts from "highcharts";
 import Drilldown from "highcharts/modules/drilldown.src.js";
@@ -19,7 +20,7 @@ declare var $: any;
   styleUrls: ["./dashboardy.component.scss"],
 })
 export class DashboardyComponent implements OnInit {
-  serverUrl = "http://95.217.206.195:2007/api/";
+  // serverUrl = "http://95.217.206.195:2007/api/";
   // serverUrl = "http://localhost:5090/api/";
 
   loadingBar = true;
@@ -78,7 +79,11 @@ export class DashboardyComponent implements OnInit {
   locationModalTitle: string;
   timeSeries_chart: Chart;
 
-  constructor(private http: HttpClient, private cookie: CookieService) {}
+  constructor(
+    private http: HttpClient,
+    private cookie: CookieService,
+    private app: AppComponent
+  ) {}
 
   ngOnInit(): void {
     this.dtpDate = new Date();
@@ -108,7 +113,7 @@ export class DashboardyComponent implements OnInit {
     });
 
     this.http
-      .get(this.serverUrl + "gettagsnumberwise", { headers: reqHeader })
+      .get(this.app.serverUrl + "gettagsnumberwise", { headers: reqHeader })
       .subscribe((data: any) => {
         this.tagNumList = data;
         this.loadingBar = false;
@@ -124,7 +129,7 @@ export class DashboardyComponent implements OnInit {
     });
 
     this.http
-      .get(this.serverUrl + "gettagsuserwise?UserId=" + obj.userId, {
+      .get(this.app.serverUrl + "gettagsuserwise?UserId=" + obj.userId, {
         headers: reqHeader,
       })
       .subscribe((data: any) => {
@@ -145,7 +150,7 @@ export class DashboardyComponent implements OnInit {
 
     this.http
       .get(
-        this.serverUrl +
+        this.app.serverUrl +
           "gettagsuserdatewise?UserId=" +
           obj.userId +
           "&reqDate=" +
@@ -169,7 +174,7 @@ export class DashboardyComponent implements OnInit {
     });
 
     this.http
-      .get(this.serverUrl + "getofctype", { headers: reqHeader })
+      .get(this.app.serverUrl + "getofctype", { headers: reqHeader })
       .subscribe((data: any) => {
         this.ofcTypeList = data;
         this.loadingBar = true;
@@ -183,7 +188,7 @@ export class DashboardyComponent implements OnInit {
     });
 
     this.http
-      .get(this.serverUrl + "getallassetdetaillocwisedashboard", {
+      .get(this.app.serverUrl + "getallassetdetaillocwisedashboard", {
         headers: reqHeader,
       })
       .subscribe((data: any) => {
@@ -262,7 +267,7 @@ export class DashboardyComponent implements OnInit {
 
     this.http
       .get(
-        this.serverUrl +
+        this.app.serverUrl +
           "getuserassetdetail?UserId=" +
           this.cookie.get("userID"),
         { headers: reqHeader }
@@ -282,7 +287,7 @@ export class DashboardyComponent implements OnInit {
 
       this.http
         .get(
-          this.serverUrl +
+          this.app.serverUrl +
             "getassetdetail?UserId=0&SubLocID=" +
             this.cmbLocation +
             "&OfficeTypeID=" +
@@ -299,9 +304,12 @@ export class DashboardyComponent implements OnInit {
       });
 
       this.http
-        .get(this.serverUrl + "getassetdetail?SubLocID=" + this.cmbLocation, {
-          headers: reqHeader,
-        })
+        .get(
+          this.app.serverUrl + "getassetdetail?SubLocID=" + this.cmbLocation,
+          {
+            headers: reqHeader,
+          }
+        )
         .subscribe((data: any) => {
           this.assetDetailList = data;
         });
@@ -313,7 +321,7 @@ export class DashboardyComponent implements OnInit {
 
       this.http
         .get(
-          this.serverUrl + "getassetdetail?OfficeTypeID=" + this.cmbOfcType,
+          this.app.serverUrl + "getassetdetail?OfficeTypeID=" + this.cmbOfcType,
           { headers: reqHeader }
         )
         .subscribe((data: any) => {
@@ -343,7 +351,7 @@ export class DashboardyComponent implements OnInit {
     });
 
     this.http
-      .get(this.serverUrl + "getallassetdashboard", { headers: reqHeader })
+      .get(this.app.serverUrl + "getallassetdashboard", { headers: reqHeader })
       .subscribe((data: any) => {
         let chart = new Chart({
           chart: {
@@ -483,7 +491,7 @@ export class DashboardyComponent implements OnInit {
     });
 
     this.http
-      .get(this.serverUrl + "getmonthlytottags?month=" + m + "&year=" + y, {
+      .get(this.app.serverUrl + "getmonthlytottags?month=" + m + "&year=" + y, {
         headers: reqHeader,
       })
       .subscribe((data: any) => {
@@ -558,7 +566,7 @@ export class DashboardyComponent implements OnInit {
     });
 
     this.http
-      .get(this.serverUrl + "getmonthlytottags?month=" + m + "&year=" + y, {
+      .get(this.app.serverUrl + "getmonthlytottags?month=" + m + "&year=" + y, {
         headers: reqHeader,
       })
       .subscribe((data: any) => {
@@ -700,7 +708,7 @@ export class DashboardyComponent implements OnInit {
 
     this.http
       .get(
-        this.serverUrl +
+        this.app.serverUrl +
           "getallassetlocwisedashboard?LocationID=" +
           this.cmbChartLocation,
         {
@@ -828,7 +836,7 @@ export class DashboardyComponent implements OnInit {
     });
 
     this.http
-      .get(this.serverUrl + "gettagssectionwise", { headers: reqHeader })
+      .get(this.app.serverUrl + "gettagssectionwise", { headers: reqHeader })
       .subscribe((data: any) => {
         this.tagSecList = data;
         // this.tagSecList.reverse();
@@ -842,7 +850,9 @@ export class DashboardyComponent implements OnInit {
     });
 
     this.http
-      .get(this.serverUrl + "getalltagsdetaildatewise", { headers: reqHeader })
+      .get(this.app.serverUrl + "getalltagsdetaildatewise", {
+        headers: reqHeader,
+      })
       .subscribe((data: any) => {
         this.totalTagList = data;
         this.totalTagList;
@@ -856,7 +866,7 @@ export class DashboardyComponent implements OnInit {
     });
 
     this.http
-      .get(this.serverUrl + "getsubloc", { headers: reqHeader })
+      .get(this.app.serverUrl + "getsubloc", { headers: reqHeader })
       .subscribe((data: any) => {
         this.locList = data;
       });
@@ -882,7 +892,7 @@ export class DashboardyComponent implements OnInit {
 
     this.http
       .get(
-        this.serverUrl +
+        this.app.serverUrl +
           "gettagsdetaillocwise?LocationID=" +
           this.cmbTblLocation,
         {
@@ -905,7 +915,9 @@ export class DashboardyComponent implements OnInit {
 
     this.http
       .get(
-        this.serverUrl + "gettagslocationwise?OfficeSecID=" + item.officeSecID,
+        this.app.serverUrl +
+          "gettagslocationwise?OfficeSecID=" +
+          item.officeSecID,
         {
           headers: reqHeader,
         }
@@ -927,7 +939,7 @@ export class DashboardyComponent implements OnInit {
       });
 
       this.http
-        .get(this.serverUrl + "gettagsdetaildatewise?reqDate=" + dt, {
+        .get(this.app.serverUrl + "gettagsdetaildatewise?reqDate=" + dt, {
           headers: reqHeader,
         })
         .subscribe((data: any) => {
@@ -954,7 +966,7 @@ export class DashboardyComponent implements OnInit {
 
       this.http
         .get(
-          this.serverUrl +
+          this.app.serverUrl +
             "gettagsdetaildatewise?reqDate=" +
             dt +
             "&LocationID=" +
@@ -975,7 +987,7 @@ export class DashboardyComponent implements OnInit {
     });
 
     this.http
-      .get(this.serverUrl + "gettagssummary", { headers: reqHeader })
+      .get(this.app.serverUrl + "gettagssummary", { headers: reqHeader })
       .subscribe((data: any) => {
         this.allLocation = data[0].allLocations;
         this.comLocation = data[0].completedLocations;
@@ -991,7 +1003,7 @@ export class DashboardyComponent implements OnInit {
     });
 
     this.http
-      .get(this.serverUrl + "getlocdetail", { headers: reqHeader })
+      .get(this.app.serverUrl + "getlocdetail", { headers: reqHeader })
       .subscribe((data: any) => {
         this.allLocDetList = data;
       });
@@ -1004,7 +1016,7 @@ export class DashboardyComponent implements OnInit {
     });
 
     this.http
-      .get(this.serverUrl + "getcomplocdetail", { headers: reqHeader })
+      .get(this.app.serverUrl + "getcomplocdetail", { headers: reqHeader })
       .subscribe((data: any) => {
         this.compLocDetList = data;
       });
@@ -1017,7 +1029,7 @@ export class DashboardyComponent implements OnInit {
     });
 
     this.http
-      .get(this.serverUrl + "getincomplocdetail", { headers: reqHeader })
+      .get(this.app.serverUrl + "getincomplocdetail", { headers: reqHeader })
       .subscribe((data: any) => {
         this.remLocDetList = data;
       });
@@ -1030,7 +1042,7 @@ export class DashboardyComponent implements OnInit {
     });
 
     this.http
-      .get(this.serverUrl + "gettagsdetaildb", { headers: reqHeader })
+      .get(this.app.serverUrl + "gettagsdetaildb", { headers: reqHeader })
       .subscribe((data: any) => {
         this.tagDetList = data;
       });

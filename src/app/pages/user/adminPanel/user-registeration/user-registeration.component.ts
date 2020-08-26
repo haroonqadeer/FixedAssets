@@ -10,6 +10,7 @@ import {
   HttpErrorResponse,
 } from "@angular/common/http";
 import Swal from "sweetalert2/dist/sweetalert2.js";
+import { AppComponent } from "../../../../app.component";
 
 declare var $: any;
 
@@ -20,7 +21,7 @@ declare var $: any;
 })
 export class UserRegisterationComponent implements OnInit {
   loadingBar = true;
-  serverUrl = "http://95.217.206.195:2007/api/";
+  // serverUrl = "http://95.217.206.195:2007/api/";
   //serverUrl = "http://localhost:12345/api/";
   toppings = new FormControl();
 
@@ -61,7 +62,8 @@ export class UserRegisterationComponent implements OnInit {
     private cookie: CookieService,
     private userIdle: UserIdleService,
     private toastr: ToastrManager,
-    private http: HttpClient
+    private http: HttpClient,
+    private app: AppComponent
   ) {}
 
   ngOnInit(): void {
@@ -78,7 +80,9 @@ export class UserRegisterationComponent implements OnInit {
     });
 
     this.http
-      .get(this.serverUrl + "getposts?IsActivated=0", { headers: reqHeader })
+      .get(this.app.serverUrl + "getposts?IsActivated=0", {
+        headers: reqHeader,
+      })
       .subscribe((data: any) => {
         this.postsList = data;
       });
@@ -91,7 +95,9 @@ export class UserRegisterationComponent implements OnInit {
     });
 
     this.http
-      .get(this.serverUrl + "getroles?IsActivated=0", { headers: reqHeader })
+      .get(this.app.serverUrl + "getroles?IsActivated=0", {
+        headers: reqHeader,
+      })
       .subscribe((data: any) => {
         this.userRoleList = data;
       });
@@ -104,7 +110,9 @@ export class UserRegisterationComponent implements OnInit {
     });
 
     this.http
-      .get(this.serverUrl + "getsubloc?IsActivated=1", { headers: reqHeader })
+      .get(this.app.serverUrl + "getsubloc?IsActivated=1", {
+        headers: reqHeader,
+      })
       .subscribe((data: any) => {
         this.locationsList = data;
       });
@@ -119,7 +127,7 @@ export class UserRegisterationComponent implements OnInit {
     });
 
     this.http
-      .get(this.serverUrl + "getuserlocation?UserId=" + userid, {
+      .get(this.app.serverUrl + "getuserlocation?UserId=" + userid, {
         headers: reqHeader,
       })
       .subscribe((data: any) => {
@@ -135,7 +143,7 @@ export class UserRegisterationComponent implements OnInit {
     });
 
     this.http
-      .get(this.serverUrl + "getusers", { headers: reqHeader })
+      .get(this.app.serverUrl + "getusers", { headers: reqHeader })
       .subscribe((data: any) => {
         this.usersList = data;
         this.loadingBar = false;
@@ -217,7 +225,7 @@ export class UserRegisterationComponent implements OnInit {
       var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
       this.http
-        .post(this.serverUrl + "reguser", SaveData, { headers: reqHeader })
+        .post(this.app.serverUrl + "reguser", SaveData, { headers: reqHeader })
         // .post("http://localhost:6090/api/reguser", SaveData, {
         //   headers: reqHeader,
         // })
@@ -306,7 +314,9 @@ export class UserRegisterationComponent implements OnInit {
           });
 
           this.http
-            .post(this.serverUrl + "reguser", SaveData, { headers: reqHeader })
+            .post(this.app.serverUrl + "reguser", SaveData, {
+              headers: reqHeader,
+            })
             .subscribe((data: any) => {
               if (data.msg == "Success") {
                 this.toastr.successToastr(
@@ -348,7 +358,9 @@ export class UserRegisterationComponent implements OnInit {
       var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
       this.http
-        .post(this.serverUrl + "sduserloc", SaveData, { headers: reqHeader })
+        .post(this.app.serverUrl + "sduserloc", SaveData, {
+          headers: reqHeader,
+        })
         .subscribe((data: any) => {
           if (data.msg == "Success") {
             this.toastr.successToastr(
@@ -358,7 +370,9 @@ export class UserRegisterationComponent implements OnInit {
             );
             this.http
               .get(
-                this.serverUrl + "getuserlocation?UserId=" + this.userIDforLoc,
+                this.app.serverUrl +
+                  "getuserlocation?UserId=" +
+                  this.userIDforLoc,
                 { headers: reqHeader }
               )
               .subscribe((data: any) => {
@@ -388,7 +402,7 @@ export class UserRegisterationComponent implements OnInit {
     var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
     this.http
-      .post(this.serverUrl + "sduserloc", SaveData, { headers: reqHeader })
+      .post(this.app.serverUrl + "sduserloc", SaveData, { headers: reqHeader })
       .subscribe((data: any) => {
         if (data.msg == "Success") {
           this.toastr.successToastr(
@@ -398,7 +412,9 @@ export class UserRegisterationComponent implements OnInit {
           );
           this.http
             .get(
-              this.serverUrl + "getuserlocation?UserId=" + this.userIDforLoc,
+              this.app.serverUrl +
+                "getuserlocation?UserId=" +
+                this.userIDforLoc,
               { headers: reqHeader }
             )
             .subscribe((data: any) => {
@@ -446,7 +462,7 @@ export class UserRegisterationComponent implements OnInit {
     var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
     this.http
-      .post(this.serverUrl + "reguser", SaveData, { headers: reqHeader })
+      .post(this.app.serverUrl + "reguser", SaveData, { headers: reqHeader })
       .subscribe((data: any) => {
         if (data.msg == "Success" && type == "DEACTIVATE") {
           this.toastr.successToastr(
@@ -520,7 +536,7 @@ export class UserRegisterationComponent implements OnInit {
       var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
       this.http
-        .post(this.serverUrl + "pincode", saveData, { headers: reqHeader })
+        .post(this.app.serverUrl + "pincode", saveData, { headers: reqHeader })
         .subscribe((data: any) => {
           if (data.msg == "Success") {
             $("#genPinModal").modal("hide");
@@ -546,7 +562,7 @@ export class UserRegisterationComponent implements OnInit {
     var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
     this.http
-      .post(this.serverUrl + "resetpw", saveData, { headers: reqHeader })
+      .post(this.app.serverUrl + "resetpw", saveData, { headers: reqHeader })
       // .post("http://localhost:6090/api/resetpw", saveData, {
       //   headers: reqHeader,
       // })

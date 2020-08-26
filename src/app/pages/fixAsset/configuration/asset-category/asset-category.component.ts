@@ -7,6 +7,7 @@ import {
 } from "@angular/common/http";
 import { CookieService } from "ngx-cookie-service";
 import Swal from "sweetalert2/dist/sweetalert2.js";
+import { AppComponent } from "../../../../app.component";
 
 declare var $: any;
 
@@ -16,7 +17,7 @@ declare var $: any;
   styleUrls: ["./asset-category.component.scss"],
 })
 export class AssetCategoryComponent implements OnInit {
-  serverUrl = "http://95.217.206.195:2007/api/";
+  // serverUrl = "http://95.217.206.195:2007/api/";
   // serverUrl = "http://localhost:5090/api/";
 
   // imgPath = "D:/Flutter App/FixedAssets/src/assets/assetCatImg";
@@ -70,7 +71,8 @@ export class AssetCategoryComponent implements OnInit {
   constructor(
     private toastr: ToastrManager,
     private http: HttpClient,
-    private cookie: CookieService
+    private cookie: CookieService,
+    private app: AppComponent
   ) {}
 
   ngOnInit(): void {
@@ -148,7 +150,7 @@ export class AssetCategoryComponent implements OnInit {
     });
 
     this.http
-      .get(this.serverUrl + "getAssetsSpecificationsList", {
+      .get(this.app.serverUrl + "getAssetsSpecificationsList", {
         headers: reqHeader,
       })
       .subscribe((data: any) => {
@@ -165,7 +167,9 @@ export class AssetCategoryComponent implements OnInit {
 
     this.http
       .get(
-        this.serverUrl + "getAssetCatagoriesSpecifications?assetCatID=" + item,
+        this.app.serverUrl +
+          "getAssetCatagoriesSpecifications?assetCatID=" +
+          item,
         {
           headers: reqHeader,
         }
@@ -186,7 +190,7 @@ export class AssetCategoryComponent implements OnInit {
 
     this.http
       .get(
-        this.serverUrl +
+        this.app.serverUrl +
           "getAssetCatagoriesSpecificationDATA?assetCatID=" +
           assetCatID +
           "&specID=" +
@@ -208,7 +212,7 @@ export class AssetCategoryComponent implements OnInit {
     });
 
     this.http
-      .get(this.serverUrl + "getassetcat", { headers: reqHeader })
+      .get(this.app.serverUrl + "getassetcat", { headers: reqHeader })
       .subscribe((data: any) => {
         this.tempList = data;
         if (this.cmbAccCategory != "") {
@@ -236,7 +240,7 @@ export class AssetCategoryComponent implements OnInit {
     });
 
     this.http
-      .get(this.serverUrl + "getaccountcat", { headers: reqHeader })
+      .get(this.app.serverUrl + "getaccountcat", { headers: reqHeader })
       // .get("getaccountcat", { headers: reqHeader })
       .subscribe((data: any) => {
         this.accCatList = data;
@@ -316,7 +320,7 @@ export class AssetCategoryComponent implements OnInit {
       var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
       this.http
-        .post(this.serverUrl + "sudassetcatagory", saveData, {
+        .post(this.app.serverUrl + "sudassetcatagory", saveData, {
           headers: reqHeader,
         })
         .subscribe((data: any) => {
@@ -405,7 +409,7 @@ export class AssetCategoryComponent implements OnInit {
           });
 
           this.http
-            .post(this.serverUrl + "sudassetcatagory", saveData, {
+            .post(this.app.serverUrl + "sudassetcatagory", saveData, {
               headers: reqHeader,
             })
             .subscribe((data: any) => {
@@ -456,7 +460,7 @@ export class AssetCategoryComponent implements OnInit {
     var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
     this.http
-      .post(this.serverUrl + "sudassetcatagory", saveData, {
+      .post(this.app.serverUrl + "sudassetcatagory", saveData, {
         headers: reqHeader,
       })
       .subscribe((data: any) => {
@@ -574,7 +578,7 @@ export class AssetCategoryComponent implements OnInit {
       var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
       this.http
-        .post(this.serverUrl + "resetPw", saveData, { headers: reqHeader })
+        .post(this.app.serverUrl + "resetPw", saveData, { headers: reqHeader })
         .subscribe((data: any) => {
           if (data.msg == "Success") {
             this.toastr.successToastr("Pin Changed Successfully!", "Success!", {
@@ -611,7 +615,7 @@ export class AssetCategoryComponent implements OnInit {
       var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
       this.http
-        .post(this.serverUrl + "pincode", saveData, { headers: reqHeader })
+        .post(this.app.serverUrl + "pincode", saveData, { headers: reqHeader })
         .subscribe((data: any) => {
           if (data.msg == "Success") {
             $("#genPinModal").modal("hide");
@@ -677,7 +681,7 @@ export class AssetCategoryComponent implements OnInit {
       var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
       this.http
-        .post(this.serverUrl + "sudAssetCatSpecDetail", saveData, {
+        .post(this.app.serverUrl + "sudAssetCatSpecDetail", saveData, {
           headers: reqHeader,
         })
         .subscribe((data: any) => {
@@ -745,7 +749,7 @@ export class AssetCategoryComponent implements OnInit {
           });
 
           this.http
-            .post(this.serverUrl + "sudAssetCatSpecDetail", saveData, {
+            .post(this.app.serverUrl + "sudAssetCatSpecDetail", saveData, {
               headers: reqHeader,
             })
             .subscribe((data: any) => {
@@ -817,7 +821,7 @@ export class AssetCategoryComponent implements OnInit {
       var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
       this.http
-        .post(this.serverUrl + "sudAssetCatSpecData", saveData, {
+        .post(this.app.serverUrl + "sudAssetCatSpecData", saveData, {
           headers: reqHeader,
         })
         .subscribe((data: any) => {
@@ -886,7 +890,7 @@ export class AssetCategoryComponent implements OnInit {
           });
 
           this.http
-            .post(this.serverUrl + "sudAssetCatSpecData", saveData, {
+            .post(this.app.serverUrl + "sudAssetCatSpecData", saveData, {
               headers: reqHeader,
             })
             .subscribe((data: any) => {

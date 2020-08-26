@@ -31,7 +31,7 @@ export class Group {
   styleUrls: ["./register-computer-rpt.component.scss"],
 })
 export class RegisterComputerRptComponent implements OnInit {
-  serverUrl = "http://95.217.206.195:2007/api/";
+  // serverUrl = "http://95.217.206.195:2007/api/";
   //serverUrl = "http://localhost:12345/api/";
 
   // serverUrl = "http://localhost:6090/api/";
@@ -178,17 +178,17 @@ export class RegisterComputerRptComponent implements OnInit {
     });
     if (this.cookie.get("roleName") == "Super User") {
       this.http
-        // .get(this.serverUrl + "getsubloc", { headers: reqHeader })
-        .get(this.serverUrl + "getsubloc", { headers: reqHeader })
+        // .get(this.app.serverUrl + "getsubloc", { headers: reqHeader })
+        .get(this.app.serverUrl + "getsubloc", { headers: reqHeader })
         .subscribe((data: any) => {
           // this.locList = data.filter((x) => x.isActivated == 1);
           this.locList = data;
         });
     } else {
       this.http
-        // .get(this.serverUrl + "getsubloc", { headers: reqHeader })
+        // .get(this.app.serverUrl + "getsubloc", { headers: reqHeader })
         .get(
-          this.serverUrl +
+          this.app.serverUrl +
             "getuserLocation?userId=" +
             this.cookie.get("userID"),
           { headers: reqHeader }
@@ -207,7 +207,7 @@ export class RegisterComputerRptComponent implements OnInit {
     });
 
     this.http
-      .get(this.serverUrl + "getofctype", { headers: reqHeader })
+      .get(this.app.serverUrl + "getofctype", { headers: reqHeader })
       .subscribe((data: any) => {
         this.ofcTypeList = data;
       });
@@ -231,7 +231,7 @@ export class RegisterComputerRptComponent implements OnInit {
     });
 
     this.http
-      .get(this.serverUrl + "getwingsec?officeTypeID=" + obj, {
+      .get(this.app.serverUrl + "getwingsec?officeTypeID=" + obj, {
         headers: reqHeader,
       })
       .subscribe((data: any) => {
@@ -284,7 +284,7 @@ export class RegisterComputerRptComponent implements OnInit {
 
     this.http
       .get(
-        this.serverUrl +
+        this.app.serverUrl +
           "getAssetdetailComputers?UserId=" +
           userID +
           "&SubLocID=" +

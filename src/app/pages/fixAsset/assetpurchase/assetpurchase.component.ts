@@ -23,7 +23,7 @@ export class AssetpurchaseComponent implements OnInit {
   loadingBar = true;
   reqType = "";
   reqStatus = false;
-  serverUrl = "http://95.217.206.195:2007/api/";
+  // serverUrl = "http://95.217.206.195:2007/api/";
   //serverUrl = "http://localhost:12345/api/";
 
   toggleView = "form";
@@ -131,7 +131,7 @@ export class AssetpurchaseComponent implements OnInit {
     });
 
     this.http
-      .get(this.serverUrl + "getaccsec", { headers: reqHeader })
+      .get(this.app.serverUrl + "getaccsec", { headers: reqHeader })
       .subscribe((data: any) => {
         this.accSecList = data;
         this.loadingBar = false;
@@ -146,7 +146,9 @@ export class AssetpurchaseComponent implements OnInit {
     });
 
     this.http
-      .get(this.serverUrl + "getprojects?IsActivated=1", { headers: reqHeader })
+      .get(this.app.serverUrl + "getprojects?IsActivated=1", {
+        headers: reqHeader,
+      })
       .subscribe((data: any) => {
         this.projectsList = data;
         this.loadingBar = false;
@@ -235,7 +237,7 @@ export class AssetpurchaseComponent implements OnInit {
     //   this.loadingBar = true;
     //   var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
     //   this.http
-    //     .post(this.serverUrl + "crudPurchase", SaveData, { headers: reqHeader })
+    //     .post(this.app.serverUrl + "crudPurchase", SaveData, { headers: reqHeader })
     //     .subscribe((data: any) => {
     //       if (data.msg == "Success") {
     //         if (this.lblPurchaseID == 0) {
@@ -339,7 +341,7 @@ export class AssetpurchaseComponent implements OnInit {
           });
 
           this.http
-            .post(this.serverUrl + "crudPurchase", SaveData, {
+            .post(this.app.serverUrl + "crudPurchase", SaveData, {
               headers: reqHeader,
             })
             .subscribe((data: any) => {

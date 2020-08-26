@@ -8,6 +8,7 @@ import {
   HttpHeaders,
   HttpErrorResponse,
 } from "@angular/common/http";
+import { AppComponent } from "../../../app.component";
 
 declare var $: any;
 
@@ -17,7 +18,7 @@ declare var $: any;
   styleUrls: ["./location-complete.component.scss"],
 })
 export class LocationCompleteComponent implements OnInit {
-  serverUrl = "http://95.217.206.195:2007/api/";
+  // serverUrl = "http://95.217.206.195:2007/api/";
   // serverUrl = "http://localhost:5090/api/";
 
   loadingBar = false;
@@ -47,7 +48,8 @@ export class LocationCompleteComponent implements OnInit {
     private cookie: CookieService,
     private userIdle: UserIdleService,
     private toastr: ToastrManager,
-    private http: HttpClient
+    private http: HttpClient,
+    private app: AppComponent
   ) {}
 
   ngOnInit(): void {
@@ -77,7 +79,7 @@ export class LocationCompleteComponent implements OnInit {
 
     this.http
       .get(
-        this.serverUrl +
+        this.app.serverUrl +
           "getLocationCheckList?subLocID=" +
           subLocIDp +
           "&officeTypeID=" +
@@ -101,7 +103,9 @@ export class LocationCompleteComponent implements OnInit {
 
     this.http
       .get(
-        this.serverUrl + "getuserlocation?UserID=" + this.cookie.get("userID"),
+        this.app.serverUrl +
+          "getuserlocation?UserID=" +
+          this.cookie.get("userID"),
         {
           headers: reqHeader,
         }
@@ -156,7 +160,7 @@ export class LocationCompleteComponent implements OnInit {
       var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
       this.http
-        .post(this.serverUrl + "updatechecklist", saveData, {
+        .post(this.app.serverUrl + "updatechecklist", saveData, {
           headers: reqHeader,
         })
         .subscribe((data: any) => {
@@ -202,7 +206,7 @@ export class LocationCompleteComponent implements OnInit {
     var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
     this.http
-      .post(this.serverUrl + "updatechecklist", saveData, {
+      .post(this.app.serverUrl + "updatechecklist", saveData, {
         headers: reqHeader,
       })
       .subscribe((data: any) => {
@@ -262,7 +266,7 @@ export class LocationCompleteComponent implements OnInit {
       var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
       this.http
-        .post(this.serverUrl + "pincode", saveData, { headers: reqHeader })
+        .post(this.app.serverUrl + "pincode", saveData, { headers: reqHeader })
         .subscribe((data: any) => {
           if (data.msg == "Success") {
             if (param == "Complete") {
@@ -290,7 +294,7 @@ export class LocationCompleteComponent implements OnInit {
     });
 
     this.http
-      .post(this.serverUrl + "sublocation", saveData, {
+      .post(this.app.serverUrl + "sublocation", saveData, {
         headers: reqHeader,
       })
       .subscribe((data: any) => {
@@ -330,7 +334,7 @@ export class LocationCompleteComponent implements OnInit {
     });
 
     this.http
-      .post(this.serverUrl + "sublocation", saveData, {
+      .post(this.app.serverUrl + "sublocation", saveData, {
         headers: reqHeader,
       })
       .subscribe((data: any) => {

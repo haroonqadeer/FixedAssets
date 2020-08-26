@@ -7,6 +7,7 @@ import {
 } from "@angular/common/http";
 import { CookieService } from "ngx-cookie-service";
 import Swal from "sweetalert2/dist/sweetalert2.js";
+import { AppComponent } from "../../../../app.component";
 
 declare var $: any;
 
@@ -16,7 +17,7 @@ declare var $: any;
   styleUrls: ["./nhaposts.component.scss"],
 })
 export class NHAPostsComponent implements OnInit {
-  serverUrl = "http://95.217.206.195:2007/api/";
+  // serverUrl = "http://95.217.206.195:2007/api/";
   heading = "Add";
 
   loadingBar = true;
@@ -62,7 +63,8 @@ export class NHAPostsComponent implements OnInit {
   constructor(
     private toastr: ToastrManager,
     private http: HttpClient,
-    private cookie: CookieService
+    private cookie: CookieService,
+    private app: AppComponent
   ) {}
 
   ngOnInit(): void {
@@ -76,7 +78,7 @@ export class NHAPostsComponent implements OnInit {
     });
 
     this.http
-      .get(this.serverUrl + "getposts", { headers: reqHeader })
+      .get(this.app.serverUrl + "getposts", { headers: reqHeader })
       .subscribe((data: any) => {
         this.custodyList = data;
         this.loadingBar = false;
@@ -120,7 +122,7 @@ export class NHAPostsComponent implements OnInit {
       var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
       this.http
-        .post(this.serverUrl + "sudpost", saveData, {
+        .post(this.app.serverUrl + "sudpost", saveData, {
           headers: reqHeader,
         })
         .subscribe((data: any) => {
@@ -189,7 +191,7 @@ export class NHAPostsComponent implements OnInit {
           });
 
           this.http
-            .post(this.serverUrl + "sudpost", saveData, {
+            .post(this.app.serverUrl + "sudpost", saveData, {
               headers: reqHeader,
             })
             .subscribe((data: any) => {
@@ -239,7 +241,7 @@ export class NHAPostsComponent implements OnInit {
     var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
     this.http
-      .post(this.serverUrl + "sudpost", saveData, {
+      .post(this.app.serverUrl + "sudpost", saveData, {
         headers: reqHeader,
       })
       .subscribe((data: any) => {
@@ -329,7 +331,7 @@ export class NHAPostsComponent implements OnInit {
       var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
       this.http
-        .post(this.serverUrl + "resetPw", saveData, { headers: reqHeader })
+        .post(this.app.serverUrl + "resetPw", saveData, { headers: reqHeader })
         .subscribe((data: any) => {
           if (data.msg == "Success") {
             this.toastr.successToastr("Pin Changed Successfully!", "Success!", {
@@ -366,7 +368,7 @@ export class NHAPostsComponent implements OnInit {
       var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
       this.http
-        .post(this.serverUrl + "pincode", saveData, { headers: reqHeader })
+        .post(this.app.serverUrl + "pincode", saveData, { headers: reqHeader })
         .subscribe((data: any) => {
           if (data.msg == "Success") {
             $("#genPinModal").modal("hide");
