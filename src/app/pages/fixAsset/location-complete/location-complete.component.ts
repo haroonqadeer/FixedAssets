@@ -23,7 +23,7 @@ export class LocationCompleteComponent implements OnInit {
 
   loadingBar = false;
 
-  imgPath = "C:/inetpub/wwwroot/2008_FAR_Proj/assets/Location";
+  imgPath = "C:/inetpub/wwwroot/FAR/FAR_Project/assets/Location";
   showPdf = "";
   lblFileName = "";
   image;
@@ -393,7 +393,7 @@ export class LocationCompleteComponent implements OnInit {
 
   openPDFFile(item) {
     var url =
-      "http://95.217.206.195:2008/assets/Location/" +
+      "http://58.27.164.137:7000/assets/Location/" +
       item.subLocCompletionID +
       ".pdf";
     window.open(url);

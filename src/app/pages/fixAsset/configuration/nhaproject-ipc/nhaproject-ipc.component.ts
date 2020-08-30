@@ -20,7 +20,7 @@ export class NHAProjectIPCComponent implements OnInit {
   // serverUrl = "http://95.217.206.195:2007/api/";
 
   // imgPath = "D:/Flutter App/FixedAssets/src/assets/assetCatImg";
-  imgPath = "C:/inetpub/wwwroot/2008_FAR_Proj/assets/IPCRefImg";
+  imgPath = "C:/inetpub/wwwroot/FAR/FAR_Project/assets/IPCRefImg";
   imageUrl: string = "../../../../../assets/IPCRefImg/dropHereImg.png";
   showPdf = "";
   lblFileName = "";
@@ -331,12 +331,12 @@ export class NHAProjectIPCComponent implements OnInit {
 
     if (
       obj.edoc ==
-      "C:/inetpub/wwwroot/2008_FAR_Proj/assets/IPCRefImg/" +
+      "C:/inetpub/wwwroot/FAR/FAR_Project/assets/IPCRefImg/" +
         obj.ipcRefID +
         ".pdf"
     ) {
       this.imageUrl =
-        "http://95.217.206.195:2008/assets/IPCRefImg/" + obj.ipcRefID + ".pdf";
+        "http://58.27.164.137:7000/assets/IPCRefImg/" + obj.ipcRefID + ".pdf";
     }
   }
 

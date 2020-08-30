@@ -87,6 +87,7 @@ export class AssetpurchaseComponent implements OnInit {
   vehList = [];
   assetCatList = [];
   assetCategorySpecsList = [];
+  assetList = [];
 
   filePicker = "";
   selectedFile: File = null;
