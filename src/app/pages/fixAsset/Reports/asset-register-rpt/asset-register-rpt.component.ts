@@ -37,6 +37,9 @@ export class AssetRegisterRptComponent implements OnInit {
   // serverUrl = "http://localhost:6090/api/";
 
   // declarations
+  cmbRegion = "";
+  searchRegion = "";
+
   searchLocation = "";
   cmbLocation = "";
   cmbOfcType = "";
@@ -51,7 +54,9 @@ export class AssetRegisterRptComponent implements OnInit {
 
   assetRegisterList = [];
   filterAssetRegisterList = [];
+  regionList = [];
   locList = [];
+  filteredLocList = [];
   ofcTypeList = [];
   wngSectionList = [];
 
@@ -182,6 +187,8 @@ export class AssetRegisterRptComponent implements OnInit {
 
   ngOnInit(): void {
     $("#rptOptionsModal").modal("show");
+
+    this.getRegions();
     this.getLocation();
     // this.getAssetRegister();
     this.getOfficeType();
@@ -609,6 +616,34 @@ export class AssetRegisterRptComponent implements OnInit {
     moveItemInArray(this.columns, event.previousIndex, event.currentIndex);
   }
 
+  getRegions() {
+    // debugger;
+    var reqHeader = new HttpHeaders({
+      "Content-Type": "application/json",
+      // Authorization: "Bearer " + Token,
+    });
+    if (this.cookie.get("roleName") == "Super User") {
+      this.http
+        // .get(this.app.serverUrl + "getsubloc", { headers: reqHeader })
+        .get(this.app.serverUrl + "getRegions", { headers: reqHeader })
+        .subscribe((data: any) => {
+          // this.locList = data.filter((x) => x.isActivated == 1);
+          this.regionList = data;
+        });
+    } else {
+      this.http
+        // .get(this.app.serverUrl + "getsubloc", { headers: reqHeader })
+        .get(
+          this.app.serverUrl + "getRegions?userId=" + this.cookie.get("userID"),
+          { headers: reqHeader }
+        )
+        .subscribe((data: any) => {
+          // this.locList = data.filter((x) => x.isActivated == 1);
+          this.regionList = data;
+        });
+    }
+  }
+
   getLocation() {
     // debugger;
     var reqHeader = new HttpHeaders({
@@ -650,6 +685,12 @@ export class AssetRegisterRptComponent implements OnInit {
       .subscribe((data: any) => {
         this.ofcTypeList = data;
       });
+  }
+
+  showLocations() {
+    this.filteredLocList = this.locList.filter(
+      (x) => x.mainLocID == this.cmbRegion
+    );
   }
 
   showOfficeType() {
