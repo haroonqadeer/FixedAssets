@@ -171,7 +171,7 @@ export class BridgesComponent implements OnInit {
         $("#mutationsModal").modal("toggle");
       }
 
-      var fPath = "C:/inetpub/wwwroot/2008_FAR_Proj/assets/files";
+      var fPath = "C:/inetpub/wwwroot/FAR/FAR_Project/assets/files";
 
       // this.app.showSpinner();
       //* ********************************************save data
@@ -1049,7 +1049,7 @@ export class BridgesComponent implements OnInit {
         reqSpType = "Update";
       }
 
-      var fPath = "C:/inetpub/wwwroot/2008_FAR_Proj/assets/files";
+      var fPath = "C:/inetpub/wwwroot/FAR/FAR_Project/assets/files";
 
       var SaveData = {
         FixedAssetID: this.fixAssetID,

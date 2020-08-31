@@ -12,6 +12,8 @@ import Swal from "sweetalert2/dist/sweetalert2.js";
 import { Observable } from "rxjs";
 import { AppComponent } from "src/app/app.component";
 
+import { NgxImageCompressService } from "ngx-image-compress";
+
 import * as XLSX from "xlsx";
 //import html2canvas from "html2canvas";
 //import * as jsPDF from "jspdf";
@@ -51,7 +53,7 @@ export class AssetEntryComponent implements OnInit {
   reverse = false;
   sortedCollection: any[];
 
-  imgVehiclePath = "C:/inetpub/wwwroot/2008_FAR_Proj/assets/vehicleImg";
+  imgVehiclePath = "C:/inetpub/wwwroot/FAR/FAR_Project/assets/vehicleImg";
   imageVehicleUrl: string =
     "../../../../../assets/assetEntryImg/dropHereImg.png";
   imageVehicle;
@@ -59,26 +61,26 @@ export class AssetEntryComponent implements OnInit {
   selectedVehicleFile: File = null;
   lblFileName = "";
 
-  imgTransPath = "C:/inetpub/wwwroot/2008_FAR_Proj/assets/transferImg";
+  imgTransPath = "C:/inetpub/wwwroot/FAR/FAR_Project/assets/transferImg";
   imageTransUrl: string = "../../../../../assets/assetEntryImg/dropHereImg.png";
   imageTrans;
   imgFileTrans;
   selectedTransFile: File = null;
 
-  imgAssetPath = "C:/inetpub/wwwroot/2008_FAR_Proj/assets/assetEntryImg";
+  imgAssetPath = "C:/inetpub/wwwroot/FAR/FAR_Project/assets/assetEntryImg";
   imageAssetUrl: string = "../../../../../assets/assetEntryImg/dropHereImg.png";
   imageAsset;
   imgFileAsset;
   selectedAssetFile: File = null;
 
-  imgAssetPath2 = "C:/inetpub/wwwroot/2008_FAR_Proj/assets/assetEntryImg";
+  imgAssetPath2 = "C:/inetpub/wwwroot/FAR/FAR_Project/assets/assetEntryImg";
   imageAssetUrl2: string =
     "../../../../../assets/assetEntryImg/dropHereImg.png";
   imageAsset2;
   imgFileAsset2;
   selectedAssetFile2: File = null;
 
-  imgAssetPath3 = "C:/inetpub/wwwroot/2008_FAR_Proj/assets/assetEntryImg";
+  imgAssetPath3 = "C:/inetpub/wwwroot/FAR/FAR_Project/assets/assetEntryImg";
   imageAssetUrl3: string =
     "../../../../../assets/assetEntryImg/dropHereImg.png";
   imageAsset3;
@@ -297,7 +299,8 @@ export class AssetEntryComponent implements OnInit {
     private toastr: ToastrManager,
     private http: HttpClient,
     private cookie: CookieService,
-    private app: AppComponent
+    private app: AppComponent,
+    private imageCompress: NgxImageCompressService
   ) {}
 
   // multiple image setting
@@ -1120,29 +1123,29 @@ export class AssetEntryComponent implements OnInit {
     this.sldMissing = item.isMissing;
     this.txtRemarks = item.remarks;
     if (
-      item.eDoc != null ||
-      item.eDoc != "C:/inetpub/wwwroot/2008_FAR_Proj/assets/assetEntryImg"
+      item.eDoc != null &&
+      item.eDoc != "C:/inetpub/wwwroot/FAR/FAR_Project/assets/assetEntryImg"
     ) {
       this.imageAssetUrl =
-        "http://95.217.206.195:2008/assets/assetEntryImg/" +
+        "http://58.27.164.137:7000/assets/assetEntryImg/" +
         item.assetID +
         "_1.jpg";
     }
     if (
-      item.eDoc2 != null ||
-      item.eDoc2 != "C:/inetpub/wwwroot/2008_FAR_Proj/assets/assetEntryImg"
+      item.eDoc2 != null &&
+      item.eDoc2 != "C:/inetpub/wwwroot/FAR/FAR_Project/assets/assetEntryImg"
     ) {
       this.imageAssetUrl2 =
-        "http://95.217.206.195:2008/assets/assetEntryImg/" +
+        "http://58.27.164.137:7000/assets/assetEntryImg/" +
         item.assetID +
         "_2.jpg";
     }
     if (
-      item.eDoc3 != null ||
-      item.eDoc3 != "C:/inetpub/wwwroot/2008_FAR_Proj/assets/assetEntryImg"
+      item.eDoc3 != null &&
+      item.eDoc3 != "C:/inetpub/wwwroot/FAR/FAR_Project/assets/assetEntryImg"
     ) {
       this.imageAssetUrl3 =
-        "http://95.217.206.195:2008/assets/assetEntryImg/" +
+        "http://58.27.164.137:7000/assets/assetEntryImg/" +
         item.assetID +
         "_3.jpg";
     }
@@ -1721,7 +1724,7 @@ export class AssetEntryComponent implements OnInit {
       var saveData;
 
       this.imgVehiclePath =
-        "C:/inetpub/wwwroot/2008_FAR_Proj/assets/vehicleImg";
+        "C:/inetpub/wwwroot/FAR/FAR_Project/assets/vehicleImg";
       if (this.imageVehicle == undefined) {
         this.imgVehiclePath = null;
         this.imageVehicle = null;
@@ -2207,7 +2210,7 @@ export class AssetEntryComponent implements OnInit {
       this.txtTransDesc = trans[0].transferDescription;
       if (trans[0].eDoc != null) {
         this.imageTransUrl =
-          "http://95.217.206.195:2008/assets/transferImg/" +
+          "http://58.27.164.137:7000/assets/transferImg/" +
           this.lblTransferID +
           ".jpg";
       }
@@ -2640,7 +2643,7 @@ export class AssetEntryComponent implements OnInit {
     this.txtTransDesc = obj.transferDescription;
     if (obj.eDoc != null) {
       this.imageTransUrl =
-        "http://95.217.206.195:2008/assets/transferImg/" +
+        "http://58.27.164.137:7000/assets/transferImg/" +
         obj.transferID +
         ".jpg";
     }
@@ -2907,15 +2910,22 @@ export class AssetEntryComponent implements OnInit {
       event.target.files[0].type == "image/png" ||
       event.target.files[0].type == "image/jpeg"
     ) {
-      this.selectedTransFile = <File>event.target.files[0];
+      var fileName: any;
+      this.selectedTransFile = event.target.files[0];
+      fileName = this.selectedTransFile["name"];
+
+      // this.selectedTransFile = <File>event.target.files[0];
       let reader = new FileReader();
 
       reader.onloadend = (e: any) => {
-        this.imageTrans = reader.result;
+        this.imageTrans = e.target.result;
+        this.compressFile(this.imageTrans, fileName, "imageTrans");
 
-        var splitImg = this.imageTrans.split(",")[1];
-        this.imageTrans = splitImg;
-        this.imageTransUrl = e.target.result;
+        // this.imageTrans = reader.result;
+
+        // var splitImg = this.imageTrans.split(",")[1];
+        // this.imageTrans = splitImg;
+        // this.imageTransUrl = e.target.result;
       };
 
       reader.readAsDataURL(this.selectedTransFile);
@@ -2960,15 +2970,21 @@ export class AssetEntryComponent implements OnInit {
       event.target.files[0].type == "image/png" ||
       event.target.files[0].type == "image/jpeg"
     ) {
-      this.selectedAssetFile = <File>event.target.files[0];
+      var fileName: any;
+      this.selectedAssetFile = event.target.files[0];
+      fileName = this.selectedAssetFile["name"];
+
       let reader = new FileReader();
 
       reader.onloadend = (e: any) => {
-        this.imageAsset = reader.result;
-
-        var splitImg = this.imageAsset.split(",")[1];
-        this.imageAsset = splitImg;
         this.imageAssetUrl = e.target.result;
+        this.compressFile(this.imageAssetUrl, fileName, "imageAsset");
+        // this.imageAsset = reader.result;
+        // var splitImg = this.imageAsset.split(",")[1];
+
+        // this.imageAsset = splitImg;
+        // alert(this.imageAsset);
+        // this.imageAssetUrl = e.target.result;
       };
 
       reader.readAsDataURL(this.selectedAssetFile);
@@ -2984,20 +3000,82 @@ export class AssetEntryComponent implements OnInit {
     }
   }
 
+  compressFile(image, fileName, imageAsset) {
+    var orientation = -1;
+    // this.sizeOfOriginalImage =
+    //   this.imageCompress.byteCount(image) / (1024 * 1024);
+    // console.warn("Size in bytes is now:", this.sizeOfOriginalImage);
+    this.imageCompress
+      .compressFile(image, orientation, 50, 50)
+      .then((result) => {
+        // create file from byte
+        const imageName = fileName;
+
+        if (imageAsset == "imageAsset") {
+          this.imageAsset = result;
+
+          // call method that creates a blob from dataUri
+          const imageBlob = this.dataURItoBlob(this.imageAsset.split(",")[1]);
+
+          this.imageAsset = this.imageAsset.split(",")[1];
+        } else if (imageAsset == "imageAsset2") {
+          this.imageAsset2 = result;
+
+          // call method that creates a blob from dataUri
+          const imageBlob = this.dataURItoBlob(this.imageAsset2.split(",")[1]);
+
+          this.imageAsset2 = this.imageAsset2.split(",")[1];
+        } else if (imageAsset == "imageAsset3") {
+          this.imageAsset3 = result;
+
+          // call method that creates a blob from dataUri
+          const imageBlob = this.dataURItoBlob(this.imageAsset3.split(",")[1]);
+
+          this.imageAsset3 = this.imageAsset3.split(",")[1];
+        } else if (imageAsset == "imageTrans") {
+          this.imageTrans = result;
+
+          // call method that creates a blob from dataUri
+          const imageBlob = this.dataURItoBlob(this.imageTrans.split(",")[1]);
+
+          this.imageTrans = this.imageAsset3.split(",")[1];
+        }
+
+        //imageFile created below is the new compressed file which can be send to API in form data
+        const imageFile = new File([result], imageName, { type: "image/jpeg" });
+      });
+  }
+  dataURItoBlob(dataURI) {
+    const byteString = window.atob(dataURI);
+    const arrayBuffer = new ArrayBuffer(byteString.length);
+    const int8Array = new Uint8Array(arrayBuffer);
+    for (let i = 0; i < byteString.length; i++) {
+      int8Array[i] = byteString.charCodeAt(i);
+    }
+    const blob = new Blob([int8Array], { type: "image/jpeg" });
+    return blob;
+  }
+
   onAssetFileSelected2(event) {
     if (
       event.target.files[0].type == "image/png" ||
       event.target.files[0].type == "image/jpeg"
     ) {
-      this.selectedAssetFile2 = <File>event.target.files[0];
+      var fileName: any;
+      this.selectedAssetFile2 = event.target.files[0];
+      fileName = this.selectedAssetFile2["name"];
+
       let reader = new FileReader();
 
       reader.onloadend = (e: any) => {
-        this.imageAsset2 = reader.result;
+        // this.imageAsset2 = reader.result;
 
-        var splitImg = this.imageAsset2.split(",")[1];
-        this.imageAsset2 = splitImg;
         this.imageAssetUrl2 = e.target.result;
+        this.compressFile(this.imageAssetUrl2, fileName, "imageAsset2");
+
+        // var splitImg = this.imageAsset2.split(",")[1];
+        // this.imageAsset2 = splitImg;
+        // this.imageAssetUrl2 = e.target.result;
       };
 
       reader.readAsDataURL(this.selectedAssetFile2);
@@ -3018,15 +3096,22 @@ export class AssetEntryComponent implements OnInit {
       event.target.files[0].type == "image/png" ||
       event.target.files[0].type == "image/jpeg"
     ) {
-      this.selectedAssetFile3 = <File>event.target.files[0];
+      var fileName: any;
+      this.selectedAssetFile3 = event.target.files[0];
+      fileName = this.selectedAssetFile3["name"];
+
+      // this.selectedAssetFile3 = <File>event.target.files[0];
       let reader = new FileReader();
 
       reader.onloadend = (e: any) => {
-        this.imageAsset3 = reader.result;
+        // this.imageAsset3 = reader.result;
 
-        var splitImg = this.imageAsset3.split(",")[1];
-        this.imageAsset3 = splitImg;
         this.imageAssetUrl3 = e.target.result;
+        this.compressFile(this.imageAssetUrl3, fileName, "imageAsset3");
+
+        // var splitImg = this.imageAsset3.split(",")[1];
+        // this.imageAsset3 = splitImg;
+        // this.imageAssetUrl3 = e.target.result;
       };
 
       reader.readAsDataURL(this.selectedAssetFile3);
@@ -3252,7 +3337,7 @@ export class AssetEntryComponent implements OnInit {
     this.cmbVehicle = "";
     if (item.eDoc != null) {
       this.imageVehicleUrl =
-        "http://95.217.206.195:2008/assets/vehicleImg/" + item.id + ".pdf";
+        "http://58.27.164.137:7000/assets/vehicleImg/" + item.id + ".pdf";
       this.lblFileName = "Open Uploaded File";
     }
   }

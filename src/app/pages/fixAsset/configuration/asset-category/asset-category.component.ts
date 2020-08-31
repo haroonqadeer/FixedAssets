@@ -21,7 +21,7 @@ export class AssetCategoryComponent implements OnInit {
   // serverUrl = "http://localhost:5090/api/";
 
   // imgPath = "D:/Flutter App/FixedAssets/src/assets/assetCatImg";
-  imgPath = "C:/inetpub/wwwroot/2008_FAR_Proj/assets/assetCatImg";
+  imgPath = "C:/inetpub/wwwroot/FAR/FAR_Project/assets/assetCatImg";
   imageUrl: string = "../../../../../assets/assetCatImg/dropHereImg.png";
   image;
   imgFile;
@@ -35,6 +35,7 @@ export class AssetCategoryComponent implements OnInit {
   lblAssetCatID = 0;
   lblSpecID = 0;
   lblMakeID = 0;
+  lblAssetCatName = "";
   txtPin = "";
   assetCatID = "";
   txtCatShrtName = "";
@@ -160,6 +161,10 @@ export class AssetCategoryComponent implements OnInit {
 
   getAssetCatagoriesSpecifications(item) {
     this.lblAssetCatID = item;
+    var catName = this.assetCatList.filter((x) => x.assetCatID == item);
+
+    this.lblAssetCatName = catName[0].assetCatDescription;
+
     var reqHeader = new HttpHeaders({
       "Content-Type": "application/json",
       // Authorization: "Bearer " + Token,
@@ -373,13 +378,13 @@ export class AssetCategoryComponent implements OnInit {
     this.lblDepRule = obj.depreciationRule;
     this.lblBaseRate = obj.baseRate;
     if (
-      obj.edoc != "C:/inetpub/wwwroot/2008_FAR_Proj/assets/assetCatImg" ||
+      obj.edoc != "C:/inetpub/wwwroot/FAR/FAR_Project/assets/assetCatImg" ||
       obj.edoc != null
     ) {
       // http://ambit-erp.southeastasia.cloudapp.azure.com:9000/assets/images/Marker2.png
       // this.imageUrl = "obj.edoc";
       this.imageUrl =
-        "http://95.217.206.195:2008/assets/assetCatImg/" +
+        "http://58.27.164.137:7000/assets/assetCatImg/" +
         obj.assetCatID +
         ".jpg";
     }

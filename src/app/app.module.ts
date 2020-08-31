@@ -70,6 +70,8 @@ import { RegisterComputerRptComponent } from "./pages/fixAsset/Reports/register-
 import { RevaluationMoveAssetComponent } from "./pages/fixAsset/revaluation-move-asset/revaluation-move-asset.component";
 import { AssetpurchaseComponent } from "./pages/fixAsset/assetpurchase/assetpurchase.component";
 
+import { NgxImageCompressService } from "ngx-image-compress";
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -101,7 +103,7 @@ import { AssetpurchaseComponent } from "./pages/fixAsset/assetpurchase/assetpurc
     RegisterComputerRptComponent,
     RevaluationMoveAssetComponent,
     AssetpurchaseComponent,
-    CustomloaderComponent
+    CustomloaderComponent,
   ],
   imports: [
     BrowserModule,
@@ -129,6 +131,7 @@ import { AssetpurchaseComponent } from "./pages/fixAsset/assetpurchase/assetpurc
     UserIdleModule.forRoot({ idle: 300, timeout: 300, ping: 15 }),
   ],
   providers: [
+    NgxImageCompressService,
     CookieService,
     { provide: CURRENCY_MASK_CONFIG, useValue: CustomCurrencyMaskConfig },
     { provide: LocationStrategy, useClass: HashLocationStrategy },

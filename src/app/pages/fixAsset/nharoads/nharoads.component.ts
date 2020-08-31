@@ -1337,7 +1337,7 @@ export class NHARoadsComponent implements OnInit {
         reqSpType = "Update";
       }
 
-      var fPath = "C:/inetpub/wwwroot/2008_FAR_Proj/assets/files";
+      var fPath = "C:/inetpub/wwwroot/FAR/FAR_Project/assets/files";
 
       var SaveData = {
         FixedAssetID: this.lblFixAssetID,
