@@ -71,7 +71,7 @@
           <!-- row -->
           <div class="row mt-2" *ngIf="item.fileRequired == 1 && (item.eDoc == null || item.status == 0)">
             <div class="col-md-12 inline-block">
-              <input type="file" class="custom-file-input noneOutline" [(ngModel)]="item.eDoc"
+              <input type="file" class="custom-file-input noneOutline" accept="application/pdf" [(ngModel)]="item.eDoc"
                 (change)="onFileSelected($event, item)" />
               <label class="custom-file-label" for="customFile">Upload File</label>
             </div>
