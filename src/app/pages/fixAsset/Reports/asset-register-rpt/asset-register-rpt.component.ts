@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef } from "@angular/core";
+import { Component, OnInit, ChangeDetectorRef, ViewChild } from "@angular/core";
 import {
   HttpClient,
   HttpHeaders,
@@ -13,6 +13,7 @@ import {
 import { CookieService } from "ngx-cookie-service";
 import { MatTableDataSource } from "@angular/material/table";
 import { ToastrManager } from "ng6-toastr-notifications";
+import { MatSort } from "@angular/material/sort";
 
 declare var $: any;
 
@@ -36,6 +37,8 @@ export class AssetRegisterRptComponent implements OnInit {
   //serverUrl = "http://localhost:12345/api/";
 
   // serverUrl = "http://localhost:6090/api/";
+
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   // declarations
   cmbRegion = "";
@@ -934,7 +937,7 @@ export class AssetRegisterRptComponent implements OnInit {
             this._alldata = data.filter((x) => x.assetCatID == assetCat);
           }
         }
-
+        this.dataSource.sort = this.sort;
         this.dataSource.data = this.addGroups(
           this._alldata,
           this.groupByColumns
