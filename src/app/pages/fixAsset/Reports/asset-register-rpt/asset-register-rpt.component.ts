@@ -12,6 +12,7 @@ import {
 } from "@angular/cdk/drag-drop";
 import { CookieService } from "ngx-cookie-service";
 import { MatTableDataSource } from "@angular/material/table";
+import { ToastrManager } from "ng6-toastr-notifications";
 
 declare var $: any;
 
@@ -37,11 +38,17 @@ export class AssetRegisterRptComponent implements OnInit {
   // serverUrl = "http://localhost:6090/api/";
 
   // declarations
+  cmbRegion = "";
+  searchRegion = "";
+
   searchLocation = "";
   cmbLocation = "";
-  cmbOfcType = "";
-  cmbWngSection = "";
-  searchSection = "";
+  cmbOfficeTypeID = "";
+  cmbProject = "";
+  searchProject = "";
+  cmbAccountsCat = "";
+  cmbAssetCat = "";
+  searchAssetCat = "";
   tempRptTitle = "";
   rptTitle = "Asset Register Report - General";
   rptHeader = "";
@@ -51,9 +58,14 @@ export class AssetRegisterRptComponent implements OnInit {
 
   assetRegisterList = [];
   filterAssetRegisterList = [];
+  regionList = [];
   locList = [];
-  ofcTypeList = [];
-  wngSectionList = [];
+  filteredLocList = [];
+  projectList = [];
+  accountsCatList = [];
+  filteredAccountsCatList = [];
+  assetCatList = [];
+  filteredAssetCatList = [];
 
   //group by table setting
   title = "Grid Grouping";
@@ -74,7 +86,8 @@ export class AssetRegisterRptComponent implements OnInit {
     private http: HttpClient,
     private app: AppComponent,
     private cookie: CookieService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private toastr: ToastrManager
   ) {
     this.columns = [
       {
@@ -182,9 +195,14 @@ export class AssetRegisterRptComponent implements OnInit {
 
   ngOnInit(): void {
     $("#rptOptionsModal").modal("show");
+
+    debugger;
+    this.getRegions();
     this.getLocation();
+    this.getProjects();
     // this.getAssetRegister();
-    this.getOfficeType();
+    this.getAccountCategories();
+    this.getAssetCategories();
 
     // general columns settings
     this.generalColumns = [
@@ -609,76 +627,149 @@ export class AssetRegisterRptComponent implements OnInit {
     moveItemInArray(this.columns, event.previousIndex, event.currentIndex);
   }
 
+  getRegions() {
+    // debugger;
+    var reqHeader = new HttpHeaders({
+      "Content-Type": "application/json",
+      // Authorization: "Bearer " + Token,
+    });
+    this.http
+      // .get(this.app.serverUrl + "getsubloc", { headers: reqHeader })
+      .get(
+        this.app.serverUrl + "getRegions?userId=" + this.cookie.get("userID"),
+        { headers: reqHeader }
+      )
+      .subscribe((data: any) => {
+        // this.locList = data.filter((x) => x.isActivated == 1);
+        this.regionList = data;
+      });
+  }
+
   getLocation() {
     // debugger;
     var reqHeader = new HttpHeaders({
       "Content-Type": "application/json",
       // Authorization: "Bearer " + Token,
     });
-    if (this.cookie.get("roleName") == "Super User") {
-      this.http
-        // .get(this.app.serverUrl + "getsubloc", { headers: reqHeader })
-        .get(this.app.serverUrl + "getsubloc", { headers: reqHeader })
-        .subscribe((data: any) => {
-          // this.locList = data.filter((x) => x.isActivated == 1);
-          this.locList = data;
-        });
-    } else {
-      this.http
-        // .get(this.app.serverUrl + "getsubloc", { headers: reqHeader })
-        .get(
-          this.app.serverUrl +
-            "getuserLocation?userId=" +
-            this.cookie.get("userID"),
-          { headers: reqHeader }
-        )
-        .subscribe((data: any) => {
-          // this.locList = data.filter((x) => x.isActivated == 1);
-          this.locList = data;
-        });
-    }
-  }
-
-  getOfficeType() {
-    var reqHeader = new HttpHeaders({
-      "Content-Type": "application/json",
-      // Authorization: "Bearer " + Token,
-    });
-
     this.http
-      .get(this.app.serverUrl + "getofctype", { headers: reqHeader })
+      // .get(this.app.serverUrl + "getsubloc", { headers: reqHeader })
+      .get(
+        this.app.serverUrl + "getLocations?userId=" + this.cookie.get("userID"),
+        { headers: reqHeader }
+      )
       .subscribe((data: any) => {
-        this.ofcTypeList = data;
+        // this.locList = data.filter((x) => x.isActivated == 1);
+        this.locList = data;
+        this.filteredLocList = data;
       });
   }
 
-  showOfficeType() {
-    var ofcType = this.locList.filter((x) => x.subLocID == this.cmbLocation);
-    this.cmbOfcType = ofcType[0].officeTypeID;
-
-    this.tempRptTitle =
-      ofcType[0].subLocationDescription +
-      " - " +
-      ofcType[0].officeTypeDescription;
-
-    this.getWingSection(this.cmbOfcType);
+  getProjects() {
+    // debugger;
+    var reqHeader = new HttpHeaders({
+      "Content-Type": "application/json",
+      // Authorization: "Bearer " + Token,
+    });
+    this.http
+      // .get(this.app.serverUrl + "getsubloc", { headers: reqHeader })
+      .get(this.app.serverUrl + "getProjects", { headers: reqHeader })
+      .subscribe((data: any) => {
+        // this.locList = data.filter((x) => x.isActivated == 1);
+        this.projectList = data;
+      });
   }
 
-  getWingSection(obj) {
-    this.cmbWngSection = "";
+  getAccountCategories() {
+    // debugger;
+    var reqHeader = new HttpHeaders({
+      "Content-Type": "application/json",
+      // Authorization: "Bearer " + Token,
+    });
+    this.http
+      // .get(this.app.serverUrl + "getsubloc", { headers: reqHeader })
+      .get(this.app.serverUrl + "getAccountCategories", { headers: reqHeader })
+      .subscribe((data: any) => {
+        // this.locList = data.filter((x) => x.isActivated == 1);
+        this.accountsCatList = data;
+        this.filteredAccountsCatList = data;
+      });
+  }
+
+  showLocations() {
+    this.filteredLocList = this.locList.filter(
+      (x) => x.mainLocID == this.cmbRegion
+    );
+  }
+
+  filterAccountAndAssetCat() {
+    if (this.rptPreset == "general") {
+      this.filteredAccountsCatList = this.accountsCatList.filter(
+        (x) =>
+          x.accountsCatID == 2 ||
+          x.accountsCatID == 3 ||
+          x.accountsCatID == 4 ||
+          x.accountsCatID == 6 ||
+          x.accountsCatID == 7 ||
+          x.accountsCatID == 8
+      );
+      this.filteredAssetCatList = this.assetCatList.filter(
+        (x) =>
+          x.accountsCatID == 2 ||
+          x.accountsCatID == 3 ||
+          x.accountsCatID == 4 ||
+          x.accountsCatID == 6 ||
+          x.accountsCatID == 7 ||
+          x.accountsCatID == 8
+      );
+    } else if (this.rptPreset == "computer") {
+      this.filteredAccountsCatList = this.accountsCatList.filter(
+        (x) => x.accountsCatID == 1
+      );
+      this.filteredAssetCatList = this.assetCatList.filter(
+        (x) => x.accountsCatID == 1
+      );
+    } else if (this.rptPreset == "vehicle") {
+      this.filteredAccountsCatList = this.accountsCatList.filter(
+        (x) => x.accountsCatID == 9
+      );
+      this.filteredAssetCatList = this.assetCatList.filter(
+        (x) => x.accountsCatID == 9
+      );
+    } else if (this.rptPreset == "book") {
+      this.filteredAccountsCatList = this.accountsCatList.filter(
+        (x) => x.accountsCatID == 2
+      );
+      this.filteredAssetCatList = this.assetCatList.filter(
+        (x) => x.accountsCatID == 2
+      );
+    }
+  }
+
+  getAssetCategories() {
     var reqHeader = new HttpHeaders({
       "Content-Type": "application/json",
       // Authorization: "Bearer " + Token,
     });
 
     this.http
-      .get(this.app.serverUrl + "getwingsec?officeTypeID=" + obj, {
+      .get(this.app.serverUrl + "getAssetCategories", {
         headers: reqHeader,
       })
       .subscribe((data: any) => {
         // this.wngSectionList = data.filter((x) => x.isActivated == 1);
-        this.wngSectionList = data;
+        this.assetCatList = data;
+        this.filteredAssetCatList = data;
       });
+  }
+
+  filterAssetCat() {
+    this.filteredAssetCatList = this.assetCatList.filter(
+      (x) => x.accountsCatID == this.cmbAccountsCat
+    );
+  }
+
+  searchLoc(i) {
+    this.cmbLocation = this.filteredLocList[i].subLocID;
   }
 
   printDiv() {
@@ -690,16 +781,23 @@ export class AssetRegisterRptComponent implements OnInit {
   }
 
   clear() {
+    this.rptPreset = "";
+    this.cmbRegion = "";
     this.cmbLocation = "";
-    this.cmbOfcType = "";
-    this.cmbWngSection = "";
+    this.cmbOfficeTypeID = "";
+    this.cmbProject = "";
+    this.cmbAccountsCat = "";
+    this.cmbAssetCat = "";
     this.tempRptTitle = "";
     this.rptHeader = "";
   }
 
   getAssetRegister() {
-    var subLocID = 0;
-    var officeTypeID = 0;
+    var region = 0;
+    var officeType = 0;
+    var project = 0;
+    var accountCat = 0;
+    var assetCat = 0;
     var userID = this.cookie.get("userID");
 
     //clear filters
@@ -711,49 +809,209 @@ export class AssetRegisterRptComponent implements OnInit {
       this.rptHeader = this.tempRptTitle;
     }
 
-    if (this.cmbLocation == "" || this.cmbLocation == undefined) {
-      subLocID = 0;
+    if (this.cmbRegion == "" || this.cmbRegion == undefined) {
+      region = 0;
     } else {
-      subLocID = parseInt(this.cmbLocation);
+      region = parseInt(this.cmbRegion);
     }
 
-    if (this.cmbOfcType == "" || this.cmbOfcType == undefined) {
-      officeTypeID = 0;
+    if (this.cmbOfficeTypeID == "" || this.cmbOfficeTypeID == undefined) {
+      officeType = 0;
     } else {
-      officeTypeID = parseInt(this.cmbOfcType);
+      officeType = parseInt(this.cmbOfficeTypeID);
     }
+
+    if (this.cmbProject == "" || this.cmbProject == undefined) {
+      project = 0;
+    } else {
+      project = parseInt(this.cmbProject);
+    }
+
+    if (this.cmbAccountsCat == "" || this.cmbAccountsCat == undefined) {
+      accountCat = 0;
+    } else {
+      accountCat = parseInt(this.cmbAccountsCat);
+    }
+
+    if (this.cmbAssetCat == "" || this.cmbAssetCat == undefined) {
+      assetCat = 0;
+    } else {
+      assetCat = parseInt(this.cmbAssetCat);
+    }
+
+    // if everything is empty
+    if (this.rptPreset == "" || this.rptPreset == undefined) {
+      this.toastr.errorToastr("Please Select Report Preset", "Error", {
+        toastTimeout: 2500,
+      });
+      return false;
+    } else if (
+      region == 0 &&
+      officeType == 0 &&
+      project == 0 &&
+      accountCat == 0 &&
+      assetCat == 0
+    ) {
+      this.toastr.errorToastr(
+        "Please Select one option from Region, Office Type, Project, Accounts Category and Asset Category",
+        "Error",
+        {
+          toastTimeout: 2500,
+        }
+      );
+      return false;
+    }
+    // http call
+    var reqHeader = new HttpHeaders({
+      "Content-Type": "application/json",
+      // Authorization: "Bearer " + Token,
+    });
+    this.http
+      .get(
+        this.app.serverUrl +
+          "getMoveableAssetdetailRpt?UserId=" +
+          userID +
+          "&mainLocID=" +
+          region +
+          "&subLocID=" +
+          this.cmbLocation +
+          "&officeTypeID=" +
+          officeType +
+          "&projectID=" +
+          project +
+          "&accountsCatID=" +
+          accountCat +
+          "&assetCatID=" +
+          assetCat +
+          "&type=" +
+          this.rptPreset,
+        { headers: reqHeader }
+      )
+      .subscribe((data: any) => {
+        this.assetRegisterList = data;
+        this.filterAssetRegisterList = data;
+
+        data.forEach((item, index) => {
+          item.id = index + 1;
+        });
+        // this._alldata = data;
+        this._alldata = [];
+        debugger;
+        // if region
+        if (region != 0) {
+          if (this._alldata.length == 0) {
+            this._alldata = data;
+          }
+        }
+        if (officeType != 0) {
+          if (this._alldata.length == 0) {
+            this._alldata = data;
+          } else {
+            this._alldata = data.filter(
+              (x) =>
+                x.subLocID == this.cmbLocation && x.officeTypeID == officeType
+            );
+          }
+        }
+        if (project != 0) {
+          if (this._alldata.length == 0) {
+            this._alldata = data;
+          } else {
+            this._alldata = data.filter((x) => x.projectID == project);
+          }
+        }
+        if (accountCat != 0) {
+          if (this._alldata.length == 0) {
+            this._alldata = data;
+          } else {
+            this._alldata = data.filter((x) => x.accountsCatID == accountCat);
+          }
+        }
+        if (assetCat != 0) {
+          if (this._alldata.length == 0) {
+            this._alldata = data;
+          } else {
+            this._alldata = data.filter((x) => x.assetCatID == assetCat);
+          }
+        }
+
+        this.dataSource.data = this.addGroups(
+          this._alldata,
+          this.groupByColumns
+        );
+        this.dataSource.filterPredicate = this.customFilterPredicate.bind(this);
+        this.dataSource.filter = performance.now().toString();
+        this.cdr.detectChanges();
+
+        // this.dataSource = this.filterAssetRegisterList;
+      });
 
     // general report preset generation
-    if (this.rptPreset == "1") {
-      this.columns = this.generalColumns;
-      this.rptTitle = "Moveable Asset Register - General Items";
-      this.getAssetRegisterGeneral(userID, subLocID, officeTypeID);
-    }
+    // if (this.rptPreset == "1") {
+    //   this.columns = this.generalColumns;
+    //   this.rptTitle = "Moveable Asset Register - General Items";
+    //   this.getAssetRegisterGeneral(
+    //     userID,
+    //     region,
+    //     officeType,
+    //     project,
+    //     accountCat,
+    //     assetCat
+    //   );
+    // }
 
-    // computer report preset generation
-    else if (this.rptPreset == "2") {
-      this.columns = this.computerColumns;
-      this.rptTitle = "Moveable Asset Register - Computer Items";
-      this.getAssetRegisterComputer(userID, subLocID, officeTypeID);
-    }
+    // // computer report preset generation
+    // else if (this.rptPreset == "2") {
+    //   this.columns = this.computerColumns;
+    //   this.rptTitle = "Moveable Asset Register - Computer Items";
+    //   this.getAssetRegisterComputer(
+    //     userID,
+    //     region,
+    //     officeType,
+    //     project,
+    //     accountCat,
+    //     assetCat
+    //   );
+    // }
 
-    // vehicle report preset generation
-    else if (this.rptPreset == "3") {
-      this.columns = this.vehicleColumns;
-      this.rptTitle = "Moveable Asset Register - Vehicles";
-      this.getAssetRegisterVehicle(userID, subLocID, officeTypeID);
-    }
+    // // vehicle report preset generation
+    // else if (this.rptPreset == "3") {
+    //   this.columns = this.vehicleColumns;
+    //   this.rptTitle = "Moveable Asset Register - Vehicles";
+    //   this.getAssetRegisterVehicle(
+    //     userID,
+    //     region,
+    //     officeType,
+    //     project,
+    //     accountCat,
+    //     assetCat
+    //   );
+    // }
 
-    // Books report preset generation
-    else if (this.rptPreset == "4") {
-      this.columns = this.bookColumns;
-      this.rptTitle = "Moveable Asset Register - Books";
-      this.getAssetRegisterBooks(userID, subLocID, officeTypeID);
-    }
+    // // Books report preset generation
+    // else if (this.rptPreset == "4") {
+    //   this.columns = this.bookColumns;
+    //   this.rptTitle = "Moveable Asset Register - Books";
+    //   this.getAssetRegisterBooks(
+    //     userID,
+    //     region,
+    //     officeType,
+    //     project,
+    //     accountCat,
+    //     assetCat
+    //   );
+    // }
   }
 
   // asset Register general
-  getAssetRegisterGeneral(userID, subLocID, officeTypeID) {
+  getAssetRegisterGeneral(
+    userID,
+    region,
+    officeType,
+    project,
+    accountCat,
+    assetCat
+  ) {
     var reqHeader = new HttpHeaders({
       "Content-Type": "application/json",
       // Authorization: "Bearer " + Token,
@@ -763,10 +1021,16 @@ export class AssetRegisterRptComponent implements OnInit {
         this.app.serverUrl +
           "getAssetdetailGeneral?UserId=" +
           userID +
-          "&SubLocID=" +
-          subLocID +
-          "&OfficeTypeID=" +
-          officeTypeID,
+          "&region=" +
+          region +
+          "&OfficeType=" +
+          officeType +
+          "&project=" +
+          project +
+          "&accountCat=" +
+          accountCat +
+          "&assetCat=" +
+          assetCat,
         { headers: reqHeader }
       )
       .subscribe((data: any) => {
@@ -789,7 +1053,14 @@ export class AssetRegisterRptComponent implements OnInit {
       });
   }
 
-  getAssetRegisterVehicle(userID, subLocID, officeTypeID) {
+  getAssetRegisterVehicle(
+    userID,
+    region,
+    officeType,
+    project,
+    accountCat,
+    assetCat
+  ) {
     var reqHeader = new HttpHeaders({
       "Content-Type": "application/json",
       // Authorization: "Bearer " + Token,
@@ -800,10 +1071,16 @@ export class AssetRegisterRptComponent implements OnInit {
         this.app.serverUrl +
           "getAssetdetailVehicles?UserId=" +
           userID +
-          "&SubLocID=" +
-          subLocID +
-          "&OfficeTypeID=" +
-          officeTypeID,
+          "&region=" +
+          region +
+          "&OfficeType=" +
+          officeType +
+          "&project=" +
+          project +
+          "&accountCat=" +
+          accountCat +
+          "&assetCat=" +
+          assetCat,
         { headers: reqHeader }
       )
       .subscribe((data: any) => {
@@ -827,7 +1104,14 @@ export class AssetRegisterRptComponent implements OnInit {
   }
 
   // asset register computer
-  getAssetRegisterComputer(userID, subLocID, officeTypeID) {
+  getAssetRegisterComputer(
+    userID,
+    region,
+    officeType,
+    project,
+    accountCat,
+    assetCat
+  ) {
     var reqHeader = new HttpHeaders({
       "Content-Type": "application/json",
       // Authorization: "Bearer " + Token,
@@ -838,10 +1122,16 @@ export class AssetRegisterRptComponent implements OnInit {
         this.app.serverUrl +
           "getAssetdetailComputers?UserId=" +
           userID +
-          "&SubLocID=" +
-          subLocID +
-          "&OfficeTypeID=" +
-          officeTypeID,
+          "&region=" +
+          region +
+          "&OfficeType=" +
+          officeType +
+          "&project=" +
+          project +
+          "&accountCat=" +
+          accountCat +
+          "&assetCat=" +
+          assetCat,
         { headers: reqHeader }
       )
       .subscribe((data: any) => {
@@ -865,7 +1155,14 @@ export class AssetRegisterRptComponent implements OnInit {
   }
 
   // asset register computer
-  getAssetRegisterBooks(userID, subLocID, officeTypeID) {
+  getAssetRegisterBooks(
+    userID,
+    region,
+    officeType,
+    project,
+    accountCat,
+    assetCat
+  ) {
     var reqHeader = new HttpHeaders({
       "Content-Type": "application/json",
       // Authorization: "Bearer " + Token,
@@ -876,10 +1173,16 @@ export class AssetRegisterRptComponent implements OnInit {
         this.app.serverUrl +
           "getAssetdetailBooks?UserId=" +
           userID +
-          "&SubLocID=" +
-          subLocID +
-          "&OfficeTypeID=" +
-          officeTypeID,
+          "&region=" +
+          region +
+          "&OfficeType=" +
+          officeType +
+          "&project=" +
+          project +
+          "&accountCat=" +
+          accountCat +
+          "&assetCat=" +
+          assetCat,
         { headers: reqHeader }
       )
       .subscribe((data: any) => {
