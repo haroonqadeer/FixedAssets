@@ -73,9 +73,9 @@
       </div>
     </div>
 
-    <table mat-table [dataSource]="dataSource" class="border-top w-100" matSort matSortDisableClear>
+    <table mat-table [dataSource]="dataSource" class="border-top w-100">
       <ng-container *ngFor="let column of columns; let i = index" [matColumnDef]="column.field">
-        <th mat-header-cell *matHeaderCellDef class="border-right pl-2" mat-sort-header>
+        <th mat-header-cell *matHeaderCellDef class="border-right pl-2">
           <div class="d-flex flex-row">
             <div class="align-self-center">
               {{ column.title }}

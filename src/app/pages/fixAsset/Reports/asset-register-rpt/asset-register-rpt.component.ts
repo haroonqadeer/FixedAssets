@@ -945,267 +945,33 @@ export class AssetRegisterRptComponent implements OnInit {
         this.dataSource.filterPredicate = this.customFilterPredicate.bind(this);
         this.dataSource.filter = performance.now().toString();
         this.cdr.detectChanges();
-
+        $("#rptOptionsModal").modal("hide");
         // this.dataSource = this.filterAssetRegisterList;
       });
 
     // general report preset generation
-    // if (this.rptPreset == "1") {
-    //   this.columns = this.generalColumns;
-    //   this.rptTitle = "Moveable Asset Register - General Items";
-    //   this.getAssetRegisterGeneral(
-    //     userID,
-    //     region,
-    //     officeType,
-    //     project,
-    //     accountCat,
-    //     assetCat
-    //   );
-    // }
+    if (this.rptPreset == "general") {
+      this.columns = this.generalColumns;
+      this.rptTitle = "Moveable Asset Register - General Items";
+    }
 
-    // // computer report preset generation
-    // else if (this.rptPreset == "2") {
-    //   this.columns = this.computerColumns;
-    //   this.rptTitle = "Moveable Asset Register - Computer Items";
-    //   this.getAssetRegisterComputer(
-    //     userID,
-    //     region,
-    //     officeType,
-    //     project,
-    //     accountCat,
-    //     assetCat
-    //   );
-    // }
+    // computer report preset generation
+    else if (this.rptPreset == "computer") {
+      this.columns = this.computerColumns;
+      this.rptTitle = "Moveable Asset Register - Computer Items";
+    }
 
-    // // vehicle report preset generation
-    // else if (this.rptPreset == "3") {
-    //   this.columns = this.vehicleColumns;
-    //   this.rptTitle = "Moveable Asset Register - Vehicles";
-    //   this.getAssetRegisterVehicle(
-    //     userID,
-    //     region,
-    //     officeType,
-    //     project,
-    //     accountCat,
-    //     assetCat
-    //   );
-    // }
+    // vehicle report preset generation
+    else if (this.rptPreset == "vehicle") {
+      this.columns = this.vehicleColumns;
+      this.rptTitle = "Moveable Asset Register - Vehicles";
+    }
 
-    // // Books report preset generation
-    // else if (this.rptPreset == "4") {
-    //   this.columns = this.bookColumns;
-    //   this.rptTitle = "Moveable Asset Register - Books";
-    //   this.getAssetRegisterBooks(
-    //     userID,
-    //     region,
-    //     officeType,
-    //     project,
-    //     accountCat,
-    //     assetCat
-    //   );
-    // }
-  }
-
-  // asset Register general
-  getAssetRegisterGeneral(
-    userID,
-    region,
-    officeType,
-    project,
-    accountCat,
-    assetCat
-  ) {
-    var reqHeader = new HttpHeaders({
-      "Content-Type": "application/json",
-      // Authorization: "Bearer " + Token,
-    });
-    this.http
-      .get(
-        this.app.serverUrl +
-          "getAssetdetailGeneral?UserId=" +
-          userID +
-          "&region=" +
-          region +
-          "&OfficeType=" +
-          officeType +
-          "&project=" +
-          project +
-          "&accountCat=" +
-          accountCat +
-          "&assetCat=" +
-          assetCat,
-        { headers: reqHeader }
-      )
-      .subscribe((data: any) => {
-        this.assetRegisterList = data;
-        this.filterAssetRegisterList = data;
-
-        data.forEach((item, index) => {
-          item.id = index + 1;
-        });
-        this._alldata = data;
-        this.dataSource.data = this.addGroups(
-          this._alldata,
-          this.groupByColumns
-        );
-        this.dataSource.filterPredicate = this.customFilterPredicate.bind(this);
-        this.dataSource.filter = performance.now().toString();
-        this.cdr.detectChanges();
-
-        // this.dataSource = this.filterAssetRegisterList;
-      });
-  }
-
-  getAssetRegisterVehicle(
-    userID,
-    region,
-    officeType,
-    project,
-    accountCat,
-    assetCat
-  ) {
-    var reqHeader = new HttpHeaders({
-      "Content-Type": "application/json",
-      // Authorization: "Bearer " + Token,
-    });
-
-    this.http
-      .get(
-        this.app.serverUrl +
-          "getAssetdetailVehicles?UserId=" +
-          userID +
-          "&region=" +
-          region +
-          "&OfficeType=" +
-          officeType +
-          "&project=" +
-          project +
-          "&accountCat=" +
-          accountCat +
-          "&assetCat=" +
-          assetCat,
-        { headers: reqHeader }
-      )
-      .subscribe((data: any) => {
-        this.assetRegisterList = data;
-        this.filterAssetRegisterList = data;
-
-        data.forEach((item, index) => {
-          item.id = index + 1;
-        });
-        this._alldata = data;
-        this.dataSource.data = this.addGroups(
-          this._alldata,
-          this.groupByColumns
-        );
-        this.dataSource.filterPredicate = this.customFilterPredicate.bind(this);
-        this.dataSource.filter = performance.now().toString();
-        this.cdr.detectChanges();
-
-        // this.dataSource = this.filterAssetRegisterList;
-      });
-  }
-
-  // asset register computer
-  getAssetRegisterComputer(
-    userID,
-    region,
-    officeType,
-    project,
-    accountCat,
-    assetCat
-  ) {
-    var reqHeader = new HttpHeaders({
-      "Content-Type": "application/json",
-      // Authorization: "Bearer " + Token,
-    });
-
-    this.http
-      .get(
-        this.app.serverUrl +
-          "getAssetdetailComputers?UserId=" +
-          userID +
-          "&region=" +
-          region +
-          "&OfficeType=" +
-          officeType +
-          "&project=" +
-          project +
-          "&accountCat=" +
-          accountCat +
-          "&assetCat=" +
-          assetCat,
-        { headers: reqHeader }
-      )
-      .subscribe((data: any) => {
-        this.assetRegisterList = data;
-        this.filterAssetRegisterList = data;
-
-        data.forEach((item, index) => {
-          item.id = index + 1;
-        });
-        this._alldata = data;
-        this.dataSource.data = this.addGroups(
-          this._alldata,
-          this.groupByColumns
-        );
-        this.dataSource.filterPredicate = this.customFilterPredicate.bind(this);
-        this.dataSource.filter = performance.now().toString();
-        this.cdr.detectChanges();
-
-        // this.dataSource = this.filterAssetRegisterList;
-      });
-  }
-
-  // asset register computer
-  getAssetRegisterBooks(
-    userID,
-    region,
-    officeType,
-    project,
-    accountCat,
-    assetCat
-  ) {
-    var reqHeader = new HttpHeaders({
-      "Content-Type": "application/json",
-      // Authorization: "Bearer " + Token,
-    });
-
-    this.http
-      .get(
-        this.app.serverUrl +
-          "getAssetdetailBooks?UserId=" +
-          userID +
-          "&region=" +
-          region +
-          "&OfficeType=" +
-          officeType +
-          "&project=" +
-          project +
-          "&accountCat=" +
-          accountCat +
-          "&assetCat=" +
-          assetCat,
-        { headers: reqHeader }
-      )
-      .subscribe((data: any) => {
-        this.assetRegisterList = data;
-        this.filterAssetRegisterList = data;
-
-        data.forEach((item, index) => {
-          item.id = index + 1;
-        });
-        this._alldata = data;
-        this.dataSource.data = this.addGroups(
-          this._alldata,
-          this.groupByColumns
-        );
-        this.dataSource.filterPredicate = this.customFilterPredicate.bind(this);
-        this.dataSource.filter = performance.now().toString();
-        this.cdr.detectChanges();
-
-        // this.dataSource = this.filterAssetRegisterList;
-      });
+    // Books report preset generation
+    else if (this.rptPreset == "book") {
+      this.columns = this.bookColumns;
+      this.rptTitle = "Moveable Asset Register - Books";
+    }
   }
 
   // apply report filters
