@@ -26,6 +26,7 @@ export class AssetpurchaseComponent implements OnInit {
   chkAssetFields = true;
   selectAllAssetFields = false;
 
+  countField = 0;
   //pagination variables for tag list
   tagItemPerPage = "10";
   tagP = 1;
@@ -235,6 +236,34 @@ export class AssetpurchaseComponent implements OnInit {
     }
   }
 
+  getPurchase() {
+    var reqHeader = new HttpHeaders({
+      "Content-Type": "application/json",
+      // Authorization: "Bearer " + Token,
+    });
+
+    this.http
+      .get(this.app.serverUrl + "getPurchase", { headers: reqHeader })
+      .subscribe((data: any) => {
+        this.purchaseList = data;
+      });
+  }
+
+  getAssetDetail(item) {
+    var reqHeader = new HttpHeaders({
+      "Content-Type": "application/json",
+      // Authorization: "Bearer " + Token,
+    });
+
+    this.http
+      .get(this.app.serverUrl + "getPurchaseAsset?purchaseID=" + item, {
+        headers: reqHeader,
+      })
+      .subscribe((data: any) => {
+        this.assetList = data;
+      });
+  }
+
   getAssetNo() {
     if (
       this.ddlLocation != "" &&
@@ -435,12 +464,11 @@ export class AssetpurchaseComponent implements OnInit {
 
   savePurchaseData() {
     if (this.lblPurchaseID == 0 && this.editMode == 0) {
-      // this.chkPurchaseAsset();
-      this.chkPurchase();
-      // } else if (this.lblPurchaseID != 0 && this.editMode == 0) {
-      //   this.chkAsset();
-      // } else if (this.lblPurchaseID != 0 && this.editMode != 0) {
-      //   this.chkAssetData();
+      this.chkPurchaseAsset();
+    } else if (this.lblPurchaseID != 0 && this.editMode == 0) {
+      this.chkAsset();
+    } else if (this.lblPurchaseID != 0 && this.editMode != 0) {
+      this.chkAssetData();
     }
   }
 
@@ -501,66 +529,92 @@ export class AssetpurchaseComponent implements OnInit {
         toastTimeout: 2500,
       });
       return false;
-    } else {
-      if (this.ddlMode == "RMA") {
-        if (this.txtMemo == undefined || this.txtMemo == "") {
-          this.toastr.errorToastr("Please Enter Memo No", "Error !", {
+    } else if (this.ddlMode == "RMA" && this.countField != 8) {
+      if (this.txtMemo == undefined || this.txtMemo == "") {
+        this.toastr.errorToastr("Please Enter Memo No", "Error !", {
+          toastTimeout: 2500,
+        });
+        return false;
+      } else if (this.ddlPost == undefined || this.ddlPost == "") {
+        this.toastr.errorToastr("Please Select Memo Issued By", "Error !", {
+          toastTimeout: 2500,
+        });
+        return false;
+      } else if (this.dtpMemoDate == undefined) {
+        this.toastr.errorToastr("Please Select Memo Date", "Error !", {
+          toastTimeout: 2500,
+        });
+        return false;
+      } else if (this.file == undefined || this.file == "") {
+        this.toastr.errorToastr("Please Choose Memo Document", "Error !", {
+          toastTimeout: 2500,
+        });
+        return false;
+      } else if (this.txtSupplier == undefined || this.txtSupplier == "") {
+        this.toastr.errorToastr("Please Enter Supplier Name", "Error !", {
+          toastTimeout: 2500,
+        });
+        return false;
+      } else if (this.dtpSupplierInvoice == undefined) {
+        this.toastr.errorToastr(
+          "Please Select Supplier Invoice Date",
+          "Error !",
+          {
             toastTimeout: 2500,
-          });
-          return false;
-        } else if (this.ddlPost == undefined || this.ddlPost == "") {
-          this.toastr.errorToastr("Please Select Memo Issued By", "Error !", {
-            toastTimeout: 2500,
-          });
-          return false;
-        } else if (this.dtpMemoDate == undefined) {
-          this.toastr.errorToastr("Please Select Memo Date", "Error !", {
-            toastTimeout: 2500,
-          });
-          return false;
-        } else if (this.file == undefined || this.file == "") {
-          this.toastr.errorToastr("Please Choose Memo Document", "Error !", {
-            toastTimeout: 2500,
-          });
-          return false;
-        } else if (this.txtSupplier == undefined || this.txtSupplier == "") {
-          this.toastr.errorToastr("Please Enter Supplier Name", "Error !", {
-            toastTimeout: 2500,
-          });
-          return false;
-        } else if (this.dtpSupplierInvoice == undefined) {
-          this.toastr.errorToastr(
-            "Please Select Supplier Invoice Date",
-            "Error !",
-            {
-              toastTimeout: 2500,
-            }
-          );
-          return false;
-        } else if (
-          this.txtSupInvoiceNo == undefined ||
-          this.txtSupInvoiceNo == ""
-        ) {
-          this.toastr.errorToastr(
-            "Please Enter Supplier Invoice No",
-            "Error !",
-            {
-              toastTimeout: 2500,
-            }
-          );
-          return false;
-        } else if (this.fileSup == undefined || this.fileSup == "") {
-          this.toastr.errorToastr(
-            "Please Choose Supplier Document",
-            "Error !",
-            {
-              toastTimeout: 2500,
-            }
-          );
-          return false;
-        }
+          }
+        );
+        return false;
+      } else if (
+        this.txtSupInvoiceNo == undefined ||
+        this.txtSupInvoiceNo == ""
+      ) {
+        this.toastr.errorToastr("Please Enter Supplier Invoice No", "Error !", {
+          toastTimeout: 2500,
+        });
+        return false;
+      } else if (this.fileSup == undefined || this.fileSup == "") {
+        this.toastr.errorToastr("Please Choose Supplier Document", "Error !", {
+          toastTimeout: 2500,
+        });
+        return false;
       }
-      this.save();
+      this.countField = 8;
+    } else if (this.ddlCustody == undefined || this.ddlCustody == "") {
+      this.toastr.errorToastr("Please Select Custody", "Error !", {
+        toastTimeout: 2500,
+      });
+      return false;
+    } else if (this.ddlOfcSec == undefined || this.ddlOfcSec == "") {
+      this.toastr.errorToastr("Please Select Office Section", "Error !", {
+        toastTimeout: 2500,
+      });
+      return false;
+    } else if (
+      this.rdbAsset == "2" &&
+      (this.ddlVehicle == undefined || this.ddlVehicle == "")
+    ) {
+      this.toastr.errorToastr("Please Select Vehicle", "Error !", {
+        toastTimeout: 2500,
+      });
+      return false;
+    } else if (this.ddlAssetCat == undefined || this.ddlAssetCat == "") {
+      this.toastr.errorToastr("Please Select Asset Category", "Error !", {
+        toastTimeout: 2500,
+      });
+      return false;
+    } else if (this.txtAssetDesc == undefined || this.txtAssetDesc == "") {
+      this.toastr.errorToastr("Please Enter Asset Description", "Error !", {
+        toastTimeout: 2500,
+      });
+      return false;
+    } else if (this.txtCost == undefined || this.txtCost == "") {
+      this.toastr.errorToastr("Please Enter Cost For Each", "Error !", {
+        toastTimeout: 2500,
+      });
+      return false;
+    } else {
+      this.selectAllAssetFields = true;
+      this.savePurchase();
     }
   }
 
@@ -654,113 +708,48 @@ export class AssetpurchaseComponent implements OnInit {
       this.toastr.errorToastr("Else Condition", "Error !", {
         toastTimeout: 2500,
       });
-      this.save();
+      this.savePurchase();
     }
   }
 
   //main entery CRUD Operation
   chkAsset() {
-    if (this.ddlLocation == undefined || this.ddlLocation == "") {
-      this.toastr.errorToastr("Please Select Location", "Error !", {
+    if (this.ddlCustody == undefined || this.ddlCustody == "") {
+      this.toastr.errorToastr("Please Select Custody", "Error !", {
         toastTimeout: 2500,
       });
       return false;
-    } else if (this.ddlAccSec == undefined || this.ddlAccSec == "") {
-      this.toastr.errorToastr("Please Select Account Section", "Error !", {
+    } else if (this.ddlOfcSec == undefined || this.ddlOfcSec == "") {
+      this.toastr.errorToastr("Please Select Office Section", "Error !", {
         toastTimeout: 2500,
       });
       return false;
-    } else if (this.ddlProject == undefined || this.ddlProject == "") {
-      this.toastr.errorToastr("Please Select Project", "Error !", {
+    } else if (
+      this.rdbAsset == "2" &&
+      (this.ddlVehicle == undefined || this.ddlVehicle == "")
+    ) {
+      this.toastr.errorToastr("Please Select Vehicle", "Error !", {
         toastTimeout: 2500,
       });
       return false;
-    } else if (this.ddlRef == undefined || this.ddlRef == "") {
-      this.toastr.errorToastr("Please Select IPC Reference", "Error !", {
+    } else if (this.ddlAssetCat == undefined || this.ddlAssetCat == "") {
+      this.toastr.errorToastr("Please Select Asset Category", "Error !", {
         toastTimeout: 2500,
       });
       return false;
-    } else if (this.txtTotalAmount == undefined || this.txtTotalAmount == "") {
-      this.toastr.errorToastr("Please Enter Total Amount", "Error !", {
+    } else if (this.txtAssetDesc == undefined || this.txtAssetDesc == "") {
+      this.toastr.errorToastr("Please Enter Asset Description", "Error !", {
         toastTimeout: 2500,
       });
       return false;
-    } else if (this.ddlMode == undefined || this.ddlMode == "") {
-      this.toastr.errorToastr("Please Select Mode of Acquistion", "Error !", {
-        toastTimeout: 2500,
-      });
-      return false;
-    } else if (this.txtDescription == undefined || this.txtDescription == "") {
-      this.toastr.errorToastr("Please Enter Description", "Error !", {
+    } else if (this.txtCost == undefined || this.txtCost == "") {
+      this.toastr.errorToastr("Please Enter Cost For Each", "Error !", {
         toastTimeout: 2500,
       });
       return false;
     } else {
-      if (this.ddlMode == "RMA") {
-        if (this.txtMemo == undefined || this.txtMemo == "") {
-          this.toastr.errorToastr("Please Enter Memo No", "Error !", {
-            toastTimeout: 2500,
-          });
-          return false;
-        } else if (this.ddlPost == undefined || this.ddlPost == "") {
-          this.toastr.errorToastr("Please Select Memo Issued By", "Error !", {
-            toastTimeout: 2500,
-          });
-          return false;
-        } else if (this.dtpMemoDate == undefined) {
-          this.toastr.errorToastr("Please Select Memo Date", "Error !", {
-            toastTimeout: 2500,
-          });
-          return false;
-        } else if (this.file == undefined || this.file == "") {
-          this.toastr.errorToastr("Please Choose Memo Document", "Error !", {
-            toastTimeout: 2500,
-          });
-          return false;
-        } else if (this.txtSupplier == undefined || this.txtSupplier == "") {
-          this.toastr.errorToastr("Please Enter Supplier Name", "Error !", {
-            toastTimeout: 2500,
-          });
-          return false;
-        } else if (this.dtpSupplierInvoice == undefined) {
-          this.toastr.errorToastr(
-            "Please Select Supplier Invoice Date",
-            "Error !",
-            {
-              toastTimeout: 2500,
-            }
-          );
-          return false;
-        } else if (
-          this.txtSupInvoiceNo == undefined ||
-          this.txtSupInvoiceNo == ""
-        ) {
-          this.toastr.errorToastr(
-            "Please Enter Supplier Invoice No",
-            "Error !",
-            {
-              toastTimeout: 2500,
-            }
-          );
-          return false;
-        } else if (this.fileSup == undefined || this.fileSup == "") {
-          this.toastr.errorToastr(
-            "Please Choose Supplier Document",
-            "Error !",
-            {
-              toastTimeout: 2500,
-            }
-          );
-          return false;
-        }
-      }
+      this.saveAsset();
     }
-  }
-
-  save() {
-    alert("ok");
-    this.lblPurchaseID = 1;
-    this.clearPurchase();
   }
 
   savePurchase() {
@@ -817,6 +806,9 @@ export class AssetpurchaseComponent implements OnInit {
           if (this.selectAllAssetFields == true) {
             this.saveAsset();
           }
+          this.countField = 0;
+          this.clearPurchase();
+
           return false;
         } else {
           this.toastr.errorToastr(data.msg, "Error !", {
@@ -828,13 +820,12 @@ export class AssetpurchaseComponent implements OnInit {
   }
 
   saveAsset() {
-    alert(";ok");
-    return;
+    debugger;
     var vehicleID;
     var purchaseDate = this.app.convertDate(this.dtpPurchase);
     var reqSpType = "INSERT";
 
-    if (this.lblPurchaseID > 0) {
+    if (this.lblAssetID > 0) {
       reqSpType = "UPDATE";
     }
     var SaveData = {
@@ -843,8 +834,8 @@ export class AssetpurchaseComponent implements OnInit {
       assetCatID: this.ddlAssetCat,
       assetNo: this.lblAssetNo,
       officeSecID: this.ddlOfcSec,
-      postID: this.ddlPost,
-      // assetLocation: this.asseLocation,
+      postID: this.ddlCustody,
+      assetLocation: this.txtAssetDesc,
       assetDescription: this.txtAssetDesc,
       vehicleID: vehicleID,
       projectID: this.ddlProject,
@@ -934,13 +925,17 @@ export class AssetpurchaseComponent implements OnInit {
     this.lblTotalAmount = this.txtTotalAmount;
 
     var mode = this.modeList.filter((x) => x.name == this.ddlMode);
-    this.lblMode = mode[0].name;
+    if (mode.length != 0) {
+      this.lblMode = mode[0].name;
+    }
 
     this.lblDescription = this.txtDescription;
     this.lblMemoNo = this.txtMemo;
 
     var memoIssued = this.postList.filter((x) => x.postID == this.ddlPost);
-    this.lblMemoIssued = memoIssued[0].postName;
+    if (memoIssued.length != 0) {
+      this.lblMemoIssued = memoIssued[0].postName;
+    }
 
     this.lblMemoDt = this.dtpMemoDate.toString();
     this.lblSupplier = this.txtSupplier;
@@ -948,11 +943,48 @@ export class AssetpurchaseComponent implements OnInit {
     this.lblSuppInvNo = this.txtSupInvoiceNo;
   }
 
-  clearAsset() {}
+  clearAsset() {
+    this.rdbAsset = "1";
+    this.ddlVehicle = "";
+    this.ddlCustody = "";
+    this.ddlOfcSec = "";
+    this.ddlAssetCat = "";
+    this.txtAssetDesc = "";
+    this.txtCost = "";
+    this.txtRemarks = "";
+    this.lblAssetNo = 0;
+    this.lblAssetID = 0;
+
+    this.assetCategorySpecsList = [];
+    //empty asset category specification
+    this.make = "";
+    this.makeList = [];
+    this.model = "";
+    this.modelList = [];
+    this.size = "";
+    this.sizeList = [];
+    this.generation = "";
+    this.generationList = [];
+    this.processor = "";
+    this.processorList = [];
+    this.ram = "";
+    this.ramList = [];
+    this.driveType1 = "";
+    this.driverType1List = [];
+    this.hdSize1 = "";
+    this.hdSize1List = [];
+    this.driveType2 = "";
+    this.driverType2List = [];
+    this.hdSize2 = "";
+    this.hdSize2List = [];
+  }
 
   clear() {
+    this.editMode = 0;
     this.lblPurchaseID = 0;
     this.ddlAccSec = "";
+    this.ddlMode = "";
+    this.ddlRef = "";
     this.ddlProject = "";
     this.ddlLocation = "";
     this.lblOfcType = "";
@@ -981,49 +1013,60 @@ export class AssetpurchaseComponent implements OnInit {
     this.selectedFileSup = null;
     this.fileSup;
 
-    this.assetCatList = this.tempAssetCatList;
+    // this.assetCatList = this.tempAssetCatList;
   }
 
   edit(item) {
     this.editMode = 1;
 
     this.lblPurchaseID = item.purchaseID;
+    this.ddlLocation = item.subLocID.toString();
+    this.filterOfficeType(item.subLocID);
     this.ddlAccSec = item.officeSecID.toString();
     this.ddlProject = item.projectID.toString();
-    this.ddlLocation = item.landMeasureTypeID.toString();
-    this.lblOfcType = item.officeType;
+    // this.lblOfcType = item.officeType;
     this.filterIPC(this.ddlProject);
-    this.dtpPurchase = new Date(item.dtpPurchase);
-    this.txtDescription = item.presentUse;
-    this.txtMemo = item.dateofNationalization;
-    this.ddlPost = item.costOfLand;
-    this.dtpMemoDate = new Date(item.dtpMemoDate);
-    this.txtSupplier = item.areaTransferedMarla;
-    this.dtpSupplierInvoice = new Date(item.remarks);
-    this.txtSupplier = item.remarks;
+    this.dtpPurchase = new Date(item.purchaseDate);
+    this.txtTotalAmount = item.totalAmount;
+    this.txtDescription = item.description;
+    this.ddlRef = item.iPcRef;
+    this.txtMemo = item.memoNo;
+    if (item.memoIssuedBy != null) {
+      this.ddlPost = item.memoIssuedBy.toString();
+    }
+    this.ddlMode = item.modeofAcq;
+    if (item.dtpMemoDate != null) {
+      this.dtpMemoDate = new Date(item.dtpMemoDate);
+    }
+    this.txtSupplier = item.supplier;
+    if (item.supplierInVDate != null) {
+      this.dtpSupplierInvoice = new Date(item.supplierInVDate);
+    }
+    this.txtSupInvoiceNo = item.supplierInvNo;
+    // this.txtSupplier = item.remarks;
 
     this.toggleView = "form";
+
+    this.getAssetDetail(item.purchaseID);
   }
 
   editAsset(item) {
-    this.editMode = 1;
+    this.lblAssetID = item.assetID;
 
-    this.lblPurchaseID = item.purchaseID;
-    this.ddlAccSec = item.officeSecID.toString();
-    this.ddlProject = item.projectID.toString();
-    this.ddlLocation = item.landMeasureTypeID.toString();
-    this.lblOfcType = item.officeType;
-    this.filterIPC(this.ddlProject);
-    this.dtpPurchase = new Date(item.dtpPurchase);
-    this.txtDescription = item.presentUse;
-    this.txtMemo = item.dateofNationalization;
-    this.ddlPost = item.costOfLand;
-    this.dtpMemoDate = new Date(item.dtpMemoDate);
-    this.txtSupplier = item.areaTransferedMarla;
-    this.dtpSupplierInvoice = new Date(item.remarks);
-    this.txtSupplier = item.remarks;
+    if (item.vehicleID == null) {
+      this.rdbAsset = "1";
+      this.ddlVehicle = "";
+    } else {
+      this.rdbAsset = "2";
+      this.ddlVehicle = item.vehicleID;
+    }
 
-    this.toggleView = "form";
+    this.ddlCustody = item.postID.toString();
+    this.ddlOfcSec = item.officeSecID.toString();
+    this.ddlAssetCat = item.assetCatID;
+    this.txtAssetDesc = item.assetDescription;
+    this.txtCost = item.costAmount;
+    this.txtRemarks = item.remarks;
   }
 
   delete(item) {
