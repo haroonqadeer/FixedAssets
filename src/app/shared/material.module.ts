@@ -26,6 +26,7 @@ import { MatBadgeModule } from "@angular/material/badge";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatAutocompleteModule } from "@angular/material/autocomplete";
 import { NgxMatSelectSearchModule } from "ngx-mat-select-search";
+import { MatSortModule } from "@angular/material/sort";
 
 @NgModule({
   imports: [
@@ -56,6 +57,7 @@ import { NgxMatSelectSearchModule } from "ngx-mat-select-search";
     MatToolbarModule,
     MatAutocompleteModule,
     NgxMatSelectSearchModule,
+    MatSortModule,
   ],
   exports: [
     MatInputModule,
@@ -84,6 +86,7 @@ import { NgxMatSelectSearchModule } from "ngx-mat-select-search";
     MatToolbarModule,
     MatAutocompleteModule,
     NgxMatSelectSearchModule,
+    MatSortModule,
   ],
   declarations: [],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
