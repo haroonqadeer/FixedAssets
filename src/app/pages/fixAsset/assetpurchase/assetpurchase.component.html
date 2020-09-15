@@ -9,7 +9,7 @@
           <a (click)="toggleView = 'form'" class="cursorPointer">Form View</a>
         </li>
         <li>
-          <a (click)="toggleView = 'table'" class="cursorPointer">Table View</a>
+          <a (click)="toggleView = 'table'; getPurchase()" class="cursorPointer">Table View</a>
         </li>
       </ul>
     </nav>
@@ -53,21 +53,21 @@
         </thead>
         <tbody>
           <tr
-            *ngFor="let item of purchaseList | orderBy:'fixedAssetID': true | search: 'accountCode,openingRevaluationSurplus,openingRevaluationAmount,additionINRevaluationSurplus,additionINRevaluationAmount,revaluationSurplus,totalRevaluationAmount,wdv,costOfLand,areaAcquiredMarla,areaAcquiredKanal,projectShortName,roadShortName,officeDescription':txtSearchPurchaseData">
+            *ngFor="let item of purchaseList | orderBy:'fixedAssetID': true | search: 'officeDescription,subLocationDescription':txtSearchPurchaseData">
 
             <td class="inline-block">
               <span class="fa fa-edit cursorPointer pr-3 text-primary" (click)="edit(item)"></span>
               <span class="fa fa-trash-o cursorPointer text-danger" (click)="delete(item)"></span>
             </td>
             <td>{{item.officeDescription}}</td>
-            <td>{{item.roadShortName}}</td>
+            <td>{{item.subLocationDescription}}</td>
             <td>{{item.projectShortName}}</td>
-            <td>{{item.totalRevaluationAmount | number}}</td>
-            <td>{{item.revaluationSurplus | number}}</td>
-            <td>{{item.additionINRevaluationAmount | number}}</td>
-            <td>{{item.additionINRevaluationSurplus | number}}</td>
-            <td>{{item.openingRevaluationAmount | number}}</td>
-            <td>{{item.openingRevaluationSurplus | number}}</td>
+            <td>{{item.officeTypeDescription}}</td>
+            <td>{{item.purchaseDate | date}}</td>
+            <td>{{item.totalAmount | number}}</td>
+            <td>{{item.memoNo}}</td>
+            <td>{{item.supplier}}</td>
+            <td>{{item.supplierInvNo}}</td>
           </tr>
         </tbody>
       </table>
@@ -304,7 +304,7 @@
     </div>
 
     <!-- next row -->
-    <div class="row pl-4 pr-4">
+    <div class="row pl-4 pr-4" *ngIf="this.lblMode == 'RMA' || this.ddlMode == 'RMA' || this.editMode == 1">
       <div class="col-md-6">
         <fieldset class="scheduler-border">
           <legend class="scheduler-border text-skyblue">Sanction Memo Detail</legend>
@@ -716,7 +716,6 @@
             <th scope="col">Sub Location</th>
             <th scope="col">Office Title</th>
             <th scope="col">Custody</th>
-            <th scope="col">Description</th>
             <th scope="col">Project</th>
           </tr>
         </thead>
@@ -726,15 +725,14 @@
               let i = index
             ">
             <td class="inline-block">
-              <span class="fa fa-edit cursorPointer pr-3 text-primary"></span>
-              <span class="fa fa-trash-o cursorPointer text-danger pr-3"></span>
+              <span class="fa fa-edit cursorPointer pr-3 text-primary" (click)="editAsset(item)"></span>
+              <span class="fa fa-trash-o cursorPointer text-danger pr-3" (click)="deleteAsset(item)"></span>
             </td>
             <td>{{ item.tag }}</td>
-            <td>{{ item.subLocation }}</td>
-            <td>{{ item.officeTitle }}</td>
-            <td>{{ item.custody }}</td>
-            <td>{{ item.description }}</td>
-            <td>{{ item.project }}</td>
+            <td>{{ item.subLocationDescription }}</td>
+            <td>{{ item.officeTypeDescription }}</td>
+            <td>{{ item.postName }}</td>
+            <td>{{ item.projectShortName }}</td>
           </tr>
           <tr *ngIf="assetList.length == 0">
             <td>No Record Found</td>
