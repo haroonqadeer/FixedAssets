@@ -891,8 +891,8 @@ export class AssetRegisterRptComponent implements OnInit {
         { headers: reqHeader }
       )
       .subscribe((data: any) => {
-        this.assetRegisterList = data;
-        this.filterAssetRegisterList = data;
+        // this.assetRegisterList = data;
+        // this.filterAssetRegisterList = data;
 
         data.forEach((item, index) => {
           item.id = index + 1;
@@ -937,9 +937,10 @@ export class AssetRegisterRptComponent implements OnInit {
             this._alldata = data.filter((x) => x.assetCatID == assetCat);
           }
         }
+        this.filterAssetRegisterList = this._alldata;
         this.dataSource.sort = this.sort;
         this.dataSource.data = this.addGroups(
-          this._alldata,
+          this.filterAssetRegisterList,
           this.groupByColumns
         );
         this.dataSource.filterPredicate = this.customFilterPredicate.bind(this);
@@ -979,36 +980,33 @@ export class AssetRegisterRptComponent implements OnInit {
     var filteredData: any;
 
     if (this.rdbFilter == "useable") {
-      filteredData = this.assetRegisterList.filter((x) => x.isUseable == true);
+      filteredData = this._alldata.filter((x) => x.isUseable == true);
       this.rptTitle2nd = "Useable Assets";
     } else if (this.rdbFilter == "serviceable") {
-      filteredData = this.assetRegisterList.filter(
-        (x) => x.isServiceAble == true
-      );
+      filteredData = this._alldata.filter((x) => x.isServiceAble == true);
       this.rptTitle2nd = "Serviceable Assets";
     } else if (this.rdbFilter == "surplus") {
-      filteredData = this.assetRegisterList.filter((x) => x.isSurplus == true);
+      filteredData = this._alldata.filter((x) => x.isSurplus == true);
       this.rptTitle2nd = "Surplus Assets";
     } else if (this.rdbFilter == "condemned") {
-      filteredData = this.assetRegisterList.filter(
-        (x) => x.isCondemned == true
-      );
+      filteredData = this._alldata.filter((x) => x.isCondemned == true);
       this.rptTitle2nd = "Condemned Assets";
     } else if (this.rdbFilter == "missing") {
-      filteredData = this.assetRegisterList.filter((x) => x.isMissing == true);
+      filteredData = this._alldata.filter((x) => x.isMissing == true);
       this.rptTitle2nd = "Missing Assets";
     } else if (this.rdbFilter == "transferred") {
-      filteredData = this.assetRegisterList.filter(
-        (x) => x.isTransfered == true
-      );
+      filteredData = this._alldata.filter((x) => x.isTransfered == true);
       this.rptTitle2nd = "Transferred Assets";
     }
 
     filteredData.forEach((item, index) => {
       item.id = index + 1;
     });
-    this._alldata = filteredData;
-    this.dataSource.data = this.addGroups(this._alldata, this.groupByColumns);
+    this.filterAssetRegisterList = filteredData;
+    this.dataSource.data = this.addGroups(
+      this.filterAssetRegisterList,
+      this.groupByColumns
+    );
     this.dataSource.filterPredicate = this.customFilterPredicate.bind(this);
     this.dataSource.filter = performance.now().toString();
     this.cdr.detectChanges();
