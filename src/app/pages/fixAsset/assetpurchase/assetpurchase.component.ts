@@ -886,6 +886,8 @@ export class AssetpurchaseComponent implements OnInit {
             );
           }
           this.clearAsset();
+          this.clearPurchase();
+          this.getAssetDetail(this.lblPurchaseID);
           return false;
         } else {
           this.toastr.errorToastr(data.msg, "Error !", {
@@ -897,6 +899,7 @@ export class AssetpurchaseComponent implements OnInit {
   }
 
   clearPurchase() {
+    this.editMode = 0;
     var loc = this.locList.filter((x) => x.subLocID == this.ddlLocation);
     this.lblLocation =
       loc[0].subLocationDescription +
@@ -980,6 +983,43 @@ export class AssetpurchaseComponent implements OnInit {
   }
 
   clear() {
+    // this.editMode = 0;
+    // this.lblPurchaseID = 0;
+    this.ddlAccSec = "";
+    this.ddlMode = "";
+    this.ddlRef = "";
+    this.ddlProject = "";
+    this.ddlLocation = "";
+    this.lblOfcType = "";
+    this.dtpPurchase = new Date();
+    this.txtDescription = "";
+    this.txtMemo = "";
+    this.ddlPost = "";
+    this.dtpMemoDate = new Date();
+    this.txtSupplier = "";
+    this.dtpSupplierInvoice = new Date();
+    this.txtSupplier = "";
+
+    this.imgFile = "";
+    this.lblFileName = "";
+    this.imageUrl = "../../../../../assets/IPCRefImg/dropHereImg.png";
+
+    this.imgFileSup = "";
+    this.lblFileNameSup = "";
+    this.imageUrlSup = "../../../../../assets/IPCRefImg/dropHereImg.png";
+
+    this.filePicker = "";
+    this.selectedFile = null;
+    this.file;
+
+    this.filePickerSup = "";
+    this.selectedFileSup = null;
+    this.fileSup;
+
+    // this.assetCatList = this.tempAssetCatList;
+  }
+
+  clearAll() {
     this.editMode = 0;
     this.lblPurchaseID = 0;
     this.ddlAccSec = "";
@@ -1152,7 +1192,9 @@ export class AssetpurchaseComponent implements OnInit {
                   "Success!",
                   { toastTimeout: 2500 }
                 );
-                this.clear();
+                // this.clearAsset();
+                this.clearPurchase();
+                this.getAssetDetail(this.lblPurchaseID);
                 return false;
               } else {
                 this.toastr.errorToastr(data.msg, "Error !", {
