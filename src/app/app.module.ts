@@ -71,6 +71,7 @@ import { RevaluationMoveAssetComponent } from "./pages/fixAsset/revaluation-move
 import { AssetpurchaseComponent } from "./pages/fixAsset/assetpurchase/assetpurchase.component";
 
 import { NgxImageCompressService } from "ngx-image-compress";
+import { UpdationLogRptComponent } from './pages/fixAsset/Reports/updation-log-rpt/updation-log-rpt.component';
 
 @NgModule({
   declarations: [
@@ -104,6 +105,7 @@ import { NgxImageCompressService } from "ngx-image-compress";
     RevaluationMoveAssetComponent,
     AssetpurchaseComponent,
     CustomloaderComponent,
+    UpdationLogRptComponent,
   ],
   imports: [
     BrowserModule,

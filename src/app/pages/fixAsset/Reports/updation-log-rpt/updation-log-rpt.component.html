@@ -23,7 +23,8 @@
 <div class="row">
   <div class="col-md-12 inline-block">
     <span class="fa fa-filter text-primary text-lg">:</span>
-    <mat-radio-group aria-label="Select an option" [(ngModel)]="rdbFilter" (change)="applyReportFilter()">
+    <!-- <mat-radio-group aria-label="Select an option" [(ngModel)]="rdbFilter" (change)="applyReportFilter()"> -->
+    <mat-radio-group aria-label="Select an option" [(ngModel)]="rdbFilter">
       <mat-radio-button class="pr-2 pl-2" value="useable">Useable</mat-radio-button>
       <mat-radio-button class="pr-2" value="serviceable">Serviceable</mat-radio-button>
       <mat-radio-button class="pr-2" value="surplus">Surplus</mat-radio-button>
@@ -77,6 +78,9 @@
       <ng-container *ngFor="let column of columns; let i = index" [matColumnDef]="column.field">
         <th mat-header-cell *matHeaderCellDef class="border-right pl-2" mat-sort-header>
           <div class="d-flex flex-row">
+            <div class="align-self-center">
+              {{ column.title }}
+            </div>
             <div class="printNone">
               <button class="grid-view-header-menu noneOutline" mat-icon-button [matMenuTriggerFor]="menu">
                 <mat-icon class="fa fa-bars"></mat-icon>
@@ -89,9 +93,6 @@
                   Ungroup
                 </button>
               </mat-menu>
-            </div>
-            <div class="align-self-center">
-              {{ column.title }}
             </div>
           </div>
         </th>
@@ -110,8 +111,8 @@
           <mat-icon *ngIf="!group.expanded" class="fa fa-angle-up printNone"></mat-icon>
           <strong>{{ groupByColumns[group.level - 1] }} =
             {{ group[groupByColumns[group.level - 1]] }} ({{
-              group.totalCounts
-            }})</strong>
+                group.totalCounts
+              }})</strong>
         </td>
       </ng-container>
 
@@ -158,7 +159,7 @@
         <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
           <div class="example-box" *ngFor="let item of columns" cdkDrag>
             {{ item.title
-            }}<mat-checkbox [(ngModel)]="item.display"></mat-checkbox>
+              }}<mat-checkbox [(ngModel)]="item.display"></mat-checkbox>
           </div>
         </div>
         <!-- Modal footer -->
@@ -214,9 +215,9 @@
                 </mat-option>
 
                 <mat-option *ngFor="
-                    let item of regionList
-                      | search: 'mainLocationDescription':searchRegion
-                  " [value]="item.mainLocID">
+                      let item of regionList
+                        | search: 'mainLocationDescription':searchRegion
+                    " [value]="item.mainLocID">
                   {{ item.mainLocationDescription }}
                 </mat-option>
               </mat-select>
@@ -237,12 +238,12 @@
                 </mat-option>
 
                 <mat-option *ngFor="
-                    let item of filteredLocList
-                      | search
-                        : 'subLocationDescription, officeTypeDescription'
-                        : searchLocation;
-                    let i = index
-                  " [value]="item.officeTypeId" (click)="searchLoc(i)"
+                      let item of filteredLocList
+                        | search
+                          : 'subLocationDescription, officeTypeDescription'
+                          : searchLocation;
+                      let i = index
+                    " [value]="item.officeTypeId" (click)="searchLoc(i)"
                   [disabled]="item.isActivated == 0 || item.isCompleted == 1">
                   <div class="row d-flex border-bottom">
                     <div class="col-md-4 col-sm-12">
@@ -270,9 +271,9 @@
                     [noEntriesFoundLabel]="'Not found'" name="search"></ngx-mat-select-search>
                 </mat-option>
                 <mat-option *ngFor="
-                    let item of projectList
-                      | search: 'projectName':searchProject
-                  " [value]="item.projectID">
+                      let item of projectList
+                        | search: 'projectName':searchProject
+                    " [value]="item.projectID">
                   {{ item.projectName }}
                 </mat-option>
               </mat-select>
@@ -308,9 +309,9 @@
                     [noEntriesFoundLabel]="'Not found'" name="search"></ngx-mat-select-search>
                 </mat-option>
                 <mat-option *ngFor="
-                    let item of filteredAssetCatList
-                      | search: 'assetCatDescription':searchAssetCat
-                  " [value]="item.assetCatID">
+                      let item of filteredAssetCatList
+                        | search: 'assetCatDescription':searchAssetCat
+                    " [value]="item.assetCatID">
                   {{ item.assetCatDescription }}
                 </mat-option>
               </mat-select>
