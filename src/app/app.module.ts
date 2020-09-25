@@ -66,12 +66,15 @@ import { CdkTableModule } from "@angular/cdk/table";
 import { CdkTreeModule } from "@angular/cdk/tree";
 import { LandReportComponent } from "./pages/fixAsset/Reports/land-report/land-report.component";
 import { RegisterVehicleRptComponent } from "./pages/fixAsset/Reports/register-vehicle-rpt/register-vehicle-rpt.component";
-import { RegisterComputerRptComponent } from "./pages/fixAsset/Reports/register-computer-rpt/register-computer-rpt.component";
 import { RevaluationMoveAssetComponent } from "./pages/fixAsset/revaluation-move-asset/revaluation-move-asset.component";
 import { AssetpurchaseComponent } from "./pages/fixAsset/assetpurchase/assetpurchase.component";
 
 import { NgxImageCompressService } from "ngx-image-compress";
-import { UpdationLogRptComponent } from './pages/fixAsset/Reports/updation-log-rpt/updation-log-rpt.component';
+import { UpdationLogRptComponent } from "./pages/fixAsset/Reports/updation-log-rpt/updation-log-rpt.component";
+import { ImmovableAssetRptComponent } from "./pages/fixAsset/Reports/immovable-asset-rpt/immovable-asset-rpt.component";
+import { NharoadReportComponent } from './pages/fixAsset/Reports/nharoad-report/nharoad-report.component';
+import { NhaBridgesReportComponent } from './pages/fixAsset/Reports/nha-bridges-report/nha-bridges-report.component';
+import { NhaBuildingReportComponent } from './pages/fixAsset/Reports/nha-building-report/nha-building-report.component';
 
 @NgModule({
   declarations: [
@@ -101,11 +104,14 @@ import { UpdationLogRptComponent } from './pages/fixAsset/Reports/updation-log-r
     OnCreateDirective,
     LandReportComponent,
     RegisterVehicleRptComponent,
-    RegisterComputerRptComponent,
     RevaluationMoveAssetComponent,
     AssetpurchaseComponent,
     CustomloaderComponent,
     UpdationLogRptComponent,
+    ImmovableAssetRptComponent,
+    NharoadReportComponent,
+    NhaBridgesReportComponent,
+    NhaBuildingReportComponent,
   ],
   imports: [
     BrowserModule,
@@ -133,6 +139,7 @@ import { UpdationLogRptComponent } from './pages/fixAsset/Reports/updation-log-r
     UserIdleModule.forRoot({ idle: 300, timeout: 300, ping: 15 }),
   ],
   providers: [
+    ImmovableAssetRptComponent,
     NgxImageCompressService,
     CookieService,
     { provide: CURRENCY_MASK_CONFIG, useValue: CustomCurrencyMaskConfig },

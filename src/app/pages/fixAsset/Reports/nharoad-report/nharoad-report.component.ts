@@ -50,15 +50,15 @@ export class AssetItems {
 }
 
 @Component({
-  selector: "app-land-report",
-  templateUrl: "./land-report.component.html",
-  styleUrls: ["./land-report.component.scss"],
+  selector: "app-nharoad-report",
+  templateUrl: "./nharoad-report.component.html",
+  styleUrls: ["./nharoad-report.component.scss"],
 })
-export class LandReportComponent implements OnInit {
+export class NharoadReportComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
   tempRptTitle = "";
-  rptTitle = "Land Report";
+  rptTitle = "Roads on Land Report";
   rptHeader = "";
   rptTitle2nd = "";
 
@@ -263,6 +263,7 @@ export class LandReportComponent implements OnInit {
         costOfLand: "0",
       },
     ];
+
     this.dataSource.data = this.addGroups(this._alldata, this.groupByColumns);
     this.dataSource.filterPredicate = this.customFilterPredicate.bind(this);
     this.dataSource.filter = performance.now().toString();

@@ -47,6 +47,7 @@ export class DashboardyComponent implements OnInit {
   searchLocation = "";
   searchTagOfc = "";
   searchTagLoc = "";
+  sumTotalTag = 0;
 
   ofcTypeList = [];
   assetDetailList = [];
@@ -344,6 +345,12 @@ export class DashboardyComponent implements OnInit {
     }
   }
 
+  totalTagSum() {
+    var tagSum = 0;
+    for (var i = 0; i < this.tempTagList.length; i++) {
+      tagSum += this.tempTagList[i].tagsCreated;
+    }
+  }
   testChart() {
     var reqHeader = new HttpHeaders({
       "Content-Type": "application/json",
