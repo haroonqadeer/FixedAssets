@@ -921,7 +921,7 @@
   <!-- print tags -->
   <div id="tagDiv" hidden>
     <div class="d-flex flex-wrap">
-      <div *ngFor="let item of tagList">
+      <div *ngFor="let item of tagList | orderBy:'assetId': true">
         <div class="p-5 text-center allBorder tagBox">
           <div class="row">
             <div class="col-md-2 text-center">
