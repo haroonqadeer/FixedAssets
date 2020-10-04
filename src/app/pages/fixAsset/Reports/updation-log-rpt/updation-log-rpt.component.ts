@@ -65,17 +65,12 @@ export class AssetItems {
 }
 
 @Component({
-  selector: "app-asset-register-rpt",
-  templateUrl: "./asset-register-rpt.component.html",
-  styleUrls: ["./asset-register-rpt.component.scss"],
+  selector: "app-updation-log-rpt",
+  templateUrl: "./updation-log-rpt.component.html",
+  styleUrls: ["./updation-log-rpt.component.scss"],
 })
-export class AssetRegisterRptComponent implements OnInit {
-  // serverUrl = "http://95.217.206.195:2007/api/";
-  //serverUrl = "http://localhost:12345/api/";
-
-  // serverUrl = "http://localhost:6090/api/";
-
-  @ViewChild(MatSort, { static: true }) sort: MatSort;
+export class UpdationLogRptComponent implements OnInit {
+  @ViewChild(MatSort) sort: MatSort;
 
   // declarations
   cmbRegion = "";
@@ -116,6 +111,10 @@ export class AssetRegisterRptComponent implements OnInit {
   columns: any[];
   displayedColumns: string[];
   groupByColumns: string[] = [];
+
+  expandedAsset: any[] = [];
+  expandedSubAsset: any[] = [];
+  _allGroup: any[];
 
   generalColumns: any[];
   computerColumns: any[];
@@ -975,7 +974,7 @@ export class AssetRegisterRptComponent implements OnInit {
           }
         }
         this.filterAssetRegisterList = this._alldata;
-        //this.dataSource.sort = this.sort;
+        // this.dataSource.sort = this.sort;
         this.dataSource.data = this.addGroups(
           this.filterAssetRegisterList,
           this.groupByColumns
@@ -1109,8 +1108,21 @@ export class AssetRegisterRptComponent implements OnInit {
   }
 
   groupHeaderClick(row) {
-    row.expanded = !row.expanded;
-    this.dataSource.filter = performance.now().toString(); // bug here need to fix
+    // row.expanded = !row.expanded;
+    // this.dataSource.filter = performance.now().toString(); // bug here need to fix
+    if (row.expanded) {
+      row.expanded = false;
+      this.dataSource.data = this.addGroups(this._alldata, this.groupByColumns);
+    } else {
+      row.expanded = true;
+      this.expandedAsset = row;
+      this.dataSource.data = this.addGroupsNew(
+        this._allGroup,
+        this._alldata,
+        this.groupByColumns,
+        row
+      );
+    }
   }
 
   addGroups(data: any[], groupByColumns: string[]): any[] {
@@ -1119,12 +1131,73 @@ export class AssetRegisterRptComponent implements OnInit {
     return this.getSublevel(data, 0, groupByColumns, rootGroup);
   }
 
+  addGroupsNew(
+    allGroup: any[],
+    data: any[],
+    groupByColumns: string[],
+    dataRow: any
+  ): any[] {
+    const rootGroup = new Group();
+    rootGroup.expanded = true;
+    return this.getSublevelNew(
+      allGroup,
+      data,
+      0,
+      groupByColumns,
+      rootGroup,
+      dataRow
+    );
+  }
+
+  getSublevelNew(
+    allGroup: any[],
+    data: any[],
+    level: number,
+    groupByColumns: string[],
+    parent: Group,
+    dataRow: any
+  ): any[] {
+    if (level >= groupByColumns.length) {
+      return data;
+    }
+    const currentColumn = groupByColumns[level];
+    let subGroups = [];
+    allGroup.forEach((group) => {
+      const rowsInGroup = data.filter(
+        (row) => group[currentColumn] === row[currentColumn]
+      );
+      group.totalCounts = rowsInGroup.length;
+
+      if (
+        group.subLocationDescription ==
+        dataRow.subLocationDescription.toString()
+      ) {
+        group.expanded = dataRow.expanded;
+        const subGroup = this.getSublevelNew(
+          allGroup,
+          rowsInGroup,
+          level + 1,
+          groupByColumns,
+          group,
+          dataRow.brand.toString()
+        );
+        this.expandedSubAsset = subGroup;
+        subGroup.unshift(group);
+        subGroups = subGroups.concat(subGroup);
+      } else {
+        subGroups = subGroups.concat(group);
+      }
+    });
+    return subGroups;
+  }
+
   getSublevel(
     data: any[],
     level: number,
     groupByColumns: string[],
     parent: Group
   ): any[] {
+    debugger;
     if (level >= groupByColumns.length) {
       return data;
     }
@@ -1210,64 +1283,6 @@ export class AssetRegisterRptComponent implements OnInit {
               b.assetCatDescription,
               isAsc
             );
-          case "tag":
-            return this.compare(a.tag, b.tag, isAsc);
-          case "postName":
-            return this.compare(a.postName, b.postName, isAsc);
-          case "assetDescription":
-            return this.compare(a.assetDescription, b.assetDescription, isAsc);
-          case "make":
-            return this.compare(a.make, b.make, isAsc);
-          case "model":
-            return this.compare(a.model, b.model, isAsc);
-          case "size":
-            return this.compare(a.size, b.size, isAsc);
-          case "processor":
-            return this.compare(a.processor, b.processor, isAsc);
-          case "generation":
-            return this.compare(a.generation, b.generation, isAsc);
-          case "ram":
-            return this.compare(a.ram, b.ram, isAsc);
-          case "driveType1":
-            return this.compare(a.driveType1, b.driveType1, isAsc);
-          case "hd1":
-            return this.compare(a.hd1, b.hd1, isAsc);
-          case "driveType2":
-            return this.compare(a.driveType2, b.driveType2, isAsc);
-          case "hd2":
-            return this.compare(a.hd2, b.hd2, isAsc);
-          case "vehMake":
-            return this.compare(a.vehMake, b.vehMake, isAsc);
-          case "vehType":
-            return this.compare(a.vehType, b.vehType, isAsc);
-          case "vehEngineNum":
-            return this.compare(a.vehEngineNum, b.vehEngineNum, isAsc);
-          case "vehModel":
-            return this.compare(a.vehModel, b.vehModel, isAsc);
-          case "vehChasisNum":
-            return this.compare(a.vehChasisNum, b.vehChasisNum, isAsc);
-          case "author":
-            return this.compare(a.author, b.author, isAsc);
-          case "publisher":
-            return this.compare(a.publisher, b.publisher, isAsc);
-          case "volume":
-            return this.compare(a.volume, b.volume, isAsc);
-          case "edition":
-            return this.compare(a.edition, b.edition, isAsc);
-          case "ipcRef":
-            return this.compare(a.ipcRef, b.ipcRef, isAsc);
-          case "projectShortName":
-            return this.compare(a.projectShortName, b.projectShortName, isAsc);
-          case "purchaseDate":
-            return this.compare(a.purchaseDate, b.purchaseDate, isAsc);
-          case "costAmount":
-            return this.compare(a.costAmount, b.costAmount, isAsc);
-          case "assetCondition":
-            return this.compare(a.assetCondition, b.assetCondition, isAsc);
-          case "previousTag":
-            return this.compare(a.previousTag, b.previousTag, isAsc);
-          case "createdBy":
-            return this.compare(a.createdBy, b.createdBy, isAsc);
           default:
             return 0;
         }

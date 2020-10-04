@@ -10,8 +10,8 @@
           <a (click)="exportExcel()" class="cursorPointer">Export Register</a>
         </li>
         <!-- <li>
-          <a class="cursorPointer" data-toggle="modal" data-target="#rptOptionsModal">Report Options</a>
-        </li> -->
+            <a class="cursorPointer" data-toggle="modal" data-target="#rptOptionsModal">Report Options</a>
+          </li> -->
         <li>
           <a class="cursorPointer" data-toggle="modal" data-target="#configModal">Config Report</a>
         </li>
@@ -96,8 +96,8 @@
           <mat-icon *ngIf="!group.expanded" class="fa fa-angle-up printNone"></mat-icon>
           <strong>{{ groupByColumns[group.level - 1] }} =
             {{ group[groupByColumns[group.level - 1]] }} ({{
-                  group.totalCounts
-                }})</strong>
+                    group.totalCounts
+                  }})</strong>
         </td>
       </ng-container>
 
@@ -144,7 +144,7 @@
         <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
           <div class="example-box" *ngFor="let item of columns" cdkDrag>
             {{ item.title
-              }}<mat-checkbox [(ngModel)]="item.display"></mat-checkbox>
+                }}<mat-checkbox [(ngModel)]="item.display"></mat-checkbox>
           </div>
         </div>
         <!-- Modal footer -->

@@ -25,9 +25,12 @@ import { LocationCompleteComponent } from "./pages/fixasset/location-complete/lo
 import { AssetRegisterRptComponent } from "./pages/fixAsset/Reports/asset-register-rpt/asset-register-rpt.component";
 import { LandReportComponent } from "./pages/fixAsset/Reports/land-report/land-report.component";
 import { RegisterVehicleRptComponent } from "./pages/fixAsset/Reports/register-vehicle-rpt/register-vehicle-rpt.component";
-import { RegisterComputerRptComponent } from "./pages/fixAsset/Reports/register-computer-rpt/register-computer-rpt.component";
 import { RevaluationMoveAssetComponent } from "./pages/fixAsset/revaluation-move-asset/revaluation-move-asset.component";
 import { AssetpurchaseComponent } from "./pages/fixAsset/assetpurchase/assetpurchase.component";
+import { UpdationLogRptComponent } from "./pages/fixAsset/Reports/updation-log-rpt/updation-log-rpt.component";
+import { NharoadReportComponent } from "./pages/fixAsset/Reports/nharoad-report/nharoad-report.component";
+import { NhaBridgesReportComponent } from "./pages/fixAsset/Reports/nha-bridges-report/nha-bridges-report.component";
+import { NhaBuildingReportComponent } from "./pages/fixAsset/Reports/nha-building-report/nha-building-report.component";
 
 const routes: Routes = [
   {
@@ -117,12 +120,25 @@ const routes: Routes = [
     component: LandReportComponent,
   },
   {
-    path: "registerVehicle",
-    component: RegisterVehicleRptComponent,
+    path: "roadReport",
+    component: NharoadReportComponent,
   },
   {
-    path: "registerComputer",
-    component: RegisterComputerRptComponent,
+    path: "bridgeReport",
+    component: NhaBridgesReportComponent,
+  },
+  {
+    path: "buildingReport",
+    component: NhaBuildingReportComponent,
+  },
+  {
+    path: "updationLogRpt",
+    component: UpdationLogRptComponent,
+  },
+  //////////////////////
+  {
+    path: "registerVehicle",
+    component: RegisterVehicleRptComponent,
   },
   {
     path: "revaluation",
