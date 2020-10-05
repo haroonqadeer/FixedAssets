@@ -35,6 +35,7 @@ export class AssetItems {
   assetCatDescription: string = "";
   tag: string = "";
   postName: string = "";
+  assetLocation: string = "";
   assetDescription: string = "";
   make: string = "";
   model: string = "";
@@ -62,6 +63,7 @@ export class AssetItems {
   assetCondition: string = "";
   previousTag: string = "";
   createdBy: string = "";
+  pics: string = "";
 }
 
 @Component({
@@ -165,6 +167,7 @@ export class AssetRegisterRptComponent implements OnInit {
         title: "Custodian",
         display: true,
       },
+      { field: "assetLocation", title: "Asset Location", display: false },
       { field: "assetDescription", title: "Asset Description", display: true },
 
       // computers extra fields
@@ -225,6 +228,11 @@ export class AssetRegisterRptComponent implements OnInit {
       {
         field: "createdBy",
         title: "Created By",
+        display: false,
+      },
+      {
+        field: "pics",
+        title: "Uploaded Pics",
         display: false,
       },
     ];
@@ -281,6 +289,7 @@ export class AssetRegisterRptComponent implements OnInit {
         title: "Custodian",
         display: true,
       },
+      { field: "assetLocation", title: "Asset Location", display: false },
       { field: "assetDescription", title: "Asset Description", display: true },
 
       // computers extra fields
@@ -343,6 +352,11 @@ export class AssetRegisterRptComponent implements OnInit {
         title: "Created By",
         display: false,
       },
+      {
+        field: "pics",
+        title: "Uploaded Pics",
+        display: false,
+      },
     ];
 
     // computer columns settings
@@ -382,6 +396,7 @@ export class AssetRegisterRptComponent implements OnInit {
         title: "Custodian",
         display: true,
       },
+      { field: "assetLocation", title: "Asset Location", display: false },
       { field: "assetDescription", title: "Asset Description", display: true },
 
       // computers extra fields
@@ -444,6 +459,11 @@ export class AssetRegisterRptComponent implements OnInit {
         title: "Created By",
         display: false,
       },
+      {
+        field: "pics",
+        title: "Uploaded Pics",
+        display: false,
+      },
     ];
 
     // vehicle columns settings
@@ -483,6 +503,7 @@ export class AssetRegisterRptComponent implements OnInit {
         title: "Custodian",
         display: true,
       },
+      { field: "assetLocation", title: "Asset Location", display: false },
       { field: "assetDescription", title: "Asset Description", display: true },
 
       // computers extra fields
@@ -545,6 +566,11 @@ export class AssetRegisterRptComponent implements OnInit {
         title: "Created By",
         display: false,
       },
+      {
+        field: "pics",
+        title: "Uploaded Pics",
+        display: false,
+      },
     ];
 
     // Books columns settings
@@ -584,6 +610,7 @@ export class AssetRegisterRptComponent implements OnInit {
         title: "Custodian",
         display: true,
       },
+      { field: "assetLocation", title: "Asset Location", display: false },
       { field: "assetDescription", title: "Asset Description", display: true },
 
       // computers extra fields
@@ -644,6 +671,11 @@ export class AssetRegisterRptComponent implements OnInit {
       {
         field: "createdBy",
         title: "Created By",
+        display: false,
+      },
+      {
+        field: "pics",
+        title: "Uploaded Pics",
         display: false,
       },
     ];
@@ -1214,6 +1246,8 @@ export class AssetRegisterRptComponent implements OnInit {
             return this.compare(a.tag, b.tag, isAsc);
           case "postName":
             return this.compare(a.postName, b.postName, isAsc);
+          case "assetLocation":
+            return this.compare(a.assetLocation, b.assetLocation, isAsc);
           case "assetDescription":
             return this.compare(a.assetDescription, b.assetDescription, isAsc);
           case "make":
@@ -1268,6 +1302,8 @@ export class AssetRegisterRptComponent implements OnInit {
             return this.compare(a.previousTag, b.previousTag, isAsc);
           case "createdBy":
             return this.compare(a.createdBy, b.createdBy, isAsc);
+          case "pics":
+            return this.compare(a.pics, b.pics, isAsc);
           default:
             return 0;
         }

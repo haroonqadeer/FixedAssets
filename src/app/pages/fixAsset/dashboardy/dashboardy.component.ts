@@ -342,6 +342,7 @@ export class DashboardyComponent implements OnInit {
       this.tempLocList = this.remLocDetList;
     } else if (text == "Total Tags") {
       this.tempTagList = this.tagDetList;
+      this.totalTagSum();
     }
   }
 
@@ -350,6 +351,7 @@ export class DashboardyComponent implements OnInit {
     for (var i = 0; i < this.tempTagList.length; i++) {
       tagSum += this.tempTagList[i].tagsCreated;
     }
+    this.sumTotalTag = tagSum;
   }
   testChart() {
     var reqHeader = new HttpHeaders({
