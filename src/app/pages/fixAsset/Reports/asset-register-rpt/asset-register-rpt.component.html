@@ -96,7 +96,13 @@
           </div>
         </th>
         <td class="pr-2 pl-2 border-right" mat-cell *matCellDef="let row">
-          {{ row[column.field] }}
+          <div *ngIf="column.type == 'text'">
+            {{ row[column.field] }}
+          </div>
+          <div *ngIf="column.type == 'img'">
+            <img src="{{imgUrl}}{{row[column.field]}}" alt="" height="250ox">
+            <!-- {{ imgUrl }} + {{ row[column.field] }} -->
+          </div>
         </td>
       </ng-container>
 
