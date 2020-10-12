@@ -692,14 +692,32 @@ export class AppComponent {
       var imgPath, imgPath2, imgPath3;
       if (this.imageAsset == undefined) {
         imgAsset = null;
-        imgPath = null;
+        if (
+          this.imageAssetUrl ==
+          "http://58.27.164.137:7000/assets/assetEntryImg/" +
+            this.txtAssetID +
+            "_1.jpg"
+        ) {
+          imgPath = this.txtAssetID;
+        } else {
+          imgPath = null;
+        }
       } else {
         imgAsset = this.imageAsset;
         imgPath = this.imgAssetPath;
       }
       if (this.imageAsset2 == undefined) {
         imgAsset2 = null;
-        imgPath2 = null;
+        if (
+          this.imageAssetUrl2 ==
+          "http://58.27.164.137:7000/assets/assetEntryImg/" +
+            this.txtAssetID +
+            "_2.jpg"
+        ) {
+          imgPath2 = this.txtAssetID;
+        } else {
+          imgPath2 = null;
+        }
       } else {
         imgAsset2 = this.imageAsset2;
         imgPath2 = this.imgAssetPath2;
@@ -707,7 +725,16 @@ export class AppComponent {
 
       if (this.imageAsset3 == undefined) {
         imgAsset3 = null;
-        imgPath3 = null;
+        if (
+          this.imageAssetUrl3 ==
+          "http://58.27.164.137:7000/assets/assetEntryImg/" +
+            this.txtAssetID +
+            "_3.jpg"
+        ) {
+          imgPath3 = this.txtAssetID;
+        } else {
+          imgPath3 = null;
+        }
       } else {
         imgAsset3 = this.imageAsset3;
         imgPath3 = this.imgAssetPath3;
