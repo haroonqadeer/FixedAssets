@@ -1,19 +1,19 @@
-import { Component, OnInit, ChangeDetectorRef, ViewChild } from "@angular/core";
+import { Component, OnInit, ChangeDetectorRef, ViewChild } from '@angular/core';
 import {
   HttpClient,
   HttpHeaders,
   HttpErrorResponse,
-} from "@angular/common/http";
-import { AppComponent } from "src/app/app.component";
+} from '@angular/common/http';
+import { AppComponent } from 'src/app/app.component';
 import {
   CdkDragDrop,
   moveItemInArray,
   transferArrayItem,
-} from "@angular/cdk/drag-drop";
-import { CookieService } from "ngx-cookie-service";
-import { MatTableDataSource } from "@angular/material/table";
-import { ToastrManager } from "ng6-toastr-notifications";
-import { MatSort } from "@angular/material/sort";
+} from '@angular/cdk/drag-drop';
+import { CookieService } from 'ngx-cookie-service';
+import { MatTableDataSource } from '@angular/material/table';
+import { ToastrManager } from 'ng6-toastr-notifications';
+import { MatSort } from '@angular/material/sort';
 
 declare var $: any;
 
@@ -28,51 +28,51 @@ export class Group {
 }
 
 export class AssetItems {
-  subLocationDescription: string = "";
-  officeTypeDescription: string = "";
-  officeDescription: string = "";
-  accountsCatagory: string = "";
-  assetCatDescription: string = "";
-  tag: string = "";
-  postName: string = "";
-  assetLocation: string = "";
-  assetDescription: string = "";
-  make: string = "";
-  model: string = "";
-  size: string = "";
-  processor: string = "";
-  generation: string = "";
-  ram: string = "";
-  driveType1: string = "";
-  hd1: string = "";
-  driveType2: string = "";
-  hd2: string = "";
-  vehMake: string = "";
-  vehType: string = "";
-  vehEngineNum: string = "";
-  vehModel: string = "";
-  vehChasisNum: string = "";
-  author: string = "";
-  publisher: string = "";
-  volume: string = "";
-  edition: string = "";
-  ipcRef: string = "";
-  projectShortName: string = "";
-  purchaseDate: string = "";
-  costAmount: string = "";
-  assetCondition: string = "";
-  previousTag: string = "";
-  createdBy: string = "";
-  pics: string = "";
-  eDoc: string = "";
-  eDoc2: string = "";
-  eDoc3: string = "";
+  subLocationDescription: string = '';
+  officeTypeDescription: string = '';
+  officeDescription: string = '';
+  accountsCatagory: string = '';
+  assetCatDescription: string = '';
+  tag: string = '';
+  postName: string = '';
+  assetLocation: string = '';
+  assetDescription: string = '';
+  make: string = '';
+  model: string = '';
+  size: string = '';
+  processor: string = '';
+  generation: string = '';
+  ram: string = '';
+  driveType1: string = '';
+  hd1: string = '';
+  driveType2: string = '';
+  hd2: string = '';
+  vehMake: string = '';
+  vehType: string = '';
+  vehEngineNum: string = '';
+  vehModel: string = '';
+  vehChasisNum: string = '';
+  author: string = '';
+  publisher: string = '';
+  volume: string = '';
+  edition: string = '';
+  ipcRef: string = '';
+  projectShortName: string = '';
+  purchaseDate: string = '';
+  costAmount: string = '';
+  assetCondition: string = '';
+  previousTag: string = '';
+  createdBy: string = '';
+  pics: string = '';
+  eDoc: string = '';
+  eDoc2: string = '';
+  eDoc3: string = '';
 }
 
 @Component({
-  selector: "app-asset-register-rpt",
-  templateUrl: "./asset-register-rpt.component.html",
-  styleUrls: ["./asset-register-rpt.component.scss"],
+  selector: 'app-asset-register-rpt',
+  templateUrl: './asset-register-rpt.component.html',
+  styleUrls: ['./asset-register-rpt.component.scss'],
 })
 export class AssetRegisterRptComponent implements OnInit {
   // serverUrl = "http://95.217.206.195:2007/api/";
@@ -83,24 +83,24 @@ export class AssetRegisterRptComponent implements OnInit {
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   // declarations
-  cmbRegion = "";
-  searchRegion = "";
+  cmbRegion = '';
+  searchRegion = '';
 
-  searchLocation = "";
-  cmbLocation = "";
-  cmbOfficeTypeID = "";
-  cmbProject = "";
-  searchProject = "";
-  cmbAccountsCat = "";
-  cmbAssetCat = "";
-  searchAssetCat = "";
-  tempRptTitle = "";
-  rptTitle = "Asset Register Report - General";
-  rptHeader = "";
-  rptPreset = "";
-  rdbFilter = "";
-  rptTitle2nd = "";
-  imgUrl = "";
+  searchLocation = '';
+  cmbLocation = '';
+  cmbOfficeTypeID = '';
+  cmbProject = '';
+  searchProject = '';
+  cmbAccountsCat = '';
+  cmbAssetCat = '';
+  searchAssetCat = '';
+  tempRptTitle = '';
+  rptTitle = 'Asset Register Report - General';
+  rptHeader = '';
+  rptPreset = '';
+  rdbFilter = '';
+  rptTitle2nd = '';
+  imgUrl = '';
 
   assetRegisterList = [];
   filterAssetRegisterList = [];
@@ -114,7 +114,7 @@ export class AssetRegisterRptComponent implements OnInit {
   filteredAssetCatList = [];
 
   //group by table setting
-  title = "Grid Grouping";
+  title = 'Grid Grouping';
 
   public dataSource = new MatTableDataSource<any | Group>([]);
 
@@ -137,172 +137,172 @@ export class AssetRegisterRptComponent implements OnInit {
   ) {
     this.columns = [
       {
-        field: "subLocationDescription",
-        title: "Main Location",
+        field: 'subLocationDescription',
+        title: 'Main Location',
         display: true,
-        type: "text",
+        type: 'text',
       },
       {
-        field: "officeTypeDescription",
-        title: "Sub Location",
+        field: 'officeTypeDescription',
+        title: 'Sub Location',
         display: true,
-        type: "text",
+        type: 'text',
       },
       {
-        field: "officeDescription",
-        title: "Office",
+        field: 'officeDescription',
+        title: 'Office',
         display: true,
-        type: "text",
+        type: 'text',
       },
       {
-        field: "accountsCatagory",
-        title: "Accounts Category",
+        field: 'accountsCatagory',
+        title: 'Accounts Category',
         display: true,
-        type: "text",
+        type: 'text',
       },
       {
-        field: "assetCatDescription",
-        title: "Asset Name",
+        field: 'assetCatDescription',
+        title: 'Asset Name',
         display: true,
-        type: "text",
+        type: 'text',
       },
       {
-        field: "tag",
-        title: "Tag. ID",
+        field: 'tag',
+        title: 'Tag. ID',
         display: true,
-        type: "text",
+        type: 'text',
       },
       {
-        field: "postName",
-        title: "Custodian",
+        field: 'postName',
+        title: 'Custodian',
         display: true,
-        type: "text",
+        type: 'text',
       },
       {
-        field: "assetLocation",
-        title: "Asset Location",
+        field: 'assetLocation',
+        title: 'Asset Location',
         display: false,
-        type: "text",
+        type: 'text',
       },
       {
-        field: "assetDescription",
-        title: "Asset Description",
+        field: 'assetDescription',
+        title: 'Asset Description',
         display: true,
-        type: "text",
+        type: 'text',
       },
 
       // computers extra fields
-      { field: "make", title: "Make", display: true, type: "text" },
-      { field: "model", title: "Model", display: true, type: "text" },
-      { field: "size", title: "Size", display: true, type: "text" },
-      { field: "processor", title: "Processor", display: true, type: "text" },
-      { field: "generation", title: "Genration", display: true, type: "text" },
-      { field: "ram", title: "RAM", display: true, type: "text" },
-      { field: "driveType1", title: "Drive-01", display: true, type: "text" },
-      { field: "hd1", title: "size", display: true, type: "text" },
-      { field: "driveType2", title: "Drive-02", display: true, type: "text" },
-      { field: "hd2", title: "size", display: true, type: "text" },
+      { field: 'make', title: 'Make', display: true, type: 'text' },
+      { field: 'model', title: 'Model', display: true, type: 'text' },
+      { field: 'size', title: 'Size', display: true, type: 'text' },
+      { field: 'processor', title: 'Processor', display: true, type: 'text' },
+      { field: 'generation', title: 'Genration', display: true, type: 'text' },
+      { field: 'ram', title: 'RAM', display: true, type: 'text' },
+      { field: 'driveType1', title: 'Drive-01', display: true, type: 'text' },
+      { field: 'hd1', title: 'size', display: true, type: 'text' },
+      { field: 'driveType2', title: 'Drive-02', display: true, type: 'text' },
+      { field: 'hd2', title: 'size', display: true, type: 'text' },
 
       // vehcile extra fields
-      { field: "vehMake", title: "Veh-Make", display: true, type: "text" },
-      { field: "vehType", title: "Veh-Type", display: true, type: "text" },
+      { field: 'vehMake', title: 'Veh-Make', display: true, type: 'text' },
+      { field: 'vehType', title: 'Veh-Type', display: true, type: 'text' },
       {
-        field: "vehEngineNum",
-        title: "Veh-Engine No.",
+        field: 'vehEngineNum',
+        title: 'Veh-Engine No.',
         display: true,
-        type: "text",
+        type: 'text',
       },
-      { field: "vehModel", title: "Veh-Model", display: true, type: "text" },
+      { field: 'vehModel', title: 'Veh-Model', display: true, type: 'text' },
       {
-        field: "vehChasisNum",
-        title: "Veh-Chasis No.",
+        field: 'vehChasisNum',
+        title: 'Veh-Chasis No.',
         display: true,
-        type: "text",
+        type: 'text',
       },
 
       // books extra fields
-      { field: "author", title: "Author", display: true, type: "text" },
-      { field: "publisher", title: "Publisher", display: true, type: "text" },
-      { field: "volume", title: "Volume", display: true, type: "text" },
-      { field: "edition", title: "Edition", display: true, type: "text" },
+      { field: 'author', title: 'Author', display: true, type: 'text' },
+      { field: 'publisher', title: 'Publisher', display: true, type: 'text' },
+      { field: 'volume', title: 'Volume', display: true, type: 'text' },
+      { field: 'edition', title: 'Edition', display: true, type: 'text' },
 
       {
-        field: "ipcRef",
-        title: "IPC/Invoice Ref.",
+        field: 'ipcRef',
+        title: 'IPC/Invoice Ref.',
         display: true,
-        type: "text",
+        type: 'text',
       },
       {
-        field: "projectShortName",
-        title: "Project",
+        field: 'projectShortName',
+        title: 'Project',
         display: true,
-        type: "text",
+        type: 'text',
       },
       {
-        field: "purchaseDate",
-        title: "Purchase Date",
+        field: 'purchaseDate',
+        title: 'Purchase Date',
         display: true,
-        type: "text",
+        type: 'text',
       },
       {
-        field: "costAmount",
-        title: "Cost Price",
+        field: 'costAmount',
+        title: 'Cost Price',
         display: true,
-        type: "text",
+        type: 'text',
       },
       {
-        field: "assetCondition",
-        title: "Condition",
+        field: 'assetCondition',
+        title: 'Condition',
         display: true,
-        type: "text",
+        type: 'text',
       },
       {
-        field: "previousTag",
-        title: "old Tag",
+        field: 'previousTag',
+        title: 'old Tag',
         display: true,
-        type: "text",
+        type: 'text',
       },
       {
-        field: "createdBy",
-        title: "Created By",
+        field: 'createdBy',
+        title: 'Created By',
         display: false,
-        type: "text",
+        type: 'text',
       },
       {
-        field: "pics",
-        title: "Uploaded Pics",
+        field: 'pics',
+        title: 'Uploaded Pics',
         display: false,
-        type: "text",
+        type: 'text',
       },
       {
-        field: "eDoc",
-        title: "Image 01",
+        field: 'eDoc',
+        title: 'Image 01',
         display: false,
-        type: "img",
+        type: 'img',
       },
       {
-        field: "eDoc2",
-        title: "Image 02",
+        field: 'eDoc2',
+        title: 'Image 02',
         display: false,
-        type: "img",
+        type: 'img',
       },
       {
-        field: "eDoc3",
-        title: "Image 03",
+        field: 'eDoc3',
+        title: 'Image 03',
         display: false,
-        type: "img",
+        type: 'img',
       },
     ];
     // this.availColumns = this.columns.slice();
     this.displayedColumns = this.columns.map((column) => column.field);
-    this.groupByColumns = ["subLocationDescription"];
+    this.groupByColumns = ['subLocationDescription'];
   }
 
   ngOnInit(): void {
-    $("#rptOptionsModal").modal("show");
+    $('#rptOptionsModal').modal('show');
 
     debugger;
-    this.imgUrl = "http://58.27.164.137:7000/assets/assetEntryImg/";
+    this.imgUrl = 'http://58.27.164.137:7000/assets/assetEntryImg/';
     this.getRegions();
     this.getLocation();
     this.getProjects();
@@ -313,640 +313,640 @@ export class AssetRegisterRptComponent implements OnInit {
     // general columns settings
     this.generalColumns = [
       {
-        field: "subLocationDescription",
-        title: "Main Location",
+        field: 'subLocationDescription',
+        title: 'Main Location',
         display: true,
-        type: "text",
+        type: 'text',
       },
       {
-        field: "officeTypeDescription",
-        title: "Sub Location",
+        field: 'officeTypeDescription',
+        title: 'Sub Location',
         display: true,
-        type: "text",
+        type: 'text',
       },
       {
-        field: "officeDescription",
-        title: "Office",
+        field: 'officeDescription',
+        title: 'Office',
         display: true,
-        type: "text",
+        type: 'text',
       },
       {
-        field: "accountsCatagory",
-        title: "Accounts Category",
+        field: 'accountsCatagory',
+        title: 'Accounts Category',
         display: true,
-        type: "text",
+        type: 'text',
       },
       {
-        field: "assetCatDescription",
-        title: "Asset Name",
+        field: 'assetCatDescription',
+        title: 'Asset Name',
         display: true,
-        type: "text",
+        type: 'text',
       },
       {
-        field: "tag",
-        title: "Tag. ID",
+        field: 'tag',
+        title: 'Tag. ID',
         display: true,
-        type: "text",
+        type: 'text',
       },
       {
-        field: "postName",
-        title: "Custodian",
+        field: 'postName',
+        title: 'Custodian',
         display: true,
-        type: "text",
+        type: 'text',
       },
       {
-        field: "assetLocation",
-        title: "Asset Location",
+        field: 'assetLocation',
+        title: 'Asset Location',
         display: false,
-        type: "text",
+        type: 'text',
       },
       {
-        field: "assetDescription",
-        title: "Asset Description",
+        field: 'assetDescription',
+        title: 'Asset Description',
         display: true,
-        type: "text",
+        type: 'text',
       },
 
       // computers extra fields
-      { field: "make", title: "Make", display: false, type: "text" },
-      { field: "model", title: "Model", display: false, type: "text" },
-      { field: "size", title: "Size", display: false, type: "text" },
-      { field: "processor", title: "Processor", display: false, type: "text" },
-      { field: "generation", title: "Genration", display: false, type: "text" },
-      { field: "ram", title: "RAM", display: false, type: "text" },
-      { field: "driveType1", title: "Drive-01", display: false, type: "text" },
-      { field: "hd1", title: "size", display: false, type: "text" },
-      { field: "driveType2", title: "Drive-02", display: false, type: "text" },
-      { field: "hd2", title: "size", display: false, type: "text" },
+      { field: 'make', title: 'Make', display: false, type: 'text' },
+      { field: 'model', title: 'Model', display: false, type: 'text' },
+      { field: 'size', title: 'Size', display: false, type: 'text' },
+      { field: 'processor', title: 'Processor', display: false, type: 'text' },
+      { field: 'generation', title: 'Genration', display: false, type: 'text' },
+      { field: 'ram', title: 'RAM', display: false, type: 'text' },
+      { field: 'driveType1', title: 'Drive-01', display: false, type: 'text' },
+      { field: 'hd1', title: 'size', display: false, type: 'text' },
+      { field: 'driveType2', title: 'Drive-02', display: false, type: 'text' },
+      { field: 'hd2', title: 'size', display: false, type: 'text' },
 
       // vehcile extra fields
-      { field: "vehMake", title: "Veh-Make", display: false, type: "text" },
-      { field: "vehType", title: "Veh-Type", display: false, type: "text" },
+      { field: 'vehMake', title: 'Veh-Make', display: false, type: 'text' },
+      { field: 'vehType', title: 'Veh-Type', display: false, type: 'text' },
       {
-        field: "vehEngineNum",
-        title: "Veh-Engine No.",
+        field: 'vehEngineNum',
+        title: 'Veh-Engine No.',
         display: false,
-        type: "text",
+        type: 'text',
       },
-      { field: "vehModel", title: "Veh-Model", display: false, type: "text" },
+      { field: 'vehModel', title: 'Veh-Model', display: false, type: 'text' },
       {
-        field: "vehChasisNum",
-        title: "Veh-Chasis No.",
+        field: 'vehChasisNum',
+        title: 'Veh-Chasis No.',
         display: false,
-        type: "text",
+        type: 'text',
       },
 
       // books extra fields
-      { field: "author", title: "Author", display: false, type: "text" },
-      { field: "publisher", title: "Publisher", display: false, type: "text" },
-      { field: "volume", title: "Volume", display: false, type: "text" },
-      { field: "edition", title: "Edition", display: false, type: "text" },
+      { field: 'author', title: 'Author', display: false, type: 'text' },
+      { field: 'publisher', title: 'Publisher', display: false, type: 'text' },
+      { field: 'volume', title: 'Volume', display: false, type: 'text' },
+      { field: 'edition', title: 'Edition', display: false, type: 'text' },
 
       {
-        field: "ipcRef",
-        title: "IPC/Invoice Ref.",
+        field: 'ipcRef',
+        title: 'IPC/Invoice Ref.',
         display: true,
-        type: "text",
+        type: 'text',
       },
       {
-        field: "projectShortName",
-        title: "Project",
+        field: 'projectShortName',
+        title: 'Project',
         display: true,
-        type: "text",
+        type: 'text',
       },
       {
-        field: "purchaseDate",
-        title: "Purchase Date",
+        field: 'purchaseDate',
+        title: 'Purchase Date',
         display: true,
-        type: "text",
+        type: 'text',
       },
       {
-        field: "costAmount",
-        title: "Cost Price",
+        field: 'costAmount',
+        title: 'Cost Price',
         display: true,
-        type: "text",
+        type: 'text',
       },
       {
-        field: "assetCondition",
-        title: "Condition",
+        field: 'assetCondition',
+        title: 'Condition',
         display: true,
-        type: "text",
+        type: 'text',
       },
       {
-        field: "previousTag",
-        title: "old Tag",
+        field: 'previousTag',
+        title: 'old Tag',
         display: true,
-        type: "text",
+        type: 'text',
       },
       {
-        field: "createdBy",
-        title: "Created By",
+        field: 'createdBy',
+        title: 'Created By',
         display: false,
-        type: "text",
+        type: 'text',
       },
       {
-        field: "pics",
-        title: "Uploaded Pics",
+        field: 'pics',
+        title: 'Uploaded Pics',
         display: false,
-        type: "text",
+        type: 'text',
       },
       {
-        field: "eDoc",
-        title: "Image 01",
+        field: 'eDoc',
+        title: 'Image 01',
         display: false,
-        type: "img",
+        type: 'img',
       },
       {
-        field: "eDoc2",
-        title: "Image 02",
+        field: 'eDoc2',
+        title: 'Image 02',
         display: false,
-        type: "img",
+        type: 'img',
       },
       {
-        field: "eDoc3",
-        title: "Image 03",
+        field: 'eDoc3',
+        title: 'Image 03',
         display: false,
-        type: "img",
+        type: 'img',
       },
     ];
 
     // computer columns settings
     this.computerColumns = [
       {
-        field: "subLocationDescription",
-        title: "Main Location",
+        field: 'subLocationDescription',
+        title: 'Main Location',
         display: true,
-        type: "text",
+        type: 'text',
       },
       {
-        field: "officeTypeDescription",
-        title: "Sub Location",
+        field: 'officeTypeDescription',
+        title: 'Sub Location',
         display: true,
-        type: "text",
+        type: 'text',
       },
       {
-        field: "officeDescription",
-        title: "Office",
+        field: 'officeDescription',
+        title: 'Office',
         display: true,
-        type: "text",
+        type: 'text',
       },
       {
-        field: "accountsCatagory",
-        title: "Accounts Category",
+        field: 'accountsCatagory',
+        title: 'Accounts Category',
         display: true,
-        type: "text",
+        type: 'text',
       },
       {
-        field: "assetCatDescription",
-        title: "Asset Name",
+        field: 'assetCatDescription',
+        title: 'Asset Name',
         display: true,
-        type: "text",
+        type: 'text',
       },
       {
-        field: "tag",
-        title: "Tag. ID",
+        field: 'tag',
+        title: 'Tag. ID',
         display: true,
-        type: "text",
+        type: 'text',
       },
       {
-        field: "postName",
-        title: "Custodian",
+        field: 'postName',
+        title: 'Custodian',
         display: true,
-        type: "text",
+        type: 'text',
       },
       {
-        field: "assetLocation",
-        title: "Asset Location",
+        field: 'assetLocation',
+        title: 'Asset Location',
         display: false,
-        type: "text",
+        type: 'text',
       },
       {
-        field: "assetDescription",
-        title: "Asset Description",
+        field: 'assetDescription',
+        title: 'Asset Description',
         display: true,
-        type: "text",
+        type: 'text',
       },
 
       // computers extra fields
-      { field: "make", title: "Make", display: true, type: "text" },
-      { field: "model", title: "Model", display: true, type: "text" },
-      { field: "size", title: "Size", display: true, type: "text" },
-      { field: "processor", title: "Processor", display: true, type: "text" },
-      { field: "generation", title: "Genration", display: true, type: "text" },
-      { field: "ram", title: "RAM", display: true, type: "text" },
-      { field: "driveType1", title: "Drive-01", display: true, type: "text" },
-      { field: "hd1", title: "size", display: true, type: "text" },
-      { field: "driveType2", title: "Drive-02", display: true, type: "text" },
-      { field: "hd2", title: "size", display: true, type: "text" },
+      { field: 'make', title: 'Make', display: true, type: 'text' },
+      { field: 'model', title: 'Model', display: true, type: 'text' },
+      { field: 'size', title: 'Size', display: true, type: 'text' },
+      { field: 'processor', title: 'Processor', display: true, type: 'text' },
+      { field: 'generation', title: 'Genration', display: true, type: 'text' },
+      { field: 'ram', title: 'RAM', display: true, type: 'text' },
+      { field: 'driveType1', title: 'Drive-01', display: true, type: 'text' },
+      { field: 'hd1', title: 'size', display: true, type: 'text' },
+      { field: 'driveType2', title: 'Drive-02', display: true, type: 'text' },
+      { field: 'hd2', title: 'size', display: true, type: 'text' },
 
       // vehcile extra fields
-      { field: "vehMake", title: "Veh-Make", display: false, type: "text" },
-      { field: "vehType", title: "Veh-Type", display: false, type: "text" },
+      { field: 'vehMake', title: 'Veh-Make', display: false, type: 'text' },
+      { field: 'vehType', title: 'Veh-Type', display: false, type: 'text' },
       {
-        field: "vehEngineNum",
-        title: "Veh-Engine No.",
+        field: 'vehEngineNum',
+        title: 'Veh-Engine No.',
         display: false,
-        type: "text",
+        type: 'text',
       },
-      { field: "vehModel", title: "Veh-Model", display: false, type: "text" },
+      { field: 'vehModel', title: 'Veh-Model', display: false, type: 'text' },
       {
-        field: "vehChasisNum",
-        title: "Veh-Chasis No.",
+        field: 'vehChasisNum',
+        title: 'Veh-Chasis No.',
         display: false,
-        type: "text",
+        type: 'text',
       },
 
       // books extra fields
-      { field: "author", title: "Author", display: false, type: "text" },
-      { field: "publisher", title: "Publisher", display: false, type: "text" },
-      { field: "volume", title: "Volume", display: false, type: "text" },
-      { field: "edition", title: "Edition", display: false, type: "text" },
+      { field: 'author', title: 'Author', display: false, type: 'text' },
+      { field: 'publisher', title: 'Publisher', display: false, type: 'text' },
+      { field: 'volume', title: 'Volume', display: false, type: 'text' },
+      { field: 'edition', title: 'Edition', display: false, type: 'text' },
 
       {
-        field: "ipcRef",
-        title: "IPC/Invoice Ref.",
+        field: 'ipcRef',
+        title: 'IPC/Invoice Ref.',
         display: true,
-        type: "text",
+        type: 'text',
       },
       {
-        field: "projectShortName",
-        title: "Project",
+        field: 'projectShortName',
+        title: 'Project',
         display: true,
-        type: "text",
+        type: 'text',
       },
       {
-        field: "purchaseDate",
-        title: "Purchase Date",
+        field: 'purchaseDate',
+        title: 'Purchase Date',
         display: true,
-        type: "text",
+        type: 'text',
       },
       {
-        field: "costAmount",
-        title: "Cost Price",
+        field: 'costAmount',
+        title: 'Cost Price',
         display: true,
-        type: "text",
+        type: 'text',
       },
       {
-        field: "assetCondition",
-        title: "Condition",
+        field: 'assetCondition',
+        title: 'Condition',
         display: true,
-        type: "text",
+        type: 'text',
       },
       {
-        field: "previousTag",
-        title: "old Tag",
+        field: 'previousTag',
+        title: 'old Tag',
         display: true,
-        type: "text",
+        type: 'text',
       },
       {
-        field: "createdBy",
-        title: "Created By",
+        field: 'createdBy',
+        title: 'Created By',
         display: false,
-        type: "text",
+        type: 'text',
       },
       {
-        field: "pics",
-        title: "Uploaded Pics",
+        field: 'pics',
+        title: 'Uploaded Pics',
         display: false,
-        type: "text",
+        type: 'text',
       },
       {
-        field: "eDoc",
-        title: "Image 01",
+        field: 'eDoc',
+        title: 'Image 01',
         display: false,
-        type: "img",
+        type: 'img',
       },
       {
-        field: "eDoc2",
-        title: "Image 02",
+        field: 'eDoc2',
+        title: 'Image 02',
         display: false,
-        type: "img",
+        type: 'img',
       },
       {
-        field: "eDoc3",
-        title: "Image 03",
+        field: 'eDoc3',
+        title: 'Image 03',
         display: false,
-        type: "img",
+        type: 'img',
       },
     ];
 
     // vehicle columns settings
     this.vehicleColumns = [
       {
-        field: "subLocationDescription",
-        title: "Main Location",
+        field: 'subLocationDescription',
+        title: 'Main Location',
         display: true,
-        type: "text",
+        type: 'text',
       },
       {
-        field: "officeTypeDescription",
-        title: "Sub Location",
+        field: 'officeTypeDescription',
+        title: 'Sub Location',
         display: true,
-        type: "text",
+        type: 'text',
       },
       {
-        field: "officeDescription",
-        title: "Office",
+        field: 'officeDescription',
+        title: 'Office',
         display: true,
-        type: "text",
+        type: 'text',
       },
       {
-        field: "accountsCatagory",
-        title: "Accounts Category",
+        field: 'accountsCatagory',
+        title: 'Accounts Category',
         display: true,
-        type: "text",
+        type: 'text',
       },
       {
-        field: "assetCatDescription",
-        title: "Asset Name",
+        field: 'assetCatDescription',
+        title: 'Asset Name',
         display: true,
-        type: "text",
+        type: 'text',
       },
       {
-        field: "tag",
-        title: "Tag. ID",
+        field: 'tag',
+        title: 'Tag. ID',
         display: true,
-        type: "text",
+        type: 'text',
       },
       {
-        field: "postName",
-        title: "Custodian",
+        field: 'postName',
+        title: 'Custodian',
         display: true,
-        type: "text",
+        type: 'text',
       },
       {
-        field: "assetLocation",
-        title: "Asset Location",
+        field: 'assetLocation',
+        title: 'Asset Location',
         display: false,
-        type: "text",
+        type: 'text',
       },
       {
-        field: "assetDescription",
-        title: "Asset Description",
+        field: 'assetDescription',
+        title: 'Asset Description',
         display: true,
-        type: "text",
+        type: 'text',
       },
 
       // computers extra fields
-      { field: "make", title: "Make", display: false, type: "text" },
-      { field: "model", title: "Model", display: false, type: "text" },
-      { field: "size", title: "Size", display: false, type: "text" },
-      { field: "processor", title: "Processor", display: false, type: "text" },
-      { field: "generation", title: "Genration", display: false, type: "text" },
-      { field: "ram", title: "RAM", display: false, type: "text" },
-      { field: "driveType1", title: "Drive-01", display: false, type: "text" },
-      { field: "hd1", title: "size", display: false, type: "text" },
-      { field: "driveType2", title: "Drive-02", display: false, type: "text" },
-      { field: "hd2", title: "size", display: false, type: "text" },
+      { field: 'make', title: 'Make', display: false, type: 'text' },
+      { field: 'model', title: 'Model', display: false, type: 'text' },
+      { field: 'size', title: 'Size', display: false, type: 'text' },
+      { field: 'processor', title: 'Processor', display: false, type: 'text' },
+      { field: 'generation', title: 'Genration', display: false, type: 'text' },
+      { field: 'ram', title: 'RAM', display: false, type: 'text' },
+      { field: 'driveType1', title: 'Drive-01', display: false, type: 'text' },
+      { field: 'hd1', title: 'size', display: false, type: 'text' },
+      { field: 'driveType2', title: 'Drive-02', display: false, type: 'text' },
+      { field: 'hd2', title: 'size', display: false, type: 'text' },
 
       // vehcile extra fields
-      { field: "vehMake", title: "Veh-Make", display: true, type: "text" },
-      { field: "vehType", title: "Veh-Type", display: true, type: "text" },
+      { field: 'vehMake', title: 'Veh-Make', display: true, type: 'text' },
+      { field: 'vehType', title: 'Veh-Type', display: true, type: 'text' },
       {
-        field: "vehEngineNum",
-        title: "Veh-Engine No.",
+        field: 'vehEngineNum',
+        title: 'Veh-Engine No.',
         display: true,
-        type: "text",
+        type: 'text',
       },
-      { field: "vehModel", title: "Veh-Model", display: true, type: "text" },
+      { field: 'vehModel', title: 'Veh-Model', display: true, type: 'text' },
       {
-        field: "vehChasisNum",
-        title: "Veh-Chasis No.",
+        field: 'vehChasisNum',
+        title: 'Veh-Chasis No.',
         display: true,
-        type: "text",
+        type: 'text',
       },
 
       // books extra fields
-      { field: "author", title: "Author", display: false, type: "text" },
-      { field: "publisher", title: "Publisher", display: false, type: "text" },
-      { field: "volume", title: "Volume", display: false, type: "text" },
-      { field: "edition", title: "Edition", display: false, type: "text" },
+      { field: 'author', title: 'Author', display: false, type: 'text' },
+      { field: 'publisher', title: 'Publisher', display: false, type: 'text' },
+      { field: 'volume', title: 'Volume', display: false, type: 'text' },
+      { field: 'edition', title: 'Edition', display: false, type: 'text' },
 
       {
-        field: "ipcRef",
-        title: "IPC/Invoice Ref.",
+        field: 'ipcRef',
+        title: 'IPC/Invoice Ref.',
         display: true,
-        type: "text",
+        type: 'text',
       },
       {
-        field: "projectShortName",
-        title: "Project",
+        field: 'projectShortName',
+        title: 'Project',
         display: true,
-        type: "text",
+        type: 'text',
       },
       {
-        field: "purchaseDate",
-        title: "Purchase Date",
+        field: 'purchaseDate',
+        title: 'Purchase Date',
         display: true,
-        type: "text",
+        type: 'text',
       },
       {
-        field: "costAmount",
-        title: "Cost Price",
+        field: 'costAmount',
+        title: 'Cost Price',
         display: true,
-        type: "text",
+        type: 'text',
       },
       {
-        field: "assetCondition",
-        title: "Condition",
+        field: 'assetCondition',
+        title: 'Condition',
         display: true,
-        type: "text",
+        type: 'text',
       },
       {
-        field: "previousTag",
-        title: "old Tag",
+        field: 'previousTag',
+        title: 'old Tag',
         display: true,
-        type: "text",
+        type: 'text',
       },
       {
-        field: "createdBy",
-        title: "Created By",
+        field: 'createdBy',
+        title: 'Created By',
         display: false,
-        type: "text",
+        type: 'text',
       },
       {
-        field: "pics",
-        title: "Uploaded Pics",
+        field: 'pics',
+        title: 'Uploaded Pics',
         display: false,
-        type: "text",
+        type: 'text',
       },
       {
-        field: "eDoc",
-        title: "Image 01",
+        field: 'eDoc',
+        title: 'Image 01',
         display: false,
-        type: "img",
+        type: 'img',
       },
       {
-        field: "eDoc2",
-        title: "Image 02",
+        field: 'eDoc2',
+        title: 'Image 02',
         display: false,
-        type: "img",
+        type: 'img',
       },
       {
-        field: "eDoc3",
-        title: "Image 03",
+        field: 'eDoc3',
+        title: 'Image 03',
         display: false,
-        type: "img",
+        type: 'img',
       },
     ];
 
     // Books columns settings
     this.bookColumns = [
       {
-        field: "subLocationDescription",
-        title: "Main Location",
+        field: 'subLocationDescription',
+        title: 'Main Location',
         display: true,
-        type: "text",
+        type: 'text',
       },
       {
-        field: "officeTypeDescription",
-        title: "Sub Location",
+        field: 'officeTypeDescription',
+        title: 'Sub Location',
         display: true,
-        type: "text",
+        type: 'text',
       },
       {
-        field: "officeDescription",
-        title: "Office",
+        field: 'officeDescription',
+        title: 'Office',
         display: true,
-        type: "text",
+        type: 'text',
       },
       {
-        field: "accountsCatagory",
-        title: "Accounts Category",
+        field: 'accountsCatagory',
+        title: 'Accounts Category',
         display: true,
-        type: "text",
+        type: 'text',
       },
       {
-        field: "assetCatDescription",
-        title: "Asset Name",
+        field: 'assetCatDescription',
+        title: 'Asset Name',
         display: true,
-        type: "text",
+        type: 'text',
       },
       {
-        field: "tag",
-        title: "Tag. ID",
+        field: 'tag',
+        title: 'Tag. ID',
         display: true,
-        type: "text",
+        type: 'text',
       },
       {
-        field: "postName",
-        title: "Custodian",
+        field: 'postName',
+        title: 'Custodian',
         display: true,
-        type: "text",
+        type: 'text',
       },
       {
-        field: "assetLocation",
-        title: "Asset Location",
+        field: 'assetLocation',
+        title: 'Asset Location',
         display: false,
-        type: "text",
+        type: 'text',
       },
       {
-        field: "assetDescription",
-        title: "Asset Description",
+        field: 'assetDescription',
+        title: 'Asset Description',
         display: true,
-        type: "text",
+        type: 'text',
       },
 
       // computers extra fields
-      { field: "make", title: "Make", display: false, type: "text" },
-      { field: "model", title: "Model", display: false, type: "text" },
-      { field: "size", title: "Size", display: false, type: "text" },
-      { field: "processor", title: "Processor", display: false, type: "text" },
-      { field: "generation", title: "Genration", display: false, type: "text" },
-      { field: "ram", title: "RAM", display: false, type: "text" },
-      { field: "driveType1", title: "Drive-01", display: false, type: "text" },
-      { field: "hd1", title: "size", display: false, type: "text" },
-      { field: "driveType2", title: "Drive-02", display: false, type: "text" },
-      { field: "hd2", title: "size", display: false, type: "text" },
+      { field: 'make', title: 'Make', display: false, type: 'text' },
+      { field: 'model', title: 'Model', display: false, type: 'text' },
+      { field: 'size', title: 'Size', display: false, type: 'text' },
+      { field: 'processor', title: 'Processor', display: false, type: 'text' },
+      { field: 'generation', title: 'Genration', display: false, type: 'text' },
+      { field: 'ram', title: 'RAM', display: false, type: 'text' },
+      { field: 'driveType1', title: 'Drive-01', display: false, type: 'text' },
+      { field: 'hd1', title: 'size', display: false, type: 'text' },
+      { field: 'driveType2', title: 'Drive-02', display: false, type: 'text' },
+      { field: 'hd2', title: 'size', display: false, type: 'text' },
 
       // vehcile extra fields
-      { field: "vehMake", title: "Veh-Make", display: false, type: "text" },
-      { field: "vehType", title: "Veh-Type", display: false, type: "text" },
+      { field: 'vehMake', title: 'Veh-Make', display: false, type: 'text' },
+      { field: 'vehType', title: 'Veh-Type', display: false, type: 'text' },
       {
-        field: "vehEngineNum",
-        title: "Veh-Engine No.",
+        field: 'vehEngineNum',
+        title: 'Veh-Engine No.',
         display: false,
-        type: "text",
+        type: 'text',
       },
-      { field: "vehModel", title: "Veh-Model", display: false, type: "text" },
+      { field: 'vehModel', title: 'Veh-Model', display: false, type: 'text' },
       {
-        field: "vehChasisNum",
-        title: "Veh-Chasis No.",
+        field: 'vehChasisNum',
+        title: 'Veh-Chasis No.',
         display: false,
-        type: "text",
+        type: 'text',
       },
 
       // books extra fields
-      { field: "author", title: "Author", display: true, type: "text" },
-      { field: "publisher", title: "Publisher", display: true, type: "text" },
-      { field: "volume", title: "Volume", display: true, type: "text" },
-      { field: "edition", title: "Edition", display: true, type: "text" },
+      { field: 'author', title: 'Author', display: true, type: 'text' },
+      { field: 'publisher', title: 'Publisher', display: true, type: 'text' },
+      { field: 'volume', title: 'Volume', display: true, type: 'text' },
+      { field: 'edition', title: 'Edition', display: true, type: 'text' },
 
       {
-        field: "ipcRef",
-        title: "IPC/Invoice Ref.",
+        field: 'ipcRef',
+        title: 'IPC/Invoice Ref.',
         display: true,
-        type: "text",
+        type: 'text',
       },
       {
-        field: "projectShortName",
-        title: "Project",
+        field: 'projectShortName',
+        title: 'Project',
         display: true,
-        type: "text",
+        type: 'text',
       },
       {
-        field: "purchaseDate",
-        title: "Purchase Date",
+        field: 'purchaseDate',
+        title: 'Purchase Date',
         display: true,
-        type: "text",
+        type: 'text',
       },
       {
-        field: "costAmount",
-        title: "Cost Price",
+        field: 'costAmount',
+        title: 'Cost Price',
         display: true,
-        type: "text",
+        type: 'text',
       },
       {
-        field: "assetCondition",
-        title: "Condition",
+        field: 'assetCondition',
+        title: 'Condition',
         display: true,
-        type: "text",
+        type: 'text',
       },
       {
-        field: "previousTag",
-        title: "old Tag",
+        field: 'previousTag',
+        title: 'old Tag',
         display: true,
-        type: "text",
+        type: 'text',
       },
       {
-        field: "createdBy",
-        title: "Created By",
+        field: 'createdBy',
+        title: 'Created By',
         display: false,
-        type: "text",
+        type: 'text',
       },
       {
-        field: "pics",
-        title: "Uploaded Pics",
+        field: 'pics',
+        title: 'Uploaded Pics',
         display: false,
-        type: "text",
+        type: 'text',
       },
       {
-        field: "eDoc",
-        title: "Image 01",
+        field: 'eDoc',
+        title: 'Image 01',
         display: false,
-        type: "img",
+        type: 'img',
       },
       {
-        field: "eDoc2",
-        title: "Image 02",
+        field: 'eDoc2',
+        title: 'Image 02',
         display: false,
-        type: "img",
+        type: 'img',
       },
       {
-        field: "eDoc3",
-        title: "Image 03",
+        field: 'eDoc3',
+        title: 'Image 03',
         display: false,
-        type: "img",
+        type: 'img',
       },
     ];
   }
@@ -972,13 +972,13 @@ export class AssetRegisterRptComponent implements OnInit {
   getRegions() {
     // debugger;
     var reqHeader = new HttpHeaders({
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
       // Authorization: "Bearer " + Token,
     });
     this.http
       // .get(this.app.serverUrl + "getsubloc", { headers: reqHeader })
       .get(
-        this.app.serverUrl + "getRegions?userId=" + this.cookie.get("userID"),
+        this.app.serverUrl + 'getRegions?userId=' + this.cookie.get('userID'),
         { headers: reqHeader }
       )
       .subscribe((data: any) => {
@@ -990,13 +990,13 @@ export class AssetRegisterRptComponent implements OnInit {
   getLocation() {
     // debugger;
     var reqHeader = new HttpHeaders({
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
       // Authorization: "Bearer " + Token,
     });
     this.http
       // .get(this.app.serverUrl + "getsubloc", { headers: reqHeader })
       .get(
-        this.app.serverUrl + "getLocations?userId=" + this.cookie.get("userID"),
+        this.app.serverUrl + 'getLocations?userId=' + this.cookie.get('userID'),
         { headers: reqHeader }
       )
       .subscribe((data: any) => {
@@ -1009,12 +1009,12 @@ export class AssetRegisterRptComponent implements OnInit {
   getProjects() {
     // debugger;
     var reqHeader = new HttpHeaders({
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
       // Authorization: "Bearer " + Token,
     });
     this.http
       // .get(this.app.serverUrl + "getsubloc", { headers: reqHeader })
-      .get(this.app.serverUrl + "getProjects", { headers: reqHeader })
+      .get(this.app.serverUrl + 'getProjects', { headers: reqHeader })
       .subscribe((data: any) => {
         // this.locList = data.filter((x) => x.isActivated == 1);
         this.projectList = data;
@@ -1024,12 +1024,12 @@ export class AssetRegisterRptComponent implements OnInit {
   getAccountCategories() {
     // debugger;
     var reqHeader = new HttpHeaders({
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
       // Authorization: "Bearer " + Token,
     });
     this.http
       // .get(this.app.serverUrl + "getsubloc", { headers: reqHeader })
-      .get(this.app.serverUrl + "getAccountCategories", { headers: reqHeader })
+      .get(this.app.serverUrl + 'getAccountCategories', { headers: reqHeader })
       .subscribe((data: any) => {
         // this.locList = data.filter((x) => x.isActivated == 1);
         this.accountsCatList = data;
@@ -1044,7 +1044,7 @@ export class AssetRegisterRptComponent implements OnInit {
   }
 
   filterAccountAndAssetCat() {
-    if (this.rptPreset == "general") {
+    if (this.rptPreset == 'general') {
       this.filteredAccountsCatList = this.accountsCatList.filter(
         (x) =>
           x.accountsCatID == 2 ||
@@ -1063,21 +1063,21 @@ export class AssetRegisterRptComponent implements OnInit {
           x.accountsCatID == 7 ||
           x.accountsCatID == 8
       );
-    } else if (this.rptPreset == "computer") {
+    } else if (this.rptPreset == 'computer') {
       this.filteredAccountsCatList = this.accountsCatList.filter(
         (x) => x.accountsCatID == 1
       );
       this.filteredAssetCatList = this.assetCatList.filter(
         (x) => x.accountsCatID == 1
       );
-    } else if (this.rptPreset == "vehicle") {
+    } else if (this.rptPreset == 'vehicle') {
       this.filteredAccountsCatList = this.accountsCatList.filter(
         (x) => x.accountsCatID == 9
       );
       this.filteredAssetCatList = this.assetCatList.filter(
         (x) => x.accountsCatID == 9
       );
-    } else if (this.rptPreset == "book") {
+    } else if (this.rptPreset == 'book') {
       this.filteredAccountsCatList = this.accountsCatList.filter(
         (x) => x.accountsCatID == 2
       );
@@ -1089,12 +1089,12 @@ export class AssetRegisterRptComponent implements OnInit {
 
   getAssetCategories() {
     var reqHeader = new HttpHeaders({
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
       // Authorization: "Bearer " + Token,
     });
 
     this.http
-      .get(this.app.serverUrl + "getAssetCategories", {
+      .get(this.app.serverUrl + 'getAssetCategories', {
         headers: reqHeader,
       })
       .subscribe((data: any) => {
@@ -1115,23 +1115,23 @@ export class AssetRegisterRptComponent implements OnInit {
   }
 
   printDiv() {
-    this.app.printReport("#myTable");
+    this.app.printReport('#myTable');
   }
 
   exportExcel() {
-    this.app.exportExcel("myTable", "Asset Register");
+    this.app.exportExcel('myTable', 'Asset Register');
   }
 
   clear() {
-    this.rptPreset = "";
-    this.cmbRegion = "";
-    this.cmbLocation = "";
-    this.cmbOfficeTypeID = "";
-    this.cmbProject = "";
-    this.cmbAccountsCat = "";
-    this.cmbAssetCat = "";
-    this.tempRptTitle = "";
-    this.rptHeader = "";
+    this.rptPreset = '';
+    this.cmbRegion = '';
+    this.cmbLocation = '';
+    this.cmbOfficeTypeID = '';
+    this.cmbProject = '';
+    this.cmbAccountsCat = '';
+    this.cmbAssetCat = '';
+    this.tempRptTitle = '';
+    this.rptHeader = '';
   }
 
   getAssetRegister() {
@@ -1140,50 +1140,50 @@ export class AssetRegisterRptComponent implements OnInit {
     var project = 0;
     var accountCat = 0;
     var assetCat = 0;
-    var userID = this.cookie.get("userID");
+    var userID = this.cookie.get('userID');
 
     //clear filters
-    this.rdbFilter = "";
-    this.rptTitle2nd = "";
+    this.rdbFilter = '';
+    this.rptTitle2nd = '';
 
     // header setting
-    if (this.tempRptTitle != "") {
+    if (this.tempRptTitle != '') {
       this.rptHeader = this.tempRptTitle;
     }
 
-    if (this.cmbRegion == "" || this.cmbRegion == undefined) {
+    if (this.cmbRegion == '' || this.cmbRegion == undefined) {
       region = 0;
     } else {
       region = parseInt(this.cmbRegion);
     }
 
-    if (this.cmbOfficeTypeID == "" || this.cmbOfficeTypeID == undefined) {
+    if (this.cmbOfficeTypeID == '' || this.cmbOfficeTypeID == undefined) {
       officeType = 0;
     } else {
       officeType = parseInt(this.cmbOfficeTypeID);
     }
 
-    if (this.cmbProject == "" || this.cmbProject == undefined) {
+    if (this.cmbProject == '' || this.cmbProject == undefined) {
       project = 0;
     } else {
       project = parseInt(this.cmbProject);
     }
 
-    if (this.cmbAccountsCat == "" || this.cmbAccountsCat == undefined) {
+    if (this.cmbAccountsCat == '' || this.cmbAccountsCat == undefined) {
       accountCat = 0;
     } else {
       accountCat = parseInt(this.cmbAccountsCat);
     }
 
-    if (this.cmbAssetCat == "" || this.cmbAssetCat == undefined) {
+    if (this.cmbAssetCat == '' || this.cmbAssetCat == undefined) {
       assetCat = 0;
     } else {
       assetCat = parseInt(this.cmbAssetCat);
     }
 
     // if everything is empty
-    if (this.rptPreset == "" || this.rptPreset == undefined) {
-      this.toastr.errorToastr("Please Select Report Preset", "Error", {
+    if (this.rptPreset == '' || this.rptPreset == undefined) {
+      this.toastr.errorToastr('Please Select Report Preset', 'Error', {
         toastTimeout: 2500,
       });
       return false;
@@ -1195,8 +1195,8 @@ export class AssetRegisterRptComponent implements OnInit {
       assetCat == 0
     ) {
       this.toastr.errorToastr(
-        "Please Select one option from Region, Office Type, Project, Accounts Category and Asset Category",
-        "Error",
+        'Please Select one option from Region, Office Type, Project, Accounts Category and Asset Category',
+        'Error',
         {
           toastTimeout: 2500,
         }
@@ -1205,27 +1205,27 @@ export class AssetRegisterRptComponent implements OnInit {
     }
     // http call
     var reqHeader = new HttpHeaders({
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
       // Authorization: "Bearer " + Token,
     });
     this.http
       .get(
         this.app.serverUrl +
-          "getMoveableAssetdetailRpt?UserId=" +
+          'getMoveableAssetdetailRpt?UserId=' +
           userID +
-          "&mainLocID=" +
+          '&mainLocID=' +
           region +
-          "&subLocID=" +
+          '&subLocID=' +
           this.cmbLocation +
-          "&officeTypeID=" +
+          '&officeTypeID=' +
           officeType +
-          "&projectID=" +
+          '&projectID=' +
           project +
-          "&accountsCatID=" +
+          '&accountsCatID=' +
           accountCat +
-          "&assetCatID=" +
+          '&assetCatID=' +
           assetCat +
-          "&type=" +
+          '&type=' +
           this.rptPreset,
         { headers: reqHeader }
       )
@@ -1285,32 +1285,32 @@ export class AssetRegisterRptComponent implements OnInit {
         this.dataSource.filterPredicate = this.customFilterPredicate.bind(this);
         this.dataSource.filter = performance.now().toString();
         this.cdr.detectChanges();
-        $("#rptOptionsModal").modal("hide");
+        $('#rptOptionsModal').modal('hide');
         // this.dataSource = this.filterAssetRegisterList;
       });
 
     // general report preset generation
-    if (this.rptPreset == "general") {
+    if (this.rptPreset == 'general') {
       this.columns = this.generalColumns;
-      this.rptTitle = "Moveable Asset Register - General Items";
+      this.rptTitle = 'Moveable Asset Register - General Items';
     }
 
     // computer report preset generation
-    else if (this.rptPreset == "computer") {
+    else if (this.rptPreset == 'computer') {
       this.columns = this.computerColumns;
-      this.rptTitle = "Moveable Asset Register - Computer Items";
+      this.rptTitle = 'Moveable Asset Register - Computer Items';
     }
 
     // vehicle report preset generation
-    else if (this.rptPreset == "vehicle") {
+    else if (this.rptPreset == 'vehicle') {
       this.columns = this.vehicleColumns;
-      this.rptTitle = "Moveable Asset Register - Vehicles";
+      this.rptTitle = 'Moveable Asset Register - Vehicles';
     }
 
     // Books report preset generation
-    else if (this.rptPreset == "book") {
+    else if (this.rptPreset == 'book') {
       this.columns = this.bookColumns;
-      this.rptTitle = "Moveable Asset Register - Books";
+      this.rptTitle = 'Moveable Asset Register - Books';
     }
   }
 
@@ -1318,24 +1318,24 @@ export class AssetRegisterRptComponent implements OnInit {
   applyReportFilter() {
     var filteredData: any;
 
-    if (this.rdbFilter == "useable") {
+    if (this.rdbFilter == 'useable') {
       filteredData = this._alldata.filter((x) => x.isUseable == true);
-      this.rptTitle2nd = "Useable Assets";
-    } else if (this.rdbFilter == "serviceable") {
+      this.rptTitle2nd = 'Useable Assets';
+    } else if (this.rdbFilter == 'serviceable') {
       filteredData = this._alldata.filter((x) => x.isServiceAble == true);
-      this.rptTitle2nd = "Serviceable Assets";
-    } else if (this.rdbFilter == "surplus") {
+      this.rptTitle2nd = 'Serviceable Assets';
+    } else if (this.rdbFilter == 'surplus') {
       filteredData = this._alldata.filter((x) => x.isSurplus == true);
-      this.rptTitle2nd = "Surplus Assets";
-    } else if (this.rdbFilter == "condemned") {
+      this.rptTitle2nd = 'Surplus Assets';
+    } else if (this.rdbFilter == 'condemned') {
       filteredData = this._alldata.filter((x) => x.isCondemned == true);
-      this.rptTitle2nd = "Condemned Assets";
-    } else if (this.rdbFilter == "missing") {
+      this.rptTitle2nd = 'Condemned Assets';
+    } else if (this.rdbFilter == 'missing') {
       filteredData = this._alldata.filter((x) => x.isMissing == true);
-      this.rptTitle2nd = "Missing Assets";
-    } else if (this.rdbFilter == "transferred") {
+      this.rptTitle2nd = 'Missing Assets';
+    } else if (this.rdbFilter == 'transferred') {
       filteredData = this._alldata.filter((x) => x.isTransfered == true);
-      this.rptTitle2nd = "Transferred Assets";
+      this.rptTitle2nd = 'Transferred Assets';
     }
 
     filteredData.forEach((item, index) => {
@@ -1477,102 +1477,102 @@ export class AssetRegisterRptComponent implements OnInit {
 
   onSortData(sort: MatSort) {
     let data = this.filterAssetRegisterList;
-    const index = data.findIndex((x) => x["level"] == 1);
-    if (sort.active && sort.direction !== "") {
+    const index = data.findIndex((x) => x['level'] == 1);
+    if (sort.active && sort.direction !== '') {
       if (index > -1) {
         data.splice(index, 1);
       }
 
       data = data.sort((a: AssetItems, b: AssetItems) => {
-        const isAsc = sort.direction === "asc";
+        const isAsc = sort.direction === 'asc';
         switch (sort.active) {
-          case "subLocationDescription":
+          case 'subLocationDescription':
             return this.compare(
               a.subLocationDescription,
               b.subLocationDescription,
               isAsc
             );
-          case "officeTypeDescription":
+          case 'officeTypeDescription':
             return this.compare(
               a.officeTypeDescription,
               b.officeTypeDescription,
               isAsc
             );
-          case "officeDescription":
+          case 'officeDescription':
             return this.compare(
               a.officeDescription,
               b.officeDescription,
               isAsc
             );
-          case "accountsCatagory":
+          case 'accountsCatagory':
             return this.compare(a.accountsCatagory, b.accountsCatagory, isAsc);
-          case "assetCatDescription":
+          case 'assetCatDescription':
             return this.compare(
               a.assetCatDescription,
               b.assetCatDescription,
               isAsc
             );
-          case "tag":
+          case 'tag':
             return this.compare(a.tag, b.tag, isAsc);
-          case "postName":
+          case 'postName':
             return this.compare(a.postName, b.postName, isAsc);
-          case "assetLocation":
+          case 'assetLocation':
             return this.compare(a.assetLocation, b.assetLocation, isAsc);
-          case "assetDescription":
+          case 'assetDescription':
             return this.compare(a.assetDescription, b.assetDescription, isAsc);
-          case "make":
+          case 'make':
             return this.compare(a.make, b.make, isAsc);
-          case "model":
+          case 'model':
             return this.compare(a.model, b.model, isAsc);
-          case "size":
+          case 'size':
             return this.compare(a.size, b.size, isAsc);
-          case "processor":
+          case 'processor':
             return this.compare(a.processor, b.processor, isAsc);
-          case "generation":
+          case 'generation':
             return this.compare(a.generation, b.generation, isAsc);
-          case "ram":
+          case 'ram':
             return this.compare(a.ram, b.ram, isAsc);
-          case "driveType1":
+          case 'driveType1':
             return this.compare(a.driveType1, b.driveType1, isAsc);
-          case "hd1":
+          case 'hd1':
             return this.compare(a.hd1, b.hd1, isAsc);
-          case "driveType2":
+          case 'driveType2':
             return this.compare(a.driveType2, b.driveType2, isAsc);
-          case "hd2":
+          case 'hd2':
             return this.compare(a.hd2, b.hd2, isAsc);
-          case "vehMake":
+          case 'vehMake':
             return this.compare(a.vehMake, b.vehMake, isAsc);
-          case "vehType":
+          case 'vehType':
             return this.compare(a.vehType, b.vehType, isAsc);
-          case "vehEngineNum":
+          case 'vehEngineNum':
             return this.compare(a.vehEngineNum, b.vehEngineNum, isAsc);
-          case "vehModel":
+          case 'vehModel':
             return this.compare(a.vehModel, b.vehModel, isAsc);
-          case "vehChasisNum":
+          case 'vehChasisNum':
             return this.compare(a.vehChasisNum, b.vehChasisNum, isAsc);
-          case "author":
+          case 'author':
             return this.compare(a.author, b.author, isAsc);
-          case "publisher":
+          case 'publisher':
             return this.compare(a.publisher, b.publisher, isAsc);
-          case "volume":
+          case 'volume':
             return this.compare(a.volume, b.volume, isAsc);
-          case "edition":
+          case 'edition':
             return this.compare(a.edition, b.edition, isAsc);
-          case "ipcRef":
+          case 'ipcRef':
             return this.compare(a.ipcRef, b.ipcRef, isAsc);
-          case "projectShortName":
+          case 'projectShortName':
             return this.compare(a.projectShortName, b.projectShortName, isAsc);
-          case "purchaseDate":
+          case 'purchaseDate':
             return this.compare(a.purchaseDate, b.purchaseDate, isAsc);
-          case "costAmount":
+          case 'costAmount':
             return this.compare(a.costAmount, b.costAmount, isAsc);
-          case "assetCondition":
+          case 'assetCondition':
             return this.compare(a.assetCondition, b.assetCondition, isAsc);
-          case "previousTag":
+          case 'previousTag':
             return this.compare(a.previousTag, b.previousTag, isAsc);
-          case "createdBy":
+          case 'createdBy':
             return this.compare(a.createdBy, b.createdBy, isAsc);
-          case "pics":
+          case 'pics':
             return this.compare(a.pics, b.pics, isAsc);
           default:
             return 0;
