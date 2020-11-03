@@ -9,7 +9,7 @@
           <a (click)="toggleView = 'form'" class="cursorPointer">Form View</a>
         </li>
         <li>
-          <a (click)="toggleView = 'table'; getAssetDetail()" class="cursorPointer">Table View</a>
+          <a (click)="toggleView = 'table'" data-toggle="modal" data-target="#advanceSearchModal" class="cursorPointer">Table View</a>
         </li>
         <li>
           <a (click)="printTags()" class="cursorPointer" matBadge="{{ tagList.length }}" [matBadgeHidden]="hidden">Print

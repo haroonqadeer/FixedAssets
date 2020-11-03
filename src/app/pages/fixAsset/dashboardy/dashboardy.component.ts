@@ -98,7 +98,7 @@ export class DashboardyComponent implements OnInit {
     this.getTagDetail();
     this.getTagDateWise();
     this.getLocation();
-    this.getAssetDetail();
+    // this.getAssetDetail();
     this.getOfficeType();
     this.getChartAssetDetail();
     this.getTagSecWise();
@@ -275,7 +275,7 @@ export class DashboardyComponent implements OnInit {
       )
       .subscribe((data: any) => {
         this.assetDetailList = data;
-        this.assetDetailList;
+        // this.assetDetailList;
       });
   }
 

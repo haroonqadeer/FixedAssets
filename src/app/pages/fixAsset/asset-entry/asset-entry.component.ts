@@ -1033,7 +1033,44 @@ export class AssetEntryComponent implements OnInit {
         { headers: reqHeader }
       )
       .subscribe((data: any) => {
-        this.assetDetailList = data;
+        
+    if (this.cmbSearchOfcType == "" && this.cmbSearchWngSection == "") {
+      this.assetDetailList = data.filter(
+        (x) => x.subLocID == this.cmbSearchLocation
+      );
+
+      var locFilter = this.locList.filter(
+        (x) => x.subLocID == this.cmbSearchLocation
+      );
+
+      this.regionName = locFilter[0].locationDescription;
+      this.locationName = locFilter[0].subLocationDescription;
+      this.officeName = locFilter[0].officeTypeDescription;
+    } else if (this.cmbSearchLocation == "" && this.cmbSearchWngSection == "") {
+      this.assetDetailList = data.filter(
+        (x) => x.officeTypeID == this.cmbSearchOfcType
+      );
+    } else if (this.cmbSearchWngSection == "") {
+      this.assetDetailList = data.filter(
+        (x) =>
+          x.subLocID == this.cmbSearchLocation &&
+          x.officeTypeID == this.cmbSearchOfcType
+      );
+
+      this.locationName = this.assetDetailList[0].subLocationDescription;
+      this.officeName = this.assetDetailList[0].officeTypeDescription;
+    } else if (this.cmbSearchWngSection == "" && this.cmbSearchLocation == "" && this.cmbSearchWngSection == ""){
+      this.assetDetailList=data;
+    }
+    else {
+      this.assetDetailList = data.filter(
+        (x) =>
+          x.subLocID == this.cmbSearchLocation &&
+          x.officeTypeID == this.cmbSearchOfcType &&
+          x.officeSecID == this.cmbSearchWngSection
+      );
+    }
+        // this.assetDetailList = data;
         this.tempDetailList = data;
         this.assetDetailList.reverse();
         this.tempDetailList.reverse();
@@ -2282,6 +2319,11 @@ export class AssetEntryComponent implements OnInit {
     this.assetDetailList = [];
     this.assetDetailList = this.tempDetailList;
 
+    if(this.tempDetailList.length==0){
+      this.getAssetDetail();
+    }
+    // alert(this.tempDetailList.length)
+    
     if (this.cmbSearchOfcType == "" && this.cmbSearchWngSection == "") {
       this.assetDetailList = this.assetDetailList.filter(
         (x) => x.subLocID == this.cmbSearchLocation
