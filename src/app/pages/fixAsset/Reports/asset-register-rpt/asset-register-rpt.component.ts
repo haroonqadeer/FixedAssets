@@ -1187,22 +1187,23 @@ export class AssetRegisterRptComponent implements OnInit {
         toastTimeout: 2500,
       });
       return false;
-    } else if (
-      region == 0 &&
-      officeType == 0 &&
-      project == 0 &&
-      accountCat == 0 &&
-      assetCat == 0
-    ) {
-      this.toastr.errorToastr(
-        'Please Select one option from Region, Office Type, Project, Accounts Category and Asset Category',
-        'Error',
-        {
-          toastTimeout: 2500,
-        }
-      );
-      return false;
     }
+    // else if (
+    //   region == 0 &&
+    //   officeType == 0 &&
+    //   project == 0 &&
+    //   accountCat == 0 &&
+    //   assetCat == 0
+    // ) {
+    //   this.toastr.errorToastr(
+    //     'Please Select one option from Region, Office Type, Project, Accounts Category and Asset Category',
+    //     'Error',
+    //     {
+    //       toastTimeout: 2500,
+    //     }
+    //   );
+    //   return false;
+    // }
     // http call
     var reqHeader = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -1276,6 +1277,12 @@ export class AssetRegisterRptComponent implements OnInit {
             this._alldata = data.filter((x) => x.assetCatID == assetCat);
           }
         }
+
+        // if noting is selected except roport preset
+        if(this._alldata.length == 0){
+          this._alldata = data;
+        }
+
         this.filterAssetRegisterList = this._alldata;
         //this.dataSource.sort = this.sort;
         this.dataSource.data = this.addGroups(
