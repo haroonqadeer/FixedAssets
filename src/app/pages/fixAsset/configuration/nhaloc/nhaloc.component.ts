@@ -18,7 +18,7 @@ declare var $: any;
 })
 export class NHALocComponent implements OnInit {
   // serverUrl = "http://95.217.206.195:2007/api/";
-  // serverUrl = "http://localhost:5090/api/";
+  // serverUrl = "http://192.168.100.162:5090/api/";
   heading = "Add";
 
   loadingBar = true;

@@ -24,7 +24,7 @@ export class NHAFreeholdLandComponent implements OnInit {
   reqType = '';
   reqStatus = false;
   // serverUrl = "http://95.217.206.195:2007/api/";
-  //serverUrl = "http://localhost:12345/api/";
+  //serverUrl = "http://192.168.100.162:12345/api/";
 
   toggleView = 'form';
 

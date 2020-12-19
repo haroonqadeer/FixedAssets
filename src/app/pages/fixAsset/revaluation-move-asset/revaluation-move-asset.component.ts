@@ -18,7 +18,7 @@ declare var $: any;
 })
 export class RevaluationMoveAssetComponent implements OnInit {
   // serverUrl = "http://95.217.206.195:2007/api/";
-  // serverUrl = "http://localhost:6090/api/";
+  // serverUrl = "http://192.168.100.162:6090/api/";
 
   heading = "Add";
 
@@ -359,7 +359,8 @@ export class RevaluationMoveAssetComponent implements OnInit {
       item.eDoc != "C:/inetpub/wwwroot/FAR/FAR_Project/assets/assetEntryImg"
     ) {
       this.lblImage1 =
-        "http://58.27.164.137:7000/assets/assetEntryImg/" +
+      // "http://192.168.100.162:7000/assets/assetEntryImg/" +
+      "http://58.27.164.137:7000/assets/assetEntryImg/" +
         item.assetID +
         "_1.jpg";
     } else {
@@ -371,7 +372,8 @@ export class RevaluationMoveAssetComponent implements OnInit {
       item.eDoc2 != "C:/inetpub/wwwroot/FAR/FAR_Project/assets/assetEntryImg"
     ) {
       this.lblImage2 =
-        "http://58.27.164.137:7000/assets/assetEntryImg/" +
+      // "http://192.168.100.162:7000/assets/assetEntryImg/" +
+      "http://58.27.164.137:7000/assets/assetEntryImg/" +
         item.assetID +
         "_2.jpg";
     } else {
@@ -383,7 +385,8 @@ export class RevaluationMoveAssetComponent implements OnInit {
       item.eDoc3 != "C:/inetpub/wwwroot/FAR/FAR_Project/assets/assetEntryImg"
     ) {
       this.lblImage3 =
-        "http://58.27.164.137:7000/assets/assetEntryImg/" +
+      // "http://192.168.100.162:7000/assets/assetEntryImg/" +
+      "http://58.27.164.137:7000/assets/assetEntryImg/" +
         item.assetID +
         "_3.jpg";
     } else {

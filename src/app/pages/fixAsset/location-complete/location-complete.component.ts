@@ -19,7 +19,7 @@ declare var $: any;
 })
 export class LocationCompleteComponent implements OnInit {
   // serverUrl = "http://95.217.206.195:2007/api/";
-  // serverUrl = "http://localhost:5090/api/";
+  // serverUrl = "http://192.168.100.162:5090/api/";
 
   loadingBar = false;
 
@@ -393,7 +393,8 @@ export class LocationCompleteComponent implements OnInit {
 
   openPDFFile(item) {
     var url =
-      "http://58.27.164.137:7000/assets/Location/" +
+    // "http://192.168.100.162:7000/assets/Location/" +
+    "http://58.27.164.137:7000/assets/Location/" +
       item.subLocCompletionID +
       ".pdf";
     window.open(url);

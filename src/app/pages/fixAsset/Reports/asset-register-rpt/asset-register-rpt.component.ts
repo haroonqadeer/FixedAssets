@@ -76,9 +76,9 @@ export class AssetItems {
 })
 export class AssetRegisterRptComponent implements OnInit {
   // serverUrl = "http://95.217.206.195:2007/api/";
-  //serverUrl = "http://localhost:12345/api/";
+  //serverUrl = "http://192.168.100.162:12345/api/";
 
-  // serverUrl = "http://localhost:6090/api/";
+  // serverUrl = "http://192.168.100.162:6090/api/";
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
@@ -302,7 +302,8 @@ export class AssetRegisterRptComponent implements OnInit {
     $('#rptOptionsModal').modal('show');
 
     debugger;
-    this.imgUrl = 'http://58.27.164.137:7000/assets/assetEntryImg/';
+    // this.imgUrl = "http://192.168.100.162:7000/assets/assetEntryImg/";
+    this.imgUrl = "http://58.27.164.137:7000/assets/assetEntryImg/";
     this.getRegions();
     this.getLocation();
     this.getProjects();
