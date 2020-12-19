@@ -23,7 +23,8 @@ declare var $: any;
 })
 export class AppComponent {
   serverUrl = "http://58.27.164.137:7001/api/";
-  // serverUrl = "http://localhost:6090/api/";
+  // serverUrl = "http://192.168.100.162:6090/api/";
+  // serverUrl = "http://192.168.100.162:7001/api/";
 
   title = "FixedAssets";
   userName = "";
@@ -253,7 +254,11 @@ export class AppComponent {
             data[0].eDoc !=
               "C:/inetpub/wwwroot/FAR/FAR_Project/assets/assetEntryImg"
           ) {
-            this.imageAssetUrl =
+            // this.imageAssetUrl =
+              // "http://192.168.100.162:7000/assets/assetEntryImg/" +
+              // data[0].assetID +
+              // "_1.jpg";
+              this.imageAssetUrl =
               "http://58.27.164.137:7000/assets/assetEntryImg/" +
               data[0].assetID +
               "_1.jpg";
@@ -264,7 +269,8 @@ export class AppComponent {
               "C:/inetpub/wwwroot/FAR/FAR_Project/assets/assetEntryImg"
           ) {
             this.imageAssetUrl2 =
-              "http://58.27.164.137:7000/assets/assetEntryImg/" +
+            // "http://192.168.100.162:7000/assets/assetEntryImg/" +
+               "http://58.27.164.137:7000/assets/assetEntryImg/" +
               data[0].assetID +
               "_2.jpg";
           }
@@ -274,7 +280,8 @@ export class AppComponent {
               "C:/inetpub/wwwroot/FAR/FAR_Project/assets/assetEntryImg"
           ) {
             this.imageAssetUrl3 =
-              "http://58.27.164.137:7000/assets/assetEntryImg/" +
+            // "http://192.168.100.162:7000/assets/assetEntryImg/" +
+               "http://58.27.164.137:7000/assets/assetEntryImg/" +
               data[0].assetID +
               "_3.jpg";
           }
@@ -372,9 +379,6 @@ export class AppComponent {
 
       this.http
         .post(this.serverUrl + "resetpw", saveData, { headers: reqHeader })
-        // .post("http://localhost:5090/api/resetpw", saveData, {
-        //   headers: reqHeader,
-        // })
         .subscribe((data: any) => {
           if (data.msg == "Success") {
             this.toastr.successToastr(
@@ -694,7 +698,8 @@ export class AppComponent {
         imgAsset = null;
         if (
           this.imageAssetUrl ==
-          "http://58.27.164.137:7000/assets/assetEntryImg/" +
+          // "http://192.168.100.162:7000/assets/assetEntryImg/" +
+             "http://58.27.164.137:7000/assets/assetEntryImg/" +
             this.txtAssetID +
             "_1.jpg"
         ) {
@@ -710,7 +715,8 @@ export class AppComponent {
         imgAsset2 = null;
         if (
           this.imageAssetUrl2 ==
-          "http://58.27.164.137:7000/assets/assetEntryImg/" +
+          // "http://192.168.100.162:7000/assets/assetEntryImg/" +
+            "http://58.27.164.137:7000/assets/assetEntryImg/" +
             this.txtAssetID +
             "_2.jpg"
         ) {
@@ -727,7 +733,8 @@ export class AppComponent {
         imgAsset3 = null;
         if (
           this.imageAssetUrl3 ==
-          "http://58.27.164.137:7000/assets/assetEntryImg/" +
+          // "http://192.168.100.162:7000/assets/assetEntryImg/" +
+           "http://58.27.164.137:7000/assets/assetEntryImg/" +
             this.txtAssetID +
             "_3.jpg"
         ) {

@@ -18,7 +18,6 @@ declare var $: any;
 })
 export class AssetCategoryComponent implements OnInit {
   // serverUrl = "http://95.217.206.195:2007/api/";
-  // serverUrl = "http://localhost:5090/api/";
 
   // imgPath = "D:/Flutter App/FixedAssets/src/assets/assetCatImg";
   imgPath = "C:/inetpub/wwwroot/FAR/FAR_Project/assets/assetCatImg";
@@ -384,7 +383,8 @@ export class AssetCategoryComponent implements OnInit {
       // http://ambit-erp.southeastasia.cloudapp.azure.com:9000/assets/images/Marker2.png
       // this.imageUrl = "obj.edoc";
       this.imageUrl =
-        "http://58.27.164.137:7000/assets/assetCatImg/" +
+      // "http://192.168.100.162:7000/assets/assetCatImg/" +
+      "http://58.27.164.137:7000/assets/assetCatImg/" +
         obj.assetCatID +
         ".jpg";
     }

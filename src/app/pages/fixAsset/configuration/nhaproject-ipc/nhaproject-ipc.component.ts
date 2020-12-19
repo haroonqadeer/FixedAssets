@@ -273,7 +273,6 @@ export class NHAProjectIPCComponent implements OnInit {
 
       this.http
         .post(this.app.serverUrl + "sudipcref", saveData, {
-          // .post("http://localhost:5090/api/sudipcref", saveData, {
           headers: reqHeader,
         })
         .subscribe((data: any) => {
@@ -336,7 +335,8 @@ export class NHAProjectIPCComponent implements OnInit {
         ".pdf"
     ) {
       this.imageUrl =
-        "http://58.27.164.137:7000/assets/IPCRefImg/" + obj.ipcRefID + ".pdf";
+      // "http://192.168.100.162:7000/assets/IPCRefImg/" + obj.ipcRefID + ".pdf";
+      "http://58.27.164.137:7000/assets/IPCRefImg/" + obj.ipcRefID + ".pdf";
     }
   }
 
@@ -364,7 +364,6 @@ export class NHAProjectIPCComponent implements OnInit {
 
           this.http
             .post(this.app.serverUrl + "sudipcref", saveData, {
-              // .post("http://localhost:5090/api/sudipcref", saveData, {
               headers: reqHeader,
             })
             .subscribe((data: any) => {

@@ -31,9 +31,9 @@ declare var $: any;
 export class AssetEntryComponent implements OnInit {
   // serverUrl = "http://95.217.206.195:2007/api/";
   // serverUrl = "http://58.27.164.137:7001/api/";
-  //serverUrl = "http://localhost:12345/api/";
+  //serverUrl = "http://192.168.100.162:12345/api/";
 
-  // serverUrl = "http://localhost:6090/api/";
+  // serverUrl = "http://192.168.100.162:6090/api/";
 
   loadingBar = true;
   //pagination variables for tag list
@@ -1163,6 +1163,7 @@ export class AssetEntryComponent implements OnInit {
       item.eDoc != "C:/inetpub/wwwroot/FAR/FAR_Project/assets/assetEntryImg"
     ) {
       this.imageAssetUrl =
+      // "http://192.168.100.162:7000/assets/assetEntryImg/" +
         "http://58.27.164.137:7000/assets/assetEntryImg/" +
         item.assetID +
         "_1.jpg";
@@ -1172,6 +1173,7 @@ export class AssetEntryComponent implements OnInit {
       item.eDoc2 != "C:/inetpub/wwwroot/FAR/FAR_Project/assets/assetEntryImg"
     ) {
       this.imageAssetUrl2 =
+      // "http://192.168.100.162:7000/assets/assetEntryImg/" +
         "http://58.27.164.137:7000/assets/assetEntryImg/" +
         item.assetID +
         "_2.jpg";
@@ -1181,6 +1183,7 @@ export class AssetEntryComponent implements OnInit {
       item.eDoc3 != "C:/inetpub/wwwroot/FAR/FAR_Project/assets/assetEntryImg"
     ) {
       this.imageAssetUrl3 =
+      // "http://192.168.100.162:7000/assets/assetEntryImg/" +
         "http://58.27.164.137:7000/assets/assetEntryImg/" +
         item.assetID +
         "_3.jpg";
@@ -1663,7 +1666,6 @@ export class AssetEntryComponent implements OnInit {
 
       this.http
         .post(this.app.serverUrl + "saveasset", saveData, {
-          // .post("http://localhost:5090/api/saveasset", saveData, {
           headers: reqHeader,
         })
         .subscribe((data: any) => {
@@ -1699,7 +1701,7 @@ export class AssetEntryComponent implements OnInit {
               this.txtAssetLoc = "";
             }
             this.clear();
-            this.getAssetDetail();
+            // this.getAssetDetail();
             this.getTags();
             this.loadingBar = false;
             return false;
@@ -2246,7 +2248,8 @@ export class AssetEntryComponent implements OnInit {
       this.txtTransDesc = trans[0].transferDescription;
       if (trans[0].eDoc != null) {
         this.imageTransUrl =
-          "http://58.27.164.137:7000/assets/transferImg/" +
+        // "http://192.168.100.162:7000/assets/transferImg/" +
+            "http://58.27.164.137:7000/assets/transferImg/" +
           this.lblTransferID +
           ".jpg";
       }
@@ -2591,7 +2594,6 @@ export class AssetEntryComponent implements OnInit {
 
       this.http
         .post(this.app.serverUrl + "sudassettransfer", saveData, {
-          // .post("http://localhost:5090/api/sudassettransfer", saveData, {
           headers: reqHeader,
         })
         .subscribe((data: any) => {
@@ -2684,7 +2686,8 @@ export class AssetEntryComponent implements OnInit {
     this.txtTransDesc = obj.transferDescription;
     if (obj.eDoc != null) {
       this.imageTransUrl =
-        "http://58.27.164.137:7000/assets/transferImg/" +
+      // "http://192.168.100.162:7000/assets/transferImg/" +
+          "http://58.27.164.137:7000/assets/transferImg/" +
         obj.transferID +
         ".jpg";
     }
@@ -2947,6 +2950,7 @@ export class AssetEntryComponent implements OnInit {
   }
 
   onTransFileSelected(event) {
+    alert('OK')
     if (
       event.target.files[0].type == "image/png" ||
       event.target.files[0].type == "image/jpeg"
@@ -3079,7 +3083,7 @@ export class AssetEntryComponent implements OnInit {
           // call method that creates a blob from dataUri
           const imageBlob = this.dataURItoBlob(this.imageTrans.split(",")[1]);
 
-          this.imageTrans = this.imageAsset3.split(",")[1];
+          this.imageTrans = this.imageTrans.split(",")[1];
         }
 
         //imageFile created below is the new compressed file which can be send to API in form data
@@ -3378,7 +3382,8 @@ export class AssetEntryComponent implements OnInit {
     this.cmbVehicle = "";
     if (item.eDoc != null) {
       this.imageVehicleUrl =
-        "http://58.27.164.137:7000/assets/vehicleImg/" + item.id + ".pdf";
+      // "http://192.168.100.162:7000/assets/vehicleImg/" + item.id + ".pdf";
+           "http://58.27.164.137:7000/assets/vehicleImg/" + item.id + ".pdf";
       this.lblFileName = "Open Uploaded File";
     }
   }

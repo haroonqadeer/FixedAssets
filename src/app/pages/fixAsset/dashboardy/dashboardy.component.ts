@@ -21,7 +21,7 @@ declare var $: any;
 })
 export class DashboardyComponent implements OnInit {
   // serverUrl = "http://95.217.206.195:2007/api/";
-  // serverUrl = "http://localhost:5090/api/";
+  // serverUrl = "http://192.168.100.162:5090/api/";
 
   loadingBar = true;
   itemPerPage = "10";
@@ -883,6 +883,13 @@ export class DashboardyComponent implements OnInit {
 
   public convertDate(myDate) {
     var oldDate = new Date(myDate);
+    
+    var dt =new Date();
+
+    // alert(myDate);
+    // alert(dt);
+    // alert(oldDate.getDate())
+    
     var d = oldDate.getDate();
     var m = oldDate.getMonth();
     m += 1; // JavaScript months are 0-11
@@ -939,7 +946,9 @@ export class DashboardyComponent implements OnInit {
 
   getTagDetailDateWise(item) {
     this.searchTag = "";
+    // alert(item.createdDate)
     var dt = this.convertDate(item.createdDate);
+    // alert(dt)
     if (this.cmbTblLocation == "") {
       this.locationName = dt;
       var reqHeader = new HttpHeaders({

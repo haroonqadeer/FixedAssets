@@ -22,7 +22,7 @@ export class NHARoadsComponent implements OnInit {
   toggleView = "form";
 
   // serverUrl = "http://95.217.206.195:2007/api/";
-  // serverUrl = "http://localhost:5090/api/";
+  // serverUrl = "http://192.168.100.162:5090/api/";
 
   loadingBar = true;
   reqStatus = false;
@@ -144,7 +144,6 @@ export class NHARoadsComponent implements OnInit {
 
     this.http
       .get(this.app.serverUrl + "getRoadDetail", { headers: reqHeader })
-      // .get("http://localhost:5090/api/getRoadDetail", { headers: reqHeader })
       .subscribe((data: any) => {
         this.roadList = data;
         this.loadingBar = false;
@@ -576,9 +575,6 @@ export class NHARoadsComponent implements OnInit {
 
       this.http
         .post(this.app.serverUrl + "sudRoad", SaveData, { headers: reqHeader })
-        // .post("http://localhost:5090/api/sudRoad", SaveData, {
-        //   headers: reqHeader,
-        // })
         .subscribe((data: any) => {
           if (data.msg == "Success") {
             if (this.lblFixAssetID == 0) {
@@ -674,9 +670,6 @@ export class NHARoadsComponent implements OnInit {
             .post(this.app.serverUrl + "sudRoad", SaveData, {
               headers: reqHeader,
             })
-            // .post("http://localhost:5090/api/sudRoad", SaveData, {
-            //   headers: reqHeader,
-            // })
             .subscribe((data: any) => {
               if (data.msg == "Success") {
                 this.toastr.successToastr(
@@ -747,9 +740,6 @@ export class NHARoadsComponent implements OnInit {
 
       this.http
         .post(this.app.serverUrl + "sudoc", SaveData, { headers: reqHeader })
-        // .post("http://localhost:5090/api/sudoc", SaveData, {
-        //   headers: reqHeader,
-        // })
         .subscribe((data: any) => {
           if (data.msg == "Success") {
             if (this.FaDetailID == 0) {
@@ -1091,9 +1081,6 @@ export class NHARoadsComponent implements OnInit {
 
       this.http
         .post(this.app.serverUrl + "sudoc", SaveData, { headers: reqHeader })
-        // .post("http://localhost:5090/api/sudoc", SaveData, {
-        //   headers: reqHeader,
-        // })
         .subscribe((data: any) => {
           if (data.msg == "Success") {
             if (this.FaDetailID == 0) {

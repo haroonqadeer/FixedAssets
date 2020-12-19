@@ -18,7 +18,7 @@ declare var $: any;
 })
 export class NHASectionComponent implements OnInit {
   // serverUrl = "http://95.217.206.195:2007/api/";
-  // serverUrl = "http://localhost:5090/api/";
+  // serverUrl = "http://192.168.100.162:5090/api/";
 
   heading = "Add";
 
@@ -235,7 +235,6 @@ export class NHASectionComponent implements OnInit {
 
           this.http
             .post(this.app.serverUrl + "ofcsection", saveData, {
-              // .post("http://localhost:5090/api/ofcsection", saveData, {
               headers: reqHeader,
             })
             .subscribe((data: any) => {
@@ -292,7 +291,6 @@ export class NHASectionComponent implements OnInit {
 
     this.http
       .post(this.app.serverUrl + "ofcsection", saveData, {
-        // .post("http://localhost:5090/api/ofcsection", saveData, {
         headers: reqHeader,
       })
       .subscribe((data: any) => {
