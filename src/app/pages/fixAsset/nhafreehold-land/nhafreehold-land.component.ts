@@ -1,32 +1,32 @@
-import { Component, OnInit } from "@angular/core";
-import { FormControl } from "@angular/forms";
-import { Router } from "@angular/router";
-import { CookieService } from "ngx-cookie-service";
-import { UserIdleService } from "angular-user-idle";
-import { ToastrManager } from "ng6-toastr-notifications";
+import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
+import { UserIdleService } from 'angular-user-idle';
+import { ToastrManager } from 'ng6-toastr-notifications';
 import {
   HttpClient,
   HttpHeaders,
   HttpErrorResponse,
-} from "@angular/common/http";
-import Swal from "sweetalert2/dist/sweetalert2.js";
-import { AppComponent } from "../../../app.component";
+} from '@angular/common/http';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
+import { AppComponent } from '../../../app.component';
 
 declare var $: any;
 
 @Component({
-  selector: "app-nhafreehold-land",
-  templateUrl: "./nhafreehold-land.component.html",
-  styleUrls: ["./nhafreehold-land.component.scss"],
+  selector: 'app-nhafreehold-land',
+  templateUrl: './nhafreehold-land.component.html',
+  styleUrls: ['./nhafreehold-land.component.scss'],
 })
 export class NHAFreeholdLandComponent implements OnInit {
   loadingBar = true;
-  reqType = "";
+  reqType = '';
   reqStatus = false;
   // serverUrl = "http://95.217.206.195:2007/api/";
   //serverUrl = "http://192.168.100.162:12345/api/";
 
-  toggleView = "form";
+  toggleView = 'form';
 
   //accordian variable
   step = 0;
@@ -50,28 +50,28 @@ export class NHAFreeholdLandComponent implements OnInit {
   transactionList = [];
   tempTransactionList = [];
 
-  txtSearchLandData = "";
+  txtSearchLandData = '';
 
-  ddlAccSec = "";
-  txtSearchAccSec = "";
-  ddlTrailBalance = "";
-  txtSearchTrailBalance = "";
-  ddlProject = "";
-  txtSearchProject = "";
-  ddlLandMeasurement = "";
+  ddlAccSec = '';
+  txtSearchAccSec = '';
+  ddlTrailBalance = '';
+  txtSearchTrailBalance = '';
+  ddlProject = '';
+  txtSearchProject = '';
+  ddlLandMeasurement = '';
   //ddlLandMeasurement2 = '';
-  ddlRoads = "";
-  txtSearchRoads = "";
+  ddlRoads = '';
+  txtSearchRoads = '';
 
-  aKanal = "";
-  aMarla = "";
-  purposeOfPurchase = "";
-  presentUse = "";
+  aKanal = '';
+  aMarla = '';
+  purposeOfPurchase = '';
+  presentUse = '';
   acquisitionDate = new Date();
   amountPaid;
-  tKanal = "";
-  tMarla = "";
-  remarks = "";
+  tKanal = '';
+  tMarla = '';
+  remarks = '';
 
   lblOpeningCost = 0;
   lblAddition = 0;
@@ -82,11 +82,11 @@ export class NHAFreeholdLandComponent implements OnInit {
   lblSurplus = 0;
 
   FaDetailID = 0;
-  txtFaAmount = "";
-  txtFaCost = "";
+  txtFaAmount = '';
+  txtFaCost = '';
   txtFaDate = new Date();
 
-  filePicker = "";
+  filePicker = '';
   selectedFile: File = null;
   file;
 
@@ -129,7 +129,7 @@ export class NHAFreeholdLandComponent implements OnInit {
     reader.onloadend = (e) => {
       this.file = reader.result;
 
-      var splitFile = this.file.split(",")[1];
+      var splitFile = this.file.split(',')[1];
       this.file = splitFile;
     };
 
@@ -137,26 +137,26 @@ export class NHAFreeholdLandComponent implements OnInit {
   }
 
   fileChange(fileNo) {
-    var fileName = $(".custom-file-input").val().split("\\").pop();
+    var fileName = $('.custom-file-input').val().split('\\').pop();
 
     if (fileNo == 1) {
-      $(".custom-file-input")
-        .siblings(".custom-file-label")
-        .addClass("selected")
+      $('.custom-file-input')
+        .siblings('.custom-file-label')
+        .addClass('selected')
         .html(fileName);
     }
 
     if (fileNo == 2) {
-      $(".custom-file-input2")
-        .siblings(".custom-file-label2")
-        .addClass("selected")
+      $('.custom-file-input2')
+        .siblings('.custom-file-label2')
+        .addClass('selected')
         .html(fileName);
     }
   }
 
   saveExcel(fileNo) {
     if (this.filePicker == undefined) {
-      this.toastr.errorToastr("Please select document", "Error", {
+      this.toastr.errorToastr('Please select document', 'Error', {
         toastTimeout: 2500,
       });
       return false;
@@ -167,23 +167,23 @@ export class NHAFreeholdLandComponent implements OnInit {
       }
 
       var fileNameExt = this.filePicker.substr(
-        this.filePicker.lastIndexOf(".") + 1
+        this.filePicker.lastIndexOf('.') + 1
       );
 
-      if (fileNameExt != "xlsx") {
-        this.toastr.errorToastr("Please select excel file", "Error", {
+      if (fileNameExt != 'xlsx') {
+        this.toastr.errorToastr('Please select excel file', 'Error', {
           toastTimeout: 2500,
         });
         return false;
       }
 
       if (fileNo == 1) {
-        $("#awardsModal").modal("toggle");
+        $('#awardsModal').modal('toggle');
       } else if (fileNo == 2) {
-        $("#mutationsModal").modal("toggle");
+        $('#mutationsModal').modal('toggle');
       }
 
-      var fPath = "C:/inetpub/wwwroot/FAR/FAR_Project/assets/files";
+      var fPath = 'C:/inetpub/wwwroot/FAR/FAR_Project/assets/files';
 
       // this.app.showSpinner();
       //* ********************************************save data
@@ -198,22 +198,22 @@ export class NHAFreeholdLandComponent implements OnInit {
       //var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
 
       this.loadingBar = true;
-      var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
+      var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
 
       this.http
-        .post(this.app.serverUrl + "uploadfile", saveData, {
+        .post(this.app.serverUrl + 'uploadfile', saveData, {
           headers: reqHeader,
         })
         .subscribe((data: any) => {
-          if (data.msg == "File Uploaded Successfully") {
-            this.toastr.successToastr(data.msg, "Success!", {
+          if (data.msg == 'File Uploaded Successfully') {
+            this.toastr.successToastr(data.msg, 'Success!', {
               toastTimeout: 2500,
             });
             this.clearFaDetail();
             this.loadingBar = false;
             return false;
           } else {
-            this.toastr.errorToastr(data.msg, "Error!", { toastTimeout: 5000 });
+            this.toastr.errorToastr(data.msg, 'Error!', { toastTimeout: 5000 });
             this.loadingBar = false;
             return false;
           }
@@ -224,12 +224,12 @@ export class NHAFreeholdLandComponent implements OnInit {
   getAccSec() {
     this.loadingBar = true;
     var reqHeader = new HttpHeaders({
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
       // Authorization: "Bearer " + Token,
     });
 
     this.http
-      .get(this.app.serverUrl + "getaccsec", { headers: reqHeader })
+      .get(this.app.serverUrl + 'getaccsec', { headers: reqHeader })
       .subscribe((data: any) => {
         this.accSecList = data;
         this.loadingBar = false;
@@ -239,12 +239,12 @@ export class NHAFreeholdLandComponent implements OnInit {
   getProjects() {
     this.loadingBar = true;
     var reqHeader = new HttpHeaders({
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
       // Authorization: "Bearer " + Token,
     });
 
     this.http
-      .get(this.app.serverUrl + "getprojects?IsActivated=1", {
+      .get(this.app.serverUrl + 'getprojects?IsActivated=1', {
         headers: reqHeader,
       })
       .subscribe((data: any) => {
@@ -257,12 +257,12 @@ export class NHAFreeholdLandComponent implements OnInit {
   getRoads() {
     this.loadingBar = true;
     var reqHeader = new HttpHeaders({
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
       // Authorization: "Bearer " + Token,
     });
 
     this.http
-      .get(this.app.serverUrl + "getroads", { headers: reqHeader })
+      .get(this.app.serverUrl + 'getroads', { headers: reqHeader })
       .subscribe((data: any) => {
         this.roadsList = data;
         this.loadingBar = false;
@@ -272,12 +272,12 @@ export class NHAFreeholdLandComponent implements OnInit {
   getLandMeasurement() {
     this.loadingBar = true;
     var reqHeader = new HttpHeaders({
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
       // Authorization: "Bearer " + Token,
     });
 
     this.http
-      .get(this.app.serverUrl + "getlandmeasurement", { headers: reqHeader })
+      .get(this.app.serverUrl + 'getlandmeasurement', { headers: reqHeader })
       .subscribe((data: any) => {
         this.landMeasurementList = data;
         this.loadingBar = false;
@@ -287,12 +287,12 @@ export class NHAFreeholdLandComponent implements OnInit {
   getLandData() {
     this.loadingBar = true;
     var reqHeader = new HttpHeaders({
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
       // Authorization: "Bearer " + Token,
     });
 
     this.http
-      .get(this.app.serverUrl + "getlanddata", { headers: reqHeader })
+      .get(this.app.serverUrl + 'getlanddata', { headers: reqHeader })
       .subscribe((data: any) => {
         this.landDataList = data;
         this.loadingBar = false;
@@ -302,12 +302,12 @@ export class NHAFreeholdLandComponent implements OnInit {
   getFaDetail() {
     this.loadingBar = true;
     var reqHeader = new HttpHeaders({
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
       // Authorization: "Bearer " + Token,
     });
 
     this.http
-      .get(this.app.serverUrl + "getfadetail", { headers: reqHeader })
+      .get(this.app.serverUrl + 'getfadetail', { headers: reqHeader })
       .subscribe((data: any) => {
         this.faDetailList = data;
         this.getFaSummary();
@@ -317,12 +317,12 @@ export class NHAFreeholdLandComponent implements OnInit {
   getFaSummary() {
     this.loadingBar = true;
     var reqHeader = new HttpHeaders({
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
       // Authorization: "Bearer " + Token,
     });
 
     this.http
-      .get(this.app.serverUrl + "getfasummary", { headers: reqHeader })
+      .get(this.app.serverUrl + 'getfasummary', { headers: reqHeader })
       .subscribe((data: any) => {
         this.faSummaryList = data;
         this.getTransactions();
@@ -332,23 +332,23 @@ export class NHAFreeholdLandComponent implements OnInit {
   getTransactions() {
     this.loadingBar = true;
     var reqHeader = new HttpHeaders({
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
       // Authorization: "Bearer " + Token,
     });
 
     this.http
-      .get(this.app.serverUrl + "gettransaction", { headers: reqHeader })
+      .get(this.app.serverUrl + 'gettransaction', { headers: reqHeader })
       .subscribe((data: any) => {
         this.transactionList = data;
         this.loadingBar = false;
 
         if (this.reqStatus == true) {
-          this.filterFaDetail(this.fixAssetID, "oc");
-          this.filterFaDetail(this.fixAssetID, "a");
-          this.filterFaDetail(this.fixAssetID, "ov");
-          this.filterFaDetail(this.fixAssetID, "v");
-          this.filterFaDetail(this.fixAssetID, "t");
-          this.filterFaDetail(this.fixAssetID, "td");
+          this.filterFaDetail(this.fixAssetID, 'oc');
+          this.filterFaDetail(this.fixAssetID, 'a');
+          this.filterFaDetail(this.fixAssetID, 'ov');
+          this.filterFaDetail(this.fixAssetID, 'v');
+          this.filterFaDetail(this.fixAssetID, 't');
+          this.filterFaDetail(this.fixAssetID, 'td');
 
           this.reqStatus = false;
         }
@@ -359,32 +359,32 @@ export class NHAFreeholdLandComponent implements OnInit {
   save() {
     var aKanal, aMarla, tKanal, tMarla;
 
-    if (this.aKanal == undefined || this.aKanal == "" || this.aKanal == null) {
+    if (this.aKanal == undefined || this.aKanal == '' || this.aKanal == null) {
       aKanal = 0;
     } else {
       aKanal = this.aKanal;
     }
 
-    if (this.aMarla == undefined || this.aMarla == "" || this.aMarla == null) {
+    if (this.aMarla == undefined || this.aMarla == '' || this.aMarla == null) {
       aMarla = 0;
     } else {
       aMarla = this.aMarla;
     }
 
-    if (this.tKanal == undefined || this.tKanal == "" || this.tKanal == null) {
+    if (this.tKanal == undefined || this.tKanal == '' || this.tKanal == null) {
       tKanal = 0;
     } else {
       tKanal = this.tKanal;
     }
 
-    if (this.tMarla == undefined || this.tMarla == "" || this.tMarla == null) {
+    if (this.tMarla == undefined || this.tMarla == '' || this.tMarla == null) {
       tMarla = 0;
     } else {
       tMarla = this.tMarla;
     }
 
-    if (this.ddlAccSec == undefined || this.ddlAccSec == "") {
-      this.toastr.errorToastr("Please Select Account Section", "Error !", {
+    if (this.ddlAccSec == undefined || this.ddlAccSec == '') {
+      this.toastr.errorToastr('Please Select Account Section', 'Error !', {
         toastTimeout: 2500,
       });
       return false;
@@ -393,41 +393,41 @@ export class NHAFreeholdLandComponent implements OnInit {
     //     this.toastr.errorToastr("Please Select Trail Balance", "Error !", {toastTimeout: 2500,});
     //     return false;
     // }
-    else if (this.ddlProject == undefined || this.ddlProject == "") {
-      this.toastr.errorToastr("Please Select Project", "Error !", {
+    else if (this.ddlProject == undefined || this.ddlProject == '') {
+      this.toastr.errorToastr('Please Select Project', 'Error !', {
         toastTimeout: 2500,
       });
       return false;
     } else if (
       this.ddlLandMeasurement == undefined ||
-      this.ddlLandMeasurement == ""
+      this.ddlLandMeasurement == ''
     ) {
       this.toastr.errorToastr(
-        "Please Select Area Accuired Measurement Unit",
-        "Error !",
+        'Please Select Area Accuired Measurement Unit',
+        'Error !',
         { toastTimeout: 2500 }
       );
       return false;
     } else if (aKanal == 0 && aMarla == 0) {
-      this.toastr.errorToastr("Please Enter Area Acquired", "Error !", {
+      this.toastr.errorToastr('Please Enter Area Acquired', 'Error !', {
         toastTimeout: 2500,
       });
       return false;
-    } else if (this.ddlRoads == undefined || this.ddlRoads == "") {
-      this.toastr.errorToastr("Please Select Road", "Error !", {
+    } else if (this.ddlRoads == undefined || this.ddlRoads == '') {
+      this.toastr.errorToastr('Please Select Road', 'Error !', {
         toastTimeout: 2500,
       });
       return false;
     } else if (
       this.purposeOfPurchase == undefined ||
-      this.purposeOfPurchase.trim() == ""
+      this.purposeOfPurchase.trim() == ''
     ) {
-      this.toastr.errorToastr("Please Enter Purpose of Purchase", "Error !", {
+      this.toastr.errorToastr('Please Enter Purpose of Purchase', 'Error !', {
         toastTimeout: 2500,
       });
       return false;
-    } else if (this.presentUse == undefined || this.presentUse == "") {
-      this.toastr.errorToastr("Please Enter Present Use", "Error !", {
+    } else if (this.presentUse == undefined || this.presentUse == '') {
+      this.toastr.errorToastr('Please Enter Present Use', 'Error !', {
         toastTimeout: 2500,
       });
       return false;
@@ -435,7 +435,7 @@ export class NHAFreeholdLandComponent implements OnInit {
       this.acquisitionDate == undefined ||
       this.acquisitionDate == null
     ) {
-      this.toastr.errorToastr("Please Enter Year of Acquisition", "Error !", {
+      this.toastr.errorToastr('Please Enter Year of Acquisition', 'Error !', {
         toastTimeout: 2500,
       });
       return false;
@@ -445,16 +445,16 @@ export class NHAFreeholdLandComponent implements OnInit {
     //     return false;
     // }
     else {
-      var reqRemarks = "-";
-      if (this.remarks == undefined && this.remarks.trim() == "") {
+      var reqRemarks = '-';
+      if (this.remarks == undefined && this.remarks.trim() == '') {
         reqRemarks = this.remarks;
       }
 
       var reqDate = this.app.convertDate(this.acquisitionDate);
 
-      var reqSpType = "Insert";
+      var reqSpType = 'Insert';
       if (this.fixAssetID > 0) {
-        reqSpType = "Update";
+        reqSpType = 'Update';
       }
 
       var SaveData = {
@@ -477,27 +477,27 @@ export class NHAFreeholdLandComponent implements OnInit {
         AreaTransferedMarla: tMarla,
         CostOfLand: this.amountPaid,
         Remarks: reqRemarks,
-        Userid: this.cookie.get("userID"),
+        Userid: this.cookie.get('userID'),
         SpType: reqSpType,
       };
 
       this.loadingBar = true;
-      var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
+      var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
 
       this.http
-        .post(this.app.serverUrl + "sudland", SaveData, { headers: reqHeader })
+        .post(this.app.serverUrl + 'sudland', SaveData, { headers: reqHeader })
         .subscribe((data: any) => {
-          if (data.msg == "Success") {
+          if (data.msg == 'Success') {
             if (this.fixAssetID == 0) {
               this.toastr.successToastr(
-                "Record Saved Successfully!",
-                "Success!",
+                'Record Saved Successfully!',
+                'Success!',
                 { toastTimeout: 2500 }
               );
             } else {
               this.toastr.successToastr(
-                "Record Updated Successfully!",
-                "Success!",
+                'Record Updated Successfully!',
+                'Success!',
                 { toastTimeout: 2500 }
               );
             }
@@ -506,7 +506,7 @@ export class NHAFreeholdLandComponent implements OnInit {
             this.getLandData();
             return false;
           } else {
-            this.toastr.errorToastr(data.msg, "Error !", {
+            this.toastr.errorToastr(data.msg, 'Error !', {
               toastTimeout: 5000,
             });
             this.loadingBar = false;
@@ -518,22 +518,22 @@ export class NHAFreeholdLandComponent implements OnInit {
 
   clear() {
     this.fixAssetID = 0;
-    this.ddlAccSec = "";
-    this.ddlTrailBalance = "";
-    this.ddlProject = "";
-    this.ddlLandMeasurement = "";
+    this.ddlAccSec = '';
+    this.ddlTrailBalance = '';
+    this.ddlProject = '';
+    this.ddlLandMeasurement = '';
     //ddlLandMeasurement2 = '';
-    this.aKanal = "";
-    this.aMarla = "";
-    this.ddlRoads = "";
-    this.purposeOfPurchase = "";
-    this.presentUse = "";
+    this.aKanal = '';
+    this.aMarla = '';
+    this.ddlRoads = '';
+    this.purposeOfPurchase = '';
+    this.presentUse = '';
     this.acquisitionDate = new Date();
-    this.amountPaid = "";
-    this.tKanal = "";
-    this.tMarla = "";
-    this.remarks = "";
-    this.txtSearchLandData = "";
+    this.amountPaid = '';
+    this.tKanal = '';
+    this.tMarla = '';
+    this.remarks = '';
+    this.txtSearchLandData = '';
 
     this.lblOpeningCost = 0;
     this.lblAddition = 0;
@@ -567,55 +567,55 @@ export class NHAFreeholdLandComponent implements OnInit {
     this.tMarla = item.areaTransferedMarla;
     this.remarks = item.remarks;
 
-    this.toggleView = "form";
+    this.toggleView = 'form';
 
-    this.filterFaDetail(item.fixedAssetID, "oc");
-    this.filterFaDetail(item.fixedAssetID, "a");
-    this.filterFaDetail(item.fixedAssetID, "ov");
-    this.filterFaDetail(item.fixedAssetID, "v");
-    this.filterFaDetail(item.fixedAssetID, "t");
-    this.filterFaDetail(item.fixedAssetID, "td");
+    this.filterFaDetail(item.fixedAssetID, 'oc');
+    this.filterFaDetail(item.fixedAssetID, 'a');
+    this.filterFaDetail(item.fixedAssetID, 'ov');
+    this.filterFaDetail(item.fixedAssetID, 'v');
+    this.filterFaDetail(item.fixedAssetID, 't');
+    this.filterFaDetail(item.fixedAssetID, 'td');
   }
 
   delete(item) {
     setTimeout(() => {
       Swal.fire({
-        title: "Do you want to delete?",
-        text: "",
-        icon: "warning",
+        title: 'Do you want to delete?',
+        text: '',
+        icon: 'warning',
         showCancelButton: true,
-        confirmButtonText: "Yes",
-        cancelButtonText: "No",
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'No',
       }).then((result) => {
         if (result.value) {
           this.loadingBar = true;
 
           var SaveData = {
             FixedAssetID: item.fixedAssetID,
-            Userid: this.cookie.get("userID"),
-            SpType: "Delete",
+            Userid: this.cookie.get('userID'),
+            SpType: 'Delete',
           };
 
           var reqHeader = new HttpHeaders({
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json',
           });
 
           this.http
-            .post(this.app.serverUrl + "sudland", SaveData, {
+            .post(this.app.serverUrl + 'sudland', SaveData, {
               headers: reqHeader,
             })
             .subscribe((data: any) => {
-              if (data.msg == "Success") {
+              if (data.msg == 'Success') {
                 this.toastr.successToastr(
-                  "Record Deleted Successfully!",
-                  "Success!",
+                  'Record Deleted Successfully!',
+                  'Success!',
                   { toastTimeout: 2500 }
                 );
                 this.clear();
                 this.getLandData();
                 return false;
               } else {
-                this.toastr.errorToastr(data.msg, "Error !", {
+                this.toastr.errorToastr(data.msg, 'Error !', {
                   toastTimeout: 5000,
                 });
                 this.loadingBar = false;
@@ -631,60 +631,60 @@ export class NHAFreeholdLandComponent implements OnInit {
   saveOC() {
     if (
       this.txtFaAmount == undefined ||
-      this.txtFaAmount == "" ||
+      this.txtFaAmount == '' ||
       parseFloat(this.txtFaAmount) <= 0
     ) {
-      this.toastr.errorToastr("Please Enter Opening Cost", "Error !", {
+      this.toastr.errorToastr('Please Enter Opening Cost', 'Error !', {
         toastTimeout: 2500,
       });
       return false;
     } else if (this.txtFaDate == undefined || this.txtFaDate == null) {
-      this.toastr.errorToastr("Please Enter Date", "Error !", {
+      this.toastr.errorToastr('Please Enter Date', 'Error !', {
         toastTimeout: 2500,
       });
       return false;
     } else if (this.fixAssetID == 0) {
-      this.toastr.errorToastr("Please Enter Complete Information", "Error !", {
+      this.toastr.errorToastr('Please Enter Complete Information', 'Error !', {
         toastTimeout: 2500,
       });
       return false;
     } else {
       var reqDate = this.app.convertDate(this.txtFaDate);
 
-      var reqSpType = "Insert";
+      var reqSpType = 'Insert';
       if (this.FaDetailID > 0) {
-        reqSpType = "Update";
+        reqSpType = 'Update';
       }
 
       var SaveData = {
         FixedAssetID: this.fixAssetID,
-        TypeofEntry: "Cost",
+        TypeofEntry: 'Cost',
         OpeningCost: this.txtFaAmount,
         Year: reqDate,
         FAdetailID: this.FaDetailID,
-        Userid: this.cookie.get("userID"),
+        Userid: this.cookie.get('userID'),
         SpType: reqSpType,
       };
 
-      $("#additionOpeningModal").modal("toggle");
+      $('#additionOpeningModal').modal('toggle');
 
       this.loadingBar = true;
-      var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
+      var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
 
       this.http
-        .post(this.app.serverUrl + "sudoc", SaveData, { headers: reqHeader })
+        .post(this.app.serverUrl + 'sudoc', SaveData, { headers: reqHeader })
         .subscribe((data: any) => {
-          if (data.msg == "Success") {
+          if (data.msg == 'Success') {
             if (this.FaDetailID == 0) {
               this.toastr.successToastr(
-                "Record Saved Successfully!",
-                "Success!",
+                'Record Saved Successfully!',
+                'Success!',
                 { toastTimeout: 2500 }
               );
             } else {
               this.toastr.successToastr(
-                "Record Updated Successfully!",
-                "Success!",
+                'Record Updated Successfully!',
+                'Success!',
                 { toastTimeout: 2500 }
               );
             }
@@ -694,11 +694,11 @@ export class NHAFreeholdLandComponent implements OnInit {
             this.getFaDetail();
             return false;
           } else {
-            this.toastr.errorToastr(data.msg, "Error !", {
+            this.toastr.errorToastr(data.msg, 'Error !', {
               toastTimeout: 5000,
             });
             this.loadingBar = false;
-            $("#additionOpeningModal").modal("toggle");
+            $('#additionOpeningModal').modal('toggle');
             return false;
           }
         });
@@ -712,21 +712,21 @@ export class NHAFreeholdLandComponent implements OnInit {
   }
 
   saveAD() {
-    if (this.txtFaAmount == "") {
-      this.txtFaAmount = "0";
+    if (this.txtFaAmount == '') {
+      this.txtFaAmount = '0';
     }
 
-    if (this.txtFaCost == "") {
-      this.txtFaCost = "0";
+    if (this.txtFaCost == '') {
+      this.txtFaCost = '0';
     }
 
     if (this.txtFaAmount == undefined || parseFloat(this.txtFaAmount) < 0) {
-      this.toastr.errorToastr("Please Enter Addition In Cost", "Error !", {
+      this.toastr.errorToastr('Please Enter Addition In Cost', 'Error !', {
         toastTimeout: 2500,
       });
       return false;
     } else if (this.txtFaCost == undefined || parseFloat(this.txtFaCost) < 0) {
-      this.toastr.errorToastr("Please Enter Disposal In Cost", "Error !", {
+      this.toastr.errorToastr('Please Enter Disposal In Cost', 'Error !', {
         toastTimeout: 2500,
       });
       return false;
@@ -735,18 +735,18 @@ export class NHAFreeholdLandComponent implements OnInit {
       parseFloat(this.txtFaCost) == 0
     ) {
       this.toastr.errorToastr(
-        "Please Enter Addition In Cost / Disposal In Cost",
-        "Error !",
+        'Please Enter Addition In Cost / Disposal In Cost',
+        'Error !',
         { toastTimeout: 2500 }
       );
       return false;
     } else if (this.txtFaDate == undefined || this.txtFaDate == null) {
-      this.toastr.errorToastr("Please Enter Date", "Error !", {
+      this.toastr.errorToastr('Please Enter Date', 'Error !', {
         toastTimeout: 2500,
       });
       return false;
     } else if (this.fixAssetID == 0) {
-      this.toastr.errorToastr("Please Enter Complete Information", "Error !", {
+      this.toastr.errorToastr('Please Enter Complete Information', 'Error !', {
         toastTimeout: 2500,
       });
       return false;
@@ -754,50 +754,50 @@ export class NHAFreeholdLandComponent implements OnInit {
       var reqDate = this.app.convertDate(this.txtFaDate);
 
       var reqFaAmount = parseFloat(this.txtFaAmount);
-      if (this.txtFaAmount == "") {
+      if (this.txtFaAmount == '') {
         reqFaAmount = 0;
       }
 
       var reqFaCost = parseFloat(this.txtFaCost);
-      if (this.txtFaCost == "") {
+      if (this.txtFaCost == '') {
         reqFaCost = 0;
       }
 
-      var reqSpType = "Insert";
+      var reqSpType = 'Insert';
       if (this.FaDetailID > 0) {
-        reqSpType = "Update";
+        reqSpType = 'Update';
       }
 
       var SaveData = {
         FixedAssetID: this.fixAssetID,
-        TypeofEntry: "Cost",
+        TypeofEntry: 'Cost',
         AdditioninCost: reqFaAmount,
         DisposalinCost: reqFaCost,
         Year: reqDate,
         FAdetailID: this.FaDetailID,
-        Userid: this.cookie.get("userID"),
+        Userid: this.cookie.get('userID'),
         SpType: reqSpType,
       };
 
-      $("#additionsAdditionModal").modal("toggle");
+      $('#additionsAdditionModal').modal('toggle');
 
       this.loadingBar = true;
-      var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
+      var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
 
       this.http
-        .post(this.app.serverUrl + "sudoc", SaveData, { headers: reqHeader })
+        .post(this.app.serverUrl + 'sudoc', SaveData, { headers: reqHeader })
         .subscribe((data: any) => {
-          if (data.msg == "Success") {
+          if (data.msg == 'Success') {
             if (this.FaDetailID == 0) {
               this.toastr.successToastr(
-                "Record Saved Successfully!",
-                "Success!",
+                'Record Saved Successfully!',
+                'Success!',
                 { toastTimeout: 2500 }
               );
             } else {
               this.toastr.successToastr(
-                "Record Updated Successfully!",
-                "Success!",
+                'Record Updated Successfully!',
+                'Success!',
                 { toastTimeout: 2500 }
               );
             }
@@ -807,7 +807,7 @@ export class NHAFreeholdLandComponent implements OnInit {
             this.getFaDetail();
             return false;
           } else {
-            this.toastr.errorToastr(data.msg, "Error !", {
+            this.toastr.errorToastr(data.msg, 'Error !', {
               toastTimeout: 5000,
             });
             this.loadingBar = false;
@@ -825,21 +825,21 @@ export class NHAFreeholdLandComponent implements OnInit {
   }
 
   saveOV() {
-    if (this.txtFaAmount == "") {
-      this.txtFaAmount = "0";
+    if (this.txtFaAmount == '') {
+      this.txtFaAmount = '0';
     }
 
-    if (this.txtFaCost == "") {
-      this.txtFaCost = "0";
+    if (this.txtFaCost == '') {
+      this.txtFaCost = '0';
     }
 
     if (this.txtFaAmount == undefined || parseFloat(this.txtFaAmount) < 0) {
-      this.toastr.errorToastr("Please Enter Opening Cost", "Error !", {
+      this.toastr.errorToastr('Please Enter Opening Cost', 'Error !', {
         toastTimeout: 2500,
       });
       return false;
     } else if (this.txtFaCost == undefined || parseFloat(this.txtFaCost) < 0) {
-      this.toastr.errorToastr("Please Enter Surplus Cost", "Error !", {
+      this.toastr.errorToastr('Please Enter Surplus Cost', 'Error !', {
         toastTimeout: 2500,
       });
       return false;
@@ -848,18 +848,18 @@ export class NHAFreeholdLandComponent implements OnInit {
       parseFloat(this.txtFaCost) == 0
     ) {
       this.toastr.errorToastr(
-        "Please Enter Opening Cost / Surplus",
-        "Error !",
+        'Please Enter Opening Cost / Surplus',
+        'Error !',
         { toastTimeout: 2500 }
       );
       return false;
     } else if (this.txtFaDate == undefined || this.txtFaDate == null) {
-      this.toastr.errorToastr("Please Enter Date", "Error !", {
+      this.toastr.errorToastr('Please Enter Date', 'Error !', {
         toastTimeout: 2500,
       });
       return false;
     } else if (this.fixAssetID == 0) {
-      this.toastr.errorToastr("Please Enter Complete Information", "Error !", {
+      this.toastr.errorToastr('Please Enter Complete Information', 'Error !', {
         toastTimeout: 2500,
       });
       return false;
@@ -867,50 +867,50 @@ export class NHAFreeholdLandComponent implements OnInit {
       var reqDate = this.app.convertDate(this.txtFaDate);
 
       var reqFaAmount = parseFloat(this.txtFaAmount);
-      if (this.txtFaAmount == "") {
+      if (this.txtFaAmount == '') {
         reqFaAmount = 0;
       }
 
       var reqFaCost = parseFloat(this.txtFaCost);
-      if (this.txtFaCost == "") {
+      if (this.txtFaCost == '') {
         reqFaCost = 0;
       }
 
-      var reqSpType = "Insert";
+      var reqSpType = 'Insert';
       if (this.FaDetailID > 0) {
-        reqSpType = "Update";
+        reqSpType = 'Update';
       }
 
       var SaveData = {
         FixedAssetID: this.fixAssetID,
-        TypeofEntry: "Revalued",
+        TypeofEntry: 'Revalued',
         OpeningRevaluationAmount: reqFaAmount,
         OpeningRevaluationSurplus: reqFaCost,
         Year: reqDate,
         FAdetailID: this.FaDetailID,
-        Userid: this.cookie.get("userID"),
+        Userid: this.cookie.get('userID'),
         SpType: reqSpType,
       };
 
-      $("#revaluationsOpeningModal").modal("toggle");
+      $('#revaluationsOpeningModal').modal('toggle');
 
       this.loadingBar = true;
-      var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
+      var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
 
       this.http
-        .post(this.app.serverUrl + "sudoc", SaveData, { headers: reqHeader })
+        .post(this.app.serverUrl + 'sudoc', SaveData, { headers: reqHeader })
         .subscribe((data: any) => {
-          if (data.msg == "Success") {
+          if (data.msg == 'Success') {
             if (this.FaDetailID == 0) {
               this.toastr.successToastr(
-                "Record Saved Successfully!",
-                "Success!",
+                'Record Saved Successfully!',
+                'Success!',
                 { toastTimeout: 2500 }
               );
             } else {
               this.toastr.successToastr(
-                "Record Updated Successfully!",
-                "Success!",
+                'Record Updated Successfully!',
+                'Success!',
                 { toastTimeout: 2500 }
               );
             }
@@ -920,11 +920,11 @@ export class NHAFreeholdLandComponent implements OnInit {
             this.getFaDetail();
             return false;
           } else {
-            this.toastr.errorToastr(data.msg, "Error !", {
+            this.toastr.errorToastr(data.msg, 'Error !', {
               toastTimeout: 5000,
             });
             this.loadingBar = false;
-            $("#revaluationsOpeningModal").modal("toggle");
+            $('#revaluationsOpeningModal').modal('toggle');
             return false;
           }
         });
@@ -939,21 +939,21 @@ export class NHAFreeholdLandComponent implements OnInit {
   }
 
   saveRV() {
-    if (this.txtFaAmount == "") {
-      this.txtFaAmount = "0";
+    if (this.txtFaAmount == '') {
+      this.txtFaAmount = '0';
     }
 
-    if (this.txtFaCost == "") {
-      this.txtFaCost = "0";
+    if (this.txtFaCost == '') {
+      this.txtFaCost = '0';
     }
 
     if (this.txtFaAmount == undefined || parseFloat(this.txtFaAmount) < 0) {
-      this.toastr.errorToastr("Please Enter Revaluation Amount", "Error !", {
+      this.toastr.errorToastr('Please Enter Revaluation Amount', 'Error !', {
         toastTimeout: 2500,
       });
       return false;
     } else if (this.txtFaCost == undefined || parseFloat(this.txtFaCost) < 0) {
-      this.toastr.errorToastr("Please Enter Revaluation Surplus", "Error !", {
+      this.toastr.errorToastr('Please Enter Revaluation Surplus', 'Error !', {
         toastTimeout: 2500,
       });
       return false;
@@ -962,23 +962,23 @@ export class NHAFreeholdLandComponent implements OnInit {
       parseFloat(this.txtFaCost) == 0
     ) {
       this.toastr.errorToastr(
-        "Please Enter Revaluation Amount / Revaluation Surplus",
-        "Error !",
+        'Please Enter Revaluation Amount / Revaluation Surplus',
+        'Error !',
         { toastTimeout: 2500 }
       );
       return false;
     } else if (this.txtFaDate == undefined || this.txtFaDate == null) {
-      this.toastr.errorToastr("Please Enter Date", "Error !", {
+      this.toastr.errorToastr('Please Enter Date', 'Error !', {
         toastTimeout: 2500,
       });
       return false;
     } else if (this.filePicker == undefined) {
-      this.toastr.errorToastr("Please Select Document", "Error", {
+      this.toastr.errorToastr('Please Select Document', 'Error', {
         toastTimeout: 2500,
       });
       return false;
     } else if (this.fixAssetID == 0) {
-      this.toastr.errorToastr("Please Enter Complete Information", "Error !", {
+      this.toastr.errorToastr('Please Enter Complete Information', 'Error !', {
         toastTimeout: 2500,
       });
       return false;
@@ -989,11 +989,11 @@ export class NHAFreeholdLandComponent implements OnInit {
       }
 
       var fileNameExt = this.filePicker.substr(
-        this.filePicker.lastIndexOf(".") + 1
+        this.filePicker.lastIndexOf('.') + 1
       );
 
-      if (fileNameExt != "pdf") {
-        this.toastr.errorToastr("Please Select PDF File", "Error", {
+      if (fileNameExt != 'pdf') {
+        this.toastr.errorToastr('Please Select PDF File', 'Error', {
           toastTimeout: 2500,
         });
         return false;
@@ -1002,54 +1002,54 @@ export class NHAFreeholdLandComponent implements OnInit {
       var reqDate = this.app.convertDate(this.txtFaDate);
 
       var reqFaAmount = parseFloat(this.txtFaAmount);
-      if (this.txtFaAmount == "") {
+      if (this.txtFaAmount == '') {
         reqFaAmount = 0;
       }
 
       var reqFaCost = parseFloat(this.txtFaCost);
-      if (this.txtFaCost == "") {
+      if (this.txtFaCost == '') {
         reqFaCost = 0;
       }
 
-      var reqSpType = "Insert";
+      var reqSpType = 'Insert';
       if (this.FaDetailID > 0) {
-        reqSpType = "Update";
+        reqSpType = 'Update';
       }
 
-      var fPath = "C:/inetpub/wwwroot/FAR/FAR_Project/assets/files";
+      var fPath = 'C:/inetpub/wwwroot/FAR/FAR_Project/assets/files';
 
       var SaveData = {
         FixedAssetID: this.fixAssetID,
-        TypeofEntry: "Revalued",
+        TypeofEntry: 'Revalued',
         revaluationAmount: reqFaAmount,
         revalutionSurplus: reqFaCost,
         Year: reqDate,
         FAdetailID: this.FaDetailID,
         File: this.file,
         FilePath: fPath,
-        Userid: this.cookie.get("userID"),
+        Userid: this.cookie.get('userID'),
         SpType: reqSpType,
       };
 
-      $("#revaluationRevaluationsModal").modal("toggle");
+      $('#revaluationRevaluationsModal').modal('toggle');
 
       this.loadingBar = true;
-      var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
+      var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
 
       this.http
-        .post(this.app.serverUrl + "sudoc", SaveData, { headers: reqHeader })
+        .post(this.app.serverUrl + 'sudoc', SaveData, { headers: reqHeader })
         .subscribe((data: any) => {
-          if (data.msg == "Success") {
+          if (data.msg == 'Success') {
             if (this.FaDetailID == 0) {
               this.toastr.successToastr(
-                "Record Saved Successfully!",
-                "Success!",
+                'Record Saved Successfully!',
+                'Success!',
                 { toastTimeout: 2500 }
               );
             } else {
               this.toastr.successToastr(
-                "Record Updated Successfully!",
-                "Success!",
+                'Record Updated Successfully!',
+                'Success!',
                 { toastTimeout: 2500 }
               );
             }
@@ -1059,7 +1059,7 @@ export class NHAFreeholdLandComponent implements OnInit {
             this.getFaDetail();
             return false;
           } else {
-            this.toastr.errorToastr(data.msg, "Error !", {
+            this.toastr.errorToastr(data.msg, 'Error !', {
               toastTimeout: 5000,
             });
             this.loadingBar = false;
@@ -1079,44 +1079,44 @@ export class NHAFreeholdLandComponent implements OnInit {
   deleteFA(item, type) {
     setTimeout(() => {
       Swal.fire({
-        title: "Do you want to delete?",
-        text: "",
-        icon: "warning",
+        title: 'Do you want to delete?',
+        text: '',
+        icon: 'warning',
         showCancelButton: true,
-        confirmButtonText: "Yes",
-        cancelButtonText: "No",
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'No',
       }).then((result) => {
         if (result.value) {
           var SaveData = {
             FaDetailID: item.faDetailID,
-            Userid: this.cookie.get("userID"),
-            SpType: "Delete",
+            Userid: this.cookie.get('userID'),
+            SpType: 'Delete',
           };
 
           var reqHeader = new HttpHeaders({
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json',
           });
 
-          if (type == "o") {
-            $("#additionOpeningModal").modal("toggle");
-          } else if (type == "a") {
-            $("#additionsAdditionModal").modal("toggle");
-          } else if (type == "ov") {
-            $("#revaluationsOpeningModal").modal("toggle");
-          } else if (type == "v") {
-            $("#revaluationRevaluationsModal").modal("toggle");
+          if (type == 'o') {
+            $('#additionOpeningModal').modal('toggle');
+          } else if (type == 'a') {
+            $('#additionsAdditionModal').modal('toggle');
+          } else if (type == 'ov') {
+            $('#revaluationsOpeningModal').modal('toggle');
+          } else if (type == 'v') {
+            $('#revaluationRevaluationsModal').modal('toggle');
           }
 
           this.loadingBar = true;
           this.http
-            .post(this.app.serverUrl + "sudoc", SaveData, {
+            .post(this.app.serverUrl + 'sudoc', SaveData, {
               headers: reqHeader,
             })
             .subscribe((data: any) => {
-              if (data.msg == "Success") {
+              if (data.msg == 'Success') {
                 this.toastr.successToastr(
-                  "Record Deleted Successfully!",
-                  "Success!",
+                  'Record Deleted Successfully!',
+                  'Success!',
                   { toastTimeout: 2500 }
                 );
                 this.clearFaDetail();
@@ -1126,7 +1126,7 @@ export class NHAFreeholdLandComponent implements OnInit {
                 this.getTransactions();
                 return false;
               } else {
-                this.toastr.errorToastr(data.msg, "Error !", {
+                this.toastr.errorToastr(data.msg, 'Error !', {
                   toastTimeout: 5000,
                 });
                 this.loadingBar = false;
@@ -1140,25 +1140,25 @@ export class NHAFreeholdLandComponent implements OnInit {
 
   clearFaDetail() {
     this.FaDetailID = 0;
-    this.txtFaAmount = "";
-    this.txtFaCost = "";
+    this.txtFaAmount = '';
+    this.txtFaCost = '';
     this.txtFaDate = new Date();
 
-    this.filePicker = "";
+    this.filePicker = '';
     this.filePicker = undefined;
     this.file = undefined;
     this.selectedFile = null;
 
-    var fileName = "Choose XLSX file";
-    $(".custom-file-input")
-      .siblings(".custom-file-label")
-      .addClass("selected")
+    var fileName = 'Choose XLSX file';
+    $('.custom-file-input')
+      .siblings('.custom-file-label')
+      .addClass('selected')
       .html(fileName);
   }
 
   filterProject(reqProjectID, filterBy) {
-    if (filterBy == "") {
-      this.ddlProject = "";
+    if (filterBy == '') {
+      this.ddlProject = '';
       var tempList = this.projectsList.filter(
         (x) => x.projectID == reqProjectID && x.accountCode > 0
       );
@@ -1171,7 +1171,7 @@ export class NHAFreeholdLandComponent implements OnInit {
   }
 
   filterFaDetail(reqFixAssetID, filterBy) {
-    if (filterBy == "oc") {
+    if (filterBy == 'oc') {
       this.oFaDetailList = [];
       var tempList = this.faDetailList.filter(
         (x) => x.fixedAssetID == reqFixAssetID && x.openingCost != 0
@@ -1182,7 +1182,7 @@ export class NHAFreeholdLandComponent implements OnInit {
       }
     }
 
-    if (filterBy == "a") {
+    if (filterBy == 'a') {
       this.aFaDetailList = [];
       var tempList = this.faDetailList.filter(
         (x) =>
@@ -1195,7 +1195,7 @@ export class NHAFreeholdLandComponent implements OnInit {
       }
     }
 
-    if (filterBy == "ov") {
+    if (filterBy == 'ov') {
       this.ovFaDetailList = [];
       var tempList = this.faDetailList.filter(
         (x) =>
@@ -1207,7 +1207,7 @@ export class NHAFreeholdLandComponent implements OnInit {
       }
     }
 
-    if (filterBy == "v") {
+    if (filterBy == 'v') {
       this.vFaDetailList = [];
       var tempList = this.faDetailList.filter(
         (x) => x.fixedAssetID == reqFixAssetID && x.revaluationAmount != 0
@@ -1218,7 +1218,7 @@ export class NHAFreeholdLandComponent implements OnInit {
       }
     }
 
-    if (filterBy == "t") {
+    if (filterBy == 't') {
       this.lblOpeningCost = 0;
       this.lblAddition = 0;
       this.lblOpeningReval = 0;
@@ -1242,7 +1242,7 @@ export class NHAFreeholdLandComponent implements OnInit {
       }
     }
 
-    if (filterBy == "td") {
+    if (filterBy == 'td') {
       this.tempTransactionList = [];
       var tempList = this.transactionList.filter(
         (x) => x.fixedAssetID == reqFixAssetID

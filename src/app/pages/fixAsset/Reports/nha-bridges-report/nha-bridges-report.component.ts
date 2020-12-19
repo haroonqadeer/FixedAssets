@@ -28,25 +28,56 @@ export class Group {
 }
 
 export class AssetItems {
-  projectShortName: string = "";
-  projectName: string = "";
-  roadShortName: string = "";
-  roadName: string = "";
-  roadLength: string = "";
-  officeDescription: string = "";
-  landMeasureType: string = "";
-  areaAcquiredKanal: string = "";
-  areaAcquiredMarla: string = "";
-  areaTransferedKanal: string = "";
-  openingCost: string = "";
-  totalCost: string = "";
-  openingRevaluationSurplus: string = "";
-  totalRevaluationAmount: string = "";
-  revaluationSurplus: string = "";
-  dateOfNationalization: string = "";
-  constructionFrom: string = "";
-  constructionTo: string = "";
-  costOfLand: string = "";
+  officeDescription: string;
+  roadShortName: string;
+  projectShortName: string;
+  landMeasureType: string;
+  areaAcquiredKanal: number;
+  areaAcquiredMarla: number;
+  totalCost: number;
+  wDV: number;
+  totalRevaluationAmount: number;
+  revaluationSurplus: number;
+  openingRevaluationAmount: number;
+  openingRevaluationSurplus: number;
+  additionINRevaluationAmount: number;
+  additionINRevaluationSurplus: number;
+
+  accountsCatID: number;
+  officeSecID: number;
+  projectID: number;
+  roadId: number;
+  buildingID: number;
+  dateofNationalization: string;
+  constructionFrom: string;
+  constructionTo: string;
+  constructionCost: number;
+  landMeasureTypeID: number;
+  areaTransferedKanal: number;
+  areaTransferedMarla: number;
+  costOfLand: number;
+  remarks: string;
+  purposeofPurchase: string;
+  presentUse: string;
+  packageName: string;
+  bridgeName: string;
+  bridgeLength: number;
+  fixedAssetID: number;
+  userId: number;
+  spType: string;
+  accountsCatagory: string;
+  roadLength: number;
+  projectName: string;
+  openingcost: number;
+  proporationforCosttoWDV: number;
+  openingAccDepreciation: number;
+  accDepreciation: number;
+  oWDV: number;
+  oProporationforCosttoWDV: number;
+  historicalCost: number;
+  revaluation: number;
+  additioninRevaluation: number;
+  roadName: number;
 }
 @Component({
   selector: "app-nha-bridges-report",
@@ -87,67 +118,91 @@ export class NhaBridgesReportComponent implements OnInit {
   ) {
     this.columns = [
       {
-        field: "projectShortName",
-        title: "Project Short Name",
+        field: 'officeDescription',
+        title: 'account Section',
+        display: true,
+      },
+      {
+        field: 'roadShortName',
+        title: 'Road',
+        display: true,
+      },
+      {
+        field: 'projectShortName',
+        title: 'Project',
+        display: true,
+      },
+      {
+        field: 'landMeasureType',
+        title: 'Measure Type',
+        display: true,
+      },
+      {
+        field: 'areaAcquiredKanal',
+        title: 'Kanal',
+        display: true,
+      },
+      {
+        field: 'areaAcquiredMarla',
+        title: 'Marla',
+        display: true,
+      },
+      {
+        field: 'totalCost',
+        title: 'Total Cost',
+        display: true,
+      },
+      { field: 'wDV', title: 'Written Down Value', display: true },
+      { field: 'totalRevaluationAmount', title: 'Total Revaluation', display: true },
+      { field: 'revaluationSurplus', title: 'Revaluation Surplus', display: true },
+
+      { field: 'openingRevaluationAmount', title: 'OPening Revaluation', display: false },
+      {
+        field: 'openingRevaluationSurplus',
+        title: 'opening Revaluation Surplus',
         display: false,
       },
       {
-        field: "projectName",
-        title: "Project Name",
-        display: true,
-      },
-      {
-        field: "roadShortName",
-        title: "Road Short Name",
+        field: 'additionINRevaluationAmount',
+        title: 'Revaluation Addition',
         display: false,
       },
       {
-        field: "roadName",
-        title: "Road Name",
-        display: true,
+        field: 'additionINRevaluationSurplus',
+        title: 'Revaluation Surplus Addition',
+        display: false,
       },
       {
-        field: "officeDescription",
-        title: "Office",
-        display: true,
+        field: 'dateofNationalization',
+        title: 'Nationalization Date',
+        display: false,
       },
-      {
-        field: "landMeasureType",
-        title: "Measurement Unit",
-        display: true,
-      },
-      {
-        field: "areaAcquiredKanal",
-        title: "Kanal",
-        display: true,
-      },
-      { field: "areaAcquiredMarla", title: "Marla", display: true },
-      { field: "areaTransferedKanal", title: "Area Transfered", display: true },
-      { field: "openingCost", title: "Opening Cost", display: true },
-      { field: "totalCost", title: "Total Cost", display: true },
-      {
-        field: "openingRevaluationSurplus",
-        title: "Opening Revaluation Surplus",
-        display: true,
-      },
-      {
-        field: "totalRevaluationAmount",
-        title: "Total Revaluation",
-        display: true,
-      },
-      {
-        field: "revaluationSurplus",
-        title: "Revaluation Surplus",
-        display: true,
-      },
-      {
-        field: "dateOfNationalization",
-        title: "Nationalization Date",
-        display: true,
-      },
-      { field: "constructionFrom", title: "Construction From", display: true },
-      { field: "constructionTo", title: "Construction To", display: true },
-      { field: "costOfLand", title: "Cost", display: true },
+      { field: 'constructionFrom', title: 'Construction From', display: false },
+      { field: 'constructionTo', title: 'Construction To', display: false },
+      { field: 'constructionCost', title: 'Construction Cost', display: false },
+      { field: 'areaTransferedKanal', title: 'Area Transfered Kanal', display: false},
+      { field: 'areaTransferedMarla', title: 'Area Transfered Marla', display: false},
+      { field: 'costOfLand', title: 'Cost of Land', display: false},
+      { field: 'remarks', title: 'Remarks', display: false},
+      { field: 'purposeofPurchase', title: 'Purchase Purpose', display: false},
+      { field: 'presentUse', title: 'Present Use', display: false},
+      { field: 'packageName', title: 'Package Name', display: false},
+      { field: 'bridgeName', title: 'Bridge Name', display: false},
+      { field: 'bridgeLength', title: 'Bridge Length', display: false},
+      { field: 'spType', title: 'SP Type', display: false},
+      { field: 'accountsCatagory', title: 'Accounts Catagory', display: false},
+      { field: 'roadLength', title: 'Road Length', display: false},
+      { field: 'projectName', title: 'Project Name', display: false},
+      { field: 'openingcost', title: 'Opening Cost', display: false},
+      { field: 'roporationforCosttoWDV', title: 'WDV Proporttion', display: false},
+      { field: 'openingAccDepreciation', title: 'Opening Depreciation', display: false},
+      { field: 'accDepreciation', title: 'Depreciation', display: false},
+      { field: 'oWDV', title: 'Opening Written Down Value', display: false},
+      { field: 'oProporationforCostoWDV', title: 'Opening Proportion WDV', display: false},
+      { field: 'historicalCost', title: 'Historical Cost', display: false},
+      { field: 'revaluation', title: 'Revaluation', display: false},
+      { field: 'additioninRevaluation', title: 'Revaluation Addition', display: false},
+      { field: 'roadName', title: 'Road Full Name', display: false},
     ];
     // this.availColumns = this.columns.slice();
     this.displayedColumns = this.columns.map((column) => column.field);
@@ -155,75 +210,53 @@ export class NhaBridgesReportComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this._alldata = [
-      {
-        projectShortName: "THAKOT",
-        projectName: "Thakot Bridge",
-        roadShortName: "N-35",
-        roadName: "Hassanabdal-Thakot-Khunjrab",
-        roadLength: "806",
-        officeDescription: "Accounts Section",
-        landMeasureType: "Kanal-Marla",
-        areaAcquiredKanal: "1",
-        areaAcquiredMarla: "1",
-        areaTransferedKanal: "0",
-        openingCost: "0",
-        totalCost: "798822788",
-        openingRevaluationSurplus: "0",
-        totalRevaluationAmount: "847512248",
-        revaluationSurplus: "50164527",
-        dateOfNationalization: "02-03-20",
-        constructionFrom: "08-01-20",
-        constructionTo: "08-03-20",
-        costOfLand: "100000",
-      },
-      {
-        projectShortName: "Dhak-Bridge",
-        projectName: "Dhak Pattan Bridge",
-        roadShortName: "N-115",
-        roadName: "Jalalpur Pirwala - Uch Sharif",
-        roadLength: "42",
-        officeDescription: "West Zone Accounts Section",
-        landMeasureType: "Kanal-Marla",
-        areaAcquiredKanal: "350",
-        areaAcquiredMarla: "0",
-        areaTransferedKanal: "0",
-        openingCost: "50000",
-        totalCost: "0",
-        openingRevaluationSurplus: "0",
-        totalRevaluationAmount: "0",
-        revaluationSurplus: "0",
-        dateOfNationalization: "08-01-20",
-        constructionFrom: "08-02-20",
-        constructionTo: "08-03-20",
-        costOfLand: "250",
-      },
-      {
-        projectShortName: "APBridge",
-        projectName: "Bridge on River Jhelum at Azad Pattan (AJK) Project",
-        roadShortName: "Brdgs",
-        roadName: "Bridges",
-        roadLength: "NULL",
-        officeDescription: "Accounts Section GOP",
-        landMeasureType: "Kanal-Marla",
-        areaAcquiredKanal: "1",
-        areaAcquiredMarla: "0",
-        areaTransferedKanal: "0",
-        openingCost: "152434811",
-        totalCost: "136335656",
-        openingRevaluationSurplus: "0",
-        totalRevaluationAmount: "0",
-        revaluationSurplus: "105363514",
-        dateOfNationalization: "08-06-07",
-        constructionFrom: "08-06-07",
-        constructionTo: "08-06-07",
-        costOfLand: "0",
-      },
-    ];
-    this.dataSource.data = this.addGroups(this._alldata, this.groupByColumns);
-    this.dataSource.filterPredicate = this.customFilterPredicate.bind(this);
-    this.dataSource.filter = performance.now().toString();
-    this.cdr.detectChanges();
+    this.getReport();
+  }
+
+  getReport() {
+
+    // clear filters
+    this.rptTitle2nd = '';
+
+    // header setting
+    // tslint:disable-next-line: triple-equals
+    if (this.tempRptTitle != '') {
+      this.rptHeader = this.tempRptTitle;
+    }
+
+    // http call
+    // tslint:disable-next-line: prefer-const
+    let reqHeader = new HttpHeaders({
+      'Content-Type': 'application/json',
+      // Authorization: "Bearer " + Token,
+    });
+    this.http
+      .get(
+        this.app.serverUrl +
+          'getLandData',
+        { headers: reqHeader }
+      )
+      .subscribe((data: any) => {
+        // this.assetRegisterList = data;
+        // this.filterAssetRegisterList = data;
+
+        data.forEach((item, index) => {
+          item.id = index + 1;
+        });
+        // this._alldata = data;
+        this._alldata = data;
+        this.filterAssetRegisterList = this._alldata;
+        // this.dataSource.sort = this.sort;
+        this.dataSource.data = this.addGroups(
+          this.filterAssetRegisterList,
+          this.groupByColumns
+        );
+        this.dataSource.filterPredicate = this.customFilterPredicate.bind(this);
+        this.dataSource.filter = performance.now().toString();
+        this.cdr.detectChanges();
+        // $('#rptOptionsModal').modal('hide');
+        // this.dataSource = this.filterAssetRegisterList;
+      });
   }
 
   getDisplayedColumns(): string[] {
@@ -369,55 +402,313 @@ export class NhaBridgesReportComponent implements OnInit {
     return item.level;
   }
 
-  // onSortData(sort: MatSort) {
-  //   let data = this.filterAssetRegisterList;
-  //   const index = data.findIndex((x) => x["level"] == 1);
-  //   if (sort.active && sort.direction !== "") {
-  //     if (index > -1) {
-  //       data.splice(index, 1);
-  //     }
+ onSortData(sort: MatSort) {
+    let data = this.filterAssetRegisterList;
+    // tslint:disable-next-line: triple-equals
+    const index = data.findIndex((x) => x.level == 1);
+    if (sort.active && sort.direction !== '') {
+      if (index > -1) {
+        data.splice(index, 1);
+      }
 
-  //     data = data.sort((a: AssetItems, b: AssetItems) => {
-  //       const isAsc = sort.direction === "asc";
-  //       switch (sort.active) {
-  //         case "subLocationDescription":
-  //           return this.compare(
-  //             a.subLocationDescription,
-  //             b.subLocationDescription,
-  //             isAsc
-  //           );
-  //         case "officeTypeDescription":
-  //           return this.compare(
-  //             a.officeTypeDescription,
-  //             b.officeTypeDescription,
-  //             isAsc
-  //           );
-  //         case "officeDescription":
-  //           return this.compare(
-  //             a.officeDescription,
-  //             b.officeDescription,
-  //             isAsc
-  //           );
-  //         case "accountsCatagory":
-  //           return this.compare(a.accountsCatagory, b.accountsCatagory, isAsc);
-  //         case "assetCatDescription":
-  //           return this.compare(
-  //             a.assetCatDescription,
-  //             b.assetCatDescription,
-  //             isAsc
-  //           );
-  //         default:
-  //           return 0;
-  //       }
-  //     });
-  //   }
-  //   this.dataSource.data = [];
-  //   debugger;
-  //   this.dataSource.data = this.addGroups(data, this.groupByColumns);
-  //   this.dataSource.filterPredicate = this.customFilterPredicate.bind(this);
-  //   this.dataSource.filter = performance.now().toString();
-  //   this.cdr.detectChanges();
-  // }
+      data = data.sort((a: AssetItems, b: AssetItems) => {
+        const isAsc = sort.direction === 'asc';
+        switch (sort.active) {
+          case 'officeDescription':
+            return this.compare(
+              a.officeDescription,
+              b.officeDescription,
+              isAsc
+            );
+          case 'roadShortName':
+            return this.compare(
+              a.roadShortName,
+              b.roadShortName,
+              isAsc
+            );
+          case 'projectShortName':
+            return this.compare(
+              a.projectShortName,
+              b.projectShortName,
+              isAsc
+            );
+          case 'landMeasureType':
+            return this.compare(a.landMeasureType, b.landMeasureType, isAsc);
+          case 'areaAcquiredKanal':
+            return this.compare(
+              a.areaAcquiredKanal,
+              b.areaAcquiredKanal,
+              isAsc
+            );
+            case 'areaAcquiredMarla':
+            return this.compare(
+              a.areaAcquiredMarla,
+              b.areaTransferedMarla,
+              isAsc
+            );
+            case 'totalCost':
+            return this.compare(
+              a.totalCost,
+              b.totalCost,
+              isAsc
+            );
+            case 'wDV':
+            return this.compare(
+              a.wDV,
+              b.wDV,
+              isAsc
+            );
+            case 'totalRevaluationAmount':
+            return this.compare(
+              a.totalRevaluationAmount,
+              b.totalRevaluationAmount,
+              isAsc
+            );
+            case 'revaluationSurplus':
+            return this.compare(
+              a.revaluationSurplus,
+              b.revaluationSurplus,
+              isAsc
+            );
+            case 'openingRevaluationAmount':
+            return this.compare(
+              a.openingRevaluationAmount,
+              b.openingRevaluationAmount,
+              isAsc
+            );
+            case 'openingRevaluationSurplus':
+            return this.compare(
+              a.openingRevaluationSurplus,
+              b.openingRevaluationSurplus,
+              isAsc
+            );
+            case 'additionINRevaluationAmount':
+            return this.compare(
+              a.additionINRevaluationAmount,
+              b.additionINRevaluationAmount,
+              isAsc
+            );
+            case 'additionINRevaluationSurplus':
+            return this.compare(
+              a.additionINRevaluationSurplus,
+              b.additionINRevaluationSurplus,
+              isAsc
+            );
+            case 'accountsCatID':
+            return this.compare(
+              a.accountsCatID,
+              b.accountsCatID,
+              isAsc
+            );
+            case 'officeSecID':
+            return this.compare(
+              a.officeSecID,
+              b.officeSecID,
+              isAsc
+            );
+            case 'projectID':
+            return this.compare(
+              a.projectID,
+              b.projectID,
+              isAsc
+            );
+            case 'roadId':
+            return this.compare(
+              a.roadId,
+              b.roadId,
+              isAsc
+            );
+            case 'buildingID':
+            return this.compare(
+              a.buildingID,
+              b.buildingID,
+              isAsc
+            );
+            case 'dateofNationalization':
+            return this.compare(
+              a.dateofNationalization,
+              b.dateofNationalization,
+              isAsc
+            );
+            case 'constructionFrom':
+            return this.compare(
+              a.constructionFrom,
+              b.constructionTo,
+              isAsc
+            );
+            case 'constructionCost':
+            return this.compare(
+              a.constructionCost,
+              b.constructionCost,
+              isAsc
+            );
+            case 'landMeasureTypeID':
+            return this.compare(
+              a.landMeasureTypeID,
+              b.landMeasureTypeID,
+              isAsc
+            );
+            case 'areaTransferedKanal':
+            return this.compare(
+              a.areaTransferedKanal,
+              b.areaTransferedKanal,
+              isAsc
+            );
+            case 'areaTransferedMarla':
+            return this.compare(
+              a.areaTransferedMarla,
+              b.areaTransferedKanal,
+              isAsc
+            );
+            case 'costOfLand':
+            return this.compare(
+              a.costOfLand,
+              b.costOfLand,
+              isAsc
+            );
+            case 'remarks':
+            return this.compare(
+              a.remarks,
+              b.remarks,
+              isAsc
+            );
+            case 'purposeofPurchase':
+            return this.compare(
+              a.purposeofPurchase,
+              b.purposeofPurchase,
+              isAsc
+            );
+            case 'presentUse':
+            return this.compare(
+              a.presentUse,
+              b.presentUse,
+              isAsc
+            );
+            case 'packageName':
+            return this.compare(
+              a.packageName,
+              b.packageName,
+              isAsc
+            );
+            case 'bridgeName':
+            return this.compare(
+              a.bridgeName,
+              b.bridgeName,
+              isAsc
+            );
+            case 'bridgeLength':
+            return this.compare(
+              a.additionINRevaluationAmount,
+              b.additionINRevaluationAmount,
+              isAsc
+            );
+            case 'fixedAssetID':
+            return this.compare(
+              a.fixedAssetID,
+              b.fixedAssetID,
+              isAsc
+            );
+            case 'userId':
+            return this.compare(
+              a.userId,
+              b.userId,
+              isAsc
+            );
+            case 'spType':
+            return this.compare(
+              a.spType,
+              b.spType,
+              isAsc
+            );
+            case 'accountsCatagory':
+            return this.compare(
+              a.accountsCatagory,
+              b.accountsCatagory,
+              isAsc
+            );
+            case 'roadLength':
+            return this.compare(
+              a.roadLength,
+              b.roadLength,
+              isAsc
+            );
+            case 'projectName':
+            return this.compare(
+              a.projectName,
+              b.projectName,
+              isAsc
+            );
+            case 'openingCost':
+            return this.compare(
+              a.openingcost,
+              b.openingcost,
+              isAsc
+            );
+            case 'proporationforCosttoWDV':
+            return this.compare(
+              a.proporationforCosttoWDV,
+              b.proporationforCosttoWDV,
+              isAsc
+            );
+            case 'openingAccDepreciation':
+            return this.compare(
+              a.openingAccDepreciation,
+              b.openingAccDepreciation,
+              isAsc
+            );
+            case 'accDepreciation':
+            return this.compare(
+              a.accDepreciation,
+              b.accDepreciation,
+              isAsc
+            );
+            case 'oWDV':
+            return this.compare(
+              a.oWDV,
+              b.oWDV,
+              isAsc
+            );
+            case 'oProporationforCosttoWDV':
+            return this.compare(
+              a.oProporationforCosttoWDV,
+              b.oProporationforCosttoWDV,
+              isAsc
+            );
+            case 'historicalCost':
+            return this.compare(
+              a.historicalCost,
+              b.historicalCost,
+              isAsc
+            );
+            case 'revaluation':
+            return this.compare(
+              a.revaluation,
+              b.revaluation,
+              isAsc
+            );
+            case 'additioninRevaluation':
+            return this.compare(
+              a.additioninRevaluation,
+              b.additioninRevaluation,
+              isAsc
+            );
+            case 'roadName':
+            return this.compare(
+              a.roadName,
+              b.roadName,
+              isAsc
+            );
+          default:
+            return 0;
+        }
+      });
+    }
+    this.dataSource.data = [];
+    this.dataSource.data = this.addGroups(data, this.groupByColumns);
+    this.dataSource.filterPredicate = this.customFilterPredicate.bind(this);
+    this.dataSource.filter = performance.now().toString();
+    this.cdr.detectChanges();
+  }
 
   private compare(a, b, isAsc) {
     return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
