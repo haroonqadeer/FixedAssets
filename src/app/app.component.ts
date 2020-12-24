@@ -802,6 +802,7 @@ export class AppComponent {
             return false;
           }
         });
+        this.loadingBar = false;
     }
   }
 }
