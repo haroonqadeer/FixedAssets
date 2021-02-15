@@ -77,6 +77,16 @@ import { NhaBridgesReportComponent } from './pages/fixAsset/Reports/nha-bridges-
 import { NhaBuildingReportComponent } from './pages/fixAsset/Reports/nha-building-report/nha-building-report.component';
 import { AssetCategorySumReportComponent } from './pages/fixasset/reports/asset-category-sum-report/asset-category-sum-report.component';
 import { AssetCategoryDetailReportComponent } from './pages/fixAsset/Reports/asset-category-detail-report/asset-category-detail-report.component';
+import { FurnitureRegisterComponent } from './pages/admin-reports/furniture-register/furniture-register.component';
+import { OfficeEquipmentRegisterComponent } from './pages/admin-reports/office-equipment-register/office-equipment-register.component';
+import { AdminVehicleRegisterComponent } from './pages/admin-reports/admin-vehicle-register/admin-vehicle-register.component';
+import { AdminMachineryRegisterComponent } from './pages/admin-reports/admin-machinery-register/admin-machinery-register.component';
+import { AdminPlotsRegisterComponent } from './pages/admin-reports/admin-plots-register/admin-plots-register.component';
+import { AdminLandRegisterComponent } from './pages/admin-reports/admin-land-register/admin-land-register.component';
+import { AdminWolRegisterComponent } from './pages/admin-reports/admin-wol-register/admin-wol-register.component';
+import { AdminOwnBuildingRegisterComponent } from './pages/admin-reports/admin-own-building-register/admin-own-building-register.component';
+import { AdminRoadRegisterComponent } from './pages/admin-reports/admin-road-register/admin-road-register.component';
+import { AdminDisposalRegisterComponent } from './pages/admin-reports/admin-disposal-register/admin-disposal-register.component';
 
 
 @NgModule({
@@ -117,6 +127,16 @@ import { AssetCategoryDetailReportComponent } from './pages/fixAsset/Reports/ass
     NhaBuildingReportComponent,
     AssetCategorySumReportComponent,
     AssetCategoryDetailReportComponent,
+    FurnitureRegisterComponent,
+    OfficeEquipmentRegisterComponent,
+    AdminVehicleRegisterComponent,
+    AdminMachineryRegisterComponent,
+    AdminPlotsRegisterComponent,
+    AdminLandRegisterComponent,
+    AdminWolRegisterComponent,
+    AdminOwnBuildingRegisterComponent,
+    AdminRoadRegisterComponent,
+    AdminDisposalRegisterComponent,
 
   ],
   imports: [
