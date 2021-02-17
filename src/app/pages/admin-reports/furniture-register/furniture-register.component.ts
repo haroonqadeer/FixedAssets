@@ -29,6 +29,7 @@ export class Group {
 }
 
 export class AssetItems {
+  assetCatDescription: string;
   fullDescription: string;
   dateOfPurchase: string;
   costOfPurchase: string;
@@ -47,13 +48,19 @@ export class AssetItems {
 export class FurnitureRegisterComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
+  //declarations
+  cmbRegion = "";
+  searchRegion = "";
+
   tempRptTitle = "";
   rptTitle = "Furniture";
   rptHeader = "";
   rptTitle2nd = "";
+  regionTitle = "";
 
   assetRegisterList = [];
   filterAssetRegisterList = [];
+  regionList = [];
 
   // group by table setting
   title = "Grid Grouping";
@@ -74,6 +81,11 @@ export class FurnitureRegisterComponent implements OnInit {
     private toastr: ToastrManager
   ) {
     this.columns = [
+      {
+        field: "assetCatDescription",
+        title: "Asset Title",
+        display: false,
+      },
       {
         field: "fullDescription",
         title: "Full Description",
@@ -117,11 +129,13 @@ export class FurnitureRegisterComponent implements OnInit {
     ];
     // this.availColumns = this.columns.slice();
     this.displayedColumns = this.columns.map((column) => column.field);
-    this.groupByColumns = ["headOfPayment"];
+    this.groupByColumns = ["assetCatDescription"];
   }
 
   ngOnInit(): void {
     // this.getReport();
+    this.getRegions();
+    $("#rptOptionsModal").modal("show");
   }
   getReport() {
     // clear filters
@@ -132,7 +146,7 @@ export class FurnitureRegisterComponent implements OnInit {
     if (this.tempRptTitle != "") {
       this.rptHeader = this.tempRptTitle;
     }
-
+    // get
     // http call
     // tslint:disable-next-line: prefer-const
     let reqHeader = new HttpHeaders({
@@ -140,7 +154,15 @@ export class FurnitureRegisterComponent implements OnInit {
       // Authorization: "Bearer " + Token,
     });
     this.http
-      .get(this.app.serverUrl + "getLandData", { headers: reqHeader })
+      .get(
+        this.app.serverUrl +
+          "getForm47WithoutVehicle?mainLocId=" +
+          this.cmbRegion +
+          "&accountCatID=4",
+        {
+          headers: reqHeader,
+        }
+      )
       .subscribe((data: any) => {
         // this.assetRegisterList = data;
         // this.filterAssetRegisterList = data;
@@ -162,6 +184,10 @@ export class FurnitureRegisterComponent implements OnInit {
         // $('#rptOptionsModal').modal('hide');
         // this.dataSource = this.filterAssetRegisterList;
       });
+  }
+
+  getRegionTitle(item) {
+    this.regionTitle = item.mainLocationDescription;
   }
 
   getDisplayedColumns(): string[] {
@@ -320,6 +346,12 @@ export class FurnitureRegisterComponent implements OnInit {
       data = data.sort((a: AssetItems, b: AssetItems) => {
         const isAsc = sort.direction === "asc";
         switch (sort.active) {
+          case "assetCatDescription":
+            return this.compare(
+              a.assetCatDescription,
+              b.assetCatDescription,
+              isAsc
+            );
           case "fullDescription":
             return this.compare(a.fullDescription, b.fullDescription, isAsc);
           case "dateOfPurchase":
@@ -336,6 +368,8 @@ export class FurnitureRegisterComponent implements OnInit {
             );
           case "codeNo":
             return this.compare(a.codeNo, b.codeNo, isAsc);
+          case "remarks":
+            return this.compare(a.remarks, b.remarks, isAsc);
           default:
             return 0;
         }
@@ -350,5 +384,27 @@ export class FurnitureRegisterComponent implements OnInit {
 
   private compare(a, b, isAsc) {
     return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+  }
+
+  clear() {
+    this.cmbRegion = "";
+  }
+
+  getRegions() {
+    // debugger;
+    var reqHeader = new HttpHeaders({
+      "Content-Type": "application/json",
+      // Authorization: "Bearer " + Token,
+    });
+    this.http
+      // .get(this.app.serverUrl + "getsubloc", { headers: reqHeader })
+      .get(
+        this.app.serverUrl + "getRegions?userId=" + this.cookie.get("userID"),
+        { headers: reqHeader }
+      )
+      .subscribe((data: any) => {
+        // this.locList = data.filter((x) => x.isActivated == 1);
+        this.regionList = data;
+      });
   }
 }

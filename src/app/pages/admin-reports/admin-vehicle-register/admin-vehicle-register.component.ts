@@ -29,11 +29,12 @@ export class Group {
 }
 
 export class AssetItems {
+  assetCatDescription: string;
   makeModel: string;
-  Number: string;
+  number: string;
   costOfPurchase: string;
   headOfPayment: string;
-  placeOfAllocation: string;
+  allocation: string;
   codeNo: string;
   remarks: string;
 }
@@ -46,13 +47,19 @@ export class AssetItems {
 export class AdminVehicleRegisterComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
+  //declarations
+  cmbRegion = "";
+  searchRegion = "";
+
   tempRptTitle = "";
   rptTitle = "Vehicle";
   rptHeader = "";
   rptTitle2nd = "";
+  regionTitle = "";
 
   assetRegisterList = [];
   filterAssetRegisterList = [];
+  regionList = [];
 
   // group by table setting
   title = "Grid Grouping";
@@ -74,12 +81,17 @@ export class AdminVehicleRegisterComponent implements OnInit {
   ) {
     this.columns = [
       {
+        field: "assetCatDescription",
+        title: "Asset Description",
+        display: false,
+      },
+      {
         field: "makeModel",
         title: "Make & Model",
         display: true,
       },
       {
-        field: "Number",
+        field: "number",
         title: "number",
         display: true,
       },
@@ -94,7 +106,7 @@ export class AdminVehicleRegisterComponent implements OnInit {
         display: true,
       },
       {
-        field: "placeOfAllocation",
+        field: "allocation",
         title: "Place of Allocation",
         display: true,
       },
@@ -111,11 +123,13 @@ export class AdminVehicleRegisterComponent implements OnInit {
     ];
     // this.availColumns = this.columns.slice();
     this.displayedColumns = this.columns.map((column) => column.field);
-    this.groupByColumns = ["headOfPayment"];
+    this.groupByColumns = [""];
   }
 
   ngOnInit(): void {
     // this.getReport();
+    this.getRegions();
+    $("#rptOptionsModal").modal("show");
   }
   getReport() {
     // clear filters
@@ -126,7 +140,7 @@ export class AdminVehicleRegisterComponent implements OnInit {
     if (this.tempRptTitle != "") {
       this.rptHeader = this.tempRptTitle;
     }
-
+    // get
     // http call
     // tslint:disable-next-line: prefer-const
     let reqHeader = new HttpHeaders({
@@ -134,7 +148,12 @@ export class AdminVehicleRegisterComponent implements OnInit {
       // Authorization: "Bearer " + Token,
     });
     this.http
-      .get(this.app.serverUrl + "getLandData", { headers: reqHeader })
+      .get(
+        this.app.serverUrl + "getForm47Vehicle?mainLocId=" + this.cmbRegion,
+        {
+          headers: reqHeader,
+        }
+      )
       .subscribe((data: any) => {
         // this.assetRegisterList = data;
         // this.filterAssetRegisterList = data;
@@ -156,6 +175,10 @@ export class AdminVehicleRegisterComponent implements OnInit {
         // $('#rptOptionsModal').modal('hide');
         // this.dataSource = this.filterAssetRegisterList;
       });
+  }
+
+  getRegionTitle(item) {
+    this.regionTitle = item.mainLocationDescription;
   }
 
   getDisplayedColumns(): string[] {
@@ -317,17 +340,13 @@ export class AdminVehicleRegisterComponent implements OnInit {
           case "makeModel":
             return this.compare(a.makeModel, b.makeModel, isAsc);
           case "Number":
-            return this.compare(a.Number, b.Number, isAsc);
+            return this.compare(a.number, b.number, isAsc);
           case "costOfPurchase":
             return this.compare(a.costOfPurchase, b.costOfPurchase, isAsc);
           case "headOfPayment":
             return this.compare(a.headOfPayment, b.headOfPayment, isAsc);
           case "placeOfAllocation":
-            return this.compare(
-              a.placeOfAllocation,
-              b.placeOfAllocation,
-              isAsc
-            );
+            return this.compare(a.allocation, b.allocation, isAsc);
           case "codeNo":
             return this.compare(a.codeNo, b.codeNo, isAsc);
           default:
@@ -344,5 +363,27 @@ export class AdminVehicleRegisterComponent implements OnInit {
 
   private compare(a, b, isAsc) {
     return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+  }
+
+  clear() {
+    this.cmbRegion = "";
+  }
+
+  getRegions() {
+    // debugger;
+    var reqHeader = new HttpHeaders({
+      "Content-Type": "application/json",
+      // Authorization: "Bearer " + Token,
+    });
+    this.http
+      // .get(this.app.serverUrl + "getsubloc", { headers: reqHeader })
+      .get(
+        this.app.serverUrl + "getRegions?userId=" + this.cookie.get("userID"),
+        { headers: reqHeader }
+      )
+      .subscribe((data: any) => {
+        // this.locList = data.filter((x) => x.isActivated == 1);
+        this.regionList = data;
+      });
   }
 }

@@ -29,6 +29,7 @@ export class Group {
 }
 
 export class AssetItems {
+  assetCatDescription: string;
   fullDescription: string;
   dateOfPurchase: string;
   costOfPurchase: string;
@@ -38,7 +39,6 @@ export class AssetItems {
   codeNo: string;
   remarks: string;
 }
-
 @Component({
   selector: "app-admin-machinery-register",
   templateUrl: "./admin-machinery-register.component.html",
@@ -47,13 +47,19 @@ export class AssetItems {
 export class AdminMachineryRegisterComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
+  //declarations
+  cmbRegion = "";
+  searchRegion = "";
+
   tempRptTitle = "";
-  rptTitle = "Engineering Equipments / Machinery";
+  rptTitle = "ENGINEERING EQUIPMENTS / MACIIINERY";
   rptHeader = "";
   rptTitle2nd = "";
+  regionTitle = "";
 
   assetRegisterList = [];
   filterAssetRegisterList = [];
+  regionList = [];
 
   // group by table setting
   title = "Grid Grouping";
@@ -74,6 +80,11 @@ export class AdminMachineryRegisterComponent implements OnInit {
     private toastr: ToastrManager
   ) {
     this.columns = [
+      {
+        field: "assetCatDescription",
+        title: "Asset Title",
+        display: false,
+      },
       {
         field: "fullDescription",
         title: "Full Description",
@@ -117,12 +128,15 @@ export class AdminMachineryRegisterComponent implements OnInit {
     ];
     // this.availColumns = this.columns.slice();
     this.displayedColumns = this.columns.map((column) => column.field);
-    this.groupByColumns = ["headOfPayment"];
+    this.groupByColumns = ["assetCatDescription"];
   }
 
   ngOnInit(): void {
     // this.getReport();
+    this.getRegions();
+    $("#rptOptionsModal").modal("show");
   }
+
   getReport() {
     // clear filters
     this.rptTitle2nd = "";
@@ -132,7 +146,7 @@ export class AdminMachineryRegisterComponent implements OnInit {
     if (this.tempRptTitle != "") {
       this.rptHeader = this.tempRptTitle;
     }
-
+    // get
     // http call
     // tslint:disable-next-line: prefer-const
     let reqHeader = new HttpHeaders({
@@ -140,7 +154,15 @@ export class AdminMachineryRegisterComponent implements OnInit {
       // Authorization: "Bearer " + Token,
     });
     this.http
-      .get(this.app.serverUrl + "getLandData", { headers: reqHeader })
+      .get(
+        this.app.serverUrl +
+          "getForm47WithoutVehicle?mainLocId=" +
+          this.cmbRegion +
+          "&accountCatID=7",
+        {
+          headers: reqHeader,
+        }
+      )
       .subscribe((data: any) => {
         // this.assetRegisterList = data;
         // this.filterAssetRegisterList = data;
@@ -162,6 +184,10 @@ export class AdminMachineryRegisterComponent implements OnInit {
         // $('#rptOptionsModal').modal('hide');
         // this.dataSource = this.filterAssetRegisterList;
       });
+  }
+
+  getRegionTitle(item) {
+    this.regionTitle = item.mainLocationDescription;
   }
 
   getDisplayedColumns(): string[] {
@@ -350,5 +376,27 @@ export class AdminMachineryRegisterComponent implements OnInit {
 
   private compare(a, b, isAsc) {
     return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+  }
+
+  clear() {
+    this.cmbRegion = "";
+  }
+
+  getRegions() {
+    // debugger;
+    var reqHeader = new HttpHeaders({
+      "Content-Type": "application/json",
+      // Authorization: "Bearer " + Token,
+    });
+    this.http
+      // .get(this.app.serverUrl + "getsubloc", { headers: reqHeader })
+      .get(
+        this.app.serverUrl + "getRegions?userId=" + this.cookie.get("userID"),
+        { headers: reqHeader }
+      )
+      .subscribe((data: any) => {
+        // this.locList = data.filter((x) => x.isActivated == 1);
+        this.regionList = data;
+      });
   }
 }

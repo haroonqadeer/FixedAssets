@@ -9,9 +9,14 @@
         <li>
           <a (click)="exportExcel()" class="cursorPointer">Export Register</a>
         </li>
-        <!-- <li>
-          <a class="cursorPointer" data-toggle="modal" data-target="#rptOptionsModal">Report Options</a>
-        </li> -->
+        <li>
+          <a
+            class="cursorPointer"
+            data-toggle="modal"
+            data-target="#rptOptionsModal"
+            >Report Options</a
+          >
+        </li>
         <li>
           <a
             class="cursorPointer"
@@ -60,16 +65,19 @@
     <div class="row">
       <div class="col-md-6">
         <p class="m-0 pl-2">
-          <b>Region: _________________</b>
+          <b
+            >Region:
+            <u>&nbsp;&nbsp;&nbsp;{{ regionTitle }}&nbsp;&nbsp;&nbsp;</u>
+          </b>
         </p>
       </div>
       <div class="col-md-6 text-right">
-        <p class="m-0 pl-2 d-inline">
+        <!-- <p class="m-0 pl-2 d-inline">
           <b>Name of Item: _________________</b>
         </p>
         <p class="m-0 pl-2 d-inline">
           <b>Total Number: _________________</b>
-        </p>
+        </p> -->
       </div>
     </div>
     <!-- next row -->
@@ -162,14 +170,15 @@
             class="fa fa-angle-up printNone"
           ></mat-icon>
           <strong
-            >{{ groupByColumns[group.level - 1] }} =
-            {{ group[groupByColumns[group.level - 1]] }} ({{
-              group.totalCounts
-            }})</strong
+            >Name of Item: &nbsp;&nbsp;<u>{{
+              group[groupByColumns[group.level - 1]]
+            }}</u></strong
+          >&nbsp;&nbsp;&nbsp;
+          <strong
+            >Total Number: &nbsp;&nbsp;<u>{{ group.totalCounts }}</u></strong
           >
         </td>
       </ng-container>
-
       <tr
         mat-row
         *matRowDef="let row; columns: ['groupHeader']; when: isGroup"
@@ -231,6 +240,78 @@
           </button>
         </div>
       </div>
+    </div>
+  </div>
+</div>
+
+<!-- Report Filters -->
+<!-- The Modal -->
+<div class="modal animate__animated animate__bounceIn" id="rptOptionsModal">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h3 class="modal-title">Report Options</h3>
+        <button type="button" class="close" data-dismiss="modal">
+          &times;
+        </button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <!-- Region -->
+        <div class="row">
+          <div class="col-md-12">
+            <mat-form-field class="w-100">
+              <mat-label>Region</mat-label>
+              <mat-select [(ngModel)]="cmbRegion">
+                <mat-option>
+                  <ngx-mat-select-search
+                    [(ngModel)]="searchRegion"
+                    [placeholderLabel]="'Search...'"
+                    [noEntriesFoundLabel]="'Not found'"
+                    name="search"
+                  ></ngx-mat-select-search>
+                </mat-option>
+
+                <mat-option
+                  *ngFor="
+                    let item of regionList
+                      | search: 'mainLocationDescription':searchRegion
+                  "
+                  [value]="item.mainLocID"
+                  (click)="getRegionTitle(item)"
+                >
+                  {{ item.mainLocationDescription }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <!-- end Region -->
+
+        <!-- button -->
+        <div class="row">
+          <div class="col-md-12 inline-block">
+            <button
+              mat-raised-button
+              color="primary"
+              (click)="getReport()"
+              class="mr-2"
+            >
+              Report
+            </button>
+            <button mat-raised-button (click)="clear()">Reset</button>
+          </div>
+        </div>
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">
+            Close
+          </button>
+        </div>
+      </div>
+      <!-- end modal body -->
     </div>
   </div>
 </div>
