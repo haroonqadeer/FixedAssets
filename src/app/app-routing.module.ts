@@ -43,7 +43,7 @@ import { AdminWolRegisterComponent } from "./pages/admin-reports/admin-wol-regis
 import { AdminOwnBuildingRegisterComponent } from "./pages/admin-reports/admin-own-building-register/admin-own-building-register.component";
 import { AdminRoadRegisterComponent } from "./pages/admin-reports/admin-road-register/admin-road-register.component";
 import { AdminDisposalRegisterComponent } from "./pages/admin-reports/admin-disposal-register/admin-disposal-register.component";
-import { DisposalofassetComponent } from "./pages/fixAsset/disposalofasset/disposalofasset.component";
+import { AssetDisposalComponent } from "./pages/fixasset/asset-disposal/asset-disposal.component";
 
 const routes: Routes = [
   {
@@ -74,7 +74,7 @@ const routes: Routes = [
   },
   {
     path: "disofasset",
-    component: DisposalofassetComponent,
+    component: AssetDisposalComponent,
   },
   // Configuration
   {

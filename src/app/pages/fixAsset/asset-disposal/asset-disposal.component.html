@@ -1,0 +1,92 @@
+<div class="container-fluid boxShadow-1 bg-white" >
+    
+    <div class="row pl-3 m-0 p-0">
+        <div class="col-md-6 align-self-center p-0 m-0">
+        <h1 class="align-self-center">Disposal of Assets</h1>
+        </div>
+        <div class="col-md-6 text-right">
+        <nav id="pageNav" class="stroke pull-right">
+            <ul>
+            <li>
+                <a (click)="toggleView = 'form'" class="cursorPointer">Form View</a>
+            </li>
+            <li>
+                <a (click)="toggleView = 'table'" class="cursorPointer">Table View</a>
+            </li>
+            
+            </ul>
+        </nav>
+        </div>
+    </div>
+
+
+        
+    <!-- container -->
+    <div class="container-fluid bg-white">
+        <!-- Table View -->
+        <div *ngIf="toggleView == 'table'" class="animate_animated animate_fadeInUp">
+        <!-- search bar -->
+        <div class="row pl-3">
+            <div class="col-md-10">
+            <mat-form-field class="w-100">
+                <mat-label>Search asset</mat-label>
+                <span matPrefix><span class="fa fa-search"></span> &nbsp;</span>
+                <input matInput [(ngModel)]="txtSearchLandData" />
+            </mat-form-field>
+            </div>
+            <div class="col-md-2 pr-3 align-self-center noneOutline">
+            <button mat-button color="warn" data-toggle="modal" data-target="#advanceSearchModal">
+                Advance Search
+            </button>
+            </div>
+        </div>
+    
+        <!-- table -->
+        <div class="table-responsive">
+            <table class="table table-striped">
+            <thead>
+                <th>Action</th>
+                <th>Account</th>
+                <th>Road</th>
+                <th>Project</th>
+                <th>Measure</th>
+                <th>Kanal</th>
+                <th>Marla</th>
+                <th>Cost</th>
+                <th>WDV</th>
+                <th>Total Revaluation</th>
+                <th>Revaluation Surplus</th>
+                <th>Addition in Revaluation</th>
+                <th>Addition In Revaluation Surplus </th>
+                <th>Opening Revaluation</th>
+            </thead>
+            <tbody>
+                <!-- <tr *ngFor="let item of landDataList | orderBy:'fixedAssetID': true | search: 'accountCode,openingRevaluationSurplus,openingRevaluationAmount,additionINRevaluationSurplus,additionINRevaluationAmount,revaluationSurplus,totalRevaluationAmount,wdv,costOfLand,areaAcquiredMarla,areaAcquiredKanal,projectShortName,roadShortName,officeDescription':txtSearchLandData">
+    
+                <td class="inline-block">
+                    <span class="fa fa-edit cursorPointer pr-3 text-primary" (click)="edit(item)"></span>
+                    <span class="fa fa-trash-o cursorPointer text-danger" (click)="delete(item)"></span>
+                </td>
+                <td>{{item.officeDescription}}</td>
+                <td>{{item.roadShortName}}</td>
+                <td>{{item.projectShortName}}</td>
+                <td>{{item.areaAcquiredKanal | number}}</td>
+                <td>{{item.areaAcquiredMarla | number}}</td>
+                <td>{{item.costOfLand | number}}</td>
+                <td>{{item.wdv | number}}</td>
+                <td>{{item.totalRevaluationAmount | number}}</td>
+                <td>{{item.revaluationSurplus | number}}</td>
+                <td>{{item.additionINRevaluationAmount | number}}</td>
+                <td>{{item.additionINRevaluationSurplus | number}}</td>
+                <td>{{item.openingRevaluationAmount | number}}</td>
+                <td>{{item.openingRevaluationSurplus | number}}</td>
+                </tr> -->
+            </tbody>
+            </table>
+        </div><!-- end table -->
+        </div><!-- end table view -->
+    
+        <!-- form view -->
+        
+    </div><!-- end form view -->
+</div>
