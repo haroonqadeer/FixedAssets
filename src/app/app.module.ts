@@ -87,6 +87,7 @@ import { AdminWolRegisterComponent } from './pages/admin-reports/admin-wol-regis
 import { AdminOwnBuildingRegisterComponent } from './pages/admin-reports/admin-own-building-register/admin-own-building-register.component';
 import { AdminRoadRegisterComponent } from './pages/admin-reports/admin-road-register/admin-road-register.component';
 import { AdminDisposalRegisterComponent } from './pages/admin-reports/admin-disposal-register/admin-disposal-register.component';
+import { DisposalofassetComponent } from './pages/fixasset/disposalofasset/disposalofasset.component';
 
 
 @NgModule({
@@ -137,6 +138,7 @@ import { AdminDisposalRegisterComponent } from './pages/admin-reports/admin-disp
     AdminOwnBuildingRegisterComponent,
     AdminRoadRegisterComponent,
     AdminDisposalRegisterComponent,
+    DisposalofassetComponent,
 
   ],
   imports: [

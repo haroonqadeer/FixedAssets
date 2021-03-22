@@ -20,6 +20,7 @@ declare var $: any;
   styleUrls: ['./nhafreehold-land.component.scss'],
 })
 export class NHAFreeholdLandComponent implements OnInit {
+  
   loadingBar = true;
   reqType = '';
   reqStatus = false;
