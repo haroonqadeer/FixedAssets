@@ -10,12 +10,7 @@ import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { QRCodeModule } from 'angular2-qrcode';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
-import {
-  CurrencyMaskConfig,
-  CurrencyMaskModule,
-  CURRENCY_MASK_CONFIG,
-} from 'ng2-currency-mask';
-
+import { CurrencyMaskConfig, CurrencyMaskModule, CURRENCY_MASK_CONFIG, } from 'ng2-currency-mask';
 export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
   align: 'right',
   allowNegative: true,
@@ -25,6 +20,10 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
   suffix: '',
   thousands: ',',
 };
+
+import {NgxMaskModule, IConfig} from 'ngx-mask';
+export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -165,6 +164,7 @@ import { AssetDisposalComponent } from './pages/fixasset/asset-disposal/asset-di
     // Default values: `idle` is 60 (1 minutes), `timeout` is 30 (0.5 minutes)
     // and `ping` is 15 0.25 minutes).
     UserIdleModule.forRoot({ idle: 300, timeout: 300, ping: 15 }),
+    NgxMaskModule.forRoot(),
   ],
   providers: [
     ImmovableAssetRptComponent,
