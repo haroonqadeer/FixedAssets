@@ -297,25 +297,28 @@ export class AssetDisposalComponent implements OnInit {
             this.loadingBar = true;
             var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
         
-            this.http.post(this.app.serverUrl + 'suddisposal', SaveData, { headers: reqHeader }).subscribe((data: any) => {
-                    if (data.msg == 'Success') {
-                        if (this.disposalID == 0) {
-                            this.toastr.successToastr('Record Saved Successfully!','Success!',{ toastTimeout: 2500 });
-                            this.loadingBar = false;
-                        } else {
-                            this.toastr.successToastr('Record Updated Successfully!','Success!',{ toastTimeout: 2500 });
-                            this.loadingBar = false;
-                        }
-                        this.clear();
-                        this.getDisposal();
-                        return false;
-                    } else {
-                        this.toastr.errorToastr(data.msg, 'Error !', {toastTimeout: 5000,});
+            this.http.post(this.app.serverUrl + 'suddisposal', SaveData, { headers: reqHeader }).subscribe((data: any) => {                
+
+                if (data.msg == 'Success') {
+                    if (this.disposalID == 0) {
+                        this.toastr.successToastr('Record Saved Successfully!','Success!',{ toastTimeout: 2500 });
                         this.loadingBar = false;
-                        return false;
+                    } else {
+                        this.toastr.successToastr('Record Updated Successfully!','Success!',{ toastTimeout: 2500 });
+                        this.loadingBar = false;
                     }
-                });
-            }
+                    //this.clear();
+                    this.disposalID = data.id;
+                    this.getDisposal();
+                    this.getAssetsForDisposal();
+                    return false;
+                } else {
+                    this.toastr.errorToastr(data.msg, 'Error !', {toastTimeout: 5000,});
+                    this.loadingBar = false;
+                    return false;
+                }
+            });
+        }
     }
     
     clear() {
@@ -374,20 +377,19 @@ export class AssetDisposalComponent implements OnInit {
                     this.loadingBar = true;
         
                     var SaveData = {
-                    DisposalID: item.disposalID,
-                    Userid: this.cookie.get('userID'),
-                    SpType: 'Delete',
+                        DisposalID: item.disposalID,
+                        Userid: this.cookie.get('userID'),
+                        SpType: 'Delete',
                     };
         
-                    var reqHeader = new HttpHeaders({
-                    'Content-Type': 'application/json',
-                    });
+                    var reqHeader = new HttpHeaders({'Content-Type': 'application/json',});
         
                     this.http.post(this.app.serverUrl + 'suddisposal', SaveData, {headers: reqHeader,}).subscribe((data: any) => {
                         if (data.msg == 'Success') {
                             this.toastr.successToastr('Record Deleted Successfully!','Success!',{ toastTimeout: 2500 });
                             this.clear();
                             this.getDisposal();
+                            this.toggleView = 'form';
                             return false;
                         } else {
                             this.toastr.errorToastr(data.msg, 'Error !', {toastTimeout: 5000,});
@@ -591,6 +593,7 @@ export class AssetDisposalComponent implements OnInit {
         
                     var SaveData = {
                         DisposalPaymentID: item.disposalPaymentID,
+                        AssetID: item.assetID,
                         Userid: this.cookie.get('userID'),
                         SpType: 'Delete',
                     };
@@ -702,58 +705,54 @@ export class AssetDisposalComponent implements OnInit {
     
           $("#genPinModal").modal("show");
         } else {
-          this.toastr.errorToastr("PIN Code is not allowed", "Error", {
-            toastTimeout: 2500,
-          });
+          this.toastr.errorToastr("PIN Code is not allowed", "Error", {toastTimeout: 2500,});
           return false;
         }
-      }
+    }
 
-      allowUpdation() {
-        // alert(this.objList);
-        // alert(this.paramType);
-    
-        if (this.txtPin == "") {
-          this.toastr.errorToastr("Please Enter Pin", "Error", {
-            toastTimeout: 2500,
-          });
-          return false;
-        } else if (this.txtPin.length != 4) {
-          this.toastr.errorToastr("Please Enter Correct Pin", "Error", {
-            toastTimeout: 2500,
-          });
-          return false;
-        } else {
-          var saveData = {
-            UserName: this.cookie.get("userName"),
-            Pincode: this.txtPin,
-          };
-    
-          var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
-    
-          this.http
-            .post(this.app.serverUrl + "pincode", saveData, { headers: reqHeader })
-            .subscribe((data: any) => {
-              if (data.msg == "Success") {
-                $("#genPinModal").modal("hide");
-                if (this.paramType == "edit") {
-                    this.edit(this.objList);
-                } else if (this.paramType == "delete") {
-                    this.delete(this.objList);
-                } else if (this.paramType == "editDetail") {
-                    this.editDetail(this.objList);
-                } else if (this.paramType == "deleteDetail") {
-                    this.delete(this.objList);
-                } 
-                this.paramType = "";
-                this.objList = [];
-                return false;
-              } else {
-                this.toastr.errorToastr(data.msg, "Error!", { toastTimeout: 2500 });
-              }
-            });
-        }
-      }
+    allowUpdation() {
+    // alert(this.objList);
+    // alert(this.paramType);
+
+    if (this.txtPin == "") {
+        this.toastr.errorToastr("Please Enter Pin", "Error", {
+        toastTimeout: 2500,
+        });
+        return false;
+    } else if (this.txtPin.length != 4) {
+        this.toastr.errorToastr("Please Enter Correct Pin", "Error", {
+        toastTimeout: 2500,
+        });
+        return false;
+    } else {
+        var saveData = {
+        UserName: this.cookie.get("userName"),
+        Pincode: this.txtPin,
+        };
+
+        var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
+
+        this.http.post(this.app.serverUrl + "pincode", saveData, { headers: reqHeader }).subscribe((data: any) => {
+            if (data.msg == "Success") {
+            $("#genPinModal").modal("hide");
+            if (this.paramType == "edit") {
+                this.edit(this.objList);
+            } else if (this.paramType == "delete") {
+                this.delete(this.objList);
+            } else if (this.paramType == "editDetail") {
+                this.editDetail(this.objList);
+            } else if (this.paramType == "deleteDetail") {
+                this.deleteDetail(this.objList);
+            } 
+            this.paramType = "";
+            this.objList = [];
+            return false;
+            } else {
+            this.toastr.errorToastr(data.msg, "Error!", { toastTimeout: 2500 });
+            }
+        });
+    }
+    }
     
       onKeyPress(event) {
         if ((event.keyCode > 47 && event.keyCode < 58) || event.keyCode == 8) {
