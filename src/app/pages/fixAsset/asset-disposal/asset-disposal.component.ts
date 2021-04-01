@@ -29,6 +29,12 @@ export class AssetDisposalComponent implements OnInit {
 
     toggleView = "form";
 
+    //pin variables
+    txtPin = "";
+    paramType = "";
+    objList = [];
+    index = 0;
+
     //accordian variable
     locationList = [];
     disposalDataList = [];
@@ -176,6 +182,7 @@ export class AssetDisposalComponent implements OnInit {
 
     getAssetsForDisposal() {
         // debugger;
+        // alert(this.rdbAssetsType)
         var reqHeader = new HttpHeaders({"Content-Type": "application/json",});
         this.http.get(this.app.serverUrl + "assetfordisposallist?LocId=" + this.ddlLocation + "&VehicleId=" + this.rdbAssetsType, { headers: reqHeader }).subscribe((data: any) => {            
             this.assetsForDisposalDataList = data;
@@ -210,22 +217,22 @@ export class AssetDisposalComponent implements OnInit {
           this.toastr.errorToastr('Please Enter Party Name', 'Error !',{ toastTimeout: 2500 });
           return false;
         } 
-        else if (this.code == undefined || this.code.trim() == '') {
-          this.toastr.errorToastr('Please Enter Code', 'Error !', {toastTimeout: 2500,});
-          return false;
-        }
+        // else if (this.code == undefined || this.code.trim() == '') {
+        //   this.toastr.errorToastr('Please Enter Code', 'Error !', {toastTimeout: 2500,});
+        //   return false;
+        // }
         else if (this.address == undefined || this.address.trim() == '') {
           this.toastr.errorToastr('Please Enter Address', 'Error !', {toastTimeout: 2500,});
           return false;
         } 
-        else if (this.ntnNo == undefined || this.ntnNo == '' || this.ntnNo.length < 8) {
-          this.toastr.errorToastr('Please Enter NTN Number', 'Error !', {toastTimeout: 2500,});
+        else if ((this.ntnNo == undefined || this.ntnNo == '' || this.ntnNo.length < 8) && (this.cnicNo == undefined ||this.cnicNo == '' || this.cnicNo.length < 13)) {
+          this.toastr.errorToastr('Please Enter NTN Or CNIC Number', 'Error !', {toastTimeout: 2500,});
           return false;
         } 
-        else if (this.cnicNo == undefined ||this.cnicNo == '' || this.cnicNo.length < 13) {
-          this.toastr.errorToastr('Please Enter CNIC Number', 'Error !', {toastTimeout: 2500,});
-          return false;
-        }
+        // else if (this.cnicNo == undefined ||this.cnicNo == '' || this.cnicNo.length < 13) {
+        //   this.toastr.errorToastr('Please Enter CNIC Number', 'Error !', {toastTimeout: 2500,});
+        //   return false;
+        // }
         else if (this.totalAmount == undefined || this.totalAmount.toString() == '') {
             this.toastr.errorToastr('Please Enter Total Amount', 'Error !', {toastTimeout: 2500,});
             return false;
@@ -685,5 +692,74 @@ export class AssetDisposalComponent implements OnInit {
     }
 
 
+    genPin(obj, param, i) {
+        if (this.cookie.get("pinstatus") == "true") {
+          this.txtPin = "";
+          this.paramType = "";
+          this.objList = obj;
+          this.paramType = param;
+          this.index = i;
+    
+          $("#genPinModal").modal("show");
+        } else {
+          this.toastr.errorToastr("PIN Code is not allowed", "Error", {
+            toastTimeout: 2500,
+          });
+          return false;
+        }
+      }
 
+      allowUpdation() {
+        // alert(this.objList);
+        // alert(this.paramType);
+    
+        if (this.txtPin == "") {
+          this.toastr.errorToastr("Please Enter Pin", "Error", {
+            toastTimeout: 2500,
+          });
+          return false;
+        } else if (this.txtPin.length != 4) {
+          this.toastr.errorToastr("Please Enter Correct Pin", "Error", {
+            toastTimeout: 2500,
+          });
+          return false;
+        } else {
+          var saveData = {
+            UserName: this.cookie.get("userName"),
+            Pincode: this.txtPin,
+          };
+    
+          var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
+    
+          this.http
+            .post(this.app.serverUrl + "pincode", saveData, { headers: reqHeader })
+            .subscribe((data: any) => {
+              if (data.msg == "Success") {
+                $("#genPinModal").modal("hide");
+                if (this.paramType == "edit") {
+                    this.edit(this.objList);
+                } else if (this.paramType == "delete") {
+                    this.delete(this.objList);
+                } else if (this.paramType == "editDetail") {
+                    this.editDetail(this.objList);
+                } else if (this.paramType == "deleteDetail") {
+                    this.delete(this.objList);
+                } 
+                this.paramType = "";
+                this.objList = [];
+                return false;
+              } else {
+                this.toastr.errorToastr(data.msg, "Error!", { toastTimeout: 2500 });
+              }
+            });
+        }
+      }
+    
+      onKeyPress(event) {
+        if ((event.keyCode > 47 && event.keyCode < 58) || event.keyCode == 8) {
+          return true;
+        } else {
+          return false;
+        }
+      }
 }
