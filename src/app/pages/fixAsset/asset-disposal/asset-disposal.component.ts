@@ -51,6 +51,10 @@ export class AssetDisposalComponent implements OnInit {
 
 
 
+    imgAssetPath3 = "C:/inetpub/wwwroot/FAR/FAR_Project/assets/assetEntryImg";
+    imageAssetUrl: string = "../../../../../assets/assetEntryImg/dropHereImg.png";
+    imageAssetUrl2: string = "../../../../../assets/assetEntryImg/dropHereImg.png";
+    imageAssetUrl3: string = "../../../../../assets/assetEntryImg/dropHereImg.png";
 
     projectsList = [];
     projectsList2 = [];
@@ -355,7 +359,7 @@ export class AssetDisposalComponent implements OnInit {
         this.totalAmount = item.amountPaid;
         this.taxAmount = item.taxPaid;
         this.remarks = item.remarks;
-
+        
         this.toggleView = 'form';
 
         this.getAssetsForDisposal();
@@ -576,6 +580,37 @@ export class AssetDisposalComponent implements OnInit {
         this.currentMarketValue = item.currentMarketValue;
         this.remarks = item.remarks;
 
+        if (
+            item.eDoc != null &&
+            item.eDoc != "C:/inetpub/wwwroot/FAR/FAR_Project/assets/assetEntryImg"
+        ) {
+            this.imageAssetUrl =
+            // "http://192.168.100.162:7000/assets/assetEntryImg/" +
+            "http://58.27.164.137:7000/assets/assetEntryImg/" +
+            item.assetID +
+            "_1.jpg";
+        }
+        if (
+            item.eDoc2 != null &&
+            item.eDoc2 != "C:/inetpub/wwwroot/FAR/FAR_Project/assets/assetEntryImg"
+        ) {
+            this.imageAssetUrl2 =
+            // "http://192.168.100.162:7000/assets/assetEntryImg/" +
+            "http://58.27.164.137:7000/assets/assetEntryImg/" +
+            item.assetID +
+            "_2.jpg";
+        }
+        if (
+            item.eDoc3 != null &&
+            item.eDoc3 != "C:/inetpub/wwwroot/FAR/FAR_Project/assets/assetEntryImg"
+        ) {
+            this.imageAssetUrl3 =
+            // "http://192.168.100.162:7000/assets/assetEntryImg/" +
+            "http://58.27.164.137:7000/assets/assetEntryImg/" +
+            item.assetID +
+            "_3.jpg";
+        }
+    
     }
     
     deleteDetail(item) {
@@ -630,6 +665,38 @@ export class AssetDisposalComponent implements OnInit {
             // this.lblTransactions = tempList[0].nooftransactions;
             // this.lblSurplus = tempList[0].revalutionSurplus;
             // this.lblOpeningSurplus = tempList[0].openingRevaluationSurplus;
+            
+            if (
+                tempList[0].eDoc != null &&
+                tempList[0].eDoc != "C:/inetpub/wwwroot/FAR/FAR_Project/assets/assetEntryImg"
+            ) {
+                this.imageAssetUrl =
+                // "http://192.168.100.162:7000/assets/assetEntryImg/" +
+                "http://58.27.164.137:7000/assets/assetEntryImg/" +
+                tempList[0].assetID +
+                "_1.jpg";
+            }
+            if (
+                tempList[0].eDoc2 != null &&
+                tempList[0].eDoc2 != "C:/inetpub/wwwroot/FAR/FAR_Project/assets/assetEntryImg"
+            ) {
+                this.imageAssetUrl2 =
+                // "http://192.168.100.162:7000/assets/assetEntryImg/" +
+                "http://58.27.164.137:7000/assets/assetEntryImg/" +
+                tempList[0].assetID +
+                "_2.jpg";
+            }
+            if (
+                tempList[0].eDoc3 != null &&
+                tempList[0].eDoc3 != "C:/inetpub/wwwroot/FAR/FAR_Project/assets/assetEntryImg"
+            ) {
+                this.imageAssetUrl3 =
+                // "http://192.168.100.162:7000/assets/assetEntryImg/" +
+                "http://58.27.164.137:7000/assets/assetEntryImg/" +
+                tempList[0].assetID +
+                "_3.jpg";
+            }
+          
         }
         
     }
