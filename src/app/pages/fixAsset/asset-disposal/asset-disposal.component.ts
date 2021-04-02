@@ -339,6 +339,9 @@ export class AssetDisposalComponent implements OnInit {
         this.taxAmount = 0;
         this.remarks = '';
 
+        this.disposalDetailList = [];
+        this.clearDetail();
+        
         var fileName = 'E Document';
         $('#customFile5').siblings('.custom-file-label').addClass('selected').html(fileName); 
 
@@ -551,7 +554,11 @@ export class AssetDisposalComponent implements OnInit {
         this.reservePrice = 0;
         this.currentMarketValue = 0;
         this.remarksDetail = '';
-
+        
+        this.imageAssetUrl = "../../../../../assets/assetEntryImg/dropHereImg.png";
+        this.imageAssetUrl2 = "../../../../../assets/assetEntryImg/dropHereImg.png";
+        this.imageAssetUrl3 = "../../../../../assets/assetEntryImg/dropHereImg.png";
+        
         var fileName = 'E Document';
         $('#customFile4').siblings('.custom-file-label').addClass('selected').html(fileName); 
 
