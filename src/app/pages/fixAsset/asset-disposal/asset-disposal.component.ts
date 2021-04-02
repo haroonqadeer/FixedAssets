@@ -597,25 +597,15 @@ export class AssetDisposalComponent implements OnInit {
             item.assetID +
             "_1.jpg";
         }
-        if (
-            item.eDoc2 != null &&
-            item.eDoc2 != "C:/inetpub/wwwroot/FAR/FAR_Project/assets/assetEntryImg"
-        ) {
+        if (item.eDoc2 != null && item.eDoc2 != "C:/inetpub/wwwroot/FAR/FAR_Project/assets/assetEntryImg") {
             this.imageAssetUrl2 =
             // "http://192.168.100.162:7000/assets/assetEntryImg/" +
-            "http://58.27.164.137:7000/assets/assetEntryImg/" +
-            item.assetID +
-            "_2.jpg";
+            "http://58.27.164.137:7000/assets/assetEntryImg/" + item.assetID + "_2.jpg";
         }
-        if (
-            item.eDoc3 != null &&
-            item.eDoc3 != "C:/inetpub/wwwroot/FAR/FAR_Project/assets/assetEntryImg"
-        ) {
+        if (item.eDoc3 != null && item.eDoc3 != "C:/inetpub/wwwroot/FAR/FAR_Project/assets/assetEntryImg") {
             this.imageAssetUrl3 =
             // "http://192.168.100.162:7000/assets/assetEntryImg/" +
-            "http://58.27.164.137:7000/assets/assetEntryImg/" +
-            item.assetID +
-            "_3.jpg";
+            "http://58.27.164.137:7000/assets/assetEntryImg/" + item.assetID + "_3.jpg";
         }
     
     }
