@@ -293,7 +293,7 @@
                     <!--next row -->
                     <div class="row pl-4 pr-4">
 
-                        <div class="col-md-12">
+                        <div class="col-md-12" [hidden]="disposalPaymentID != 0">
                             <mat-form-field class='w-100'>
                                 <mat-label>Assets</mat-label>
                                 <mat-select [(ngModel)]="ddlAssets" (ngModelChange)="filterAssetDetail(ddlAssets)" [disabled]="disposalID == 0">
@@ -327,7 +327,14 @@
                             </mat-form-field>
                         </div>
 
+                        <div class="col-md-12" [hidden]="disposalPaymentID == 0" style="border-bottom: 1px solid #ccc;">
+                          <label>{{lblAssets}}</label>
+                        </div>
+                        
+
                     </div>
+
+                    <!--next row -->
                     <div class="row pr-4 pl-1 mt-2">
                       <div class="col-md-4 pt-2 text-center">
                         <div class="text-center">
@@ -359,7 +366,7 @@
                           </mat-form-field>
                       </div>
 
-                  </div>
+                    </div>
 
                     <!--next row -->
                     <div class="row mt-2 pl-4 pr-4">

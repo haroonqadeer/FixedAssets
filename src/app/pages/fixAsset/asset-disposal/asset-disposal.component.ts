@@ -117,7 +117,8 @@ export class AssetDisposalComponent implements OnInit {
     rdbAssetsType  = "V";
     ddlAssets = '';
     txtSearchAsset = '';
-    description = ''
+    description = '';
+    lblAssets = '';
     dateOfPurchase = new Date();
     costOfAsset = 0;
     allocation = ''
@@ -571,9 +572,11 @@ export class AssetDisposalComponent implements OnInit {
     
     editDetail(item) {
 
+        this.lblAssets = item.tag + " - " + item.assetDescription;
+
         this.disposalPaymentID = item.disposalPaymentID;
         this.disposalID = item.disposalID;
-        this.ddlAssets = item.assetID;
+        this.ddlAssets = item.assetID.toString();
         this.description = item.assetDescription,
         this.costOfAsset = item.costAmount,
         this.dateOfPurchase = new Date();
@@ -587,10 +590,7 @@ export class AssetDisposalComponent implements OnInit {
         this.currentMarketValue = item.currentMarketValue;
         this.remarks = item.remarks;
 
-        if (
-            item.eDoc != null &&
-            item.eDoc != "C:/inetpub/wwwroot/FAR/FAR_Project/assets/assetEntryImg"
-        ) {
+        if (item.eDoc != null && item.eDoc != "C:/inetpub/wwwroot/FAR/FAR_Project/assets/assetEntryImg") {
             this.imageAssetUrl =
             // "http://192.168.100.162:7000/assets/assetEntryImg/" +
             "http://58.27.164.137:7000/assets/assetEntryImg/" +
@@ -828,11 +828,11 @@ export class AssetDisposalComponent implements OnInit {
     }
     }
     
-      onKeyPress(event) {
-        if ((event.keyCode > 47 && event.keyCode < 58) || event.keyCode == 8) {
-          return true;
-        } else {
-          return false;
-        }
-      }
+    onKeyPress(event) {
+    if ((event.keyCode > 47 && event.keyCode < 58) || event.keyCode == 8) {
+        return true;
+    } else {
+        return false;
+    }
+    }
 }
