@@ -42,6 +42,7 @@ export class LocationCompleteComponent implements OnInit {
   locationStatus = 1;
   locStatus = 0;
   userRole = "";
+  tblSearch = "";
 
   constructor(
     private router: Router,
@@ -58,6 +59,7 @@ export class LocationCompleteComponent implements OnInit {
   }
 
   showLocCheckList(item) {
+    debugger;
     this.locStatus = item.isCompleted;
     // alert(this.locID);
     // alert(item.officeTypeID);
@@ -393,8 +395,8 @@ export class LocationCompleteComponent implements OnInit {
 
   openPDFFile(item) {
     var url =
-    // "http://192.168.100.162:7000/assets/Location/" +
-    "http://58.27.164.137:7000/assets/Location/" +
+      // "http://192.168.100.162:7000/assets/Location/" +
+      "http://58.27.164.137:7000/assets/Location/" +
       item.subLocCompletionID +
       ".pdf";
     window.open(url);
