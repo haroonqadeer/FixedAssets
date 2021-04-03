@@ -27,7 +27,7 @@ export class AppComponent {
   // serverUrl = "http://192.168.100.162:7001/api/";
 
   //offline server
-  serverUrl = "http://localhost:12345/api/";
+  serverUrl = "http://localhost:6090/api/";
 
   title = "FixedAssets";
   userName = "";
