@@ -38,6 +38,7 @@
     "ngx-bootstrap": "^5.5.0",
     "ngx-cookie-service": "^3.0.4",
     "ngx-image-compress": "^8.0.4",
+    "ngx-mask": "^11.1.5",
     "ngx-mat-select-search": "^3.0.1",
     "ngx-order-pipe": "^2.0.4",
     "ngx-pagination": "^5.0.0",

@@ -44,6 +44,7 @@ import { AdminOwnBuildingRegisterComponent } from "./pages/admin-reports/admin-o
 import { AdminRoadRegisterComponent } from "./pages/admin-reports/admin-road-register/admin-road-register.component";
 import { AdminDisposalRegisterComponent } from "./pages/admin-reports/admin-disposal-register/admin-disposal-register.component";
 import { ExternalTransfersReportComponent } from "./pages/fixAsset/Reports/external-transfers-report/external-transfers-report.component";
+import { AssetDisposalComponent } from "./pages/fixasset/asset-disposal/asset-disposal.component";
 
 const routes: Routes = [
   {
@@ -71,6 +72,10 @@ const routes: Routes = [
   {
     path: "locComp",
     component: LocationCompleteComponent,
+  },
+  {
+    path: "disofasset",
+    component: AssetDisposalComponent,
   },
   // Configuration
   {

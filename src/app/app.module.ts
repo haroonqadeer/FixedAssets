@@ -15,7 +15,6 @@ import {
   CurrencyMaskModule,
   CURRENCY_MASK_CONFIG,
 } from "ng2-currency-mask";
-
 export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
   align: "right",
   allowNegative: true,
@@ -25,6 +24,9 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
   suffix: "",
   thousands: ",",
 };
+
+import { NgxMaskModule, IConfig } from "ngx-mask";
+export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
 
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
@@ -87,7 +89,7 @@ import { AdminWolRegisterComponent } from "./pages/admin-reports/admin-wol-regis
 import { AdminOwnBuildingRegisterComponent } from "./pages/admin-reports/admin-own-building-register/admin-own-building-register.component";
 import { AdminRoadRegisterComponent } from "./pages/admin-reports/admin-road-register/admin-road-register.component";
 import { AdminDisposalRegisterComponent } from "./pages/admin-reports/admin-disposal-register/admin-disposal-register.component";
-import { ExternalTransfersReportComponent } from "./pages/fixAsset/Reports/external-transfers-report/external-transfers-report.component";
+import { AssetDisposalComponent } from "./pages/fixasset/asset-disposal/asset-disposal.component";
 
 @NgModule({
   declarations: [
@@ -137,7 +139,7 @@ import { ExternalTransfersReportComponent } from "./pages/fixAsset/Reports/exter
     AdminOwnBuildingRegisterComponent,
     AdminRoadRegisterComponent,
     AdminDisposalRegisterComponent,
-    ExternalTransfersReportComponent,
+    AssetDisposalComponent,
   ],
   imports: [
     BrowserModule,
@@ -163,6 +165,7 @@ import { ExternalTransfersReportComponent } from "./pages/fixAsset/Reports/exter
     // Default values: `idle` is 60 (1 minutes), `timeout` is 30 (0.5 minutes)
     // and `ping` is 15 0.25 minutes).
     UserIdleModule.forRoot({ idle: 300, timeout: 300, ping: 15 }),
+    NgxMaskModule.forRoot(),
   ],
   providers: [
     ImmovableAssetRptComponent,
