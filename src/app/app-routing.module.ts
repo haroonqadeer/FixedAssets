@@ -43,8 +43,9 @@ import { AdminWolRegisterComponent } from "./pages/admin-reports/admin-wol-regis
 import { AdminOwnBuildingRegisterComponent } from "./pages/admin-reports/admin-own-building-register/admin-own-building-register.component";
 import { AdminRoadRegisterComponent } from "./pages/admin-reports/admin-road-register/admin-road-register.component";
 import { AdminDisposalRegisterComponent } from "./pages/admin-reports/admin-disposal-register/admin-disposal-register.component";
-import { ExternalTransfersReportComponent } from "./pages/fixAsset/Reports/external-transfers-report/external-transfers-report.component";
+
 import { AssetDisposalComponent } from "./pages/fixasset/asset-disposal/asset-disposal.component";
+import { TransfersExternalsRptComponent } from "./pages/fixasset/reports/transfers-externals-rpt/transfers-externals-rpt.component";
 
 const routes: Routes = [
   {
@@ -163,7 +164,7 @@ const routes: Routes = [
   },
   {
     path: "externalTransfers",
-    component: ExternalTransfersReportComponent,
+    component: TransfersExternalsRptComponent,
   },
   //////////////////////
 

@@ -90,6 +90,7 @@ import { AdminOwnBuildingRegisterComponent } from "./pages/admin-reports/admin-o
 import { AdminRoadRegisterComponent } from "./pages/admin-reports/admin-road-register/admin-road-register.component";
 import { AdminDisposalRegisterComponent } from "./pages/admin-reports/admin-disposal-register/admin-disposal-register.component";
 import { AssetDisposalComponent } from "./pages/fixasset/asset-disposal/asset-disposal.component";
+import { TransfersExternalsRptComponent } from './pages/fixasset/reports/transfers-externals-rpt/transfers-externals-rpt.component';
 
 @NgModule({
   declarations: [
@@ -140,6 +141,7 @@ import { AssetDisposalComponent } from "./pages/fixasset/asset-disposal/asset-di
     AdminRoadRegisterComponent,
     AdminDisposalRegisterComponent,
     AssetDisposalComponent,
+    TransfersExternalsRptComponent,
   ],
   imports: [
     BrowserModule,
