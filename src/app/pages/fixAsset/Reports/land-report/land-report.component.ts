@@ -1,19 +1,19 @@
-import { Component, OnInit, ChangeDetectorRef, ViewChild } from "@angular/core";
+import { Component, OnInit, ChangeDetectorRef, ViewChild } from '@angular/core';
 import {
   HttpClient,
   HttpHeaders,
   HttpErrorResponse,
-} from "@angular/common/http";
-import { AppComponent } from "src/app/app.component";
+} from '@angular/common/http';
+import { AppComponent } from 'src/app/app.component';
 import {
   CdkDragDrop,
   moveItemInArray,
   transferArrayItem,
-} from "@angular/cdk/drag-drop";
-import { CookieService } from "ngx-cookie-service";
-import { MatTableDataSource } from "@angular/material/table";
-import { ToastrManager } from "ng6-toastr-notifications";
-import { MatSort } from "@angular/material/sort";
+} from '@angular/cdk/drag-drop';
+import { CookieService } from 'ngx-cookie-service';
+import { MatTableDataSource } from '@angular/material/table';
+import { ToastrManager } from 'ng6-toastr-notifications';
+import { MatSort } from '@angular/material/sort';
 
 declare var $: any;
 
@@ -81,23 +81,23 @@ export class AssetItems {
 }
 
 @Component({
-  selector: "app-land-report",
-  templateUrl: "./land-report.component.html",
-  styleUrls: ["./land-report.component.scss"],
+  selector: 'app-land-report',
+  templateUrl: './land-report.component.html',
+  styleUrls: ['./land-report.component.scss'],
 })
 export class LandReportComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
-  tempRptTitle = "";
-  rptTitle = "Land Report";
-  rptHeader = "";
-  rptTitle2nd = "";
+  tempRptTitle = '';
+  rptTitle = 'Land Report';
+  rptHeader = '';
+  rptTitle2nd = '';
 
   assetRegisterList = [];
   filterAssetRegisterList = [];
 
   // group by table setting
-  title = "Grid Grouping";
+  title = 'Grid Grouping';
 
   public dataSource = new MatTableDataSource<any | Group>([]);
 
@@ -120,131 +120,95 @@ export class LandReportComponent implements OnInit {
   ) {
     this.columns = [
       {
-        field: "officeDescription",
-        title: "account Section",
+        field: 'officeDescription',
+        title: 'account Section',
         display: true,
       },
       {
-        field: "roadShortName",
-        title: "Road",
+        field: 'roadShortName',
+        title: 'Road',
         display: true,
       },
       {
-        field: "projectShortName",
-        title: "Project",
+        field: 'projectShortName',
+        title: 'Project',
         display: true,
       },
       {
-        field: "landMeasureType",
-        title: "Measure Type",
+        field: 'landMeasureType',
+        title: 'Measure Type',
         display: true,
       },
       {
-        field: "areaAcquiredKanal",
-        title: "Kanal",
+        field: 'areaAcquiredKanal',
+        title: 'Kanal',
         display: true,
       },
       {
-        field: "areaAcquiredMarla",
-        title: "Marla",
+        field: 'areaAcquiredMarla',
+        title: 'Marla',
         display: true,
       },
       {
-        field: "totalCost",
-        title: "Total Cost",
+        field: 'totalCost',
+        title: 'Total Cost',
         display: true,
       },
-      { field: "wDV", title: "Written Down Value", display: true },
-      {
-        field: "totalRevaluationAmount",
-        title: "Total Revaluation",
-        display: true,
-      },
-      {
-        field: "revaluationSurplus",
-        title: "Revaluation Surplus",
-        display: true,
-      },
+      { field: 'wDV', title: 'Written Down Value', display: true },
+      { field: 'totalRevaluationAmount', title: 'Total Revaluation', display: true },
+      { field: 'revaluationSurplus', title: 'Revaluation Surplus', display: true },
 
+      { field: 'openingRevaluationAmount', title: 'OPening Revaluation', display: false },
       {
-        field: "openingRevaluationAmount",
-        title: "OPening Revaluation",
+        field: 'openingRevaluationSurplus',
+        title: 'opening Revaluation Surplus',
         display: false,
       },
       {
-        field: "openingRevaluationSurplus",
-        title: "opening Revaluation Surplus",
+        field: 'additionINRevaluationAmount',
+        title: 'Revaluation Addition',
         display: false,
       },
       {
-        field: "additionINRevaluationAmount",
-        title: "Revaluation Addition",
+        field: 'additionINRevaluationSurplus',
+        title: 'Revaluation Surplus Addition',
         display: false,
       },
       {
-        field: "additionINRevaluationSurplus",
-        title: "Revaluation Surplus Addition",
+        field: 'dateofNationalization',
+        title: 'Nationalization Date',
         display: false,
       },
-      {
-        field: "dateofNationalization",
-        title: "Nationalization Date",
-        display: false,
-      },
-      { field: "constructionFrom", title: "Construction From", display: false },
-      { field: "constructionTo", title: "Construction To", display: false },
-      { field: "constructionCost", title: "Construction Cost", display: false },
-      {
-        field: "areaTransferedKanal",
-        title: "Area Transfered Kanal",
-        display: false,
-      },
-      {
-        field: "areaTransferedMarla",
-        title: "Area Transfered Marla",
-        display: false,
-      },
-      { field: "costOfLand", title: "Cost of Land", display: false },
-      { field: "remarks", title: "Remarks", display: false },
-      { field: "purposeofPurchase", title: "Purchase Purpose", display: false },
-      { field: "presentUse", title: "Present Use", display: false },
-      { field: "packageName", title: "Package Name", display: false },
-      { field: "bridgeName", title: "Bridge Name", display: false },
-      { field: "bridgeLength", title: "Bridge Length", display: false },
-      { field: "spType", title: "SP Type", display: false },
-      { field: "accountsCatagory", title: "Accounts Catagory", display: false },
-      { field: "roadLength", title: "Road Length", display: false },
-      { field: "projectName", title: "Project Name", display: false },
-      { field: "openingcost", title: "Opening Cost", display: false },
-      {
-        field: "roporationforCosttoWDV",
-        title: "WDV Proporttion",
-        display: false,
-      },
-      {
-        field: "openingAccDepreciation",
-        title: "Opening Depreciation",
-        display: false,
-      },
-      { field: "accDepreciation", title: "Depreciation", display: false },
-      { field: "oWDV", title: "Opening Written Down Value", display: false },
-      {
-        field: "oProporationforCostoWDV",
-        title: "Opening Proportion WDV",
-        display: false,
-      },
-      { field: "historicalCost", title: "Historical Cost", display: false },
-      { field: "revaluation", title: "Revaluation", display: false },
-      {
-        field: "additioninRevaluation",
-        title: "Revaluation Addition",
-        display: false,
-      },
-      { field: "roadName", title: "Road Full Name", display: false },
+      { field: 'constructionFrom', title: 'Construction From', display: false },
+      { field: 'constructionTo', title: 'Construction To', display: false },
+      { field: 'constructionCost', title: 'Construction Cost', display: false },
+      { field: 'areaTransferedKanal', title: 'Area Transfered Kanal', display: false},
+      { field: 'areaTransferedMarla', title: 'Area Transfered Marla', display: false},
+      { field: 'costOfLand', title: 'Cost of Land', display: false},
+      { field: 'remarks', title: 'Remarks', display: false},
+      { field: 'purposeofPurchase', title: 'Purchase Purpose', display: false},
+      { field: 'presentUse', title: 'Present Use', display: false},
+      { field: 'packageName', title: 'Package Name', display: false},
+      { field: 'bridgeName', title: 'Bridge Name', display: false},
+      { field: 'bridgeLength', title: 'Bridge Length', display: false},
+      { field: 'spType', title: 'SP Type', display: false},
+      { field: 'accountsCatagory', title: 'Accounts Catagory', display: false},
+      { field: 'roadLength', title: 'Road Length', display: false},
+      { field: 'projectName', title: 'Project Name', display: false},
+      { field: 'openingcost', title: 'Opening Cost', display: false},
+      { field: 'roporationforCosttoWDV', title: 'WDV Proporttion', display: false},
+      { field: 'openingAccDepreciation', title: 'Opening Depreciation', display: false},
+      { field: 'accDepreciation', title: 'Depreciation', display: false},
+      { field: 'oWDV', title: 'Opening Written Down Value', display: false},
+      { field: 'oProporationforCostoWDV', title: 'Opening Proportion WDV', display: false},
+      { field: 'historicalCost', title: 'Historical Cost', display: false},
+      { field: 'revaluation', title: 'Revaluation', display: false},
+      { field: 'additioninRevaluation', title: 'Revaluation Addition', display: false},
+      { field: 'roadName', title: 'Road Full Name', display: false},
     ];
     // this.availColumns = this.columns.slice();
     this.displayedColumns = this.columns.map((column) => column.field);
-    this.groupByColumns = ["officeDescription"];
+    this.groupByColumns = ['officeDescription'];
   }
 
   ngOnInit(): void {
@@ -252,23 +216,28 @@ export class LandReportComponent implements OnInit {
   }
 
   getReport() {
+
     // clear filters
-    this.rptTitle2nd = "";
+    this.rptTitle2nd = '';
 
     // header setting
     // tslint:disable-next-line: triple-equals
-    if (this.tempRptTitle != "") {
+    if (this.tempRptTitle != '') {
       this.rptHeader = this.tempRptTitle;
     }
 
     // http call
     // tslint:disable-next-line: prefer-const
     let reqHeader = new HttpHeaders({
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
       // Authorization: "Bearer " + Token,
     });
     this.http
-      .get(this.app.serverUrl + "getLandData", { headers: reqHeader })
+      .get(
+        this.app.serverUrl +
+          'getLandData',
+        { headers: reqHeader }
+      )
       .subscribe((data: any) => {
         // this.assetRegisterList = data;
         // this.filterAssetRegisterList = data;
@@ -303,11 +272,11 @@ export class LandReportComponent implements OnInit {
   }
 
   printDiv() {
-    this.app.printReport("#myTable");
+    this.app.printReport('#myTable');
   }
 
   exportExcel() {
-    this.app.exportExcel("myTable", "Asset Register");
+    this.app.exportExcel('myTable', 'Asset Register');
   }
 
   groupBy(event, column) {
@@ -440,186 +409,298 @@ export class LandReportComponent implements OnInit {
     let data = this.filterAssetRegisterList;
     // tslint:disable-next-line: triple-equals
     const index = data.findIndex((x) => x.level == 1);
-    if (sort.active && sort.direction !== "") {
+    if (sort.active && sort.direction !== '') {
       if (index > -1) {
         data.splice(index, 1);
       }
 
       data = data.sort((a: AssetItems, b: AssetItems) => {
-        const isAsc = sort.direction === "asc";
+        const isAsc = sort.direction === 'asc';
         switch (sort.active) {
-          case "officeDescription":
+          case 'officeDescription':
             return this.compare(
               a.officeDescription,
               b.officeDescription,
               isAsc
             );
-          case "roadShortName":
-            return this.compare(a.roadShortName, b.roadShortName, isAsc);
-          case "projectShortName":
-            return this.compare(a.projectShortName, b.projectShortName, isAsc);
-          case "landMeasureType":
+          case 'roadShortName':
+            return this.compare(
+              a.roadShortName,
+              b.roadShortName,
+              isAsc
+            );
+          case 'projectShortName':
+            return this.compare(
+              a.projectShortName,
+              b.projectShortName,
+              isAsc
+            );
+          case 'landMeasureType':
             return this.compare(a.landMeasureType, b.landMeasureType, isAsc);
-          case "areaAcquiredKanal":
+          case 'areaAcquiredKanal':
             return this.compare(
               a.areaAcquiredKanal,
               b.areaAcquiredKanal,
               isAsc
             );
-          case "areaAcquiredMarla":
+            case 'areaAcquiredMarla':
             return this.compare(
               a.areaAcquiredMarla,
               b.areaTransferedMarla,
               isAsc
             );
-          case "totalCost":
-            return this.compare(a.totalCost, b.totalCost, isAsc);
-          case "wDV":
-            return this.compare(a.wDV, b.wDV, isAsc);
-          case "totalRevaluationAmount":
+            case 'totalCost':
+            return this.compare(
+              a.totalCost,
+              b.totalCost,
+              isAsc
+            );
+            case 'wDV':
+            return this.compare(
+              a.wDV,
+              b.wDV,
+              isAsc
+            );
+            case 'totalRevaluationAmount':
             return this.compare(
               a.totalRevaluationAmount,
               b.totalRevaluationAmount,
               isAsc
             );
-          case "revaluationSurplus":
+            case 'revaluationSurplus':
             return this.compare(
               a.revaluationSurplus,
               b.revaluationSurplus,
               isAsc
             );
-          case "openingRevaluationAmount":
+            case 'openingRevaluationAmount':
             return this.compare(
               a.openingRevaluationAmount,
               b.openingRevaluationAmount,
               isAsc
             );
-          case "openingRevaluationSurplus":
+            case 'openingRevaluationSurplus':
             return this.compare(
               a.openingRevaluationSurplus,
               b.openingRevaluationSurplus,
               isAsc
             );
-          case "additionINRevaluationAmount":
+            case 'additionINRevaluationAmount':
             return this.compare(
               a.additionINRevaluationAmount,
               b.additionINRevaluationAmount,
               isAsc
             );
-          case "additionINRevaluationSurplus":
+            case 'additionINRevaluationSurplus':
             return this.compare(
               a.additionINRevaluationSurplus,
               b.additionINRevaluationSurplus,
               isAsc
             );
-          case "accountsCatID":
-            return this.compare(a.accountsCatID, b.accountsCatID, isAsc);
-          case "officeSecID":
-            return this.compare(a.officeSecID, b.officeSecID, isAsc);
-          case "projectID":
-            return this.compare(a.projectID, b.projectID, isAsc);
-          case "roadId":
-            return this.compare(a.roadId, b.roadId, isAsc);
-          case "buildingID":
-            return this.compare(a.buildingID, b.buildingID, isAsc);
-          case "dateofNationalization":
+            case 'accountsCatID':
+            return this.compare(
+              a.accountsCatID,
+              b.accountsCatID,
+              isAsc
+            );
+            case 'officeSecID':
+            return this.compare(
+              a.officeSecID,
+              b.officeSecID,
+              isAsc
+            );
+            case 'projectID':
+            return this.compare(
+              a.projectID,
+              b.projectID,
+              isAsc
+            );
+            case 'roadId':
+            return this.compare(
+              a.roadId,
+              b.roadId,
+              isAsc
+            );
+            case 'buildingID':
+            return this.compare(
+              a.buildingID,
+              b.buildingID,
+              isAsc
+            );
+            case 'dateofNationalization':
             return this.compare(
               a.dateofNationalization,
               b.dateofNationalization,
               isAsc
             );
-          case "constructionFrom":
-            return this.compare(a.constructionFrom, b.constructionTo, isAsc);
-          case "constructionCost":
-            return this.compare(a.constructionCost, b.constructionCost, isAsc);
-          case "landMeasureTypeID":
+            case 'constructionFrom':
+            return this.compare(
+              a.constructionFrom,
+              b.constructionTo,
+              isAsc
+            );
+            case 'constructionCost':
+            return this.compare(
+              a.constructionCost,
+              b.constructionCost,
+              isAsc
+            );
+            case 'landMeasureTypeID':
             return this.compare(
               a.landMeasureTypeID,
               b.landMeasureTypeID,
               isAsc
             );
-          case "areaTransferedKanal":
+            case 'areaTransferedKanal':
             return this.compare(
               a.areaTransferedKanal,
               b.areaTransferedKanal,
               isAsc
             );
-          case "areaTransferedMarla":
+            case 'areaTransferedMarla':
             return this.compare(
               a.areaTransferedMarla,
               b.areaTransferedKanal,
               isAsc
             );
-          case "costOfLand":
-            return this.compare(a.costOfLand, b.costOfLand, isAsc);
-          case "remarks":
-            return this.compare(a.remarks, b.remarks, isAsc);
-          case "purposeofPurchase":
+            case 'costOfLand':
+            return this.compare(
+              a.costOfLand,
+              b.costOfLand,
+              isAsc
+            );
+            case 'remarks':
+            return this.compare(
+              a.remarks,
+              b.remarks,
+              isAsc
+            );
+            case 'purposeofPurchase':
             return this.compare(
               a.purposeofPurchase,
               b.purposeofPurchase,
               isAsc
             );
-          case "presentUse":
-            return this.compare(a.presentUse, b.presentUse, isAsc);
-          case "packageName":
-            return this.compare(a.packageName, b.packageName, isAsc);
-          case "bridgeName":
-            return this.compare(a.bridgeName, b.bridgeName, isAsc);
-          case "bridgeLength":
+            case 'presentUse':
+            return this.compare(
+              a.presentUse,
+              b.presentUse,
+              isAsc
+            );
+            case 'packageName':
+            return this.compare(
+              a.packageName,
+              b.packageName,
+              isAsc
+            );
+            case 'bridgeName':
+            return this.compare(
+              a.bridgeName,
+              b.bridgeName,
+              isAsc
+            );
+            case 'bridgeLength':
             return this.compare(
               a.additionINRevaluationAmount,
               b.additionINRevaluationAmount,
               isAsc
             );
-          case "fixedAssetID":
-            return this.compare(a.fixedAssetID, b.fixedAssetID, isAsc);
-          case "userId":
-            return this.compare(a.userId, b.userId, isAsc);
-          case "spType":
-            return this.compare(a.spType, b.spType, isAsc);
-          case "accountsCatagory":
-            return this.compare(a.accountsCatagory, b.accountsCatagory, isAsc);
-          case "roadLength":
-            return this.compare(a.roadLength, b.roadLength, isAsc);
-          case "projectName":
-            return this.compare(a.projectName, b.projectName, isAsc);
-          case "openingCost":
-            return this.compare(a.openingcost, b.openingcost, isAsc);
-          case "proporationforCosttoWDV":
+            case 'fixedAssetID':
+            return this.compare(
+              a.fixedAssetID,
+              b.fixedAssetID,
+              isAsc
+            );
+            case 'userId':
+            return this.compare(
+              a.userId,
+              b.userId,
+              isAsc
+            );
+            case 'spType':
+            return this.compare(
+              a.spType,
+              b.spType,
+              isAsc
+            );
+            case 'accountsCatagory':
+            return this.compare(
+              a.accountsCatagory,
+              b.accountsCatagory,
+              isAsc
+            );
+            case 'roadLength':
+            return this.compare(
+              a.roadLength,
+              b.roadLength,
+              isAsc
+            );
+            case 'projectName':
+            return this.compare(
+              a.projectName,
+              b.projectName,
+              isAsc
+            );
+            case 'openingCost':
+            return this.compare(
+              a.openingcost,
+              b.openingcost,
+              isAsc
+            );
+            case 'proporationforCosttoWDV':
             return this.compare(
               a.proporationforCosttoWDV,
               b.proporationforCosttoWDV,
               isAsc
             );
-          case "openingAccDepreciation":
+            case 'openingAccDepreciation':
             return this.compare(
               a.openingAccDepreciation,
               b.openingAccDepreciation,
               isAsc
             );
-          case "accDepreciation":
-            return this.compare(a.accDepreciation, b.accDepreciation, isAsc);
-          case "oWDV":
-            return this.compare(a.oWDV, b.oWDV, isAsc);
-          case "oProporationforCosttoWDV":
+            case 'accDepreciation':
+            return this.compare(
+              a.accDepreciation,
+              b.accDepreciation,
+              isAsc
+            );
+            case 'oWDV':
+            return this.compare(
+              a.oWDV,
+              b.oWDV,
+              isAsc
+            );
+            case 'oProporationforCosttoWDV':
             return this.compare(
               a.oProporationforCosttoWDV,
               b.oProporationforCosttoWDV,
               isAsc
             );
-          case "historicalCost":
-            return this.compare(a.historicalCost, b.historicalCost, isAsc);
-          case "revaluation":
-            return this.compare(a.revaluation, b.revaluation, isAsc);
-          case "additioninRevaluation":
+            case 'historicalCost':
+            return this.compare(
+              a.historicalCost,
+              b.historicalCost,
+              isAsc
+            );
+            case 'revaluation':
+            return this.compare(
+              a.revaluation,
+              b.revaluation,
+              isAsc
+            );
+            case 'additioninRevaluation':
             return this.compare(
               a.additioninRevaluation,
               b.additioninRevaluation,
               isAsc
             );
-          case "roadName":
-            return this.compare(a.roadName, b.roadName, isAsc);
+            case 'roadName':
+            return this.compare(
+              a.roadName,
+              b.roadName,
+              isAsc
+            );
           default:
             return 0;
         }

@@ -43,11 +43,11 @@ export class AssetItems {
 }
 
 @Component({
-  selector: "app-external-transfers-report",
-  templateUrl: "./external-transfers-report.component.html",
-  styleUrls: ["./external-transfers-report.component.scss"],
+  selector: 'app-transfer-external-rpt',
+  templateUrl: './transfer-external-rpt.component.html',
+  styleUrls: ['./transfer-external-rpt.component.scss']
 })
-export class ExternalTransfersReportComponent implements OnInit {
+export class TransferExternalRptComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
   tempRptTitle = "";

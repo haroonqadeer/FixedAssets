@@ -590,7 +590,6 @@ export class AssetDisposalComponent implements OnInit {
         this.currentMarketValue = item.currentMarketValue;
         this.remarks = item.remarks;
 
-        // alert(item.eDoc)
         if (item.eDoc != null && item.eDoc != "C:/inetpub/wwwroot/FAR/FAR_Project/assets/assetEntryImg") {
             this.imageAssetUrl =
             // "http://192.168.100.162:7000/assets/assetEntryImg/" +

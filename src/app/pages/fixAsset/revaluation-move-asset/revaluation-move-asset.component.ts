@@ -74,6 +74,7 @@ export class RevaluationMoveAssetComponent implements OnInit {
     this.dtpDate = new Date();
 
     this.getSubLocationforRevaluator();
+    this.getAccountsCatagoriesforRevaluator();
   }
 
   getSubLocationforRevaluator() {
@@ -92,21 +93,16 @@ export class RevaluationMoveAssetComponent implements OnInit {
       });
   }
 
-  getAccountsCatagoriesforRevaluator(subLocID) {
+  getAccountsCatagoriesforRevaluator() {
     var reqHeader = new HttpHeaders({
       "Content-Type": "application/json",
       // Authorization: "Bearer " + Token,
     });
 
     this.http
-      .get(
-        this.app.serverUrl +
-          "getAccountsCatagoriesforRevaluator?subLocID=" +
-          subLocID,
-        {
-          headers: reqHeader,
-        }
-      )
+      .get(this.app.serverUrl + "getAccountsCatagoriesforRevaluator", {
+        headers: reqHeader,
+      })
       .subscribe((data: any) => {
         this.accCatList = data;
         // this.loadingBar = false;
@@ -166,8 +162,6 @@ export class RevaluationMoveAssetComponent implements OnInit {
     // this.getMoveableAssetListforRevaluation(this.cmbLoc);
     // return;
 
-    this.getAccountsCatagoriesforRevaluator(this.cmbLoc);
-
     if (this.cmbLoc == "") {
       this.toastr.errorToastr("Please Select Location", "Error", {
         toastTimeout: 2500,
@@ -208,10 +202,9 @@ export class RevaluationMoveAssetComponent implements OnInit {
 
             return false;
           } else {
-            this.toastr.infoToastr(data.msg, "Error !", {
+            this.toastr.errorToastr(data.msg, "Error !", {
               toastTimeout: 5000,
             });
-            this.getMoveableAssetListforRevaluation(this.cmbLoc);
             this.loadingBar = false;
             return false;
           }
@@ -366,8 +359,8 @@ export class RevaluationMoveAssetComponent implements OnInit {
       item.eDoc != "C:/inetpub/wwwroot/FAR/FAR_Project/assets/assetEntryImg"
     ) {
       this.lblImage1 =
-        // "http://192.168.100.162:7000/assets/assetEntryImg/" +
-        "http://58.27.164.137:7000/assets/assetEntryImg/" +
+      // "http://192.168.100.162:7000/assets/assetEntryImg/" +
+      "http://58.27.164.137:7000/assets/assetEntryImg/" +
         item.assetID +
         "_1.jpg";
     } else {
@@ -379,8 +372,8 @@ export class RevaluationMoveAssetComponent implements OnInit {
       item.eDoc2 != "C:/inetpub/wwwroot/FAR/FAR_Project/assets/assetEntryImg"
     ) {
       this.lblImage2 =
-        // "http://192.168.100.162:7000/assets/assetEntryImg/" +
-        "http://58.27.164.137:7000/assets/assetEntryImg/" +
+      // "http://192.168.100.162:7000/assets/assetEntryImg/" +
+      "http://58.27.164.137:7000/assets/assetEntryImg/" +
         item.assetID +
         "_2.jpg";
     } else {
@@ -392,8 +385,8 @@ export class RevaluationMoveAssetComponent implements OnInit {
       item.eDoc3 != "C:/inetpub/wwwroot/FAR/FAR_Project/assets/assetEntryImg"
     ) {
       this.lblImage3 =
-        // "http://192.168.100.162:7000/assets/assetEntryImg/" +
-        "http://58.27.164.137:7000/assets/assetEntryImg/" +
+      // "http://192.168.100.162:7000/assets/assetEntryImg/" +
+      "http://58.27.164.137:7000/assets/assetEntryImg/" +
         item.assetID +
         "_3.jpg";
     } else {
@@ -434,16 +427,16 @@ export class RevaluationMoveAssetComponent implements OnInit {
     this.lblVehModel = "";
   }
 
-  save(item, i) {
+  save(item) {
     if (this.dtpDate == "" || this.dtpDate == undefined) {
       this.toastr.errorToastr("Please Select Date", "Error", {
         toastTimeout: 2500,
       });
       return false;
     } else if (
-      item.revaluationAmount == null ||
-      item.revaluationAmount == "" ||
-      item.revaluationAmount == undefined
+      item.revalAmount == null ||
+      item.revalAmount == "" ||
+      item.revalAmount == undefined
     ) {
       this.toastr.errorToastr("Please Enter Revaluation Amount", "Error", {
         toastTimeout: 2500,
@@ -467,7 +460,7 @@ export class RevaluationMoveAssetComponent implements OnInit {
       }
       var saveData = {
         AssetID: item.assetID, //int
-        revaluationAmount: parseFloat(item.revaluationAmount), //int
+        revaluationAmount: parseFloat(item.revalAmount), //int
         year: y, //int
         finYear: year, //int
         userID: this.cookie.get("userID"), //int
@@ -503,11 +496,8 @@ export class RevaluationMoveAssetComponent implements OnInit {
               );
             }
 
-            this.revalList[i].revaluationAmount = item.revaluationAmount;
-            this.revalList[i].editMode = false;
-
             this.lblAssetDetailID = 0;
-            // this.getMoveableAssetListforRevaluation(this.cmbLoc);
+            this.getMoveableAssetListforRevaluation(this.cmbLoc);
 
             // this.loadingBar = false;
             return false;
@@ -522,26 +512,10 @@ export class RevaluationMoveAssetComponent implements OnInit {
     }
   }
 
-  edit(item, i) {
+  edit(item) {
     item.lblAssetDetailID = item.assetDetailID;
     this.lblAssetDetailID = item.assetDetailID;
     item.revalAmount = item.revaluationAmount;
-
-    this.revalList[i].editMode = true;
-  }
-
-  findIndex(data, value) {
-    var index = -1;
-
-    var filteredObj = data.find(function (item, i) {
-      if (item.assetDetailID === value) {
-        index = i;
-        return i;
-      } else {
-        return -1;
-      }
-    });
-    return filteredObj;
   }
 
   delete(item) {

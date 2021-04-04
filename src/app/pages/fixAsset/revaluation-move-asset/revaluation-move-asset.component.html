@@ -12,73 +12,39 @@
     <div class="col-md-4 pl-3 pr-0 border-right">
       <div class="row bgGrey">
         <div class="col-md-12 pt-4">
-          <h3 class="text-white pb-2">{{ heading }} Revaluation</h3>
+          <h3 class='text-white pb-2'>{{heading}} Revaluation</h3>
         </div>
       </div>
       <div class="row pr-4 pl-1">
         <div class="col-md-12 pt-2">
-          <mat-form-field class="w-100">
+          <mat-form-field class='w-100'>
             <mat-label>Location</mat-label>
-            <mat-select
-              [(ngModel)]="cmbLoc"
-              (ngModelChange)="accCatList = []"
-              (ngModelChange)="showOffice()"
-            >
+            <mat-select [(ngModel)]="cmbLoc" (ngModelChange)="showOffice()">
               <mat-option>
-                <ngx-mat-select-search
-                  [(ngModel)]="searchLocation"
-                  [placeholderLabel]="'Search...'"
-                  [noEntriesFoundLabel]="'Not found'"
-                  name="search"
-                ></ngx-mat-select-search>
+                <ngx-mat-select-search [(ngModel)]="searchLocation" [placeholderLabel]="'Search...'"
+                  [noEntriesFoundLabel]="'Not found'" name="search"></ngx-mat-select-search>
               </mat-option>
-              <mat-option
-                *ngFor="
-                  let item of locList
-                    | search
-                      : 'subLocationDescription, officeTypeDescription'
-                      : searchLocation
-                "
-                [value]="item.subLocID"
-                >{{ item.subLocationDescription }} -
-                {{ item.officeTypeDescription }}</mat-option
-              >
+              <mat-option *ngFor="
+                let item of locList | search
+                : 'subLocationDescription'
+                : searchLocation" [value]="item.subLocID">{{item.subLocationDescription}}</mat-option>
             </mat-select>
           </mat-form-field>
         </div>
       </div>
-      <div class="row pr-4 pl-1" *ngIf="showOfficeType == false">
+      <div class="row pr-4 pl-1" *ngIf="showOfficeType==false">
         <div class="col-md-12 inline-block">
           <label class="align-self-center">Office Type:</label>
-          <label
-            class="align-self-center text-primary pl-2 font-weight-bold border-bottom"
-            >{{ lblOfficeType }}</label
-          >
+          <label class="align-self-center text-primary pl-2 font-weight-bold border-bottom">{{ lblOfficeType }}</label>
         </div>
       </div>
       <div class="row pr-4 pl-1">
         <div class="col-md-12 pt-2">
-          <a
-            class="btn-flip mr-3"
-            data-back="Open Location"
-            data-front="Open Location"
-            (click)="openReval()"
-          ></a>
-        </div>
-      </div>
-      <div class="row pr-4 pl-1">
-        <div class="col-md-12 pt-2">
-          <mat-form-field class="w-100">
+          <mat-form-field class='w-100'>
             <mat-label>Account Category</mat-label>
-            <mat-select
-              [(ngModel)]="cmbAccCat"
-              (ngModelChange)="filterTableData(cmbAccCat)"
-            >
-              <mat-option
-                *ngFor="let item of accCatList"
-                [value]="item.accountsCatagory"
-                >{{ item.accountsCatagory }}</mat-option
-              >
+            <mat-select [(ngModel)]="cmbAccCat" (ngModelChange)="filterTableData(cmbAccCat)">
+              <mat-option *ngFor="
+                let item of accCatList" [value]="item.accountsCatagory">{{item.accountsCatagory}}</mat-option>
             </mat-select>
           </mat-form-field>
         </div>
@@ -88,10 +54,7 @@
           <mat-form-field color="warn" class="w-100">
             <mat-label>Date</mat-label>
             <input matInput [matDatepicker]="picker" [(ngModel)]="dtpDate" />
-            <mat-datepicker-toggle
-              matSuffix
-              [for]="picker"
-            ></mat-datepicker-toggle>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
           </mat-form-field>
         </div>
@@ -100,25 +63,11 @@
       <div class="footer w-100">
         <div class="row border-top bgGrey pt-2 pb-2 pl-3">
           <div class="col-md-12 inline-block">
-            <!-- <a
-              class="btn-flip mr-3"
-              data-back="Open"
-              data-front="Open"
-              (click)="openReval()"
-            ></a> -->
-            <a
-              class="btn-flip"
-              data-back="Supervised"
-              data-front="Supervised"
-              data-toggle="modal"
-              data-target="#genPinModal"
-            ></a>
-            <!-- <a
-              class="btn-flip"
-              data-back="Complete"
-              data-front="Complete"
-              (click)="completeReval()"
-            ></a> -->
+            <a class="btn-flip mr-3" data-back="Open Revaluation" data-front="Open Revaluation"
+              (click)="openReval()"></a>
+            <a class="btn-flip" data-back="Supervised Location" data-front="Supervised Location" data-toggle="modal"
+              data-target="#genPinModal"></a>
+            <a class="btn-flip" data-back="Complete Revaluation" data-front="Complete Revaluation"></a>
           </div>
         </div>
       </div>
@@ -137,22 +86,17 @@
         <div class="col-md-12 pt-2">
           <mat-form-field class="w-100">
             <mat-label>search...</mat-label>
-            <mat-icon matPrefix class="fa fa-search"></mat-icon>
-            <input matInput [(ngModel)]="tblSearch" />
+            <mat-icon matPrefix class='fa fa-search'></mat-icon>
+            <input matInput [(ngModel)]="tblSearch">
           </mat-form-field>
         </div>
       </div>
-      <div
-        class="table-responsive table-wrapper border style-3 mx-auto"
-        style="height: 540px"
-      >
+      <div class="table-responsive table-wrapper border style-3 mx-auto" style='height: 540px;'>
         <table class="table table-striped">
           <thead>
             <tr>
               <th class="sticky-top text-center" scope="col">Action</th>
-              <th class="text-center sticky-top" scope="col">
-                Revaluation Amount
-              </th>
+              <th class="text-center sticky-top" scope="col">Revaluation Amount</th>
               <th class="sticky-top" scope="col">Tag</th>
               <th class="sticky-top" scope="col">Asset Category</th>
               <th class="sticky-top" scope="col">Asset Description</th>
@@ -163,75 +107,39 @@
           </thead>
           <tbody>
             <tr
-              *ngFor="
-                let item of revalList
-                  | search
-                    : 'tag,assetCatDescription,assetDescription,make,model,size'
-                    : tblSearch;
-                let i = index
-              "
-            >
-              <td class="inline-block text-center">
+              *ngFor="let item of revalList | search:'tag,assetCatDescription,assetDescription,make,model,size':tblSearch let i=index">
+              <td class='inline-block text-center'>
+                <span class='fa fa-info-circle cursorPointer text-primary pr-3' (click)="assetDetail(item)"></span>
                 <span
-                  class="fa fa-info-circle cursorPointer text-primary pr-3"
-                  (click)="assetDetail(item)"
-                ></span>
+                  *ngIf="(this.lblRevalComplete != 1) || ((item.revaluationAmount == null && (item.lblAssetDetailID == null || item.lblAssetDetailID == undefined)) || (item.revaluationAmount!=null && (item.lblAssetDetailID != null || item.lblAssetDetailID != undefined)))"
+                  class='fa fa-plus-circle cursorPointer text-primary pr-3' (click)="save(item)"></span>
                 <span
-                  *ngIf="
-                    this.lblRevalComplete != 1 ||
-                    (item.revaluationAmount == null &&
-                      (item.lblAssetDetailID == null ||
-                        item.lblAssetDetailID == undefined)) ||
-                    (item.revaluationAmount != null &&
-                      (item.lblAssetDetailID != null ||
-                        item.lblAssetDetailID != undefined))
-                  "
-                  class="fa fa-plus-circle cursorPointer text-primary pr-3"
-                  (click)="save(item, i)"
-                ></span>
-                <span
-                  *ngIf="
-                    this.lblRevalComplete != 1 ||
-                    (item.revaluationAmount != null &&
-                      (item.lblAssetDetailID == null ||
-                        item.lblAssetDetailID == undefined)) ||
-                    (item.revaluationAmount == null &&
-                      (item.lblAssetDetailID != null ||
-                        item.lblAssetDetailID != undefined))
-                  "
-                  class="fa fa-edit cursorPointer pr-3 text-primary"
-                  (click)="edit(item, i)"
-                ></span>
+                  *ngIf="(this.lblRevalComplete != 1) || ((item.revaluationAmount!=null && (item.lblAssetDetailID == null || item.lblAssetDetailID == undefined)) || (item.revaluationAmount==null && (item.lblAssetDetailID != null || item.lblAssetDetailID != undefined)))"
+                  class='fa fa-edit cursorPointer pr-3 text-primary' (click)="edit(item)"></span>
                 <!-- <span
                   *ngIf="(item.revaluationAmount!=null && (item.lblAssetDetailID == null || item.lblAssetDetailID == undefined)) || (item.revaluationAmount==null && (item.lblAssetDetailID != null || item.lblAssetDetailID != undefined))"
                   class='fa fa-trash-o cursorPointer text-danger pr-3' (click)="delete(item)"></span> -->
               </td>
-              <td>
-                <span *ngIf="item.editMode == false">{{
-                  item.revaluationAmount | number
-                }}</span>
-                <span *ngIf="item.editMode == true"
-                  ><input
-                    type="text"
-                    class="form-control text-right"
-                    currencyMask
-                    [(ngModel)]="item.revaluationAmount"
-                /></span>
+              <td
+                *ngIf="(this.lblRevalComplete == 1) || ((item.revaluationAmount!=null && (item.lblAssetDetailID == null || item.lblAssetDetailID == undefined)))">
+                {{item.revaluationAmount | number}}</td>
+              <td
+                *ngIf="(this.lblRevalComplete != 1) || ((item.revaluationAmount == null && (item.lblAssetDetailID == null || item.lblAssetDetailID == undefined)) || (item.revaluationAmount != null && (item.lblAssetDetailID != null || item.lblAssetDetailID != undefined)))">
+                <input type="text" class="form-control text-right" currencyMask [(ngModel)]="item.revalAmount">
               </td>
-              <td>{{ item.tag }}</td>
-              <td>{{ item.assetCatDescription }}</td>
-              <td>{{ item.assetDescription }}</td>
-              <td>{{ item.make }}</td>
-              <td>{{ item.model }}</td>
-              <td>{{ item.size }}</td>
+              <td>{{item.tag}}</td>
+              <td>{{item.assetCatDescription}}</td>
+              <td>{{item.assetDescription}}</td>
+              <td>{{item.make}}</td>
+              <td>{{item.model}}</td>
+              <td>{{item.size}}</td>
             </tr>
           </tbody>
         </table>
-      </div>
-      <!-- End -->
+      </div><!-- End -->
     </div>
   </div>
-  <br />
+  <br>
 </div>
 
 <!-- Asset Detail Modal Windw -->
@@ -249,47 +157,34 @@
 
       <!-- Modal body -->
       <div class="modal-body">
+
         <div class="row">
           <div class="col-md-12 inline-block">
             <label class="align-self-center">Project:</label>
-            <label
-              class="align-self-center text-primary pl-2 font-weight-bold border-bottom"
-              >{{ lblProject }}</label
-            >
+            <label class="align-self-center text-primary pl-2 font-weight-bold border-bottom">{{ lblProject }}</label>
           </div>
         </div>
 
         <div class="row">
           <div class="col-md-6 inline-block">
             <label class="align-self-center">Is Usable:</label>
-            <label
-              class="align-self-center text-primary pl-2 font-weight-bold border-bottom"
-              >{{ lblUsable }}</label
-            >
+            <label class="align-self-center text-primary pl-2 font-weight-bold border-bottom">{{ lblUsable }}</label>
           </div>
           <div class="col-md-6 inline-block">
             <label class="align-self-center">Is Surplus:</label>
-            <label
-              class="align-self-center text-primary pl-2 font-weight-bold border-bottom"
-              >{{ lblSurplus }}</label
-            >
+            <label class="align-self-center text-primary pl-2 font-weight-bold border-bottom">{{ lblSurplus }}</label>
           </div>
         </div>
 
         <div class="row">
           <div class="col-md-6 inline-block">
             <label class="align-self-center">Is Condemned:</label>
-            <label
-              class="align-self-center text-primary pl-2 font-weight-bold border-bottom"
-              >{{ lblComdemned }}</label
-            >
+            <label class="align-self-center text-primary pl-2 font-weight-bold border-bottom">{{ lblComdemned }}</label>
           </div>
           <div class="col-md-6 inline-block">
             <label class="align-self-center">Is Auctionable:</label>
             <label
-              class="align-self-center text-primary pl-2 font-weight-bold border-bottom"
-              >{{ lblAuctionable }}</label
-            >
+              class="align-self-center text-primary pl-2 font-weight-bold border-bottom">{{ lblAuctionable }}</label>
           </div>
         </div>
 
@@ -311,36 +206,27 @@
         </div>
 
         <div class="row pt-3">
-          <div class="col-md-6" *ngIf="showComputer == false">
+          <div class="col-md-6" *ngIf="showComputer==false">
             <div class="row">
               <div class="col-md-12 inline-block">
                 <!-- <label class="align-self-center">Processor:</label> -->
                 <label
-                  class="align-self-center text-primary pl-2 font-weight-bold border-bottom"
-                  >{{ lblProcessor }}</label
-                >
+                  class="align-self-center text-primary pl-2 font-weight-bold border-bottom">{{ lblProcessor }}</label>
               </div>
             </div>
             <div class="row">
               <div class="col-md-12 inline-block">
                 <!-- <label class="align-self-center">Generation:</label> -->
                 <label
-                  class="align-self-center text-primary pl-2 font-weight-bold border-bottom"
-                  >{{ lblGeneration }}</label
-                >
+                  class="align-self-center text-primary pl-2 font-weight-bold border-bottom">{{ lblGeneration }}</label>
               </div>
             </div>
             <div class="row">
               <div class="col-md-12 inline-block">
                 <!-- <label class="align-self-center">Hard Drive Type1:</label> -->
                 <label
-                  class="align-self-center text-primary pl-2 font-weight-bold border-bottom"
-                  >{{ lblHardDrive1 }}</label
-                >
-                <label
-                  class="align-self-center text-primary pl-2 font-weight-bold border-bottom"
-                  >{{ lblSize1 }}</label
-                >
+                  class="align-self-center text-primary pl-2 font-weight-bold border-bottom">{{ lblHardDrive1 }}</label>
+                <label class="align-self-center text-primary pl-2 font-weight-bold border-bottom">{{ lblSize1 }}</label>
               </div>
             </div>
             <!-- <div class="row">
@@ -354,13 +240,8 @@
               <div class="col-md-12 inline-block">
                 <!-- <label class="align-self-center">Hard Drive Type2:</label> -->
                 <label
-                  class="align-self-center text-primary pl-2 font-weight-bold border-bottom"
-                  >{{ lblHardDrive2 }}</label
-                >
-                <label
-                  class="align-self-center text-primary pl-2 font-weight-bold border-bottom"
-                  >{{ lblSize2 }}</label
-                >
+                  class="align-self-center text-primary pl-2 font-weight-bold border-bottom">{{ lblHardDrive2 }}</label>
+                <label class="align-self-center text-primary pl-2 font-weight-bold border-bottom">{{ lblSize2 }}</label>
               </div>
             </div>
             <!-- <div class="row">
@@ -371,32 +252,26 @@
                 </div>
               </div> -->
           </div>
-          <div class="col-md-6" *ngIf="showVehicle == false">
+          <div class="col-md-6" *ngIf="showVehicle==false">
             <div class="row">
               <div class="col-md-12 inline-block">
                 <!-- <label class="align-self-center">Vehicle Type:</label> -->
                 <label
-                  class="align-self-center text-primary pl-2 font-weight-bold border-bottom"
-                  >{{ lblVehType }}</label
-                >
+                  class="align-self-center text-primary pl-2 font-weight-bold border-bottom">{{ lblVehType }}</label>
               </div>
             </div>
             <div class="row">
               <div class="col-md-12 inline-block">
                 <!-- <label class="align-self-center">Vehicle Make:</label> -->
                 <label
-                  class="align-self-center text-primary pl-2 font-weight-bold border-bottom"
-                  >{{ lblVehMake }}</label
-                >
+                  class="align-self-center text-primary pl-2 font-weight-bold border-bottom">{{ lblVehMake }}</label>
               </div>
             </div>
             <div class="row">
               <div class="col-md-12 inline-block">
                 <!-- <label class="align-self-center">Vehicle Model:</label> -->
                 <label
-                  class="align-self-center text-primary pl-2 font-weight-bold border-bottom"
-                  >{{ lblVehModel }}</label
-                >
+                  class="align-self-center text-primary pl-2 font-weight-bold border-bottom">{{ lblVehModel }}</label>
               </div>
             </div>
           </div>
@@ -427,17 +302,12 @@
 
       <!-- Modal body -->
       <div class="modal-body">
+
         <div class="row">
           <div class="col-md-12">
             <mat-form-field class="w-100">
               <mat-label>Enter Pin</mat-label>
-              <input
-                matInput
-                type="password"
-                maxlength="4"
-                (keydown)="getKeyPressed($event)"
-                [(ngModel)]="txtPin"
-              />
+              <input matInput type="password" maxlength="4" (keydown)="getKeyPressed($event)" [(ngModel)]="txtPin" />
             </mat-form-field>
           </div>
         </div>
