@@ -358,7 +358,7 @@
                   <mat-select
                     [(ngModel)]="ddlAssets"
                     (ngModelChange)="filterAssetDetail(ddlAssets)"
-                    [disabled]="disposalID == 0"
+                    [disabled]="ddlLocation == ''"
                   >
                     <mat-option>
                       <ngx-mat-select-search
@@ -638,7 +638,7 @@
                       <tr *ngFor="let item of disposalDetailList">
                         <td>{{ item.tag }}</td>
                         <td>{{ item.assetDescription }}</td>
-                        <td>{{ item.assetLocation }}</td>
+                        <td>{{ item.accountsSection }}</td>
                         <td>{{ item.bidAmount | number }}</td>
                         <td>{{ item.bidAmount | number }}</td>
                         <td class="inline-block">

@@ -652,6 +652,10 @@ export class AssetDisposalComponent implements OnInit {
 
     filterAssetDetail(reqAssetId) {
 
+        this.imageAssetUrl = "../../../../../assets/assetEntryImg/dropHereImg.png";
+        this.imageAssetUrl2 = "../../../../../assets/assetEntryImg/dropHereImg.png";
+        this.imageAssetUrl3 = "../../../../../assets/assetEntryImg/dropHereImg.png";
+
         var tempList = this.assetsForDisposalDataList.filter((x) => x.assetID == reqAssetId);
 
         if (tempList.length > 0) {
