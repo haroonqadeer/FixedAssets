@@ -1164,7 +1164,7 @@ export class AssetEntryComponent implements OnInit {
     ) {
       this.imageAssetUrl =
       // "http://192.168.100.162:7000/assets/assetEntryImg/" +
-        "http://58.27.164.137:7000/assets/assetEntryImg/" +
+        "http://125.209.107.137:7000/assets/assetEntryImg/" +
         item.assetID +
         "_1.jpg";
     }
@@ -1174,7 +1174,7 @@ export class AssetEntryComponent implements OnInit {
     ) {
       this.imageAssetUrl2 =
       // "http://192.168.100.162:7000/assets/assetEntryImg/" +
-        "http://58.27.164.137:7000/assets/assetEntryImg/" +
+        "http://125.209.107.137:7000/assets/assetEntryImg/" +
         item.assetID +
         "_2.jpg";
     }
@@ -1184,7 +1184,7 @@ export class AssetEntryComponent implements OnInit {
     ) {
       this.imageAssetUrl3 =
       // "http://192.168.100.162:7000/assets/assetEntryImg/" +
-        "http://58.27.164.137:7000/assets/assetEntryImg/" +
+        "http://125.209.107.137:7000/assets/assetEntryImg/" +
         item.assetID +
         "_3.jpg";
     }
@@ -2249,7 +2249,7 @@ export class AssetEntryComponent implements OnInit {
       if (trans[0].eDoc != null) {
         this.imageTransUrl =
         // "http://192.168.100.162:7000/assets/transferImg/" +
-            "http://58.27.164.137:7000/assets/transferImg/" +
+            "http://125.209.107.137:7000/assets/transferImg/" +
           this.lblTransferID +
           ".jpg";
       }
@@ -2687,7 +2687,7 @@ export class AssetEntryComponent implements OnInit {
     if (obj.eDoc != null) {
       this.imageTransUrl =
       // "http://192.168.100.162:7000/assets/transferImg/" +
-          "http://58.27.164.137:7000/assets/transferImg/" +
+          "http://125.209.107.137:7000/assets/transferImg/" +
         obj.transferID +
         ".jpg";
     }
@@ -3383,7 +3383,7 @@ export class AssetEntryComponent implements OnInit {
     if (item.eDoc != null) {
       this.imageVehicleUrl =
       // "http://192.168.100.162:7000/assets/vehicleImg/" + item.id + ".pdf";
-           "http://58.27.164.137:7000/assets/vehicleImg/" + item.id + ".pdf";
+           "http://125.209.107.137:7000/assets/vehicleImg/" + item.id + ".pdf";
       this.lblFileName = "Open Uploaded File";
     }
   }

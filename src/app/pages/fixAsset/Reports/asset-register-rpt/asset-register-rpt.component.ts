@@ -376,7 +376,7 @@ export class AssetRegisterRptComponent implements OnInit {
 
     debugger;
     // this.imgUrl = "http://192.168.100.162:7000/assets/assetEntryImg/";
-    this.imgUrl = "http://58.27.164.137:7000/assets/assetEntryImg/";
+    this.imgUrl = "http://125.209.107.137:7000/assets/assetEntryImg/";
     this.getRegions();
     this.getLocation();
     this.getProjects();

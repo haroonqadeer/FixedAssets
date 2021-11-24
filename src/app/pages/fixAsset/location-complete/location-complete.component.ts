@@ -394,7 +394,7 @@ export class LocationCompleteComponent implements OnInit {
   openPDFFile(item) {
     var url =
     // "http://192.168.100.162:7000/assets/Location/" +
-    "http://58.27.164.137:7000/assets/Location/" +
+    "http://125.209.107.137:7000/assets/Location/" +
       item.subLocCompletionID +
       ".pdf";
     window.open(url);

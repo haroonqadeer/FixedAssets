@@ -49,7 +49,9 @@ export class AssetDisposalComponent implements OnInit {
 
 
 
-
+    disAccDep:boolean=false;
+    disBookVal:boolean=false;
+    disRevalAmount:boolean=false;
 
     imgAssetPath3 = "C:/inetpub/wwwroot/FAR/FAR_Project/assets/assetEntryImg";
     imageAssetUrl: string = "../../../../../assets/assetEntryImg/dropHereImg.png";
@@ -556,6 +558,10 @@ export class AssetDisposalComponent implements OnInit {
         this.currentMarketValue = 0;
         this.remarksDetail = '';
         
+        this.disAccDep=false;
+        this.disBookVal=false;
+        this.disRevalAmount=false;
+
         this.imageAssetUrl = "../../../../../assets/assetEntryImg/dropHereImg.png";
         this.imageAssetUrl2 = "../../../../../assets/assetEntryImg/dropHereImg.png";
         this.imageAssetUrl3 = "../../../../../assets/assetEntryImg/dropHereImg.png";
@@ -593,19 +599,19 @@ export class AssetDisposalComponent implements OnInit {
         if (item.eDoc != null && item.eDoc != "C:/inetpub/wwwroot/FAR/FAR_Project/assets/assetEntryImg") {
             this.imageAssetUrl =
             // "http://192.168.100.162:7000/assets/assetEntryImg/" +
-            "http://58.27.164.137:7000/assets/assetEntryImg/" +
+            "http://125.209.107.137:7000/assets/assetEntryImg/" +
             item.assetID +
             "_1.jpg";
         }
         if (item.eDoc2 != null && item.eDoc2 != "C:/inetpub/wwwroot/FAR/FAR_Project/assets/assetEntryImg") {
             this.imageAssetUrl2 =
             // "http://192.168.100.162:7000/assets/assetEntryImg/" +
-            "http://58.27.164.137:7000/assets/assetEntryImg/" + item.assetID + "_2.jpg";
+            "http://125.209.107.137:7000/assets/assetEntryImg/" + item.assetID + "_2.jpg";
         }
         if (item.eDoc3 != null && item.eDoc3 != "C:/inetpub/wwwroot/FAR/FAR_Project/assets/assetEntryImg") {
             this.imageAssetUrl3 =
             // "http://192.168.100.162:7000/assets/assetEntryImg/" +
-            "http://58.27.164.137:7000/assets/assetEntryImg/" + item.assetID + "_3.jpg";
+            "http://125.209.107.137:7000/assets/assetEntryImg/" + item.assetID + "_3.jpg";
         }
     
     }
@@ -660,12 +666,29 @@ export class AssetDisposalComponent implements OnInit {
 
         if (tempList.length > 0) {
             this.description = tempList[0].assetDescription;
-            this.costOfAsset = tempList[0].costAmount;
             this.allocation = tempList[0].projectName;
-            // this.lblReval = tempList[0].revaluationAmount;
-            // this.lblTransactions = tempList[0].nooftransactions;
-            // this.lblSurplus = tempList[0].revalutionSurplus;
-            // this.lblOpeningSurplus = tempList[0].openingRevaluationSurplus;
+
+            if(tempList[0].costAmount != 0){
+                this.costOfAsset = tempList[0].costAmount;
+            }
+
+            if(tempList[0].AccDepreciationonCost != 0 && tempList[0].AccDepreciationonCost != undefined){
+                this.accumlateDepreciation = tempList[0].AccDepreciationonCost;
+                this.disAccDep=true;
+            }
+            
+            if(tempList[0].NetBookValue != 0 && tempList[0].NetBookValue != undefined){
+                this.bookValue = tempList[0].NetBookValue;
+                this.disBookVal=true;
+            } 
+            if(tempList[0].RevaluedAmount != 0 && tempList[0].RevaluedAmount != undefined){
+                this.revaluedAmount = tempList[0].RevaluedAmount;
+                this.disRevalAmount=true;
+            }
+            
+            // this.disposalValue = tempList[0].openingRevaluationSurplus;
+            // this.gainLoss = tempList[0].openingRevaluationSurplus;
+            // this.reservePrice = tempList[0].openingRevaluationSurplus;
             
             if (
                 tempList[0].eDoc != null &&
@@ -673,7 +696,7 @@ export class AssetDisposalComponent implements OnInit {
             ) {
                 this.imageAssetUrl =
                 // "http://192.168.100.162:7000/assets/assetEntryImg/" +
-                "http://58.27.164.137:7000/assets/assetEntryImg/" +
+                "http://125.209.107.137:7000/assets/assetEntryImg/" +
                 tempList[0].assetID +
                 "_1.jpg";
             }
@@ -683,7 +706,7 @@ export class AssetDisposalComponent implements OnInit {
             ) {
                 this.imageAssetUrl2 =
                 // "http://192.168.100.162:7000/assets/assetEntryImg/" +
-                "http://58.27.164.137:7000/assets/assetEntryImg/" +
+                "http://125.209.107.137:7000/assets/assetEntryImg/" +
                 tempList[0].assetID +
                 "_2.jpg";
             }
@@ -693,7 +716,7 @@ export class AssetDisposalComponent implements OnInit {
             ) {
                 this.imageAssetUrl3 =
                 // "http://192.168.100.162:7000/assets/assetEntryImg/" +
-                "http://58.27.164.137:7000/assets/assetEntryImg/" +
+                "http://125.209.107.137:7000/assets/assetEntryImg/" +
                 tempList[0].assetID +
                 "_3.jpg";
             }
@@ -823,10 +846,14 @@ export class AssetDisposalComponent implements OnInit {
     }
     
     onKeyPress(event) {
-    if ((event.keyCode > 47 && event.keyCode < 58) || event.keyCode == 8) {
-        return true;
-    } else {
-        return false;
+        if ((event.keyCode > 47 && event.keyCode < 58) || event.keyCode == 8) {
+            return true;
+        } else {
+            return false;
+        }
     }
+
+    getGainLoss(e){
+        this.gainLoss=this.disposalValue - this.bookValue;
     }
 }

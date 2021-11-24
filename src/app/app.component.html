@@ -188,6 +188,11 @@
         <span class="d-none d-sm-inline">Disposal of Assets</span>
       </a>
     </li>
+    <li class="nav-item" *ngIf=" userRole == 'Admin' || userRole == 'Moveable Asset Admin' || userRole == 'Super User' ">
+      <a class="nav-link text-truncate" href="" routerLinkActive="active" routerLink="writeOff" (click)="closeNav()" >
+        <span class="d-none d-sm-inline">Write Off</span>
+      </a>
+    </li>
     <li
       class="nav-item"
       *ngIf="userRole == 'Admin' || userRole == 'Super User'"

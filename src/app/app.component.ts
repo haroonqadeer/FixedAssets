@@ -22,7 +22,8 @@ declare var $: any;
   styleUrls: ["./app.component.scss"],
 })
 export class AppComponent {
-  serverUrl = "http://58.27.164.137:7001/api/";
+  // serverUrl = "http://58.27.164.137:7001/api/";
+  serverUrl = "http://125.209.107.137:7001/api/";
   // serverUrl = "http://192.168.100.162:6090/api/";
   // serverUrl = "http://192.168.100.162:7001/api/";
 
@@ -262,7 +263,7 @@ export class AppComponent {
             // data[0].assetID +
             // "_1.jpg";
             this.imageAssetUrl =
-              "http://58.27.164.137:7000/assets/assetEntryImg/" +
+              "http://125.209.107.137:7000/assets/assetEntryImg/" +
               data[0].assetID +
               "_1.jpg";
           }
@@ -273,7 +274,7 @@ export class AppComponent {
           ) {
             this.imageAssetUrl2 =
               // "http://192.168.100.162:7000/assets/assetEntryImg/" +
-              "http://58.27.164.137:7000/assets/assetEntryImg/" +
+              "http://125.209.107.137:7000/assets/assetEntryImg/" +
               data[0].assetID +
               "_2.jpg";
           }
@@ -284,7 +285,7 @@ export class AppComponent {
           ) {
             this.imageAssetUrl3 =
               // "http://192.168.100.162:7000/assets/assetEntryImg/" +
-              "http://58.27.164.137:7000/assets/assetEntryImg/" +
+              "http://125.209.107.137:7000/assets/assetEntryImg/" +
               data[0].assetID +
               "_3.jpg";
           }
@@ -702,7 +703,7 @@ export class AppComponent {
         if (
           this.imageAssetUrl ==
           // "http://192.168.100.162:7000/assets/assetEntryImg/" +
-          "http://58.27.164.137:7000/assets/assetEntryImg/" +
+          "http://125.209.107.137:7000/assets/assetEntryImg/" +
             this.txtAssetID +
             "_1.jpg"
         ) {
@@ -719,7 +720,7 @@ export class AppComponent {
         if (
           this.imageAssetUrl2 ==
           // "http://192.168.100.162:7000/assets/assetEntryImg/" +
-          "http://58.27.164.137:7000/assets/assetEntryImg/" +
+          "http://125.209.107.137:7000/assets/assetEntryImg/" +
             this.txtAssetID +
             "_2.jpg"
         ) {
@@ -737,7 +738,7 @@ export class AppComponent {
         if (
           this.imageAssetUrl3 ==
           // "http://192.168.100.162:7000/assets/assetEntryImg/" +
-          "http://58.27.164.137:7000/assets/assetEntryImg/" +
+          "http://125.209.107.137:7000/assets/assetEntryImg/" +
             this.txtAssetID +
             "_3.jpg"
         ) {

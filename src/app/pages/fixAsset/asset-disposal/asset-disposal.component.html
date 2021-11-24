@@ -501,7 +501,7 @@
             <!--next row -->
             <div class="row mt-2 pl-4 pr-4">
               <div class="col-md-4">
-                <mat-form-field class="w-100">
+                <mat-form-field class="w-100" *ngIf="disAccDep==false">
                   <mat-label>Accumlate Depreciation</mat-label>
                   <input
                     matInput
@@ -509,20 +509,32 @@
                     [(ngModel)]="accumlateDepreciation"
                   />
                 </mat-form-field>
+                <div *ngIf="disAccDep==true">
+                  <label>Acc Depreciation: </label>
+                  <h4>{{accumlateDepreciation}}</h4>
+                </div>
               </div>
 
               <div class="col-md-4">
-                <mat-form-field class="w-100">
+                <mat-form-field class="w-100" *ngIf="disBookVal==false">
                   <mat-label>Book Value</mat-label>
-                  <input matInput currencyMask [(ngModel)]="bookValue" />
+                  <input matInput currencyMask [(ngModel)]="bookValue" (keyup)="getGainLoss($event)"/>
                 </mat-form-field>
+                <div *ngIf="disBookVal==true">
+                  <label>Book Value: </label>
+                  <h4>{{bookValue}}</h4>
+                </div>
               </div>
 
               <div class="col-md-4">
-                <mat-form-field class="w-100">
+                <mat-form-field class="w-100" *ngIf="disRevalAmount==false">
                   <mat-label>Revalued Amount</mat-label>
-                  <input matInput currencyMask [(ngModel)]="revaluedAmount" />
+                  <input matInput currencyMask [(ngModel)]="revaluedAmount"/>
                 </mat-form-field>
+                <div *ngIf="disRevalAmount==true">
+                  <label>Revalued Amount: </label>
+                  <h4>{{revaluedAmount}}</h4>
+                </div>
               </div>
             </div>
 
@@ -531,14 +543,14 @@
               <div class="col-md-6">
                 <mat-form-field class="w-100">
                   <mat-label>Disposal Value</mat-label>
-                  <input matInput currencyMask [(ngModel)]="disposalValue" />
+                  <input matInput currencyMask [(ngModel)]="disposalValue" (keyup)="getGainLoss($event)" />
                 </mat-form-field>
               </div>
 
               <div class="col-md-6">
                 <mat-form-field class="w-100">
                   <mat-label>Gain/Loss</mat-label>
-                  <input matInput currencyMask [(ngModel)]="gainLoss" />
+                  <input matInput currencyMask [(ngModel)]="gainLoss" disabled />
                 </mat-form-field>
               </div>
             </div>
@@ -554,7 +566,7 @@
 
               <div class="col-md-6">
                 <mat-form-field class="w-100">
-                  <mat-label>Current Markeet Value</mat-label>
+                  <mat-label>Current Market Value</mat-label>
                   <input
                     matInput
                     currencyMask

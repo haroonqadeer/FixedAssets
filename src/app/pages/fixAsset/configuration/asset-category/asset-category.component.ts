@@ -384,7 +384,7 @@ export class AssetCategoryComponent implements OnInit {
       // this.imageUrl = "obj.edoc";
       this.imageUrl =
       // "http://192.168.100.162:7000/assets/assetCatImg/" +
-      "http://58.27.164.137:7000/assets/assetCatImg/" +
+      "http://125.209.107.137:7000/assets/assetCatImg/" +
         obj.assetCatID +
         ".jpg";
     }

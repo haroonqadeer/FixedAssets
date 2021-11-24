@@ -45,6 +45,7 @@ import { AdminRoadRegisterComponent } from "./pages/admin-reports/admin-road-reg
 import { AdminDisposalRegisterComponent } from "./pages/admin-reports/admin-disposal-register/admin-disposal-register.component";
 import { AssetDisposalComponent } from "./pages/fixasset/asset-disposal/asset-disposal.component";
 import { TransferExternalRptComponent } from "./pages/fixasset/reports/transfer-external-rpt/transfer-external-rpt.component";
+import { WriteOffComponent } from "./pages/fixAsset/write-off/write-off.component";
 
 const routes: Routes = [
   {
@@ -221,6 +222,10 @@ const routes: Routes = [
   {
     path: "assetpurchase",
     component: AssetpurchaseComponent,
+  },
+  {
+    path: "writeOff",
+    component: WriteOffComponent,
   },
 ];
 

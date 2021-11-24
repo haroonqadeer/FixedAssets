@@ -29,15 +29,16 @@ export class Group {
 }
 
 export class AssetItems {
-  fullDescription: string;
-  dateOfPurchase: string;
-  costOfPurchase: string;
-  quantityDispose: number;
+  assetDescriptioh: string;
+  purchaseDate: string;
+  costAmount: string;
+  qtyDisposedOff: number;
   reservePrice: string;
   disposalPrice: string;
-  purchaser: string;
-  dateOfDisposal: string;
+  purchaseNameWithAddress: string;
+  disposalDate: string;
   remarks: string;
+  subLocationDescription;
 }
 
 @Component({
@@ -48,13 +49,22 @@ export class AssetItems {
 export class AdminDisposalRegisterComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
+  cmbRegion = "";
+  searchRegion = "";
+  cmbLoc = "";
+  searchLocation = "";
+
   tempRptTitle = "";
   rptTitle = "Record of Disposal of Assets";
   rptHeader = "";
   rptTitle2nd = "";
+  regionTitle = "";
 
   assetRegisterList = [];
   filterAssetRegisterList = [];
+  regionList = [];
+  locList = [];
+  filteredLocList = [];
 
   // group by table setting
   title = "Grid Grouping";
@@ -76,22 +86,22 @@ export class AdminDisposalRegisterComponent implements OnInit {
   ) {
     this.columns = [
       {
-        field: "fullDescription",
+        field: "assetDescription",
         title: "Description of Assets",
         display: true,
       },
       {
-        field: "dateOfPurchase",
+        field: "purchaseDate",
         title: "Date of Purchase",
         display: true,
       },
       {
-        field: "costOfPurchase",
+        field: "costAmount",
         title: "Cost of Purchase",
         display: true,
       },
       {
-        field: "quantityDispose",
+        field: "qtyDisposedOff",
         title: "Quantity Disposed Off",
         display: true,
       },
@@ -106,12 +116,12 @@ export class AdminDisposalRegisterComponent implements OnInit {
         display: true,
       },
       {
-        field: "purchaser",
+        field: "purchaseNameWithAddress",
         title: "Name of Purchase with Address",
         display: true,
       },
       {
-        field: "dateOfDisposal",
+        field: "disposalDate",
         title: "Date of Disposal",
         display: true,
       },
@@ -120,6 +130,11 @@ export class AdminDisposalRegisterComponent implements OnInit {
         title: "Remarks",
         display: true,
       },
+      {
+        field: "subLocationDescription",
+        title: "Location",
+        display: false,
+      },
     ];
     // this.availColumns = this.columns.slice();
     this.displayedColumns = this.columns.map((column) => column.field);
@@ -127,8 +142,55 @@ export class AdminDisposalRegisterComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    $("#rptOptionsModal").modal("show");
     // this.getReport();
+    this.getRegions();
+    this.getLocation();
   }
+
+  getRegions() {
+    // debugger;
+    var reqHeader = new HttpHeaders({
+      "Content-Type": "application/json",
+      // Authorization: "Bearer " + Token,
+    });
+    this.http
+      // .get(this.app.serverUrl + "getsubloc", { headers: reqHeader })
+      .get(
+        this.app.serverUrl + "getRegions?userId=" + this.cookie.get("userID"),
+        { headers: reqHeader }
+      )
+      .subscribe((data: any) => {
+        // this.locList = data.filter((x) => x.isActivated == 1);
+        this.regionList = data;
+      });
+  }
+
+  getLocation() {
+    // debugger;
+    var reqHeader = new HttpHeaders({
+      "Content-Type": "application/json",
+      // Authorization: "Bearer " + Token,
+    });
+    this.http
+      // .get(this.app.serverUrl + "getsubloc", { headers: reqHeader })
+      .get(
+        this.app.serverUrl + "getLocations?userId=" + this.cookie.get("userID"),
+        { headers: reqHeader }
+      )
+      .subscribe((data: any) => {
+        // this.locList = data.filter((x) => x.isActivated == 1);
+        this.locList = data;
+        this.filteredLocList = data;
+      });
+  }
+
+  showLocations() {
+    this.filteredLocList = this.locList.filter(
+      (x) => x.mainLocID == this.cmbRegion
+    );
+  }
+
   getReport() {
     // clear filters
     this.rptTitle2nd = "";
@@ -139,6 +201,12 @@ export class AdminDisposalRegisterComponent implements OnInit {
       this.rptHeader = this.tempRptTitle;
     }
 
+    if (this.cmbRegion == "" || this.cmbRegion == undefined) {
+      this.toastr.errorToastr("Please Select Region", "Error", {
+        toastTimeout: 2500,
+      });
+      return false;
+    }
     // http call
     // tslint:disable-next-line: prefer-const
     let reqHeader = new HttpHeaders({
@@ -146,7 +214,14 @@ export class AdminDisposalRegisterComponent implements OnInit {
       // Authorization: "Bearer " + Token,
     });
     this.http
-      .get(this.app.serverUrl + "getLandData", { headers: reqHeader })
+      .get(
+        this.app.serverUrl +
+          "getDisposedAssetRpt?mainLocId=" +
+          this.cmbRegion +
+          "&subLocId=" +
+          this.cmbLoc,
+        { headers: reqHeader }
+      )
       .subscribe((data: any) => {
         // this.assetRegisterList = data;
         // this.filterAssetRegisterList = data;
@@ -165,7 +240,7 @@ export class AdminDisposalRegisterComponent implements OnInit {
         this.dataSource.filterPredicate = this.customFilterPredicate.bind(this);
         this.dataSource.filter = performance.now().toString();
         this.cdr.detectChanges();
-        // $('#rptOptionsModal').modal('hide');
+        $("#rptOptionsModal").modal("hide");
         // this.dataSource = this.filterAssetRegisterList;
       });
   }
@@ -178,6 +253,14 @@ export class AdminDisposalRegisterComponent implements OnInit {
 
   drop(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.columns, event.previousIndex, event.currentIndex);
+  }
+
+  getRegionTitle(item) {
+    this.regionTitle = item.mainLocationDescription;
+  }
+
+  clear() {
+    this.cmbRegion = "";
   }
 
   printDiv() {
@@ -326,18 +409,34 @@ export class AdminDisposalRegisterComponent implements OnInit {
       data = data.sort((a: AssetItems, b: AssetItems) => {
         const isAsc = sort.direction === "asc";
         switch (sort.active) {
-          case "fullDescription":
-            return this.compare(a.fullDescription, b.fullDescription, isAsc);
-          case "dateOfPurchase":
-            return this.compare(a.dateOfPurchase, b.dateOfPurchase, isAsc);
-          case "costOfPurchase":
-            return this.compare(a.costOfPurchase, b.costOfPurchase, isAsc);
-          case "quantityDispose":
-            return this.compare(a.quantityDispose, b.quantityDispose, isAsc);
+          case "assetDescriptioh":
+            return this.compare(a.assetDescriptioh, b.assetDescriptioh, isAsc);
+          case "purchaseDate":
+            return this.compare(a.purchaseDate, b.purchaseDate, isAsc);
+          case "costAmount":
+            return this.compare(a.costAmount, b.costAmount, isAsc);
+          case "qtyDisposedOff":
+            return this.compare(a.qtyDisposedOff, b.qtyDisposedOff, isAsc);
           case "reservePrice":
             return this.compare(a.reservePrice, b.reservePrice, isAsc);
           case "disposalPrice":
             return this.compare(a.disposalPrice, b.disposalPrice, isAsc);
+          case "purchaseNameWithAddress":
+            return this.compare(
+              a.purchaseNameWithAddress,
+              b.purchaseNameWithAddress,
+              isAsc
+            );
+          case "disposalDate":
+            return this.compare(a.disposalDate, b.disposalDate, isAsc);
+          case "remarks":
+            return this.compare(a.remarks, b.remarks, isAsc);
+          case "subLocationDescription":
+            return this.compare(
+              a.subLocationDescription,
+              b.subLocationDescription,
+              isAsc
+            );
           default:
             return 0;
         }
