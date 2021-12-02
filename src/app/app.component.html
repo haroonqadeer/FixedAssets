@@ -193,6 +193,29 @@
         <span class="d-none d-sm-inline">Write Off</span>
       </a>
     </li>
+    <li class="nav-item" *ngIf="userRole == 'Super User'">
+      <a
+        class="nav-link collapsed text-truncate"
+        href=""
+        data-toggle="collapse"
+        data-target="#submenuAdjEntry"
+        ><span class="d-none d-sm-inline">Adjustment Enteries</span></a
+      >
+      <div class="collapse" id="submenuAdjEntry" aria-expanded="false">
+        <ul class="flex-column nav bgDarkBlue">
+          <li class="nav-item">
+            <a
+              class="nav-link py-0 pl-5 pt-2 pb-2"
+              href=""
+              routerLink="revalEnteries"
+              routerLinkActive="active"
+              (click)="closeNav()"
+              ><span>Revaluation Entreris</span></a
+            >
+          </li>
+        </ul>
+      </div>
+    </li>
     <li
       class="nav-item"
       *ngIf="userRole == 'Admin' || userRole == 'Super User'"

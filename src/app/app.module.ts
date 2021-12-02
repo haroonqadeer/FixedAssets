@@ -89,6 +89,7 @@ import { AdminDisposalRegisterComponent } from './pages/admin-reports/admin-disp
 import { AssetDisposalComponent } from './pages/fixasset/asset-disposal/asset-disposal.component';
 import { TransferExternalRptComponent } from './pages/fixasset/reports/transfer-external-rpt/transfer-external-rpt.component';
 import { WriteOffComponent } from './pages/fixAsset/write-off/write-off.component';
+import { RevaluationEnteriesComponent } from './pages/fixAsset/adjustment-enteries/revaluation-enteries/revaluation-enteries.component';
 
 
 @NgModule({
@@ -142,6 +143,7 @@ import { WriteOffComponent } from './pages/fixAsset/write-off/write-off.componen
     AssetDisposalComponent,
     TransferExternalRptComponent,
     WriteOffComponent,
+    RevaluationEnteriesComponent,
 
   ],
   imports: [
