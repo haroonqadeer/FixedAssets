@@ -92,6 +92,7 @@ import { WriteOffComponent } from './pages/fixAsset/write-off/write-off.componen
 import { TransferComponent } from './pages/fixAsset/transfer/transfer.component';
 import { AssetToBeCreateComponent } from './pages/fixAsset/asset-to-be-create/asset-to-be-create.component';
 import { GlobalSearchComponent } from './pages/fixAsset/global-search/global-search.component';
+import { RevaluationEnteriesComponent } from './pages/fixAsset/adjustment-enteries/revaluation-enteries/revaluation-enteries.component';
 
 
 @NgModule({
@@ -148,6 +149,7 @@ import { GlobalSearchComponent } from './pages/fixAsset/global-search/global-sea
     TransferComponent,
     AssetToBeCreateComponent,
     GlobalSearchComponent,
+    RevaluationEnteriesComponent,
 
   ],
   imports: [
