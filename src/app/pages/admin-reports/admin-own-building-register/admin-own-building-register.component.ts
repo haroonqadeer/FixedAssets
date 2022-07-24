@@ -15,6 +15,7 @@ import { CookieService } from "ngx-cookie-service";
 import { MatTableDataSource } from "@angular/material/table";
 import { ToastrManager } from "ng6-toastr-notifications";
 import { MatSort } from "@angular/material/sort";
+import { DatePipe } from "@angular/common";
 
 declare var $: any;
 
@@ -53,6 +54,9 @@ export class AdminOwnBuildingRegisterComponent implements OnInit {
   rptHeader = "";
   rptTitle2nd = "";
 
+  dtpFromDt: any = '';
+  dtpToDt: any = '';
+
   assetRegisterList = [];
   filterAssetRegisterList = [];
 
@@ -72,7 +76,8 @@ export class AdminOwnBuildingRegisterComponent implements OnInit {
     private app: AppComponent,
     private cookie: CookieService,
     private cdr: ChangeDetectorRef,
-    private toastr: ToastrManager
+    private toastr: ToastrManager,
+    private datePipe: DatePipe
   ) {
     this.columns = [
       {
@@ -129,6 +134,8 @@ export class AdminOwnBuildingRegisterComponent implements OnInit {
 
   ngOnInit(): void {
     // this.getReport();
+    
+    $("#rptOptionsModal").modal("show");
   }
   getReport() {
     // clear filters
@@ -140,6 +147,18 @@ export class AdminOwnBuildingRegisterComponent implements OnInit {
       this.rptHeader = this.tempRptTitle;
     }
 
+    if (this.dtpFromDt == "" || this.dtpFromDt == undefined) {
+      this.toastr.errorToastr("Please Select From Date", "Error", {
+        toastTimeout: 2500,
+      });
+      return false;
+    } else if (this.dtpToDt == "" || this.dtpToDt == undefined) {
+      this.toastr.errorToastr("Please Select To Date", "Error", {
+        toastTimeout: 2500,
+      });
+      return false;
+    }
+
     // http call
     // tslint:disable-next-line: prefer-const
     let reqHeader = new HttpHeaders({
@@ -147,7 +166,10 @@ export class AdminOwnBuildingRegisterComponent implements OnInit {
       // Authorization: "Bearer " + Token,
     });
     this.http
-      .get(this.app.serverUrl + "getLandData", { headers: reqHeader })
+      .get(this.app.serverUrl + "getLandData?fromDate=" +
+      this.datePipe.transform(this.dtpFromDt, 'yyyy-MM-dd') +
+      "&toDate=" +
+      this.datePipe.transform(this.dtpToDt, 'yyyy-MM-dd'), { headers: reqHeader })
       .subscribe((data: any) => {
         // this.assetRegisterList = data;
         // this.filterAssetRegisterList = data;
@@ -355,6 +377,11 @@ export class AdminOwnBuildingRegisterComponent implements OnInit {
     this.dataSource.filterPredicate = this.customFilterPredicate.bind(this);
     this.dataSource.filter = performance.now().toString();
     this.cdr.detectChanges();
+  }
+
+  clear() {
+    this.dtpFromDt = "";
+    this.dtpToDt = "";
   }
 
   private compare(a, b, isAsc) {

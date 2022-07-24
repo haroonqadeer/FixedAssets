@@ -15,6 +15,7 @@ import { CookieService } from "ngx-cookie-service";
 import { MatTableDataSource } from "@angular/material/table";
 import { ToastrManager } from "ng6-toastr-notifications";
 import { MatSort } from "@angular/material/sort";
+import { DatePipe } from "@angular/common";
 
 declare var $: any;
 
@@ -52,6 +53,9 @@ export class FurnitureRegisterComponent implements OnInit {
   cmbRegion = "";
   searchRegion = "";
 
+  dtpFromDt: any = '';
+  dtpToDt: any = '';
+
   tempRptTitle = "";
   rptTitle = "Furniture";
   rptHeader = "";
@@ -78,7 +82,8 @@ export class FurnitureRegisterComponent implements OnInit {
     private app: AppComponent,
     private cookie: CookieService,
     private cdr: ChangeDetectorRef,
-    private toastr: ToastrManager
+    private toastr: ToastrManager,
+    private datePipe: DatePipe
   ) {
     this.columns = [
       {
@@ -146,6 +151,18 @@ export class FurnitureRegisterComponent implements OnInit {
     if (this.tempRptTitle != "") {
       this.rptHeader = this.tempRptTitle;
     }
+    
+    if (this.dtpFromDt == "" || this.dtpFromDt == undefined) {
+      this.toastr.errorToastr("Please Select From Date", "Error", {
+        toastTimeout: 2500,
+      });
+      return false;
+    } else if (this.dtpToDt == "" || this.dtpToDt == undefined) {
+      this.toastr.errorToastr("Please Select To Date", "Error", {
+        toastTimeout: 2500,
+      });
+      return false;
+    }
     // get
     // http call
     // tslint:disable-next-line: prefer-const
@@ -158,7 +175,10 @@ export class FurnitureRegisterComponent implements OnInit {
         this.app.serverUrl +
           "getForm47WithoutVehicle?mainLocId=" +
           this.cmbRegion +
-          "&accountCatID=4",
+          "&accountCatID=4&fromDate=" +
+          this.datePipe.transform(this.dtpFromDt, 'yyyy-MM-dd') +
+          "&toDate=" +
+          this.datePipe.transform(this.dtpToDt, 'yyyy-MM-dd'),
         {
           headers: reqHeader,
         }
@@ -388,6 +408,8 @@ export class FurnitureRegisterComponent implements OnInit {
 
   clear() {
     this.cmbRegion = "";
+    this.dtpFromDt = "";
+    this.dtpToDt = "";
   }
 
   getRegions() {

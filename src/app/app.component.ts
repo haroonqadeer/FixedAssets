@@ -22,10 +22,10 @@ declare var $: any;
   styleUrls: ["./app.component.scss"],
 })
 export class AppComponent {
-  // serverUrl = "http://58.27.164.137:7001/api/";
+  // // serverUrl = "http://58.27.164.137:7001/api/";
   serverUrl = "http://125.209.107.137:7001/api/";
-  // serverUrl = "http://192.168.100.162:6090/api/";
-  // serverUrl = "http://192.168.100.162:7001/api/";
+  // // serverUrl = "http://192.168.100.162:6090/api/";
+  // // serverUrl = "http://192.168.100.162:7001/api/";
 
   //offline server
   // serverUrl = "http://localhost:6090/api/";
@@ -418,15 +418,29 @@ export class AppComponent {
 
   //function for convert date format
   public convertDate(reqDate) {
+    debugger
     var oldDate = new Date(reqDate);
     var d = oldDate.getDate();
     var m = oldDate.getMonth();
     m += 1; // JavaScript months are 0-11
     var y = oldDate.getFullYear();
 
-    var convertedDate = m + "-" + d + "-" + y;
+    var convertedDate = m + "/" + d + "/" + y;
 
     return convertedDate;
+  }
+
+  public convertEdiDate(reqDate){
+    
+    var getfullDate = reqDate.split(' ');
+    return  getfullDate[0];
+
+    // var getYear = getShortDate[0];
+    // var getMonth = getShortDate[1];
+    // var getDay = getShortDate[2];
+
+    // return (getMonth + '/' + getDay + '/' + getYear);
+
   }
 
   // export in excel call from any child page

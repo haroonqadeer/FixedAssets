@@ -190,7 +190,11 @@
     </div>
   </div>
   <br />
-
+  <div class="row">
+    <div class="col-md-12">
+      <h3>Tags Created by Users</h3>
+    </div>
+  </div>
   <!-- 3 block row -->
   <div class="row">
     <!-- user's tag detail -->
@@ -258,12 +262,12 @@
   </div>
   <!-- </div> -->
   <!-- next row -->
+  <app-global-search (eventEmitter)="getData($event)"></app-global-search>
   <div class="row">
-    <div class="col-md-12">
+    <!-- <div class="col-md-12">
       <mat-form-field class="w-100">
         <mat-label>Province - Location - Sub Location</mat-label>
         <mat-select [(ngModel)]="cmbLocation" (ngModelChange)="getAssetDetailLocOfcType()">
-          <!-- <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchLocation" /> -->
           <ngx-mat-select-search [(ngModel)]="searchLocation" [placeholderLabel]="'Search...'"
             [noEntriesFoundLabel]="'Not found'" name="search"></ngx-mat-select-search>
           <mat-option *ngFor="
@@ -283,7 +287,7 @@
           </mat-option>
         </mat-select>
       </mat-form-field>
-    </div>
+    </div> -->
     <!-- <div class="col-md-6">
       <mat-form-field class="w-100">
         <mat-label>Office Type</mat-label>

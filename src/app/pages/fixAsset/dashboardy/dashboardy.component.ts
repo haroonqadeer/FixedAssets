@@ -114,7 +114,7 @@ export class DashboardyComponent implements OnInit {
     });
 
     this.http
-      .get(this.app.serverUrl + "gettagsnumberwise", { headers: reqHeader })
+      .get(this.app.serverUrl + "gettagsnumberwise?userID=" + this.cookie.get("userID"), { headers: reqHeader })
       .subscribe((data: any) => {
         this.tagNumList = data;
         this.loadingBar = false;
@@ -360,7 +360,7 @@ export class DashboardyComponent implements OnInit {
     });
 
     this.http
-      .get(this.app.serverUrl + "getallassetdashboard", { headers: reqHeader })
+      .get(this.app.serverUrl + "getallassetdashboard?userID=" + this.cookie.get("userID"), { headers: reqHeader })
       .subscribe((data: any) => {
         let chart = new Chart({
           chart: {
@@ -859,7 +859,8 @@ export class DashboardyComponent implements OnInit {
     });
 
     this.http
-      .get(this.app.serverUrl + "getalltagsdetaildatewise", {
+      .get(this.app.serverUrl + "getalltagsdetaildatewise?userID=" + 
+      this.cookie.get("userID"), {
         headers: reqHeader,
       })
       .subscribe((data: any) => {
@@ -910,7 +911,8 @@ export class DashboardyComponent implements OnInit {
       .get(
         this.app.serverUrl +
           "gettagsdetaillocwise?LocationID=" +
-          this.cmbTblLocation,
+          this.cmbTblLocation + 
+          "&userID=" + this.cookie.get("userID"),
         {
           headers: reqHeader,
         }
@@ -1005,7 +1007,7 @@ export class DashboardyComponent implements OnInit {
     });
 
     this.http
-      .get(this.app.serverUrl + "gettagssummary", { headers: reqHeader })
+      .get(this.app.serverUrl + "gettagssummary?userID=" + this.cookie.get("userID"), { headers: reqHeader })
       .subscribe((data: any) => {
         this.allLocation = data[0].allLocations;
         this.comLocation = data[0].completedLocations;
@@ -1021,7 +1023,7 @@ export class DashboardyComponent implements OnInit {
     });
 
     this.http
-      .get(this.app.serverUrl + "getlocdetail", { headers: reqHeader })
+      .get(this.app.serverUrl + "getlocdetail?userID=" + this.cookie.get("userID"), { headers: reqHeader })
       .subscribe((data: any) => {
         this.allLocDetList = data;
       });
@@ -1034,7 +1036,7 @@ export class DashboardyComponent implements OnInit {
     });
 
     this.http
-      .get(this.app.serverUrl + "getcomplocdetail", { headers: reqHeader })
+      .get(this.app.serverUrl + "getcomplocdetail?userID=" + this.cookie.get("userID"), { headers: reqHeader })
       .subscribe((data: any) => {
         this.compLocDetList = data;
       });
@@ -1047,7 +1049,7 @@ export class DashboardyComponent implements OnInit {
     });
 
     this.http
-      .get(this.app.serverUrl + "getincomplocdetail", { headers: reqHeader })
+      .get(this.app.serverUrl + "getincomplocdetail?userID=" + this.cookie.get("userID"), { headers: reqHeader })
       .subscribe((data: any) => {
         this.remLocDetList = data;
       });
@@ -1060,7 +1062,7 @@ export class DashboardyComponent implements OnInit {
     });
 
     this.http
-      .get(this.app.serverUrl + "gettagsdetaildb", { headers: reqHeader })
+      .get(this.app.serverUrl + "gettagsdetaildb?userID=" + this.cookie.get("userID"), { headers: reqHeader })
       .subscribe((data: any) => {
         this.tagDetList = data;
       });
@@ -1143,5 +1145,12 @@ export class DashboardyComponent implements OnInit {
         ]);
       }
     }
+  }
+
+  getData(item: any){
+    // alert('ok');
+    // console.log(item)
+
+    this.assetDetailList = item;
   }
 }

@@ -8,7 +8,7 @@ import { ChartModule } from 'angular-highcharts';
 import { UserIdleModule } from 'angular-user-idle';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { QRCodeModule } from 'angular2-qrcode';
-import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { HashLocationStrategy, LocationStrategy, DatePipe } from '@angular/common';
 
 import { CurrencyMaskConfig, CurrencyMaskModule, CURRENCY_MASK_CONFIG, } from 'ng2-currency-mask';
 export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
@@ -89,6 +89,9 @@ import { AdminDisposalRegisterComponent } from './pages/admin-reports/admin-disp
 import { AssetDisposalComponent } from './pages/fixasset/asset-disposal/asset-disposal.component';
 import { TransferExternalRptComponent } from './pages/fixasset/reports/transfer-external-rpt/transfer-external-rpt.component';
 import { WriteOffComponent } from './pages/fixAsset/write-off/write-off.component';
+import { TransferComponent } from './pages/fixAsset/transfer/transfer.component';
+import { AssetToBeCreateComponent } from './pages/fixAsset/asset-to-be-create/asset-to-be-create.component';
+import { GlobalSearchComponent } from './pages/fixAsset/global-search/global-search.component';
 
 
 @NgModule({
@@ -142,6 +145,9 @@ import { WriteOffComponent } from './pages/fixAsset/write-off/write-off.componen
     AssetDisposalComponent,
     TransferExternalRptComponent,
     WriteOffComponent,
+    TransferComponent,
+    AssetToBeCreateComponent,
+    GlobalSearchComponent,
 
   ],
   imports: [
@@ -174,12 +180,13 @@ import { WriteOffComponent } from './pages/fixAsset/write-off/write-off.componen
     ImmovableAssetRptComponent,
     NgxImageCompressService,
     CookieService,
+    DatePipe,
     { provide: CURRENCY_MASK_CONFIG, useValue: CustomCurrencyMaskConfig },
     { provide: LocationStrategy, useClass: HashLocationStrategy },
     LoaderService,
     { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],
-  exports: [OnCreateDirective],
+  exports: [OnCreateDirective,GlobalSearchComponent],
 })
 export class AppModule {}

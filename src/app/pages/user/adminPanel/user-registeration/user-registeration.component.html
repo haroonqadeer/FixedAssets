@@ -195,7 +195,7 @@
 
   <!-- Location Modal -->
   <div class="modal animate__animated animate__bounceIn" id="locationModal">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog modal-xl">
       <div class="modal-content">
         <!-- Modal Header -->
         <div class="modal-header">
@@ -231,9 +231,9 @@
                         value="{{item.subLocID}}" [disabled]="item.isActivated == 0">
                         <table class="table">
                           <tr class="d-flex">
-                            <td class="col-3">{{ item.subLocationDescription }}</td>
-                            <td class="col-5">{{ item.officeTypeDescription }}</td>
-                            <td class="col-4">{{ item.mainLocationDescription }}</td>
+                            <td class="col-6">{{ item.subLocationDescription }}</td>
+                            <td class="col-4">{{ item.officeTypeDescription }}</td>
+                            <td class="col-2">{{ item.mainLocationDescription }}</td>
                           </tr>
                         </table>
                       </mat-option>

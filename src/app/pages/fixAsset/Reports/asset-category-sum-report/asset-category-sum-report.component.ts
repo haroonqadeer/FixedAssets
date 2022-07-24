@@ -339,7 +339,6 @@ export class AssetCategorySumReportComponent implements OnInit {
 
     this.cmbRegion = '';
     this.cmbLocation = '';
-
   }
 
   getReport() {

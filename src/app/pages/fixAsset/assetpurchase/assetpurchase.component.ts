@@ -11,6 +11,7 @@ import {
 } from "@angular/common/http";
 import Swal from "sweetalert2/dist/sweetalert2.js";
 import { AppComponent } from "../../../app.component";
+import { DatePipe } from "@angular/common";
 
 declare var $: any;
 
@@ -67,6 +68,7 @@ export class AssetpurchaseComponent implements OnInit {
   ddlProject = "";
   ddlRef = "";
   ddlLocation = "";
+  ddlItemLocation = "";
   ddlPost = "";
   ddlCustody = "";
   ddlOfcSec = "";
@@ -74,6 +76,9 @@ export class AssetpurchaseComponent implements OnInit {
   ddlAssetCat = "";
   ddlMode = "";
 
+  dtpItemPurchase = new Date();
+  dtpFromDate = new Date();
+  dtpToDate = new Date();
   dtpPurchase = new Date();
   dtpSupplierInvoice = new Date();
   dtpMemoDate = new Date();
@@ -86,6 +91,9 @@ export class AssetpurchaseComponent implements OnInit {
   txtAssetDesc = "";
   txtCost = "";
   txtRemarks = "";
+  txtVoucherNo = "";
+  txtIdentify = "";
+  txtSerialNo = "";
 
   rdbAsset = "";
 
@@ -94,6 +102,7 @@ export class AssetpurchaseComponent implements OnInit {
   txtSearchRef = "";
   txtSearchProject = "";
   txtSearchLocation = "";
+  txtSearchItemLocation = "";
   txtSearchPost = "";
   txtSearchMemoIssued = "";
   txtSearchCustody = "";
@@ -161,7 +170,8 @@ export class AssetpurchaseComponent implements OnInit {
     private userIdle: UserIdleService,
     private toastr: ToastrManager,
     private http: HttpClient,
-    private app: AppComponent
+    private app: AppComponent,
+    private datePipe: DatePipe
   ) {}
 
   ngOnInit(): void {
@@ -172,6 +182,7 @@ export class AssetpurchaseComponent implements OnInit {
     this.getCustody();
     this.getVehicle();
     this.getAssetCategory();
+    this.getAccSec();
   }
 
   onFileSelected(event) {
@@ -246,10 +257,45 @@ export class AssetpurchaseComponent implements OnInit {
       .get(this.app.serverUrl + "getPurchase", { headers: reqHeader })
       .subscribe((data: any) => {
         this.purchaseList = data;
+        console.log(data);
+      });
+  }
+
+  getTablePurchase() {
+    if(this.dtpFromDate == undefined){
+      this.toastr.errorToastr("Please Select From Date", "Error !", {
+        toastTimeout: 2500,
+      });
+      return false;
+    }else if(this.dtpToDate == undefined){
+      this.toastr.errorToastr("Please Select To Date", "Error !", {
+        toastTimeout: 2500,
+      });
+      return false;
+    }else if(this.dtpFromDate > this.dtpToDate){
+      this.toastr.errorToastr("Please Select Correct Date", "Error !", {
+        toastTimeout: 2500,
+      });
+      return false;
+    }
+    var reqHeader = new HttpHeaders({
+      "Content-Type": "application/json",
+      // Authorization: "Bearer " + Token,
+    });
+
+    this.http
+      .get(this.app.serverUrl + "getPurchase?fromDate=" + 
+      this.datePipe.transform(this.dtpFromDate, 'yyyy-MM-dd') + 
+      "&toDate=" + 
+      this.datePipe.transform(this.dtpToDate, 'yyyy-MM-dd'), { headers: reqHeader })
+      .subscribe((data: any) => {
+        this.purchaseList = data;
+        console.log(data);
       });
   }
 
   getAssetDetail(item) {
+    // alert(item)
     var reqHeader = new HttpHeaders({
       "Content-Type": "application/json",
       // Authorization: "Bearer " + Token,
@@ -261,6 +307,8 @@ export class AssetpurchaseComponent implements OnInit {
       })
       .subscribe((data: any) => {
         this.assetList = data;
+        // alert(data.length)
+        // console.log(data)
       });
   }
 
@@ -338,7 +386,8 @@ export class AssetpurchaseComponent implements OnInit {
       });
   }
 
-  getAccSec(ofcTypeID) {
+  // getAccSec(ofcTypeID) {
+    getAccSec() {
     this.loadingBar = true;
     var reqHeader = new HttpHeaders({
       "Content-Type": "application/json",
@@ -348,7 +397,8 @@ export class AssetpurchaseComponent implements OnInit {
     this.http
       .get(this.app.serverUrl + "getaccsec", { headers: reqHeader })
       .subscribe((data: any) => {
-        this.accSecList = data.filter((x) => x.officeTypeID == ofcTypeID);
+        // this.accSecList = data.filter((x) => x.officeTypeID == ofcTypeID);
+        this.accSecList = data;
         this.loadingBar = false;
       });
   }
@@ -509,11 +559,11 @@ export class AssetpurchaseComponent implements OnInit {
         toastTimeout: 2500,
       });
       return false;
-    } else if (this.ddlRef == undefined || this.ddlRef == "") {
-      this.toastr.errorToastr("Please Select IPC Reference", "Error !", {
-        toastTimeout: 2500,
-      });
-      return false;
+    // } else if (this.ddlRef == undefined || this.ddlRef == "") {
+    //   this.toastr.errorToastr("Please Select IPC Reference", "Error !", {
+    //     toastTimeout: 2500,
+    //   });
+    //   return false;
     } else if (this.txtTotalAmount == undefined || this.txtTotalAmount == "") {
       this.toastr.errorToastr("Please Enter Total Amount", "Error !", {
         toastTimeout: 2500,
@@ -618,8 +668,9 @@ export class AssetpurchaseComponent implements OnInit {
     }
   }
 
-  //main entery CRUD Operation
-  chkPurchase() {
+  saveMainPurchase(){
+    // alert('ok');
+
     if (this.ddlLocation == undefined || this.ddlLocation == "") {
       this.toastr.errorToastr("Please Select Location", "Error !", {
         toastTimeout: 2500,
@@ -635,11 +686,11 @@ export class AssetpurchaseComponent implements OnInit {
         toastTimeout: 2500,
       });
       return false;
-    } else if (this.ddlRef == undefined || this.ddlRef == "") {
-      this.toastr.errorToastr("Please Select IPC Reference", "Error !", {
-        toastTimeout: 2500,
-      });
-      return false;
+    // } else if (this.ddlRef == undefined || this.ddlRef == "") {
+    //   this.toastr.errorToastr("Please Select IPC Reference", "Error !", {
+    //     toastTimeout: 2500,
+    //   });
+    //   return false;
     } else if (this.txtTotalAmount == undefined || this.txtTotalAmount == "") {
       this.toastr.errorToastr("Please Enter Total Amount", "Error !", {
         toastTimeout: 2500,
@@ -671,11 +722,11 @@ export class AssetpurchaseComponent implements OnInit {
           toastTimeout: 2500,
         });
         return false;
-      } else if (this.file == undefined || this.file == "") {
-        this.toastr.errorToastr("Please Choose Memo Document", "Error !", {
-          toastTimeout: 2500,
-        });
-        return false;
+      // } else if (this.file == undefined || this.file == "") {
+      //   this.toastr.errorToastr("Please Choose Memo Document", "Error !", {
+      //     toastTimeout: 2500,
+      //   });
+      //   return false;
       } else if (this.txtSupplier == undefined || this.txtSupplier == "") {
         this.toastr.errorToastr("Please Enter Supplier Name", "Error !", {
           toastTimeout: 2500,
@@ -698,11 +749,107 @@ export class AssetpurchaseComponent implements OnInit {
           toastTimeout: 2500,
         });
         return false;
-      } else if (this.fileSup == undefined || this.fileSup == "") {
-        this.toastr.errorToastr("Please Choose Supplier Document", "Error !", {
+      // } else if (this.fileSup == undefined || this.fileSup == "") {
+      //   this.toastr.errorToastr("Please Choose Supplier Document", "Error !", {
+      //     toastTimeout: 2500,
+      //   });
+      //   return false;
+      }else{
+        this.savePurchase();
+      }
+    } else {
+      // this.toastr.errorToastr("Else Condition", "Error !", {
+      //   toastTimeout: 2500,
+      // });
+      // alert('ok2')
+      this.savePurchase();
+    }
+  }
+  //main entery CRUD Operation
+  chkPurchase() {
+    if (this.ddlLocation == undefined || this.ddlLocation == "") {
+      this.toastr.errorToastr("Please Select Location", "Error !", {
+        toastTimeout: 2500,
+      });
+      return false;
+    } else if (this.ddlAccSec == undefined || this.ddlAccSec == "") {
+      this.toastr.errorToastr("Please Select Account Section", "Error !", {
+        toastTimeout: 2500,
+      });
+      return false;
+    } else if (this.ddlProject == undefined || this.ddlProject == "") {
+      this.toastr.errorToastr("Please Select Project", "Error !", {
+        toastTimeout: 2500,
+      });
+      return false;
+    // } else if (this.ddlRef == undefined || this.ddlRef == "") {
+    //   this.toastr.errorToastr("Please Select IPC Reference", "Error !", {
+    //     toastTimeout: 2500,
+    //   });
+    //   return false;
+    } else if (this.txtTotalAmount == undefined || this.txtTotalAmount == "") {
+      this.toastr.errorToastr("Please Enter Total Amount", "Error !", {
+        toastTimeout: 2500,
+      });
+      return false;
+    } else if (this.ddlMode == undefined || this.ddlMode == "") {
+      this.toastr.errorToastr("Please Select Mode of Acquistion", "Error !", {
+        toastTimeout: 2500,
+      });
+      return false;
+    } else if (this.txtDescription == undefined || this.txtDescription == "") {
+      this.toastr.errorToastr("Please Enter Description", "Error !", {
+        toastTimeout: 2500,
+      });
+      return false;
+    } else if (this.ddlMode == "RMA") {
+      if (this.txtMemo == undefined || this.txtMemo == "") {
+        this.toastr.errorToastr("Please Enter Memo No", "Error !", {
           toastTimeout: 2500,
         });
         return false;
+      } else if (this.ddlPost == undefined || this.ddlPost == "") {
+        this.toastr.errorToastr("Please Select Memo Issued By", "Error !", {
+          toastTimeout: 2500,
+        });
+        return false;
+      } else if (this.dtpMemoDate == undefined) {
+        this.toastr.errorToastr("Please Select Memo Date", "Error !", {
+          toastTimeout: 2500,
+        });
+        return false;
+      // } else if (this.file == undefined || this.file == "") {
+      //   this.toastr.errorToastr("Please Choose Memo Document", "Error !", {
+      //     toastTimeout: 2500,
+      //   });
+      //   return false;
+      } else if (this.txtSupplier == undefined || this.txtSupplier == "") {
+        this.toastr.errorToastr("Please Enter Supplier Name", "Error !", {
+          toastTimeout: 2500,
+        });
+        return false;
+      } else if (this.dtpSupplierInvoice == undefined) {
+        this.toastr.errorToastr(
+          "Please Select Supplier Invoice Date",
+          "Error !",
+          {
+            toastTimeout: 2500,
+          }
+        );
+        return false;
+      } else if (
+        this.txtSupInvoiceNo == undefined ||
+        this.txtSupInvoiceNo == ""
+      ) {
+        this.toastr.errorToastr("Please Enter Supplier Invoice No", "Error !", {
+          toastTimeout: 2500,
+        });
+        return false;
+      // } else if (this.fileSup == undefined || this.fileSup == "") {
+      //   this.toastr.errorToastr("Please Choose Supplier Document", "Error !", {
+      //     toastTimeout: 2500,
+      //   });
+      //   return false;
       }
     } else {
       this.toastr.errorToastr("Else Condition", "Error !", {
@@ -747,19 +894,75 @@ export class AssetpurchaseComponent implements OnInit {
         toastTimeout: 2500,
       });
       return false;
+    } else if (this.txtVoucherNo == undefined || this.txtVoucherNo == "") {
+      this.toastr.errorToastr("Please Enter Voucher No", "Error !", {
+        toastTimeout: 2500,
+      });
+      return false;
+    } else {
+      this.saveAsset();
+    }
+  }
+
+  //main entery CRUD Operation
+  savePurchaseDetail() {
+    if (this.ddlItemLocation == undefined || this.ddlItemLocation == "") {
+      this.toastr.errorToastr("Please Select Item Location", "Error !", {
+        toastTimeout: 2500,
+      });
+      return false;
+    } else if (this.ddlCustody == undefined || this.ddlCustody == "") {
+      this.toastr.errorToastr("Please Select Custody", "Error !", {
+        toastTimeout: 2500,
+      });
+      return false;
+    } else if (this.ddlOfcSec == undefined || this.ddlOfcSec == "") {
+      this.toastr.errorToastr("Please Select Office Section", "Error !", {
+        toastTimeout: 2500,
+      });
+      return false;
+    } else if (
+      this.rdbAsset == "2" &&
+      (this.ddlVehicle == undefined || this.ddlVehicle == "")
+    ) {
+      this.toastr.errorToastr("Please Select Vehicle", "Error !", {
+        toastTimeout: 2500,
+      });
+      return false;
+    } else if (this.ddlAssetCat == undefined || this.ddlAssetCat == "") {
+      this.toastr.errorToastr("Please Select Asset Category", "Error !", {
+        toastTimeout: 2500,
+      });
+      return false;
+    } else if (this.txtAssetDesc == undefined || this.txtAssetDesc == "") {
+      this.toastr.errorToastr("Please Enter Asset Description", "Error !", {
+        toastTimeout: 2500,
+      });
+      return false;
+    } else if (this.txtCost == undefined || this.txtCost == "") {
+      this.toastr.errorToastr("Please Enter Cost For Each", "Error !", {
+        toastTimeout: 2500,
+      });
+      return false;
+    } else if (this.txtVoucherNo == undefined || this.txtVoucherNo == "") {
+      this.toastr.errorToastr("Please Enter Voucher No", "Error !", {
+        toastTimeout: 2500,
+      });
+      return false;
     } else {
       this.saveAsset();
     }
   }
 
   savePurchase() {
+    // alert('ok3')
     var supInvDate, memoDate;
-    var purchaseDate = this.app.convertDate(this.dtpPurchase);
+    var purchaseDate = this.dtpPurchase;
     var reqSpType = "INSERT";
 
     if (this.ddlMode == "RMA") {
-      supInvDate = this.app.convertDate(this.dtpSupplierInvoice);
-      memoDate = this.app.convertDate(this.dtpMemoDate);
+      supInvDate = this.dtpSupplierInvoice;
+      memoDate = this.dtpMemoDate;
     } else {
       supInvDate = null;
       memoDate = null;
@@ -772,7 +975,7 @@ export class AssetpurchaseComponent implements OnInit {
       subLocID: this.ddlLocation,
       officeSecID: this.ddlAccSec,
       projectID: this.ddlProject,
-      iPcRef: this.ddlRef,
+      iPcRef: parseInt(this.ddlRef),
       purchaseDate: purchaseDate,
       totalAmount: this.txtTotalAmount,
       description: this.txtDescription,
@@ -789,6 +992,7 @@ export class AssetpurchaseComponent implements OnInit {
       supplierEDocExtension: "pdf",
       supplierImgFile: this.fileSup,
       modeofAcq: this.ddlMode,
+      voucherNo: this.txtVoucherNo,
       userid: this.cookie.get("userID"),
       SpType: reqSpType,
       purchaseID: this.lblPurchaseID,
@@ -822,14 +1026,15 @@ export class AssetpurchaseComponent implements OnInit {
   saveAsset() {
     debugger;
     var vehicleID;
-    var purchaseDate = this.app.convertDate(this.dtpPurchase);
+    var purchaseDate = this.dtpItemPurchase;
+    // alert(purchaseDate);
     var reqSpType = "INSERT";
 
     if (this.lblAssetID > 0) {
       reqSpType = "UPDATE";
     }
     var SaveData = {
-      subLocID: this.ddlLocation,
+      subLocID: this.ddlItemLocation,
       officeTypeID: this.lblOfcTypeID,
       assetCatID: this.ddlAssetCat,
       assetNo: this.lblAssetNo,
@@ -857,6 +1062,8 @@ export class AssetpurchaseComponent implements OnInit {
       publisher: this.publisher,
       edition: this.edition,
       volume: this.volume,
+      identification: this.txtIdentify,
+      serialNo: this.txtSerialNo,
       spType: reqSpType,
       userid: this.cookie.get("userID"),
       assetID: this.lblAssetID,
@@ -885,9 +1092,9 @@ export class AssetpurchaseComponent implements OnInit {
               }
             );
           }
+          this.getAssetDetail(this.lblPurchaseID);
           this.clearAsset();
           this.clearPurchase();
-          this.getAssetDetail(this.lblPurchaseID);
           return false;
         } else {
           this.toastr.errorToastr(data.msg, "Error !", {
@@ -957,6 +1164,9 @@ export class AssetpurchaseComponent implements OnInit {
     this.txtRemarks = "";
     this.lblAssetNo = 0;
     this.lblAssetID = 0;
+    this.txtIdentify = "";
+    this.txtSerialNo = "";
+    this.ddlItemLocation = "";
 
     this.assetCategorySpecsList = [];
     //empty asset category specification
@@ -982,6 +1192,10 @@ export class AssetpurchaseComponent implements OnInit {
     this.hdSize2List = [];
   }
 
+  clearDate(){
+    this.dtpFromDate = new Date();
+    this.dtpToDate = new Date();
+  }
   clear() {
     // this.editMode = 0;
     // this.lblPurchaseID = 0;
@@ -992,6 +1206,7 @@ export class AssetpurchaseComponent implements OnInit {
     this.ddlLocation = "";
     this.lblOfcType = "";
     this.dtpPurchase = new Date();
+    this.dtpItemPurchase = new Date()
     this.txtDescription = "";
     this.txtMemo = "";
     this.ddlPost = "";
@@ -1029,6 +1244,7 @@ export class AssetpurchaseComponent implements OnInit {
     this.ddlLocation = "";
     this.lblOfcType = "";
     this.dtpPurchase = new Date();
+    this.dtpItemPurchase = new Date();
     this.txtDescription = "";
     this.txtMemo = "";
     this.ddlPost = "";
@@ -1066,11 +1282,22 @@ export class AssetpurchaseComponent implements OnInit {
     this.ddlProject = item.projectID.toString();
     // this.lblOfcType = item.officeType;
     this.filterIPC(this.ddlProject);
+
+    
+    var project = this.projectsList.filter(
+      (x) => x.projectID == this.ddlProject
+    );
+    this.lblProject =
+      project[0].projectShortName + " - " + project[0].projectName;
+
     this.dtpPurchase = new Date(item.purchaseDate);
+    // alert(this.dtpPurchase)
     this.txtTotalAmount = item.totalAmount;
     this.txtDescription = item.description;
     this.ddlRef = item.iPcRef;
     this.txtMemo = item.memoNo;
+    this.txtVoucherNo = item.voucherNo;
+    
     if (item.memoIssuedBy != null) {
       this.ddlPost = item.memoIssuedBy.toString();
     }
@@ -1101,12 +1328,17 @@ export class AssetpurchaseComponent implements OnInit {
       this.ddlVehicle = item.vehicleID;
     }
 
+    console.log(item);
+    // this.ddlItemLocation
     this.ddlCustody = item.postID.toString();
     this.ddlOfcSec = item.officeSecID.toString();
     this.ddlAssetCat = item.assetCatID;
     this.txtAssetDesc = item.assetDescription;
     this.txtCost = item.costAmount;
     this.txtRemarks = item.remarks;
+    this.txtIdentify = item.identification;
+    this.txtSerialNo = item.serialNo;
+    this.dtpItemPurchase = item.purchaseDate;
   }
 
   delete(item) {
@@ -1193,8 +1425,8 @@ export class AssetpurchaseComponent implements OnInit {
                   { toastTimeout: 2500 }
                 );
                 // this.clearAsset();
-                this.clearPurchase();
                 this.getAssetDetail(this.lblPurchaseID);
+                this.clearPurchase();
                 return false;
               } else {
                 this.toastr.errorToastr(data.msg, "Error !", {
@@ -1230,7 +1462,7 @@ export class AssetpurchaseComponent implements OnInit {
     this.lblOfcType = officeType[0].officeTypeDescription;
     this.lblOfcTypeID = officeType[0].officeTypeID;
 
-    this.getAccSec(this.lblOfcTypeID);
+    // this.getAccSec(this.lblOfcTypeID);
     this.getOfcSection(this.lblOfcTypeID);
     this.getAssetNo();
   }
@@ -1242,4 +1474,75 @@ export class AssetpurchaseComponent implements OnInit {
   openPDFFileSup() {
     window.open(this.imageUrlSup);
   }
+
+  
+  //print 
+  print() {
+    var printCss = this.printCSS();
+
+    if(this.lblPurchaseID == 0){
+      this.toastr.errorToastr("Please Select Purchase No", "Error !", {
+        toastTimeout: 2500,
+      });
+      return;
+    }
+    var contents = $("#assetRegister").html();
+
+    var frame1 = $("<iframe />");
+    frame1[0].name = "frame1";
+    frame1.css({ position: "absolute", top: "-1000000px" });
+    $("body").append(frame1);
+    var frameDoc = frame1[0].contentWindow
+      ? frame1[0].contentWindow
+      : frame1[0].contentDocument.document
+      ? frame1[0].contentDocument.document
+      : frame1[0].contentDocument;
+    frameDoc.document.open();
+
+    //Create a new HTML document.
+    frameDoc.document.write(
+      "<html><head><title>DIV Contents</title>" +
+        "<style>" +
+        printCss +
+        "</style>"
+    );
+
+    //Append the external CSS file. <link rel="stylesheet" href="../../../styles.scss" /> <link rel="stylesheet" href="../../../../node_modules/bootstrap/dist/css/bootstrap.min.css" />
+    frameDoc.document.write(
+      '<style type="text/css" media="print">@page { size: landscape; }</style>'
+    );
+    frameDoc.document.write(
+      '<link rel="stylesheet" href="../../../../assets/css/styles.css" type="text/css"  media="print"/>'
+    );
+    frameDoc.document.write("</head><body>");
+
+    //Append the DIV contents.
+    frameDoc.document.write(contents);
+    frameDoc.document.write("</body></html>");
+
+    frameDoc.document.close();
+
+    setTimeout(function () {
+      window.frames["frame1"].focus();
+      window.frames["frame1"].print();
+      frame1.remove();
+    }, 500);
+  }
+  
+  public printCSS() {
+    var commonCss =
+      ".commonCss{font-family: Arial, Helvetica, sans-serif; text-align: center; }";
+
+    var cssHeading = ".cssHeading {font-size: 25px; font-weight: bold;}";
+    var cssAddress = ".cssAddress {font-size: 16px; }";
+    var cssContact = ".cssContact {font-size: 16px; }";
+
+    var tableCss =
+      "table {width: 100%; border-collapse: collapse;}    table thead tr th {text-align: left; font-family: Arial, Helvetica, sans-serif; font-weight: bole; border-bottom: 1px solid black; margin-left: -3px;}     table tbody tr td {font-family: Arial, Helvetica, sans-serif; border-bottom: 1px solid #ccc; margin-left: -3px; height: 33px;}";
+
+    var printCss = commonCss + cssHeading + cssAddress + cssContact + tableCss;
+
+    return printCss;
+  }
+
 }

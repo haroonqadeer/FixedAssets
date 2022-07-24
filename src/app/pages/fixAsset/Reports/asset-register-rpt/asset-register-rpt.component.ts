@@ -15,6 +15,7 @@ import { MatTableDataSource } from "@angular/material/table";
 import { ToastrManager } from "ng6-toastr-notifications";
 import { MatSort } from "@angular/material/sort";
 import { ActivatedRoute, Router } from "@angular/router";
+import { DatePipe } from "@angular/common";
 
 declare var $: any;
 
@@ -88,6 +89,9 @@ export class AssetRegisterRptComponent implements OnInit {
   cmbRegion = "";
   searchRegion = "";
 
+  dtpFromDt: any = '';
+  dtpToDt: any = '';
+
   searchLocation = "";
   cmbLocation = "";
   cmbOfficeTypeID = "";
@@ -139,7 +143,8 @@ export class AssetRegisterRptComponent implements OnInit {
     private cdr: ChangeDetectorRef,
     private toastr: ToastrManager,
     private _router: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private datePipe: DatePipe
   ) {
     // router parameter setting
     // this.router.events.subscribe( val =>{
@@ -344,6 +349,9 @@ export class AssetRegisterRptComponent implements OnInit {
       this.cmbProject = "";
       this.cmbAccountsCat = "";
       this.cmbAssetCat = "";
+      this.dtpFromDt = "";
+      this.dtpToDt = "";
+
       this._alldata = [];
       this.filterAssetRegisterList = [];
 
@@ -1373,6 +1381,8 @@ export class AssetRegisterRptComponent implements OnInit {
     this.cmbAssetCat = "";
     this.tempRptTitle = "";
     this.rptHeader = "";
+    this.dtpFromDt = "";
+    this.dtpToDt = "";
   }
 
   loadReport() {
@@ -1445,7 +1455,36 @@ export class AssetRegisterRptComponent implements OnInit {
 
     debugger;
     // if everything is empty
-    if (
+    
+    // if (this.dtpFromDt == "" || this.dtpFromDt == undefined) {
+    //   this.toastr.errorToastr("Please Select From Date", "Error", {
+    //     toastTimeout: 2500,
+    //   });
+    //   return false;
+    // } else if (this.dtpToDt == "" || this.dtpToDt == undefined) {
+    //   this.toastr.errorToastr("Please Select To Date", "Error", {
+    //     toastTimeout: 2500,
+    //   });
+    //   return false;
+    // } else
+    if(this.dtpFromDt != "" && this.dtpToDt != ""){
+      if(this.dtpFromDt > this.dtpToDt){
+        this.toastr.errorToastr("Please Select Correct Date", "Error", {
+          toastTimeout: 2500,
+        });
+        return false;
+      }
+    } else if(this.dtpFromDt != "" && this.dtpToDt == ""){
+      this.toastr.errorToastr("Please Select To Date", "Error", {
+        toastTimeout: 2500,
+      });
+      return false;
+    } else if(this.dtpFromDt == "" && this.dtpToDt != ""){
+    this.toastr.errorToastr("Please Select From Date", "Error", {
+      toastTimeout: 2500,
+    });
+    return false;
+  } else if (
       (this.rptPreset == "" || this.rptPreset == undefined) &&
       this.routParam == 0
     ) {
@@ -1505,7 +1544,11 @@ export class AssetRegisterRptComponent implements OnInit {
           "&type=" +
           this.rptPreset +
           "&status=" +
-          status,
+          status +
+          "&fromDate=" +
+          this.datePipe.transform(this.dtpFromDt, 'yyyy-MM-dd') +
+          "&toDate=" +
+          this.datePipe.transform(this.dtpToDt, 'yyyy-MM-dd'),
         { headers: reqHeader }
       )
       .subscribe((data: any) => {
