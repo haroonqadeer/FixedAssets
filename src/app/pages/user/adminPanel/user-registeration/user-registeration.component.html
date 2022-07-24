@@ -227,7 +227,7 @@
                       </mat-option>
                       <!-- <mat-option *ngFor="let item of locationsList | search: 'subLocationDescription':txtSearchLoc" value="{{item.subLocID}}">{{item.subLocationDescription}}</mat-option>
               -->
-                      <mat-option *ngFor="let item of locationsList | search: 'subLocationDescription':txtSearchLoc"
+                      <mat-option *ngFor="let item of locationsList | search: 'subLocationDescription,officeTypeDescription,mainLocationDescription':txtSearchLoc"
                         value="{{item.subLocID}}" [disabled]="item.isActivated == 0">
                         <table class="table">
                           <tr class="d-flex">

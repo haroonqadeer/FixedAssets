@@ -1252,6 +1252,9 @@ export class AssetpurchaseComponent implements OnInit {
     this.txtSupplier = "";
     this.dtpSupplierInvoice = new Date();
     this.txtSupplier = "";
+    this.txtVoucherNo = "";
+    this.txtSupInvoiceNo = "";
+    
 
     this.imgFile = "";
     this.lblFileName = "";

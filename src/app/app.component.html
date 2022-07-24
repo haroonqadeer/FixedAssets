@@ -24,7 +24,7 @@
       <a class="nav-link text-truncate" href="" routerLinkActive="home" routerLink="home" (click)="closeNav()"><span
           class="d-none d-sm-inline">Home</span></a>
     </li>
-    <li class="nav-item" *ngIf="userRole == 'Admin' || userRole == 'Super User'">
+    <li class="nav-item" *ngIf="userRole == 'Admin' || userRole == 'Super User' || userRole == 'Moveable Asset Admin'">
       <a class="nav-link text-truncate" href="" routerLinkActive="active" routerLink="dashboard"
         (click)="closeNav()"><span class="d-none d-sm-inline">Dashboard</span></a>
     </li>
@@ -87,8 +87,9 @@
         (click)="closeNav()"><span class="d-none d-sm-inline">Asset Purchase</span></a>
     </li>
     <li class="nav-item" *ngIf="
-        userRole == 'Admin' ||
+        userRole == 'Data Entry' ||
         userRole == 'Moveable Asset Admin' ||
+        userRole == 'Moveable Asset Data Entry' ||
         userRole == 'Super User'
       ">
       <a class="nav-link text-truncate" href="" routerLinkActive="active" routerLink="locComp"
@@ -135,8 +136,7 @@
     </li>
     <li class="nav-item" *ngIf="userRole == 'Admin' || userRole == 'Super User'">
       <a class="nav-link collapsed text-truncate" href="" data-toggle="collapse" data-target="#submenuReports"><span
-          class="d-none d-sm-inline">Reports</span></a>
-      >>>>>>> ab75dc6415343d4f093c0dac8f37a86c751762f3
+          class="d-none d-sm-inline">Reports</span></a>      
       <div class="collapse" id="submenuReports" aria-expanded="false">
         <ul class="flex-column nav bgDarkBlue">
           <li class="nav-item">
