@@ -807,7 +807,7 @@
       <div class="row border-top bgGrey pt-3 pb-3 ml-4 mr-4 mt-4">
         <div class="col-md-12 inline-block">
           <a class="btn-flip mr-3" data-back="Save" data-front="Save" (click)="savePurchaseDetail()"></a>
-          <a class="btn-flip" data-back="Reset" data-front="Reset" (click)="clear()"></a>
+          <a class="btn-flip" data-back="Reset" data-front="Reset" (click)="clearPurchaseDetail()"></a>
           <a class="btn-flip" data-back="Print" data-front="Print" (click)="print()"></a>
         </div>
       </div>
@@ -819,9 +819,10 @@
             <tr>
               <th scope="col">Action</th>
               <th scope="col">Tag</th>
-              <th scope="col">Sub Location</th>
-              <th scope="col">Office Title</th>
+              <th scope="col">Asset Description</th>
               <th scope="col">Custody</th>
+              <th scope="col">Sub Location</th>
+              <th scope="col">Office Title</th>              
               <th scope="col">Project</th>
             </tr>
           </thead>
@@ -835,9 +836,10 @@
                 <span class="fa fa-trash-o cursorPointer text-danger pr-3" (click)="deleteAsset(item)"></span>
               </td>
               <td>{{ item.tag }}</td>
-              <td>{{ item.subLocationDescription }}</td>
-              <td>{{ item.officeTypeDescription }}</td>
+              <td>{{ item.assetDescription }}</td>
               <td>{{ item.postName }}</td>
+              <td>{{ item.subLocationDescription }}</td>
+              <td>{{ item.officeTypeDescription }}</td>              
               <td>{{ item.projectShortName }}</td>
             </tr>
             <tr *ngIf="assetList.length == 0">

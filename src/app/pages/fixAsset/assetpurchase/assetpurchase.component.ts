@@ -1234,6 +1234,20 @@ export class AssetpurchaseComponent implements OnInit {
     // this.assetCatList = this.tempAssetCatList;
   }
 
+  clearPurchaseDetail(){
+    // this.ddlItemLocation = '';
+    this.ddlCustody = '';
+    this.ddlOfcSec = '';
+    this.ddlVehicle = '';
+    this.dtpItemPurchase = new Date();
+    this.ddlAssetCat = '';
+    this.txtAssetDesc = '';
+    this.txtCost = '';
+    this.txtRemarks = '';
+    this.txtIdentify = '';
+    this.txtSerialNo = '';
+  }
+
   clearAll() {
     this.editMode = 0;
     this.lblPurchaseID = 0;
@@ -1332,7 +1346,8 @@ export class AssetpurchaseComponent implements OnInit {
     }
 
     console.log(item);
-    // this.ddlItemLocation
+    // alert(item.subLocID);
+    // this.ddlItemLocation = item.subLocID;
     this.ddlCustody = item.postID.toString();
     this.ddlOfcSec = item.officeSecID.toString();
     this.ddlAssetCat = item.assetCatID;
