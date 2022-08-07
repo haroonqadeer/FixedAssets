@@ -820,6 +820,7 @@
               <th scope="col">Action</th>
               <th scope="col">Tag</th>
               <th scope="col">Asset Description</th>
+              <th scope="col">Amount</th>
               <th scope="col">Custody</th>
               <th scope="col">Sub Location</th>
               <th scope="col">Office Title</th>              
@@ -837,6 +838,7 @@
               </td>
               <td>{{ item.tag }}</td>
               <td>{{ item.assetDescription }}</td>
+              <td>{{ item.costAmount | number}}</td>
               <td>{{ item.postName }}</td>
               <td>{{ item.subLocationDescription }}</td>
               <td>{{ item.officeTypeDescription }}</td>              
