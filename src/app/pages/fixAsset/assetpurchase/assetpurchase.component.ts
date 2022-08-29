@@ -89,6 +89,7 @@ export class AssetpurchaseComponent implements OnInit {
   txtSupInvoiceNo = "";
   txtTotalAmount = "";
   txtAssetDesc = "";
+  txtQty = '';
   txtCost = "";
   txtRemarks = "";
   txtVoucherNo = "";
@@ -248,13 +249,14 @@ export class AssetpurchaseComponent implements OnInit {
   }
 
   getPurchase() {
+    // alert(this.cookie.get("userID"));
     var reqHeader = new HttpHeaders({
       "Content-Type": "application/json",
       // Authorization: "Bearer " + Token,
     });
 
     this.http
-      .get(this.app.serverUrl + "getPurchase", { headers: reqHeader })
+      .get(this.app.serverUrl + "getPurchase?userid=" +this.cookie.get("userID") , { headers: reqHeader })
       .subscribe((data: any) => {
         this.purchaseList = data;
         console.log(data);
@@ -939,7 +941,14 @@ export class AssetpurchaseComponent implements OnInit {
         toastTimeout: 2500,
       });
       return false;
-    } else if (this.txtCost == undefined || this.txtCost == "") {
+    
+    } else if (this.txtQty == undefined || this.txtQty == "") {
+      this.toastr.errorToastr("Please Enter Asset Quantity", "Error !", {
+        toastTimeout: 2500,
+      });
+      return false;
+    
+    }else if (this.txtCost == undefined || this.txtCost == "") {
       this.toastr.errorToastr("Please Enter Cost For Each", "Error !", {
         toastTimeout: 2500,
       });
@@ -1042,6 +1051,7 @@ export class AssetpurchaseComponent implements OnInit {
       postID: this.ddlCustody,
       assetLocation: this.txtAssetDesc,
       assetDescription: this.txtAssetDesc,
+      qty: this.txtQty,
       vehicleID: vehicleID,
       projectID: this.ddlProject,
       costAmount: this.txtCost,
@@ -1106,6 +1116,7 @@ export class AssetpurchaseComponent implements OnInit {
   }
 
   clearPurchase() {
+    debugger;
     this.editMode = 0;
     var loc = this.locList.filter((x) => x.subLocID == this.ddlLocation);
     this.lblLocation =
@@ -1128,8 +1139,11 @@ export class AssetpurchaseComponent implements OnInit {
     this.lblProject =
       project[0].projectShortName + " - " + project[0].projectName;
 
-    var ipc = this.refList.filter((x) => x.ipcRefID == this.ddlRef);
-    this.lblIPC = ipc[0].ipcRefDescription;
+    if (this.ddlRef != '' && this.ddlRef != undefined){
+      var ipc = this.refList.filter((x) => x.ipcRefID == this.ddlRef);
+      this.lblIPC = ipc[0].ipcRefDescription;
+    }
+      
 
     this.lblPurchaseDt = this.dtpPurchase.toString();
     this.lblTotalAmount = this.txtTotalAmount;
@@ -1156,17 +1170,18 @@ export class AssetpurchaseComponent implements OnInit {
   clearAsset() {
     this.rdbAsset = "1";
     this.ddlVehicle = "";
-    this.ddlCustody = "";
+    // this.ddlCustody = "";
     this.ddlOfcSec = "";
     this.ddlAssetCat = "";
     this.txtAssetDesc = "";
+    this.txtQty = '';
     this.txtCost = "";
     this.txtRemarks = "";
     this.lblAssetNo = 0;
     this.lblAssetID = 0;
     this.txtIdentify = "";
     this.txtSerialNo = "";
-    this.ddlItemLocation = "";
+    // this.ddlItemLocation = "";
 
     this.assetCategorySpecsList = [];
     //empty asset category specification
@@ -1258,6 +1273,7 @@ export class AssetpurchaseComponent implements OnInit {
     this.ddlLocation = "";
     this.lblOfcType = "";
     this.dtpPurchase = new Date();
+    this.txtTotalAmount = "";
     this.dtpItemPurchase = new Date();
     this.txtDescription = "";
     this.txtMemo = "";
@@ -1345,9 +1361,10 @@ export class AssetpurchaseComponent implements OnInit {
       this.ddlVehicle = item.vehicleID;
     }
 
-    console.log(item);
+    // console.log(item);
+    // debugger;
     // alert(item.subLocID);
-    // this.ddlItemLocation = item.subLocID;
+    this.ddlItemLocation = item.subLocID.toString();
     this.ddlCustody = item.postID.toString();
     this.ddlOfcSec = item.officeSecID.toString();
     this.ddlAssetCat = item.assetCatID;
@@ -1356,7 +1373,10 @@ export class AssetpurchaseComponent implements OnInit {
     this.txtRemarks = item.remarks;
     this.txtIdentify = item.identification;
     this.txtSerialNo = item.serialNo;
-    this.dtpItemPurchase = item.purchaseDate;
+    this.txtQty = "1";    
+    if (item.purchaseDate != null) {
+      this.dtpItemPurchase = new Date(item.purchaseDate);
+    }    
   }
 
   delete(item) {

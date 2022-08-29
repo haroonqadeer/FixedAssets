@@ -136,7 +136,7 @@
         </ul>
       </div>
     </li>
-    <li class="nav-item" *ngIf="userRole == 'Admin' || userRole == 'Super User'">
+    <li class="nav-item" *ngIf="userRole == 'Admin' || userRole == 'Super User' || userRole == 'Moveable Asset Admin'">
       <a class="nav-link collapsed text-truncate" href="" data-toggle="collapse" data-target="#submenuReports"><span
           class="d-none d-sm-inline">Reports</span></a>      
       <div class="collapse" id="submenuReports" aria-expanded="false">
@@ -202,7 +202,7 @@
         </ul>
       </div>
     </li>
-    <li class="nav-item" *ngIf="userRole == 'Admin' || userRole == 'Super User'">
+    <li class="nav-item" *ngIf="userRole == 'Admin' || userRole == 'Super User' || userRole == 'Moveable Asset Admin'">
       <a class="nav-link collapsed text-truncate" href="" data-toggle="collapse"
         data-target="#submenuAdminReports"><span class="d-none d-sm-inline">Admin Manual Reports</span></a>
       <div class="collapse" id="submenuAdminReports" aria-expanded="false">

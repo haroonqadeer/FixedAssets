@@ -728,7 +728,13 @@
                       <input matInput [(ngModel)]="txtAssetDesc" />
                     </mat-form-field>
                   </div>
-                  <div class="col-md-5">
+                  <div class="col-md-2">
+                    <mat-form-field class="w-100">
+                      <mat-label>Quantity</mat-label>
+                      <input matInput [(ngModel)]="txtQty" />
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-3">
                     <mat-form-field class="w-100">
                       <mat-label>Cost For Each</mat-label>
                       <input matInput [(ngModel)]="txtCost" currencyMask />
@@ -912,7 +918,9 @@
     <table class="table table-striped reportTable">
       <thead>
         <tr>
+          <th scope="col">#</th>
           <th scope="col">Tag</th>
+          <th scope="col">Asset Description</th>
           <th scope="col">Sub Location</th>
           <th scope="col">Office Title</th>
           <th scope="col">Custody</th>
@@ -924,7 +932,9 @@
       let item of assetList
       let i = index
     ">
+          <td>{{ i+1 }}</td>
           <td>{{ item.tag }}</td>
+          <td>{{ item.assetDescription }}</td>
           <td>{{ item.subLocationDescription }}</td>
           <td>{{ item.officeTypeDescription }}</td>
           <td>{{ item.postName }}</td>
