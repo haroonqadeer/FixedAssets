@@ -116,6 +116,7 @@ export class AssetpurchaseComponent implements OnInit {
   refList = [];
   locList = [];
   purchaseList = [];
+  tempPurchaseList: any = [];
   postList = [];
   custodyList = [];
   ofcSecList = [];
@@ -259,6 +260,7 @@ export class AssetpurchaseComponent implements OnInit {
       .get(this.app.serverUrl + "getPurchase?userid=" +this.cookie.get("userID") , { headers: reqHeader })
       .subscribe((data: any) => {
         this.purchaseList = data;
+        this.tempPurchaseList = data;
         console.log(data);
       });
   }
@@ -280,20 +282,31 @@ export class AssetpurchaseComponent implements OnInit {
       });
       return false;
     }
-    var reqHeader = new HttpHeaders({
-      "Content-Type": "application/json",
-      // Authorization: "Bearer " + Token,
-    });
+    // alert(this.dtpFromDate)
+    // alert(this.datePipe.transform(this.dtpFromDate, 'MM/dd/yyyy'))
+    // alert(this.purchaseList[0].purchaseDate)
+    this.purchaseList = this.tempPurchaseList;
+    var data = this.purchaseList.filter((m :{purchaseDate: any})=> 
+                this.datePipe.transform(m.purchaseDate, 'yyyy-MM-dd') >= 
+                this.datePipe.transform(this.dtpFromDate, 'yyyy-MM-dd') && 
+                this.datePipe.transform(m.purchaseDate, 'yyyy-MM-dd') <= 
+                this.datePipe.transform(this.dtpToDate, 'yyyy-MM-dd'));
 
-    this.http
-      .get(this.app.serverUrl + "getPurchase?fromDate=" + 
-      this.datePipe.transform(this.dtpFromDate, 'yyyy-MM-dd') + 
-      "&toDate=" + 
-      this.datePipe.transform(this.dtpToDate, 'yyyy-MM-dd'), { headers: reqHeader })
-      .subscribe((data: any) => {
-        this.purchaseList = data;
-        console.log(data);
-      });
+    this.purchaseList = data;
+    // var reqHeader = new HttpHeaders({
+    //   "Content-Type": "application/json",
+    //   // Authorization: "Bearer " + Token,
+    // });
+
+    // this.http
+    //   .get(this.app.serverUrl + "getPurchase?fromDate=" + 
+    //   this.datePipe.transform(this.dtpFromDate, 'yyyy-MM-dd') + 
+    //   "&toDate=" + 
+    //   this.datePipe.transform(this.dtpToDate, 'yyyy-MM-dd'), { headers: reqHeader })
+    //   .subscribe((data: any) => {
+    //     this.purchaseList = data;
+    //     console.log(data);
+    //   });
   }
 
   getAssetDetail(item) {
