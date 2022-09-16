@@ -90,7 +90,7 @@
       <div class="col-md-6">
         <div class="row">
           <div class="col-md-12">
-            <label class="h5Report">NATIONAL HIGHWAY AUTHORITY</label>
+            <label class="h5Report">NATIONAL HIGHWAY AUTHORITY</label>            
           </div>
         </div>
       </div>
@@ -172,9 +172,17 @@
           </div>
         </th>
         <td class="pr-2 pl-2 border-right" mat-cell *matCellDef="let row">
-          <div *ngIf="column.type == 'text'">
-            {{ row[column.field] }}
-          </div>
+          <div>            
+            <div *ngIf="column.type == 'text'">
+              {{ row[column.field] }}
+            </div>
+            <div *ngIf="column.type == 'date'">
+              {{ row[column.field] | date }}
+            </div>
+            <div *ngIf="column.type == 'number'" class="text-right">
+              <span class="text-right">{{ row[column.field] | number }}</span>
+            </div>            
+          </div>          
           <div *ngIf="column.type == 'img'">
             <img
               src="{{ imgUrl }}{{ row[column.field] }}"
@@ -184,6 +192,16 @@
             <!-- {{ imgUrl }} + {{ row[column.field] }} -->
           </div>
         </td>
+        <td mat-footer-cell *matFooterCellDef="let row; let i=index">
+          <div>            
+            <div class="text-right" *ngIf="column.field == 'costAmount'">
+              <b>{{ costAmountTotal | number}}</b>
+            </div>
+            <div class="text-right" *ngIf="column.field == 'revaluedAmount'">
+              <b>{{ revaluedAmountTotal | number}}</b>
+            </div>
+          </div>
+        </td>        
       </ng-container>
 
       <tr
@@ -212,12 +230,14 @@
           >
         </td>
       </ng-container>
-
       <tr
         mat-row
         *matRowDef="let row; columns: ['groupHeader']; when: isGroup"
         (click)="groupHeaderClick(row)"
       ></tr>
+      <tr mat-footer-row *matFooterRowDef="getDisplayedColumns();">
+
+      </tr>      
     </table>
     <div class="divFooter"></div>
   </div>

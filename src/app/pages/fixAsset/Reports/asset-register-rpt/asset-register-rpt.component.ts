@@ -63,6 +63,7 @@ export class AssetItems {
   projectShortName: string = "";
   purchaseDate: string = "";
   costAmount: string = "";
+  revaluedAmount: string = "";
   assetCondition: string = "";
   previousTag: string = "";
   createdBy: string = "";
@@ -135,6 +136,10 @@ export class AssetRegisterRptComponent implements OnInit {
   bookColumns: any[];
   consolidatedColumns: any[];
   routParam: number;
+
+  // summary of amounts
+  costAmountTotal: number =0;
+  revaluedAmountTotal: number =0;
 
   constructor(
     private http: HttpClient,
@@ -281,13 +286,19 @@ export class AssetRegisterRptComponent implements OnInit {
         field: "purchaseDate",
         title: "Purchase Date",
         display: true,
-        type: "text",
+        type: "date",
       },
       {
         field: "costAmount",
         title: "Cost Price",
         display: true,
-        type: "text",
+        type: "number",
+      },
+      {
+        field: "revaluedAmount",
+        title: "Revalued Amt",
+        display: true,
+        type: "number",
       },
       {
         field: "assetCondition",
@@ -338,6 +349,7 @@ export class AssetRegisterRptComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    
     // setting rout parameter
     this._router.params.subscribe((routeParams) => {
       this.routParam = routeParams.id;
@@ -501,13 +513,19 @@ export class AssetRegisterRptComponent implements OnInit {
         field: "purchaseDate",
         title: "Purchase Date",
         display: true,
-        type: "text",
+        type: "date",
       },
       {
         field: "costAmount",
         title: "Cost Price",
         display: true,
-        type: "text",
+        type: "number",
+      },
+      {
+        field: "revaluedAmount",
+        title: "Revalued Amt",
+        display: true,
+        type: "number",
       },
       {
         field: "assetCondition",
@@ -662,13 +680,19 @@ export class AssetRegisterRptComponent implements OnInit {
         field: "purchaseDate",
         title: "Purchase Date",
         display: true,
-        type: "text",
+        type: "date",
       },
       {
         field: "costAmount",
         title: "Cost Price",
         display: true,
-        type: "text",
+        type: "number",
+      },
+      {
+        field: "revaluedAmount",
+        title: "Revalued Amt",
+        display: true,
+        type: "number",
       },
       {
         field: "assetCondition",
@@ -823,13 +847,19 @@ export class AssetRegisterRptComponent implements OnInit {
         field: "purchaseDate",
         title: "Purchase Date",
         display: true,
-        type: "text",
+        type: "date",
       },
       {
         field: "costAmount",
         title: "Cost Price",
         display: true,
-        type: "text",
+        type: "number",
+      },
+      {
+        field: "revaluedAmount",
+        title: "Revalued Amt",
+        display: true,
+        type: "number",
       },
       {
         field: "assetCondition",
@@ -984,13 +1014,19 @@ export class AssetRegisterRptComponent implements OnInit {
         field: "purchaseDate",
         title: "Purchase Date",
         display: true,
-        type: "text",
+        type: "date",
       },
       {
         field: "costAmount",
         title: "Cost Price",
         display: true,
-        type: "text",
+        type: "number",
+      },
+      {
+        field: "revaluedAmount",
+        title: "Revalued Amt",
+        display: true,
+        type: "number",
       },
       {
         field: "assetCondition",
@@ -1145,13 +1181,19 @@ export class AssetRegisterRptComponent implements OnInit {
         field: "purchaseDate",
         title: "Purchase Date",
         display: true,
-        type: "text",
+        type: "date",
       },
       {
         field: "costAmount",
         title: "Cost Price",
         display: true,
-        type: "text",
+        type: "number",
+      },
+      {
+        field: "revaluedAmount",
+        title: "Revalued Amt",
+        display: true,
+        type: "number",
       },
       {
         field: "assetCondition",
@@ -1561,6 +1603,7 @@ export class AssetRegisterRptComponent implements OnInit {
         // this._alldata = data;
         this._alldata = [];
         debugger;
+        
         // if region
         // if (region != 0) {
         //   if (this._alldata.length == 0) {
@@ -1602,6 +1645,10 @@ export class AssetRegisterRptComponent implements OnInit {
         // if noting is selected except roport preset
         if (this._alldata.length == 0) {
           this._alldata = data;
+          var val = this._alldata.map(resData => resData.costAmount).reduce((acc, resData) => resData + acc);    
+          this.costAmountTotal = val;
+          var revaluedTotal = this._alldata.map(resData => resData.revaluedAmount).reduce((acc, resData) => resData + acc);    
+          this.revaluedAmountTotal = revaluedTotal;          
         }
 
         this.filterAssetRegisterList = this._alldata;
@@ -1922,6 +1969,8 @@ export class AssetRegisterRptComponent implements OnInit {
             return this.compare(a.purchaseDate, b.purchaseDate, isAsc);
           case "costAmount":
             return this.compare(a.costAmount, b.costAmount, isAsc);
+          case "revaluedAmount":
+            return this.compare(a.revaluedAmount, b.revaluedAmount, isAsc);
           case "assetCondition":
             return this.compare(a.assetCondition, b.assetCondition, isAsc);
           case "previousTag":
@@ -1945,5 +1994,9 @@ export class AssetRegisterRptComponent implements OnInit {
 
   private compare(a, b, isAsc) {
     return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+  }
+
+  reportSummary(){
+    
   }
 }
