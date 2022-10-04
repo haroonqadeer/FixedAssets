@@ -84,8 +84,8 @@
             *ngFor="let item of purchaseList | orderBy:'fixedAssetID': true | search: 'officeDescription,subLocationDescription':txtSearchPurchaseData">
 
             <td class="inline-block">
-              <span class="fa fa-edit cursorPointer pr-3 text-primary" (click)="edit(item)"></span>
-              <span class="fa fa-trash-o cursorPointer text-danger" (click)="delete(item)"></span>
+              <span class="fa fa-edit cursorPointer pr-3 text-primary" (click)="genPin(item, 'edit')"></span>
+              <span class="fa fa-trash-o cursorPointer text-danger" (click)="genPin(item, 'delete')"></span>
             </td>
             <td>{{item.purchaseID}}</td>
             <td>{{item.officeDescription}}</td>
@@ -611,7 +611,7 @@
 
                 <!-- next row -->
                 <div class="row">
-                  <div class="col-md-12">
+                  <div class="col-md-6">
                     <mat-form-field class="w-100">
                       <mat-label>Office Section</mat-label>
                       <mat-select [(ngModel)]="ddlOfcSec">
@@ -623,6 +623,12 @@
                           value="{{item.officeSecID}}">
                           {{item.officeDescription}}</mat-option>
                       </mat-select>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-6">
+                    <mat-form-field color="warn" class="w-100">
+                      <mat-label>Asset Location *</mat-label>
+                      <input matInput [(ngModel)]="txtAssetLoc" />
                     </mat-form-field>
                   </div>
                 </div>
@@ -829,7 +835,7 @@
               <th scope="col">Amount</th>
               <th scope="col">Custody</th>
               <th scope="col">Sub Location</th>
-              <th scope="col">Office Title</th>              
+              <th scope="col">Office Title</th>
               <th scope="col">Project</th>
             </tr>
           </thead>
@@ -847,7 +853,7 @@
               <td>{{ item.costAmount | number}}</td>
               <td>{{ item.postName }}</td>
               <td>{{ item.subLocationDescription }}</td>
-              <td>{{ item.officeTypeDescription }}</td>              
+              <td>{{ item.officeTypeDescription }}</td>
               <td>{{ item.projectShortName }}</td>
             </tr>
             <tr *ngIf="assetList.length == 0">
@@ -954,4 +960,52 @@
 </div> -->
   </div>
 
+</div>
+
+<!-- Generate Pin Modal Windw -->
+<!-- The Modal -->
+<div class="modal animate__animated animate__bounceIn" id="genPinModal">
+  <div class="modal-dialog modal-md">
+    <div class="modal-content">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h3 class="modal-title">Enter Pin</h3>
+        <button type="button" class="close" data-dismiss="modal">
+          &times;
+        </button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-12">
+            <mat-form-field class="w-100">
+              <mat-label>Enter Pin</mat-label>
+              <input matInput type="password" maxlength="4" (keydown)="onKeyPress($event); getKeyPressed($event)"
+                [(ngModel)]="txtPin" />
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <!-- <div class="col-md-4">
+            <button mat-raised-button color="warn" (click)="resetPin()">
+              Generate Pin
+            </button>
+          </div> -->
+          <div class="col-md-4">
+            <button mat-raised-button color="primary" (click)="allowUpdation()">
+              OK
+            </button>
+          </div>
+        </div>
+
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

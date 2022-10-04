@@ -89,6 +89,7 @@ export class AssetpurchaseComponent implements OnInit {
   txtSupInvoiceNo = "";
   txtTotalAmount = "";
   txtAssetDesc = "";
+  txtAssetLoc = "";
   txtQty = '';
   txtCost = "";
   txtRemarks = "";
@@ -165,6 +166,10 @@ export class AssetpurchaseComponent implements OnInit {
   volumeList = [];
   edition = "";
   editionList = [];
+
+  txtPin = "";
+  objList = [];
+  paramType = "";
 
   constructor(
     private router: Router,
@@ -936,6 +941,11 @@ export class AssetpurchaseComponent implements OnInit {
         toastTimeout: 2500,
       });
       return false;
+    } else if (this.txtAssetLoc == undefined || this.txtAssetLoc == "") {
+      this.toastr.errorToastr("Please Enter Asset Location", "Error !", {
+        toastTimeout: 2500,
+      });
+      return false;
     } else if (
       this.rdbAsset == "2" &&
       (this.ddlVehicle == undefined || this.ddlVehicle == "")
@@ -1047,7 +1057,8 @@ export class AssetpurchaseComponent implements OnInit {
 
   saveAsset() {
     debugger;
-    var vehicleID;
+    
+    var vehicleID = this.ddlVehicle;
     var purchaseDate = this.dtpItemPurchase;
     // alert(purchaseDate);
     var reqSpType = "INSERT";
@@ -1062,7 +1073,7 @@ export class AssetpurchaseComponent implements OnInit {
       assetNo: this.lblAssetNo,
       officeSecID: this.ddlOfcSec,
       postID: this.ddlCustody,
-      assetLocation: this.txtAssetDesc,
+      assetLocation: this.txtAssetLoc,
       assetDescription: this.txtAssetDesc,
       qty: this.txtQty,
       vehicleID: vehicleID,
@@ -1579,7 +1590,118 @@ export class AssetpurchaseComponent implements OnInit {
       frame1.remove();
     }, 500);
   }
+
+  genPin(obj, param) {
+    // alert(this.cookie.get("pinstatus"));
+    if (this.cookie.get("pinstatus") == "true") {
+      this.txtPin = "";
+      this.objList = [];
+      this.paramType = "";
+      this.objList = obj;
+      this.paramType = param;
+
+      $("#genPinModal").modal("show");
+    } else {
+      this.toastr.errorToastr("PIN Code is not allowed", "Error", {
+        toastTimeout: 2500,
+      });
+      return false;
+    }
+  }
+
+  resetPin() {
+    if (this.txtPin == "") {
+      this.toastr.errorToastr("Please Enter Pin", "Error", {
+        toastTimeout: 2500,
+      });
+      return false;
+    } else if (this.txtPin.length != 4) {
+      this.toastr.errorToastr("Please Enter Correct Pin", "Error", {
+        toastTimeout: 2500,
+      });
+      return false;
+    } else {
+      var saveData = {
+        UserName: this.cookie.get("userName"),
+        HashPassword: this.txtPin,
+        UpdatedBY: this.cookie.get("userID"),
+        SpType: "PINCODE",
+      };
+
+      var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
+
+      this.http
+        .post(this.app.serverUrl + "resetPw", saveData, { headers: reqHeader })
+        .subscribe((data: any) => {
+          if (data.msg == "Success") {
+            this.toastr.successToastr("Pin Changed Successfully!", "Success!", {
+              toastTimeout: 2500,
+            });
+            return false;
+          } else {
+            this.toastr.errorToastr(data.msg, "Error!", { toastTimeout: 2500 });
+          }
+        });
+    }
+  }
+
+  allowUpdation() {
+    // alert(this.objList);
+    // alert(this.paramType);
+
+    if (this.txtPin == "") {
+      this.toastr.errorToastr("Please Enter Pin", "Error", {
+        toastTimeout: 2500,
+      });
+      return false;
+    } else if (this.txtPin.length != 4) {
+      this.toastr.errorToastr("Please Enter Correct Pin", "Error", {
+        toastTimeout: 2500,
+      });
+      return false;
+    } else {
+      var saveData = {
+        UserName: this.cookie.get("userName"),
+        Pincode: this.txtPin,
+      };
+
+      var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
+
+      this.http
+        .post(this.app.serverUrl + "pincode", saveData, { headers: reqHeader })
+        .subscribe((data: any) => {
+          if (data.msg == "Success") {
+            $("#genPinModal").modal("hide");
+            if (this.paramType == "edit") {
+              this.edit(this.objList);
+            } else if (this.paramType == "delete") {
+              this.delete(this.objList);
+            }
+            this.paramType = "";
+            this.objList = [];
+            return false;
+          } else {
+            this.toastr.errorToastr(data.msg, "Error!", { toastTimeout: 2500 });
+          }
+        });
+    }
+  }
+
+  onKeyPress(event) {
+    if ((event.keyCode > 47 && event.keyCode < 58) || event.keyCode == 8) {
+      return true;
+    } else {
+      return false;
+    }
+  }
   
+  /*** Capture Enter key ***/
+  getKeyPressed(e) {
+    if (e.keyCode == 13) {
+      this.allowUpdation();
+    }
+  }
+
   public printCSS() {
     var commonCss =
       ".commonCss{font-family: Arial, Helvetica, sans-serif; text-align: center; }";
