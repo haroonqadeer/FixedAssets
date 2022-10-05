@@ -2950,7 +2950,7 @@ export class AssetEntryComponent implements OnInit {
   }
 
   onTransFileSelected(event) {
-    alert('OK')
+    // alert('OK')
     if (
       event.target.files[0].type == "image/png" ||
       event.target.files[0].type == "image/jpeg"

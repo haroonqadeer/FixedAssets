@@ -93,6 +93,7 @@ import { TransferComponent } from './pages/fixAsset/transfer/transfer.component'
 import { AssetToBeCreateComponent } from './pages/fixAsset/asset-to-be-create/asset-to-be-create.component';
 import { GlobalSearchComponent } from './pages/fixAsset/global-search/global-search.component';
 import { RevaluationEnteriesComponent } from './pages/fixAsset/adjustment-enteries/revaluation-enteries/revaluation-enteries.component';
+import { VehiclesComponent } from './pages/fixAsset/vehicles/vehicles.component';
 
 
 @NgModule({
@@ -150,6 +151,7 @@ import { RevaluationEnteriesComponent } from './pages/fixAsset/adjustment-enteri
     AssetToBeCreateComponent,
     GlobalSearchComponent,
     RevaluationEnteriesComponent,
+    VehiclesComponent,
 
   ],
   imports: [
