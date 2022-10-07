@@ -50,6 +50,7 @@ import { WriteOffComponent } from "./pages/fixAsset/write-off/write-off.componen
 import { TransferComponent } from "./pages/fixAsset/transfer/transfer.component";
 import { AssetToBeCreateComponent } from "./pages/fixAsset/asset-to-be-create/asset-to-be-create.component";
 import { RevaluationEnteriesComponent } from "./pages/fixAsset/adjustment-enteries/revaluation-enteries/revaluation-enteries.component";
+import { VehiclesComponent } from "./pages/fixAsset/vehicles/vehicles.component";
 
 const routes: Routes = [
   {
@@ -131,6 +132,10 @@ const routes: Routes = [
   {
     path: "nhaBuildings",
     component: NhabuldingsComponent,
+  },
+  {
+    path: "vehicle",
+    component: VehiclesComponent,
   },
 
   // Fixed Asset Report

@@ -138,7 +138,7 @@
     </li>
     <li class="nav-item" *ngIf="userRole == 'Admin' || userRole == 'Super User' || userRole == 'Moveable Asset Admin'">
       <a class="nav-link collapsed text-truncate" href="" data-toggle="collapse" data-target="#submenuReports"><span
-          class="d-none d-sm-inline">Reports</span></a>      
+          class="d-none d-sm-inline">Reports</span></a>
       <div class="collapse" id="submenuReports" aria-expanded="false">
         <ul class="flex-column nav bgDarkBlue">
           <li class="nav-item">
@@ -299,6 +299,10 @@
           <li class="nav-item">
             <a class="nav-link py-0 pl-5 pt-2 pb-2" href="" routerLink="createBuilding" routerLinkActive="active"
               (click)="closeNav()"><span>Create Buildings</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link py-0 pl-5 pt-2 pb-2" href="" routerLink="vehicle" routerLinkActive="active"
+              (click)="closeNav()"><span>Vehicles</span></a>
           </li>
         </ul>
       </div>
