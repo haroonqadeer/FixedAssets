@@ -261,11 +261,12 @@ export class AssetpurchaseComponent implements OnInit {
       .subscribe((data: any) => {
         this.purchaseList = data;
         this.tempPurchaseList = data;
+        this.getTablePurchase();
         console.log(data);
       });
   }
 
-  getTablePurchase() {
+  getTablePurchase() {    
     if(this.dtpFromDate == undefined){
       this.toastr.errorToastr("Please Select From Date", "Error !", {
         toastTimeout: 2500,
@@ -280,33 +281,39 @@ export class AssetpurchaseComponent implements OnInit {
       this.toastr.errorToastr("Please Select Correct Date", "Error !", {
         toastTimeout: 2500,
       });
+      return false;    
+    }
+    else if (this.dtpFromDate.toString() === this.dtpToDate.toString()){      
       return false;
+    }
+    else{
+      this.purchaseList = this.tempPurchaseList;
+      var data = this.purchaseList.filter((m :{purchaseDate: any})=> 
+                  this.datePipe.transform(m.purchaseDate, 'yyyy-MM-dd') >= 
+                  this.datePipe.transform(this.dtpFromDate, 'yyyy-MM-dd') && 
+                  this.datePipe.transform(m.purchaseDate, 'yyyy-MM-dd') <= 
+                  this.datePipe.transform(this.dtpToDate, 'yyyy-MM-dd'));
+  
+      this.purchaseList = data;
+      // var reqHeader = new HttpHeaders({
+      //   "Content-Type": "application/json",
+      //   // Authorization: "Bearer " + Token,
+      // });
+  
+      // this.http
+      //   .get(this.app.serverUrl + "getPurchase?fromDate=" + 
+      //   this.datePipe.transform(this.dtpFromDate, 'yyyy-MM-dd') + 
+      //   "&toDate=" + 
+      //   this.datePipe.transform(this.dtpToDate, 'yyyy-MM-dd'), { headers: reqHeader })
+      //   .subscribe((data: any) => {
+      //     this.purchaseList = data;
+      //     console.log(data);
+      //   });
     }
     // alert(this.dtpFromDate)
     // alert(this.datePipe.transform(this.dtpFromDate, 'MM/dd/yyyy'))
     // alert(this.purchaseList[0].purchaseDate)
-    this.purchaseList = this.tempPurchaseList;
-    var data = this.purchaseList.filter((m :{purchaseDate: any})=> 
-                this.datePipe.transform(m.purchaseDate, 'yyyy-MM-dd') >= 
-                this.datePipe.transform(this.dtpFromDate, 'yyyy-MM-dd') && 
-                this.datePipe.transform(m.purchaseDate, 'yyyy-MM-dd') <= 
-                this.datePipe.transform(this.dtpToDate, 'yyyy-MM-dd'));
-
-    this.purchaseList = data;
-    // var reqHeader = new HttpHeaders({
-    //   "Content-Type": "application/json",
-    //   // Authorization: "Bearer " + Token,
-    // });
-
-    // this.http
-    //   .get(this.app.serverUrl + "getPurchase?fromDate=" + 
-    //   this.datePipe.transform(this.dtpFromDate, 'yyyy-MM-dd') + 
-    //   "&toDate=" + 
-    //   this.datePipe.transform(this.dtpToDate, 'yyyy-MM-dd'), { headers: reqHeader })
-    //   .subscribe((data: any) => {
-    //     this.purchaseList = data;
-    //     console.log(data);
-    //   });
+    
   }
 
   getAssetDetail(item) {
@@ -1594,6 +1601,10 @@ export class AssetpurchaseComponent implements OnInit {
     var printCss = commonCss + cssHeading + cssAddress + cssContact + tableCss;
 
     return printCss;
+  }
+
+  setPurchaseDate(d){    
+    this.dtpItemPurchase = this.dtpSupplierInvoice;
   }
 
 }
