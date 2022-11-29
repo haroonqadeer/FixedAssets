@@ -57,6 +57,31 @@
           </div>
         </div>
       </div>
+      <br>
+      <br>
+      <!-- test API -->
+      <div class="row">
+        <div class="col-md-6">
+          <mat-form-field class="w-100">
+            <mat-label>First Number</mat-label>
+            <input matInput [(ngModel)]="num1">
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field class="w-100">
+            <mat-label>Second Number</mat-label>
+            <input matInput [(ngModel)]="num2">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <button mat-raised-button color="primary" (click)="calNumbers()">Calculate</button>
+        </div>
+        <div class="col-md-8">
+          <h3 class="text-danger">{{result}}</h3>
+        </div>
+      </div>
       <!-- <div class="row pr-4 pl-1">
         <div class="col-md-3 pt-2">
           <button mat-button mat-raised-button color="primary" class='noneOutline w-100' (click)="save()">Save</button>

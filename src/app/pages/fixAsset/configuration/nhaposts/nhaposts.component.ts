@@ -29,6 +29,10 @@ export class NHAPostsComponent implements OnInit {
   cmbBS = "";
   tblSearch = "";
 
+  num1 = 0;
+  num2 = 0;
+  result = 0;
+
   custodyList = [];
   bpsList = [
     { name: "0" },
@@ -85,6 +89,12 @@ export class NHAPostsComponent implements OnInit {
       });
   }
 
+  calNumbers(){
+    this.http.get("http://localhost:9110/test/sumNums?a=10&b=3")
+    .subscribe((data:any) =>{
+      this.result = data;
+    })
+  }
   save() {
     if (this.cmbBS == "") {
       this.toastr.errorToastr("Please Select BPS", "Error", {

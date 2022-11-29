@@ -1105,6 +1105,7 @@ export class AssetpurchaseComponent implements OnInit {
       volume: this.volume,
       identification: this.txtIdentify,
       serialNo: this.txtSerialNo,
+      remarks: this.txtRemarks,
       spType: reqSpType,
       userid: this.cookie.get("userID"),
       assetID: this.lblAssetID,
@@ -1292,6 +1293,7 @@ export class AssetpurchaseComponent implements OnInit {
     this.txtRemarks = '';
     this.txtIdentify = '';
     this.txtSerialNo = '';
+    this.txtAssetLoc = '';
   }
 
   clearAll() {
@@ -1337,6 +1339,9 @@ export class AssetpurchaseComponent implements OnInit {
   }
 
   edit(item) {
+
+    debugger;    
+    console.log(item);
     this.editMode = 1;
 
     this.lblPurchaseID = item.purchaseID;
@@ -1354,7 +1359,7 @@ export class AssetpurchaseComponent implements OnInit {
     this.lblProject =
       project[0].projectShortName + " - " + project[0].projectName;
 
-    this.dtpPurchase = new Date(item.purchaseDate);
+    this.dtpItemPurchase = new Date(item.purchaseDate);
     // alert(this.dtpPurchase)
     this.txtTotalAmount = item.totalAmount;
     this.txtDescription = item.description;
@@ -1366,8 +1371,8 @@ export class AssetpurchaseComponent implements OnInit {
       this.ddlPost = item.memoIssuedBy.toString();
     }
     this.ddlMode = item.modeofAcq;
-    if (item.dtpMemoDate != null) {
-      this.dtpMemoDate = new Date(item.dtpMemoDate);
+    if (item.memoDate != null) {
+      this.dtpMemoDate = new Date(item.memoDate);
     }
     this.txtSupplier = item.supplier;
     if (item.supplierInVDate != null) {
@@ -1382,6 +1387,8 @@ export class AssetpurchaseComponent implements OnInit {
   }
 
   editAsset(item) {
+
+    console.log(item);
     this.lblAssetID = item.assetID;
 
     if (item.vehicleID == null) {
@@ -1407,7 +1414,8 @@ export class AssetpurchaseComponent implements OnInit {
     this.txtQty = "1";    
     if (item.purchaseDate != null) {
       this.dtpItemPurchase = new Date(item.purchaseDate);
-    }    
+    }  
+    this.txtAssetLoc = item.assetLocation  
   }
 
   delete(item) {
@@ -1726,7 +1734,8 @@ export class AssetpurchaseComponent implements OnInit {
   }
 
   setPurchaseDate(d){    
-    this.dtpItemPurchase = this.dtpSupplierInvoice;
+    // this.dtpItemPurchase = this.dtpSupplierInvoice;
+    this.dtpItemPurchase = this.dtpPurchase;
   }
 
 }
