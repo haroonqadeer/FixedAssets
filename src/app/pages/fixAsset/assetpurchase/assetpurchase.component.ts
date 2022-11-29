@@ -267,7 +267,6 @@ export class AssetpurchaseComponent implements OnInit {
         this.purchaseList = data;
         this.tempPurchaseList = data;
         this.getTablePurchase();
-        console.log(data);
       });
   }
 
@@ -1360,7 +1359,8 @@ export class AssetpurchaseComponent implements OnInit {
       project[0].projectShortName + " - " + project[0].projectName;
 
     this.dtpItemPurchase = new Date(item.purchaseDate);
-    // alert(this.dtpPurchase)
+
+    this.dtpPurchase = new Date(item.supplierInVDate);
     this.txtTotalAmount = item.totalAmount;
     this.txtDescription = item.description;
     this.ddlRef = item.iPcRef;
@@ -1409,7 +1409,7 @@ export class AssetpurchaseComponent implements OnInit {
     this.txtAssetDesc = item.assetDescription;
     this.txtCost = item.costAmount;
     this.txtRemarks = item.remarks;
-    this.txtIdentify = item.identification;
+    this.txtIdentify = item.otherIdentification;
     this.txtSerialNo = item.serialNo;
     this.txtQty = "1";    
     if (item.purchaseDate != null) {
