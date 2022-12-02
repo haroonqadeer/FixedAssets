@@ -22,7 +22,14 @@
   <div *ngIf="toggleView == 'table'" class="animate_animated animate_fadeInUp">
     <!-- search bar -->
     <div class="row">
-      <div class="col-md-5">
+      <div class="col-md-6">
+        <mat-form-field class="w-100">
+          <mat-label>Search Purchase</mat-label>
+          <span matPrefix><span class="fa fa-search"></span> &nbsp;</span>
+          <input matInput [(ngModel)]="txtSearchPurchaseData" />
+        </mat-form-field>
+      </div>
+      <div class="col-md-2">
         <mat-form-field class='w-100'>
           <mat-label>From Date</mat-label>
           <input matInput [matDatepicker]="frompicker" [(ngModel)]="dtpFromDate">
@@ -30,7 +37,7 @@
           <mat-datepicker #frompicker></mat-datepicker>
         </mat-form-field>
       </div>
-      <div class="col-md-5">
+      <div class="col-md-2">
         <mat-form-field class='w-100'>
           <mat-label>To Date</mat-label>
           <input matInput [matDatepicker]="topicker" [(ngModel)]="dtpToDate">
@@ -47,20 +54,14 @@
         </button>
       </div>
     </div>
-    <div class="row pl-3">
-      <div class="col-md-12">
-        <mat-form-field class="w-100">
-          <mat-label>Search asset</mat-label>
-          <span matPrefix><span class="fa fa-search"></span> &nbsp;</span>
-          <input matInput [(ngModel)]="txtSearchPurchaseData" />
-        </mat-form-field>
-      </div>
-      <!-- <div class="col-md-2 pr-3 align-self-center noneOutline">
+    <!-- <div class="row">
+      
+       <div class="col-md-2 pr-3 align-self-center noneOutline">
         <button mat-button color="warn" data-toggle="modal" data-target="#advanceSearchModal">
           Advance Search
         </button>
-      </div> -->
-    </div>
+      </div>
+    </div> -->
 
     <!-- table -->
     <div class="table-responsive">
@@ -81,7 +82,7 @@
         </thead>
         <tbody>
           <tr
-            *ngFor="let item of purchaseList | orderBy:'fixedAssetID': true | search: 'officeDescription,subLocationDescription':txtSearchPurchaseData">
+            *ngFor="let item of purchaseList | orderBy:'fixedAssetID': true | search: 'description,memoDate,memoNo,officeDescription,purchaseDate,purchaseID,subLocationDescription,supplier,supplierInVDate,supplierInvNo,totalAmount,voucherNo':txtSearchPurchaseData">
 
             <td class="inline-block">
               <span class="fa fa-edit cursorPointer pr-3 text-primary" (click)="genPin(item, 'edit')"></span>
@@ -284,7 +285,7 @@
           *ngIf="(lblPurchaseID == 0 && editMode == 0) ||(lblPurchaseID != 0 && editMode != 0)">
           <div class="col-md-12">
             <mat-form-field class='w-100'>
-              <mat-label>Date</mat-label>
+              <mat-label>Purchase Date</mat-label>
               <input matInput [matDatepicker]="picker" [(ngModel)]="dtpPurchase" (dateInput)="setPurchaseDate($event)" (dateChange)="setPurchaseDate($event)">
               <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
               <mat-datepicker #picker></mat-datepicker>
