@@ -36,11 +36,11 @@ export class AssetpurchaseComponent implements OnInit {
 
   imgFile = "";
   lblFileName = "";
-  imageUrl = "../../../../../assets/IPCRefImg/dropHereImg.png";
+  imageUrl = "../../../../../assets/purchases/dropHereImg.png";
 
   imgFileSup = "";
   lblFileNameSup = "";
-  imageUrlSup = "../../../../../assets/IPCRefImg/dropHereImg.png";
+  imageUrlSup = "../../../../../assets/purchases/dropHereImg.png";
 
   lblAssetID = 0;
   lblPurchaseID = 0;
@@ -205,7 +205,7 @@ export class AssetpurchaseComponent implements OnInit {
 
         var splitImg = this.file.split(",")[1];
         this.file = splitImg;
-        this.imageUrl = "../../../../../assets/IPCRefImg/PDF_file_icon.svg";
+        this.imageUrl = "../../../../../assets/purchases";
         // this.showPdf = e.target.result;
         this.lblFileName = this.selectedFile.name;
       };
@@ -219,7 +219,7 @@ export class AssetpurchaseComponent implements OnInit {
       this.file = undefined;
       this.imgFile = undefined;
       this.selectedFile = null;
-      this.imageUrl = "../../../../../assets/IPCRefImg/dropHereImg.png";
+      this.imageUrl = "../../../../../assets/purchases/dropHereImg.png";
       this.lblFileName = "";
     }
   }
@@ -235,7 +235,7 @@ export class AssetpurchaseComponent implements OnInit {
 
         var splitImg = this.fileSup.split(",")[1];
         this.fileSup = splitImg;
-        this.imageUrlSup = "../../../../../assets/IPCRefImg/PDF_file_icon.svg";
+        this.imageUrlSup = "../../../../../assets/purchases";
         // this.showPdf = e.target.result;
         this.lblFileNameSup = this.selectedFileSup.name;
       };
@@ -249,7 +249,7 @@ export class AssetpurchaseComponent implements OnInit {
       this.fileSup = undefined;
       this.imgFileSup = undefined;
       this.selectedFileSup = null;
-      this.imageUrlSup = "../../../../../assets/IPCRefImg/dropHereImg.png";
+      this.imageUrlSup = "../../../../../assets/purchases/dropHereImg.png";
       this.lblFileNameSup = "";
     }
   }
@@ -1263,11 +1263,11 @@ export class AssetpurchaseComponent implements OnInit {
 
     this.imgFile = "";
     this.lblFileName = "";
-    this.imageUrl = "../../../../../assets/IPCRefImg/dropHereImg.png";
+    this.imageUrl = "../../../../../assets/purchases/dropHereImg.png";
 
     this.imgFileSup = "";
     this.lblFileNameSup = "";
-    this.imageUrlSup = "../../../../../assets/IPCRefImg/dropHereImg.png";
+    this.imageUrlSup = "../../../../../assets/purchases/dropHereImg.png";
 
     this.filePicker = "";
     this.selectedFile = null;
@@ -1320,11 +1320,11 @@ export class AssetpurchaseComponent implements OnInit {
 
     this.imgFile = "";
     this.lblFileName = "";
-    this.imageUrl = "../../../../../assets/IPCRefImg/dropHereImg.png";
+    this.imageUrl = "../../../../../assets/purchases/dropHereImg.png";
 
     this.imgFileSup = "";
     this.lblFileNameSup = "";
-    this.imageUrlSup = "../../../../../assets/IPCRefImg/dropHereImg.png";
+    this.imageUrlSup = "../../../../../assets/purchases/dropHereImg.png";
 
     this.filePicker = "";
     this.selectedFile = null;
