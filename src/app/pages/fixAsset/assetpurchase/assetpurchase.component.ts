@@ -265,6 +265,7 @@ export class AssetpurchaseComponent implements OnInit {
       .get(this.app.serverUrl + "getPurchase?userid=" +this.cookie.get("userID") , { headers: reqHeader })
       .subscribe((data: any) => {
         this.purchaseList = data;
+        console.log(this.purchaseList);
         this.tempPurchaseList = data;
         this.getTablePurchase();
       });
@@ -1360,7 +1361,7 @@ export class AssetpurchaseComponent implements OnInit {
 
     this.dtpItemPurchase = new Date(item.purchaseDate);
 
-    this.dtpPurchase = new Date(item.supplierInVDate);
+    this.dtpPurchase = new Date(item.purchaseDate);
     this.txtTotalAmount = item.totalAmount;
     this.txtDescription = item.description;
     this.ddlRef = item.iPcRef;
