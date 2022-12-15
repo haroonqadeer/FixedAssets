@@ -205,7 +205,7 @@ export class AssetpurchaseComponent implements OnInit {
 
         var splitImg = this.file.split(",")[1];
         this.file = splitImg;
-        this.imageUrl = "../../../../../assets/purchases";
+        this.imageUrl = "C:/inetpub/wwwroot/FAR/FAR_Project/assets/purchases";
         // this.showPdf = e.target.result;
         this.lblFileName = this.selectedFile.name;
       };
@@ -219,7 +219,7 @@ export class AssetpurchaseComponent implements OnInit {
       this.file = undefined;
       this.imgFile = undefined;
       this.selectedFile = null;
-      this.imageUrl = "../../../../../assets/purchases/dropHereImg.png";
+      this.imageUrl = "C:/inetpub/wwwroot/FAR/FAR_Project/assets/purchases/dropHereImg.png";
       this.lblFileName = "";
     }
   }
@@ -235,7 +235,7 @@ export class AssetpurchaseComponent implements OnInit {
 
         var splitImg = this.fileSup.split(",")[1];
         this.fileSup = splitImg;
-        this.imageUrlSup = "../../../../../assets/purchases";
+        this.imageUrlSup = "C:/inetpub/wwwroot/FAR/FAR_Project/assets/purchases";
         // this.showPdf = e.target.result;
         this.lblFileNameSup = this.selectedFileSup.name;
       };
@@ -249,7 +249,7 @@ export class AssetpurchaseComponent implements OnInit {
       this.fileSup = undefined;
       this.imgFileSup = undefined;
       this.selectedFileSup = null;
-      this.imageUrlSup = "../../../../../assets/purchases/dropHereImg.png";
+      this.imageUrlSup = "C:/inetpub/wwwroot/FAR/FAR_Project/assets/purchases/dropHereImg.png";
       this.lblFileNameSup = "";
     }
   }
@@ -265,7 +265,7 @@ export class AssetpurchaseComponent implements OnInit {
       .get(this.app.serverUrl + "getPurchase?userid=" +this.cookie.get("userID") , { headers: reqHeader })
       .subscribe((data: any) => {
         this.purchaseList = data;
-        console.log(this.purchaseList);
+        // console.log(this.purchaseList);
         this.tempPurchaseList = data;
         this.getTablePurchase();
       });
@@ -994,7 +994,7 @@ export class AssetpurchaseComponent implements OnInit {
   }
 
   savePurchase() {
-    // alert('ok3')
+    alert(this.imageUrl)
     var supInvDate, memoDate;
     var purchaseDate = this.dtpPurchase;
     var reqSpType = "INSERT";
@@ -1545,12 +1545,24 @@ export class AssetpurchaseComponent implements OnInit {
     this.getAssetNo();
   }
 
-  openPDFFile() {
-    window.open(this.imageUrl);
+  openPDFFile(item: any) {
+    if(item.memoEDoc == 'C:/inetpub/wwwroot/FAR/FAR_Project/assets/purchases'){
+      window.open('http://125.209.107.137:7000/assets/purchases/' + item.purchaseID + '_memo.pdf');
+    }else{
+      this.toastr.errorToastr("No File Found", "Error !", {
+        toastTimeout: 2500,
+      });
+    }
   }
 
-  openPDFFileSup() {
-    window.open(this.imageUrlSup);
+  openPDFFileSup(item: any) {
+    if(item.supplierInvEDoc == 'C:/inetpub/wwwroot/FAR/FAR_Project/assets/purchases'){
+      window.open('http://125.209.107.137:7000/assets/purchases/' + item.purchaseID + '_supplier.pdf');
+    }else{
+      this.toastr.errorToastr("No File Found", "Error !", {
+        toastTimeout: 2500,
+      });
+    }
   }
 
   
