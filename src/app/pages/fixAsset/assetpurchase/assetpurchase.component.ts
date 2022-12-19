@@ -994,7 +994,7 @@ export class AssetpurchaseComponent implements OnInit {
   }
 
   savePurchase() {
-    alert(this.imageUrl)
+    // alert(this.imageUrl)
     var supInvDate, memoDate;
     var purchaseDate = this.dtpPurchase;
     var reqSpType = "INSERT";
