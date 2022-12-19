@@ -1340,7 +1340,7 @@ export class AssetpurchaseComponent implements OnInit {
 
   edit(item) {
 
-    debugger;    
+    // debugger;    
     console.log(item);
     this.editMode = 1;
 
@@ -1382,6 +1382,16 @@ export class AssetpurchaseComponent implements OnInit {
     this.txtSupInvoiceNo = item.supplierInvNo;
     // this.txtSupplier = item.remarks;
 
+    if(item.memoEDoc == 'C:/inetpub/wwwroot/FAR/FAR_Project/assets/purchases'){
+      this.imageUrl = item.memoEDoc;
+    }
+    
+    if(item.supplierInvEDoc == 'C:/inetpub/wwwroot/FAR/FAR_Project/assets/purchases'){
+      this.imageUrlSup = item.supplierInvEDoc;
+    }
+
+    // alert(this.imageUrl)
+    // alert(this.lblPurchaseID)
     this.toggleView = "form";
 
     this.getAssetDetail(item.purchaseID);
@@ -1555,6 +1565,20 @@ export class AssetpurchaseComponent implements OnInit {
     }
   }
 
+  openFile(item: any, purchaseID: any, value: any) {
+    if(item == 'C:/inetpub/wwwroot/FAR/FAR_Project/assets/purchases'){
+      if(value == 'memo'){
+        window.open('http://125.209.107.137:7000/assets/purchases/' + purchaseID + '_memo.pdf');
+
+      }else if(value == 'supplier'){
+      window.open('http://125.209.107.137:7000/assets/purchases/' + purchaseID + '_supplier.pdf');
+      }
+    }else{
+      this.toastr.errorToastr("No File Found", "Error !", {
+        toastTimeout: 2500,
+      });
+    }
+  }
   openPDFFileSup(item: any) {
     if(item.supplierInvEDoc == 'C:/inetpub/wwwroot/FAR/FAR_Project/assets/purchases'){
       window.open('http://125.209.107.137:7000/assets/purchases/' + item.purchaseID + '_supplier.pdf');

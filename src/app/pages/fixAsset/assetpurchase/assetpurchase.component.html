@@ -431,15 +431,15 @@
               </div>
             </div>
           </div>
-          <div class="row" *ngIf="(lblPurchaseID == 0 && editMode == 0) ||(lblPurchaseID != 0 && editMode != 0)">
+          <div class="row" *ngIf="lblPurchaseID != 0 && (editMode == 0 || editMode != 0)">
             <div class="col-md-12 pt-2 text-center">
               <div class="text-center">
                 <!-- <img [src]="imageUrl" class="rounded" width="80" height="80" id="myImg" (click)="zoomImage()"> -->
-                <!-- <button class='noneOutline' mat-button
-                  *ngIf="imageUrl!='../../../../../assets/IPCRefImg/dropHereImg.png' && lblFileName==''"
-                  (click)='openPDFFile()' color="primary">Open
+                <button class='noneOutline'
+                  *ngIf="imageUrl=='C:/inetpub/wwwroot/FAR/FAR_Project/assets/purchases' && lblPurchaseID!= 0"
+                  mat-button (click)="openFile(imageUrl, lblPurchaseID, 'memo')" color="primary">Open
                   uploaded File</button>
-                <button class='noneOutline' mat-button
+                <!-- <button class='noneOutline' mat-button
                   *ngIf="imageUrl!='../../../../../assets/IPCRefImg/dropHereImg.png' && lblFileName!=''"
                   color="primary">{{lblFileName}}</button> -->
                 <!-- <a href="" (click) = 'openPDFFile()'>{{imageUrl}}</a> -->
@@ -523,15 +523,16 @@
             </div>
           </div>
 
-          <div class="row" *ngIf="(lblPurchaseID == 0 && editMode == 0) ||(lblPurchaseID != 0 && editMode != 0)">
+          <div class="row" *ngIf="lblPurchaseID != 0 && (editMode == 0 || editMode != 0)">
             <div class="col-md-12 pt-2 text-center">
               <div class="text-center">
                 <!-- <img [src]="imageUrl" class="rounded" width="80" height="80" id="myImg" (click)="zoomImage()"> -->
-                <!-- <button class='noneOutline' mat-button
-                  *ngIf="imageUrlSup!='../../../../../assets/IPCRefImg/dropHereImg.png' && lblFileNameSup==''"
-                  (click)='openPDFFileSup()' color="primary">Open
+                <button class='noneOutline'
+                  *ngIf="imageUrlSup=='C:/inetpub/wwwroot/FAR/FAR_Project/assets/purchases' && lblPurchaseID!= 0"
+                  mat-button (click)="openFile(imageUrl, lblPurchaseID, 'supplier')" color="primary">Open
                   uploaded File</button>
-                <button class='noneOutline' mat-button
+
+                <!--<button class='noneOutline' mat-button
                   *ngIf="imageUrlSup!='../../../../../assets/IPCRefImg/dropHereImg.png' && lblFileNameSup!=''"
                   color="primary">{{lblFileNameSup}}</button> -->
               </div>
