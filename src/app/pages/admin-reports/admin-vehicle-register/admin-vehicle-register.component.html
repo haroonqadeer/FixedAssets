@@ -10,20 +10,13 @@
           <a (click)="exportExcel()" class="cursorPointer">Export Register</a>
         </li>
         <li>
-          <a
-            class="cursorPointer"
-            data-toggle="modal"
-            data-target="#rptOptionsModal"
-            >Report Options</a
-          >
+          <a class="cursorPointer" data-toggle="modal" data-target="#rptOptionsModal">Report Options</a>
         </li>
         <li>
-          <a
-            class="cursorPointer"
-            data-toggle="modal"
-            data-target="#configModal"
-            >Config Report</a
-          >
+          <a class="cursorPointer" data-toggle="modal" data-target="#configModal">Config Report</a>
+        </li>
+        <li>
+          <a class="cursorPointer" data-toggle="modal" data-target="#advanceSearchModal">Advance Search</a>
         </li>
       </ul>
     </nav>
@@ -65,10 +58,8 @@
     <div class="row">
       <div class="col-md-6">
         <p class="m-0 pl-2">
-          <b
-            >Region:
-            <u>&nbsp;&nbsp;&nbsp;{{ regionTitle }}&nbsp;&nbsp;&nbsp;</u></b
-          >
+          <b>Region:
+            <u>&nbsp;&nbsp;&nbsp;{{ regionTitle }}&nbsp;&nbsp;&nbsp;</u></b>
         </p>
       </div>
     </div>
@@ -90,48 +81,22 @@
       </div>
     </div>
 
-    <table
-      mat-table
-      [dataSource]="dataSource"
-      class="border-top w-100"
-      matSort
-      (matSortChange)="onSortData($event)"
-    >
-      <ng-container
-        *ngFor="let column of columns; let i = index"
-        [matColumnDef]="column.field"
-      >
-        <th
-          mat-header-cell
-          *matHeaderCellDef
-          class="border-right pl-2"
-          mat-sort-header
-        >
+    <table mat-table [dataSource]="dataSource" class="border-top w-100" matSort (matSortChange)="onSortData($event)">
+      <ng-container *ngFor="let column of columns; let i = index" [matColumnDef]="column.field">
+        <th mat-header-cell *matHeaderCellDef class="border-right pl-2" mat-sort-header>
           <div class="d-flex flex-row">
             <div class="align-self-center">
               {{ column.title }}
             </div>
             <div class="printNone">
-              <button
-                class="grid-view-header-menu noneOutline"
-                mat-icon-button
-                [matMenuTriggerFor]="menu"
-              >
+              <button class="grid-view-header-menu noneOutline" mat-icon-button [matMenuTriggerFor]="menu">
                 <mat-icon class="fa fa-bars"></mat-icon>
               </button>
               <mat-menu #menu>
-                <button
-                  mat-menu-item
-                  (click)="groupBy($event, column)"
-                  class="noneOutline"
-                >
+                <button mat-menu-item (click)="groupBy($event, column)" class="noneOutline">
                   Group By This Field
                 </button>
-                <button
-                  mat-menu-item
-                  (click)="unGroupBy($event, column)"
-                  class="noneOutline"
-                >
+                <button mat-menu-item (click)="unGroupBy($event, column)" class="noneOutline">
                   Ungroup
                 </button>
               </mat-menu>
@@ -143,40 +108,22 @@
         </td>
       </ng-container>
 
-      <tr
-        mat-header-row
-        mat-header-row
-        *matHeaderRowDef="getDisplayedColumns(); sticky: true"
-      ></tr>
+      <tr mat-header-row mat-header-row *matHeaderRowDef="getDisplayedColumns(); sticky: true"></tr>
       <tr mat-row *matRowDef="let row; columns: getDisplayedColumns()"></tr>
 
       <!-- Group header -->
       <ng-container matColumnDef="groupHeader">
         <td mat-cell colspan="999" *matCellDef="let group">
-          <mat-icon
-            *ngIf="group.expanded"
-            class="fa fa-angle-down printNone"
-          ></mat-icon>
-          <mat-icon
-            *ngIf="!group.expanded"
-            class="fa fa-angle-up printNone"
-          ></mat-icon>
-          <strong
-            >&nbsp;&nbsp;<u>{{
+          <mat-icon *ngIf="group.expanded" class="fa fa-angle-down printNone"></mat-icon>
+          <mat-icon *ngIf="!group.expanded" class="fa fa-angle-up printNone"></mat-icon>
+          <strong>&nbsp;&nbsp;<u>{{
               group[groupByColumns[group.level - 1]]
-            }}</u></strong
-          >&nbsp;&nbsp;&nbsp;
-          <strong
-            >Total Number: &nbsp;&nbsp;<u>{{ group.totalCounts }}</u></strong
-          >
+            }}</u></strong>&nbsp;&nbsp;&nbsp;
+          <strong>Total Number: &nbsp;&nbsp;<u>{{ group.totalCounts }}</u></strong>
         </td>
       </ng-container>
 
-      <tr
-        mat-row
-        *matRowDef="let row; columns: ['groupHeader']; when: isGroup"
-        (click)="groupHeaderClick(row)"
-      ></tr>
+      <tr mat-row *matRowDef="let row; columns: ['groupHeader']; when: isGroup" (click)="groupHeaderClick(row)"></tr>
     </table>
     <div class="divFooter"></div>
   </div>
@@ -216,11 +163,7 @@
           </div>
         </div>
         <h2>drag & drop and hide & show columns</h2>
-        <div
-          cdkDropList
-          class="example-list"
-          (cdkDropListDropped)="drop($event)"
-        >
+        <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
           <div class="example-box" *ngFor="let item of columns" cdkDrag>
             {{ item.title
             }}<mat-checkbox [(ngModel)]="item.display"></mat-checkbox>
@@ -261,34 +204,26 @@
               <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
               <mat-datepicker #picker></mat-datepicker>
             </mat-form-field>
-            
+
             <mat-form-field class="w-100">
               <mat-label>To Date</mat-label>
               <input matInput [matDatepicker]="picker2" [(ngModel)]="dtpToDt" />
               <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
               <mat-datepicker #picker2></mat-datepicker>
             </mat-form-field>
-            
+
             <mat-form-field class="w-100">
               <mat-label>Region</mat-label>
               <mat-select [(ngModel)]="cmbRegion">
                 <mat-option>
-                  <ngx-mat-select-search
-                    [(ngModel)]="searchRegion"
-                    [placeholderLabel]="'Search...'"
-                    [noEntriesFoundLabel]="'Not found'"
-                    name="search"
-                  ></ngx-mat-select-search>
+                  <ngx-mat-select-search [(ngModel)]="searchRegion" [placeholderLabel]="'Search...'"
+                    [noEntriesFoundLabel]="'Not found'" name="search"></ngx-mat-select-search>
                 </mat-option>
 
-                <mat-option
-                  *ngFor="
+                <mat-option *ngFor="
                     let item of regionList
                       | search: 'mainLocationDescription':searchRegion
-                  "
-                  [value]="item.mainLocID"
-                  (click)="getRegionTitle(item)"
-                >
+                  " [value]="item.mainLocID" (click)="getRegionTitle(item)">
                   {{ item.mainLocationDescription }}
                 </mat-option>
               </mat-select>
@@ -300,17 +235,42 @@
         <!-- button -->
         <div class="row">
           <div class="col-md-12 inline-block">
-            <button
-              mat-raised-button
-              color="primary"
-              (click)="getReport()"
-              class="mr-2"
-            >
+            <button mat-raised-button color="primary" (click)="getReport()" class="mr-2">
               Report
             </button>
             <button mat-raised-button (click)="clear()">Reset</button>
           </div>
         </div>
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">
+            Close
+          </button>
+        </div>
+      </div>
+      <!-- end modal body -->
+    </div>
+  </div>
+</div>
+
+
+<!-- Report Filters -->
+<!-- The Modal -->
+<div class="modal animate__animated animate__bounceIn" id="advanceSearchModal">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h3 class="modal-title">Advance Search</h3>
+        <button type="button" class="close" data-dismiss="modal">
+          &times;
+        </button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+
+        <app-advance-search (eventEmitter)="advanceSearch($event)"></app-advance-search>
         <!-- Modal footer -->
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">
