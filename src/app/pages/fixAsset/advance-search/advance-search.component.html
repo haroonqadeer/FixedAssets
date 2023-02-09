@@ -1,0 +1,95 @@
+<div class="row">
+  <div class="col-md-6">
+    <mat-form-field color="warn" class="w-100">
+      <mat-label>Custody *</mat-label>
+      <mat-select [(ngModel)]="cmbCustody">
+        <mat-option>
+          <ngx-mat-select-search [(ngModel)]="searchCustody" [placeholderLabel]="'Search...'"
+            [noEntriesFoundLabel]="'Not found'" name="search"></ngx-mat-select-search>
+        </mat-option>
+
+        <mat-option *ngFor="
+                    let item of custodyList
+                      | search: 'postName,companyName':searchCustody
+                  " [value]="item.postID" [disabled]="item.isActivated == 0">
+          {{ item.postName }} - {{ item.companyName }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div class="col-md-6">
+    <mat-form-field color="warn" class="w-100">
+      <mat-label>Other Identification</mat-label>
+      <input matInput [(ngModel)]="txtIdentification" />
+    </mat-form-field>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-6">
+    <mat-form-field color="warn" class="w-100">
+      <mat-label>Make / Brand</mat-label>
+      <mat-select [(ngModel)]="cmbMake">
+        <mat-option>
+          <ngx-mat-select-search [(ngModel)]="searchMake" [placeholderLabel]="'Search...'"
+            [noEntriesFoundLabel]="'Not found'" name="search"></ngx-mat-select-search>
+        </mat-option>
+
+        <mat-option *ngFor="let item of vehMakeList | search: 'make':searchMake" [value]="item.make">
+          {{ item.make }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div class="col-md-6">
+    <mat-form-field color="warn" class="w-100">
+      <mat-label>Model</mat-label>
+      <input matInput [(ngModel)]="txtModel" />
+    </mat-form-field>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-6">
+    <mat-form-field color="warn" class="w-100">
+      <mat-label>Size</mat-label>
+      <input matInput [(ngModel)]="txtSize" />
+    </mat-form-field>
+  </div>
+  <div class="col-md-6">
+    <mat-form-field color="warn" class="w-100">
+      <mat-label>Processor</mat-label>
+      <input matInput [(ngModel)]="txtProcessor" />
+    </mat-form-field>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-6">
+    <mat-form-field color="warn" class="w-100">
+      <mat-label>Engine No</mat-label>
+      <input matInput [(ngModel)]="txtEngineNo" />
+    </mat-form-field>
+  </div>
+  <div class="col-md-6">
+    <mat-form-field color="warn" class="w-100">
+      <mat-label>Chasis No</mat-label>
+      <input matInput [(ngModel)]="txtChasis" />
+    </mat-form-field>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <mat-form-field color="warn" class="w-100">
+      <mat-label>Assett Description</mat-label>
+      <input matInput [(ngModel)]="txtDescription" />
+    </mat-form-field>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-6">
+    <a class="btn-flip-modal" data-back="Save" data-front="Save" (click)="searchData()"></a>
+  </div>
+  <div class="col-md-6">
+    <a class="btn-flip-modal" data-back="Reset" data-front="Reset" (click)="reset()"></a>
+  </div>
+</div>

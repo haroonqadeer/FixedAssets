@@ -90,7 +90,7 @@ export class AssetpurchaseComponent implements OnInit {
   txtTotalAmount = "";
   txtAssetDesc = "";
   txtAssetLoc = "";
-  txtQty = '';
+  txtQty = "";
   txtCost = "";
   txtRemarks = "";
   txtVoucherNo = "";
@@ -219,7 +219,8 @@ export class AssetpurchaseComponent implements OnInit {
       this.file = undefined;
       this.imgFile = undefined;
       this.selectedFile = null;
-      this.imageUrl = "C:/inetpub/wwwroot/FAR/FAR_Project/assets/purchases/dropHereImg.png";
+      this.imageUrl =
+        "C:/inetpub/wwwroot/FAR/FAR_Project/assets/purchases/dropHereImg.png";
       this.lblFileName = "";
     }
   }
@@ -235,7 +236,8 @@ export class AssetpurchaseComponent implements OnInit {
 
         var splitImg = this.fileSup.split(",")[1];
         this.fileSup = splitImg;
-        this.imageUrlSup = "C:/inetpub/wwwroot/FAR/FAR_Project/assets/purchases";
+        this.imageUrlSup =
+          "C:/inetpub/wwwroot/FAR/FAR_Project/assets/purchases";
         // this.showPdf = e.target.result;
         this.lblFileNameSup = this.selectedFileSup.name;
       };
@@ -249,7 +251,8 @@ export class AssetpurchaseComponent implements OnInit {
       this.fileSup = undefined;
       this.imgFileSup = undefined;
       this.selectedFileSup = null;
-      this.imageUrlSup = "C:/inetpub/wwwroot/FAR/FAR_Project/assets/purchases/dropHereImg.png";
+      this.imageUrlSup =
+        "C:/inetpub/wwwroot/FAR/FAR_Project/assets/purchases/dropHereImg.png";
       this.lblFileNameSup = "";
     }
   }
@@ -262,53 +265,56 @@ export class AssetpurchaseComponent implements OnInit {
     });
 
     this.http
-      .get(this.app.serverUrl + "getPurchase?userid=" +this.cookie.get("userID") , { headers: reqHeader })
+      .get(
+        this.app.serverUrl + "getPurchase?userid=" + this.cookie.get("userID"),
+        { headers: reqHeader }
+      )
       .subscribe((data: any) => {
         this.purchaseList = data;
-        // console.log(this.purchaseList);
+        console.log(data);
         this.tempPurchaseList = data;
         this.getTablePurchase();
       });
   }
 
-  getTablePurchase() {    
-    if(this.dtpFromDate == undefined){
+  getTablePurchase() {
+    if (this.dtpFromDate == undefined) {
       this.toastr.errorToastr("Please Select From Date", "Error !", {
         toastTimeout: 2500,
       });
       return false;
-    }else if(this.dtpToDate == undefined){
+    } else if (this.dtpToDate == undefined) {
       this.toastr.errorToastr("Please Select To Date", "Error !", {
         toastTimeout: 2500,
       });
       return false;
-    }else if(this.dtpFromDate > this.dtpToDate){
+    } else if (this.dtpFromDate > this.dtpToDate) {
       this.toastr.errorToastr("Please Select Correct Date", "Error !", {
         toastTimeout: 2500,
       });
-      return false;    
-    }
-    else if (this.dtpFromDate.toString() === this.dtpToDate.toString()){      
       return false;
-    }
-    else{
+    } else if (this.dtpFromDate.toString() === this.dtpToDate.toString()) {
+      return false;
+    } else {
       this.purchaseList = this.tempPurchaseList;
-      var data = this.purchaseList.filter((m :{purchaseDate: any})=> 
-                  this.datePipe.transform(m.purchaseDate, 'yyyy-MM-dd') >= 
-                  this.datePipe.transform(this.dtpFromDate, 'yyyy-MM-dd') && 
-                  this.datePipe.transform(m.purchaseDate, 'yyyy-MM-dd') <= 
-                  this.datePipe.transform(this.dtpToDate, 'yyyy-MM-dd'));
-  
+      var data = this.purchaseList.filter(
+        (m: { purchaseDate: any }) =>
+          this.datePipe.transform(m.purchaseDate, "yyyy-MM-dd") >=
+            this.datePipe.transform(this.dtpFromDate, "yyyy-MM-dd") &&
+          this.datePipe.transform(m.purchaseDate, "yyyy-MM-dd") <=
+            this.datePipe.transform(this.dtpToDate, "yyyy-MM-dd")
+      );
+
       this.purchaseList = data;
       // var reqHeader = new HttpHeaders({
       //   "Content-Type": "application/json",
       //   // Authorization: "Bearer " + Token,
       // });
-  
+
       // this.http
-      //   .get(this.app.serverUrl + "getPurchase?fromDate=" + 
-      //   this.datePipe.transform(this.dtpFromDate, 'yyyy-MM-dd') + 
-      //   "&toDate=" + 
+      //   .get(this.app.serverUrl + "getPurchase?fromDate=" +
+      //   this.datePipe.transform(this.dtpFromDate, 'yyyy-MM-dd') +
+      //   "&toDate=" +
       //   this.datePipe.transform(this.dtpToDate, 'yyyy-MM-dd'), { headers: reqHeader })
       //   .subscribe((data: any) => {
       //     this.purchaseList = data;
@@ -318,7 +324,6 @@ export class AssetpurchaseComponent implements OnInit {
     // alert(this.dtpFromDate)
     // alert(this.datePipe.transform(this.dtpFromDate, 'MM/dd/yyyy'))
     // alert(this.purchaseList[0].purchaseDate)
-    
   }
 
   getAssetDetail(item) {
@@ -414,7 +419,7 @@ export class AssetpurchaseComponent implements OnInit {
   }
 
   // getAccSec(ofcTypeID) {
-    getAccSec() {
+  getAccSec() {
     this.loadingBar = true;
     var reqHeader = new HttpHeaders({
       "Content-Type": "application/json",
@@ -586,11 +591,11 @@ export class AssetpurchaseComponent implements OnInit {
         toastTimeout: 2500,
       });
       return false;
-    // } else if (this.ddlRef == undefined || this.ddlRef == "") {
-    //   this.toastr.errorToastr("Please Select IPC Reference", "Error !", {
-    //     toastTimeout: 2500,
-    //   });
-    //   return false;
+      // } else if (this.ddlRef == undefined || this.ddlRef == "") {
+      //   this.toastr.errorToastr("Please Select IPC Reference", "Error !", {
+      //     toastTimeout: 2500,
+      //   });
+      //   return false;
     } else if (this.txtTotalAmount == undefined || this.txtTotalAmount == "") {
       this.toastr.errorToastr("Please Enter Total Amount", "Error !", {
         toastTimeout: 2500,
@@ -695,7 +700,7 @@ export class AssetpurchaseComponent implements OnInit {
     }
   }
 
-  saveMainPurchase(){
+  saveMainPurchase() {
     // alert('ok');
 
     if (this.ddlLocation == undefined || this.ddlLocation == "") {
@@ -713,11 +718,11 @@ export class AssetpurchaseComponent implements OnInit {
         toastTimeout: 2500,
       });
       return false;
-    // } else if (this.ddlRef == undefined || this.ddlRef == "") {
-    //   this.toastr.errorToastr("Please Select IPC Reference", "Error !", {
-    //     toastTimeout: 2500,
-    //   });
-    //   return false;
+      // } else if (this.ddlRef == undefined || this.ddlRef == "") {
+      //   this.toastr.errorToastr("Please Select IPC Reference", "Error !", {
+      //     toastTimeout: 2500,
+      //   });
+      //   return false;
     } else if (this.txtTotalAmount == undefined || this.txtTotalAmount == "") {
       this.toastr.errorToastr("Please Enter Total Amount", "Error !", {
         toastTimeout: 2500,
@@ -749,11 +754,11 @@ export class AssetpurchaseComponent implements OnInit {
           toastTimeout: 2500,
         });
         return false;
-      // } else if (this.file == undefined || this.file == "") {
-      //   this.toastr.errorToastr("Please Choose Memo Document", "Error !", {
-      //     toastTimeout: 2500,
-      //   });
-      //   return false;
+        // } else if (this.file == undefined || this.file == "") {
+        //   this.toastr.errorToastr("Please Choose Memo Document", "Error !", {
+        //     toastTimeout: 2500,
+        //   });
+        //   return false;
       } else if (this.txtSupplier == undefined || this.txtSupplier == "") {
         this.toastr.errorToastr("Please Enter Supplier Name", "Error !", {
           toastTimeout: 2500,
@@ -776,12 +781,12 @@ export class AssetpurchaseComponent implements OnInit {
           toastTimeout: 2500,
         });
         return false;
-      // } else if (this.fileSup == undefined || this.fileSup == "") {
-      //   this.toastr.errorToastr("Please Choose Supplier Document", "Error !", {
-      //     toastTimeout: 2500,
-      //   });
-      //   return false;
-      }else{
+        // } else if (this.fileSup == undefined || this.fileSup == "") {
+        //   this.toastr.errorToastr("Please Choose Supplier Document", "Error !", {
+        //     toastTimeout: 2500,
+        //   });
+        //   return false;
+      } else {
         this.savePurchase();
       }
     } else {
@@ -809,11 +814,11 @@ export class AssetpurchaseComponent implements OnInit {
         toastTimeout: 2500,
       });
       return false;
-    // } else if (this.ddlRef == undefined || this.ddlRef == "") {
-    //   this.toastr.errorToastr("Please Select IPC Reference", "Error !", {
-    //     toastTimeout: 2500,
-    //   });
-    //   return false;
+      // } else if (this.ddlRef == undefined || this.ddlRef == "") {
+      //   this.toastr.errorToastr("Please Select IPC Reference", "Error !", {
+      //     toastTimeout: 2500,
+      //   });
+      //   return false;
     } else if (this.txtTotalAmount == undefined || this.txtTotalAmount == "") {
       this.toastr.errorToastr("Please Enter Total Amount", "Error !", {
         toastTimeout: 2500,
@@ -845,11 +850,11 @@ export class AssetpurchaseComponent implements OnInit {
           toastTimeout: 2500,
         });
         return false;
-      // } else if (this.file == undefined || this.file == "") {
-      //   this.toastr.errorToastr("Please Choose Memo Document", "Error !", {
-      //     toastTimeout: 2500,
-      //   });
-      //   return false;
+        // } else if (this.file == undefined || this.file == "") {
+        //   this.toastr.errorToastr("Please Choose Memo Document", "Error !", {
+        //     toastTimeout: 2500,
+        //   });
+        //   return false;
       } else if (this.txtSupplier == undefined || this.txtSupplier == "") {
         this.toastr.errorToastr("Please Enter Supplier Name", "Error !", {
           toastTimeout: 2500,
@@ -872,11 +877,11 @@ export class AssetpurchaseComponent implements OnInit {
           toastTimeout: 2500,
         });
         return false;
-      // } else if (this.fileSup == undefined || this.fileSup == "") {
-      //   this.toastr.errorToastr("Please Choose Supplier Document", "Error !", {
-      //     toastTimeout: 2500,
-      //   });
-      //   return false;
+        // } else if (this.fileSup == undefined || this.fileSup == "") {
+        //   this.toastr.errorToastr("Please Choose Supplier Document", "Error !", {
+        //     toastTimeout: 2500,
+        //   });
+        //   return false;
       }
     } else {
       this.toastr.errorToastr("Else Condition", "Error !", {
@@ -971,14 +976,12 @@ export class AssetpurchaseComponent implements OnInit {
         toastTimeout: 2500,
       });
       return false;
-    
     } else if (this.txtQty == undefined || this.txtQty == "") {
       this.toastr.errorToastr("Please Enter Asset Quantity", "Error !", {
         toastTimeout: 2500,
       });
       return false;
-    
-    }else if (this.txtCost == undefined || this.txtCost == "") {
+    } else if (this.txtCost == undefined || this.txtCost == "") {
       this.toastr.errorToastr("Please Enter Cost For Each", "Error !", {
         toastTimeout: 2500,
       });
@@ -1064,7 +1067,7 @@ export class AssetpurchaseComponent implements OnInit {
 
   saveAsset() {
     debugger;
-    
+
     var vehicleID = this.ddlVehicle;
     var purchaseDate = this.dtpItemPurchase;
     // alert(purchaseDate);
@@ -1171,11 +1174,10 @@ export class AssetpurchaseComponent implements OnInit {
     this.lblProject =
       project[0].projectShortName + " - " + project[0].projectName;
 
-    if (this.ddlRef != '' && this.ddlRef != undefined){
+    if (this.ddlRef != "" && this.ddlRef != undefined) {
       var ipc = this.refList.filter((x) => x.ipcRefID == this.ddlRef);
       this.lblIPC = ipc[0].ipcRefDescription;
     }
-      
 
     this.lblPurchaseDt = this.dtpPurchase.toString();
     this.lblTotalAmount = this.txtTotalAmount;
@@ -1206,7 +1208,7 @@ export class AssetpurchaseComponent implements OnInit {
     this.ddlOfcSec = "";
     this.ddlAssetCat = "";
     this.txtAssetDesc = "";
-    this.txtQty = '';
+    this.txtQty = "";
     this.txtCost = "";
     this.txtRemarks = "";
     this.lblAssetNo = 0;
@@ -1239,7 +1241,7 @@ export class AssetpurchaseComponent implements OnInit {
     this.hdSize2List = [];
   }
 
-  clearDate(){
+  clearDate() {
     this.dtpFromDate = new Date();
     this.dtpToDate = new Date();
   }
@@ -1253,7 +1255,7 @@ export class AssetpurchaseComponent implements OnInit {
     this.ddlLocation = "";
     this.lblOfcType = "";
     this.dtpPurchase = new Date();
-    this.dtpItemPurchase = new Date()
+    this.dtpItemPurchase = new Date();
     this.txtDescription = "";
     this.txtMemo = "";
     this.ddlPost = "";
@@ -1281,19 +1283,19 @@ export class AssetpurchaseComponent implements OnInit {
     // this.assetCatList = this.tempAssetCatList;
   }
 
-  clearPurchaseDetail(){
+  clearPurchaseDetail() {
     // this.ddlItemLocation = '';
-    this.ddlCustody = '';
-    this.ddlOfcSec = '';
-    this.ddlVehicle = '';
+    this.ddlCustody = "";
+    this.ddlOfcSec = "";
+    this.ddlVehicle = "";
     this.dtpItemPurchase = new Date();
-    this.ddlAssetCat = '';
-    this.txtAssetDesc = '';
-    this.txtCost = '';
-    this.txtRemarks = '';
-    this.txtIdentify = '';
-    this.txtSerialNo = '';
-    this.txtAssetLoc = '';
+    this.ddlAssetCat = "";
+    this.txtAssetDesc = "";
+    this.txtCost = "";
+    this.txtRemarks = "";
+    this.txtIdentify = "";
+    this.txtSerialNo = "";
+    this.txtAssetLoc = "";
   }
 
   clearAll() {
@@ -1317,7 +1319,6 @@ export class AssetpurchaseComponent implements OnInit {
     this.txtSupplier = "";
     this.txtVoucherNo = "";
     this.txtSupInvoiceNo = "";
-    
 
     this.imgFile = "";
     this.lblFileName = "";
@@ -1339,8 +1340,7 @@ export class AssetpurchaseComponent implements OnInit {
   }
 
   edit(item) {
-
-    // debugger;    
+    // debugger;
     console.log(item);
     this.editMode = 1;
 
@@ -1352,7 +1352,6 @@ export class AssetpurchaseComponent implements OnInit {
     // this.lblOfcType = item.officeType;
     this.filterIPC(this.ddlProject);
 
-    
     var project = this.projectsList.filter(
       (x) => x.projectID == this.ddlProject
     );
@@ -1367,7 +1366,7 @@ export class AssetpurchaseComponent implements OnInit {
     this.ddlRef = item.iPcRef;
     this.txtMemo = item.memoNo;
     this.txtVoucherNo = item.voucherNo;
-    
+
     if (item.memoIssuedBy != null) {
       this.ddlPost = item.memoIssuedBy.toString();
     }
@@ -1382,11 +1381,16 @@ export class AssetpurchaseComponent implements OnInit {
     this.txtSupInvoiceNo = item.supplierInvNo;
     // this.txtSupplier = item.remarks;
 
-    if(item.memoEDoc == 'C:/inetpub/wwwroot/FAR/FAR_Project/assets/purchases'){
+    if (
+      item.memoEDoc == "C:/inetpub/wwwroot/FAR/FAR_Project/assets/purchases"
+    ) {
       this.imageUrl = item.memoEDoc;
     }
-    
-    if(item.supplierInvEDoc == 'C:/inetpub/wwwroot/FAR/FAR_Project/assets/purchases'){
+
+    if (
+      item.supplierInvEDoc ==
+      "C:/inetpub/wwwroot/FAR/FAR_Project/assets/purchases"
+    ) {
       this.imageUrlSup = item.supplierInvEDoc;
     }
 
@@ -1398,7 +1402,6 @@ export class AssetpurchaseComponent implements OnInit {
   }
 
   editAsset(item) {
-
     console.log(item);
     this.lblAssetID = item.assetID;
 
@@ -1422,11 +1425,11 @@ export class AssetpurchaseComponent implements OnInit {
     this.txtRemarks = item.remarks;
     this.txtIdentify = item.otherIdentification;
     this.txtSerialNo = item.serialNo;
-    this.txtQty = "1";    
+    this.txtQty = "1";
     if (item.purchaseDate != null) {
       this.dtpItemPurchase = new Date(item.purchaseDate);
-    }  
-    this.txtAssetLoc = item.assetLocation  
+    }
+    this.txtAssetLoc = item.assetLocation;
   }
 
   delete(item) {
@@ -1556,9 +1559,15 @@ export class AssetpurchaseComponent implements OnInit {
   }
 
   openPDFFile(item: any) {
-    if(item.memoEDoc == 'C:/inetpub/wwwroot/FAR/FAR_Project/assets/purchases'){
-      window.open('http://125.209.107.137:7000/assets/purchases/' + item.purchaseID + '_memo.pdf');
-    }else{
+    if (
+      item.memoEDoc == "C:/inetpub/wwwroot/FAR/FAR_Project/assets/purchases"
+    ) {
+      window.open(
+        "http://125.209.107.137:7000/assets/purchases/" +
+          item.purchaseID +
+          "_memo.pdf"
+      );
+    } else {
       this.toastr.errorToastr("No File Found", "Error !", {
         toastTimeout: 2500,
       });
@@ -1566,35 +1575,48 @@ export class AssetpurchaseComponent implements OnInit {
   }
 
   openFile(item: any, purchaseID: any, value: any) {
-    if(item == 'C:/inetpub/wwwroot/FAR/FAR_Project/assets/purchases'){
-      if(value == 'memo'){
-        window.open('http://125.209.107.137:7000/assets/purchases/' + purchaseID + '_memo.pdf');
-
-      }else if(value == 'supplier'){
-      window.open('http://125.209.107.137:7000/assets/purchases/' + purchaseID + '_supplier.pdf');
+    if (item == "C:/inetpub/wwwroot/FAR/FAR_Project/assets/purchases") {
+      if (value == "memo") {
+        window.open(
+          "http://125.209.107.137:7000/assets/purchases/" +
+            purchaseID +
+            "_memo.pdf"
+        );
+      } else if (value == "supplier") {
+        window.open(
+          "http://125.209.107.137:7000/assets/purchases/" +
+            purchaseID +
+            "_supplier.pdf"
+        );
       }
-    }else{
+    } else {
       this.toastr.errorToastr("No File Found", "Error !", {
         toastTimeout: 2500,
       });
     }
   }
   openPDFFileSup(item: any) {
-    if(item.supplierInvEDoc == 'C:/inetpub/wwwroot/FAR/FAR_Project/assets/purchases'){
-      window.open('http://125.209.107.137:7000/assets/purchases/' + item.purchaseID + '_supplier.pdf');
-    }else{
+    if (
+      item.supplierInvEDoc ==
+      "C:/inetpub/wwwroot/FAR/FAR_Project/assets/purchases"
+    ) {
+      window.open(
+        "http://125.209.107.137:7000/assets/purchases/" +
+          item.purchaseID +
+          "_supplier.pdf"
+      );
+    } else {
       this.toastr.errorToastr("No File Found", "Error !", {
         toastTimeout: 2500,
       });
     }
   }
 
-  
-  //print 
+  //print
   print() {
     var printCss = this.printCSS();
 
-    if(this.lblPurchaseID == 0){
+    if (this.lblPurchaseID == 0) {
       this.toastr.errorToastr("Please Select Purchase No", "Error !", {
         toastTimeout: 2500,
       });
@@ -1746,7 +1768,7 @@ export class AssetpurchaseComponent implements OnInit {
       return false;
     }
   }
-  
+
   /*** Capture Enter key ***/
   getKeyPressed(e) {
     if (e.keyCode == 13) {
@@ -1770,9 +1792,8 @@ export class AssetpurchaseComponent implements OnInit {
     return printCss;
   }
 
-  setPurchaseDate(d){    
+  setPurchaseDate(d) {
     // this.dtpItemPurchase = this.dtpSupplierInvoice;
     this.dtpItemPurchase = this.dtpPurchase;
   }
-
 }

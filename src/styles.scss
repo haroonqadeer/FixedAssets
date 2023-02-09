@@ -810,6 +810,68 @@ $color-loader: #ce4233;
   transform: translateY(0) rotateX(0);
 }
 
+
+
+.btn-flip-modal {
+  cursor: pointer;
+  opacity: 1;
+  outline: 0;
+  color: #fff;
+  line-height: 40px;
+  position: relative;
+  text-align: center;
+  letter-spacing: 1px;
+  display: inline-block;
+  text-decoration: none;
+  font-family: "Open Sans";
+  text-transform: uppercase;
+}
+
+.btn-flip-modal:hover:after {
+  opacity: 1;
+  -webkit-transform: translateY(0) rotateX(0);
+  transform: translateY(0) rotateX(0);
+}
+
+.btn-flip-modal:hover:before {
+  opacity: 0;
+  -webkit-transform: translateY(50%) rotateX(90deg);
+  transform: translateY(50%) rotateX(90deg);
+}
+
+.btn-flip-modal:after {
+  top: 0;
+  left: 0;
+  opacity: 0;
+  width: 100%;
+  color: #ffffff;
+  display: block;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+  position: absolute;
+  background: #818181;
+  content: attr(data-back);
+  -webkit-transform: translateY(-50%) rotateX(90deg);
+  transform: translateY(-50%) rotateX(90deg);
+}
+
+.btn-flip-modal:before {
+  top: 0;
+  left: 0;
+  opacity: 1;
+  color: #ffffff;
+  display: block;
+  padding: 0 30px;
+  line-height: 40px;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+  position: relative;
+  background: #093951;
+  content: attr(data-front);
+  -webkit-transform: translateY(0) rotateX(0);
+  transform: translateY(0) rotateX(0);
+}
+
 /******************* end *************************/
 
 /* The side navigation menu */

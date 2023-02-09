@@ -408,4 +408,8 @@ export class AdminVehicleRegisterComponent implements OnInit {
         this.regionList = data;
       });
   }
+
+  advanceSearch(item: any){
+    console.log(item)
+  }
 }

@@ -101,11 +101,17 @@
             <td>{{item.supplier}}</td>
             <td>{{item.supplierInvNo}}</td>
             <td>{{item.voucherNo}}</td>
-            <td>
+            <td *ngIf="item.memoEDoc == 'C:/inetpub/wwwroot/FAR/FAR_Project/assets/purchases'">
               <span class="fa fa-file-pdf-o cursorPointer text-danger" (click)='openPDFFile(item)'></span>
             </td>
-            <td>
+            <td *ngIf="item.supplierInvEDoc == 'C:/inetpub/wwwroot/FAR/FAR_Project/assets/purchases'">
               <span class="fa fa-file-pdf-o cursorPointer text-danger" (click)='openPDFFileSup(item)'></span>
+            </td>
+            <td *ngIf="item.memoEDoc != 'C:/inetpub/wwwroot/FAR/FAR_Project/assets/purchases'">
+              -
+            </td>
+            <td *ngIf="item.supplierInvEDoc != 'C:/inetpub/wwwroot/FAR/FAR_Project/assets/purchases'">
+              -
             </td>
           </tr>
         </tbody>

@@ -94,7 +94,7 @@ import { AssetToBeCreateComponent } from './pages/fixAsset/asset-to-be-create/as
 import { GlobalSearchComponent } from './pages/fixAsset/global-search/global-search.component';
 import { RevaluationEnteriesComponent } from './pages/fixAsset/adjustment-enteries/revaluation-enteries/revaluation-enteries.component';
 import { VehiclesComponent } from './pages/fixAsset/vehicles/vehicles.component';
-
+import { AdvanceSearchComponent } from './pages/fixAsset/advance-search/advance-search.component';
 
 @NgModule({
   declarations: [
@@ -152,7 +152,7 @@ import { VehiclesComponent } from './pages/fixAsset/vehicles/vehicles.component'
     GlobalSearchComponent,
     RevaluationEnteriesComponent,
     VehiclesComponent,
-
+    AdvanceSearchComponent,
   ],
   imports: [
     BrowserModule,
@@ -191,6 +191,6 @@ import { VehiclesComponent } from './pages/fixAsset/vehicles/vehicles.component'
     { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],
-  exports: [OnCreateDirective,GlobalSearchComponent],
+  exports: [OnCreateDirective,GlobalSearchComponent, AdvanceSearchComponent],
 })
 export class AppModule {}
