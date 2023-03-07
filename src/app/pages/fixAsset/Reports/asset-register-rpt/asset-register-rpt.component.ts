@@ -39,6 +39,11 @@ export class AssetItems {
   postName: string = "";
   assetLocation: string = "";
   assetDescription: string = "";
+  voucherNo: string = "";
+  memoNo: string = "";
+  memoDate: string = "";
+  supplier: string = "";
+  supplierInvNo: string = "";
   make: string = "";
   model: string = "";
   size: string = "";
@@ -90,8 +95,8 @@ export class AssetRegisterRptComponent implements OnInit {
   cmbRegion = "";
   searchRegion = "";
 
-  dtpFromDt: any = '';
-  dtpToDt: any = '';
+  dtpFromDt: any = "";
+  dtpToDt: any = "";
 
   searchLocation = "";
   cmbLocation = "";
@@ -138,8 +143,8 @@ export class AssetRegisterRptComponent implements OnInit {
   routParam: number;
 
   // summary of amounts
-  costAmountTotal: number =0;
-  revaluedAmountTotal: number =0;
+  costAmountTotal: number = 0;
+  revaluedAmountTotal: number = 0;
 
   constructor(
     private http: HttpClient,
@@ -233,7 +238,36 @@ export class AssetRegisterRptComponent implements OnInit {
         display: true,
         type: "text",
       },
-
+      {
+        field: "voucherNo",
+        title: "Voucher No",
+        display: true,
+        type: "text",
+      },
+      {
+        field: "memoNo",
+        title: "Memo No",
+        display: false,
+        type: "text",
+      },
+      {
+        field: "memoDate",
+        title: "Memo Date",
+        display: false,
+        type: "date",
+      },
+      {
+        field: "supplier",
+        title: "Supplier",
+        display: false,
+        type: "text",
+      },
+      {
+        field: "supplierInvNo",
+        title: "Invoice No",
+        display: false,
+        type: "text",
+      },
       // computers extra fields
       { field: "make", title: "Make", display: true, type: "text" },
       { field: "model", title: "Model", display: true, type: "text" },
@@ -349,7 +383,6 @@ export class AssetRegisterRptComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    
     // setting rout parameter
     this._router.params.subscribe((routeParams) => {
       this.routParam = routeParams.id;
@@ -460,7 +493,36 @@ export class AssetRegisterRptComponent implements OnInit {
         display: true,
         type: "text",
       },
-
+      {
+        field: "voucherNo",
+        title: "Voucher No",
+        display: true,
+        type: "text",
+      },
+      {
+        field: "memoNo",
+        title: "Memo No",
+        display: false,
+        type: "text",
+      },
+      {
+        field: "memoDate",
+        title: "Memo Date",
+        display: false,
+        type: "date",
+      },
+      {
+        field: "supplier",
+        title: "Supplier",
+        display: false,
+        type: "text",
+      },
+      {
+        field: "supplierInvNo",
+        title: "Invoice No",
+        display: false,
+        type: "text",
+      },
       // computers extra fields
       { field: "make", title: "Make", display: false, type: "text" },
       { field: "model", title: "Model", display: false, type: "text" },
@@ -627,7 +689,36 @@ export class AssetRegisterRptComponent implements OnInit {
         display: true,
         type: "text",
       },
-
+      {
+        field: "voucherNo",
+        title: "Voucher No",
+        display: true,
+        type: "text",
+      },
+      {
+        field: "memoNo",
+        title: "Memo No",
+        display: false,
+        type: "text",
+      },
+      {
+        field: "memoDate",
+        title: "Memo Date",
+        display: false,
+        type: "date",
+      },
+      {
+        field: "supplier",
+        title: "Supplier",
+        display: false,
+        type: "text",
+      },
+      {
+        field: "supplierInvNo",
+        title: "Invoice No",
+        display: false,
+        type: "text",
+      },
       // computers extra fields
       { field: "make", title: "Make", display: true, type: "text" },
       { field: "model", title: "Model", display: true, type: "text" },
@@ -794,7 +885,36 @@ export class AssetRegisterRptComponent implements OnInit {
         display: true,
         type: "text",
       },
-
+      {
+        field: "voucherNo",
+        title: "Voucher No",
+        display: true,
+        type: "text",
+      },
+      {
+        field: "memoNo",
+        title: "Memo No",
+        display: false,
+        type: "text",
+      },
+      {
+        field: "memoDate",
+        title: "Memo Date",
+        display: false,
+        type: "date",
+      },
+      {
+        field: "supplier",
+        title: "Supplier",
+        display: false,
+        type: "text",
+      },
+      {
+        field: "supplierInvNo",
+        title: "Invoice No",
+        display: false,
+        type: "text",
+      },
       // computers extra fields
       { field: "make", title: "Make", display: false, type: "text" },
       { field: "model", title: "Model", display: false, type: "text" },
@@ -961,7 +1081,36 @@ export class AssetRegisterRptComponent implements OnInit {
         display: true,
         type: "text",
       },
-
+      {
+        field: "voucherNo",
+        title: "Voucher No",
+        display: true,
+        type: "text",
+      },
+      {
+        field: "memoNo",
+        title: "Memo No",
+        display: false,
+        type: "text",
+      },
+      {
+        field: "memoDate",
+        title: "Memo Date",
+        display: false,
+        type: "date",
+      },
+      {
+        field: "supplier",
+        title: "Supplier",
+        display: false,
+        type: "text",
+      },
+      {
+        field: "supplierInvNo",
+        title: "Invoice No",
+        display: false,
+        type: "text",
+      },
       // computers extra fields
       { field: "make", title: "Make", display: false, type: "text" },
       { field: "model", title: "Model", display: false, type: "text" },
@@ -1128,7 +1277,36 @@ export class AssetRegisterRptComponent implements OnInit {
         display: true,
         type: "text",
       },
-
+      {
+        field: "voucherNo",
+        title: "Voucher No",
+        display: true,
+        type: "text",
+      },
+      {
+        field: "memoNo",
+        title: "Memo No",
+        display: false,
+        type: "text",
+      },
+      {
+        field: "memoDate",
+        title: "Memo Date",
+        display: false,
+        type: "date",
+      },
+      {
+        field: "supplier",
+        title: "Supplier",
+        display: false,
+        type: "text",
+      },
+      {
+        field: "supplierInvNo",
+        title: "Invoice No",
+        display: false,
+        type: "text",
+      },
       // computers extra fields
       { field: "make", title: "Make", display: false, type: "text" },
       { field: "model", title: "Model", display: false, type: "text" },
@@ -1497,7 +1675,7 @@ export class AssetRegisterRptComponent implements OnInit {
 
     debugger;
     // if everything is empty
-    
+
     // if (this.dtpFromDt == "" || this.dtpFromDt == undefined) {
     //   this.toastr.errorToastr("Please Select From Date", "Error", {
     //     toastTimeout: 2500,
@@ -1509,24 +1687,24 @@ export class AssetRegisterRptComponent implements OnInit {
     //   });
     //   return false;
     // } else
-    if(this.dtpFromDt != "" && this.dtpToDt != ""){
-      if(this.dtpFromDt > this.dtpToDt){
+    if (this.dtpFromDt != "" && this.dtpToDt != "") {
+      if (this.dtpFromDt > this.dtpToDt) {
         this.toastr.errorToastr("Please Select Correct Date", "Error", {
           toastTimeout: 2500,
         });
         return false;
       }
-    } else if(this.dtpFromDt != "" && this.dtpToDt == ""){
+    } else if (this.dtpFromDt != "" && this.dtpToDt == "") {
       this.toastr.errorToastr("Please Select To Date", "Error", {
         toastTimeout: 2500,
       });
       return false;
-    } else if(this.dtpFromDt == "" && this.dtpToDt != ""){
-    this.toastr.errorToastr("Please Select From Date", "Error", {
-      toastTimeout: 2500,
-    });
-    return false;
-  } else if (
+    } else if (this.dtpFromDt == "" && this.dtpToDt != "") {
+      this.toastr.errorToastr("Please Select From Date", "Error", {
+        toastTimeout: 2500,
+      });
+      return false;
+    } else if (
       (this.rptPreset == "" || this.rptPreset == undefined) &&
       this.routParam == 0
     ) {
@@ -1588,22 +1766,22 @@ export class AssetRegisterRptComponent implements OnInit {
           "&status=" +
           status +
           "&fromDate=" +
-          this.datePipe.transform(this.dtpFromDt, 'yyyy-MM-dd') +
+          this.datePipe.transform(this.dtpFromDt, "yyyy-MM-dd") +
           "&toDate=" +
-          this.datePipe.transform(this.dtpToDt, 'yyyy-MM-dd'),
+          this.datePipe.transform(this.dtpToDt, "yyyy-MM-dd"),
         { headers: reqHeader }
       )
       .subscribe((data: any) => {
         // this.assetRegisterList = data;
         // this.filterAssetRegisterList = data;
-
+        console.log(data);
         data.forEach((item, index) => {
           item.id = index + 1;
         });
         // this._alldata = data;
         this._alldata = [];
         debugger;
-        
+
         // if region
         // if (region != 0) {
         //   if (this._alldata.length == 0) {
@@ -1645,13 +1823,18 @@ export class AssetRegisterRptComponent implements OnInit {
         // if noting is selected except roport preset
         if (this._alldata.length == 0) {
           this._alldata = data;
-          var val = this._alldata.map(resData => resData.costAmount).reduce((acc, resData) => resData + acc);    
+          var val = this._alldata
+            .map((resData) => resData.costAmount)
+            .reduce((acc, resData) => resData + acc);
           this.costAmountTotal = val;
-          var revaluedTotal = this._alldata.map(resData => resData.revaluedAmount).reduce((acc, resData) => resData + acc);    
-          this.revaluedAmountTotal = revaluedTotal;          
+          var revaluedTotal = this._alldata
+            .map((resData) => resData.revaluedAmount)
+            .reduce((acc, resData) => resData + acc);
+          this.revaluedAmountTotal = revaluedTotal;
         }
 
         this.filterAssetRegisterList = this._alldata;
+        console.log(this._alldata);
         //this.dataSource.sort = this.sort;
         this.dataSource.data = this.addGroups(
           this.filterAssetRegisterList,
@@ -1921,6 +2104,16 @@ export class AssetRegisterRptComponent implements OnInit {
             return this.compare(a.assetLocation, b.assetLocation, isAsc);
           case "assetDescription":
             return this.compare(a.assetDescription, b.assetDescription, isAsc);
+          case "voucherNo":
+            return this.compare(a.voucherNo, b.voucherNo, isAsc);
+          case "memoNo":
+            return this.compare(a.memoNo, b.memoNo, isAsc);
+          case "memoDate":
+            return this.compare(a.memoDate, b.memoDate, isAsc);
+          case "supplier":
+            return this.compare(a.supplier, b.supplier, isAsc);
+          case "supplierInvNo":
+            return this.compare(a.supplierInvNo, b.supplierInvNo, isAsc);
           case "make":
             return this.compare(a.make, b.make, isAsc);
           case "model":
@@ -1996,7 +2189,5 @@ export class AssetRegisterRptComponent implements OnInit {
     return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
   }
 
-  reportSummary(){
-    
-  }
+  reportSummary() {}
 }

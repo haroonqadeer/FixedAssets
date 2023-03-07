@@ -128,6 +128,7 @@ export class AssetpurchaseComponent implements OnInit {
   assetList = [];
   tagList = [];
   modeList = [{ name: "PSDP" }, { name: "RMA" }];
+  totalAssetVal = 0;
 
   filePicker = "";
   selectedFile: File = null;
@@ -339,6 +340,11 @@ export class AssetpurchaseComponent implements OnInit {
       })
       .subscribe((data: any) => {
         this.assetList = data;
+        this.totalAssetVal = data
+          .map((x) => x.costAmount)
+          .reduce(function (a, b) {
+            return a + b;
+          });
         // alert(data.length)
         // console.log(data)
       });

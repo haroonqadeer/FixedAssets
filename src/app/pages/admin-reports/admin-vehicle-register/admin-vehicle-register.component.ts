@@ -52,8 +52,8 @@ export class AdminVehicleRegisterComponent implements OnInit {
   cmbRegion = "";
   searchRegion = "";
 
-  dtpFromDt: any = '';
-  dtpToDt: any = '';
+  dtpFromDt: any = "";
+  dtpToDt: any = "";
 
   tempRptTitle = "";
   rptTitle = "Vehicle";
@@ -145,7 +145,7 @@ export class AdminVehicleRegisterComponent implements OnInit {
     if (this.tempRptTitle != "") {
       this.rptHeader = this.tempRptTitle;
     }
-    
+
     if (this.dtpFromDt == "" || this.dtpFromDt == undefined) {
       this.toastr.errorToastr("Please Select From Date", "Error", {
         toastTimeout: 2500,
@@ -166,10 +166,13 @@ export class AdminVehicleRegisterComponent implements OnInit {
     });
     this.http
       .get(
-        this.app.serverUrl + "getForm47Vehicle?mainLocId=" + this.cmbRegion + "&fromDate=" +
-        this.datePipe.transform(this.dtpFromDt, 'yyyy-MM-dd') +
-        "&toDate=" +
-        this.datePipe.transform(this.dtpToDt, 'yyyy-MM-dd'),
+        this.app.serverUrl +
+          "getForm47Vehicle?mainLocId=" +
+          this.cmbRegion +
+          "&fromDate=" +
+          this.datePipe.transform(this.dtpFromDt, "yyyy-MM-dd") +
+          "&toDate=" +
+          this.datePipe.transform(this.dtpToDt, "yyyy-MM-dd"),
         {
           headers: reqHeader,
         }
@@ -184,6 +187,7 @@ export class AdminVehicleRegisterComponent implements OnInit {
         // this._alldata = data;
         this._alldata = data;
         this.filterAssetRegisterList = this._alldata;
+        console.log(data);
         // this.dataSource.sort = this.sort;
         this.dataSource.data = this.addGroups(
           this.filterAssetRegisterList,
@@ -409,7 +413,7 @@ export class AdminVehicleRegisterComponent implements OnInit {
       });
   }
 
-  advanceSearch(item: any){
-    console.log(item)
+  advanceSearch(item: any) {
+    console.log(item);
   }
 }
