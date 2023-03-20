@@ -383,8 +383,8 @@ export class AssetCategoryComponent implements OnInit {
       // http://ambit-erp.southeastasia.cloudapp.azure.com:9000/assets/images/Marker2.png
       // this.imageUrl = "obj.edoc";
       this.imageUrl =
-      // "http://192.168.100.162:7000/assets/assetCatImg/" +
-      "http://125.209.107.137:7000/assets/assetCatImg/" +
+        // "http://192.168.100.162:7000/assets/assetCatImg/" +
+        "http://125.209.107.136:7000/assets/assetCatImg/" +
         obj.assetCatID +
         ".jpg";
     }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
 import { ToastrManager } from "ng6-toastr-notifications";
 import {
   HttpClient,
@@ -12,12 +12,11 @@ import { AppComponent } from "../../../app.component";
 declare var $: any;
 
 @Component({
-  selector: 'app-vehicles',
-  templateUrl: './vehicles.component.html',
-  styleUrls: ['./vehicles.component.scss']
+  selector: "app-vehicles",
+  templateUrl: "./vehicles.component.html",
+  styleUrls: ["./vehicles.component.scss"],
 })
 export class VehiclesComponent implements OnInit {
-
   heading = "Add";
 
   loadingBar = true;
@@ -183,7 +182,7 @@ export class VehiclesComponent implements OnInit {
     }
   }
 
-  save(){
+  save() {
     if (this.txtRegNo == "") {
       this.toastr.errorToastr("Please Enter Registration No.", "Error", {
         toastTimeout: 2500,
@@ -315,7 +314,7 @@ export class VehiclesComponent implements OnInit {
     }
   }
 
-  clearAll(){
+  clearAll() {
     this.cmbVehicleAssetCat = "";
     this.vehID = "";
     this.txtRegNo = "";
@@ -353,13 +352,13 @@ export class VehiclesComponent implements OnInit {
     // this.cmbVehicle = "";
     if (item.eDoc != null) {
       this.imageVehicleUrl =
-      // "http://192.168.100.162:7000/assets/vehicleImg/" + item.id + ".pdf";
-           "http://125.209.107.137:7000/assets/vehicleImg/" + item.id + ".pdf";
+        // "http://192.168.100.162:7000/assets/vehicleImg/" + item.id + ".pdf";
+        "http://125.209.107.136:7000/assets/vehicleImg/" + item.id + ".pdf";
       this.lblFileName = "Open Uploaded File";
     }
   }
 
-  delete(obj){}
+  delete(obj) {}
 
   genPin(obj, param, i) {
     if (this.cookie.get("pinstatus") == "true") {
@@ -462,7 +461,7 @@ export class VehiclesComponent implements OnInit {
               this.edit(this.objList);
             } else if (this.paramType == "delete") {
               this.delete(this.objList);
-            } 
+            }
             // else if (this.paramType == "active") {
             //   this.active(this.objList);
             // }

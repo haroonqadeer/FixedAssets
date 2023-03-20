@@ -1,20 +1,19 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
-import { ToastrManager } from 'ng6-toastr-notifications';
-import { CookieService } from 'ngx-cookie-service';
-import { NgxImageCompressService } from 'ngx-image-compress';
-import { AppComponent } from 'src/app/app.component';
-import Swal from 'sweetalert2';
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { Component, OnInit } from "@angular/core";
+import { ToastrManager } from "ng6-toastr-notifications";
+import { CookieService } from "ngx-cookie-service";
+import { NgxImageCompressService } from "ngx-image-compress";
+import { AppComponent } from "src/app/app.component";
+import Swal from "sweetalert2";
 
 declare var $: any;
 
 @Component({
-  selector: 'app-transfer',
-  templateUrl: './transfer.component.html',
-  styleUrls: ['./transfer.component.scss']
+  selector: "app-transfer",
+  templateUrl: "./transfer.component.html",
+  styleUrls: ["./transfer.component.scss"],
 })
 export class TransferComponent implements OnInit {
-
   loadingBar = true;
 
   imgTransPath = "C:/inetpub/wwwroot/FAR/FAR_Project/assets/transferImg";
@@ -264,7 +263,7 @@ export class TransferComponent implements OnInit {
   }
 
   onTransFileSelected(event) {
-    alert('OK')
+    alert("OK");
     if (
       event.target.files[0].type == "image/png" ||
       event.target.files[0].type == "image/jpeg"
@@ -310,7 +309,7 @@ export class TransferComponent implements OnInit {
       .then((result) => {
         // create file from byte
         const imageName = fileName;
-        
+
         if (imageAsset == "imageTrans") {
           this.imageTrans = result;
 
@@ -354,9 +353,8 @@ export class TransferComponent implements OnInit {
       });
     } else {
       modal.style.display = "block";
-      (<HTMLImageElement>(
-        document.querySelector("#img01")
-      )).src = this.imageTransUrl;
+      (<HTMLImageElement>document.querySelector("#img01")).src =
+        this.imageTransUrl;
     }
   }
 
@@ -370,7 +368,7 @@ export class TransferComponent implements OnInit {
 
     // this.disableCustody = true;
   }
-  
+
   showTransOfcType() {
     var ofcType = this.locTransList.filter(
       (x) => x.subLocID == this.cmbTransLocation
@@ -413,7 +411,7 @@ export class TransferComponent implements OnInit {
       }
     }
   }
-  
+
   filterTansTable(tranProject) {
     // this.sldTransfered = false;
     this.lblTransferID = "";
@@ -711,8 +709,8 @@ export class TransferComponent implements OnInit {
     this.txtTransDesc = obj.transferDescription;
     if (obj.eDoc != null) {
       this.imageTransUrl =
-      // "http://192.168.100.162:7000/assets/transferImg/" +
-          "http://125.209.107.137:7000/assets/transferImg/" +
+        // "http://192.168.100.162:7000/assets/transferImg/" +
+        "http://125.209.107.136:7000/assets/transferImg/" +
         obj.transferID +
         ".jpg";
     }
@@ -1043,5 +1041,4 @@ export class TransferComponent implements OnInit {
       }
     }
   }
-
 }

@@ -23,7 +23,8 @@ declare var $: any;
 })
 export class AppComponent {
   // // serverUrl = "http://58.27.164.137:7001/api/";
-  serverUrl = "http://125.209.107.137:7001/api/";
+  // serverUrl = "http://125.209.107.137:7001/api/";
+  serverUrl = "http://10.1.111.12:7001/api/";
   // // serverUrl = "http://192.168.100.162:6090/api/";
   // // serverUrl = "http://192.168.100.162:7001/api/";
 
@@ -263,7 +264,7 @@ export class AppComponent {
             // data[0].assetID +
             // "_1.jpg";
             this.imageAssetUrl =
-              "http://125.209.107.137:7000/assets/assetEntryImg/" +
+              "http://125.209.107.136:7000/assets/assetEntryImg/" +
               data[0].assetID +
               "_1.jpg";
           }
@@ -274,7 +275,7 @@ export class AppComponent {
           ) {
             this.imageAssetUrl2 =
               // "http://192.168.100.162:7000/assets/assetEntryImg/" +
-              "http://125.209.107.137:7000/assets/assetEntryImg/" +
+              "http://125.209.107.136:7000/assets/assetEntryImg/" +
               data[0].assetID +
               "_2.jpg";
           }
@@ -285,7 +286,7 @@ export class AppComponent {
           ) {
             this.imageAssetUrl3 =
               // "http://192.168.100.162:7000/assets/assetEntryImg/" +
-              "http://125.209.107.137:7000/assets/assetEntryImg/" +
+              "http://125.209.107.136:7000/assets/assetEntryImg/" +
               data[0].assetID +
               "_3.jpg";
           }
@@ -418,7 +419,7 @@ export class AppComponent {
 
   //function for convert date format
   public convertDate(reqDate) {
-    debugger
+    debugger;
     var oldDate = new Date(reqDate);
     var d = oldDate.getDate();
     var m = oldDate.getMonth();
@@ -430,17 +431,15 @@ export class AppComponent {
     return convertedDate;
   }
 
-  public convertEdiDate(reqDate){
-    
-    var getfullDate = reqDate.split(' ');
-    return  getfullDate[0];
+  public convertEdiDate(reqDate) {
+    var getfullDate = reqDate.split(" ");
+    return getfullDate[0];
 
     // var getYear = getShortDate[0];
     // var getMonth = getShortDate[1];
     // var getDay = getShortDate[2];
 
     // return (getMonth + '/' + getDay + '/' + getYear);
-
   }
 
   // export in excel call from any child page
@@ -717,7 +716,7 @@ export class AppComponent {
         if (
           this.imageAssetUrl ==
           // "http://192.168.100.162:7000/assets/assetEntryImg/" +
-          "http://125.209.107.137:7000/assets/assetEntryImg/" +
+          "http://125.209.107.136:7000/assets/assetEntryImg/" +
             this.txtAssetID +
             "_1.jpg"
         ) {
@@ -734,7 +733,7 @@ export class AppComponent {
         if (
           this.imageAssetUrl2 ==
           // "http://192.168.100.162:7000/assets/assetEntryImg/" +
-          "http://125.209.107.137:7000/assets/assetEntryImg/" +
+          "http://125.209.107.136:7000/assets/assetEntryImg/" +
             this.txtAssetID +
             "_2.jpg"
         ) {
@@ -752,7 +751,7 @@ export class AppComponent {
         if (
           this.imageAssetUrl3 ==
           // "http://192.168.100.162:7000/assets/assetEntryImg/" +
-          "http://125.209.107.137:7000/assets/assetEntryImg/" +
+          "http://125.209.107.136:7000/assets/assetEntryImg/" +
             this.txtAssetID +
             "_3.jpg"
         ) {

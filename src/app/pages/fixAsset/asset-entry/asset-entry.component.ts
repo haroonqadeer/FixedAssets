@@ -561,7 +561,7 @@ export class AssetEntryComponent implements OnInit {
     this.rdbTransMode = "Sender";
     this.rdbTransRptMode = "1";
     this.rdbAsset = "1";
-    this.disableOfcType = true;    
+    this.disableOfcType = true;
     this.getTags();
     this.getLocation();
     this.getTransLocation();
@@ -1033,43 +1033,48 @@ export class AssetEntryComponent implements OnInit {
         { headers: reqHeader }
       )
       .subscribe((data: any) => {
-        
-    if (this.cmbSearchOfcType == "" && this.cmbSearchWngSection == "") {
-      this.assetDetailList = data.filter(
-        (x) => x.subLocID == this.cmbSearchLocation
-      );
+        if (this.cmbSearchOfcType == "" && this.cmbSearchWngSection == "") {
+          this.assetDetailList = data.filter(
+            (x) => x.subLocID == this.cmbSearchLocation
+          );
 
-      var locFilter = this.locList.filter(
-        (x) => x.subLocID == this.cmbSearchLocation
-      );
+          var locFilter = this.locList.filter(
+            (x) => x.subLocID == this.cmbSearchLocation
+          );
 
-      this.regionName = locFilter[0].locationDescription;
-      this.locationName = locFilter[0].subLocationDescription;
-      this.officeName = locFilter[0].officeTypeDescription;
-    } else if (this.cmbSearchLocation == "" && this.cmbSearchWngSection == "") {
-      this.assetDetailList = data.filter(
-        (x) => x.officeTypeID == this.cmbSearchOfcType
-      );
-    } else if (this.cmbSearchWngSection == "") {
-      this.assetDetailList = data.filter(
-        (x) =>
-          x.subLocID == this.cmbSearchLocation &&
-          x.officeTypeID == this.cmbSearchOfcType
-      );
+          this.regionName = locFilter[0].locationDescription;
+          this.locationName = locFilter[0].subLocationDescription;
+          this.officeName = locFilter[0].officeTypeDescription;
+        } else if (
+          this.cmbSearchLocation == "" &&
+          this.cmbSearchWngSection == ""
+        ) {
+          this.assetDetailList = data.filter(
+            (x) => x.officeTypeID == this.cmbSearchOfcType
+          );
+        } else if (this.cmbSearchWngSection == "") {
+          this.assetDetailList = data.filter(
+            (x) =>
+              x.subLocID == this.cmbSearchLocation &&
+              x.officeTypeID == this.cmbSearchOfcType
+          );
 
-      this.locationName = this.assetDetailList[0].subLocationDescription;
-      this.officeName = this.assetDetailList[0].officeTypeDescription;
-    } else if (this.cmbSearchWngSection == "" && this.cmbSearchLocation == "" && this.cmbSearchWngSection == ""){
-      this.assetDetailList=data;
-    }
-    else {
-      this.assetDetailList = data.filter(
-        (x) =>
-          x.subLocID == this.cmbSearchLocation &&
-          x.officeTypeID == this.cmbSearchOfcType &&
-          x.officeSecID == this.cmbSearchWngSection
-      );
-    }
+          this.locationName = this.assetDetailList[0].subLocationDescription;
+          this.officeName = this.assetDetailList[0].officeTypeDescription;
+        } else if (
+          this.cmbSearchWngSection == "" &&
+          this.cmbSearchLocation == "" &&
+          this.cmbSearchWngSection == ""
+        ) {
+          this.assetDetailList = data;
+        } else {
+          this.assetDetailList = data.filter(
+            (x) =>
+              x.subLocID == this.cmbSearchLocation &&
+              x.officeTypeID == this.cmbSearchOfcType &&
+              x.officeSecID == this.cmbSearchWngSection
+          );
+        }
         // this.assetDetailList = data;
         this.tempDetailList = data;
         this.assetDetailList.reverse();
@@ -1163,8 +1168,8 @@ export class AssetEntryComponent implements OnInit {
       item.eDoc != "C:/inetpub/wwwroot/FAR/FAR_Project/assets/assetEntryImg"
     ) {
       this.imageAssetUrl =
-      // "http://192.168.100.162:7000/assets/assetEntryImg/" +
-        "http://125.209.107.137:7000/assets/assetEntryImg/" +
+        // "http://192.168.100.162:7000/assets/assetEntryImg/" +
+        "http://125.209.107.136:7000/assets/assetEntryImg/" +
         item.assetID +
         "_1.jpg";
     }
@@ -1173,8 +1178,8 @@ export class AssetEntryComponent implements OnInit {
       item.eDoc2 != "C:/inetpub/wwwroot/FAR/FAR_Project/assets/assetEntryImg"
     ) {
       this.imageAssetUrl2 =
-      // "http://192.168.100.162:7000/assets/assetEntryImg/" +
-        "http://125.209.107.137:7000/assets/assetEntryImg/" +
+        // "http://192.168.100.162:7000/assets/assetEntryImg/" +
+        "http://125.209.107.136:7000/assets/assetEntryImg/" +
         item.assetID +
         "_2.jpg";
     }
@@ -1183,8 +1188,8 @@ export class AssetEntryComponent implements OnInit {
       item.eDoc3 != "C:/inetpub/wwwroot/FAR/FAR_Project/assets/assetEntryImg"
     ) {
       this.imageAssetUrl3 =
-      // "http://192.168.100.162:7000/assets/assetEntryImg/" +
-        "http://125.209.107.137:7000/assets/assetEntryImg/" +
+        // "http://192.168.100.162:7000/assets/assetEntryImg/" +
+        "http://125.209.107.136:7000/assets/assetEntryImg/" +
         item.assetID +
         "_3.jpg";
     }
@@ -2248,8 +2253,8 @@ export class AssetEntryComponent implements OnInit {
       this.txtTransDesc = trans[0].transferDescription;
       if (trans[0].eDoc != null) {
         this.imageTransUrl =
-        // "http://192.168.100.162:7000/assets/transferImg/" +
-            "http://125.209.107.137:7000/assets/transferImg/" +
+          // "http://192.168.100.162:7000/assets/transferImg/" +
+          "http://125.209.107.136:7000/assets/transferImg/" +
           this.lblTransferID +
           ".jpg";
       }
@@ -2322,11 +2327,11 @@ export class AssetEntryComponent implements OnInit {
     this.assetDetailList = [];
     this.assetDetailList = this.tempDetailList;
 
-    if(this.tempDetailList.length==0){
+    if (this.tempDetailList.length == 0) {
       this.getAssetDetail();
     }
     // alert(this.tempDetailList.length)
-    
+
     if (this.cmbSearchOfcType == "" && this.cmbSearchWngSection == "") {
       this.assetDetailList = this.assetDetailList.filter(
         (x) => x.subLocID == this.cmbSearchLocation
@@ -2686,8 +2691,8 @@ export class AssetEntryComponent implements OnInit {
     this.txtTransDesc = obj.transferDescription;
     if (obj.eDoc != null) {
       this.imageTransUrl =
-      // "http://192.168.100.162:7000/assets/transferImg/" +
-          "http://125.209.107.137:7000/assets/transferImg/" +
+        // "http://192.168.100.162:7000/assets/transferImg/" +
+        "http://125.209.107.136:7000/assets/transferImg/" +
         obj.transferID +
         ".jpg";
     }
@@ -3004,9 +3009,8 @@ export class AssetEntryComponent implements OnInit {
       });
     } else {
       modal.style.display = "block";
-      (<HTMLImageElement>(
-        document.querySelector("#img01")
-      )).src = this.imageTransUrl;
+      (<HTMLImageElement>document.querySelector("#img01")).src =
+        this.imageTransUrl;
     }
   }
 
@@ -3190,9 +3194,8 @@ export class AssetEntryComponent implements OnInit {
       });
     } else {
       modal.style.display = "block";
-      (<HTMLImageElement>(
-        document.querySelector("#img01")
-      )).src = this.imageAssetUrl;
+      (<HTMLImageElement>document.querySelector("#img01")).src =
+        this.imageAssetUrl;
     }
   }
 
@@ -3214,9 +3217,8 @@ export class AssetEntryComponent implements OnInit {
       });
     } else {
       modal.style.display = "block";
-      (<HTMLImageElement>(
-        document.querySelector("#img01")
-      )).src = this.imageAssetUrl2;
+      (<HTMLImageElement>document.querySelector("#img01")).src =
+        this.imageAssetUrl2;
     }
   }
 
@@ -3238,9 +3240,8 @@ export class AssetEntryComponent implements OnInit {
       });
     } else {
       modal.style.display = "block";
-      (<HTMLImageElement>(
-        document.querySelector("#img01")
-      )).src = this.imageAssetUrl3;
+      (<HTMLImageElement>document.querySelector("#img01")).src =
+        this.imageAssetUrl3;
     }
   }
 
@@ -3382,8 +3383,8 @@ export class AssetEntryComponent implements OnInit {
     this.cmbVehicle = "";
     if (item.eDoc != null) {
       this.imageVehicleUrl =
-      // "http://192.168.100.162:7000/assets/vehicleImg/" + item.id + ".pdf";
-           "http://125.209.107.137:7000/assets/vehicleImg/" + item.id + ".pdf";
+        // "http://192.168.100.162:7000/assets/vehicleImg/" + item.id + ".pdf";
+        "http://125.209.107.136:7000/assets/vehicleImg/" + item.id + ".pdf";
       this.lblFileName = "Open Uploaded File";
     }
   }
