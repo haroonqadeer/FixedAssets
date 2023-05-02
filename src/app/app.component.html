@@ -117,6 +117,13 @@
     </li>
     <li class="nav-item"
       *ngIf=" userRole == 'Admin' || userRole == 'Moveable Asset Admin' || userRole == 'Super User' ">
+      <a class="nav-link text-truncate" href="" routerLinkActive="active" routerLink="depreciation"
+        (click)="closeNav()">
+        <span class="d-none d-sm-inline">Asset Depreciation</span>
+      </a>
+    </li>
+    <li class="nav-item"
+      *ngIf=" userRole == 'Admin' || userRole == 'Moveable Asset Admin' || userRole == 'Super User' ">
       <a class="nav-link text-truncate" href="" routerLinkActive="active" routerLink="assetCreate" (click)="closeNav()">
         <span class="d-none d-sm-inline">Asset To Be Created</span>
       </a>

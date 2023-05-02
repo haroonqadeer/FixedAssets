@@ -199,8 +199,8 @@ export class TransferComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.rdbTransMode = "Sender";
-    this.getTransfer();
+    // this.rdbTransMode = "Sender";
+    // this.getTransfer();
   }
 
   getTransfer() {

@@ -1,13 +1,13 @@
 <div class="row pl-3 m-0 p-0">
   <div class="col-md-4 align-self-center p-0 m-0">
-    <h1 class="align-self-center">Asset Transfer</h1>
+    <h1 class="align-self-center">Handing Taking</h1>
   </div>
 
 </div>
 <!-- <div class="loader" *ngIf="loadingBar">Loading...</div> -->
 
 
-<div class="row">
+<!-- <div class="row">
   <div class="col-md-6">
     <mat-radio-group aria-label="Transfer Mode" [(ngModel)]="rdbTransMode" (change)="getTransLocData()">
       <mat-radio-button color="primary" value="Sender">Sender</mat-radio-button>&nbsp;&nbsp;
@@ -19,15 +19,20 @@
       New
     </button>
   </div>
-</div>
-<hr />
+</div> -->
+<!-- <hr /> -->
 <!-- next row -->
-<div class="row">
+<!-- <div class="row">
   <div class="col-md-12">
     <mat-radio-group aria-label="Transfer Type" [(ngModel)]="rdbTransType">
       <mat-radio-button color="primary" value="Internal">Internal Transfer</mat-radio-button>&nbsp;&nbsp;
       <mat-radio-button color="primary" value="External">External Transfer</mat-radio-button>
     </mat-radio-group>
+  </div>
+</div> -->
+<div class="row">
+  <div class="col-md-6">
+    <label>Internal Transfer</label>
   </div>
 </div>
 <!-- next row -->
@@ -35,8 +40,7 @@
   <div class="col-md-12">
     <mat-form-field class="w-100">
       <mat-label>Project Title</mat-label>
-      <mat-select [(ngModel)]="cmbTransferProject" (ngModelChange)="filterTansTable(cmbTransferProject)"
-        [disabled]="disableProject">
+      <mat-select [(ngModel)]="cmbTransferProject" (ngModelChange)="filterTansTable(cmbTransferProject)">
         <mat-option>
           <ngx-mat-select-search [(ngModel)]="searchTransProject" [placeholderLabel]="'Search...'"
             [noEntriesFoundLabel]="'Not found'" name="search"></ngx-mat-select-search>
@@ -67,8 +71,7 @@
         <div class="col-md-12">
           <mat-form-field class="w-100">
             <mat-label>Province - Location - Sub Location</mat-label>
-            <mat-select [(ngModel)]="cmbSendTransLocation" (ngModelChange)="showSendTransOfcType()"
-              [disabled]="disableFields || disableSenderTrans">
+            <mat-select [(ngModel)]="cmbSendTransLocation" (ngModelChange)="showSendTransOfcType()">
               <mat-option>
                 <ngx-mat-select-search [(ngModel)]="searchSendTransLocation" [placeholderLabel]="'Search...'"
                   [noEntriesFoundLabel]="'Not found'" name="search">
@@ -80,7 +83,7 @@
                       | search
                         : 'subLocationDescription, mainLocationDescription, officeTypeDescription, provinceName'
                         : searchSendTransLocation
-                  " [value]="item.subLocID" [disabled]="item.isActivated == 0">
+                  " [value]="item.subLocID">
                 <div class="row d-flex border-bottom">
                   <div class="col-md-3 col-sm-12">
                     {{ item.subLocationDescription }}
@@ -107,7 +110,7 @@
             <mat-label>Office Type</mat-label>
             <mat-select [(ngModel)]="cmbSendTransOfcType" (ngModelChange)="
                   getSendTransWingSection(cmbSendTransOfcType)
-                " [disabled]="disableOfcType">
+                ">
               <mat-option *ngFor="let item of ofcTypeSendTransList" [value]="item.officeTypeID">
                 {{ item.officeTypeDescription }}
               </mat-option>
@@ -120,7 +123,7 @@
         <div class="col-md-12">
           <mat-form-field class="w-100">
             <mat-label>Wing - Section</mat-label>
-            <mat-select [(ngModel)]="cmbSendTransWngSection" [disabled]="disableFields">
+            <mat-select [(ngModel)]="cmbSendTransWngSection">
               <mat-option>
                 <ngx-mat-select-search [(ngModel)]="searchSendTransSection" [placeholderLabel]="'Search...'"
                   [noEntriesFoundLabel]="'Not found'" name="search">
@@ -130,7 +133,7 @@
               <mat-option *ngFor="
                     let item of wngSectSendTransList
                       | search: 'officeDescription':searchSendTransSection
-                  " [value]="item.officeSecID" [disabled]="item.isActivated == 0">
+                  " [value]="item.officeSecID">
                 {{ item.officeDescription }}
               </mat-option>
             </mat-select>
@@ -151,7 +154,7 @@
               <mat-option *ngFor="
                     let item of transferByList
                       | search: 'postName,companyName':searchPostBy
-                  " [value]="item.postID" [disabled]="item.isActivated == 0">
+                  " [value]="item.postID">
                 {{ item.postName }} - {{ item.companyName }}
               </mat-option>
             </mat-select>
@@ -176,8 +179,7 @@
         <div class="col-md-12">
           <mat-form-field class="w-100">
             <mat-label>Province - Location - Sub Location</mat-label>
-            <mat-select [(ngModel)]="cmbTransLocation" (ngModelChange)="showTransOfcType()"
-              [disabled]="disableFields || disableReceiveTrans">
+            <mat-select [(ngModel)]="cmbTransLocation" (ngModelChange)="showTransOfcType()">
               <mat-option>
                 <ngx-mat-select-search [(ngModel)]="searchTransLocation" [placeholderLabel]="'Search...'"
                   [noEntriesFoundLabel]="'Not found'" name="search">
@@ -189,7 +191,7 @@
                       | search
                         : 'subLocationDescription, mainLocationDescription, officeTypeDescription, provinceName'
                         : searchTransLocation
-                  " [value]="item.subLocID" [disabled]="item.isActivated == 0">
+                  " [value]="item.subLocID">
                 <div class="row d-flex border-bottom">
                   <div class="col-md-3 col-sm-12">
                     {{ item.subLocationDescription }}
@@ -214,8 +216,7 @@
         <div class="col-md-12">
           <mat-form-field class="w-100">
             <mat-label>Office Type</mat-label>
-            <mat-select [(ngModel)]="cmbTransOfcType" (ngModelChange)="getTransWingSection(cmbTransOfcType)"
-              [disabled]="disableOfcType">
+            <mat-select [(ngModel)]="cmbTransOfcType" (ngModelChange)="getTransWingSection(cmbTransOfcType)">
               <mat-option *ngFor="let item of ofcTypeTransList" [value]="item.officeTypeID">
                 {{ item.officeTypeDescription }}
               </mat-option>
@@ -228,7 +229,7 @@
         <div class="col-md-12">
           <mat-form-field class="w-100">
             <mat-label>Wing - Section</mat-label>
-            <mat-select [(ngModel)]="cmbTransWngSection" [disabled]="disableFields">
+            <mat-select [(ngModel)]="cmbTransWngSection">
               <mat-option>
                 <ngx-mat-select-search [(ngModel)]="searchTransSection" [placeholderLabel]="'Search...'"
                   [noEntriesFoundLabel]="'Not found'" name="search"></ngx-mat-select-search>
@@ -237,7 +238,7 @@
               <mat-option *ngFor="
                     let item of wngSectTransList
                       | search: 'officeDescription':searchTransSection
-                  " [value]="item.officeSecID" [disabled]="item.isActivated == 0">
+                  " [value]="item.officeSecID">
                 {{ item.officeDescription }}
               </mat-option>
             </mat-select>
@@ -258,7 +259,7 @@
               <mat-option *ngFor="
                     let item of transferToList
                       | search: 'postName,companyName':searchPostTo
-                  " [value]="item.postID" [disabled]="item.isActivated == 0">
+                  " [value]="item.postID">
                 {{ item.postName }} - {{ item.companyName }}
               </mat-option>
             </mat-select>
