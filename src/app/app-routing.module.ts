@@ -51,6 +51,7 @@ import { TransferComponent } from "./pages/fixAsset/transfer/transfer.component"
 import { AssetToBeCreateComponent } from "./pages/fixAsset/asset-to-be-create/asset-to-be-create.component";
 import { RevaluationEnteriesComponent } from "./pages/fixAsset/adjustment-enteries/revaluation-enteries/revaluation-enteries.component";
 import { VehiclesComponent } from "./pages/fixAsset/vehicles/vehicles.component";
+import { AssetDepreciationComponent } from "./pages/fixAsset/asset-depreciation/asset-depreciation.component";
 
 const routes: Routes = [
   {
@@ -239,6 +240,10 @@ const routes: Routes = [
   {
     path: "transfer",
     component: TransferComponent,
+  },
+  {
+    path: "assetdepreciation",
+    component: AssetDepreciationComponent,
   },
   {
     path: "assetCreate",

@@ -1,0 +1,199 @@
+<div class="row pl-3 m-0 p-0">
+  <div class="col-md-4 align-self-center p-0 m-0">
+    <h1 class="align-self-center">Asset Depreciation</h1>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-6">
+    <mat-form-field class="w-100">
+      <mat-label>Province - Location - Sub Location</mat-label>
+      <mat-select>
+        <!-- <mat-option>
+                <ngx-mat-select-search [(ngModel)]="searchSendTransLocation" [placeholderLabel]="'Search...'"
+                  [noEntriesFoundLabel]="'Not found'" name="search">
+                </ngx-mat-select-search>
+              </mat-option> -->
+
+        <!-- <mat-option *ngFor="
+                    let item of locSendTransList
+                      | search
+                        : 'subLocationDescription, mainLocationDescription, officeTypeDescription, provinceName'
+                        : searchSendTransLocation
+                  " [value]="item.subLocID">
+                <div class="row d-flex border-bottom">
+                  <div class="col-md-3 col-sm-12">
+                    {{ item.subLocationDescription }}
+                  </div>
+                  <div class="col-md-3 col-sm-12">
+                    {{ item.officeTypeDescription }}
+                  </div>
+                  <div class="col-md-3 col-sm-12">
+                    {{ item.mainLocationDescription }}
+                  </div>
+                  <div class="col-md-3 col-sm-12">
+                    {{ item.provinceName }}
+                  </div>
+                </div>
+              </mat-option> -->
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div class="col-md-3">
+    <mat-form-field class="w-100">
+      <mat-label>Project Title</mat-label>
+      <mat-select>
+        <!-- <mat-option>
+            <ngx-mat-select-search [(ngModel)]="searchTransProject" [placeholderLabel]="'Search...'"
+              [noEntriesFoundLabel]="'Not found'" name="search"></ngx-mat-select-search>
+          </mat-option>
+          <mat-option *ngFor="
+                let item of transferProjectList
+                  | search: 'projectName':searchTransProject
+              " [value]="item.projectID">
+            {{ item.projectName }}
+          </mat-option> -->
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div class="col-md-3">
+    <mat-form-field class="w-100">
+      <mat-label>Financial Year</mat-label>
+      <mat-select>
+        <!-- <mat-option>
+            <ngx-mat-select-search [(ngModel)]="searchTransProject" [placeholderLabel]="'Search...'"
+              [noEntriesFoundLabel]="'Not found'" name="search"></ngx-mat-select-search>
+          </mat-option>
+          <mat-option *ngFor="
+                let item of transferProjectList
+                  | search: 'projectName':searchTransProject
+              " [value]="item.projectID">
+            {{ item.projectName }}
+          </mat-option> -->
+      </mat-select>
+    </mat-form-field>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12 inline-block">
+    <button mat-raised-button color="warn">Calculate</button>
+    <button mat-raised-button class="ml-4" color="primary">Reset</button>
+  </div>
+</div>
+
+<div class="row mt-4">
+  <div class="col-md-12">
+    <app-asset-depreciation-table
+      (eventEmitter)="assetWiseData($event)"
+    ></app-asset-depreciation-table>
+  </div>
+</div>
+
+<!-- The Modal -->
+<div class="modal animate__animated animate__bounceIn" id="assetModal">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h3 class="modal-title">Asset Wise Information</h3>
+        <button type="button" class="close" data-dismiss="modal">
+          &times;
+        </button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="table-responsivev ms-4 me-3">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th class="grey-text col-3">Asset Name</th>
+                    <th class="grey-text col-2">Tag No</th>
+                    <th class="grey-text col-2">Purchase Date</th>
+                    <th class="grey-text col-2">Dep. Month</th>
+                    <th class="grey-text col-2">Dep. Value</th>
+                    <th class="grey-text col-1 text-right">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="col-3">Dell Laptop</td>
+                    <td class="col-2">COM-DEL-HR-AA</td>
+                    <td class="col-2">20-10-2021</td>
+                    <td class="col-2">October</td>
+                    <td class="col-2">1,000,000</td>
+                    <td class="col-1 text-right">
+                      <span
+                        class="fa fa-list-alt cursorPointer pr-3"
+                        (click)="assetDetail('abc')"
+                      ></span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- The Modal -->
+<div class="modal animate__animated animate__bounceIn" id="assetDetailModal">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h3 class="modal-title">Asset Detail Information</h3>
+        <button type="button" class="close" data-dismiss="modal">
+          &times;
+        </button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-12">
+            <h3>Dell Laptop</h3>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="table-responsivev ms-4 me-3">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th class="grey-text col-4">Financial Year</th>
+                    <th class="grey-text col-4">Dep. Month</th>
+                    <th class="grey-text col-4">Dep. Value</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="col-4">20-10-2021</td>
+                    <td class="col-4">October</td>
+                    <td class="col-4">1,000,000</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
