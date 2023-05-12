@@ -8,6 +8,8 @@ import { Component, OnInit, Output, EventEmitter } from "@angular/core";
 export class AssetDepreciationTableComponent implements OnInit {
   @Output() eventEmitter = new EventEmitter();
 
+  tableData: any = [];
+
   constructor() {}
 
   ngOnInit(): void {}

@@ -23,7 +23,7 @@ declare var $: any;
 })
 export class AppComponent {
   // // serverUrl = "http://58.27.164.137:7001/api/";
-  // serverUrl = "http://125.209.107.137:7001/api/";
+  // serverUrl = "http://125.209.107.136:7001/api/";
   serverUrl = "http://10.1.111.12:7001/api/";
   // // serverUrl = "http://192.168.100.162:6090/api/";
   // // serverUrl = "http://192.168.100.162:7001/api/";
