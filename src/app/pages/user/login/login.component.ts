@@ -20,7 +20,7 @@ declare var $: any;
 export class LoginComponent implements OnInit {
   // serverUrl = "http://95.217.206.195:2006/";
   // serverUrl = "http://125.209.107.136:7002/";
-  serverUrl = "http://10.1.111.12:7002/";
+  serverUrl = "http://10.1.111.12:7002/";  
   //serverUrl = "http://192.168.100.162:9010/";
   // serverUrl = "http://192.168.100.162:7002/";
   // serverUrl = "http://localhost:5000/";
@@ -37,6 +37,8 @@ export class LoginComponent implements OnInit {
 
   roleTitle = "";
 
+  urlpath = '';
+
   constructor(
     public toastr: ToastrManager,
     private http: HttpClient,
@@ -45,13 +47,20 @@ export class LoginComponent implements OnInit {
     private cookie: CookieService
   ) {}
 
-  ngOnInit(): void {
+  ngOnInit(): void {    
     if (this.cookie.get("userID") != "") {
       this.router.navigate(["assetEntry"]);
       $("#menuId").show();
     } else {
       $("#menuId").hide();
+    }   
+
+    if (window.location.href.includes("10.1.111.31") || window.location.href.includes("localhost")){
+      this.serverUrl = "http://10.1.111.12:7002/";
     }
+    else{
+      this.serverUrl = "http://125.209.107.130:7002/";
+    }        
   }
 
   /*** Capture Enter key ***/

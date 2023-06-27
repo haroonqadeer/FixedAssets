@@ -360,7 +360,7 @@ export class RevaluationMoveAssetComponent implements OnInit {
     ) {
       this.lblImage1 =
         // "http://192.168.100.162:7000/assets/assetEntryImg/" +
-        "http://125.209.107.136:7000/assets/assetEntryImg/" +
+        this.app.serverpath + "assets/assetEntryImg/" +
         item.assetID +
         "_1.jpg";
     } else {
@@ -373,7 +373,7 @@ export class RevaluationMoveAssetComponent implements OnInit {
     ) {
       this.lblImage2 =
         // "http://192.168.100.162:7000/assets/assetEntryImg/" +
-        "http://125.209.107.136:7000/assets/assetEntryImg/" +
+        this.app.serverpath + "assets/assetEntryImg/" +
         item.assetID +
         "_2.jpg";
     } else {
@@ -386,7 +386,7 @@ export class RevaluationMoveAssetComponent implements OnInit {
     ) {
       this.lblImage3 =
         // "http://192.168.100.162:7000/assets/assetEntryImg/" +
-        "http://125.209.107.136:7000/assets/assetEntryImg/" +
+        this.app.serverpath + "assets/assetEntryImg/" +
         item.assetID +
         "_3.jpg";
     } else {

@@ -715,7 +715,7 @@ export class TransferComponent implements OnInit {
     if (obj.eDoc != null) {
       this.imageTransUrl =
         // "http://192.168.100.162:7000/assets/transferImg/" +
-        "http://125.209.107.136:7000/assets/transferImg/" +
+        this.app.serverpath + "assets/transferImg/" +
         obj.transferID +
         ".jpg";
     }
