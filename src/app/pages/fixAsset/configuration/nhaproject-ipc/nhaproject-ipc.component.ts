@@ -336,7 +336,7 @@ export class NHAProjectIPCComponent implements OnInit {
     ) {
       this.imageUrl =
         // "http://192.168.100.162:7000/assets/IPCRefImg/" + obj.ipcRefID + ".pdf";
-        "http://125.209.107.136:7000/assets/IPCRefImg/" + obj.ipcRefID + ".pdf";
+        this.app.serverpath + "assets/IPCRefImg/" + obj.ipcRefID + ".pdf";
     }
   }
 

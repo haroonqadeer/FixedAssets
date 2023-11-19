@@ -16,12 +16,6 @@ declare var $: any;
 export class TransferComponent implements OnInit {
   loadingBar = true;
 
-  imgTransPath = "C:/inetpub/wwwroot/FAR/FAR_Project/assets/transferImg";
-  imageTransUrl: string = "../../../../../assets/assetEntryImg/dropHereImg.png";
-  imageTrans;
-  imgFileTrans;
-  selectedTransFile: File = null;
-
   // editMode = true;
   // hidden = false;
   disableOfcType = true;
@@ -36,20 +30,38 @@ export class TransferComponent implements OnInit {
   // showBtn = true;
 
   txtPin = "";
+
+  cmbTransferProject = "";
+  cmbSendTransLocation = "";
+  cmbSendTransOfcType = "";
+  cmbSendTransWngSection = "";
+  cmbTransByPost = "";
+
+  lblTransByComp = "";
+  lblTransToComp = "";
+
+  cmbTransLocation = "";
+  cmbTransOfcType = "";
+  cmbTransWngSection = "";
+  cmbTransToPost = "";
+
+  txtTransDesc = "";
+
+  dtpTransferDt;
+
+  imgTransPath = "C:/inetpub/wwwroot/FAR/FAR_Project/assets/transferImg";
+  imageTransUrl: string = "../../../../../assets/assetEntryImg/dropHereImg.png";
+  imageTrans;
+  imgFileTrans;
+  selectedTransFile: File = null;
   // assetID = "";
   // assetNo = "";
   // rdbAsset = "";
   // cmbCustody = "";
   // cmbVehicle = "";
   // cmbWngSection = "";
-  cmbTransWngSection = "";
-  cmbSendTransWngSection = "";
   // cmbOfcType = "";
-  cmbTransOfcType = "";
-  cmbSendTransOfcType = "";
   // cmbLocation = "";
-  cmbTransLocation = "";
-  cmbSendTransLocation = "";
   // cmbAssetCat = "";
   // cmbTransProject = "";
 
@@ -65,16 +77,12 @@ export class TransferComponent implements OnInit {
   // cmbAssetCond = "";
   // txtRemarks = "";
   // dtpPurchaseDt;
-  dtpTransferDt;
   // cmbSearchOfcType = "";
   // cmbSearchTransferOfcType = "";
   // cmbSearchLocation = "";
   // cmbSearchTransferLocation = "";
   // cmbSearchWngSection = "";
   // cmbResetField = "";
-  cmbTransferProject = "";
-  cmbTransToPost = "";
-  cmbTransByPost = "";
   // cmbTransRptRef = "";
 
   rdbTransType = "";
@@ -87,7 +95,6 @@ export class TransferComponent implements OnInit {
   // txtEngine = "";
   // txtChasis = "";
   // txtTagNo = "1";
-  txtTransDesc = "";
   // txtDeploy = "";
   // vehID = "";
   // cmbVehicleAssetCat = "";
@@ -105,8 +112,6 @@ export class TransferComponent implements OnInit {
   // lblBaseRate = "";
   // lblTransferID = "";
   lblNewTransfer = 0;
-  lblTransToComp = "";
-  lblTransByComp = "";
   // lblTransByPost = "";
 
   // sldUsable = false;
@@ -710,7 +715,7 @@ export class TransferComponent implements OnInit {
     if (obj.eDoc != null) {
       this.imageTransUrl =
         // "http://192.168.100.162:7000/assets/transferImg/" +
-        "http://125.209.107.136:7000/assets/transferImg/" +
+        this.app.serverpath + "assets/transferImg/" +
         obj.transferID +
         ".jpg";
     }

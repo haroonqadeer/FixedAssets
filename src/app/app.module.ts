@@ -95,6 +95,8 @@ import { GlobalSearchComponent } from './pages/fixAsset/global-search/global-sea
 import { RevaluationEnteriesComponent } from './pages/fixAsset/adjustment-enteries/revaluation-enteries/revaluation-enteries.component';
 import { VehiclesComponent } from './pages/fixAsset/vehicles/vehicles.component';
 import { AdvanceSearchComponent } from './pages/fixAsset/advance-search/advance-search.component';
+import { AssetDepreciationComponent } from './pages/fixAsset/asset-depreciation/asset-depreciation.component';
+import { AssetDepreciationTableComponent } from './pages/fixAsset/asset-depreciation/asset-depreciation-table/asset-depreciation-table.component';
 
 @NgModule({
   declarations: [
@@ -153,6 +155,8 @@ import { AdvanceSearchComponent } from './pages/fixAsset/advance-search/advance-
     RevaluationEnteriesComponent,
     VehiclesComponent,
     AdvanceSearchComponent,
+    AssetDepreciationComponent,
+    AssetDepreciationTableComponent,
   ],
   imports: [
     BrowserModule,

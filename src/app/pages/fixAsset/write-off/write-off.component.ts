@@ -560,7 +560,7 @@ export class WriteOffComponent implements OnInit {
           "C:/inetpub/wwwroot/FAR/FAR_Project/assets/assetEntryImg"
       ) {
         this.imageAssetUrl =
-          "http://125.209.107.136:7000/assets/assetEntryImg/" +
+          this.app.serverpath + "assets/assetEntryImg/" +
           tempList[0].assetID +
           "_1.jpg";
       }
@@ -570,7 +570,7 @@ export class WriteOffComponent implements OnInit {
           "C:/inetpub/wwwroot/FAR/FAR_Project/assets/assetEntryImg"
       ) {
         this.imageAssetUrl2 =
-          "http://125.209.107.136:7000/assets/assetEntryImg/" +
+          this.app.serverpath + "assets/assetEntryImg/" +
           tempList[0].assetID +
           "_2.jpg";
       }
@@ -580,7 +580,7 @@ export class WriteOffComponent implements OnInit {
           "C:/inetpub/wwwroot/FAR/FAR_Project/assets/assetEntryImg"
       ) {
         this.imageAssetUrl3 =
-          "http://125.209.107.136:7000/assets/assetEntryImg/" +
+          this.app.serverpath + "assets/assetEntryImg/" +
           tempList[0].assetID +
           "_3.jpg";
       }
@@ -877,7 +877,7 @@ export class WriteOffComponent implements OnInit {
     ) {
       this.imageAssetUrl =
         // "http://192.168.100.162:7000/assets/assetEntryImg/" +
-        "http://125.209.107.136:7000/assets/assetEntryImg/" +
+        this.app.serverpath + "assets/assetEntryImg/" +
         item.assetID +
         "_1.jpg";
     }
@@ -887,7 +887,7 @@ export class WriteOffComponent implements OnInit {
     ) {
       this.imageAssetUrl2 =
         // "http://192.168.100.162:7000/assets/assetEntryImg/" +
-        "http://125.209.107.136:7000/assets/assetEntryImg/" +
+        this.app.serverpath + "assets/assetEntryImg/" +
         item.assetID +
         "_2.jpg";
     }
@@ -897,7 +897,7 @@ export class WriteOffComponent implements OnInit {
     ) {
       this.imageAssetUrl3 =
         // "http://192.168.100.162:7000/assets/assetEntryImg/" +
-        "http://125.209.107.136:7000/assets/assetEntryImg/" +
+        this.app.serverpath + "assets/assetEntryImg/" +
         item.assetID +
         "_3.jpg";
     }

@@ -353,7 +353,7 @@ export class VehiclesComponent implements OnInit {
     if (item.eDoc != null) {
       this.imageVehicleUrl =
         // "http://192.168.100.162:7000/assets/vehicleImg/" + item.id + ".pdf";
-        "http://125.209.107.136:7000/assets/vehicleImg/" + item.id + ".pdf";
+        this.app.serverpath + "assets/vehicleImg/" + item.id + ".pdf";
       this.lblFileName = "Open Uploaded File";
     }
   }
