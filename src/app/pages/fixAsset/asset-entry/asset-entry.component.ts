@@ -11,7 +11,7 @@ import { CookieService } from "ngx-cookie-service";
 import Swal from "sweetalert2/dist/sweetalert2.js";
 import { Observable } from "rxjs";
 import { AppComponent } from "src/app/app.component";
-
+import { DatePipe } from "@angular/common";
 import { NgxImageCompressService } from "ngx-image-compress";
 
 import * as XLSX from "xlsx";
@@ -34,6 +34,25 @@ export class AssetEntryComponent implements OnInit {
   //serverUrl = "http://192.168.100.162:12345/api/";
 
   // serverUrl = "http://192.168.100.162:6090/api/";
+
+  
+  // declarations
+  cmbRegion = "";
+  searchRegion = "";
+
+  dtpFromDt: any = "";
+  dtpToDt: any = "";
+
+  cmbOfficeTypeID = "";
+  cmbAccountsCat = "";
+  searchAssetCat = "";
+  tempRptTitle = "";
+  rptTitle = "Asset Register Report - General";
+  rptHeader = "";
+  rptPreset = "";
+  rdbFilter = "";
+  rptTitle2nd = "";
+  imgUrl = "";
 
   loadingBar = true;
   //pagination variables for tag list
@@ -294,13 +313,15 @@ export class AssetEntryComponent implements OnInit {
   regionName = "";
   locationName = "";
   officeName = "";
+  routParam: number;
 
   constructor(
     private toastr: ToastrManager,
     private http: HttpClient,
     private cookie: CookieService,
     private app: AppComponent,
-    private imageCompress: NgxImageCompressService
+    private imageCompress: NgxImageCompressService,
+    private datePipe: DatePipe
   ) {}
 
   // multiple image setting
@@ -2328,7 +2349,7 @@ export class AssetEntryComponent implements OnInit {
     this.assetDetailList = this.tempDetailList;
 
     if (this.tempDetailList.length == 0) {
-      this.getAssetDetail();
+      // this.getAssetDetail();
     }
     // alert(this.tempDetailList.length)
 
@@ -3573,4 +3594,252 @@ export class AssetEntryComponent implements OnInit {
         });
     }
   }
+
+  
+  getAssetRegister(id) {
+    debugger;
+    var region = 0;
+    var officeType = 0;
+    var project = 0;
+    var accountCat = 0;
+    var assetCat = 0;
+    var userID = this.cookie.get("userID");
+    var status = "";
+
+    //clear filters
+    this.rdbFilter = "";
+    this.rptTitle2nd = "";
+
+    // header setting
+    if (this.tempRptTitle != "") {
+      this.rptHeader = this.tempRptTitle;
+    }
+
+    if (this.cmbRegion == "" || this.cmbRegion == undefined) {
+      region = 0;
+    } else {
+      region = parseInt(this.cmbRegion);
+    }
+
+    if (this.cmbOfficeTypeID == "" || this.cmbOfficeTypeID == undefined) {
+      officeType = 0;
+    } else {
+      officeType = parseInt(this.cmbOfficeTypeID);
+    }
+
+    if (this.cmbProject == "" || this.cmbProject == undefined) {
+      project = 0;
+    } else {
+      project = parseInt(this.cmbProject);
+    }
+
+    if (this.cmbAccountsCat == "" || this.cmbAccountsCat == undefined) {
+      accountCat = 0;
+    } else {
+      accountCat = parseInt(this.cmbAccountsCat);
+    }
+
+    if (this.cmbAssetCat == "" || this.cmbAssetCat == undefined) {
+      assetCat = 0;
+    } else {
+      assetCat = parseInt(this.cmbAssetCat);
+    }
+
+    // route parameter filters for report
+    if (this.routParam == 0 || this.routParam == 6) {
+      status = "";
+    } else if (this.routParam == 1) {
+      status = "useable";
+    } else if (this.routParam == 2) {
+      status = "serviceable";
+    } else if (this.routParam == 3) {
+      status = "surplus";
+    } else if (this.routParam == 4) {
+      status = "condemned";
+    } else if (this.routParam == 5) {
+      status = "missing";
+    }
+
+    if (this.dtpFromDt != "" && this.dtpToDt != "") {
+      if (this.dtpFromDt > this.dtpToDt) {
+        this.toastr.errorToastr("Please Select Correct Date", "Error", {
+          toastTimeout: 2500,
+        });
+        return false;
+      }
+    } else if (this.dtpFromDt != "" && this.dtpToDt == "") {
+      this.toastr.errorToastr("Please Select To Date", "Error", {
+        toastTimeout: 2500,
+      });
+      return false;
+    } else if (this.dtpFromDt == "" && this.dtpToDt != "") {
+      this.toastr.errorToastr("Please Select From Date", "Error", {
+        toastTimeout: 2500,
+      });
+      return false;
+    } else if (
+      (this.rptPreset == "" || this.rptPreset == undefined) &&
+      this.routParam == 0
+    ) {
+      this.toastr.errorToastr("Please Select Report Preset", "Error", {
+        toastTimeout: 2500,
+      });
+      return false;
+    } else if (region == 0 && this.routParam == 6) {
+      this.toastr.errorToastr("Please Select Region", "Error", {
+        toastTimeout: 2500,
+      });
+      return false;
+    } else if (officeType == 0 && this.routParam == 6) {
+      this.toastr.errorToastr("Please Select Location", "Error", {
+        toastTimeout: 2500,
+      });
+      return false;
+    }
+    // else if (
+    //   region == 0 &&
+    //   officeType == 0 &&
+    //   project == 0 &&
+    //   accountCat == 0 &&
+    //   assetCat == 0
+    // ) {
+    //   this.toastr.errorToastr(
+    //     'Please Select one option from Region, Office Type, Project, Accounts Category and Asset Category',
+    //     'Error',
+    //     {
+    //       toastTimeout: 2500,
+    //     }
+    //   );
+    //   return false;
+    // }
+    // http call
+    var reqHeader = new HttpHeaders({
+      "Content-Type": "application/json",
+      // Authorization: "Bearer " + Token,
+    });
+    this.http
+      .get(
+        this.app.serverUrl +
+          "getMoveableAssetdetailRpt?UserId=" +
+          userID +
+          "&mainLocID=" +
+          region +
+          "&subLocID=" +
+          this.cmbLocation +
+          "&officeTypeID=" +
+          officeType +
+          "&projectID=" +
+          project +
+          "&accountsCatID=" +
+          accountCat +
+          "&assetCatID=" +
+          assetCat +
+          "&type=" +
+          this.rptPreset +
+          "&status=" +
+          status +
+          "&fromDate=" +
+          this.datePipe.transform(this.dtpFromDt, "yyyy-MM-dd") +
+          "&toDate=" +
+          this.datePipe.transform(this.dtpToDt, "yyyy-MM-dd"),
+        { headers: reqHeader }
+      )
+      .subscribe((data: any) => {
+        this.assetDetailList = data;
+        // this.assetRegisterList = data;
+        // this.filterAssetRegisterList = data;
+
+        // if region
+        // if (region != 0) {
+        //   if (this._alldata.length == 0) {
+        //     this._alldata = data;
+        //   }
+        // }
+        // if (officeType != 0) {
+        //   if (this._alldata.length == 0) {
+        //     this._alldata = data;
+        //   } else {
+        //     this._alldata = data.filter(
+        //       (x) =>
+        //         x.subLocID == this.cmbLocation && x.officeTypeID == officeType
+        //     );
+        //   }
+        // }
+        // if (project != 0) {
+        //   if (this._alldata.length == 0) {
+        //     this._alldata = data;
+        //   } else {
+        //     this._alldata = data.filter((x) => x.projectID == project);
+        //   }
+        // }
+        // if (accountCat != 0) {
+        //   if (this._alldata.length == 0) {
+        //     this._alldata = data;
+        //   } else {
+        //     this._alldata = data.filter((x) => x.accountsCatID == accountCat);
+        //   }
+        // }
+        // if (assetCat != 0) {
+        //   if (this._alldata.length == 0) {
+        //     this._alldata = data;
+        //   } else {
+        //     this._alldata = data.filter((x) => x.assetCatID == assetCat);
+        //   }
+        // }
+
+
+    //     // apply radio filters
+    //     // if (id == 0){
+    //     //   this.rdbFilter = '';
+    //     // }
+    //     // else if (id == 1){
+    //     //   this.rdbFilter = 'useable';
+    //     // }
+    //     // else if (id == 2){
+    //     //   this.rdbFilter == 'serviceable';
+    //     // }
+    //     // else if (id == 3){
+    //     //   this.rdbFilter == 'surplus';
+    //     // }
+    //     // else if (id ==4){
+    //     //   this.rdbFilter == 'condemned';
+    //     // }
+    //     // else if (id ==5){
+    //     //   this.rdbFilter == 'missing';
+    //     // }
+
+    //     $("#rptOptionsModal").modal("hide");
+    //     // this.dataSource = this.filterAssetRegisterList;
+      });
+
+    // // if consolidated report
+    // if (this.routParam != 0) {
+    //   this.columns = this.consolidatedColumns;
+    // }
+
+    // // general report preset generation
+    // if (this.rptPreset == "general") {
+    //   this.columns = this.generalColumns;
+    //   this.rptTitle += " - General Items";
+    // }
+
+    // // computer report preset generation
+    // else if (this.rptPreset == "computer") {
+    //   this.columns = this.computerColumns;
+    //   this.rptTitle += " - Computer Items";
+    // }
+
+    // // vehicle report preset generation
+    // else if (this.rptPreset == "vehicle") {
+    //   this.columns = this.vehicleColumns;
+    //   this.rptTitle += " - Vehicles";
+    // }
+
+    // // Books report preset generation
+    // else if (this.rptPreset == "book") {
+    //   this.columns = this.bookColumns;
+    //   this.rptTitle += " - Books";
+    // }
+  }
+
 }
