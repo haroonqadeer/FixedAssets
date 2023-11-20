@@ -315,6 +315,16 @@ export class AssetEntryComponent implements OnInit {
   officeName = "";
   routParam: number;
 
+  // advance search variables  
+  regionList = [];
+  filteredLocLis = "";    
+  filteredAccountsCatList = [];
+  filteredAssetCatList = [];
+  accountsCatList = [];
+  assetCatList = [] ;  
+  filteredLocList = [];
+
+
   constructor(
     private toastr: ToastrManager,
     private http: HttpClient,
@@ -597,6 +607,7 @@ export class AssetEntryComponent implements OnInit {
     this.getVehicleType();
     // this.getOldTags();
     this.getTransfer();
+    this.getRegions();
     $("#assetRegister").hide();
   }
 
@@ -3842,4 +3853,84 @@ export class AssetEntryComponent implements OnInit {
     // }
   }
 
+  filterAccountAndAssetCat() {
+    if (this.rptPreset == "general") {
+      this.filteredAccountsCatList = this.accountsCatList.filter(
+        (x) =>
+          x.accountsCatID == 2 ||
+          x.accountsCatID == 3 ||
+          x.accountsCatID == 4 ||
+          x.accountsCatID == 6 ||
+          x.accountsCatID == 7 ||
+          x.accountsCatID == 8
+      );
+      this.filteredAssetCatList = this.assetCatList.filter(
+        (x) =>
+          x.accountsCatID == 2 ||
+          x.accountsCatID == 3 ||
+          x.accountsCatID == 4 ||
+          x.accountsCatID == 6 ||
+          x.accountsCatID == 7 ||
+          x.accountsCatID == 8
+      );
+    } else if (this.rptPreset == "computer") {
+      this.filteredAccountsCatList = this.accountsCatList.filter(
+        (x) => x.accountsCatID == 1
+      );
+      this.filteredAssetCatList = this.assetCatList.filter(
+        (x) => x.accountsCatID == 1
+      );
+    } else if (this.rptPreset == "vehicle") {
+      this.filteredAccountsCatList = this.accountsCatList.filter(
+        (x) => x.accountsCatID == 9
+      );
+      this.filteredAssetCatList = this.assetCatList.filter(
+        (x) => x.accountsCatID == 9
+      );
+    } else if (this.rptPreset == "book") {
+      this.filteredAccountsCatList = this.accountsCatList.filter(
+        (x) => x.accountsCatID == 2
+      );
+      this.filteredAssetCatList = this.assetCatList.filter(
+        (x) => x.accountsCatID == 2
+      );
+    }
+  }
+
+  getRegions() {
+    // debugger;
+    var reqHeader = new HttpHeaders({
+      "Content-Type": "application/json",
+      // Authorization: "Bearer " + Token,
+    });
+    this.http
+      // .get(this.app.serverUrl + "getsubloc", { headers: reqHeader })
+      .get(
+        this.app.serverUrl + "getRegions?userId=" + this.cookie.get("userID"),
+        { headers: reqHeader }
+      )
+      .subscribe((data: any) => {
+        // this.locList = data.filter((x) => x.isActivated == 1);
+        this.regionList = data;
+      });
+  }
+
+  showLocations() {
+    this.filteredLocList = this.locList.filter(
+      (x) => x.mainLocID == this.cmbRegion
+    );
+  }
+
+  searchLoc(item) {
+    debugger;
+    // this.cmbLocation = this.filteredLocList[i].subLocID;
+    this.cmbLocation = item.subLocID;
+  }
+
+  filterAssetCat() {
+    this.filteredAssetCatList = this.assetCatList.filter(
+      (x) => x.accountsCatID == this.cmbAccountsCat
+    );
+  }
+  
 }
