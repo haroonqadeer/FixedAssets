@@ -137,10 +137,11 @@ export class AppComponent {
     
     if (window.location.href.includes("10.1.111.31") || window.location.href.includes("localhost")){
       this.serverUrl = "http://10.1.111.12:7001/api/";
+      // this.serverUrl = "http://localhost:6090/api/";
       this.serverpath = "http://10.1.111.31:7010/";
     }
     else{
-      this.serverUrl = "http://125.209.107.130:7001/api/";
+      this.serverUrl = "http://125.209.107.130:7001/api/";      
       this.serverpath = "http://125.209.107.130:9001/";
     }
   }

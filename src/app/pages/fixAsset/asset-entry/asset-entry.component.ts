@@ -594,7 +594,7 @@ export class AssetEntryComponent implements OnInit {
     this.rdbAsset = "1";
     this.disableOfcType = true;
     this.getTags();
-    this.getLocation();
+    this.getLocation();    
     this.getTransLocation();
     this.getOfficeType();
     this.getVehicle();
@@ -608,6 +608,7 @@ export class AssetEntryComponent implements OnInit {
     // this.getOldTags();
     this.getTransfer();
     this.getRegions();
+    
     $("#assetRegister").hide();
   }
 
@@ -3723,7 +3724,16 @@ export class AssetEntryComponent implements OnInit {
     //   );
     //   return false;
     // }
-    // http call
+    // http call    
+    // alert(userID );
+    // alert (region);
+    // alert (this.cmbLocation);
+    // alert (officeType);
+    // alert(accountCat);
+    // alert (assetCat);
+    // alert (this.rptPreset);
+    // alert (status);    
+
     var reqHeader = new HttpHeaders({
       "Content-Type": "application/json",
       // Authorization: "Bearer " + Token,
@@ -3757,6 +3767,7 @@ export class AssetEntryComponent implements OnInit {
       )
       .subscribe((data: any) => {
         this.assetDetailList = data;
+        console.log(data);
         // this.assetRegisterList = data;
         // this.filterAssetRegisterList = data;
 
@@ -3915,10 +3926,16 @@ export class AssetEntryComponent implements OnInit {
       });
   }
 
-  showLocations() {
-    this.filteredLocList = this.locList.filter(
-      (x) => x.mainLocID == this.cmbRegion
-    );
+  showLocations() {    
+    if (this.cmbRegion === '' || this.cmbRegion === undefined){
+      this.filteredLocList = this.locList;
+    }
+    else{
+      this.filteredLocList = this.locList.filter(
+        (x) => x.mainLocID == this.cmbRegion
+      );
+    }    
+    console.log(this.filteredLocList);
   }
 
   searchLoc(item) {
