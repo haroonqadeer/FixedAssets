@@ -52,6 +52,7 @@ import { AssetToBeCreateComponent } from "./pages/fixAsset/asset-to-be-create/as
 import { RevaluationEnteriesComponent } from "./pages/fixAsset/adjustment-enteries/revaluation-enteries/revaluation-enteries.component";
 import { VehiclesComponent } from "./pages/fixAsset/vehicles/vehicles.component";
 import { AssetDepreciationComponent } from "./pages/fixAsset/asset-depreciation/asset-depreciation.component";
+import { VehicleEntryComponent } from "./pages/vehicle-entry/vehicle-entry.component";
 
 const routes: Routes = [
   {
@@ -137,6 +138,10 @@ const routes: Routes = [
   {
     path: "vehicle",
     component: VehiclesComponent,
+  },
+  {
+    path: "vehEntry",
+    component: VehicleEntryComponent,
   },
 
   // Fixed Asset Report

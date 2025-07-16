@@ -478,6 +478,7 @@ export class AssetDisposalComponent implements OnInit {
   }
 
   saveDetail() {
+    debugger;
     if (this.ddlAssets == undefined || this.ddlAssets == null) {
       this.toastr.errorToastr("Please Select Asset", "Error !", {
         toastTimeout: 2500,
@@ -689,9 +690,7 @@ export class AssetDisposalComponent implements OnInit {
     ) {
       this.imageAssetUrl =
         // "http://192.168.100.162:7000/assets/assetEntryImg/" +
-        this.app.serverpath + "assets/assetEntryImg/" +
-        item.assetID +
-        "_1.jpg";
+        this.app.serverpath + "assets/assetEntryImg/" + item.assetID + "_1.jpg";
     }
     if (
       item.eDoc2 != null &&
@@ -699,9 +698,7 @@ export class AssetDisposalComponent implements OnInit {
     ) {
       this.imageAssetUrl2 =
         // "http://192.168.100.162:7000/assets/assetEntryImg/" +
-        this.app.serverpath + "assets/assetEntryImg/" +
-        item.assetID +
-        "_2.jpg";
+        this.app.serverpath + "assets/assetEntryImg/" + item.assetID + "_2.jpg";
     }
     if (
       item.eDoc3 != null &&
@@ -709,9 +706,7 @@ export class AssetDisposalComponent implements OnInit {
     ) {
       this.imageAssetUrl3 =
         // "http://192.168.100.162:7000/assets/assetEntryImg/" +
-        this.app.serverpath + "assets/assetEntryImg/" +
-        item.assetID +
-        "_3.jpg";
+        this.app.serverpath + "assets/assetEntryImg/" + item.assetID + "_3.jpg";
     }
   }
 
@@ -817,7 +812,8 @@ export class AssetDisposalComponent implements OnInit {
       ) {
         this.imageAssetUrl =
           // "http://192.168.100.162:7000/assets/assetEntryImg/" +
-          this.app.serverpath + "assets/assetEntryImg/" +
+          this.app.serverpath +
+          "assets/assetEntryImg/" +
           tempList[0].assetID +
           "_1.jpg";
       }
@@ -828,7 +824,8 @@ export class AssetDisposalComponent implements OnInit {
       ) {
         this.imageAssetUrl2 =
           // "http://192.168.100.162:7000/assets/assetEntryImg/" +
-          this.app.serverpath + "assets/assetEntryImg/" +
+          this.app.serverpath +
+          "assets/assetEntryImg/" +
           tempList[0].assetID +
           "_2.jpg";
       }
@@ -839,7 +836,8 @@ export class AssetDisposalComponent implements OnInit {
       ) {
         this.imageAssetUrl3 =
           // "http://192.168.100.162:7000/assets/assetEntryImg/" +
-          this.app.serverpath + "assets/assetEntryImg/" +
+          this.app.serverpath +
+          "assets/assetEntryImg/" +
           tempList[0].assetID +
           "_3.jpg";
       }

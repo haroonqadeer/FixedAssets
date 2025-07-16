@@ -25,8 +25,8 @@ export class AppComponent {
   // // serverUrl = "http://58.27.164.137:7001/api/";
   // serverUrl = "http://125.209.107.136:7001/api/";
   // serverUrl = "http://10.1.111.12:7001/api/";
-  serverUrl = '';
-  serverpath = '';
+  serverUrl = "";
+  serverpath = "";
   // // serverUrl = "http://192.168.100.162:6090/api/";
   // // serverUrl = "http://192.168.100.162:7001/api/";
 
@@ -98,7 +98,7 @@ export class AppComponent {
   imgFileAsset3;
   selectedAssetFile3: File = null;
 
-  urlpath = '';
+  urlpath = "";
 
   constructor(
     private location: Location,
@@ -112,7 +112,6 @@ export class AppComponent {
   ) {}
 
   ngOnInit(): void {
-
     // alert(this.cookie.get("userID"));
     if (this.cookie.get("userID") == "") {
       this.router.navigate([""]);
@@ -133,15 +132,17 @@ export class AppComponent {
       if (this.location.path() == "") {
         this.router.navigate(["home"]);
       }
-    }  
-    
-    if (window.location.href.includes("10.1.111.31") || window.location.href.includes("localhost")){
-      this.serverUrl = "http://10.1.111.12:7001/api/";
-      // this.serverUrl = "http://localhost:6090/api/";
-      this.serverpath = "http://10.1.111.31:7010/";
     }
-    else{
-      this.serverUrl = "http://125.209.107.130:7001/api/";      
+
+    if (
+      window.location.href.includes("10.1.111.31") ||
+      window.location.href.includes("localhost")
+    ) {
+      // this.serverUrl = "http://10.1.111.12:7001/api/";
+      this.serverUrl = "http://localhost:6090/api/";
+      this.serverpath = "http://10.1.111.31:7010/";
+    } else {
+      this.serverUrl = "http://125.209.107.130:7001/api/";
       this.serverpath = "http://125.209.107.130:9001/";
     }
   }
@@ -280,7 +281,8 @@ export class AppComponent {
             // data[0].assetID +
             // "_1.jpg";
             this.imageAssetUrl =
-              this.serverpath +"assets/assetEntryImg/" +
+              this.serverpath +
+              "assets/assetEntryImg/" +
               data[0].assetID +
               "_1.jpg";
           }
@@ -291,7 +293,8 @@ export class AppComponent {
           ) {
             this.imageAssetUrl2 =
               // "http://192.168.100.162:7000/assets/assetEntryImg/" +
-              this.serverpath+"assets/assetEntryImg/" +
+              this.serverpath +
+              "assets/assetEntryImg/" +
               data[0].assetID +
               "_2.jpg";
           }
@@ -302,7 +305,8 @@ export class AppComponent {
           ) {
             this.imageAssetUrl3 =
               // "http://192.168.100.162:7000/assets/assetEntryImg/" +
-              this.serverpath +"assets/assetEntryImg/" +
+              this.serverpath +
+              "assets/assetEntryImg/" +
               data[0].assetID +
               "_3.jpg";
           }
@@ -732,9 +736,7 @@ export class AppComponent {
         if (
           this.imageAssetUrl ==
           // "http://192.168.100.162:7000/assets/assetEntryImg/" +
-          this.serverpath+ "assets/assetEntryImg/" +
-            this.txtAssetID +
-            "_1.jpg"
+          this.serverpath + "assets/assetEntryImg/" + this.txtAssetID + "_1.jpg"
         ) {
           imgPath = this.txtAssetID;
         } else {
@@ -749,9 +751,7 @@ export class AppComponent {
         if (
           this.imageAssetUrl2 ==
           // "http://192.168.100.162:7000/assets/assetEntryImg/" +
-          this.serverpath + "assets/assetEntryImg/" +
-            this.txtAssetID +
-            "_2.jpg"
+          this.serverpath + "assets/assetEntryImg/" + this.txtAssetID + "_2.jpg"
         ) {
           imgPath2 = this.txtAssetID;
         } else {
@@ -767,9 +767,7 @@ export class AppComponent {
         if (
           this.imageAssetUrl3 ==
           // "http://192.168.100.162:7000/assets/assetEntryImg/" +
-          this.serverpath + "assets/assetEntryImg/" +
-            this.txtAssetID +
-            "_3.jpg"
+          this.serverpath + "assets/assetEntryImg/" + this.txtAssetID + "_3.jpg"
         ) {
           imgPath3 = this.txtAssetID;
         } else {

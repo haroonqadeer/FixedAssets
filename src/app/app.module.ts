@@ -97,6 +97,7 @@ import { VehiclesComponent } from './pages/fixAsset/vehicles/vehicles.component'
 import { AdvanceSearchComponent } from './pages/fixAsset/advance-search/advance-search.component';
 import { AssetDepreciationComponent } from './pages/fixAsset/asset-depreciation/asset-depreciation.component';
 import { AssetDepreciationTableComponent } from './pages/fixAsset/asset-depreciation/asset-depreciation-table/asset-depreciation-table.component';
+import { VehicleEntryComponent } from './pages/vehicle-entry/vehicle-entry.component';
 
 @NgModule({
   declarations: [
@@ -157,6 +158,7 @@ import { AssetDepreciationTableComponent } from './pages/fixAsset/asset-deprecia
     AdvanceSearchComponent,
     AssetDepreciationComponent,
     AssetDepreciationTableComponent,
+    VehicleEntryComponent,
   ],
   imports: [
     BrowserModule,
