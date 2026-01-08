@@ -35,7 +35,6 @@ export class AssetEntryComponent implements OnInit {
 
   // serverUrl = "http://192.168.100.162:6090/api/";
 
-  
   // declarations
   cmbRegion = "";
   searchRegion = "";
@@ -315,15 +314,14 @@ export class AssetEntryComponent implements OnInit {
   officeName = "";
   routParam: number;
 
-  // advance search variables  
+  // advance search variables
   regionList = [];
-  filteredLocLis = "";    
+  filteredLocLis = "";
   filteredAccountsCatList = [];
   filteredAssetCatList = [];
   accountsCatList = [];
-  assetCatList = [] ;  
+  assetCatList = [];
   filteredLocList = [];
-
 
   constructor(
     private toastr: ToastrManager,
@@ -594,7 +592,7 @@ export class AssetEntryComponent implements OnInit {
     this.rdbAsset = "1";
     this.disableOfcType = true;
     this.getTags();
-    this.getLocation();    
+    this.getLocation();
     this.getTransLocation();
     this.getOfficeType();
     this.getVehicle();
@@ -608,7 +606,7 @@ export class AssetEntryComponent implements OnInit {
     // this.getOldTags();
     this.getTransfer();
     this.getRegions();
-    
+
     $("#assetRegister").hide();
   }
 
@@ -1196,15 +1194,14 @@ export class AssetEntryComponent implements OnInit {
     this.sldCondemned = item.isCondemned;
     this.sldMissing = item.isMissing;
     this.txtRemarks = item.remarks;
+    debugger;
     if (
       item.eDoc != null &&
       item.eDoc != "C:/inetpub/wwwroot/FAR/FAR_Project/assets/assetEntryImg"
     ) {
       this.imageAssetUrl =
         // "http://192.168.100.162:7000/assets/assetEntryImg/" +
-        this.app.serverpath + "assets/assetEntryImg/" +
-        item.assetID +
-        "_1.jpg";
+        this.app.serverpath + "assets/assetEntryImg/" + item.assetID + "_1.jpg";
     }
     if (
       item.eDoc2 != null &&
@@ -1212,9 +1209,7 @@ export class AssetEntryComponent implements OnInit {
     ) {
       this.imageAssetUrl2 =
         // "http://192.168.100.162:7000/assets/assetEntryImg/" +
-        this.app.serverpath + "assets/assetEntryImg/" +
-        item.assetID +
-        "_2.jpg";
+        this.app.serverpath + "assets/assetEntryImg/" + item.assetID + "_2.jpg";
     }
     if (
       item.eDoc3 != null &&
@@ -1222,13 +1217,15 @@ export class AssetEntryComponent implements OnInit {
     ) {
       this.imageAssetUrl3 =
         // "http://192.168.100.162:7000/assets/assetEntryImg/" +
-        this.app.serverpath + "assets/assetEntryImg/" +
-        item.assetID +
-        "_3.jpg";
+        this.app.serverpath + "assets/assetEntryImg/" + item.assetID + "_3.jpg";
     }
 
     this.lblTransferID = item.transferID;
-    this.sldTransfered = item.isTransfered;
+    if (item.isTransfer == 0 || item.isTransfer == undefined) {
+      this.sldTransfered = false;
+    } else if (item.isTransfer == 1) {
+      this.sldTransfered = true;
+    }
 
     this.make = item.make;
     this.model = item.model;
@@ -1286,6 +1283,7 @@ export class AssetEntryComponent implements OnInit {
   }
 
   save() {
+    debugger;
     if (this.cmbLocation == "") {
       this.toastr.errorToastr(
         "Please Select Province Location & Sub Location",
@@ -1701,7 +1699,8 @@ export class AssetEntryComponent implements OnInit {
       }
 
       var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
-
+      debugger;
+      console.log(saveData);
       this.http
         .post(this.app.serverUrl + "saveasset", saveData, {
           headers: reqHeader,
@@ -2287,7 +2286,8 @@ export class AssetEntryComponent implements OnInit {
       if (trans[0].eDoc != null) {
         this.imageTransUrl =
           // "http://192.168.100.162:7000/assets/transferImg/" +
-          this.app.serverpath + "assets/transferImg/" +
+          this.app.serverpath +
+          "assets/transferImg/" +
           this.lblTransferID +
           ".jpg";
       }
@@ -2725,9 +2725,7 @@ export class AssetEntryComponent implements OnInit {
     if (obj.eDoc != null) {
       this.imageTransUrl =
         // "http://192.168.100.162:7000/assets/transferImg/" +
-        this.app.serverpath + "assets/transferImg/" +
-        obj.transferID +
-        ".jpg";
+        this.app.serverpath + "assets/transferImg/" + obj.transferID + ".jpg";
     }
 
     var transBy = this.transferByList.filter(
@@ -3083,6 +3081,7 @@ export class AssetEntryComponent implements OnInit {
   }
 
   compressFile(image, fileName, imageAsset) {
+    debugger;
     var orientation = -1;
     // this.sizeOfOriginalImage =
     //   this.imageCompress.byteCount(image) / (1024 * 1024);
@@ -3092,7 +3091,7 @@ export class AssetEntryComponent implements OnInit {
       .then((result) => {
         // create file from byte
         const imageName = fileName;
-
+        debugger;
         if (imageAsset == "imageAsset") {
           this.imageAsset = result;
 
@@ -3607,7 +3606,6 @@ export class AssetEntryComponent implements OnInit {
     }
   }
 
-  
   getAssetRegister(id) {
     debugger;
     var region = 0;
@@ -3724,7 +3722,7 @@ export class AssetEntryComponent implements OnInit {
     //   );
     //   return false;
     // }
-    // http call    
+    // http call
     // alert(userID );
     // alert (region);
     // alert (this.cmbLocation);
@@ -3732,7 +3730,7 @@ export class AssetEntryComponent implements OnInit {
     // alert(accountCat);
     // alert (assetCat);
     // alert (this.rptPreset);
-    // alert (status);    
+    // alert (status);
 
     var reqHeader = new HttpHeaders({
       "Content-Type": "application/json",
@@ -3809,29 +3807,28 @@ export class AssetEntryComponent implements OnInit {
         //   }
         // }
 
+        //     // apply radio filters
+        //     // if (id == 0){
+        //     //   this.rdbFilter = '';
+        //     // }
+        //     // else if (id == 1){
+        //     //   this.rdbFilter = 'useable';
+        //     // }
+        //     // else if (id == 2){
+        //     //   this.rdbFilter == 'serviceable';
+        //     // }
+        //     // else if (id == 3){
+        //     //   this.rdbFilter == 'surplus';
+        //     // }
+        //     // else if (id ==4){
+        //     //   this.rdbFilter == 'condemned';
+        //     // }
+        //     // else if (id ==5){
+        //     //   this.rdbFilter == 'missing';
+        //     // }
 
-    //     // apply radio filters
-    //     // if (id == 0){
-    //     //   this.rdbFilter = '';
-    //     // }
-    //     // else if (id == 1){
-    //     //   this.rdbFilter = 'useable';
-    //     // }
-    //     // else if (id == 2){
-    //     //   this.rdbFilter == 'serviceable';
-    //     // }
-    //     // else if (id == 3){
-    //     //   this.rdbFilter == 'surplus';
-    //     // }
-    //     // else if (id ==4){
-    //     //   this.rdbFilter == 'condemned';
-    //     // }
-    //     // else if (id ==5){
-    //     //   this.rdbFilter == 'missing';
-    //     // }
-
-    //     $("#rptOptionsModal").modal("hide");
-    //     // this.dataSource = this.filterAssetRegisterList;
+        //     $("#rptOptionsModal").modal("hide");
+        //     // this.dataSource = this.filterAssetRegisterList;
       });
 
     // // if consolidated report
@@ -3926,15 +3923,14 @@ export class AssetEntryComponent implements OnInit {
       });
   }
 
-  showLocations() {    
-    if (this.cmbRegion === '' || this.cmbRegion === undefined){
+  showLocations() {
+    if (this.cmbRegion === "" || this.cmbRegion === undefined) {
       this.filteredLocList = this.locList;
-    }
-    else{
+    } else {
       this.filteredLocList = this.locList.filter(
         (x) => x.mainLocID == this.cmbRegion
       );
-    }    
+    }
     console.log(this.filteredLocList);
   }
 
@@ -3949,5 +3945,4 @@ export class AssetEntryComponent implements OnInit {
       (x) => x.accountsCatID == this.cmbAccountsCat
     );
   }
-  
 }

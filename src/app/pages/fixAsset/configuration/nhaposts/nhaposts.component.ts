@@ -89,11 +89,12 @@ export class NHAPostsComponent implements OnInit {
       });
   }
 
-  calNumbers(){
-    this.http.get("http://localhost:9110/test/sumNums?a=10&b=3")
-    .subscribe((data:any) =>{
-      this.result = data;
-    })
+  calNumbers() {
+    this.http
+      .get("http://localhost:9110/test/sumNums?a=10&b=3")
+      .subscribe((data: any) => {
+        this.result = data;
+      });
   }
   save() {
     if (this.cmbBS == "") {

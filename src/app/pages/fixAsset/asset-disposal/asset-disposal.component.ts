@@ -67,7 +67,7 @@ export class AssetDisposalComponent implements OnInit {
   transactionList = [];
   tempTransactionList = [];
 
-  txtSearchLandData = "";
+  txtSearchDisposalData = "";
 
   ddlAccSec = "";
 
@@ -202,19 +202,19 @@ export class AssetDisposalComponent implements OnInit {
       .get(
         this.app.serverUrl +
           "assetfordisposallist?LocId=" +
-          this.ddlLocation +
+          0 +
           "&VehicleId=" +
           this.rdbAssetsType,
         { headers: reqHeader }
       )
       .subscribe((data: any) => {
         this.assetsForDisposalDataList = data;
+        console.log(data);
         this.loadingBar = false;
       });
   }
 
   getDisposalDetail() {
-    // debugger;
     var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
     this.http
       .get(
@@ -222,12 +222,15 @@ export class AssetDisposalComponent implements OnInit {
         { headers: reqHeader }
       )
       .subscribe((data: any) => {
+        debugger;
         this.disposalDetailList = data;
+        console.log(this.disposalDataList);
         this.loadingBar = false;
       });
   }
 
   save() {
+    debugger;
     if (this.toDate == undefined || this.toDate == null) {
       this.toastr.errorToastr("Please Enter Date", "Error !", {
         toastTimeout: 2500,
@@ -328,6 +331,7 @@ export class AssetDisposalComponent implements OnInit {
         SpType: reqSpType,
       };
 
+      console.log(SaveData);
       this.loadingBar = true;
       var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 
@@ -396,6 +400,7 @@ export class AssetDisposalComponent implements OnInit {
   }
 
   edit(item) {
+    console.log(item);
     this.disposalID = item.disposalID;
     this.ddlLocation = item.subLocID;
     this.toDate = new Date(item.disposalDate);
@@ -407,7 +412,6 @@ export class AssetDisposalComponent implements OnInit {
     this.totalAmount = item.amountPaid;
     this.taxAmount = item.taxPaid;
     this.remarks = item.remarks;
-
     this.toggleView = "form";
 
     this.getAssetsForDisposal();

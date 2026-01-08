@@ -139,7 +139,8 @@ export class AppComponent {
       window.location.href.includes("localhost")
     ) {
       // this.serverUrl = "http://10.1.111.12:7001/api/";
-      this.serverUrl = "http://localhost:6090/api/";
+      this.serverUrl = "http://10.1.111.31:7001/api/";
+      // this.serverUrl = "http://localhost:6090/api/";
       this.serverpath = "http://10.1.111.31:7010/";
     } else {
       this.serverUrl = "http://125.209.107.130:7001/api/";
@@ -661,6 +662,7 @@ export class AppComponent {
   }
 
   compressFile(image, fileName, imageAsset) {
+    debugger;
     var orientation = -1;
     // this.sizeOfOriginalImage =
     //   this.imageCompress.byteCount(image) / (1024 * 1024);
@@ -710,6 +712,7 @@ export class AppComponent {
   }
 
   updateAssetPic() {
+    debugger;
     if (this.txtAssetID == "" || this.txtAssetID == undefined) {
       this.toastr.errorToastr("Please Enter Asset ID", "Error", {
         toastTimeout: 2500,
@@ -789,7 +792,7 @@ export class AppComponent {
         imgFile2: imgAsset2,
         imgFile3: imgAsset3,
       };
-
+      console.log(saveData);
       // $('#qrScannerModal').modal('toggle');
       var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
 

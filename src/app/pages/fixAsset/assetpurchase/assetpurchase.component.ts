@@ -1004,6 +1004,7 @@ export class AssetpurchaseComponent implements OnInit {
 
   savePurchase() {
     // alert(this.imageUrl)
+    debugger;
     var supInvDate, memoDate;
     var purchaseDate = this.dtpPurchase;
     var reqSpType = "INSERT";
@@ -1045,12 +1046,14 @@ export class AssetpurchaseComponent implements OnInit {
       SpType: reqSpType,
       purchaseID: this.lblPurchaseID,
     };
+    console.log(SaveData);
     var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
     this.http
       .post(this.app.serverUrl + "crudPurchase", SaveData, {
         headers: reqHeader,
       })
       .subscribe((data: any) => {
+        debugger;
         if (data.msg == "Success") {
           if (this.lblPurchaseID == 0) {
             this.lblPurchaseID = data.purID;
@@ -1063,6 +1066,7 @@ export class AssetpurchaseComponent implements OnInit {
 
           return false;
         } else {
+          alert(data.msg);
           this.toastr.errorToastr(data.msg, "Error !", {
             toastTimeout: 5000,
           });
@@ -1075,6 +1079,9 @@ export class AssetpurchaseComponent implements OnInit {
     debugger;
 
     var vehicleID = this.ddlVehicle;
+    if (vehicleID == "") {
+      vehicleID = "0";
+    }
     var purchaseDate = this.dtpItemPurchase;
     // alert(purchaseDate);
     var reqSpType = "INSERT";
@@ -1119,6 +1126,7 @@ export class AssetpurchaseComponent implements OnInit {
       userid: this.cookie.get("userID"),
       assetID: this.lblAssetID,
     };
+    console.log(SaveData);
     var reqHeader = new HttpHeaders({ "Content-Type": "application/json" });
     this.http
       .post(this.app.serverUrl + "crudPurchaseAsset", SaveData, {
@@ -1408,6 +1416,7 @@ export class AssetpurchaseComponent implements OnInit {
   }
 
   editAsset(item) {
+    alert("edit");
     console.log(item);
     this.lblAssetID = item.assetID;
 
@@ -1569,7 +1578,8 @@ export class AssetpurchaseComponent implements OnInit {
       item.memoEDoc == "C:/inetpub/wwwroot/FAR/FAR_Project/assets/purchases"
     ) {
       window.open(
-        this.app.serverpath + "assets/purchases/" +
+        this.app.serverpath +
+          "assets/purchases/" +
           item.purchaseID +
           "_memo.pdf"
       );
@@ -1584,13 +1594,12 @@ export class AssetpurchaseComponent implements OnInit {
     if (item == "C:/inetpub/wwwroot/FAR/FAR_Project/assets/purchases") {
       if (value == "memo") {
         window.open(
-          this.app.serverpath + "assets/purchases/" +
-            purchaseID +
-            "_memo.pdf"
+          this.app.serverpath + "assets/purchases/" + purchaseID + "_memo.pdf"
         );
       } else if (value == "supplier") {
         window.open(
-          this.app.serverpath + "assets/purchases/" +
+          this.app.serverpath +
+            "assets/purchases/" +
             purchaseID +
             "_supplier.pdf"
         );
@@ -1607,7 +1616,8 @@ export class AssetpurchaseComponent implements OnInit {
       "C:/inetpub/wwwroot/FAR/FAR_Project/assets/purchases"
     ) {
       window.open(
-        this.app.serverpath + "assets/purchases/" +
+        this.app.serverpath +
+          "assets/purchases/" +
           item.purchaseID +
           "_supplier.pdf"
       );

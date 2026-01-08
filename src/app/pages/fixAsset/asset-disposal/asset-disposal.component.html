@@ -41,7 +41,7 @@
           <mat-form-field class="w-100">
             <mat-label>Search asset</mat-label>
             <span matPrefix><span class="fa fa-search"></span> &nbsp;</span>
-            <input matInput [(ngModel)]="txtSearchLandData" />
+            <input matInput [(ngModel)]="txtSearchDisposalData" />
           </mat-form-field>
         </div>
         <div class="col-md-2 pr-3 align-self-center noneOutline">
@@ -75,7 +75,10 @@
             <!-- | orderBy:'fixedAssetID': true -->
             <tr
               *ngFor="
-                let item of disposalDataList | search: '':txtSearchLandData
+                let item of disposalDataList
+                  | search
+                    : 'subLocationDescription,officeTypeDescription,disposalDate,purchaserName,purchaserAddress,partyCode,amountPaid,taxPaid,remarks,purchaserCNIC,purchaserNTN,mainLocationDescription,disposalID'
+                    : txtSearchDisposalData
               "
             >
               <td class="inline-block">
@@ -94,8 +97,8 @@
               <td>{{ item.officeTypeID }}</td>
               <td>{{ item.disposalDate | date }}</td>
               <td>{{ item.purchaserName }}</td>
-              <td>{{ item.purchaserNTN | mask: "0000000-0" }}</td>
-              <td>{{ item.purchaserCNIC | mask: "00000-0000000-0" }}</td>
+              <td>{{ item.purchaserNTN | mask : "0000000-0" }}</td>
+              <td>{{ item.purchaserCNIC | mask : "00000-0000000-0" }}</td>
               <td>{{ item.amountPaid | number }}</td>
               <td>{{ item.taxPaid | number }}</td>
               <td>{{ item.remarks }}</td>
@@ -205,14 +208,14 @@
             <div class="col-md-8">
               <mat-form-field class="w-100">
                 <mat-label>Party Name</mat-label>
-                <input matInput [(ngModel)]="partyName" maxlength="30" />
+                <input matInput [(ngModel)]="partyName" maxlength="50" />
               </mat-form-field>
             </div>
 
             <div class="col-md-4">
               <mat-form-field class="w-100">
                 <mat-label>Code</mat-label>
-                <input matInput [(ngModel)]="code" maxlength="9" />
+                <input matInput [(ngModel)]="code" maxlength="20" />
               </mat-form-field>
             </div>
           </div>
@@ -501,7 +504,7 @@
             <!--next row -->
             <div class="row mt-2 pl-4 pr-4">
               <div class="col-md-4">
-                <mat-form-field class="w-100" *ngIf="disAccDep==false">
+                <mat-form-field class="w-100" *ngIf="disAccDep == false">
                   <mat-label>Accumlate Depreciation</mat-label>
                   <input
                     matInput
@@ -509,31 +512,36 @@
                     [(ngModel)]="accumlateDepreciation"
                   />
                 </mat-form-field>
-                <div *ngIf="disAccDep==true">
+                <div *ngIf="disAccDep == true">
                   <label>Acc Depreciation: </label>
-                  <h4>{{accumlateDepreciation}}</h4>
+                  <h4>{{ accumlateDepreciation }}</h4>
                 </div>
               </div>
 
               <div class="col-md-4">
-                <mat-form-field class="w-100" *ngIf="disBookVal==false">
+                <mat-form-field class="w-100" *ngIf="disBookVal == false">
                   <mat-label>Book Value</mat-label>
-                  <input matInput currencyMask [(ngModel)]="bookValue" (keyup)="getGainLoss($event)"/>
+                  <input
+                    matInput
+                    currencyMask
+                    [(ngModel)]="bookValue"
+                    (keyup)="getGainLoss($event)"
+                  />
                 </mat-form-field>
-                <div *ngIf="disBookVal==true">
+                <div *ngIf="disBookVal == true">
                   <label>Book Value: </label>
-                  <h4>{{bookValue}}</h4>
+                  <h4>{{ bookValue }}</h4>
                 </div>
               </div>
 
               <div class="col-md-4">
-                <mat-form-field class="w-100" *ngIf="disRevalAmount==false">
+                <mat-form-field class="w-100" *ngIf="disRevalAmount == false">
                   <mat-label>Revalued Amount</mat-label>
-                  <input matInput currencyMask [(ngModel)]="revaluedAmount"/>
+                  <input matInput currencyMask [(ngModel)]="revaluedAmount" />
                 </mat-form-field>
-                <div *ngIf="disRevalAmount==true">
+                <div *ngIf="disRevalAmount == true">
                   <label>Revalued Amount: </label>
-                  <h4>{{revaluedAmount}}</h4>
+                  <h4>{{ revaluedAmount }}</h4>
                 </div>
               </div>
             </div>
@@ -543,14 +551,24 @@
               <div class="col-md-6">
                 <mat-form-field class="w-100">
                   <mat-label>Disposal Value</mat-label>
-                  <input matInput currencyMask [(ngModel)]="disposalValue" (keyup)="getGainLoss($event)" />
+                  <input
+                    matInput
+                    currencyMask
+                    [(ngModel)]="disposalValue"
+                    (keyup)="getGainLoss($event)"
+                  />
                 </mat-form-field>
               </div>
 
               <div class="col-md-6">
                 <mat-form-field class="w-100">
                   <mat-label>Gain/Loss</mat-label>
-                  <input matInput currencyMask [(ngModel)]="gainLoss" disabled />
+                  <input
+                    matInput
+                    currencyMask
+                    [(ngModel)]="gainLoss"
+                    disabled
+                  />
                 </mat-form-field>
               </div>
             </div>
@@ -577,7 +595,7 @@
             </div>
 
             <!-- next row -->
-            <div class="row pl-4 pr-4">
+            <div class="row pl-4 pr-4" hidden>
               <div class="col-md-12">
                 <mat-form-field class="w-100">
                   <mat-label>Remarks</mat-label>
@@ -792,7 +810,8 @@
               <tbody>
                 <tr
                   *ngFor="
-                    let item of tempTransactionList | orderBy: 'transDate':true;
+                    let item of tempTransactionList
+                      | orderBy : 'transDate' : true;
                     let i = index
                   "
                 >
